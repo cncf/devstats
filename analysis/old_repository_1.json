@@ -1,0 +1,53 @@
+{
+  "a_structure": "{created_at:,description:,fork:,forks:,has_downloads:,has_issues:,has_wiki:,homepage:,id:,language:,master_branch:,name:,open_issues:,owner:,private:,pushed_at:,size:,stargazers:,url:,watchers:}",
+  "actor": "rbonvall",
+  "actor_attributes": {
+    "blog": "",
+    "email": "30d02841357968c229a11d08d4dc7394a7a85a0b@gmail.com",
+    "gravatar_id": "5986747b5b748191ff78064865e3a062",
+    "location": "Santiago, Chile",
+    "login": "rbonvall",
+    "name": "Roberto Bonvallet",
+    "type": "User"
+  },
+  "created_at": "2014-06-10T19:23:45-07:00",
+  "payload": {
+    "head": "ddc841b619a5851cc4a60f27cf3e9e86b0cbd62e",
+    "ref": "refs/heads/guias-2014-1",
+    "shas": [
+      [
+        "ddc841b619a5851cc4a60f27cf3e9e86b0cbd62e",
+        "30d02841357968c229a11d08d4dc7394a7a85a0b@gmail.com",
+        "Guía 11 de junio",
+        "Roberto Bonvallet",
+        true
+      ]
+    ],
+    "size": 1
+  },
+  "public": true,
+  "repository": {
+    "created_at": "2012-04-04T08:44:43-07:00",
+    "description": "Material de la asignatura de Programación",
+    "fork": false,
+    "forks": 0,
+    "has_downloads": true,
+    "has_issues": true,
+    "has_wiki": true,
+    "homepage": "https://www.dropbox.com/sh/ypsdiuehayyrmlx/Ra4Uby0_Gr",
+    "id": 3930296,
+    "language": "TeX",
+    "master_branch": "master",
+    "name": "progra-utfsm",
+    "open_issues": 0,
+    "owner": "rbonvall",
+    "private": false,
+    "pushed_at": "2014-06-10T19:23:45-07:00",
+    "size": 2916,
+    "stargazers": 0,
+    "url": "https://github.com/rbonvall/progra-utfsm",
+    "watchers": 0
+  },
+  "type": "PushEvent",
+  "url": "https://github.com/rbonvall/progra-utfsm/compare/a03058e9f2...ddc841b619"
+}

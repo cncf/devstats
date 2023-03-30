@@ -1,0 +1,8 @@
+"{author:,distinct:,message:,sha:,url:}"
+
+{"sha:String"=>227540, "author:Hash"=>227540, "message:String"=>227540, "distinct:TrueClass"=>211721, "url:String"=>227540, "distinct:FalseClass"=>15819}
+
+{"sha"=>40, "author"=>1167, "message"=>65536, "distinct"=>5, "url"=>191}
+
+227540
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Devstats</title>
+    <style type="text/css" media="screen">
+    body, html {
+      background-color: #222;
+      color: #ddd;
+      font-family: Verdana, sans-serif;
+      padding: 0px;
+    }
+    table, tr, td {
+      border: none !important;
+      border-collapse: separate;
+      border-spacing: 0px;
+      padding: 5px;
+    }
+    td, th {
+      text-align: center;
+    }
+    a {
+      color: lightblue;
+    }
+    img.cncf-proj {
+      min-width: 80px;
+    }
+    img.cncf-proj-small {
+      min-width: 24px;
+    }
+    td.cncf-sep {
+      border-right: 1px solid white !important;
+      border-left: 1px solid white !important;
+      border-top: 1px solid white !important;
+      font-weight: bold;
+    }
+    td.cncf-br {
+      border-right: 1px solid white !important;
+    }
+    td.cncf-bl {
+      border-left: 1px solid white !important;
+    }
+    td.cncf-bt {
+      border-top: 1px solid white !important;
+    }
+    td.cncf-bb {
+      border-bottom: 1px solid white !important;
+    }
+    </style>
+  </head>
+  <body>
+  <h2>DevStats</h2>
+  <pre>
+    This is a toolset to visualize <a href="https://www.gharchive.org" target="_blank">GitHub archives</a> using <a href="https://github.com/zalando/patroni" target="_blank">HA</a> <a href="https://www.postgresql.org" target="_blank">Postgres</a> databases and <a href="https://grafana.com" target="_blank">Grafana</a> dashboards.
+    Everything is open source so that it can be used by other <a href="https://cncf.io" target="_blank">CNCF</a> and non-CNCF open source projects.
+    The only requirement is that project must be hosted on a public <a href="https://github.com" target="_blank">GitHub</a> repository/repositories.
+    Project is deployed using <a href="https://www.equinix.com" target="_blank">Equinix</a> bare metal <a href="https://kubernetes.io" target="_blank">Kubernetes</a> nodes and deployed using a <a href="https://helm.sh" target="_blank">Helm</a> chart.
+    It uses many more <a href="https://cncf.io" target="_blank">CNCF</a> projects under the hood.
+    Author: <a href="mailto:lgryglicki@cncf.io" target="_blank">Łukasz Gryglicki</a>
+  </pre>
+    <h3>Sites:</h3>
+    <table>
+        <tr>
+            <td class="cncf-bt cncf-bl"><a href="https://devstats.cncf.io" target="_blank">CNCF</a></td>
+            <td class="cncf-bt"><a href="https://teststats.cncf.io" target="_blank">CNCF (test)</a></td>
+            <td class="cncf-bt"><a href="https://devstats.cd.foundation" target="_blank">CDF</a></td>
+            <td class="cncf-bt cncf-br"><a href="https://devstats.graphql.org" target="_blank">GraphQL</a></td>
+        </tr>
+        <tr>
+            <td class="cncf-bb cncf-bl"><a href="https://devstats.cncf.io" target="_blank"><img class="cncf-proj" src="cncf.svg" alt="CNCF" height="80" width="80" /></a></td>
+            <td class="cncf-bb"d><a href="https://teststats.cncf.io" target="_blank"><img class="cncf-proj" src="cncf.svg" alt="CNCF (test)" height="80" width="80" /></a></td>
+            <td class="cncf-bb"><a href="https://devstats.cd.foundation" target="_blank"><img class="cncf-proj" src="cdf.svg" alt="CDF" height="80" width="80" /></a></td>
+            <td class="cncf-bb cncf-br"><a href="https://devstats.graphql.org" target="_blank"><img class="cncf-proj" src="graphql.svg" alt="GraphQL" height="80" width="80" /></a></td>
+        </tr>
+    </table>
+    <h3>DevStats <a href="api/v1">API</a>, documented <a href="https://github.com/cncf/devstatscode#api">here</a>.</h3>
+    <table>
+      <tr>
+        <td>Hardware for this site is graciously donated by</td>
+        <td><a href="https://metal.equinix.com" target="_blank"><img src="https://metal.equinix.com/metal/images/logo/equinix-metal-full.svg" alt="metal.equinix.com" width="400" height="120" /></img></td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+#!/bin/bash
+# ONLY_ARTIFICIAL=1 - only backup artificial events
+# SKIP_ARTIFICIAL=1 - skip backup artificial events
+if [ ! -z "${NOBACKUP}" ]
+then
+  exit 0
+fi
+if [ -z "$GHA2DB_DATADIR" ]
+then
+  GHA2DB_DATADIR=/etc/gha2db
+fi
+LIST_FN_PREFIX="${GHA2DB_DATADIR}/all_" . all_dbs.sh || exit 2
+for proj in $all
+do
+  echo "Backing up $proj"
+  cron_db_backup.sh "$proj" 2>> "/tmp/gha2db_backup_$proj.err" 1>> "/tmp/gha2db_backup_$proj.log"
+done

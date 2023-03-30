@@ -1,0 +1,8 @@
+"{diff_url:,html_url:,merged_at:,patch_url:,url:}"
+
+{"url:String"=>36815, "html_url:String"=>36815, "diff_url:String"=>36815, "patch_url:String"=>36815, "merged_at:NilClass"=>35629, "merged_at:String"=>1186}
+
+{"url"=>157, "html_url"=>146, "diff_url"=>151, "patch_url"=>152, "merged_at"=>20}
+
+36815
+

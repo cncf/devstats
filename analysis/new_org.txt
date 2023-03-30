@@ -1,0 +1,8 @@
+"{avatar_url:,gravatar_id:,id:,login:,url:}"
+
+{"id:Integer"=>156990, "login:String"=>156990, "gravatar_id:String"=>156990, "url:String"=>156990, "avatar_url:String"=>156990}
+
+{"id"=>9, "login"=>39, "gravatar_id"=>0, "url"=>67, "avatar_url"=>50}
+
+156990
+

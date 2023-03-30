@@ -1,0 +1,8 @@
+"{email:,name:}"
+
+{"email:String"=>227540, "name:String"=>227540}
+
+{"email"=>585, "name"=>557}
+
+227540
+

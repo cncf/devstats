@@ -1,0 +1,42 @@
+{
+  "a_structure": "{action:}",
+  "actor": "marinkaz",
+  "actor_attributes": {
+    "blog": "http://helikoid.si",
+    "email": "4a6ef5483a473d244b50c437863c38c8a1508656@zitnik.si",
+    "gravatar_id": "95f77254696ae1aae527e330fd108ae1",
+    "login": "marinkaz",
+    "name": "Marinka Zitnik",
+    "type": "User"
+  },
+  "created_at": "2014-06-10T19:40:29-07:00",
+  "payload": {
+    "action": "started"
+  },
+  "public": true,
+  "repository": {
+    "created_at": "2014-04-29T10:12:23-07:00",
+    "description": "Uses the Java MapReduce for Google App Engine to create a variant similarity matrix and run PCA. ",
+    "fork": false,
+    "forks": 1,
+    "has_downloads": true,
+    "has_issues": true,
+    "has_wiki": false,
+    "homepage": "",
+    "id": 19284763,
+    "language": "Java",
+    "master_branch": "master",
+    "name": "mapreduce-java",
+    "open_issues": 0,
+    "organization": "googlegenomics",
+    "owner": "googlegenomics",
+    "private": false,
+    "pushed_at": "2014-06-03T09:38:46-07:00",
+    "size": 335,
+    "stargazers": 1,
+    "url": "https://github.com/googlegenomics/mapreduce-java",
+    "watchers": 1
+  },
+  "type": "WatchEvent",
+  "url": "https://github.com/googlegenomics/mapreduce-java"
+}

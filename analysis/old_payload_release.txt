@@ -1,0 +1,8 @@
+"{assets:,assets_url:,author:,body:,created_at:,draft:,html_url:,id:,name:,prerelease:,published_at:,tag_name:,tarball_url:,target_commitish:,upload_url:,url:,zipball_url:}"
+
+{"assets:Array"=>74, "assets_url:String"=>74, "author:Hash"=>74, "body:String"=>74, "created_at:String"=>74, "draft:FalseClass"=>74, "html_url:String"=>74, "id:Fixnum"=>74, "name:String"=>74, "prerelease:FalseClass"=>65, "published_at:String"=>74, "tag_name:String"=>74, "tarball_url:String"=>74, "target_commitish:String"=>74, "upload_url:String"=>74, "url:String"=>74, "zipball_url:String"=>74, "prerelease:TrueClass"=>9}
+
+{"assets"=>3820, "assets_url"=>93, "author"=>1008, "body"=>1363, "created_at"=>20, "draft"=>5, "html_url"=>81, "id"=>6, "name"=>51, "prerelease"=>5, "published_at"=>20, "tag_name"=>23, "tarball_url"=>86, "target_commitish"=>13, "upload_url"=>104, "url"=>86, "zipball_url"=>86}
+
+74
+

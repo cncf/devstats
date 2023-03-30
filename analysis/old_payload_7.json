@@ -1,0 +1,45 @@
+{
+  "a_structure": "{comment_id:,issue_id:}",
+  "actor": "sorah",
+  "actor_attributes": {
+    "blog": "http://sorah.jp/",
+    "company": "COOKPAD Inc.",
+    "email": "999400659233415aa4ccade0fe02602633266041@sorah.jp",
+    "gravatar_id": "c4f076f658dd3464f1d8785ad53a0d99",
+    "location": "Tokyo, Japan",
+    "login": "sorah",
+    "name": "Shota Fukumori",
+    "type": "User"
+  },
+  "created_at": "2014-06-10T19:40:25-07:00",
+  "payload": {
+    "comment_id": 45695799,
+    "issue_id": 35445651
+  },
+  "public": true,
+  "repository": {
+    "created_at": "2013-10-02T13:55:46-07:00",
+    "description": "The core functionality of the AWS SDK for Ruby V2",
+    "fork": false,
+    "forks": 27,
+    "has_downloads": true,
+    "has_issues": true,
+    "has_wiki": true,
+    "homepage": "http://aws.amazon.com/ruby",
+    "id": 13282666,
+    "language": "Ruby",
+    "master_branch": "master",
+    "name": "aws-sdk-core-ruby",
+    "open_issues": 13,
+    "organization": "aws",
+    "owner": "aws",
+    "private": false,
+    "pushed_at": "2014-05-22T16:10:54-07:00",
+    "size": 10362,
+    "stargazers": 85,
+    "url": "https://github.com/aws/aws-sdk-core-ruby",
+    "watchers": 85
+  },
+  "type": "IssueCommentEvent",
+  "url": "https://github.com/aws/aws-sdk-core-ruby/pull/65#issuecomment-45695799"
+}

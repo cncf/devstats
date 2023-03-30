@@ -1,0 +1,8 @@
+"{label:,ref:,repo:,sha:,user:}"
+
+{"label:String"=>108438, "ref:String"=>108438, "sha:String"=>108438, "user:Hash"=>108438, "repo:Hash"=>108425, "repo:NilClass"=>13}
+
+{"label"=>184, "ref"=>174, "sha"=>40, "user"=>1334, "repo"=>11488}
+
+108438
+

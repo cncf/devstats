@@ -1,0 +1,45 @@
+---
+language: go
+go:
+  - 1.15
+before_install:
+  - go get -u golang.org/x/lint/golint
+  - go get -u golang.org/x/tools/cmd/goimports
+  - go get -u github.com/jgautheron/usedexports
+  - go get -u github.com/kisielk/errcheck
+  - go get -u github.com/olivere/elastic
+  - go get -u github.com/cncf/devstatscode
+  - go get -u gopkg.in/yaml.v2
+  - go get -u github.com/google/go-github/github
+#  - go get -u github.com/jgautheron/goconst/cmd/goconst
+#  - go get -u github.com/lib/pq
+#  - go get -u golang.org/x/oauth2
+#  - go get -u golang.org/x/text/transform
+#  - go get -u golang.org/x/text/unicode/norm
+#  - go get -u github.com/mattn/go-sqlite3
+  - sudo -u postgres createdb gha
+  - sudo -u postgres psql gha -c "create user gha_admin with password 'pwd'"
+  - sudo -u postgres psql gha -c 'grant all privileges on database "gha" to gha_admin'
+  - sudo -u postgres psql gha -c "alter user gha_admin createdb"
+  - sudo -u postgres psql gha -c "create user ro_user with password 'pwd'"
+  - sudo -u postgres psql gha -c 'grant all privileges on database "gha" to ro_user'
+  - sudo -u postgres psql gha -c "create user devstats_team with password 'pwd'"
+  - sudo -u postgres psql gha -c 'grant all privileges on database "gha" to devstats_team'
+script:
+  - cd /home/travis/gopath/src/github.com/cncf/devstats
+  - make check
+  - PG_PORT=5433 PG_PASS=pwd make test
+addons:
+  postgresql: "13"
+  apt:
+    packages:
+    - postgresql-13
+    - postgresql-client-13
+env:
+  global:
+  - PGPORT=5433
+notifications:
+  webhooks:
+    - https://teststats.cncf.io:2982/hook
+    - https://devstats.cncf.io:2982/hook
+    - https://devstats.cd.foundation:2982/hook

@@ -1,0 +1,43 @@
+{
+  "type": "MemberEvent",
+  "actor": {
+    "id": 77938421,
+    "login": "JMauney0316",
+    "display_login": "JMauney0316",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/JMauney0316",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77938421?"
+  },
+  "repo": {
+    "id": 478695925,
+    "name": "JMauney0316/2dExperiment",
+    "url": "https://api.github.com/repos/JMauney0316/2dExperiment"
+  },
+  "payload": {
+    "member": {
+      "node_id": "U_kgDOBgRIuQ",
+      "html_url": "https://github.com/calebandra",
+      "following_url": "https://api.github.com/users/calebandra/following{/other_user}",
+      "organizations_url": "https://api.github.com/users/calebandra/orgs",
+      "repos_url": "https://api.github.com/users/calebandra/repos",
+      "received_events_url": "https://api.github.com/users/calebandra/received_events",
+      "site_admin": false,
+      "avatar_url": "https://avatars.githubusercontent.com/u/100944057?v=4",
+      "gravatar_id": "",
+      "followers_url": "https://api.github.com/users/calebandra/followers",
+      "gists_url": "https://api.github.com/users/calebandra/gists{/gist_id}",
+      "events_url": "https://api.github.com/users/calebandra/events{/privacy}",
+      "type": "User",
+      "login": "calebandra",
+      "id": 100944057,
+      "url": "https://api.github.com/users/calebandra",
+      "starred_url": "https://api.github.com/users/calebandra/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/calebandra/subscriptions"
+    },
+    "action": "added"
+  },
+  "public": true,
+  "created_at": "2022-04-06T19:23:44Z",
+  "id": "21150558015",
+  "a_structure": "{avatar_url:,events_url:,followers_url:,following_url:,gists_url:,gravatar_id:,html_url:,id:,login:,node_id:,organizations_url:,received_events_url:,repos_url:,site_admin:,starred_url:,subscriptions_url:,type:,url:}"
+}

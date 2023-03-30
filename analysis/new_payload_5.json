@@ -1,0 +1,25 @@
+{
+  "id": "21150348784",
+  "type": "DeleteEvent",
+  "actor": {
+    "id": 49699333,
+    "login": "dependabot[bot]",
+    "display_login": "dependabot",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/dependabot[bot]",
+    "avatar_url": "https://avatars.githubusercontent.com/u/49699333?"
+  },
+  "repo": {
+    "id": 278629917,
+    "name": "PaPeK/surfWaveTrack",
+    "url": "https://api.github.com/repos/PaPeK/surfWaveTrack"
+  },
+  "payload": {
+    "ref": "dependabot/pip/notebook-6.4.1",
+    "ref_type": "branch",
+    "pusher_type": "user"
+  },
+  "public": true,
+  "created_at": "2022-04-06T19:12:11Z",
+  "a_structure": "{pusher_type:,ref:,ref_type:}"
+}

@@ -1,0 +1,22 @@
+""
+"{action:,comment:,issue:}"
+"{action:,comment:,pull_request:}"
+"{action:,issue:}"
+"{action:,member:}"
+"{action:,number:,pull_request:}"
+"{action:,pull_request:,review:}"
+"{action:,release:}"
+"{action:}"
+"{before:,commits:,distinct_size:,head:,push_id:,ref:,size:}"
+"{comment:}"
+"{description:,master_branch:,pusher_type:,ref:,ref_type:}"
+"{forkee:}"
+"{pages:}"
+"{pusher_type:,ref:,ref_type:}"
+
+{"head:String"=>234091, "before:String"=>234091, "commits:Array"=>234091, "push_id:Integer"=>234091, "size:Integer"=>234091, "distinct_size:Integer"=>234091, "ref:String"=>348134, "action:String"=>187874, "issue:Hash"=>58689, "comment:Hash"=>59865, "number:Integer"=>83771, "pull_request:Hash"=>108438, "forkee:Hash"=>7427, "ref_type:String"=>134108, "master_branch:String"=>89634, "description:String"=>42108, "pusher_type:String"=>134108, "description:NilClass"=>47526, "review:Hash"=>15120, "ref:NilClass"=>20065, "release:Hash"=>2370, "member:Hash"=>1611, "pages:Array"=>1133}
+
+{"head"=>40, "before"=>40, "commits"=>102800, "push_id"=>10, "size"=>4, "distinct_size"=>6, "ref"=>177, "action"=>9, "issue"=>186880, "comment"=>298046, "number"=>6, "pull_request"=>88323, "forkee"=>8786, "ref_type"=>10, "master_branch"=>44, "description"=>2729, "pusher_type"=>4, "review"=>11935, "release"=>241020, "member"=>1230, "pages"=>3566}
+
+568821
+

@@ -1,0 +1,328 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      },
+      {
+        "datasource": "psql",
+        "enable": true,
+        "hide": false,
+        "iconColor": "rgba(255, 96, 96, 1)",
+        "limit": 100,
+        "name": "Releases",
+        "query": "SELECT title, description from annotations WHERE $timeFilter order by time asc",
+        "rawQuery": "select extract(epoch from time) AS time, title as text, description as tags from sannotations where $__timeFilter(time)",
+        "showIn": 0,
+        "tagsColumn": "title,description",
+        "textColumn": "",
+        "titleColumn": "[[full_name]] release",
+        "type": "alert"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 95,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "psql",
+      "decimals": 2,
+      "description": "Shows how often various SIG (software interest groups) have been mentioned in comments, issues, PRs",
+      "fill": 1,
+      "gridPos": {
+        "h": 21,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "dsType": "influxdb",
+          "format": "time_series",
+          "groupBy": [],
+          "measurement": "sig_federation_d",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT /^[[sigs]]$/ FROM \"sig_mentions_texts_[[period]]\" WHERE $timeFilter",
+          "rawQuery": true,
+          "rawSql": "select\n  time,\n  ${sigs:csv}\nfrom\n  ssigm_txt\nwhere\n  $__timeFilter(time)\n  and period = '[[period]]'\norder by\n  time",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SIG mentions (using text, [[period]])",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": [
+          "total"
+        ]
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Mentions count",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "content": "${docs:raw}",
+      "gridPos": {
+        "h": 16,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "id": 3,
+      "links": [],
+      "mode": "html",
+      "title": "Dashboard documentation",
+      "type": "text"
+    }
+  ],
+  "schemaVersion": 16,
+  "style": "dark",
+  "tags": [
+    "dashboard",
+    "kubernetes",
+    "SIGs"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "7 Days MA",
+          "value": "d7"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Period",
+        "multi": false,
+        "name": "period",
+        "options": [
+          {
+            "selected": false,
+            "text": "Day",
+            "value": "d"
+          },
+          {
+            "selected": true,
+            "text": "7 Days MA",
+            "value": "d7"
+          },
+          {
+            "selected": false,
+            "text": "Week",
+            "value": "w"
+          },
+          {
+            "selected": false,
+            "text": "Month",
+            "value": "m"
+          },
+          {
+            "selected": false,
+            "text": "Quarter",
+            "value": "q"
+          },
+          {
+            "selected": false,
+            "text": "Year",
+            "value": "y"
+          }
+        ],
+        "query": "d,w,m,q,y",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "allValue": "",
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "psql",
+        "hide": 0,
+        "includeAll": true,
+        "label": "SIG",
+        "multi": true,
+        "name": "sigs",
+        "options": [],
+        "query": "select '\"' || sig_mentions_texts_name || '\"' from tsig_mentions_texts order by 1",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "Kubernetes",
+          "value": "Kubernetes"
+        },
+        "datasource": "psql",
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "full_name",
+        "options": [],
+        "query": "select value_s from gha_vars where name = 'full_name'",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": true,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "<h1 id=\"kubernetes-sig-mentions-dashboard\">Kubernetes SIG mentions dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Postgres <a href=\"https://github.com/cncf/devstats/blob/master/metrics/kubernetes/sig_mentions.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>InfluxDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/kubernetes/metrics.yaml#L246-L252\" target=\"_blank\">series definition</a>.</li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/sig_mentions.json\" target=\"_blank\">JSON</a>.</li>\n<li>Developer <a href=\"https://github.com/cncf/devstats/blob/master/docs/dashboards/kubernetes/sig_mentions_devel.md\" target=\"_blank\">documentation</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows stacked number of various SIG mentions.</li>\n<li>We are getting SIG from all <strong>texts</strong>.</li>\n<li>To find a SIG we&#39;re looking for texts like this <code>@kubernetes/sig-SIG-kind</code>, where kind can be: <em>bug, feature-request, pr-review, api-review, misc, proposal, design-proposal, test-failure</em>.</li>\n<li>For example <code>@kubernetes/sig-cluster-lifecycle-pr-review</code> will evaluate to <code>cluster-lifecycle</code>.</li>\n<li>Kind part is optional, so <code>@kubernetes/sig-node</code> will evaluate to <code>node</code>.</li>\n<li>There can be other texts before and after the SIG, so <code>Hi there @kubernetes/sig-apps-feature-request, I want to ...</code> will evaluate to <code>apps</code>.</li>\n<li>For exact <code>regexp</code> used, please check developer <a href=\"https://github.com/cncf/devstats/blob/master/docs/dashboards/kubernetes/sig_mentions_devel.md\" target=\"_blank\">documentation</a>.</li>\n<li><strong>Texts</strong> means comments, commit messages, issue titles, issue texts, PR titles, PR texts, PR review texts.</li>\n<li>You can filter by period and SIG(s).</li>\n<li>Selecting period (for example week) means that dahsboard will count SIG mentions in these periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>This dashboard allows to select multiple SIG, it contains special &#39;All&#39; value to display all SIGs.</li>\n<li>We&#39;re also excluding bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a>.</li>\n</ul>",
+          "value": "<h1 id=\"kubernetes-sig-mentions-dashboard\">Kubernetes SIG mentions dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Postgres <a href=\"https://github.com/cncf/devstats/blob/master/metrics/kubernetes/sig_mentions.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>InfluxDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/kubernetes/metrics.yaml#L246-L252\" target=\"_blank\">series definition</a>.</li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/sig_mentions.json\" target=\"_blank\">JSON</a>.</li>\n<li>Developer <a href=\"https://github.com/cncf/devstats/blob/master/docs/dashboards/kubernetes/sig_mentions_devel.md\" target=\"_blank\">documentation</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows stacked number of various SIG mentions.</li>\n<li>We are getting SIG from all <strong>texts</strong>.</li>\n<li>To find a SIG we&#39;re looking for texts like this <code>@kubernetes/sig-SIG-kind</code>, where kind can be: <em>bug, feature-request, pr-review, api-review, misc, proposal, design-proposal, test-failure</em>.</li>\n<li>For example <code>@kubernetes/sig-cluster-lifecycle-pr-review</code> will evaluate to <code>cluster-lifecycle</code>.</li>\n<li>Kind part is optional, so <code>@kubernetes/sig-node</code> will evaluate to <code>node</code>.</li>\n<li>There can be other texts before and after the SIG, so <code>Hi there @kubernetes/sig-apps-feature-request, I want to ...</code> will evaluate to <code>apps</code>.</li>\n<li>For exact <code>regexp</code> used, please check developer <a href=\"https://github.com/cncf/devstats/blob/master/docs/dashboards/kubernetes/sig_mentions_devel.md\" target=\"_blank\">documentation</a>.</li>\n<li><strong>Texts</strong> means comments, commit messages, issue titles, issue texts, PR titles, PR texts, PR review texts.</li>\n<li>You can filter by period and SIG(s).</li>\n<li>Selecting period (for example week) means that dahsboard will count SIG mentions in these periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>This dashboard allows to select multiple SIG, it contains special &#39;All&#39; value to display all SIGs.</li>\n<li>We&#39;re also excluding bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a>.</li>\n</ul>"
+        },
+        "datasource": "psql",
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "docs",
+        "options": [],
+        "query": "select value_s from gha_vars where name = 'sig_mentions_docs_html'",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": true,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-2y",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "SIG mentions",
+  "uid": "41",
+  "version": 7
+}

@@ -1,0 +1,8 @@
+"{id:,name:,url:}"
+
+{"id:Integer"=>568821, "name:String"=>568821, "url:String"=>568821}
+
+{"id"=>9, "name"=>133, "url"=>162}
+
+568821
+

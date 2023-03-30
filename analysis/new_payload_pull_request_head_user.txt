@@ -1,0 +1,8 @@
+"{avatar_url:,events_url:,followers_url:,following_url:,gists_url:,gravatar_id:,html_url:,id:,login:,node_id:,organizations_url:,received_events_url:,repos_url:,site_admin:,starred_url:,subscriptions_url:,type:,url:}"
+
+{"subscriptions_url:String"=>108438, "type:String"=>108438, "login:String"=>108438, "gravatar_id:String"=>108438, "following_url:String"=>108438, "repos_url:String"=>108438, "events_url:String"=>108438, "received_events_url:String"=>108438, "html_url:String"=>108438, "gists_url:String"=>108438, "organizations_url:String"=>108438, "node_id:String"=>108438, "url:String"=>108438, "starred_url:String"=>108438, "site_admin:FalseClass"=>108348, "id:Integer"=>108438, "avatar_url:String"=>108438, "followers_url:String"=>108438, "site_admin:TrueClass"=>90}
+
+{"subscriptions_url"=>82, "type"=>12, "login"=>39, "gravatar_id"=>0, "following_url"=>91, "repos_url"=>74, "events_url"=>85, "received_events_url"=>84, "html_url"=>58, "gists_url"=>84, "organizations_url"=>73, "node_id"=>32, "url"=>68, "starred_url"=>91, "site_admin"=>5, "id"=>9, "avatar_url"=>53, "followers_url"=>78}
+
+108438
+

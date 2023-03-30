@@ -1,0 +1,8 @@
+"{browser_download_url:,content_type:,created_at:,download_count:,id:,label:,name:,node_id:,size:,state:,updated_at:,uploader:,url:}"
+
+{"label:NilClass"=>246, "size:Integer"=>380, "download_count:Integer"=>380, "created_at:String"=>380, "browser_download_url:String"=>380, "id:Integer"=>380, "node_id:String"=>380, "name:String"=>380, "uploader:Hash"=>380, "content_type:String"=>380, "state:String"=>380, "updated_at:String"=>380, "url:String"=>380, "label:String"=>134}
+
+{"label"=>29, "size"=>10, "download_count"=>1, "created_at"=>20, "browser_download_url"=>180, "id"=>8, "node_id"=>19, "name"=>75, "uploader"=>1200, "content_type"=>39, "state"=>8, "updated_at"=>20, "url"=>108}
+
+380
+

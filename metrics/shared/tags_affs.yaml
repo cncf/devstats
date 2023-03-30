@@ -1,0 +1,20 @@
+---
+tags:
+  - name: Companies
+    sql: companies_tags
+    series_name: companies
+    name_tag: companies_name
+    value_tag: companies_value
+  - name: Country names
+    sql: countries_tags
+    series_name: countries
+    name_tag: country_name
+    value_tag: country_value
+  - name: Licenses
+    sql: licenses_tags
+    series_name: licenses
+    name_tag: license_name
+  - name: Languages
+    sql: languages_tags
+    series_name: languages
+    name_tag: lang_name

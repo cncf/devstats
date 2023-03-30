@@ -1,0 +1,44 @@
+{
+  "a_structure": "{action:,issue:,number:}",
+  "actor": "thomanil",
+  "actor_attributes": {
+    "blog": "http://kjeldahlnilsson.net",
+    "company": "Shortcut AS",
+    "email": "5f50a84c1fa3bcff146405017f36aec1a10a9e38@kjeldahlnilsson.net",
+    "gravatar_id": "b7c56fe7d8c78f52dcdfb4025e1a78f7",
+    "login": "thomanil",
+    "name": "Thomas Kjeldahl Nilsson",
+    "type": "User"
+  },
+  "created_at": "2014-06-10T19:56:37-07:00",
+  "payload": {
+    "action": "opened",
+    "issue": 35446439,
+    "number": 9
+  },
+  "public": true,
+  "repository": {
+    "created_at": "2012-06-08T13:13:48-07:00",
+    "description": "Hvordan ligger du an? En applikasjon som gir deg muligheten til å sammenligne lønn med andre på din jobb helt anonymt. Det gir deg kunnskap som din arbeidsgiver ikke vil du skal ha.",
+    "fork": false,
+    "forks": 0,
+    "has_downloads": true,
+    "has_issues": true,
+    "has_wiki": true,
+    "homepage": "",
+    "id": 4601793,
+    "language": "JavaScript",
+    "master_branch": "master",
+    "name": "liggeran",
+    "open_issues": 8,
+    "owner": "leftieFriele",
+    "private": false,
+    "pushed_at": "2014-06-08T13:08:07-07:00",
+    "size": 240,
+    "stargazers": 2,
+    "url": "https://github.com/leftieFriele/liggeran",
+    "watchers": 2
+  },
+  "type": "IssuesEvent",
+  "url": "https://github.com/leftieFriele/liggeran/issues/9"
+}
