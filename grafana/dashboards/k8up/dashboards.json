@@ -218,6 +218,36 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Argo",
+      "tooltip": "Opens Argo projects dashboards",
+      "type": "link",
+      "url": "https://argo.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "SPIFFE",
+      "tooltip": "Opens SPIFFE projects dashboards",
+      "type": "link",
+      "url": "https://spiffe.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "SPIRE",
+      "tooltip": "Opens SPIRE projects dashboards",
+      "type": "link",
+      "url": "https://spire.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -288,16 +318,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Argo",
-      "tooltip": "Opens Argo projects dashboards",
-      "type": "link",
-      "url": "https://argo.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Dragonfly",
       "tooltip": "Opens Dragonfly projects dashboards",
       "type": "link",
@@ -322,26 +342,6 @@
       "tooltip": "Opens Operator Framework projects dashboards",
       "type": "link",
       "url": "https://operatorframework.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "SPIFFE",
-      "tooltip": "Opens SPIFFE projects dashboards",
-      "type": "link",
-      "url": "https://spiffe.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "SPIRE",
-      "tooltip": "Opens SPIRE projects dashboards",
-      "type": "link",
-      "url": "https://spire.[[hostname]]"
     },
     {
       "icon": "dashboard",
