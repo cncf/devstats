@@ -31,9 +31,7 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'Ortelius', alias = 'Ortelius'
 where name in (
-  'ortelius/ortelius',
-  'DeployHubProject/DeployHub',
-  'OpenMake-Software/DeployHub'
+  'ortelius/ortelius'
 );
 
 select

@@ -63,7 +63,7 @@ update
 set
   repo_group = 'Ortelius'
 where
-  org_login in ('ortelius', 'DeployHubProject', 'OpenMake-Software')
+  org_login in ('ortelius')
 ;
 
 -- Pyrsia
