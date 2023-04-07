@@ -1,4 +1,4 @@
-create temp table repos as (select id, name from gha_repos where org_login = 'open-cluster-management');
+create temp table repos as (select id, name from gha_repos where org_login in ('open-cluster-management'));
 delete from gha_branches where repo_id in (select id from repos);
 delete from gha_teams_repositories where repository_id in (select id from repos);
 delete from gha_pull_requests_assignees where event_id in (select id from gha_events where dup_repo_name in (select name from repos));
@@ -12,6 +12,7 @@ delete from gha_events where dup_repo_name in (select name from repos);
 delete from gha_repos_langs where repo_name in (select name from repos);
 delete from gha_payloads where dup_repo_name in (select name from repos);
 delete from gha_commits where dup_repo_name in (select name from repos);
+delete from gha_commits_roles where dup_repo_name in (select name from repos);
 delete from gha_pages where dup_repo_name in (select name from repos);
 delete from gha_comments where dup_repo_name in (select name from repos);
 delete from gha_reviews where dup_repo_name in (select name from repos);
