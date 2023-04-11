@@ -70,7 +70,11 @@ projects:
     name: Ortelius
     status: "-"
     command_line:
-      - ortelius
+      - "ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-setup,ortelius/keptn-config,ortelius/keptn-ortelius-service,\
+         ortelius/la-sbom-ledger,ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,\
+         ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,\
+         ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,\
+         ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach"
     start_date: 2017-03-06T00:00:00Z
     join_date: null 
     psql_db: ortelius
@@ -79,7 +83,6 @@ projects:
     files_skip_pattern: ''
     shared_db: allcdf
   pyrsia:
-    order: 109
     name: Pyrsia
     status: "-"
     command_line:
@@ -122,7 +125,13 @@ projects:
     name: All CDF
     status: "-"
     command_line:
-      - 'spinnaker,tektoncd,knative/build,jenkinsci,jenkins-x,tektoncd-catalog,cdevents,ortelius,pyrsia,screwdriver-cd,shipwright-io'
+      - "spinnaker,tektoncd,tektoncd-catalog,knative/build,jenkinsci,jenkins-infra,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,\
+         jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins,cdevents,pyrsia,screwdriver-cd,shipwright-io,\
+         ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-setup,ortelius/keptn-config,ortelius/keptn-ortelius-service,\
+         ortelius/la-sbom-ledger,ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,\
+         ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,\
+         ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,\
+         ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach"
     start_date: 2012-07-01T00:00:00Z
     join_date: 2019-03-04T00:00:00Z
     psql_db: allcdf
