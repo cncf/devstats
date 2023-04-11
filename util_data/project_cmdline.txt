@@ -1,6 +1,6 @@
 aerakimesh,aeraki-mesh,aeraki-framework
 akri,desilabs/akri
-allcdf,spinnaker,tektoncd,tektoncd-catalog,jenkinsci,jenkins-infra,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins,knative/build,cdevents,ortelius,pyrsia,screwdriver-cd,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator
+allcdf,spinnaker,tektoncd,tektoncd-catalog,jenkinsci,jenkins-infra,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins,knative/build,cdevents,pyrsia,screwdriver-cd,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator,ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-setup,ortelius/keptn-config,ortelius/keptn-ortelius-service,ortelius/la-sbom-ledger,ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach
 antrea,vmware-tanzu/antrea,antrea-io
 argo,argoproj,argoproj-labs
 armada,G-Research/armada
@@ -147,7 +147,7 @@ openwhisk,apache/incubator-openwhisk,apache/openwhisk
 openyurt,openyurtio,alibaba/openyurt
 operatorframework,operator-framework
 oras,oras-project,deislabs/oras,shizhMSFT/oras
-ortelius,ortelius
+ortelius,ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-setup,ortelius/keptn-config,ortelius/keptn-ortelius-service,ortelius/la-sbom-ledger,ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach
 p4lang,p4lang
 paralus,paralus
 parsec,parallaxsecond,docker/pasl

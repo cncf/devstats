@@ -148,7 +148,7 @@ openwhisk,regexp:(?i)^(apache\/incubator-openwhisk|apache\/openwhisk)$
 openyurt,regexp:(?i)^(openyurtio\/.*|alibaba\/openyurt)$
 operatorframework,regexp:(?i)^operator-framework\/.*$
 oras,regexp:(?i)^(oras-project\/.*|deislabs\/oras|shizhMSFT\/oras)$
-ortelius,regexp:(?i)^ortelius\/.*$
+ortelius|regexp:(?i)^(ortelius\/azure-infra|ortelius\/backstage|ortelius\/cli|ortelius\/dev-env-setup|ortelius\/keptn-config|ortelius\/keptn-ortelius-service|ortelius\/la-sbom-ledger|ortelius\/ms-compitem-crud|ortelius\/ms-dep-pkg-cud|ortelius\/ms-dep-pkg-r|ortelius\/ms-postgres|ortelius\/ms-scorecard|ortelius\/ms-textfile-crud|ortelius\/ms-validate-user|ortelius\/ortelius|ortelius\/ortelius-charts|ortelius\/ortelius-docs|ortelius\/ortelius-kubernetes|ortelius\/ortelius-python-client|ortelius\/ortelius-test-database|ortelius\/ortelius-toc|ortelius\/ortelius.io|ortelius\/outreach)$
 p4lang,regexp:(?i)^p4lang\/.*$
 paralus,regexp:(?i)^paralus\/.*$
 parsec,regexp:(?i)^(parallaxsecond\/.*|docker\/pasl)$
