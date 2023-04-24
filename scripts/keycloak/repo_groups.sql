@@ -31,8 +31,8 @@ update gha_repos set repo_group = alias;
 
 update gha_repos
 set
-  alias = 'prometheus',
-  repo_group = 'prometheus'
+  alias = 'Keycloak',
+  repo_group = 'Keycloak'
 where
   name in ('keycloak', 'keycloak/', 'keycloak/keycloak');
 
