@@ -486,7 +486,7 @@ do
     PROJ=teller              PROJDB=teller         PROJREPO="SpectralOps/teller"              ORGNAME=Teller            PORT=3126 ICON=teller         GRAFSUFF=teller         GA="UA-145264316-87" ./devel/deploy_proj.sh || exit 45
   elif [ "$proj" = "sealer" ]
   then
-    PROJ=sealer              PROJDB=sealer         PROJREPO="alibaba/sealer"                  ORGNAME=sealer            PORT=3127 ICON=sealer         GRAFSUFF=sealer         GA="UA-145264316-88" ./devel/deploy_proj.sh || exit 46
+    PROJ=sealer              PROJDB=sealer         PROJREPO="sealerio/sealer"                 ORGNAME=sealer            PORT=3127 ICON=sealer         GRAFSUFF=sealer         GA="UA-145264316-88" ./devel/deploy_proj.sh || exit 46
   elif [ "$proj" = "clusterpedia" ]
   then
     PROJ=clusterpedia        PROJDB=clusterpedia   PROJREPO="clusterpedia-io/clusterpedia"    ORGNAME=Clusterpedia      PORT=3128 ICON=clusterpedia   GRAFSUFF=clusterpedia   GA="UA-145264316-89" ./devel/deploy_proj.sh || exit 47

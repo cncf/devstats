@@ -29,9 +29,10 @@ where
 update gha_repos set repo_group = alias;
 
 update gha_repos
-set repo_group = 'sealer', alias = 'sealer'
+set repo_group = 'Sealer', alias = 'Sealer'
 where name in (
-  'alibaba/sealer'
+  'alibaba/sealer',
+  'sealerio/sealer'
 );
 
 select

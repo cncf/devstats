@@ -1754,12 +1754,12 @@ projects:
     name: sealer
     status: Sandbox
     command_line:
-      - 'alibaba/sealer'
+      - 'sealerio'
     start_date: 2021-04-29T00:00:00Z
     join_date: 2022-04-26T00:00:00Z
     psql_db: sealer
     shared_db: allprj
-    main_repo: alibaba/sealer
+    main_repo: sealerio/sealer
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   clusterpedia:
@@ -2376,7 +2376,7 @@ projects:
          open-cluster-management-io,vscode-kubernetes-tools,nocalhost,kubearmor,\
          meshery,service-mesh-performance,knative,knative-sandbox,FabEdge,\
          confidential-containers,SpectralOps/teller,SpectralOps/helm-teller,\
-         SpectralOps/setup-teller-action,OpenFunction,alibaba/sealer,clusterpedia-io,\
+         SpectralOps/setup-teller-action,OpenFunction,sealerio,clusterpedia-io,\
          kubecost,aeraki-mesh,opencurve,open-feature,kubewarden,devstream-io,kubevela,\
          hexa-org,konveyor,G-Research/armada,external-secrets,Serverless-Devs,\
          ContainerSSH,openfga,kubereboot,lima-vm,istio,carvel-dev,merbridge,opencost,\

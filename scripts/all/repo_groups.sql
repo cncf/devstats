@@ -1338,7 +1338,8 @@ update
 set
   repo_group = 'sealer'
 where
-  name in ('alibaba/sealer')
+  org_login in ('sealerio')
+  or name in ('alibaba/sealer')
 ;
 
 -- Clusterpedia
