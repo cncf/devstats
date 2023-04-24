@@ -1608,6 +1608,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Keycloak",
+      "tooltip": "Opens Keycloak projects dashboards",
+      "type": "link",
+      "url": "https://keycloak.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
