@@ -1628,6 +1628,15 @@ where
   org_login in ('clusternet')
 ;
 
+-- Keycloak
+update
+  gha_repos
+set
+  repo_group = 'Keycloak'
+where
+  org_login in ('keycloak')
+;
+
 -- Confidential Containers
 update
   gha_repos
