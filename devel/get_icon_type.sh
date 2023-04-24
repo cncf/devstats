@@ -175,6 +175,7 @@ icontypes=(
   ["kubescape"]="color"
   ["inspektorgadget"]="color"
   ["clusternet"]="color"
+  ["keycloak"]="color"
   ["tekton"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
