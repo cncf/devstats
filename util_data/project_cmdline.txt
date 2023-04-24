@@ -164,7 +164,7 @@ rook,rook
 sam,awslabs/aws-sam-cli,awslabs/serverless-application-model,awslabs/aws-sam-local
 schemahero,schemahero
 screwdrivercd,screwdriver-cd
-sealer,alibaba/sealer
+sealer,sealerio,alibaba/sealer
 serverlessdevs,Serverless-Devs,ServerlessTool
 serverlessworkflow,serverlessworkflow,cncf/wg-serverless-workflow
 servicemeshperformance,regexp:(?i)^(layer5io\/.*(service-mesh|performance|benchmark)|service-mesh-performance\/.*)
