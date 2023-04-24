@@ -39,6 +39,17 @@ where
   ) or name like 'cncf/devstats%'
 ;
 
+update
+  gha_repos
+set
+  repo_group = 'gitdm'
+where
+  name in (
+    'cncf/gitdm',
+    'cncf/gitdm.archive'
+  )
+;
+
 select
   repo_group,
   count(*) as number_of_repos
