@@ -34,7 +34,7 @@ set
   alias = 'prometheus',
   repo_group = 'prometheus'
 where
-  name in ('keycloak', 'keycloak/keycloak');
+  name in ('keycloak', 'keycloak/', 'keycloak/keycloak');
 
 select
   repo_group,
