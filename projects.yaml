@@ -1892,7 +1892,7 @@ projects:
     name: Armada
     status: Sandbox
     command_line:
-      - 'armadaproject/armada'
+      - 'armadaproject'
     start_date: 2019-10-22T00:00:00Z
     join_date: 2022-07-25T00:00:00Z
     psql_db: armada

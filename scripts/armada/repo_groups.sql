@@ -31,6 +31,7 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'Armada', alias = 'Armada'
 where name in (
+  'armadaproject/armada',
   'G-Research/armada'
 );
 

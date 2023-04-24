@@ -516,7 +516,7 @@ do
     PROJ=konveyor            PROJDB=konveyor       PROJREPO="konveyor/mig-operator"           ORGNAME=Konveyor          PORT=3136 ICON=konveyor       GRAFSUFF=konveyor       GA="UA-145264316-97" ./devel/deploy_proj.sh || exit 55
   elif [ "$proj" = "armada" ]
   then
-    PROJ=armada              PROJDB=armada         PROJREPO="G-Research/armada"               ORGNAME=Armada            PORT=3137 ICON=armada         GRAFSUFF=armada         GA="UA-145264316-98" ./devel/deploy_proj.sh || exit 56
+    PROJ=armada              PROJDB=armada         PROJREPO="armadaproject/armada"            ORGNAME=Armada            PORT=3137 ICON=armada         GRAFSUFF=armada         GA="UA-145264316-98" ./devel/deploy_proj.sh || exit 56
   elif [ "$proj" = "externalsecretsoperator" ]
   then
     PROJ=externalsecretsoperator PROJDB=externalsecretsoperator PROJREPO="external-secrets/external-secrets" ORGNAME="External Secrets Operator" PORT=3138 ICON=externalsecretsoperator GRAFSUFF=externalsecretsoperator GA="UA-145264316-99" ./devel/deploy_proj.sh || exit 57

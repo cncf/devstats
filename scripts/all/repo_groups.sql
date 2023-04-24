@@ -1433,6 +1433,7 @@ set
   repo_group = 'Armada'
 where
   name in ('G-Research/armada')
+  or org_login in ('armadaproject') 
 ;
 
 -- External Secrets Operator
