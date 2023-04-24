@@ -635,8 +635,7 @@ projects:
       - kubevirt
     start_date: 2016-04-27T00:00:00Z
     join_date: 2019-09-06T00:00:00Z
-    # This is guessed
-    incubating_date: 2022-03-15T00:00:00Z
+    incubating_date: 2022-04-19T00:00:00Z
     psql_db: kubevirt
     shared_db: allprj
     main_repo: kubevirt/kubevirt
