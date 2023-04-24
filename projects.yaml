@@ -535,8 +535,8 @@ projects:
     join_date: 2019-04-11T00:00:00Z
     psql_db: networkservicemesh
     shared_db: allprj
-    main_repo: networkservicemesh/networkservicemesh
-    annotation_regexp: ''
+    main_repo: networkservicemesh/api
+    annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
   openebs:
     order: 37
