@@ -85,6 +85,7 @@ k8up,k8up-io,vshn/k8up
 karmada,karmada-io
 keda,kedacore,tomkerkhove/sample-dotnet-queue-worker,tomkerkhove/sample-dotnet-queue-worker-servicebus-queue,tomkerkhove/sample-dotnet-worker-servicebus-queue
 keptn,keptn
+keycloak,keycloak
 keylime,keylime,mit-ll/python-keylime,mit-ll/keylime
 knative,knative,knative-sandbox
 ko,ko-build,google/ko
