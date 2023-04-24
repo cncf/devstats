@@ -3,7 +3,7 @@ akri,desilabs/akri
 allcdf,spinnaker,tektoncd,tektoncd-catalog,jenkinsci,jenkins-infra,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins,knative/build,cdevents,pyrsia,screwdriver-cd,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator,ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-setup,ortelius/keptn-config,ortelius/keptn-ortelius-service,ortelius/la-sbom-ledger,ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach
 antrea,vmware-tanzu/antrea,antrea-io
 argo,argoproj,argoproj-labs
-armada,G-Research/armada
+armada,armadaproject,G-Research/armada
 artifacthub,artifacthub,cncf/hub
 athenz,regexp:(?i)^(AthenZ\/.*|yahoo\/.*athenz.*)$
 azf,Azure/Azure-Functions,Azure/azure-functions-host,Azure/azure-webjobs-sdk,Azure/azure-webjobs-sdk-extensions,Azure/azure-functions-durable-extension,Azure/azure-functions-durable-js,Azure/azure-functions-core-tools,Azure/azure-functions-nodejs-worker,Azure/azure-functions-java-worker,Azure/azure-functions-python-worker,Azure/azure-functions-ux,Azure/azure-functions-templates,Azure/azure-webjobs-sdk-script-samples,Azure/azure-functions-vs-build-sdk,Azure/azure-webjobs-sdk-script,Azure/azure-webjobs-sdk-templates,Azure/azure-functions-cli,projectkudu/AzureFunctions,projectkudu/WebJobsPortal,projectkudu/AzureFunctionsPortal,projectkudu/azure-functions-ux
