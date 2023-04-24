@@ -577,6 +577,9 @@ do
   elif [ "$proj" = "clusternet" ]
   then
     PROJ=clusternet          PROJDB=clusternet     PROJREPO="clusternet/clusternet"           ORGNAME=Clusternet        PORT=3233 ICON=clusternet     GRAFSUFF=clusternet     GA="UA-241436121-18" ./devel/deploy_proj.sh || exit 158
+  elif [ "$proj" = "keycloak" ]
+  then
+    PROJ=keycloak            PROJDB=keycloak       PROJREPO="keycloak/keycloak"               ORGNAME=Keycloak          PORT=3234 ICON=keycloak       GRAFSUFF=keycloak       GA="UA-241436121-19" ./devel/deploy_proj.sh || exit 159
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="UA-108085315-19" ./devel/deploy_proj.sh || exit 32
