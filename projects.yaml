@@ -282,13 +282,13 @@ projects:
   spiffe:
     order: 19
     name: SPIFFE
-    status: Incubating
+    status: Graduated
     command_line:
       - spiffe
     start_date: 2017-08-23T00:00:00Z
     join_date: 2018-03-29T00:00:00Z
     incubating_date: 2020-06-22T00:00:00Z
-    graduated_date: 2022-09-20T00:00:00Z
+    graduated_date: 2022-08-23T00:00:00Z
     psql_db: spiffe
     shared_db: allprj
     main_repo: spiffe/spiffe
@@ -300,13 +300,13 @@ projects:
   spire:
     order: 20
     name: SPIRE
-    status: Incubating
+    status: Graduated
     command_line:
       - 'regexp:(?i)^(spiffe\/spire.*)$'
     start_date: 2017-09-28T00:00:00Z
     join_date: 2018-03-29T00:00:00Z
     incubating_date: 2020-06-22T00:00:00Z
-    graduated_date: 2022-09-20T00:00:00Z
+    graduated_date: 2022-08-22T00:00:00Z
     psql_db: spire
     shared_db: allprj
     main_repo: spiffe/spire
@@ -388,7 +388,7 @@ projects:
   etcd:
     order: 26
     name: etcd
-    status: Incubating
+    status: Graduated
     command_line:
       - etcd-io
     start_date: 2014-01-02T00:00:00Z
@@ -584,7 +584,7 @@ projects:
   flux:
     order: 40
     name: Flux
-    status: Incubating
+    status: Graduated
     command_line:
       - fluxcd
     start_date: 2016-11-02T00:00:00Z
@@ -602,11 +602,12 @@ projects:
   intoto:
     order: 41
     name: in-toto
-    status: Sandbox
+    status: Incubating
     command_line:
       - in-toto
     start_date: 2016-10-18T00:00:00Z
     join_date: 2019-08-14T00:00:00Z
+    incubating_date: 2022-03-10T00:00:00Z
     psql_db: intoto
     shared_db: allprj
     main_repo: in-toto/in-toto
@@ -658,7 +659,7 @@ projects:
   chubaofs:
     order: 45
     name: CubeFS
-    status: Sandbox
+    status: Incubating
     command_line:
       - chubaofs,cubefs
     start_date: 2018-09-29T00:00:00Z
@@ -702,7 +703,7 @@ projects:
   argo:
     order: 48
     name: Argo
-    status: Incubating
+    status: Graduated
     command_line:
       - 'argoproj,argoproj-labs'
     start_date: 2017-07-27T00:00:00Z
@@ -903,11 +904,12 @@ projects:
   chaosmesh:
     order: 63
     name: Chaos Mesh
-    status: Sandbox
+    status: Incubating
     command_line:
       - chaos-mesh
     start_date: 2019-12-26T00:00:00Z
     join_date: 2020-07-14T00:00:00Z
+    incubating_date: 2022-02-16T00:00:00Z
     psql_db: chaosmesh
     shared_db: allprj
     main_repo: chaos-mesh/chaos-mesh
