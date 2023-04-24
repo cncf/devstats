@@ -819,7 +819,7 @@ projects:
     files_skip_pattern: ''
   kuma:
     order: 57
-    name: Artifact Hub
+    name: Kuma
     status: Sandbox
     command_line:
       - 'kumahq,Kong/kumacut,Kong/docker-kuma'
