@@ -2,7 +2,7 @@ jsons/*.json
 jsons/*.yaml
 *.swp
 *.db
-/tmp
+/tmp*
 /db2influx
 /structure
 /gha2db
