@@ -565,6 +565,66 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "in-toto",
+      "tooltip": "Opens intoto projects dashboards",
+      "type": "link",
+      "url": "https://intoto.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KubeVirt",
+      "tooltip": "Opens KubeVirt projects dashboards",
+      "type": "link",
+      "url": "https://kubevirt.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Volcano",
+      "tooltip": "Opens Volcano projects dashboards",
+      "type": "link",
+      "url": "https://volcano.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Chaos Mesh",
+      "tooltip": "Opens Chaos Mesh projects dashboards",
+      "type": "link",
+      "url": "https://chaosmesh.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Backstage",
+      "tooltip": "Opens Backstage projects dashboards",
+      "type": "link",
+      "url": "https://backstage.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Keycloak",
+      "tooltip": "Opens Keycloak projects dashboards",
+      "type": "link",
+      "url": "https://keycloak.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -615,16 +675,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "in-toto",
-      "tooltip": "Opens intoto projects dashboards",
-      "type": "link",
-      "url": "https://intoto.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Strimzi",
       "tooltip": "Opens Strimzi projects dashboards",
       "type": "link",
@@ -635,30 +685,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "KubeVirt",
-      "tooltip": "Opens KubeVirt projects dashboards",
-      "type": "link",
-      "url": "https://kubevirt.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "SMI",
       "tooltip": "Opens SMI projects dashboards",
       "type": "link",
       "url": "https://smi.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Volcano",
-      "tooltip": "Opens Volcano projects dashboards",
-      "type": "link",
-      "url": "https://volcano.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -735,16 +765,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Chaos Mesh",
-      "tooltip": "Opens Chaos Mesh projects dashboards",
-      "type": "link",
-      "url": "https://chaosmesh.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Serverless Workflow",
       "tooltip": "Opens Serverless Workflow projects dashboards",
       "type": "link",
@@ -759,16 +779,6 @@
       "tooltip": "Opens K3s projects dashboards",
       "type": "link",
       "url": "https://k3s.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Backstage",
-      "tooltip": "Opens Backstage projects dashboards",
-      "type": "link",
-      "url": "https://backstage.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1599,16 +1609,6 @@
       "tooltip": "Opens Clusternet projects dashboards",
       "type": "link",
       "url": "https://clusternet.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Keycloak",
-      "tooltip": "Opens Keycloak projects dashboards",
-      "type": "link",
-      "url": "https://keycloak.[[hostname]]"
     },
     {
       "icon": "dashboard",
