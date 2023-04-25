@@ -42,7 +42,7 @@ curiefense,curiefense
 curve,opencurve
 dapr,dapr
 devfile,devfile,che-incubator/devworkspace-api
-devspace,devspace-cloud,covexo
+devspace,devspace-sh,devspace-cloud,covexo
 devstream,devstream-io,merico-dev/stream,maricso-dev/OpenStream
 dex,dexidp,coreos/dex
 distribution,distribution,docker/distribution
