@@ -117,7 +117,7 @@ do
          PROJ=fluentd        PROJDB=fluentd        PROJREPO="fluent/fluentd"                  ORGNAME=Fluentd           PORT=3003 ICON=fluentd        GRAFSUFF=fluentd        GA="UA-108085315-5"  ./devel/deploy_proj.sh || exit 5
   elif [ "$proj" = "linkerd" ]
   then
-         PROJ=linkerd        PROJDB=linkerd        PROJREPO="linkerd/linkerd"                 ORGNAME=Linkerd           PORT=3004 ICON=linkerd        GRAFSUFF=linkerd        GA="UA-108085315-6"  ./devel/deploy_proj.sh || exit 6
+         PROJ=linkerd        PROJDB=linkerd        PROJREPO="linkerd/linkerd2"                ORGNAME=Linkerd           PORT=3004 ICON=linkerd        GRAFSUFF=linkerd        GA="UA-108085315-6"  ./devel/deploy_proj.sh || exit 6
   elif [ "$proj" = "grpc" ]
   then
          PROJ=grpc           PROJDB=grpc           PROJREPO="grpc/grpc"                       ORGNAME=gRPC              PORT=3005 ICON=grpc           GRAFSUFF=grpc           GA="UA-108085315-7"  ./devel/deploy_proj.sh || exit 7
@@ -144,7 +144,7 @@ do
          PROJ=notary         PROJDB=notary         PROJREPO="notaryproject/notation"          ORGNAME=Notary            PORT=3012 ICON=notary         GRAFSUFF=notary         GA="UA-108085315-15" ./devel/deploy_proj.sh || exit 14
   elif [ "$proj" = "tuf" ]
   then
-         PROJ=tuf            PROJDB=tuf            PROJREPO="theupdateframework/tuf"          ORGNAME=TUF               PORT=3013 ICON=tuf            GRAFSUFF=tuf            GA="UA-108085315-16" ./devel/deploy_proj.sh || exit 15
+         PROJ=tuf            PROJDB=tuf            PROJREPO="theupdateframework/python-tuf"   ORGNAME=TUF               PORT=3013 ICON=tuf            GRAFSUFF=tuf            GA="UA-108085315-16" ./devel/deploy_proj.sh || exit 15
   elif [ "$proj" = "rook" ]
   then
          PROJ=rook           PROJDB=rook           PROJREPO="rook/rook"                       ORGNAME=Rook              PORT=3014 ICON=rook           GRAFSUFF=rook           GA="UA-108085315-17" ./devel/deploy_proj.sh || exit 16
@@ -189,13 +189,13 @@ do
          PROJ=cortex         PROJDB=cortex         PROJREPO="cortexproject/cortex"            ORGNAME=Cortex            PORT=3027 ICON=cortex         GRAFSUFF=cortex         GA="UA-108085315-32" ./devel/deploy_proj.sh || exit 29
   elif [ "$proj" = "buildpacks" ]
   then
-         PROJ=buildpacks     PROJDB=buildpacks     PROJREPO="buildpacks/lifecycle"            ORGNAME=Buildpacks        PORT=3028 ICON=buildpacks     GRAFSUFF=buildpacks     GA="UA-108085315-33" ./devel/deploy_proj.sh || exit 30
+         PROJ=buildpacks     PROJDB=buildpacks     PROJREPO="buildpacks/pack"                 ORGNAME=Buildpacks        PORT=3028 ICON=buildpacks     GRAFSUFF=buildpacks     GA="UA-108085315-33" ./devel/deploy_proj.sh || exit 30
   elif [ "$proj" = "falco" ]
   then
          PROJ=falco          PROJDB=falco          PROJREPO="falcosecurity/falco"             ORGNAME=Falco             PORT=3029 ICON=falco          GRAFSUFF=falco          GA="UA-108085315-34" ./devel/deploy_proj.sh || exit 31
   elif [ "$proj" = "dragonfly" ]
   then
-         PROJ=dragonfly      PROJDB=dragonfly      PROJREPO="dragonflyoss/Dragonfly"          ORGNAME=Dragonfly         PORT=3030 ICON=dragonfly      GRAFSUFF=dragonfly       GA="UA-108085315-35" ./devel/deploy_proj.sh || exit 39
+         PROJ=dragonfly      PROJDB=dragonfly      PROJREPO="dragonflyoss/Dragonfly2"         ORGNAME=Dragonfly         PORT=3030 ICON=dragonfly      GRAFSUFF=dragonfly       GA="UA-108085315-35" ./devel/deploy_proj.sh || exit 39
   elif [ "$proj" = "virtualkubelet" ]
   then
     PROJ=virtualkubelet      PROJDB=virtualkubelet PROJREPO="virtual-kubelet/virtual-kubelet" ORGNAME="Virtual Kubelet" PORT=3031 ICON=virtualkubelet GRAFSUFF=virtualkubelet GA="UA-108085315-36" ./devel/deploy_proj.sh || exit 40
@@ -246,7 +246,7 @@ do
     PROJ=smi                 PROJDB=smi            PROJREPO="servicemeshinterface/smi-spec"   ORGNAME=SMI               PORT=3046 ICON=smi            GRAFSUFF=smi            GA="UA-145264316-7"  ./devel/deploy_proj.sh || exit 64
   elif [ "$proj" = "argo" ]
   then
-    PROJ=argo                PROJDB=argo           PROJREPO="argoproj/argo"                   ORGNAME=Argo              PORT=3047 ICON=argo           GRAFSUFF=argo           GA="UA-145264316-8"  ./devel/deploy_proj.sh || exit 65
+    PROJ=argo                PROJDB=argo           PROJREPO="argoproj/argo-cd"                ORGNAME=Argo              PORT=3047 ICON=argo           GRAFSUFF=argo           GA="UA-145264316-8"  ./devel/deploy_proj.sh || exit 65
   elif [ "$proj" = "volcano" ]
   then
     PROJ=volcano             PROJDB=volcano        PROJREPO="volcano-sh/volcano"              ORGNAME=Volcano           PORT=3048 ICON=volcano        GRAFSUFF=volcano        GA="UA-145264316-9"  ./devel/deploy_proj.sh || exit 66
@@ -306,7 +306,7 @@ do
     PROJ=tremor              PROJDB=tremor         PROJREPO="tremor-rs/tremor-runtime"        ORGNAME=tremor            PORT=3066 ICON=tremor         GRAFSUFF=tremor         GA="UA-145264316-27" ./devel/deploy_proj.sh || exit 84
   elif [ "$proj" = "metal3" ]
   then
-    PROJ=metal3              PROJDB=metal3         PROJREPO="metal3-io/cluster-api-provider-metal3" ORGNAME="Metal³"    PORT=3067 ICON=metal3         GRAFSUFF=metal3         GA="UA-145264316-28" ./devel/deploy_proj.sh || exit 85
+    PROJ=metal3              PROJDB=metal3         PROJREPO="metal3-io/baremetal-operator"    ORGNAME="Metal³"          PORT=3067 ICON=metal3         GRAFSUFF=metal3         GA="UA-145264316-28" ./devel/deploy_proj.sh || exit 85
   elif [ "$proj" = "porter" ]
   then
     PROJ=porter              PROJDB=porter         PROJREPO="getporter/porter"                ORGNAME=Porter            PORT=3068 ICON=porter         GRAFSUFF=porter         GA="UA-145264316-29" ./devel/deploy_proj.sh || exit 86
@@ -534,7 +534,7 @@ do
          PROJ=kured          PROJDB=kured          PROJREPO="kubereboot/kured"                ORGNAME=Kured             PORT=3142 ICON=kured          GRAFSUFF=kured          GA="UA-241436121-3" ./devel/deploy_proj.sh || exit 144
   elif [ "$proj" = "carvel" ]
   then
-         PROJ=carvel         PROJDB=carvel         PROJREPO="carvel-dev/kapp"                 ORGNAME=Carvel            PORT=3143 ICON=carvel         GRAFSUFF=carvel         GA="UA-241436121-4" ./devel/deploy_proj.sh || exit 145
+         PROJ=carvel         PROJDB=carvel         PROJREPO="carvel-dev/ytt"                  ORGNAME=Carvel            PORT=3143 ICON=carvel         GRAFSUFF=carvel         GA="UA-241436121-4" ./devel/deploy_proj.sh || exit 145
   elif [ "$proj" = "lima" ]
   then
          PROJ=lima           PROJDB=lima           PROJREPO="lima-vm/lima"                    ORGNAME=Lima              PORT=3144 ICON=lima           GRAFSUFF=lima           GA="UA-241436121-5" ./devel/deploy_proj.sh || exit 146
