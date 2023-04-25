@@ -31,6 +31,7 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'TUF', alias = 'TUF'
 where name in (
+  'theupdateframework/python-tuf',
   'theupdateframework/tuf',
   'theupdateframework',
   'tuf'

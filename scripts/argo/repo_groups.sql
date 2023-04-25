@@ -33,6 +33,10 @@ set repo_group = 'Argo', alias = 'Argo'
 where name in ('argoproj/argo');
 
 update gha_repos
+set repo_group = 'Argo CD', alias = 'Argo CD'
+where name in ('argoproj/argo-cd');
+
+update gha_repos
 set repo_group = 'argoproj-labs', alias = 'argoproj-labs'
 where org_login in ('argoproj-labs');
 

@@ -35,6 +35,12 @@ where name in (
   'dragonflyoss/Dragonfly'
 );
 
+update gha_repos
+set repo_group = 'Dragonfly v2', alias = 'Dragonfly v2'
+where name in (
+  'alibaba/Dragonfly2'
+);
+
 select
   repo_group,
   count(*) as number_of_repos

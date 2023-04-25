@@ -42,6 +42,12 @@ where name in (
   'carvel-dev/kapp'
 );
 
+update gha_repos
+set repo_group = 'ytt', alias = 'ytt'
+where name in (
+  'carvel-dev/ytt'
+);
+
 select
   repo_group,
   count(*) as number_of_repos

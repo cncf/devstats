@@ -1527,7 +1527,7 @@ update
 set
   repo_group = 'DevSpace'
 where
-  org_login in ('devspace-cloud', 'covexo')
+  org_login in ('devspace-cloud', 'devspace-sh', 'covexo')
 ;
 
 -- Capsule

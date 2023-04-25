@@ -30,6 +30,7 @@ where
 update gha_repos set repo_group = alias;
 
 update gha_repos set repo_group = 'Linkerd', alias = 'Linkerd' where name in ('linkerd/linkerd', 'BuoyantIO/linkerd');
+update gha_repos set repo_group = 'Linkerd v2', alias = 'Linkerd v2' where name in ('linkerd/linkerd2');
 
 select
   repo_group,
