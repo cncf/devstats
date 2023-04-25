@@ -87,8 +87,8 @@ projects:
     graduated_date: 2021-07-28T00:00:00Z
     psql_db: linkerd
     shared_db: allprj
-    main_repo: linkerd/linkerd
-    annotation_regexp: '^(release-\d+\.\d+\.\d+|\d+\.\d+\.0)$'
+    main_repo: linkerd/linkerd2
+    annotation_regexp: '^stable-\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   grpc:
     order: 6
@@ -216,7 +216,7 @@ projects:
     graduated_date: 2019-12-18T00:00:00Z
     psql_db: tuf
     shared_db: allprj
-    main_repo: theupdateframework/tuf
+    main_repo: theupdateframework/python-tuf
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     project_scale: 0.3
@@ -438,8 +438,8 @@ projects:
     incubating_date: 2020-11-18T00:00:00Z
     psql_db: buildpacks
     shared_db: allprj
-    main_repo: buildpacks/lifecycle
-    annotation_regexp: ''
+    main_repo: buildpacks/pack
+    annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     project_scale: 0.3
   falco:
@@ -467,7 +467,7 @@ projects:
     incubating_date: 2020-04-09T00:00:00Z
     psql_db: dragonfly
     shared_db: allprj
-    main_repo: dragonflyoss/Dragonfly
+    main_repo: dragonflyoss/Dragonfly2
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: ''
   virtualkubelet:
@@ -711,7 +711,7 @@ projects:
     graduated_date: 2022-12-06T00:00:00Z
     psql_db: argo
     shared_db: allprj
-    main_repo: argoproj/argo
+    main_repo: argoproj/argo-cd
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
   volcano:
@@ -982,7 +982,7 @@ projects:
     join_date: 2020-09-08T00:00:00Z
     psql_db: metal3
     shared_db: allprj
-    main_repo: metal3-io/cluster-api-provider-metal3
+    main_repo: metal3-io/baremetal-operator
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   porter:
@@ -1167,7 +1167,7 @@ projects:
     join_date: 2021-01-26T00:00:00Z
     psql_db: k8dash
     shared_db: allprj
-    main_repo: 'skooner-k8s/k8dash'
+    main_repo: 'skooner-k8s/skooner'
     annotation_regexp: ''
     files_skip_pattern: ''
   athenz:
@@ -1974,7 +1974,7 @@ projects:
     join_date: 2022-09-14T00:00:00Z
     psql_db: carvel
     shared_db: allprj
-    main_repo: carvel-dev/kapp
+    main_repo: carvel-dev/ytt
     annotation_regexp: '^v\d+\.\d*[05]\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   lima:
@@ -2022,7 +2022,7 @@ projects:
     name: DevSpace
     status: Sandbox
     command_line:
-      - devspace-cloud
+      - 'devspace-cloud,devspace-sh'
     start_date: 2017-10-13T00:00:00Z
     join_date: 2022-12-13T00:00:00Z
     psql_db: 'devspace'
@@ -2398,7 +2398,7 @@ projects:
          confidential-containers,SpectralOps/teller,SpectralOps/helm-teller,\
          SpectralOps/setup-teller-action,OpenFunction,sealerio,clusterpedia-io,\
          kubecost,aeraki-mesh,opencurve,open-feature,kubewarden,devstream-io,kubevela,\
-         hexa-org,konveyor,armadaproject,external-secrets,Serverless-Devs,\
+         hexa-org,konveyor,armadaproject,external-secrets,Serverless-Devs,devspace-sh,\
          ContainerSSH,openfga,kubereboot,lima-vm,istio,carvel-dev,merbridge,opencost,\
          devspace-cloud,capsule-rs,project-zot,paralus,carina-io,ko-build,opcr-io,werf"
     start_date: 2014-01-01T00:00:00Z
