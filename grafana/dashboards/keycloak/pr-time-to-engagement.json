@@ -3,15 +3,27 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       },
       {
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "enable": true,
         "hide": false,
         "iconColor": "rgba(255, 96, 96, 1)",
@@ -28,27 +40,33 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 53,
-  "iteration": 1529590581829,
+  "id": 28,
+  "iteration": 1682400356300,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "psql",
+      "datasource": {
+        "type": "postgres",
+        "uid": "P172949F98CB31475"
+      },
       "decimals": 2,
       "description": "Time before any comments or activities from someone other than the author",
       "fill": 0,
+      "fillGradient": 0,
       "gridPos": {
         "h": 13,
         "w": 24,
         "x": 0,
         "y": 0
       },
+      "hiddenSeries": false,
       "id": 2,
       "legend": {
         "alignAsTable": true,
@@ -65,7 +83,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "8.5.22",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -152,8 +174,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
+      "timeRegions": [],
       "title": "Time before any comments or activities from someone other than the author ([[repogroup_name]], [[period]])",
       "tooltip": {
         "shared": true,
@@ -162,9 +183,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -173,7 +192,6 @@
           "format": "h",
           "label": "",
           "logBase": 2,
-          "max": null,
           "min": "0",
           "show": true
         },
@@ -181,19 +199,20 @@
           "format": "short",
           "label": "",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
       "columns": [],
-      "datasource": "psql",
+      "datasource": {
+        "type": "postgres",
+        "uid": "P172949F98CB31475"
+      },
       "description": "Time to first non-author activity",
       "fontSize": "90%",
       "gridPos": {
@@ -214,13 +233,14 @@
       "styles": [
         {
           "alias": "Time",
+          "align": "auto",
           "dateFormat": "MM/DD/YYYY",
           "pattern": "Time",
           "type": "date"
         },
         {
           "alias": "",
-          "colorMode": null,
+          "align": "auto",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
@@ -359,11 +379,14 @@
         }
       ],
       "title": "Time to first non-author activity ([[repogroup]], [[period]])",
-      "transform": "table",
-      "type": "table"
+      "transform": "timeseries_to_rows",
+      "type": "table-old"
     },
     {
-      "content": "${docs:raw}",
+      "datasource": {
+        "type": "postgres",
+        "uid": "P172949F98CB31475"
+      },
       "gridPos": {
         "h": 11,
         "w": 24,
@@ -372,12 +395,16 @@
       },
       "id": 11,
       "links": [],
-      "mode": "html",
+      "options": {
+        "content": "${docs:raw}",
+        "mode": "html"
+      },
+      "pluginVersion": "8.5.22",
       "title": "Dashboard documentation",
       "type": "text"
     }
   ],
-  "schemaVersion": 16,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [
     "dashboard",
@@ -386,7 +413,6 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
           "tags": [],
           "text": "7 Days MA",
@@ -429,12 +455,16 @@
         "type": "custom"
       },
       {
-        "allValue": null,
         "current": {
+          "selected": false,
           "text": "All",
           "value": "All"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
+        "definition": "",
         "hide": 0,
         "includeAll": false,
         "label": "Repository group",
@@ -447,18 +477,21 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
+          "selected": false,
           "text": "all",
           "value": "all"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
+        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": "",
@@ -471,21 +504,23 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
-          "text": "Prometheus",
-          "value": "Prometheus"
+          "selected": false,
+          "text": "Keycloak",
+          "value": "Keycloak"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
+        "definition": "",
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "full_name",
         "options": [],
@@ -495,18 +530,23 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
-        "current": {},
-        "datasource": "psql",
+        "current": {
+          "selected": false,
+          "text": "<h1 id=\"dashboard-header\">Keycloak first non-author activity dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/first_non_author_activity.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>first_non_author_activity</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/keycloak/first-non-author-activity.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows median, 15th and 85th percentiles of time before issue creation and first non-author activity on the issue.</li>\n<li>You can choose repository group (or all of them) and aggregation period.</li>\n<li>Selecting period (for example week) means that dashboard will calculate percentiles in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>",
+          "value": "<h1 id=\"dashboard-header\">Keycloak first non-author activity dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/first_non_author_activity.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>first_non_author_activity</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/keycloak/first-non-author-activity.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows median, 15th and 85th percentiles of time before issue creation and first non-author activity on the issue.</li>\n<li>You can choose repository group (or all of them) and aggregation period.</li>\n<li>Selecting period (for example week) means that dashboard will calculate percentiles in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
+        "definition": "",
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "docs",
         "options": [],
@@ -516,7 +556,6 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -524,7 +563,7 @@
     ]
   },
   "time": {
-    "from": "now-2y",
+    "from": "now-3y",
     "to": "now-2w"
   },
   "timepicker": {
@@ -555,5 +594,6 @@
   "timezone": "",
   "title": "PR Time to Engagement",
   "uid": "10",
-  "version": 7
+  "version": 2,
+  "weekStart": ""
 }
