@@ -513,7 +513,7 @@ do
     PROJ=hexapolicyorchestrator PROJDB=hexapolicyorchestrator PROJREPO="hexa-org/policy-orchestrator" ORGNAME="Hexa Policy Orchestrator" PORT=3135 ICON=hexapolicyorchestrator GRAFSUFF=hexapolicyorchestrator GA="UA-145264316-96" ./devel/deploy_proj.sh || exit 54
   elif [ "$proj" = "konveyor" ]
   then
-    PROJ=konveyor            PROJDB=konveyor       PROJREPO="konveyor/mig-operator"           ORGNAME=Konveyor          PORT=3136 ICON=konveyor       GRAFSUFF=konveyor       GA="UA-145264316-97" ./devel/deploy_proj.sh || exit 55
+    PROJ=konveyor            PROJDB=konveyor       PROJREPO="konveyor/tackle2-operator"       ORGNAME=Konveyor          PORT=3136 ICON=konveyor       GRAFSUFF=konveyor       GA="UA-145264316-97" ./devel/deploy_proj.sh || exit 55
   elif [ "$proj" = "armada" ]
   then
     PROJ=armada              PROJDB=armada         PROJREPO="armadaproject/armada"            ORGNAME=Armada            PORT=3137 ICON=armada         GRAFSUFF=armada         GA="UA-145264316-98" ./devel/deploy_proj.sh || exit 56
