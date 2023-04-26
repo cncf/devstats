@@ -1,25 +1,8 @@
 ---
 metrics:
-#   - name: Countries stats cumulative
-#     series_name_or_func: multi_row_multi_column
-#     sqls: [countries_cum, committers_countries_cum]
-#     periods: m
-#     multi_value: true
-#     merge_series: countriescum
-#     drop: scountriescum
-#     env:
-#       GHA2DB_NCPUS?: 4
-  - name: Overall project statistics
+  - name: Companies summary
+    sqls: [project_company_stats, doc_committers_hist]
+    series_name_or_func: multi_row_single_column
     histogram: true
     annotations_ranges: true
-    series_name_or_func: multi_row_single_column
-    sql: project_stats
-    merge_series: pstat
-    project: kubernetes
-  - name: Overall project statistics by repository
-    histogram: true
-    annotations_ranges: true
-    series_name_or_func: multi_row_single_column
-    sql: project_stats_repos
-    merge_series: pstat_repos
-    project: kubernetes
+    merge_series: hcom
