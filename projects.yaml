@@ -1883,8 +1883,8 @@ projects:
     join_date: 2022-07-26T00:00:00Z
     psql_db: konveyor
     shared_db: allprj
-    main_repo: konveyor/mig-operator
-    annotation_regexp: '^release-v\d+\.\d+$'
+    main_repo: konveyor/tackle2-operator
+    annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: ''
   armada:
     order: 138
