@@ -44,8 +44,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 37,
-  "iteration": 1659442615290,
+  "id": 38,
+  "iteration": 1682491910702,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -97,7 +97,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.5.9",
+      "pluginVersion": "8.5.22",
       "pointradius": 1,
       "points": false,
       "renderer": "flot",
@@ -313,7 +313,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.5.9",
+      "pluginVersion": "8.5.22",
       "pointradius": 1,
       "points": false,
       "renderer": "flot",
@@ -538,8 +538,8 @@
       {
         "current": {
           "selected": true,
-          "text": "konveyor/mig-operator",
-          "value": "konveyor/mig-operator"
+          "text": "konveyor/tackle2-operator",
+          "value": "konveyor/tackle2-operator"
         },
         "datasource": {
           "type": "postgres",
@@ -565,8 +565,8 @@
       {
         "current": {
           "selected": false,
-          "text": "konveyormigoperator",
-          "value": "konveyormigoperator"
+          "text": "konveyortackle2operator",
+          "value": "konveyortackle2operator"
         },
         "datasource": {
           "type": "postgres",
