@@ -63,7 +63,7 @@ col:last-child {background: #000;}
         });
         $("#projects_health").find(".only-full").hide();
         $("#projects_health").find(".only-inactive").show();
-        $("#projects_health").find("td:contains('Activity status')").parent().hide();
+        $("#projects_health").find("td:contains('Activity status')").first().parent().hide();
       } else {
         let indicesToShow = new Array()
         $("#projects_health").find("td:contains('Activity status')").first().parent().find("td:contains('Active')").each(function () {
@@ -79,7 +79,7 @@ col:last-child {background: #000;}
         });
         $("#projects_health").find(".only-full").show();
         $("#projects_health").find(".only-inactive").hide();
-        $("#projects_health").find("td:contains('Activity status')").parent().show();
+        $("#projects_health").find("td:contains('Activity status')").first().parent().show();
       }
     });
   });
