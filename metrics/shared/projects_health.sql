@@ -994,7 +994,7 @@ from
 where
   (select count(*) from gha_commits c, gha_repos r where c.dup_repo_id = r.id and r.repo_group = rg.repo_group) = 0
 union select 'phealth,' || r.repo_group || ',active' as name,
-  'Active',
+  'Activity status',
   max(c.dup_created_at),
   0.0,
   CASE WHEN DATE_PART('day', now() - max(c.dup_created_at)) > 90 THEN 'Inactive' ELSE 'Active' END
@@ -1007,10 +1007,10 @@ where
 group by
   r.repo_group
 union select 'phealth,' || rg.repo_group || ',active' as name,
-  'Active',
+  'Activity status',
   '1980-01-01 00:00:00',
   0.0,
-  'Inactive'
+  'Unknown'
 from
   repo_groups rg
 where
