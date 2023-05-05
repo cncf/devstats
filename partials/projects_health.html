@@ -46,9 +46,11 @@ col:first-child {background: #000;}
 col:last-child {background: #000;}
 </style>
 <script>
-  $( window ).on( "load", function() {
+  $(window).on("load", function() {
+    console.log('window ready finished');
     $("#projects_health").find("td:contains('Activity status')").parent().hide();
     $("#only-inactive").change(function() {
+      console.log('checkbox clicked');
       if(this.checked) {
         $("#projects_health").find("only-full").hide();
         let indicesToHide = new Array()
@@ -72,6 +74,7 @@ col:last-child {background: #000;}
           }
         });
       }
+      console.log('checkbox click handled');
     });
   });
 </script>
