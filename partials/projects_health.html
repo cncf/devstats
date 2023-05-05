@@ -45,18 +45,15 @@ col:nth-child(even) {background: #282828;}
 col:first-child {background: #000;}
 col:last-child {background: #000;}
 </style>
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>
   $("#projects_health").ready(function() {
     console.log('window ready finished');
     $("#projects_health").find("td:contains('Activity status')").parent().hide();
-    $("#projects_health").find("only-inactive").hide();
+    $("#projects_health").find(".only-inactive").hide();
     $("#inactive-toggle").change(function() {
       console.log('clicked');
       if(this.checked) {
         console.log('only-inactive');
-        $("#projects_health").find("only-full").hide();
-        $("#projects_health").find("only-inactive").show();
         let indicesToHide = new Array()
         $("#projects_health").find("td:contains('Activity status')").first().parent().find("td:contains('Active')").each(function () {
           indicesToHide.push($(this).index());
@@ -66,10 +63,10 @@ col:last-child {background: #000;}
             $(this).hide();
           }
         });
+        $("#projects_health").find(".only-full").hide();
+        $("#projects_health").find(".only-inactive").show();
       } else {
         console.log('only-full');
-        $("#projects_health").find("only-full").show();
-        $("#projects_health").find("only-inactive").hide();
         let indicesToShow = new Array()
         $("#projects_health").find("td:contains('Activity status')").first().parent().find("td:contains('Active')").each(function () {
           indicesToShow.push($(this).index());
@@ -79,6 +76,8 @@ col:last-child {background: #000;}
             $(this).show();
           }
         });
+        $("#projects_health").find(".only-full").show();
+        $("#projects_health").find(".only-inactive").hide();
       }
       console.log('handled');
     });
