@@ -993,6 +993,28 @@ from
   repo_groups rg
 where
   (select count(*) from gha_commits c, gha_repos r where c.dup_repo_id = r.id and r.repo_group = rg.repo_group) = 0
+union select 'phealth,' || r.repo_group || ',active' as name,
+  'Active',
+  max(c.dup_created_at),
+  0.0,
+  CASE WHEN DATE_PART('day', now() - max(c.dup_created_at)) > 90 THEN 'Inactive' ELSE 'Active' END
+from
+  gha_commits c,
+  gha_repos r
+where
+  c.dup_repo_id = r.id
+  and r.repo_group is not null
+group by
+  r.repo_group
+union select 'phealth,' || rg.repo_group || ',active' as name,
+  'Active',
+  '1980-01-01 00:00:00',
+  0.0,
+  'Inactive'
+from
+  repo_groups rg
+where
+  (select count(*) from gha_commits c, gha_repos r where c.dup_repo_id = r.id and r.repo_group = rg.repo_group) = 0
 union select 'phealth,' || r.repo_group || ',lcommd' as name,
   'Commits: Days since last commit',
   max(c.dup_created_at),

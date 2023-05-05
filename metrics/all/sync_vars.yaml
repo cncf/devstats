@@ -28,4 +28,4 @@ vars:
     loops_before: true
     loops:
       - [0,0,160,1] # number of prod CNCF projects (N+2 because includes 'CNCF' on test, it also has archived 'rkt' and 'opentracing' on test)
-      - [1,0,75,1]  # number of metrics in projects health
+      - [1,0,76,1]  # number of metrics in projects health
