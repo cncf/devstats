@@ -45,14 +45,18 @@ col:nth-child(even) {background: #282828;}
 col:first-child {background: #000;}
 col:last-child {background: #000;}
 </style>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>
-  $(window).on("load", function() {
+  $("#projects_health").ready(function() {
     console.log('window ready finished');
     $("#projects_health").find("td:contains('Activity status')").parent().hide();
-    $("#only-inactive").change(function() {
-      console.log('checkbox clicked');
+    $("#projects_health").find("only-inactive").hide();
+    $("#inactive-toggle").change(function() {
+      console.log('clicked');
       if(this.checked) {
+        console.log('only-inactive');
         $("#projects_health").find("only-full").hide();
+        $("#projects_health").find("only-inactive").show();
         let indicesToHide = new Array()
         $("#projects_health").find("td:contains('Activity status')").first().parent().find("td:contains('Active')").each(function () {
           indicesToHide.push($(this).index());
@@ -63,7 +67,9 @@ col:last-child {background: #000;}
           }
         });
       } else {
+        console.log('only-full');
         $("#projects_health").find("only-full").show();
+        $("#projects_health").find("only-inactive").hide();
         let indicesToShow = new Array()
         $("#projects_health").find("td:contains('Activity status')").first().parent().find("td:contains('Active')").each(function () {
           indicesToShow.push($(this).index());
@@ -74,13 +80,13 @@ col:last-child {background: #000;}
           }
         });
       }
-      console.log('checkbox click handled');
+      console.log('handled');
     });
   });
 </script>
 </head>
 <div class="container">
-<p><input type="checkbox" id="only-inactive" /> Only show inactive projects</p>
+<p><input type="checkbox" id="inactive-toggle" /> Only show inactive projects</p>
 <table id="projects_health">
     <colgroup>
     loop:0:start<col>loop:0:end
@@ -96,6 +102,7 @@ col:last-child {background: #000;}
         testsrv=[[hostname]] <td colspan="1" class="cncf-sep only-full">CNCF</td> [[hostname]]=testsrv
         testsrv=[[skip]] <td colspan="3" class="cncf-sep only-full">Other</td> [[skip]]=testsrv
         <td class="cncf-sep only-full">Metric</td>
+        <td colspan="500" class="cncf-sep only-inactive">Inactive projects</td>
     </tr>
     <tr>
         <td class="cncf-bl cncf-br"></td>
