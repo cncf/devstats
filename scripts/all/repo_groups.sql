@@ -40,14 +40,14 @@ where
   org_login = 'prometheus'
 ;
 
-OpenTracing
-update
-  gha_repos
-set
- repo_group = 'OpenTracing'
-where
- org_login = 'opentracing'
-;
+-- OpenTracing
+-- update
+--   gha_repos
+-- set
+--  repo_group = 'OpenTracing'
+-- where
+--  org_login = 'opentracing'
+-- ;
 
 -- Fluentd
 update
