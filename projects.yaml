@@ -2035,14 +2035,14 @@ projects:
     name: Capsule
     status: Sandbox
     command_line:
-      - capsule-rs
-    start_date: 2020-03-30T00:00:00Z
+      - 'regexp:(?i)^clastix\/.*capsule.*$'
+    start_date: 2020-06-29T00:00:00Z
     join_date: 2022-12-13T00:00:00Z
     psql_db: 'capsule'
     shared_db: allprj
-    main_repo: capsule-rs/capsule
-    annotation_regexp: '^v?\d+\.\d+\.\d+$'
-    files_skip_pattern: ''
+    main_repo: clastix/capsule
+    annotation_regexp: '^v?\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   zot:
     order: 150
     name: zot
@@ -2400,7 +2400,11 @@ projects:
          kubecost,aeraki-mesh,opencurve,open-feature,kubewarden,devstream-io,kubevela,\
          hexa-org,konveyor,armadaproject,external-secrets,Serverless-Devs,devspace-sh,\
          ContainerSSH,openfga,kubereboot,lima-vm,istio,carvel-dev,merbridge,opencost,\
-         devspace-cloud,capsule-rs,project-zot,paralus,carina-io,ko-build,opcr-io,werf"
+         devspace-cloud,project-zot,paralus,carina-io,ko-build,opcr-io,werf,\
+         clastix/capsule,clastix/capsule-proxy,clastix/capsule-addon-rancher,\
+         clastix/capsule-community,clastix/capsule-addon-cloudcasa,\
+         clastix/capsule-k8s-charm,clastix/clastix/capsule-lens-extension,\
+         clastix/capsule-helm-chart,clastix/flux2-capsule-multi-tenancy"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
