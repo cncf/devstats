@@ -2405,7 +2405,7 @@ projects:
          clastix/capsule-community,clastix/capsule-addon-cloudcasa,\
          clastix/capsule-k8s-charm,clastix/clastix/capsule-lens-extension,\
          clastix/capsule-helm-chart,clastix/flux2-capsule-multi-tenancy,\
-         clastix/capsule-ns-filter,clastix/Capsule"
+         clastix/capsule-ns-filter,clastix/Capsule,clastix/ckd-capsule-app"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
