@@ -2404,7 +2404,8 @@ projects:
          clastix/capsule,clastix/capsule-proxy,clastix/capsule-addon-rancher,\
          clastix/capsule-community,clastix/capsule-addon-cloudcasa,\
          clastix/capsule-k8s-charm,clastix/clastix/capsule-lens-extension,\
-         clastix/capsule-helm-chart,clastix/flux2-capsule-multi-tenancy"
+         clastix/capsule-helm-chart,clastix/flux2-capsule-multi-tenancy,\
+         clastix/capsule-ns-filter,clastix/Capsule"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
