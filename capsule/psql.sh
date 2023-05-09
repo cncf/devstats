@@ -13,7 +13,7 @@ set -o pipefail
 > run.log
 GHA2DB_PROJECT=capsule PG_DB=capsule GHA2DB_LOCAL=1 structure 2>>errors.txt | tee -a run.log || exit 1
 ./devel/db.sh psql capsule -c "create extension if not exists pgcrypto" || exit 1
-GHA2DB_PROJECT=capsule PG_DB=capsule GHA2DB_LOCAL=1 gha2db 2020-03-30 0 today now 'capsule-rs' 2>>errors.txt | tee -a run.log || exit 2
+GHA2DB_PROJECT=capsule PG_DB=capsule GHA2DB_LOCAL=1 gha2db 2020-06-29 0 today now 'regexp:(?i)^clastix\/.*capsule.*$' 2>>errors.txt | tee -a run.log || exit 2
 GHA2DB_PROJECT=capsule PG_DB=capsule GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 structure 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=capsule PG_DB=capsule ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 4
 GHA2DB_PROJECT=capsule PG_DB=capsule ./shared/import_affs.sh 2>>errors.txt | tee -a run.log || exit 5
