@@ -1536,7 +1536,7 @@ update
 set
   repo_group = 'Capsule'
 where
-  org_login in ('capsule-rs')
+  name ~ '(?i)^clastix\/.*capsule.*$'
 ;
 
 -- zot

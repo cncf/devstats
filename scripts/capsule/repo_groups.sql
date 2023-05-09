@@ -31,7 +31,7 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'Capsule', alias = 'Capsule'
 where name in (
-  'capsule-rs/capsule'
+  'clastix/capsule'
 );
 
 select
