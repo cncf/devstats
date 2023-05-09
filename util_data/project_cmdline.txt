@@ -11,7 +11,7 @@ backstage,backstage,spotify/backstage
 bfe,bfenetworks,baidu/bfe
 brigade,brigadecore,Azure/brigade
 buildpacks,buildpack,buildpacks
-capsule,capsule-rs
+capsule,regexp:(?i)^clastix\/.*capsule.*$
 carina,carina-io
 carvel,vmware-tanzu/carvel,k14s,carvel-dev
 cdevents,cdevents
