@@ -53,4 +53,5 @@ where
       and il.event_id >= 329900000000000
     )
   )
+on conflict do nothing
 ;
