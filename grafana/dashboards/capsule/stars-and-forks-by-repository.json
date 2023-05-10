@@ -44,8 +44,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 37,
-  "iteration": 1671089271718,
+  "id": 38,
+  "iteration": 1683690228051,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -97,7 +97,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.5.15",
+      "pluginVersion": "8.5.22",
       "pointradius": 1,
       "points": false,
       "renderer": "flot",
@@ -313,7 +313,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.5.15",
+      "pluginVersion": "8.5.22",
       "pointradius": 1,
       "points": false,
       "renderer": "flot",
@@ -540,7 +540,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "Capsule",
           "value": "Capsule"
         },
