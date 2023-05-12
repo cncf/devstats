@@ -342,7 +342,7 @@ do
     PROJ=kyverno             PROJDB=kyverno        PROJREPO="kyverno/kyverno"                 ORGNAME=Kyverno           PORT=3078 ICON=kyverno        GRAFSUFF=kyverno        GA="UA-145264316-39" ./devel/deploy_proj.sh || exit 97
   elif [ "$proj" = "gitopswg" ]
   then
-    PROJ=gitopswg            PROJDB=gitopswg       PROJREPO="gitops-working-group/gitops-working-group" ORGNAME="GitOps WG" PORT=3079 ICON=gitopswg   GRAFSUFF=gitopswg       GA="UA-145264316-40" ./devel/deploy_proj.sh || exit 98
+    PROJ=gitopswg            PROJDB=gitopswg       PROJREPO="cncf/tag-app-delivery"           ORGNAME="GitOps WG" PORT=3079 ICON=gitopswg   GRAFSUFF=gitopswg       GA="UA-145264316-40" ./devel/deploy_proj.sh || exit 98
   elif [ "$proj" = "piraeus" ]
   then
     PROJ=piraeus             PROJDB=piraeus        PROJREPO="piraeusdatastore/piraeus-operator" ORGNAME=Piraeus-Datastore PORT=3080 ICON=piraeus      GRAFSUFF=piraeus        GA="UA-145264316-41" ./devel/deploy_proj.sh || exit 99
@@ -483,7 +483,7 @@ do
     PROJ=openfunction        PROJDB=openfunction   PROJREPO="OpenFunction/OpenFunction"       ORGNAME=OpenFunction      PORT=3125 ICON=openfunction   GRAFSUFF=openfunction   GA="UA-145264316-86" ./devel/deploy_proj.sh || exit 44
   elif [ "$proj" = "teller" ]
   then
-    PROJ=teller              PROJDB=teller         PROJREPO="SpectralOps/teller"              ORGNAME=Teller            PORT=3126 ICON=teller         GRAFSUFF=teller         GA="UA-145264316-87" ./devel/deploy_proj.sh || exit 45
+    PROJ=teller              PROJDB=teller         PROJREPO="tellerops/teller"                ORGNAME=Teller            PORT=3126 ICON=teller         GRAFSUFF=teller         GA="UA-145264316-87" ./devel/deploy_proj.sh || exit 45
   elif [ "$proj" = "sealer" ]
   then
     PROJ=sealer              PROJDB=sealer         PROJREPO="sealerio/sealer"                 ORGNAME=sealer            PORT=3127 ICON=sealer         GRAFSUFF=sealer         GA="UA-145264316-88" ./devel/deploy_proj.sh || exit 46

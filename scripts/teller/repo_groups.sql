@@ -31,7 +31,8 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'Teller', alias = 'Teller'
 where name in (
-  'SpectralOps/teller'
+  'SpectralOps/teller',
+  'tellerops/teller'
 );
 
 select

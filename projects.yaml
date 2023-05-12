@@ -1136,12 +1136,12 @@ projects:
     name: GitOps WG
     status: Sandbox
     command_line:
-      - 'gitops-working-group'
-    start_date: 2020-11-19T00:00:00Z
+      - 'gitops-working-group,cncf/tag-app-delivery'
+    start_date: 2019-06-07T00:00:00Z
     join_date: 2020-12-17T00:00:00Z
     psql_db: gitopswg
     shared_db: allprj
-    main_repo: 'gitops-working-group/gitops-working-group'
+    main_repo: 'cncf/tag-app-delivery'
     annotation_regexp: ''
     files_skip_pattern: ''
   piraeus:
@@ -1748,12 +1748,12 @@ projects:
     name: Teller
     status: Sandbox
     command_line:
-      - 'SpectralOps/teller,SpectralOps/helm-teller,SpectralOps/setup-teller-action'
+      - 'tellerops,SpectralOps/setup-teller-action'
     start_date: 2021-03-24T00:00:00Z
     join_date: 2022-04-26T00:00:00Z
     psql_db: teller
     shared_db: allprj
-    main_repo: SpectralOps/teller
+    main_repo: tellerops/teller
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   sealer:
@@ -2395,7 +2395,7 @@ projects:
          inclavare-containers,superedge,cilium,dapr,openelb,kubescape,inspektor-gadget,\
          open-cluster-management-io,vscode-kubernetes-tools,nocalhost,kubearmor,\
          meshery,service-mesh-performance,knative,knative-sandbox,FabEdge,krator-rs,\
-         confidential-containers,SpectralOps/teller,SpectralOps/helm-teller,\
+         confidential-containers,tellerops,cncf/tag-app-delivery,\
          SpectralOps/setup-teller-action,OpenFunction,sealerio,clusterpedia-io,\
          kubecost,aeraki-mesh,opencurve,open-feature,kubewarden,devstream-io,kubevela,\
          hexa-org,konveyor,armadaproject,external-secrets,Serverless-Devs,devspace-sh,\

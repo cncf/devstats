@@ -873,7 +873,11 @@ set
   repo_group = 'GitOps WG'
 where
   org_login in ('gitops-working-group')
-  or name in ('fluxcd/gitops-working-group')
+  or name in (
+    'fluxcd/gitops-working-group',
+    'cncf/tag-app-delivery',
+    'cncf/sig-app-delivery'
+  )
 ;
 
 -- Piraeus-Datastore
@@ -1325,7 +1329,8 @@ update
 set
   repo_group = 'Teller'
 where
-  name in (
+  org_login in ('tellerops')
+  or name in (
     'SpectralOps/teller',
     'SpectralOps/helm-teller',
     'SpectralOps/setup-teller-action'
