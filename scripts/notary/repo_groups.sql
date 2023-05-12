@@ -28,6 +28,7 @@ where
 ;
 update gha_repos set repo_group = alias;
 
+/*
 update gha_repos
 set repo_group = 'Notary', alias = 'Notary'
 where name in (
@@ -42,6 +43,7 @@ where name in (
   'notaryproject/notation',
   'notaryproject/nv2'
 );
+*/
 
 select
   repo_group,

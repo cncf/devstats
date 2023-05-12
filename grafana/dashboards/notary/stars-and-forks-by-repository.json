@@ -536,8 +536,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Notary V2",
-          "value": "Notary V2"
+          "text": "notaryproject/notation",
+          "value": "notaryproject/notation"
         },
         "datasource": {
           "type": "postgres",
