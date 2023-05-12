@@ -2394,7 +2394,7 @@ projects:
          oras-project,krustlet,wasmCloud,project-akri,metallb,karmada-io,clusternet,\
          inclavare-containers,superedge,cilium,dapr,openelb,kubescape,inspektor-gadget,\
          open-cluster-management-io,vscode-kubernetes-tools,nocalhost,kubearmor,\
-         meshery,service-mesh-performance,knative,knative-sandbox,FabEdge,\
+         meshery,service-mesh-performance,knative,knative-sandbox,FabEdge,krator-rs,\
          confidential-containers,SpectralOps/teller,SpectralOps/helm-teller,\
          SpectralOps/setup-teller-action,OpenFunction,sealerio,clusterpedia-io,\
          kubecost,aeraki-mesh,opencurve,open-feature,kubewarden,devstream-io,kubevela,\
