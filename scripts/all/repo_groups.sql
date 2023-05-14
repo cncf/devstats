@@ -1661,7 +1661,9 @@ where
   org_login in ('cncf', 'crosscloudci', 'cdfoundation')
   and name not in (
     'cncf/hub',
-    'cncf/wg-serverless-workflow'
+    'cncf/wg-serverless-workflow',
+    'cncf/sig-app-delivery',
+    'cncf/tag-app-delivery'
   )
 ;
 
