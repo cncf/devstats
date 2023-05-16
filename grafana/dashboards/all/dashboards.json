@@ -46,7 +46,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 11,
-  "iteration": 1684216774485,
+  "iteration": 1684217634535,
   "links": [
     {
       "icon": "dashboard",
@@ -1645,9 +1645,10 @@
           "custom": {
             "axisLabel": "Activity",
             "axisPlacement": "auto",
+            "axisSoftMin": 1,
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 30,
+            "fillOpacity": 40,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -1658,7 +1659,8 @@
             "lineWidth": 0,
             "pointSize": 2,
             "scaleDistribution": {
-              "type": "linear"
+              "log": 10,
+              "type": "log"
             },
             "showPoints": "always",
             "spanNulls": false,
@@ -1710,7 +1712,8 @@
             "lastNotNull",
             "max",
             "min",
-            "sum"
+            "sum",
+            "firstNotNull"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -1720,7 +1723,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "8.5.24",
+      "pluginVersion": "8.5.25",
       "targets": [
         {
           "alias": "",
@@ -1780,7 +1783,7 @@
         "content": "Please report any bugs by opening an issue on <a href=\"https://github.com/cncf/devstats\">https://github.com/cncf/devstats</a>",
         "mode": "html"
       },
-      "pluginVersion": "8.5.24",
+      "pluginVersion": "8.5.25",
       "transparent": true,
       "type": "text"
     },
@@ -1802,7 +1805,7 @@
         "content": "${projects:raw}",
         "mode": "html"
       },
-      "pluginVersion": "8.5.24",
+      "pluginVersion": "8.5.25",
       "title": "[[full_name]] Projects",
       "type": "text"
     },
@@ -1984,7 +1987,7 @@
     ]
   },
   "time": {
-    "from": "now-30d",
+    "from": "now-60d",
     "to": "now-1h"
   },
   "timepicker": {
