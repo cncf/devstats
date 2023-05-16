@@ -46,7 +46,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 11,
-  "iteration": 1683781029142,
+  "iteration": 1684216774485,
   "links": [
     {
       "icon": "dashboard",
@@ -1654,9 +1654,9 @@
               "tooltip": false,
               "viz": false
             },
-            "lineInterpolation": "linear",
+            "lineInterpolation": "smooth",
             "lineWidth": 0,
-            "pointSize": 4,
+            "pointSize": 2,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -2017,6 +2017,6 @@
   "timezone": "",
   "title": "Dashboards",
   "uid": "8",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
