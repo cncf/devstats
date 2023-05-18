@@ -1643,6 +1643,57 @@ where
   org_login in ('keycloak')
 ;
 
+-- SOPS
+update
+  gha_repos
+set
+  repo_group = 'SOPS'
+where
+  name in (
+    'mozilla/sops',
+    'mozilla/sotp',
+    'mozilla-services/sops'
+  )
+;
+
+-- Headlamp
+update
+  gha_repos
+set
+  repo_group = 'Headlamp'
+where
+  org_login in ('headlamp-k8s')
+  or name in ('kinvolk/headlamp')
+;
+
+-- SlimToolkit
+update
+  gha_repos
+set
+  repo_group = 'SlimToolkit'
+where
+  org_login in ('slimtoolkit', 'docker-slim')
+  or name in ('cloudimmunity/docker-slim')
+;
+
+-- Kepler
+update
+  gha_repos
+set
+  repo_group = 'kepler'
+where
+  org_login in ('sustainable-computing-io')
+;
+
+-- PipeCD
+update
+  gha_repos
+set
+  repo_group = 'PipeCD'
+where
+  org_login in ('pipe-cd')
+;
+
 -- Confidential Containers
 update
   gha_repos
