@@ -1827,13 +1827,13 @@
         "showStarred": false,
         "tags": [
           "dashboard",
-          "capsule"
+          "headlamp"
         ]
       },
       "pluginVersion": "8.5.11",
       "tags": [
         "dashboard",
-        "capsule"
+        "headlamp"
       ],
       "title": "All [[full_name]] Dashboards",
       "type": "dashlist"
@@ -1866,7 +1866,7 @@
   "tags": [
     "home",
     "all",
-    "capsule"
+    "headlamp"
   ],
   "templating": {
     "list": [

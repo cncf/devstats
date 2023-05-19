@@ -1787,7 +1787,7 @@
       "starred": false,
       "tags": [
         "dashboard",
-        "dex"
+        "slimtoolkit"
       ],
       "title": "All [[full_name]] Dashboards",
       "transparent": false,
@@ -1814,7 +1814,7 @@
   "tags": [
     "home",
     "all",
-    "dex"
+    "slimtoolkit"
   ],
   "templating": {
     "list": [

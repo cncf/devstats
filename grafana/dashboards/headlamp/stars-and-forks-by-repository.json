@@ -508,7 +508,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "capsule"
+    "headlamp"
   ],
   "templating": {
     "list": [
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "capsule",
-          "value": "capsule"
+          "text": "headlamp",
+          "value": "headlamp"
         },
         "datasource": {
           "type": "postgres",

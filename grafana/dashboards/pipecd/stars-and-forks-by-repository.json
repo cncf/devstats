@@ -508,7 +508,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "capsule"
+    "pipecd"
   ],
   "templating": {
     "list": [
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "capsule",
-          "value": "capsule"
+          "text": "pipecd",
+          "value": "pipecd"
         },
         "datasource": {
           "type": "postgres",

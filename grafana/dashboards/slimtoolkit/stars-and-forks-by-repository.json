@@ -482,7 +482,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "dex"
+    "slimtoolkit"
   ],
   "templating": {
     "list": [
@@ -540,8 +540,8 @@
       {
         "allValue": null,
         "current": {
-          "text": "dex",
-          "value": "dex"
+          "text": "slimtoolkit",
+          "value": "slimtoolkit"
         },
         "datasource": "psql",
         "definition": "",

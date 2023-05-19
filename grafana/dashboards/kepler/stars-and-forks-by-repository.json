@@ -508,7 +508,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "capsule"
+    "kepler"
   ],
   "templating": {
     "list": [
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "capsule",
-          "value": "capsule"
+          "text": "kepler",
+          "value": "kepler"
         },
         "datasource": {
           "type": "postgres",
