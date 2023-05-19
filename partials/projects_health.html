@@ -97,8 +97,8 @@ col:last-child {background: #000;}
         <td colspan="20" class="cncf-sep only-full">Graduated: 20</td>
         testsrv=[[hostname]] <td colspan="40" class="cncf-sep only-full">Incubating: 38</td> [[hostname]]=testsrv
         prodsrv=[[hostname]] <td colspan="38" class="cncf-sep only-full">Incubating: 38</td> [[hostname]]=prodsrv
-        testsrv=[[hostname]] <td colspan="99" class="cncf-sep only full">Sandbox: 98</td> [[hostname]]=testsrv
-        prodsrv=[[hostname]] <td colspan="98" class="cncf-sep only-full">Sandbox: 98</td> [[hostname]]=prodsrv
+        testsrv=[[hostname]] <td colspan="99" class="cncf-sep only full">Sandbox: 103</td> [[hostname]]=testsrv
+        prodsrv=[[hostname]] <td colspan="98" class="cncf-sep only-full">Sandbox: 103</td> [[hostname]]=prodsrv
         testsrv=[[hostname]] <td colspan="1" class="cncf-sep only-full">CNCF</td> [[hostname]]=testsrv
         testsrv=[[skip]] <td colspan="3" class="cncf-sep only-full">Other</td> [[skip]]=testsrv
         <td class="cncf-sep">Metric</td>
@@ -264,7 +264,12 @@ col:last-child {background: #000;}
         <td><a href="https://werf.[[hostname]]" target="_blank">werf</a></td>
         <td><a href="https://kubescape.[[hostname]]" target="_blank">Kubescape</a></td>
         <td><a href="https://inspektorgadget.[[hostname]]" target="_blank">Inspektor Gadget</a></td>
-        <td class="cncf-br"><a href="https://clusternet.[[hostname]]" target="_blank">Clusternet</a></td>
+        <td><a href="https://clusternet.[[hostname]]" target="_blank">Clusternet</a></td>
+        <td><a href="https://sops.[[hostname]]" target="_blank">SOPS</a></td>
+        <td><a href="https://headlamp.[[hostname]]" target="_blank">Headlamp</a></td>
+        <td><a href="https://slimtoolkit.[[hostname]]" target="_blank">SlimToolkit</a></td>
+        <td><a href="https://kepler.[[hostname]]" target="_blank">Kepler</a></td>
+        <td class="cncf-br"><a href="https://pipecd.[[hostname]]" target="_blank">PipeCD</a></td>
         testsrv=[[hostname]] <td class="cncf-bl cncf-br"><a href="https://cncf.[[hostname]]" target="_blank">CNCF</a></td> [[hostname]]=testsrv
         testsrv=[[skip]] <td class="cncf-bl"><a href="https://opencontainers.[[skip]]" target="_blank">OCI</a></td> [[skip]]=testsrv
         testsrv=[[skip]] <td><a href="https://spinnaker.[[skip]]" target="_blank">Spinnaker</a></td> [[skip]]=testsrv
@@ -430,7 +435,12 @@ col:last-child {background: #000;}
         <td class="cncf-bb"><a href="https://werf.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/werf.svg" alt="werf" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://kubescape.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/kubescape.svg" alt="Kubescape" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://inspektorgadget.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/inspektorgadget.svg" alt="Inspektor Gadget" height="80" width="80" /></a></td>
-        <td class="cncf-bb cncf-br"><a href="https://clusternet.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/clusternet.svg" alt="Clusternet" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://clusternet.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/clusternet.svg" alt="Clusternet" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://sops.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/sops.svg" alt="SOPS" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://headlamp.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/headlamp.svg" alt="Headlamp" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://slimtoolkit.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/slimtoolkit.svg" alt="SlimToolkit" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://kepler.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/kepler.svg" alt="Kepler" height="80" width="80" /></a></td>
+        <td class="cncf-bb cncf-br"><a href="https://pipecd.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/pipecd.svg" alt="PipeCD" height="80" width="80" /></a></td>
         testsrv=[[hostname]] <td class="cncf-bb cncf-bl cncf-br"><a href="https://cncf.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/cncf.svg" alt="CNCF" height="80" width="80" /></a></td> [[hostname]]=testsrv
         testsrv=[[skip]] <td class="cncf-bb cncf-bl"><a href="https://opencontainers.[[skip]]" target="_blank"><img class="cncf-proj" src="https://[[skip]]/img/opencontainers.svg" alt="OCI" height="80" width="80" /></a></td> [[skip]]=testsrv
         testsrv=[[skip]] <td class="cncf-bb"><a href="https://spinnaker.[[skip]]" target="_blank"><img class="cncf-proj" src="https://[[skip]]/img/spinnaker.svg" alt="Spinnaker" height="80" width="80" /></a></td> [[skip]]=testsrv
@@ -597,7 +607,12 @@ col:last-child {background: #000;}
         <td class="cncf-bb">metrics:series:phealthwerf:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthkubescape:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthinspektorgadget:loop:1:i:2</td>
-        <td class="cncf-bb cncf-br">metrics:series:phealthclusternet:loop:1:i:2</td>
+        <td class="cncf-bb">metrics:series:phealthclusternet:loop:1:i:2</td>
+        <td class="cncf-bb">metrics:series:phealthsops:loop:1:i:2</td>
+        <td class="cncf-bb">metrics:series:phealthheadlamp:loop:1:i:2</td>
+        <td class="cncf-bb">metrics:series:phealthslimtoolkit:loop:1:i:2</td>
+        <td class="cncf-bb">metrics:series:phealthkepler:loop:1:i:2</td>
+        <td class="cncf-bb cncf-br">metrics:series:phealthpipecd:loop:1:i:2</td>
         testsrv=[[hostname]] <td class="cncf-bb cncf-bl cncf-br">metrics:series:phealthcncf:loop:1:i:2</td> [[hostname]]=testsrv
         testsrv=[[skip]] <td class="cncf-bb cncf-bl">metrics:series:phealthopencontainers:loop:1:i:2</td> [[skip]]=testsrv
         testsrv=[[skip]] <td class="cncf-bb">metrics:series:phealthspinnaker:loop:1:i:2</td> [[skip]]=testsrv
