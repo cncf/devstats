@@ -580,6 +580,21 @@ do
   elif [ "$proj" = "keycloak" ]
   then
     PROJ=keycloak            PROJDB=keycloak       PROJREPO="keycloak/keycloak"               ORGNAME=Keycloak          PORT=3234 ICON=keycloak       GRAFSUFF=keycloak       GA="UA-241436121-19" ./devel/deploy_proj.sh || exit 159
+  elif [ "$proj" = "sops" ]
+  then
+    PROJ=sops                PROJDB=sops           PROJREPO="mozilla/sops"                    ORGNAME=SOPS              PORT=3235 ICON=soprs          GRAFSUFF=sops           GA="UA-241436121-20" ./devel/deploy_proj.sh || exit 160
+  elif [ "$proj" = "headlamp" ]
+  then
+    PROJ=headlamp            PROJDB=headlamp       PROJREPO="headlamp-k8s/headlamp"           ORGNAME=Headlamp          PORT=3236 ICON=headlamp       GRAFSUFF=headlamp       GA="UA-241436121-21" ./devel/deploy_proj.sh || exit 161
+  elif [ "$proj" = "slimtoolkit" ]
+  then
+    PROJ=slimtoolkit         PROJDB=slimtoolkit    PROJREPO="slimtoolkit/slim"                ORGNAME=SlimToolkit       PORT=3237 ICON=slimtoolkit    GRAFSUFF=slimtoolkit    GA="UA-241436121-22" ./devel/deploy_proj.sh || exit 162
+  elif [ "$proj" = "kepler" ]
+  then
+    PROJ=kepler              PROJDB=kepler         PROJREPO="sustainable-computing-io/kepler" ORGNAME=Kepler            PORT=3238 ICON=kepler         GRAFSUFF=kepler         GA="UA-241436121-23" ./devel/deploy_proj.sh || exit 163
+  elif [ "$proj" = "pipecd" ]
+  then
+    PROJ=pipecd              PROJDB=pipecd         PROJREPO="pipe-cd/pipecd"                  ORGNAME=PipeCD            PORT=3239 ICON=pipecd         GRAFSUFF=pipecd         GA="UA-241436121-24" ./devel/deploy_proj.sh || exit 164
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="UA-108085315-19" ./devel/deploy_proj.sh || exit 32
