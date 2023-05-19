@@ -66,6 +66,7 @@ graphqljs,graphql/graphql-js
 graphqlspec,graphql/graphql-spec,facebook/graphql
 grpc,grpc
 harbor,goharbor,vmware/harbor
+headlamp,headlamp-k8s,kinvolk/headlamp
 helm,helm,kubernetes-helm,kubernetes-charts,kubernetes/helm,kubernetes/charts,kubernetes/deployment-manager,kubernetes/application-dm-templates
 hexapolicyorchestrator,hexa-org
 hyperledger,hyperledger,hyperledger-labs,hyperledger-cicd
@@ -84,6 +85,7 @@ k8gb,k8gb-io,AbsaOSS/k8gb,AbsaOSS/ohmyglb
 k8up,k8up-io,vshn/k8up
 karmada,karmada-io
 keda,kedacore,tomkerkhove/sample-dotnet-queue-worker,tomkerkhove/sample-dotnet-queue-worker-servicebus-queue,tomkerkhove/sample-dotnet-worker-servicebus-queue
+kepler,sustainable-computing-io
 keptn,keptn
 keycloak,keycloak
 keylime,keylime,mit-ll/python-keylime,mit-ll/keylime
@@ -152,6 +154,7 @@ ortelius,ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-s
 p4lang,p4lang
 paralus,paralus
 parsec,parallaxsecond,docker/pasl
+pipecd,pipe-cd
 piraeus,piraeusdatastore
 pixie,regexp:(?i)^(pixie-labs\/(.*pixie.*|.*px.*|grafana-plugin)|pixie-io\/.*)$
 porter,getporter
@@ -170,7 +173,9 @@ serverlessdevs,Serverless-Devs,ServerlessTool
 serverlessworkflow,serverlessworkflow,cncf/wg-serverless-workflow
 servicemeshperformance,regexp:(?i)^(layer5io\/.*(service-mesh|performance|benchmark)|service-mesh-performance\/.*)
 shipwright,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator
+slimtoolkit,slimtoolkit,docker-slim,cloudimmunity/docker-slim
 smi,servicemeshinterface,deislabs/smi-spec,deislabs/smi-sdk-go,deislabs/smi-metrics,deislabs/smi-adapter-istio,deislabs/smi-spec.io
+sops,mozilla/sops,mozilla/sotp,mozilla-services/sops
 spiffe,spiffe
 spinnaker,spinnaker
 spire,regexp:(?i)^(spiffe\/spire.*)$
