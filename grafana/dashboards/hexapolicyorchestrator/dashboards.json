@@ -1623,6 +1623,56 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "SOPS",
+      "tooltip": "Opens SOPS projects dashboards",
+      "type": "link",
+      "url": "https://sops.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Headlamp",
+      "tooltip": "Opens Headlamp projects dashboards",
+      "type": "link",
+      "url": "https://headlamp.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "SlimToolkit",
+      "tooltip": "Opens SlimToolkit projects dashboards",
+      "type": "link",
+      "url": "https://slimtoolkit.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kepler",
+      "tooltip": "Opens Kepler projects dashboards",
+      "type": "link",
+      "url": "https://kepler.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "PipeCD",
+      "tooltip": "Opens PipeCD projects dashboards",
+      "type": "link",
+      "url": "https://pipecd.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
