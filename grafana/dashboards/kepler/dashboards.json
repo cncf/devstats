@@ -46,7 +46,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 10,
-  "iteration": 1684506960681,
+  "iteration": 1684506986069,
   "links": [
     {
       "icon": "dashboard",
@@ -1855,7 +1855,7 @@
       },
       "description": "https://github.com/cncf/devstats",
       "gridPos": {
-        "h": 43,
+        "h": 45,
         "w": 24,
         "x": 0,
         "y": 72
@@ -1897,7 +1897,7 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 115
+        "y": 117
       },
       "id": 6,
       "links": [],
@@ -1905,7 +1905,7 @@
         "content": "${docs:raw}",
         "mode": "html"
       },
-      "pluginVersion": "8.5.11",
+      "pluginVersion": "8.5.25",
       "title": "Dashboard documentation",
       "type": "text"
     }
@@ -2059,6 +2059,6 @@
   "timezone": "",
   "title": "Dashboards",
   "uid": "8",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
