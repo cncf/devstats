@@ -1680,7 +1680,7 @@ where
 update
   gha_repos
 set
-  repo_group = 'kepler'
+  repo_group = 'Kepler'
 where
   org_login in ('sustainable-computing-io')
 ;
