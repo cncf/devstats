@@ -1,12 +1,18 @@
 ---
 metrics:
-  - name: Users stats
-    series_name_or_func: multi_row_multi_column
-    sqls: [user_activity, user_activity_commits, user_activity_issues, user_activity_prs]
-    periods: d,w,m,q,y
-    aggregate: 1,7
-    skip: w7,m7,q7,y7
-    multi_value: true
-    merge_series: user_activity
-    drop: suser_activity
+  - name: PRs authors histogram
+    histogram: true
+    annotations_ranges: true
+    series_name_or_func: multi_row_single_column
+    sql: hist_pr_authors
+    merge_series: hpr_auth
+  - name: Developer summary
+    sql: project_developer_stats
+    series_name_or_func: multi_row_single_column
+    histogram: true
+    annotations_ranges: true
     allow_fail: true
+    wait_after_fail: 300
+    merge_series: hdev
+    env:
+      GHA2DB_NCPUS?: 2

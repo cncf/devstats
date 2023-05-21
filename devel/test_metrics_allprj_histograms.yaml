@@ -1,0 +1,47 @@
+---
+metrics:
+  - name: Top commenters
+    histogram: true
+    annotations_ranges: true
+    series_name_or_func: multi_row_single_column
+    sql: hist_commenters
+    merge_series: htop_commenters
+  - name: PRs authors histogram
+    histogram: true
+    annotations_ranges: true
+    series_name_or_func: multi_row_single_column
+    sql: hist_pr_authors
+    merge_series: hpr_auth
+  - name: PRs authors companies histogram
+    histogram: true
+    annotations_ranges: true
+    series_name_or_func: multi_row_single_column
+    sql: hist_pr_companies
+    merge_series: hpr_comps
+  - name: Project statistics
+    histogram: true
+    annotations_ranges: true
+    series_name_or_func: multi_row_single_column
+    sql: project_stats
+    merge_series: pstat
+  - name: Companies summary
+    sqls: [project_company_stats, doc_committers_hist]
+    series_name_or_func: multi_row_single_column
+    histogram: true
+    annotations_ranges: true
+    merge_series: hcom
+  - name: Developer summary
+    sql: project_developer_stats
+    series_name_or_func: multi_row_single_column
+    histogram: true
+    annotations_ranges: true
+    allow_fail: true
+    wait_after_fail: 300
+    merge_series: hdev
+    env:
+      GHA2DB_NCPUS?: 4
+  - name: Company PRs in repository groups
+    sql: company_prs
+    series_name_or_func: company_prs
+    histogram: true
+    annotations_ranges: true
