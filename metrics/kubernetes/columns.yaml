@@ -1,6 +1,6 @@
 ---
 columns:
-  - table_regexp: '^(ssig_pr_wl|ssig_prs_open|sawaiting_prs|sinactive_prs|sinactive_issues|spr_workload_repos)'
+  - table_regexp: '^(ssig_pr_wl|ssig_prs_open|sawaiting_prs|sinactive_prs|sinactive_issues|spr_workload)'
     tag: tsig_mentions_labels
     column: sig_mentions_labels_name
   - table_regexp: '^sgh_stats_rgrp$'
@@ -12,7 +12,7 @@ columns:
   - table_regexp: '^sgh_stats_r$'
     tag: ttop_repo_names
     column: top_repo_names_name
-  - table_regexp: '^sbot_commands$'
+  - table_regexp: '^sbot_commands(_repos)?$'
     tag: tbot_commands
     column: bot_command_name
   - table_regexp: '^scompany_activity(_repos)?$'
