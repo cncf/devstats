@@ -15,7 +15,7 @@ columns:
   - table_regexp: '^sbot_commands$'
     tag: tbot_commands
     column: bot_command_name
-  - table_regexp: '^scompany_activity$'
+  - table_regexp: '^scompany_activity(_repos)?$'
     tag: tcompanies
     column: companies_name
   - table_regexp: '^suser_reviews$'
