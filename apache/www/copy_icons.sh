@@ -194,6 +194,11 @@ do
     convert "$HOME/dev/cdfoundation/artwork/pyrsia/artwork/logo.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
     cp "$HOME/dev/cdfoundation/artwork/pyrsia/artwork/logo.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
     continue
+  elif [ "$icon" = "aerakimesh" ]
+  then
+    convert "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/AerakiMesh_icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 22
+    cp "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/AerakiMesh_icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 23
+    continue
   fi
 done
 
