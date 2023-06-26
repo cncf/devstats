@@ -378,10 +378,10 @@ projects:
         to: 2017-10-01T00:00:00Z
         n: 1
         expected:
-          - ["user;All`all;activity,pushes,comments,contributions", '540.00', '90.00', '270.00', '540.00']
-          - ["user;A1`all;activity,pushes,comments,contributions", '180.00', '30.00', '90.00', '180.00']
-          - ["user;A2`all;activity,pushes,comments,contributions", '180.00', '30.00', '90.00', '180.00']
-          - ["user;A3`all;activity,pushes,comments,contributions", '180.00', '30.00', '90.00', '180.00']
+          - ["user;All`all;activity,pushes,reviews,comments,contributions", '540.00', '90.00', '0.00', '270.00', '540.00']
+          - ["user;A1`all;activity,pushes,reviews,comments,contributions", '180.00', '30.00', '0.00', '90.00', '180.00']
+          - ["user;A2`all;activity,pushes,reviews,comments,contributions", '180.00', '30.00', '0.00', '90.00', '180.00']
+          - ["user;A3`all;activity,pushes,reviews,comments,contributions", '180.00', '30.00', '0.00', '90.00', '180.00']
         replaces:
           - ["created_at > now() - '3 months'::interval", true]
         data: KubernetesOnlyActorsMetric
@@ -424,11 +424,11 @@ projects:
         to: 2017-10-01T00:00:00Z
         n: 1
         expected:
-          - ["company;All`all;activity,authors,issues,prs,pushers,pushes,comments,contributions,contributors", '540.00', 3, '90.00', '90.00', 3, '90.00', '270.00', '540.00', 3]
-          - ["company;company3`all;activity,authors,issues,prs,pushers,pushes,comments,contributions,contributors", '144.00', 3, '24.00', '24.00', 3, '24.00', '72.00', '144.00', 3]
-          - ["company;company1`all;activity,authors,issues,prs,pushers,pushes,comments,contributions,contributors", '360.00', 2, '60.00', '60.00', 2, '60.00', '180.00', '360.00', 2]
-          - ["company;company2`all;activity,authors,issues,prs,pushers,pushes,comments,contributions,contributors", '108.00', 2, '18.00', '18.00', 2, '18.00', '54.00', '108.00', 2]
-          - ["company;company4`all;activity,authors,issues,prs,pushers,pushes,comments,contributions,contributors", '96.00', 2, '16.00', '16.00', 2, '16.00', '48.00', '96.00', 2]
+          - ["company;All`all;activity,authors,issues,prs,pushers,pushes,reviews,comments,contributions,contributors", '540.00', 3, '90.00', '90.00', 3, '90.00', '0.00', '270.00', '540.00', 3]
+          - ["company;company3`all;activity,authors,issues,prs,pushers,pushes,reviews,comments,contributions,contributors", '144.00', 3, '24.00', '24.00', 3, '24.00', '0.00', '72.00', '144.00', 3]
+          - ["company;company1`all;activity,authors,issues,prs,pushers,pushes,reviews,comments,contributions,contributors", '360.00', 2, '60.00', '60.00', 2, '60.00', '0.00', '180.00', '360.00', 2]
+          - ["company;company2`all;activity,authors,issues,prs,pushers,pushes,reviews,comments,contributions,contributors", '108.00', 2, '18.00', '18.00', 2, '18.00', '0.00', '54.00', '108.00', 2]
+          - ["company;company4`all;activity,authors,issues,prs,pushers,pushes,reviews,comments,contributions,contributors", '96.00', 2, '16.00', '16.00', 2, '16.00', '0.00', '48.00', '96.00', 2]
         data: KubernetesAffiliationsMetric
         replaces:
         - ["e.created_at > now() - '3 years'::interval", true]
@@ -795,6 +795,8 @@ projects:
           - ["hcom,Issues", "Company2", 2]
           - ["hcom,PR creators", "All", 1]
           - ["hcom,PR creators", "Company1", 1]
+          - ["hcom,PR reviewer commenters", "All", 1]
+          - ["hcom,PR reviewer commenters", "Company2", 1]
           - ["hcom,PR reviewers", "All", 1]
           - ["hcom,PR reviewers", "Company2", 1]
           - ["hcom,PRs", "All", 2]
