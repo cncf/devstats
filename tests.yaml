@@ -733,8 +733,9 @@ projects:
           - ['pstat,Group1', 'Issues', 2]
           - ['pstat,All', 'PR creators', 1]
           - ['pstat,Group2', 'PR creators', 1]
-          - ['pstat,All', 'PR reviewers', 1]
-          - ['pstat,Group1', 'PR reviewers', 1]
+          - ['pstat,All PR review commenters', 1]
+          - ['pstat,Group1 PR review commenters', 1]
+          - ['pstat,All PR reviews', 0]
           - ['pstat,All', 'PRs', 2]
           - ['pstat,Group2', 'PRs', 1]
           - ['pstat,All', 'Pushers', 1]
@@ -744,8 +745,8 @@ projects:
           - ['pstat,All', 'Repositories', 4]
           - ['pstat,Group1', 'Repositories', 2]
           - ['pstat,Group2', 'Repositories', 1]
-          - ['pstat,All', 'Stargazers', 1]
-          - ['pstat,Group1', 'Stargazers', 1]
+          - ['pstat,All', 'Stargazers/Watchers', 1]
+          - ['pstat,Group1', 'Stargazers/Watchers', 1]
         data: KubernetesProjectStatsMetric
       - metric: project_company_stats
         additional_setup_funcs:
@@ -797,8 +798,6 @@ projects:
           - ["hcom,PR creators", "Company1", 1]
           - ["hcom,PR reviewer commenters", "All", 1]
           - ["hcom,PR reviewer commenters", "Company2", 1]
-          - ["hcom,PR reviewers", "All", 1]
-          - ["hcom,PR reviewers", "Company2", 1]
           - ["hcom,PRs", "All", 2]
           - ["hcom,PRs", "Company1", 2]
           - ["hcom,Pushers", "All", 1]
