@@ -3,7 +3,7 @@ module github.com/cncf/devstats
 go 1.20
 
 require (
-	github.com/cncf/devstatscode v0.7.1-0.20230602090243-23d89fe84114
+	github.com/cncf/devstatscode master
 	gopkg.in/yaml.v2 v2.4.0
 )
 
