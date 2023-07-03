@@ -49,6 +49,7 @@ distribution,distribution,docker/distribution
 dragonfly,dragonflyoss,alibaba/Dragonfly
 emissaryingress,emissary-ingress,datawire/ambassador
 envoy,envoyproxy,lyft/envoy
+eraser,regexp:(?i)^Azure\/.*eraser.*$
 etcd,coreos/etcd,etcd,etcd-io
 expressgraphql,graphql/express-graphql
 externalsecretsoperator,external-secrets
@@ -69,6 +70,7 @@ harbor,goharbor,vmware/harbor
 headlamp,headlamp-k8s,kinvolk/headlamp
 helm,helm,kubernetes-helm,kubernetes-charts,kubernetes/helm,kubernetes/charts,kubernetes/deployment-manager,kubernetes/application-dm-templates
 hexapolicyorchestrator,hexa-org
+hwameistor,hwameistor
 hyperledger,hyperledger,hyperledger-labs,hyperledger-cicd
 inclavarecontainers,inclavare-containers,alibaba/inclavare-containers
 ingraind,ingraind,foniod,redsift/ingraind
@@ -92,9 +94,11 @@ keylime,keylime,mit-ll/python-keylime,mit-ll/keylime
 knative,knative,knative-sandbox
 ko,ko-build,google/ko
 konveyor,konveyor,fusor/mig-operator
+kpt,regexp:(?i)^GoogleContainerTools\/.*kpt.*$
 krator,krator-rs
 krustlet,deislabs/krustlet,krustlet
 kubearmor,kubearmor,accuknox/KubeArmor
+kubeclipper,kubeclipper,kubeclipper-labs
 kubedl,kubedl-io,alibaba/kubedl
 kubeedge,kubeedge
 kubeflow,kubeflow,google/kubeflow
@@ -120,6 +124,7 @@ merbridge,merbridge,kebe7jun/mepf,kebe7jun/mebpf
 meshery,regexp:(?i)^(layer5io\/.*meshery|meshery\/.*)
 metal3,metal3-io
 metallb,metallb,danderson/metallb,google/metallb
+microcks,microcks
 mininet,mininet
 nats,nats-io,apcera/nats,apcera/gnatsd
 networkservicemesh,networkservicemesh,NetworkServiceMesh,ligato/networkservicemesh
@@ -200,5 +205,6 @@ vscodek8stools,ivscode-kubernetes-tools,Azure/vscode-kubernetes-tools
 wasmcloud,wasmCloud,wascc,wascaruntime,waxosuit
 wasmedge,WasmEdge,second-state/SSVM
 werf,werf,flant/werf,flant/dapp,flant/dapper
+xline,xline-kv,datenlord/Xline
 zephyr,zephyrproject-rtos
 zot,project-zot,anuvu/zot
