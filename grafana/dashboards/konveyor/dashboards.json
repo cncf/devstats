@@ -621,6 +621,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Kubeflow",
+      "tooltip": "Opens Kubeflow projects dashboards",
+      "type": "link",
+      "url": "https://kubeflow.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -1655,6 +1665,66 @@
       "tooltip": "Opens PipeCD projects dashboards",
       "type": "link",
       "url": "https://pipecd.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Eraser",
+      "tooltip": "Opens Eraser projects dashboards",
+      "type": "link",
+      "url": "https://eraser.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Xline",
+      "tooltip": "Opens Xline projects dashboards",
+      "type": "link",
+      "url": "https://xline.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Hwameistor",
+      "tooltip": "Opens Hwameistor projects dashboards",
+      "type": "link",
+      "url": "https://hwameistor.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "kpt",
+      "tooltip": "Opens kpt projects dashboards",
+      "type": "link",
+      "url": "https://kpt.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Microcks",
+      "tooltip": "Opens Microcks projects dashboards",
+      "type": "link",
+      "url": "https://microcks.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kubeclipper",
+      "tooltip": "Opens Kubeclipper projects dashboards",
+      "type": "link",
+      "url": "https://kubeclipper.[[hostname]]"
     },
     {
       "icon": "dashboard",
