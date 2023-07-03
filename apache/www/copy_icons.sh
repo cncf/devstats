@@ -92,7 +92,7 @@ do
     icon="inspektor-gadget"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "sops" ] || [ "$icon" = "slimtoolkit" ] || [ "$icon" = "kepler" ] || [ "$icon" = "keycloak" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "capsule" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "eraser" ] || [ "$icon" = "xline" ] || [ "$icon" = "hwameistor" ] || [ "$icon" = "kpt" ] || [ "$icon" = "microcks" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "kubeflow" ] || [ "$icon" = "sops" ] || [ "$icon" = "slimtoolkit" ] || [ "$icon" = "kepler" ] || [ "$icon" = "keycloak" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "capsule" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -102,7 +102,7 @@ do
   if ( [ "$path" = "devstats" ] || [ "$path" = "cncf" ] || [ "$path" = "gitopswg" ] )
   then
     path="other/$icon"
-  elif ( [ "$icon" = "rkt" ] || [ "$icon" = "brigade" ] || [ "$icon" = "opentracing" ] )
+  elif ( [ "$icon" = "rkt" ] || [ "$icon" = "brigade" ] || [ "$icon" = "opentracing" ] || [ "$icon" = "openservicemesh" ]  )
   then
     path="archived/$icon"
   elif [ "$iconorg" = "cncf" ]
