@@ -595,6 +595,27 @@ do
   elif [ "$proj" = "pipecd" ]
   then
     PROJ=pipecd              PROJDB=pipecd         PROJREPO="pipe-cd/pipecd"                  ORGNAME=PipeCD            PORT=3239 ICON=pipecd         GRAFSUFF=pipecd         GA="UA-241436121-24" ./devel/deploy_proj.sh || exit 164
+  elif [ "$proj" = "eraser" ]
+  then
+    PROJ=eraser              PROJDB=eraser         PROJREPO="Azure/eraser"                    ORGNAME=Eraser            PORT=3240 ICON=eraser         GRAFSUFF=eraser         GA="UA-241436121-25" ./devel/deploy_proj.sh || exit 165
+  elif [ "$proj" = "xline" ]
+  then
+    PROJ=xline               PROJDB=xline          PROJREPO="xline-kv/Xline"                  ORGNAME=Xline             PORT=3241 ICON=xline          GRAFSUFF=xline          GA="UA-241436121-26" ./devel/deploy_proj.sh || exit 166
+  elif [ "$proj" = "hwameistor" ]
+  then
+    PROJ=hwameistor          PROJDB=hwameistor     PROJREPO="hwameistor/hwameistor"           ORGNAME=Hwameistor        PORT=3242 ICON=hwameistor     GRAFSUFF=hwameistor     GA="UA-241436121-27" ./devel/deploy_proj.sh || exit 167
+  elif [ "$proj" = "kpt" ]
+  then
+    PROJ=kpt                 PROJDB=kpt            PROJREPO="GoogleContainerTools/kpt"        ORGNAME=kpt               PORT=3243 ICON=kpt            GRAFSUFF=kpt            GA="UA-241436121-28" ./devel/deploy_proj.sh || exit 168
+  elif [ "$proj" = "microcks" ]
+  then
+    PROJ=microcks            PROJDB=microcks       PROJREPO="microcks/microcks"               ORGNAME=Microcks          PORT=3244 ICON=microcks       GRAFSUFF=microcks       GA="UA-241436121-29" ./devel/deploy_proj.sh || exit 169
+  elif [ "$proj" = "kubeclipper" ]
+  then
+    PROJ=kubeclipper         PROJDB=kubeclipper    PROJREPO="kubeclipper/kubeclipper"         ORGNAME=Kubeclipper       PORT=3245 ICON=kubeclipper    GRAFSUFF=kubeclipper    GA="UA-241436121-30" ./devel/deploy_proj.sh || exit 170
+  elif [ "$proj" = "kubeflow" ]
+  then
+    PROJ=kubeflow            PROJDB=kubeflow       PROJREPO="kubeflow/kubeflow"               ORGNAME=Kubeflow          PORT=3246 ICON=kubeflow       GRAFSUFF=kubeflow       GA="UA-241436121-31" ./devel/deploy_proj.sh || exit 171
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="UA-108085315-19" ./devel/deploy_proj.sh || exit 32
