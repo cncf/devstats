@@ -1313,6 +1313,15 @@ where
   or name like 'FabEdge/%'
 ;
 
+-- Confidential Containers
+update
+  gha_repos
+set
+  repo_group = 'Confidential Containers'
+where
+  org_login in ('confidential-containers')
+;
+
 -- OpenFunction
 update
   gha_repos
@@ -1694,13 +1703,69 @@ where
   org_login in ('pipe-cd')
 ;
 
--- Confidential Containers
+-- Eraser
 update
   gha_repos
 set
-  repo_group = 'Confidential Containers'
+  repo_group = 'Eraser'
 where
-  org_login in ('confidential-containers')
+  name ~ '(?i)^Azure\/.*eraser.*$'
+;
+
+-- Xline
+update
+  gha_repos
+set
+  repo_group = 'Xline'
+where
+  org_login in ('xline-kv')
+  or name in ('datenlord/Xline')
+;
+
+-- Hwameistor
+update
+  gha_repos
+set
+  repo_group = 'Hwameistor'
+where
+  org_login in ('hwameistor')
+;
+
+-- kpt
+update
+  gha_repos
+set
+  repo_group = 'kpt'
+where
+  name ~ '(?i)^GoogleContainerTools\/.*kpt.*$'
+;
+
+-- Microcks
+update
+  gha_repos
+set
+  repo_group = 'Microcks'
+where
+  org_login in ('microcks')
+;
+
+-- Kubeclipper
+update
+  gha_repos
+set
+  repo_group = 'Kubeclipper'
+where
+  org_login in ('kubeclipper', 'kubeclipper-labs')
+;
+
+-- Kubeflow
+update
+  gha_repos
+set
+  repo_group = 'Kubeflow'
+where
+  org_login in ('kubeflow')
+  or name in ('google/kubeflow')
 ;
 
 -- CNCF
