@@ -2302,7 +2302,7 @@ projects:
     psql_db: 'microcks'
     shared_db: allprj
     main_repo: microcks/microcks
-    annotation_regexp: '^v\d+\.\d+\.0$'
+    annotation_regexp: '^\d+\.\d+\.0$'
     files_skip_pattern: ''
   kubeclipper:
     order: 170
