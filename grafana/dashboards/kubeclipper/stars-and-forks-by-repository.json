@@ -44,8 +44,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 37,
-  "iteration": 1655788379573,
+  "id": 38,
+  "iteration": 1688452040861,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -97,7 +97,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.5.6",
+      "pluginVersion": "8.5.27",
       "pointradius": 1,
       "points": false,
       "renderer": "flot",
@@ -313,7 +313,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.5.6",
+      "pluginVersion": "8.5.27",
       "pointradius": 1,
       "points": false,
       "renderer": "flot",
@@ -482,7 +482,6 @@
       }
     },
     {
-      "content": "${docs:raw}",
       "datasource": {
         "type": "postgres",
         "uid": "P172949F98CB31475"
@@ -495,7 +494,11 @@
       },
       "id": 11,
       "links": [],
-      "mode": "html",
+      "options": {
+        "content": "${docs:raw}",
+        "mode": "html"
+      },
+      "pluginVersion": "8.5.27",
       "title": "Dashboard documentation",
       "type": "text"
     }
@@ -512,8 +515,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Clusterpedia",
-          "value": "Clusterpedia"
+          "text": "Kubeclipper",
+          "value": "Kubeclipper"
         },
         "datasource": {
           "type": "postgres",
@@ -537,9 +540,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "Clusterpedia",
-          "value": "Clusterpedia"
+          "selected": true,
+          "text": "Kubeclipper",
+          "value": "Kubeclipper"
         },
         "datasource": {
           "type": "postgres",
@@ -592,8 +595,8 @@
       {
         "current": {
           "selected": false,
-          "text": "<h1 id=\"dashboard-header\">Clusterpedia community stats dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/watchers_by_alias.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>watchers</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/clusterpedia/community-stats.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows forks, stars, open issues and PRs charts for a given repository</li>\n<li>Selecting period (for example week) means that dashboard will show maximum value in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>",
-          "value": "<h1 id=\"dashboard-header\">Clusterpedia community stats dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/watchers_by_alias.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>watchers</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/clusterpedia/community-stats.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows forks, stars, open issues and PRs charts for a given repository</li>\n<li>Selecting period (for example week) means that dashboard will show maximum value in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>"
+          "text": "<h1 id=\"dashboard-header\">Kubeclipper community stats dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/watchers_by_alias.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>watchers</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubeclipper/community-stats.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows forks, stars, open issues and PRs charts for a given repository</li>\n<li>Selecting period (for example week) means that dashboard will show maximum value in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>",
+          "value": "<h1 id=\"dashboard-header\">Kubeclipper community stats dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/watchers_by_alias.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>watchers</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubeclipper/community-stats.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows forks, stars, open issues and PRs charts for a given repository</li>\n<li>Selecting period (for example week) means that dashboard will show maximum value in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>"
         },
         "datasource": {
           "type": "postgres",
@@ -618,7 +621,7 @@
     ]
   },
   "time": {
-    "from": "now-1y",
+    "from": "now-2y",
     "to": "now"
   },
   "timepicker": {
