@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 42,
-  "iteration": 1529598271770,
+  "id": 17,
+  "iteration": 1529597649833,
   "links": [],
   "panels": [
     {
@@ -170,8 +170,8 @@
       {
         "allValue": null,
         "current": {
-          "text": "OCI",
-          "value": "OCI"
+          "text": "SPIFFE",
+          "value": "SPIFFE"
         },
         "datasource": "psql",
         "hide": 2,
@@ -312,7 +312,7 @@
     ]
   },
   "time": {
-    "from": "now-5y",
+    "from": "now-1y",
     "to": "now"
   },
   "timepicker": {
@@ -344,5 +344,5 @@
   "timezone": "",
   "title": "Overall Project Statistics Table",
   "uid": "18",
-  "version": 3
+  "version": 2
 }

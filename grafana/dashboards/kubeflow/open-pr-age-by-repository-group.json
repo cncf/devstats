@@ -30,8 +30,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 24,
-  "iteration": 1557503573242,
+  "id": 23,
+  "iteration": 1552990380403,
   "links": [],
   "panels": [
     {
@@ -99,7 +99,6 @@
           "alias": "",
           "dsType": "influxdb",
           "format": "table",
-          "group": [],
           "groupBy": [
             {
               "params": [
@@ -114,7 +113,6 @@
               "type": "fill"
             }
           ],
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT \"descr\" FROM \"autogen\".\"prs_age_[[repogroup]]_median_[[period]][[aggregate]]\" WHERE $timeFilter",
@@ -136,15 +134,7 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         }
       ],
       "thresholds": "",
@@ -225,7 +215,6 @@
           "alias": "",
           "dsType": "influxdb",
           "format": "time_series",
-          "group": [],
           "groupBy": [
             {
               "params": [
@@ -240,7 +229,6 @@
               "type": "fill"
             }
           ],
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT \"value\" FROM \"autogen\".\"prs_age_[[repogroup]]_number_[[period]][[aggregate]]\" WHERE $timeFilter",
@@ -262,15 +250,7 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         }
       ],
       "thresholds": "",
@@ -348,11 +328,9 @@
           "alias": "",
           "dsType": "influxdb",
           "format": "time_series",
-          "group": [],
           "groupBy": [],
           "hide": false,
           "measurement": "reviewers_d",
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "autogen",
           "query": "SELECT \"value\" FROM \"autogen\".\"prs_age_[[repogroup]]_number_[[period]][[aggregate]]\" WHERE $timeFilter",
@@ -370,25 +348,15 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         },
         {
           "alias": "",
           "dsType": "influxdb",
           "format": "time_series",
-          "group": [],
           "groupBy": [],
           "hide": false,
           "measurement": "reviewers_d",
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "autogen",
           "query": "SELECT \"value\" FROM \"autogen\".\"prs_age_[[repogroup]]_median_[[period]][[aggregate]]\" WHERE $timeFilter",
@@ -406,20 +374,11 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         }
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Number/Age of Pull requests in [[repogroup_name]] repository group ([[period]])",
       "tooltip": {
@@ -427,6 +386,7 @@
         "sort": 0,
         "value_type": "individual"
       },
+      "transparent": false,
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -507,7 +467,6 @@
           "alias": "",
           "dsType": "influxdb",
           "format": "table",
-          "group": [],
           "groupBy": [
             {
               "params": [
@@ -522,7 +481,6 @@
               "type": "fill"
             }
           ],
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT \"descr\" FROM \"autogen\".\"prs_age_[[repogroup]]_median_[[period]][[aggregate]]\" WHERE $timeFilter",
@@ -544,21 +502,12 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         },
         {
           "alias": "",
           "dsType": "influxdb",
           "format": "table",
-          "group": [],
           "groupBy": [
             {
               "params": [
@@ -573,7 +522,6 @@
               "type": "fill"
             }
           ],
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT \"value\" FROM \"autogen\".\"prs_age_[[repogroup]]_number_[[period]][[aggregate]]\" WHERE $timeFilter",
@@ -595,19 +543,12 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         }
       ],
       "title": "Number/Age of Pull requests in [[repogroup_name]] repository group ([[period]])",
       "transform": "table",
+      "transparent": false,
       "type": "table"
     },
     {
@@ -626,7 +567,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 18,
+  "schemaVersion": 16,
   "style": "dark",
   "tags": [
     "dashboard",
@@ -689,7 +630,6 @@
           "value": "All"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 0,
         "includeAll": false,
         "label": "Repository group",
@@ -714,7 +654,6 @@
           "value": "all"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": "",
@@ -736,7 +675,6 @@
         "allValue": null,
         "current": {},
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -758,7 +696,6 @@
         "allValue": null,
         "current": {},
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -779,7 +716,7 @@
     ]
   },
   "time": {
-    "from": "now-2y",
+    "from": "now-1y",
     "to": "now-1w"
   },
   "timepicker": {

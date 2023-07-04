@@ -30,8 +30,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 30,
-  "iteration": 1529598246392,
+  "id": 2,
+  "iteration": 1529597626715,
   "links": [],
   "panels": [
     {
@@ -364,7 +364,7 @@
       "content": "${docs:raw}",
       "gridPos": {
         "h": 11,
-        "w": 26,
+        "w": 24,
         "x": 0,
         "y": 63
       },

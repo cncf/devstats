@@ -30,8 +30,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 30,
-  "iteration": 1557503587126,
+  "id": 29,
+  "iteration": 1552990391610,
   "links": [],
   "panels": [
     {
@@ -80,11 +80,9 @@
           "alias": "",
           "dsType": "influxdb",
           "format": "time_series",
-          "group": [],
           "groupBy": [],
           "hide": false,
           "measurement": "reviewers_d",
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "autogen",
           "query": "SELECT \"value\" FROM \"autogen\".\"repo_commenters_[[repogroup]]_[[period]][[aggregate]]\" WHERE $timeFilter",
@@ -102,20 +100,11 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         }
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "[[repogroup_name]] unique commenters ([[period]])",
       "tooltip": {
@@ -123,6 +112,7 @@
         "sort": 0,
         "value_type": "individual"
       },
+      "transparent": false,
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -172,7 +162,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 18,
+  "schemaVersion": 16,
   "style": "dark",
   "tags": [
     "dashboard",
@@ -235,7 +225,6 @@
           "value": "All"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 0,
         "includeAll": false,
         "label": "Repository group",
@@ -260,7 +249,6 @@
           "value": "all"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": "",
@@ -280,12 +268,8 @@
       },
       {
         "allValue": null,
-        "current": {
-          "text": "Prometheus",
-          "value": "Prometheus"
-        },
+        "current": {},
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -307,7 +291,6 @@
         "allValue": null,
         "current": {},
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -328,7 +311,7 @@
     ]
   },
   "time": {
-    "from": "now-2y",
+    "from": "now-1y",
     "to": "now"
   },
   "timepicker": {

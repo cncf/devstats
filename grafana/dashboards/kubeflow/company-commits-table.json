@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 6,
-  "iteration": 1557503522915,
+  "id": 66,
+  "iteration": 1557388627645,
   "links": [],
   "panels": [
     {
@@ -145,7 +145,6 @@
           "alias": "",
           "dsType": "influxdb",
           "format": "table",
-          "group": [],
           "groupBy": [
             {
               "params": [
@@ -160,7 +159,6 @@
               "type": "fill"
             }
           ],
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "",
@@ -182,21 +180,14 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         }
       ],
       "timeFrom": null,
       "timeShift": null,
       "title": "[[full_name]] company commits table",
       "transform": "table",
+      "transparent": false,
       "type": "table"
     },
     {
@@ -215,7 +206,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 18,
+  "schemaVersion": 16,
   "style": "dark",
   "tags": [
     "dashboard",
@@ -232,7 +223,6 @@
           "value": "Envoy"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -259,7 +249,6 @@
           ]
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 0,
         "includeAll": true,
         "label": "Repository groups",
@@ -284,7 +273,6 @@
           "value": "<h1 id=\"dashboard-header\">Envoy company commits table dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Company commits metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/company_commits_data.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>Company commits table</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/envoy/company-commits-table.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows statistics about company commits.</li>\n<li>You can select date range to show company commits for this period.</li>\n<li>You can select multiple repository groups or all of them in a multi select dowp down.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>You can select multiple companies or all of them in a multi select dowp down.</li>\n<li>We are showing top 255 most active companies in the drop-down list.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n<li>We are determining user's company affiliation from <a href=\"https://github.com/cncf/devstats/blob/master/github_users.json\" target=\"_blank\">this file</a>, which is imported from <code>cncf/gitdm</code>.</li>\n</ul>"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -311,7 +299,6 @@
           ]
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 0,
         "includeAll": true,
         "label": "Companies",
@@ -332,7 +319,7 @@
     ]
   },
   "time": {
-    "from": "now-1y",
+    "from": "now-1M",
     "to": "now"
   },
   "timepicker": {
@@ -364,5 +351,5 @@
   "timezone": "",
   "title": "Company Commits Table",
   "uid": "56",
-  "version": 2
+  "version": 13
 }

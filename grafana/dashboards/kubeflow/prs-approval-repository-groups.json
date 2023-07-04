@@ -30,8 +30,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 25,
-  "iteration": 1557503581366,
+  "id": 24,
+  "iteration": 1552990382467,
   "links": [],
   "panels": [
     {
@@ -79,11 +79,8 @@
         {
           "alias": "Approved",
           "dsType": "influxdb",
-          "format": "time_series",
-          "group": [],
           "groupBy": [],
           "measurement": "",
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT /^[[repogroup]]$/ FROM \"prs_approve_state_approved_[[period]]\" WHERE $timeFilter",
@@ -101,24 +98,13 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         },
         {
           "alias": "Awaiting approval",
           "dsType": "influxdb",
-          "format": "time_series",
-          "group": [],
           "groupBy": [],
           "measurement": "",
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT /^[[repogroup]]$/ FROM \"prs_approve_state_awaiting_[[period]]\" WHERE $timeFilter",
@@ -136,20 +122,11 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         }
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "PRs approved and awaiting approval ([[repogroup]], [[period]])",
       "tooltip": {
@@ -204,7 +181,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 18,
+  "schemaVersion": 16,
   "style": "dark",
   "tags": [
     "dashboard",
@@ -216,7 +193,6 @@
         "allValue": null,
         "current": {},
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -281,7 +257,6 @@
         "allValue": "",
         "current": {},
         "datasource": "psql",
-        "definition": "",
         "hide": 0,
         "includeAll": false,
         "label": "Repository group",
@@ -303,7 +278,6 @@
         "allValue": "",
         "current": {},
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": "",
@@ -325,7 +299,6 @@
         "allValue": null,
         "current": {},
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -346,7 +319,7 @@
     ]
   },
   "time": {
-    "from": "now-2y",
+    "from": "now-1y",
     "to": "now"
   },
   "timepicker": {

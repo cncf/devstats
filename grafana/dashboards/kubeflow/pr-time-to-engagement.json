@@ -30,8 +30,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 12,
-  "iteration": 1557503579286,
+  "id": 11,
+  "iteration": 1552990361934,
   "links": [],
   "panels": [
     {
@@ -82,9 +82,7 @@
           "alias": "",
           "dsType": "influxdb",
           "format": "time_series",
-          "group": [],
           "groupBy": [],
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT \"value\" FROM \"non_author_[[repogroup]]_percentile_85_[[period]]\" WHERE $timeFilter",
@@ -102,23 +100,13 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         },
         {
           "alias": "",
           "dsType": "influxdb",
           "format": "time_series",
-          "group": [],
           "groupBy": [],
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT \"value\" FROM \"non_author_[[repogroup]]_median_[[period]]\" WHERE $timeFilter",
@@ -136,23 +124,13 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         },
         {
           "alias": "",
           "dsType": "influxdb",
           "format": "time_series",
-          "group": [],
           "groupBy": [],
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT \"value\" FROM \"non_author_[[repogroup]]_percentile_15_[[period]]\" WHERE $timeFilter",
@@ -170,20 +148,11 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         }
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Time before any comments or activities from someone other than the author ([[repogroup_name]], [[period]])",
       "tooltip": {
@@ -269,7 +238,6 @@
           "alias": "",
           "dsType": "influxdb",
           "format": "table",
-          "group": [],
           "groupBy": [
             {
               "params": [
@@ -284,7 +252,6 @@
               "type": "fill"
             }
           ],
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT \"descr\" FROM \"non_author_[[repogroup]]_percentile_15_[[period]]\" WHERE $timeFilter",
@@ -306,21 +273,12 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         },
         {
           "alias": "",
           "dsType": "influxdb",
           "format": "table",
-          "group": [],
           "groupBy": [
             {
               "params": [
@@ -335,7 +293,6 @@
               "type": "fill"
             }
           ],
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT \"descr\" FROM \"non_author_[[repogroup]]_median_[[period]]\" WHERE $timeFilter",
@@ -357,21 +314,12 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         },
         {
           "alias": "",
           "dsType": "influxdb",
           "format": "table",
-          "group": [],
           "groupBy": [
             {
               "params": [
@@ -386,7 +334,6 @@
               "type": "fill"
             }
           ],
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT \"descr\" FROM \"non_author_[[repogroup]]_percentile_85_[[period]]\" WHERE $timeFilter",
@@ -408,15 +355,7 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         }
       ],
       "title": "Time to first non-author activity ([[repogroup]], [[period]])",
@@ -438,7 +377,7 @@
       "type": "text"
     }
   ],
-  "schemaVersion": 18,
+  "schemaVersion": 16,
   "style": "dark",
   "tags": [
     "dashboard",
@@ -448,9 +387,11 @@
     "list": [
       {
         "allValue": null,
-        "current": {},
+        "current": {
+          "text": "SPIFFE",
+          "value": "SPIFFE"
+        },
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -513,9 +454,11 @@
       },
       {
         "allValue": null,
-        "current": {},
+        "current": {
+          "text": "All",
+          "value": "All"
+        },
         "datasource": "psql",
-        "definition": "",
         "hide": 0,
         "includeAll": false,
         "label": "Repository group",
@@ -535,9 +478,11 @@
       },
       {
         "allValue": null,
-        "current": {},
+        "current": {
+          "text": "all",
+          "value": "all"
+        },
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": "",
@@ -559,7 +504,6 @@
         "allValue": null,
         "current": {},
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -580,7 +524,7 @@
     ]
   },
   "time": {
-    "from": "now-2y",
+    "from": "now-1y",
     "to": "now-2w"
   },
   "timepicker": {

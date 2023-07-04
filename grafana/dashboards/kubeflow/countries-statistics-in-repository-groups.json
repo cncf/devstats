@@ -30,8 +30,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 9,
-  "iteration": 1557503526390,
+  "id": 8,
+  "iteration": 1552990355938,
   "links": [],
   "panels": [
     {
@@ -80,10 +80,8 @@
           "alias": "",
           "dsType": "influxdb",
           "format": "time_series",
-          "group": [],
           "groupBy": [],
           "measurement": "notused",
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "rawQuery": true,
@@ -100,20 +98,11 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         }
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "[[full_name]] [[metric]] countries stats ([[repogroup_name]])",
       "tooltip": {
@@ -199,10 +188,8 @@
           "alias": "",
           "dsType": "influxdb",
           "format": "time_series",
-          "group": [],
           "groupBy": [],
           "measurement": "notused",
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "rawQuery": true,
@@ -219,20 +206,11 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         }
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "[[full_name]] [[metric]] countries stats ([[repogroup_name]])",
       "tooltip": {
@@ -318,10 +296,8 @@
           "alias": "",
           "dsType": "influxdb",
           "format": "time_series",
-          "group": [],
           "groupBy": [],
           "measurement": "notused",
-          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "rawQuery": true,
@@ -338,20 +314,11 @@
               }
             ]
           ],
-          "tags": [],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
+          "tags": []
         }
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "[[full_name]] [[metric]] countries stats ([[repogroup_name]])",
       "tooltip": {
@@ -407,7 +374,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 18,
+  "schemaVersion": 16,
   "style": "dark",
   "tags": [
     "dashboard",
@@ -418,11 +385,10 @@
       {
         "allValue": null,
         "current": {
-          "text": "Knative",
-          "value": "Knative"
+          "text": "Virtual Kubelet",
+          "value": "Virtual Kubelet"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -448,7 +414,6 @@
           "value": "Week"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 0,
         "includeAll": false,
         "label": "Period",
@@ -473,7 +438,6 @@
           "value": "$__all"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 0,
         "includeAll": true,
         "label": "Countries",
@@ -498,7 +462,6 @@
           "value": "All"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 0,
         "includeAll": false,
         "label": "Repository group",
@@ -523,7 +486,6 @@
           "value": "all"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": "",
@@ -691,11 +653,10 @@
       {
         "allValue": null,
         "current": {
-          "text": "<h1 id=\"dashboard-header\">Knative countries stats dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/countries.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Cumulative metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/countries_cum.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Committers metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/committers_countries.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Committers cumulative metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/committers_countries_cum.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>countries</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/knative/countries-stats.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows countries statistics (cumulative and in given periods).</li>\n<li>Contributor is defined as somebody who made a review, comment, commit, created PR or issue.</li>\n<li>Contribution is a review, comment, commit, issue or PR.</li>\n<li>We are determining contributor's country by using GitHub localization and searching for a country using <a href=\"http://www.geonames.org\" target=\"_blank\">geonames</a> database.</li>\n<li>You can select single repository group or summary statistics for all of them combined.</li>\n<li>You can choose to display contributors, contributions, users, actvity, committers, commits etc.</li>\n<li>You can select cumulative statistics or statistics in given periods.</li>\n<li>Selecting period (for example week) means that dashboard will show data in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>",
-          "value": "<h1 id=\"dashboard-header\">Knative countries stats dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/countries.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Cumulative metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/countries_cum.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Committers metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/committers_countries.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Committers cumulative metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/committers_countries_cum.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>countries</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/knative/countries-stats.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows countries statistics (cumulative and in given periods).</li>\n<li>Contributor is defined as somebody who made a review, comment, commit, created PR or issue.</li>\n<li>Contribution is a review, comment, commit, issue or PR.</li>\n<li>We are determining contributor's country by using GitHub localization and searching for a country using <a href=\"http://www.geonames.org\" target=\"_blank\">geonames</a> database.</li>\n<li>You can select single repository group or summary statistics for all of them combined.</li>\n<li>You can choose to display contributors, contributions, users, actvity, committers, commits etc.</li>\n<li>You can select cumulative statistics or statistics in given periods.</li>\n<li>Selecting period (for example week) means that dashboard will show data in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>"
+          "text": "<h1 id=\"dashboard-header\">Virtual Kubelet countries stats dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/countries.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Cumulative metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/countries_cum.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Committers metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/committers_countries.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Committers cumulative metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/committers_countries_cum.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>countries</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/virtualkubelet/countries-stats.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows countries statistics (cumulative and in given periods).</li>\n<li>Contributor is defined as somebody who made a review, comment, commit, created PR or issue.</li>\n<li>Contribution is a review, comment, commit, issue or PR.</li>\n<li>We are determining contributor's country by using GitHub localization and searching for a country using <a href=\"http://www.geonames.org\" target=\"_blank\">geonames</a> database.</li>\n<li>You can select single repository group or summary statistics for all of them combined.</li>\n<li>You can choose to display contributors, contributions, users, actvity, committers, commits etc.</li>\n<li>You can select cumulative statistics or statistics in given periods.</li>\n<li>Selecting period (for example week) means that dashboard will show data in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>",
+          "value": "<h1 id=\"dashboard-header\">Virtual Kubelet countries stats dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/countries.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Cumulative metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/countries_cum.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Committers metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/committers_countries.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Committers cumulative metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/committers_countries_cum.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>countries</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/virtualkubelet/countries-stats.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows countries statistics (cumulative and in given periods).</li>\n<li>Contributor is defined as somebody who made a review, comment, commit, created PR or issue.</li>\n<li>Contribution is a review, comment, commit, issue or PR.</li>\n<li>We are determining contributor's country by using GitHub localization and searching for a country using <a href=\"http://www.geonames.org\" target=\"_blank\">geonames</a> database.</li>\n<li>You can select single repository group or summary statistics for all of them combined.</li>\n<li>You can choose to display contributors, contributions, users, actvity, committers, commits etc.</li>\n<li>You can select cumulative statistics or statistics in given periods.</li>\n<li>Selecting period (for example week) means that dashboard will show data in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -720,7 +681,6 @@
           "value": "w"
         },
         "datasource": "psql",
-        "definition": "",
         "hide": 2,
         "includeAll": false,
         "label": "",
@@ -741,7 +701,7 @@
     ]
   },
   "time": {
-    "from": "now-2y",
+    "from": "now-1y",
     "to": "now-1M"
   },
   "timepicker": {
