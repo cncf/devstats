@@ -93,14 +93,6 @@ metrics:
     skip: w7,m7,q7,y7
     merge_series: pr_auth
     drop: spr_auth
-  - name: PRs approval
-    series_name_or_func: multi_row_multi_column
-    sql: prs_state
-    periods: d
-    aggregate: 7
-    multi_value: true
-    escape_value_name: true
-    drop: 'spr_apprappr;spr_apprwait'
   - name: Number of companies and developers contributing
     series_name_or_func: multi_row_multi_column
     sql: num_stats
