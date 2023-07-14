@@ -2272,7 +2272,7 @@ projects:
     command_line:
       - 'hwameistor'
     start_date: 2022-02-21T00:00:00Z
-    join_date: 2023-06-30T00:00:00Z
+    join_date: 2023-06-22T00:00:00Z
     psql_db: 'hwameistor'
     shared_db: allprj
     main_repo: hwameistor/hwameistor
@@ -2298,7 +2298,7 @@ projects:
     command_line:
       - 'microcks'
     start_date: 2015-02-23T00:00:00Z
-    join_date: 2023-06-30T00:00:00Z
+    join_date: 2023-06-22T00:00:00Z
     psql_db: 'microcks'
     shared_db: allprj
     main_repo: microcks/microcks
