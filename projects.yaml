@@ -432,7 +432,7 @@ projects:
     name: Buildpacks
     status: Incubating
     command_line:
-      - buildpacks
+      - buildpacks,buildpacks-community
     start_date: 2018-06-01T00:00:00Z
     join_date: 2018-10-03T00:00:00Z
     incubating_date: 2020-11-18T00:00:00Z
@@ -2563,7 +2563,8 @@ projects:
          clastix/capsule-k8s-charm,clastix/clastix/capsule-lens-extension,pipe-cd,\
          clastix/capsule-helm-chart,clastix/flux2-capsule-multi-tenancy,slimtoolkit,\
          clastix/capsule-ns-filter,clastix/Capsule,clastix/ckd-capsule-app,\
-         sustainable-computing-io,GoogleContainerTools/kpt,kubeclipper-labs"
+         sustainable-computing-io,GoogleContainerTools/kpt,kubeclipper-labs,\
+         buildpacks-community"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj

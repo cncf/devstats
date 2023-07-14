@@ -319,7 +319,7 @@ update
 set
   repo_group = 'Buildpacks'
 where
-  org_login in ('buildpack', 'buildpacks')
+  org_login in ('buildpack', 'buildpacks', 'buildpacks-community')
 ;
 
 -- Falco
