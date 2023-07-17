@@ -180,7 +180,7 @@ servicemeshperformance,regexp:(?i)^(layer5io\/.*(service-mesh|performance|benchm
 shipwright,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator
 slimtoolkit,slimtoolkit,docker-slim,cloudimmunity/docker-slim
 smi,servicemeshinterface,deislabs/smi-spec,deislabs/smi-sdk-go,deislabs/smi-metrics,deislabs/smi-adapter-istio,deislabs/smi-spec.io
-sops,mozilla/sops,mozilla/sotp,mozilla-services/sops
+sops,getsops,mozilla/sops,mozilla/sotp,mozilla-services/sops
 spiffe,spiffe
 spinnaker,spinnaker
 spire,regexp:(?i)^(spiffe\/spire.*)$

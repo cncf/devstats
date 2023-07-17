@@ -31,6 +31,7 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'SOPS', alias = 'SOPS'
 where name in (
+  'getsops/sops',
   'mozilla/sops',
   'mozilla-seervices/sops'
 );

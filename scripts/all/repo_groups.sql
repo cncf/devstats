@@ -1663,6 +1663,7 @@ where
     'mozilla/sotp',
     'mozilla-services/sops'
   )
+  or org_login in ('getsops')
 ;
 
 -- Headlamp

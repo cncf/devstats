@@ -582,7 +582,7 @@ do
     PROJ=keycloak            PROJDB=keycloak       PROJREPO="keycloak/keycloak"               ORGNAME=Keycloak          PORT=3234 ICON=keycloak       GRAFSUFF=keycloak       GA="UA-241436121-19" ./devel/deploy_proj.sh || exit 159
   elif [ "$proj" = "sops" ]
   then
-    PROJ=sops                PROJDB=sops           PROJREPO="mozilla/sops"                    ORGNAME=SOPS              PORT=3235 ICON=soprs          GRAFSUFF=sops           GA="UA-241436121-20" ./devel/deploy_proj.sh || exit 160
+    PROJ=sops                PROJDB=sops           PROJREPO="getsops/sops"                    ORGNAME=SOPS              PORT=3235 ICON=soprs          GRAFSUFF=sops           GA="UA-241436121-20" ./devel/deploy_proj.sh || exit 160
   elif [ "$proj" = "headlamp" ]
   then
     PROJ=headlamp            PROJDB=headlamp       PROJREPO="headlamp-k8s/headlamp"           ORGNAME=Headlamp          PORT=3236 ICON=headlamp       GRAFSUFF=headlamp       GA="UA-241436121-21" ./devel/deploy_proj.sh || exit 161
