@@ -1994,11 +1994,12 @@ projects:
   istio:
     order: 146
     name: Istio
-    status: Incubating
+    status: Graduated
     command_line:
       - istio
     start_date: 2016-12-01T00:00:00Z
     join_date: 2022-09-30T00:00:00Z
+    graduated_date: 2023-07-12T00:00:00Z
     psql_db: 'istio'
     shared_db: allprj
     main_repo: istio/istio
