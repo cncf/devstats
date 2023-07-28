@@ -1426,7 +1426,7 @@ projects:
     command_line:
     - 'kube-vip'
     start_date: 2020-02-02T00:00:00Z
-    join_date: 2021-06-22T00:00:00Z
+    join_date: 2021-06-26T00:00:00Z
     psql_db: kubevip
     shared_db: allprj
     main_repo: 'kube-vip/kube-vip'
@@ -2325,7 +2325,7 @@ projects:
     command_line:
       - 'kubeflow'
     start_date: 2017-11-30T00:00:00Z
-    join_date: 2023-07-03T00:00:00Z
+    join_date: 2023-07-25T00:00:00Z
     psql_db: 'kubeflow'
     shared_db: allprj
     main_repo: kubeflow/kubeflow
