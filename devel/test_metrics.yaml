@@ -1,12 +1,11 @@
 ---
 metrics:
-  - name: Developer summary
-    sql: project_developer_stats
-    series_name_or_func: multi_row_single_column
-    histogram: true
-    annotations_ranges: true
-    allow_fail: true
-    wait_after_fail: 300
-    merge_series: hdev
-    env:
-      GHA2DB_NCPUS?: 4
+  - name: PRs approval
+    series_name_or_func: multi_row_multi_column
+    sql: prs_state
+    periods: d,w,m,q,y
+    aggregate: 1,7
+    skip: d,w7,m7,q7,y7
+    multi_value: true
+    escape_value_name: true
+    drop: 'spr_apprappr;spr_apprwait'
