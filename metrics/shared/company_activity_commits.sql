@@ -107,20 +107,20 @@ with company_commits_data as (
 select
   concat('company;', sub.company, '`', sub.repo_group, ';committers,commits'),
   sub.committers,
-  round(sub.commits / {{n}}, 2) as commits
+  round(sub.commits::numeric / {{n}}, 2) as commits
 from (
   select company,
     'all' as repo_group,
-    count(distinct sha) as commits,
-    count(distinct actor_id) as committers
+    round(hll_cardinality(hll_add_agg(hll_hash_text(sha)))) as commits,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(actor_id)))) as committers
   from
     company_commits_data
   group by
     company
   union select company,
     repo_group,
-    count(distinct sha) as commits,
-    count(distinct actor_id) as committers
+    round(hll_cardinality(hll_add_agg(hll_hash_text(sha)))) as commits,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(actor_id)))) as committers
   from
     company_commits_data
   group by
@@ -128,14 +128,14 @@ from (
     repo_group
   union select 'All' as company,
     'all' as repo_group,
-    count(distinct sha) as commits,
-    count(distinct actor_id) as committers
+    round(hll_cardinality(hll_add_agg(hll_hash_text(sha)))) as commits,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(actor_id)))) as committers
   from
     commits_data
   union select 'All' as company,
     repo_group,
-    count(distinct sha) as commits,
-    count(distinct actor_id) as committers
+    round(hll_cardinality(hll_add_agg(hll_hash_text(sha)))) as commits,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(actor_id)))) as committers
   from
     commits_data
   group by

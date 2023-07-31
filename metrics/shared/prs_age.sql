@@ -52,12 +52,12 @@ with prs as (
 )
 select
   'prs_age;All;n,m' as name,
-  round(count(distinct id) / {{n}}, 2) as num,
+  round((hll_cardinality(hll_add_agg(hll_hash_bigint(id))) / {{n}})::numeric, 2) as num,
   percentile_disc(0.5) within group (order by age asc) as age_median
 from
   tdiffs
 union select 'prs_age;' || repo_group || ';n,m' as name,
-  round(count(distinct id) / {{n}}, 2) as num,
+  round((hll_cardinality(hll_add_agg(hll_hash_bigint(id))) / {{n}})::numeric, 2) as num,
   percentile_disc(0.5) within group (order by age asc) as age_median
 from
   tdiffs_groups
