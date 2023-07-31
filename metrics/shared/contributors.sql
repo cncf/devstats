@@ -1,7 +1,7 @@
 select 
   'cs;' || sub.metric || '_All_All_All;evs,acts' as metric,
   round((hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id))) / {{n}})::numeric, 2) as evs,
-  round((hll_cardinality(hll_add_agg(hll_hash_text(sub.author))) / {{n}})::numeric, 2) as acts
+  round(hll_cardinality(hll_add_agg(hll_hash_text(sub.author)))) as acts
 from (
   select case e.type
       when 'PushEvent' then 'pushes'
@@ -87,7 +87,7 @@ group by
   sub.metric
 union all select 'cs;' || sub.metric || '_' || sub.repo_group || '_All_All;evs,acts' as metric,
   round((hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id))) / {{n}})::numeric, 2) as evs,
-  round((hll_cardinality(hll_add_agg(hll_hash_text(sub.author))) / {{n}})::numeric, 2) as acts
+  round(hll_cardinality(hll_add_agg(hll_hash_text(sub.author)))) as acts
 from (
   select case sub.type
       when 'PushEvent' then 'pushes'
@@ -235,7 +235,7 @@ group by
   sub.repo_group
 union all select 'cs;' || sub.metric || '_All_' || sub.country || '_All;evs,acts' as metric,
   round((hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id))) / {{n}})::numeric, 2) as evs,
-  round((hll_cardinality(hll_add_agg(hll_hash_text(sub.author))) / {{n}})::numeric, 2) as acts
+  round(hll_cardinality(hll_add_agg(hll_hash_text(sub.author)))) as acts
 from (
   select case e.type
       when 'PushEvent' then 'pushes'
@@ -351,7 +351,7 @@ group by
   sub.country
 union all select 'cs;' || sub.metric || '_'|| sub.repo_group || '_' || sub.country || '_All;evs,acts' as metric,
   round((hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id))) / {{n}})::numeric, 2) as evs,
-  round((hll_cardinality(hll_add_agg(hll_hash_text(sub.author))) / {{n}})::numeric, 2) as acts
+  round(hll_cardinality(hll_add_agg(hll_hash_text(sub.author)))) as acts
 from (
   select case sub.type
       when 'PushEvent' then 'pushes'
@@ -530,7 +530,7 @@ group by
   sub.country
 union all select 'cs;' || sub.metric || '_All_All_' || sub.company || ';evs,acts' as metric,
   round((hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id))) / {{n}})::numeric, 2) as evs,
-  round((hll_cardinality(hll_add_agg(hll_hash_text(sub.author))) / {{n}})::numeric, 2) as acts
+  round(hll_cardinality(hll_add_agg(hll_hash_text(sub.author)))) as acts
 from (
   select case e.type
       when 'PushEvent' then 'pushes'
@@ -660,7 +660,7 @@ group by
   sub.company
 union all select 'cs;' || sub.metric || '_' || sub.repo_group || '_All_' || sub.company || ';evs,acts' as metric,
   round((hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id))) / {{n}})::numeric, 2) as evs,
-  round((hll_cardinality(hll_add_agg(hll_hash_text(sub.author))) / {{n}})::numeric, 2) as acts
+  round(hll_cardinality(hll_add_agg(hll_hash_text(sub.author)))) as acts
 from (
   select case sub.type
       when 'PushEvent' then 'pushes'
@@ -851,7 +851,7 @@ group by
   sub.company
 union all select 'cs;' || sub.metric || '_All_' || sub.country || '_' || sub.company || ';evs,acts' as metric,
   round((hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id))) / {{n}})::numeric, 2) as evs,
-  round((hll_cardinality(hll_add_agg(hll_hash_text(sub.author))) / {{n}})::numeric, 2) as acts
+  round(hll_cardinality(hll_add_agg(hll_hash_text(sub.author)))) as acts
 from (
   select case e.type
       when 'PushEvent' then 'pushes'
@@ -1010,7 +1010,7 @@ group by
   sub.company
 union all select 'cs;' || sub.metric || '_' || sub.repo_group || '_' || sub.country || '_' || sub.company || ';evs,acts' as metric,
   round((hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id))) / {{n}})::numeric, 2) as evs,
-  round((hll_cardinality(hll_add_agg(hll_hash_text(sub.author))) / {{n}})::numeric, 2) as acts
+  round(hll_cardinality(hll_add_agg(hll_hash_text(sub.author)))) as acts
 from (
   select case sub.type
       when 'PushEvent' then 'pushes'

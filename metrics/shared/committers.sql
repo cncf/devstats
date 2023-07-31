@@ -65,13 +65,13 @@ with commits_data as (
 -- metric_All_All_All: commits_RepoGroup_Country_Company
 select 
   'cs;commits_All_All_All;evs,acts' as metric,
-  round(count(distinct sha) / {{n}}, 2) as evs,
-  count(distinct actor_login) as acts
+  round((hll_cardinality(hll_add_agg(hll_hash_text(sha))) / {{n}})::numeric, 2) as evs,
+  round(hll_cardinality(hll_add_agg(hll_hash_text(actor_login)))) as acts
 from 
   commits_data
 union select  'cs;commits_' || repo_group || '_All_All;evs,acts' as metric,
-  round(count(distinct sha) / {{n}}, 2) as evs,
-  count(distinct actor_login) as acts
+  round((hll_cardinality(hll_add_agg(hll_hash_text(sha))) / {{n}})::numeric, 2) as evs,
+  round(hll_cardinality(hll_add_agg(hll_hash_text(actor_login)))) as acts
 from 
   commits_data
 where
@@ -79,8 +79,8 @@ where
 group by
   repo_group
 union select 'cs;commits_All_' || a.country_name || '_All;evs,acts' as metric,
-  round(count(distinct c.sha) / {{n}}, 2) as evs,
-  count(distinct c.actor_login) as acts
+  round((hll_cardinality(hll_add_agg(hll_hash_text(c.sha))) / {{n}})::numeric, 2) as evs,
+  round(hll_cardinality(hll_add_agg(hll_hash_text(c.actor_login)))) as acts
 from
   commits_data c,
   gha_actors a
@@ -90,8 +90,8 @@ where
 group by
   a.country_name
 union select 'cs;commits_' || c.repo_group || '_' || a.country_name || '_All;evs,acts' as metric,
-  round(count(distinct c.sha) / {{n}}, 2) as evs,
-  count(distinct c.actor_login) as acts
+  round((hll_cardinality(hll_add_agg(hll_hash_text(c.sha))) / {{n}})::numeric, 2) as evs,
+  round(hll_cardinality(hll_add_agg(hll_hash_text(c.actor_login)))) as acts
 from
   commits_data c,
   gha_actors a
@@ -103,8 +103,8 @@ group by
   a.country_name,
   c.repo_group
 union select 'cs;commits_All_All_' || company || ';evs,acts' as metric,
-  round(count(distinct sha) / {{n}}, 2) as evs,
-  count(distinct actor_login) as acts
+  round((hll_cardinality(hll_add_agg(hll_hash_text(sha))) / {{n}})::numeric, 2) as evs,
+  round(hll_cardinality(hll_add_agg(hll_hash_text(actor_login)))) as acts
 from 
   commits_data
 where
@@ -113,8 +113,8 @@ where
 group by
   company
 union select  'cs;commits_' || repo_group || '_All_' || company || ';evs,acts' as metric,
-  round(count(distinct sha) / {{n}}, 2) as evs,
-  count(distinct actor_login) as acts
+  round((hll_cardinality(hll_add_agg(hll_hash_text(sha))) / {{n}})::numeric, 2) as evs,
+  round(hll_cardinality(hll_add_agg(hll_hash_text(actor_login)))) as acts
 from 
   commits_data
 where
@@ -125,8 +125,8 @@ group by
   repo_group,
   company
 union select 'cs;commits_All_' || a.country_name || '_' || c.company || ';evs,acts' as metric,
-  round(count(distinct c.sha) / {{n}}, 2) as evs,
-  count(distinct c.actor_login) as acts
+  round((hll_cardinality(hll_add_agg(hll_hash_text(c.sha))) / {{n}})::numeric, 2) as evs,
+  round(hll_cardinality(hll_add_agg(hll_hash_text(c.actor_login)))) as acts
 from
   commits_data c,
   gha_actors a
@@ -139,8 +139,8 @@ group by
   a.country_name,
   c.company
 union select 'cs;commits_' || c.repo_group || '_' || a.country_name || '_' || c.company || ';evs,acts' as metric,
-  round(count(distinct c.sha) / {{n}}, 2) as evs,
-  count(distinct c.actor_login) as acts
+  round((hll_cardinality(hll_add_agg(hll_hash_text(c.sha))) / {{n}})::numeric, 2) as evs,
+  round(hll_cardinality(hll_add_agg(hll_hash_text(c.actor_login)))) as acts
 from
   commits_data c,
   gha_actors a
