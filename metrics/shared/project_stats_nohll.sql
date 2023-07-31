@@ -38,7 +38,7 @@ with commits_data as (
 select
   'pstat,All' as repo_group,
   'Projects/Repository groups' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_text(repo_group)))) as value
+  count(distinct repo_group) as value
 from
   gha_repos
 where
@@ -46,7 +46,7 @@ where
 union select
   'pstat,All' as repo_group,
   'Countries' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_text(sub.country_id)))) as value
+  count(distinct sub.country_id) as value
 from (
   select
     a.country_id
@@ -83,7 +83,7 @@ from (
 union select
   'pstat,' || sub.repo_group as repo_group,
   'Countries' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_text(sub.country_id)))) as value
+  count(distinct sub.country_id) as value
 from (
   select
     a.country_id,
@@ -136,7 +136,7 @@ group by
 union select
   sub.repo_group,
   'Contributors' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_text(sub.actor)))) as value
+  count(distinct sub.actor) as value
 from (
   select 'pstat,' || r.repo_group as repo_group,
     e.dup_actor_login as actor
@@ -159,7 +159,7 @@ group by
   sub.repo_group
 union select 'pstat,All' as repo_group,
   'Contributors' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_text(dup_actor_login)))) as value
+  count(distinct dup_actor_login) as value
 from
   gha_events
 where
@@ -172,7 +172,7 @@ where
 union select
   sub.repo_group,
   'Contributions' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
+  count(distinct sub.id) as value
 from (
   select 'pstat,' || r.repo_group as repo_group,
     e.id
@@ -195,7 +195,7 @@ group by
   sub.repo_group
 union select 'pstat,All' as repo_group,
   'Contributions' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(id)))) as value
+  count(distinct id) as value
 from
   gha_events
 where
@@ -208,7 +208,7 @@ where
 union select
   sub.repo_group,
   'Pushes' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
+  count(distinct sub.id) as value
 from (
   select 'pstat,' || r.repo_group as repo_group,
     e.id
@@ -228,7 +228,7 @@ group by
   sub.repo_group
 union select 'pstat,All' as repo_group,
   'Pushes' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(id)))) as value
+  count(distinct id) as value
 from
   gha_events
 where
@@ -237,7 +237,7 @@ where
   and type = 'PushEvent'
 union select 'pstat,' || c.repo_group as repo_group,
   'Commits' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_text(c.sha)))) as value
+  count(distinct c.sha) as value
 from
   commits_data c
 where
@@ -246,12 +246,12 @@ group by
   c.repo_group
 union select 'pstat,All' as repo_group,
   'Commits' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_text(c.sha)))) as value
+  count(distinct c.sha) as value
 from
   commits_data c
 union select 'pstat,' || c.repo_group as repo_group,
   'Code committers' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.actor_id)))) as value
+  count(distinct c.actor_id) as value
 from
   commits_data c
 where
@@ -260,7 +260,7 @@ group by
   c.repo_group
 union select 'pstat,All' as repo_group,
   'Code committers' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.actor_id)))) as value
+  count(distinct c.actor_id) as value
 from
   commits_data c
 union select sub.repo_group,
@@ -275,7 +275,7 @@ union select sub.repo_group,
     when 'WatchEvent' then 'Stargazers/Watchers'
     when 'ForkEvent' then 'Forkers'
   end as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.actor_id)))) as value
+  count(distinct sub.actor_id) as value
 from (
   select 'pstat,' || r.repo_group as repo_group,
     e.type,
@@ -311,7 +311,7 @@ union select 'pstat,All' as repo_group,
     when 'WatchEvent' then 'Stargazers/Watchers'
     when 'ForkEvent' then 'Forkers'
   end as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(actor_id)))) as value
+  count(distinct actor_id) as value
 from
   gha_events
 where
@@ -326,7 +326,7 @@ group by
   type
 union select 'pstat,' || r.repo_group as repo_group,
   'Repositories' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) as value
+  count(distinct e.repo_id) as value
 from
   gha_events e,
   gha_repos r
@@ -339,14 +339,14 @@ group by
   r.repo_group
 union select 'pstat,All' as repo_group,
   'Repositories' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(repo_id)))) as value
+  count(distinct repo_id) as value
 from
   gha_events
 where
   {{period:created_at}}
 union select sub.repo_group,
   'Comments' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
+  count(distinct sub.id) as value
 from (
   select 'pstat,' || r.repo_group as repo_group,
     c.id
@@ -365,7 +365,7 @@ group by
   sub.repo_group
 union select 'pstat,All' as repo_group,
   'Comments' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(id)))) as value
+  count(distinct id) as value
 from
   gha_comments
 where
@@ -373,7 +373,7 @@ where
   and (lower(dup_user_login) {{exclude_bots}})
 union select sub.repo_group,
   'Commenters' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.user_id)))) as value
+  count(distinct sub.user_id) as value
 from (
   select 'pstat,' || r.repo_group as repo_group,
     c.user_id
@@ -392,7 +392,7 @@ group by
   sub.repo_group
 union select 'pstat,All' as repo_group,
   'Commenters' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(user_id)))) as value
+  count(distinct user_id) as value
 from
   gha_comments
 where
@@ -400,7 +400,7 @@ where
   and (lower(dup_user_login) {{exclude_bots}})
 union select sub.repo_group,
   'PR reviews' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
+  count(distinct sub.id) as value
 from (
   select 'pstat,' || r.repo_group as repo_group,
     c.id
@@ -419,7 +419,7 @@ group by
   sub.repo_group
 union select 'pstat,All' as repo_group,
   'PR reviews' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(id)))) as value
+  count(distinct id) as value
 from
   gha_reviews
 where
@@ -427,7 +427,7 @@ where
   and (lower(dup_user_login) {{exclude_bots}})
 union select sub.repo_group,
   'Issues' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
+  count(distinct sub.id) as value
 from (
   select 'pstat,' || r.repo_group as repo_group,
     i.id
@@ -447,7 +447,7 @@ group by
   sub.repo_group
 union select 'pstat,All' as repo_group,
   'Issues' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(id)))) as value
+  count(distinct id) as value
 from
   gha_issues
 where
@@ -456,7 +456,7 @@ where
   and (lower(dup_user_login) {{exclude_bots}})
 union select sub.repo_group,
   'PRs' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
+  count(distinct sub.id) as value
 from (
   select 'pstat,' || r.repo_group as repo_group,
     i.id
@@ -476,7 +476,7 @@ group by
   sub.repo_group
 union select 'pstat,All' as repo_group,
   'PRs' as name,
-  round(hll_cardinality(hll_add_agg(hll_hash_bigint(id)))) as value
+  count(distinct id) as value
 from
   gha_issues
 where
