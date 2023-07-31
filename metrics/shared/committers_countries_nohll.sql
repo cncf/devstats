@@ -8,6 +8,7 @@ with commits_data as (
   where
     c.dup_repo_id = r.id
     and c.dup_repo_name = r.name
+    and c.dup_created_at >= '{{from}}'
     and c.dup_created_at < '{{to}}'
     and (lower(c.dup_actor_login) {{exclude_bots}})
   union select r.repo_group as repo_group,
@@ -20,6 +21,7 @@ with commits_data as (
     c.dup_repo_id = r.id
     and c.dup_repo_name = r.name
     and c.author_id is not null
+    and c.dup_created_at >= '{{from}}'
     and c.dup_created_at < '{{to}}'
     and (lower(c.dup_author_login) {{exclude_bots}})
   union select r.repo_group as repo_group,
@@ -32,6 +34,7 @@ with commits_data as (
     c.dup_repo_id = r.id
     and c.dup_repo_name = r.name
     and c.committer_id is not null
+    and c.dup_created_at >= '{{from}}'
     and c.dup_created_at < '{{to}}'
     and (lower(c.dup_committer_login) {{exclude_bots}})
 )
@@ -40,11 +43,11 @@ select
   inn.rcommitters,
   inn.rcommits
 from (
-  select 'countriescum' as type,
+  select 'countries' as type,
     a.country_name,
     'all' as repo_group,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.actor_id)))) as rcommitters,
-    round(hll_cardinality(hll_add_agg(hll_hash_text(c.sha)))) as rcommits
+    count(distinct c.actor_id) as rcommitters,
+    count(distinct c.sha) as rcommits
   from
     commits_data c,
     gha_actors a
@@ -55,11 +58,11 @@ from (
     and a.country_name != ''
   group by
     a.country_name
-  union select 'countriescum' as type,
+  union select 'countries' as type,
     a.country_name,
     c.repo_group,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.actor_id)))) as rcommitters,
-    round(hll_cardinality(hll_add_agg(hll_hash_text(c.sha)))) as rcommits
+    count(distinct c.actor_id) as rcommitters,
+    count(distinct c.sha) as rcommits
   from
     commits_data c,
     gha_actors a

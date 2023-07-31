@@ -43,8 +43,8 @@ from (
   select 'countriescum' as type,
     a.country_name,
     'all' as repo_group,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.actor_id)))) as rcommitters,
-    round(hll_cardinality(hll_add_agg(hll_hash_text(c.sha)))) as rcommits
+    count(distinct c.actor_id) as rcommitters,
+    count(distinct c.sha) as rcommits
   from
     commits_data c,
     gha_actors a
@@ -58,8 +58,8 @@ from (
   union select 'countriescum' as type,
     a.country_name,
     c.repo_group,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.actor_id)))) as rcommitters,
-    round(hll_cardinality(hll_add_agg(hll_hash_text(c.sha)))) as rcommits
+    count(distinct c.actor_id) as rcommitters,
+    count(distinct c.sha) as rcommits
   from
     commits_data c,
     gha_actors a
