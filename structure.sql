@@ -2605,6 +2605,8 @@ CREATE INDEX comments_dup_actor_id_idx ON public.gha_comments USING btree (dup_a
 --
 
 CREATE INDEX comments_dup_actor_login_idx ON public.gha_comments USING btree (dup_actor_login);
+CREATE INDEX comments_lower_dup_actor_login_idx on public.gha_comments(lower(dup_actor_login));
+CREATE INDEX comments_lower_dup_user_login_idx on public.gha_comments(lower(dup_user_login));
 
 
 --
@@ -2689,6 +2691,8 @@ CREATE INDEX reviews_dup_actor_id_idx ON public.gha_reviews USING btree (dup_act
 --
 
 CREATE INDEX reviews_dup_actor_login_idx ON public.gha_reviews USING btree (dup_actor_login);
+CREATE INDEX reviews_lower_dup_actor_login_idx on public.gha_reviews(lower(dup_actor_login));
+CREATE INDEX reviews_lower_dup_user_login_idx on public.gha_reviews(lower(dup_user_login));
 
 
 --
@@ -2801,6 +2805,9 @@ CREATE INDEX commits_dup_actor_id_idx ON public.gha_commits USING btree (dup_act
 --
 
 CREATE INDEX commits_dup_actor_login_idx ON public.gha_commits USING btree (dup_actor_login);
+CREATE INDEX commits_lower_dup_actor_login_idx on public.gha_commits(lower(dup_actor_login));
+CREATE INDEX commits_lower_dup_author_login_idx on public.gha_commits(lower(dup_author_login));
+CREATE INDEX commits_lower_dup_committer_login_idx on public.gha_commits(lower(dup_committer_login));
 
 
 --
@@ -3039,6 +3046,7 @@ CREATE INDEX events_created_at_idx ON public.gha_events USING btree (created_at)
 --
 
 CREATE INDEX events_dup_actor_login_idx ON public.gha_events USING btree (dup_actor_login);
+CREATE INDEX events_lower_dup_actor_login_idx ON public.gha_events(lower(dup_actor_login));
 
 
 --
@@ -3207,6 +3215,9 @@ CREATE INDEX issues_dup_actor_id_idx ON public.gha_issues USING btree (dup_actor
 --
 
 CREATE INDEX issues_dup_actor_login_idx ON public.gha_issues USING btree (dup_actor_login);
+CREATE INDEX issues_lower_dup_actor_login_idx on public.gha_issues(lower(dup_actor_login));
+CREATE INDEX issues_lower_dup_user_login_idx on public.gha_issues(lower(dup_user_login));
+CREATE INDEX issues_labels_lower_dup_actor_login_idx on public.gha_issues_labels(lower(dup_actor_login));
 
 
 --
@@ -3354,6 +3365,7 @@ CREATE INDEX issues_labels_dup_actor_id_idx ON public.gha_issues_labels USING bt
 --
 
 CREATE INDEX issues_labels_dup_actor_login_idx ON public.gha_issues_labels USING btree (dup_actor_login);
+CREATE INDEX issues_labels_lower_dup_actor_login_idx on public.gha_issues_labels(lower(dup_actor_login));
 
 
 --
@@ -3816,6 +3828,9 @@ CREATE INDEX pull_requests_dup_actor_id_idx ON public.gha_pull_requests USING bt
 --
 
 CREATE INDEX pull_requests_dup_actor_login_idx ON public.gha_pull_requests USING btree (dup_actor_login);
+CREATE INDEX pull_requests_lower_dup_actor_login_idx on public.gha_pull_requests(lower(dup_actor_login));
+CREATE INDEX pull_requests_lower_dup_user_login_idx on public.gha_pull_requests(lower(dup_user_login));
+CREATE INDEX pull_requests_lower_dupn_merged_by_login_idx on public.gha_pull_requests(lower(dupn_merged_by_login));
 
 
 --
@@ -4201,6 +4216,7 @@ CREATE INDEX texts_actor_id_idx ON public.gha_texts USING btree (actor_id);
 --
 
 CREATE INDEX texts_actor_login_idx ON public.gha_texts USING btree (actor_login);
+CREATE INDEX texts_lower_actor_login_idx on public.gha_texts(lower(actor_login));
 
 
 --
