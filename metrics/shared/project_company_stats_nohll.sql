@@ -72,14 +72,14 @@ select
 from (
   select 'Commits' as metric,
     company,
-    round(hll_cardinality(hll_add_agg(hll_hash_text(sha)))) as value
+    count(distinct sha) as value
   from
     company_commits_data
   group by
     company
   union select 'Committers' as metric,
     company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(actor_id)))) as value
+    count(distinct actor_id) as value
   from
     company_commits_data
   group by
@@ -96,7 +96,7 @@ from (
       when 'ForkEvent' then 'Forkers'
     end as metric,
     af.company_name as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)))) as value
+    count(distinct e.actor_id) as value
   from
     gha_events e,
     gha_actors_affiliations af
@@ -117,7 +117,7 @@ from (
     af.company_name
   union select 'Contributors' as metric,
     af.company_name as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)))) as value
+    count(distinct e.actor_id) as value
   from
     gha_events e,
     gha_actors_affiliations af
@@ -136,7 +136,7 @@ from (
     af.company_name
   union select 'Contributions' as metric,
     af.company_name as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
+    count(distinct e.id) as value
   from
     gha_events e,
     gha_actors_affiliations af
@@ -155,7 +155,7 @@ from (
     af.company_name
   union select 'Repositories' as metric,
     af.company_name as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) as value
+    count(distinct e.repo_id) as value
   from
     gha_events e,
     gha_actors_affiliations af
@@ -170,7 +170,7 @@ from (
     af.company_name
   union select 'Comments' as metric,
     af.company_name as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) as value
+    count(distinct c.id) as value
   from
     gha_comments c,
     gha_actors_affiliations af
@@ -185,7 +185,7 @@ from (
     af.company_name
   union select 'Commenters' as metric,
     af.company_name as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.user_id)))) as value
+    count(distinct c.user_id) as value
   from
     gha_comments c,
     gha_actors_affiliations af
@@ -200,7 +200,7 @@ from (
     af.company_name
   union select 'PR reviews' as metric,
     af.company_name as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) as value
+    count(distinct c.id) as value
   from
     gha_reviews c,
     gha_actors_affiliations af
@@ -215,7 +215,7 @@ from (
     af.company_name
   union select 'Issues' as metric,
     af.company_name as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as value
+    count(distinct i.id) as value
   from
     gha_issues i,
     gha_actors_affiliations af
@@ -231,7 +231,7 @@ from (
     af.company_name
   union select 'PRs' as metric,
     af.company_name as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as value
+    count(distinct i.id) as value
   from
     gha_issues i,
     gha_actors_affiliations af
@@ -262,12 +262,12 @@ from (
     af.company_name
   union select 'Commits' as metric,
     'All',
-    round(hll_cardinality(hll_add_agg(hll_hash_text(sha)))) as value
+    count(distinct sha) as value
   from
     commits_data
   union select 'Committers' as metric,
     'All',
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(actor_id)))) as value
+    count(distinct actor_id) as value
   from
     commits_data
   union select case e.type
@@ -282,7 +282,7 @@ from (
       when 'ForkEvent' then 'Forkers'
     end as metric,
     'All' as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)))) as value
+    count(distinct e.actor_id) as value
   from
     gha_events e
   where
@@ -297,7 +297,7 @@ from (
     e.type
   union select 'Contributors' as metric,
     'All' as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)))) as value
+    count(distinct e.actor_id) as value
   from
     gha_events e
   where
@@ -309,7 +309,7 @@ from (
     and (lower(e.dup_actor_login) {{exclude_bots}})
   union select 'Contributions' as metric,
     'All' as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
+    count(distinct e.id) as value
   from
     gha_events e
   where
@@ -321,7 +321,7 @@ from (
     and (lower(e.dup_actor_login) {{exclude_bots}})
   union select 'Repositories' as metric,
     'All' as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) as value
+    count(distinct e.repo_id) as value
   from
     gha_events e
   where
@@ -329,7 +329,7 @@ from (
     and (lower(e.dup_actor_login) {{exclude_bots}})
   union select 'Comments' as metric,
     'All' as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) as value
+    count(distinct c.id) as value
   from
     gha_comments c
   where
@@ -337,7 +337,7 @@ from (
     and (lower(c.dup_user_login) {{exclude_bots}})
   union select 'Commenters' as metric,
     'All' as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.user_id)))) as value
+    count(distinct c.user_id) as value
   from
     gha_comments c
   where
@@ -345,7 +345,7 @@ from (
     and (lower(c.dup_user_login) {{exclude_bots}})
   union select 'PR reviews' as metric,
     'All' as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) as value
+    count(distinct c.id) as value
   from
     gha_reviews c
   where
@@ -353,7 +353,7 @@ from (
     and (lower(c.dup_user_login) {{exclude_bots}})
   union select 'Issues' as metric,
     'All' as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as value
+    count(distinct i.id) as value
   from
     gha_issues i
   where
@@ -362,7 +362,7 @@ from (
     and (lower(i.dup_user_login) {{exclude_bots}})
   union select 'PRs' as metric,
     'All' as company,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as value
+    count(distinct i.id) as value
   from
     gha_issues i
   where
