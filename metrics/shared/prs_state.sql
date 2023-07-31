@@ -50,8 +50,8 @@ with all_prs as (
 )
 select
   'pr_appr;All;appr,wait' as name,
-  round(count(distinct prs.id) filter (where a.id is not null) / {{n}}, 2) as approved,
-  round(count(distinct prs.id) filter (where a.id is null) / {{n}}, 2) as awaiting
+  round((hll_cardinality(hll_add_agg(hll_hash_bigint(case a.id is not null when true then prs.id end))) / {{n}})::numeric, 2) as approved,
+  round((hll_cardinality(hll_add_agg(hll_hash_bigint(case a.id is null when true then prs.id end))) / {{n}})::numeric, 2) as awaiting
 from
   all_prs prs
 left join 
@@ -59,8 +59,8 @@ left join
 on
   prs.id = a.id
 union select 'pr_appr;' || r.repo_group ||';appr,wait' as name,
-  round(count(distinct prs.id) filter (where a.id is not null) / {{n}}, 2) as approved,
-  round(count(distinct prs.id) filter (where a.id is null) / {{n}}, 2) as awaiting
+  round((hll_cardinality(hll_add_agg(hll_hash_bigint(case a.id is not null when true then prs.id end))) / {{n}})::numeric, 2) as approved,
+  round((hll_cardinality(hll_add_agg(hll_hash_bigint(case a.id is null when true then prs.id end))) / {{n}})::numeric, 2) as awaiting
 from
   gha_repos r
 join
