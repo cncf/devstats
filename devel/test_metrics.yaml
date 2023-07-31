@@ -1,11 +1,11 @@
 ---
 metrics:
-  - name: PRs approval
-    series_name_or_func: multi_row_multi_column
-    sql: prs_state
-    periods: d,w,m,q,y
-    aggregate: 1,7
-    skip: d,w7,m7,q7,y7
-    multi_value: true
-    escape_value_name: true
-    drop: 'spr_apprappr;spr_apprwait'
+  - name: Developer summary
+    sql: project_developer_stats
+    series_name_or_func: multi_row_single_column
+    histogram: true
+    annotations_ranges: true
+    merge_series: hdev
+    allow_fail: true
+    env:
+      GHA2DB_NCPUS?: 8
