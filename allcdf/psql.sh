@@ -14,6 +14,7 @@ set -o pipefail
 > run.log
 GHA2DB_PROJECT=allcdf PG_DB=allcdf GHA2DB_LOCAL=1 GHA2DB_MGETC=y structure 2>>errors.txt | tee -a run.log || exit 1
 ./devel/db.sh psql allcdf -c "create extension if not exists pgcrypto" || exit 1
+./devel/db.sh psql allcdf -c "create extension if not exists hll" || exit 1
 if [ ! -z "$MERGE_MODE" ]
 then
   GHA2DB_INPUT_DBS="spinnaker,tekton,jenkins,jenkinsx,cdevents,ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-setup,ortelius/keptn-config,ortelius/keptn-ortelius-service,ortelius/la-sbom-ledger,ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach,pyrsia,screwdrivercd,shipwright" GHA2DB_OUTPUT_DB="allcdf" merge_dbs || exit 2

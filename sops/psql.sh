@@ -13,6 +13,7 @@ fi
 > run.log
 GHA2DB_PROJECT=sops PG_DB=sops GHA2DB_LOCAL=1 structure 2>>errors.txt | tee -a run.log || exit 1
 ./devel/db.sh psql sops -c "create extension if not exists pgcrypto" || exit 1
+./devel/db.sh psql sops -c "create extension if not exists hll" || exit 1
 GHA2DB_PROJECT=sops PG_DB=sops GHA2DB_LOCAL=1 gha2db 2015-08-13 0 today now 'getsops,mozilla/sops,mozilla/sotp,mozilla-services/sops' 2>>errors.txt | tee -a run.log || exit 2
 GHA2DB_PROJECT=sops PG_DB=sops GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 structure 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=sops PG_DB=sops ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 4

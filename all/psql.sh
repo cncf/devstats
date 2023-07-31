@@ -14,6 +14,7 @@ set -o pipefail
 > run.log
 GHA2DB_PROJECT=all PG_DB=allprj GHA2DB_LOCAL=1 GHA2DB_MGETC=y structure 2>>errors.txt | tee -a run.log || exit 1
 ./devel/db.sh psql allprj -c "create extension if not exists pgcrypto" || exit 2
+./devel/db.sh psql allprj -c "create extension if not exists hll" || exit 2
 if [ -z "$MERGE_MODE" ]
 then
   exclude="kubernetes/api,kubernetes/apiextensions-apiserver,kubernetes/apimachinery,kubernetes/apiserver,kubernetes/client-go,kubernetes/code-generator,kubernetes/kube-aggregator,kubernetes/metrics,kubernetes/sample-apiserver,kubernetes/sample-controller,kubernetes/csi-api,kubernetes/kube-proxy,kubernetes/kube-controller-manager,kubernetes/kube-scheduler,kubernetes/kubelet,kubernetes/sample-cli-plugin"
