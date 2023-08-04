@@ -255,6 +255,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "CRI-O",
+      "tooltip": "Opens CRI-O projects dashboards",
+      "type": "link",
+      "url": "https://crio.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -289,16 +299,6 @@
       "tooltip": "Opens NATS dashboards",
       "type": "link",
       "url": "https://nats.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "CRI-O",
-      "tooltip": "Opens CRI-O projects dashboards",
-      "type": "link",
-      "url": "https://crio.[[hostname]]"
     },
     {
       "icon": "dashboard",
