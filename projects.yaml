@@ -517,7 +517,7 @@ projects:
   crio:
     order: 35
     name: CRI-O
-    status: Incubating
+    status: Graduated
     command_line:
       - cri-o
     start_date: 2016-09-09T00:00:00Z
