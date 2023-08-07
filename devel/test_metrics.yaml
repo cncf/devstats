@@ -1,9 +1,11 @@
 ---
 metrics:
-  - name: Companies summary
-    sqls: [project_company_stats, doc_committers_hist]
-    series_name_or_func: multi_row_single_column
-    histogram: true
-    annotations_ranges: true
-    merge_series: hcom
-    allow_fail: true
+  - name: Time metrics
+    series_name_or_func: multi_row_multi_column
+    sql: time_metrics
+    periods: d,w,m,q,y
+    aggregate: 1,7
+    skip: w7,m7,q7,y7
+    desc: time_diff_as_string
+    merge_series: time_metrics
+    drop: stime_metrics

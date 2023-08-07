@@ -1,5 +1,7 @@
 with prs_latest as (
-  select sub.created_at,
+  select sub.id,
+    sub.event_id,
+    sub.created_at,
     sub.merged_at,
     sub.dup_repo_id,
     sub.dup_repo_name
@@ -21,21 +23,30 @@ with prs_latest as (
   where
     sub.rank = 1
 ), prs as (
-  select pr.created_at,
-    pr.merged_at
-  from
-    prs_latest pr
-), prs_groups as (
-  select r.repo_group,
+  select ipr.issue_id,
     pr.created_at,
     pr.merged_at
   from
+    gha_issues_pull_requests ipr,
+    prs_latest pr
+  where
+    pr.id = ipr.pull_request_id
+), prs_groups as (
+  select r.repo_group,
+    ipr.issue_id,
+    pr.created_at,
+    pr.merged_at
+  from
+    gha_issues_pull_requests ipr,
     prs_latest pr,
     gha_repos r
   where
-    r.id = pr.dup_repo_id
+    r.id = ipr.repo_id
+    and r.name = ipr.repo_name
+    and r.id = pr.dup_repo_id
     and r.name = pr.dup_repo_name
     and r.repo_group is not null
+    and pr.id = ipr.pull_request_id
 ), tdiffs as (
   select extract(epoch from merged_at - created_at) / 3600 as open_to_merge
   from
