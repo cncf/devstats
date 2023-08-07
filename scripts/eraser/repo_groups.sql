@@ -31,7 +31,7 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'Eraser', alias = 'Eraser'
 where name in (
-  'Azure/eraser-dev',
+  'Azure/eraser',
   'eraser-dev/eraser'
 );
 
