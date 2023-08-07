@@ -1300,7 +1300,7 @@ update
 set
   repo_group = 'Knative'
 where
-  org_login in ('knative', 'knative-sandbox')
+  org_login in ('knative', 'knative-sandbox', 'knative-extensions')
 ;
 
 -- FabEdge

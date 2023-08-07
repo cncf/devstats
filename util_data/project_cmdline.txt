@@ -91,7 +91,7 @@ kepler,sustainable-computing-io
 keptn,keptn
 keycloak,keycloak
 keylime,keylime,mit-ll/python-keylime,mit-ll/keylime
-knative,knative,knative-sandbox
+knative,knative,knative-sandbox,knative-extensions
 ko,ko-build,google/ko
 konveyor,konveyor,fusor/mig-operator
 kpt,regexp:(?i)^GoogleContainerTools\/.*kpt.*$
