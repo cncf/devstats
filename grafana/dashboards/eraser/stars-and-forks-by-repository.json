@@ -538,8 +538,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Azure/eraser",
-          "value": "Azure/eraser"
+          "text": "eraser-dev/eraser",
+          "value": "eraser-dev/eraser"
         },
         "datasource": {
           "type": "postgres",
