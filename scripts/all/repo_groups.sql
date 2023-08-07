@@ -1711,6 +1711,7 @@ set
   repo_group = 'Eraser'
 where
   name ~ '(?i)^Azure\/.*eraser.*$'
+  or org_login in ('eraser-dev')
 ;
 
 -- Xline

@@ -15,7 +15,7 @@ GHA2DB_PROJECT=eraser PG_DB=eraser GHA2DB_LOCAL=1 structure 2>>errors.txt | tee 
 ./devel/db.sh psql eraser -c "create extension if not exists pgcrypto" || exit 1
 ./devel/db.sh psql eraser -c "create extension if not exists hll" || exit 1
 ./devel/ro_user_grants.sh eraser || exit 2
-GHA2DB_PROJECT=eraser PG_DB=eraser GHA2DB_LOCAL=1 gha2db 2021-05-28 0 today now 'regexp:(?i)^Azure\/.*eraser.*$' 2>>errors.txt | tee -a run.log || exit 3
+GHA2DB_PROJECT=eraser PG_DB=eraser GHA2DB_LOCAL=1 gha2db 2021-05-28 0 today now 'regexp:(?i)^(Azure\/.*eraser.*|eraser-dev\/.*)$' 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=eraser PG_DB=eraser GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 structure 2>>errors.txt | tee -a run.log || exit 5
 GHA2DB_PROJECT=eraser PG_DB=eraser ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 6
 GHA2DB_PROJECT=eraser PG_DB=eraser ./shared/setup_scripts.sh 2>>errors.txt | tee -a run.log || exit 7

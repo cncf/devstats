@@ -597,7 +597,7 @@ do
     PROJ=pipecd              PROJDB=pipecd         PROJREPO="pipe-cd/pipecd"                  ORGNAME=PipeCD            PORT=3239 ICON=pipecd         GRAFSUFF=pipecd         GA="UA-241436121-24" ./devel/deploy_proj.sh || exit 164
   elif [ "$proj" = "eraser" ]
   then
-    PROJ=eraser              PROJDB=eraser         PROJREPO="Azure/eraser"                    ORGNAME=Eraser            PORT=3240 ICON=eraser         GRAFSUFF=eraser         GA="UA-241436121-25" ./devel/deploy_proj.sh || exit 165
+    PROJ=eraser              PROJDB=eraser         PROJREPO="eraser-dev/eraser"               ORGNAME=Eraser            PORT=3240 ICON=eraser         GRAFSUFF=eraser         GA="UA-241436121-25" ./devel/deploy_proj.sh || exit 165
   elif [ "$proj" = "xline" ]
   then
     PROJ=xline               PROJDB=xline          PROJREPO="xline-kv/Xline"                  ORGNAME=Xline             PORT=3241 ICON=xline          GRAFSUFF=xline          GA="UA-241436121-26" ./devel/deploy_proj.sh || exit 166

@@ -49,7 +49,7 @@ distribution,distribution,docker/distribution
 dragonfly,dragonflyoss,alibaba/Dragonfly
 emissaryingress,emissary-ingress,datawire/ambassador
 envoy,envoyproxy,lyft/envoy
-eraser,regexp:(?i)^Azure\/.*eraser.*$
+eraser,regexp:(?i)^(Azure\/.*eraser.*|eraser-dev\/.*)$
 etcd,coreos/etcd,etcd,etcd-io
 expressgraphql,graphql/express-graphql
 externalsecretsoperator,external-secrets

@@ -2246,12 +2246,12 @@ projects:
     name: Eraser
     status: Sandbox
     command_line:
-      - 'regexp:(?i)^Azure\/.*eraser.*$'
+      - 'eraser-dev'
     start_date: 2021-05-28T00:00:00Z
     join_date: 2023-06-30T00:00:00Z
     psql_db: 'eraser'
     shared_db: allprj
-    main_repo: Azure/eraser
+    main_repo: eraser-dev/eraser
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   xline:
@@ -2528,7 +2528,7 @@ projects:
     name: All CNCF
     status: "-"
     command_line:
-      - "kubernetes,kubernetes-client,kubernetes-incubator,kubernetes-helm,Azure/eraser,\
+      - "kubernetes,kubernetes-client,kubernetes-incubator,kubernetes-helm,eraser-dev,\
          kubernetes-graveyard,kubernetes-incubator-retired,kubernetes-sig-testing,\
          kubernetes-providers,kubernetes-addons,kubernetes-retired,kubernetes-sigs,\
          kubernetes-extensions,kubernetes-federation,kubernetes-security,crossplaneio,\
