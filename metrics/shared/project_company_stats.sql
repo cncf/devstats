@@ -247,7 +247,7 @@ from (
     af.company_name
   union select 'Events' as metric,
     af.company_name as company,
-    count(e.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
   from
     gha_events e,
     gha_actors_affiliations af
@@ -371,7 +371,7 @@ from (
     and (lower(i.dup_user_login) {{exclude_bots}})
   union select 'Events' as metric,
     'All' as company,
-    count(e.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
   from
     gha_events e
   where

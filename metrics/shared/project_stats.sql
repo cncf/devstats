@@ -485,7 +485,7 @@ where
   and (lower(dup_user_login) {{exclude_bots}})
 union select sub.repo_group,
   'Events' as name,
-  count(sub.id) as value
+  round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
 from (
   select 'pstat,' || r.repo_group as repo_group,
     e.id
@@ -504,7 +504,7 @@ group by
   sub.repo_group
 union select 'pstat,All' as repo_group,
   'Events' as name,
-  count(id) as value
+  round(hll_cardinality(hll_add_agg(hll_hash_bigint(id)))) as value
 from
   gha_events
 where

@@ -104,7 +104,7 @@ from (
     end as metric,
     lower(e.dup_actor_login) as author,
     coalesce(aa.company_name, '') as company,
-    count(e.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
   from
     gha_events e
   left join
@@ -127,7 +127,7 @@ from (
   union select 'contributions' as metric,
     lower(e.dup_actor_login) as author,
     coalesce(aa.company_name, '') as company,
-    count(e.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
   from
     gha_events e
   left join
@@ -242,7 +242,7 @@ from (
   union select 'events' as metric,
     lower(e.dup_actor_login) as author,
     coalesce(aa.company_name, '') as company,
-    count(e.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
   from
     gha_events e
   left join
