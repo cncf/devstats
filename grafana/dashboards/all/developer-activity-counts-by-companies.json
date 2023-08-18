@@ -3,28 +3,190 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "description": "",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 11,
-  "iteration": 1568183350598,
+  "id": 12,
+  "iteration": 1692344289412,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "columns": [],
-      "datasource": "psql",
+      "datasource": {
+        "type": "postgres",
+        "uid": "P172949F98CB31475"
+      },
       "description": "",
-      "fontSize": "90%",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Time"
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "name"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "GitHub login"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Number"
+              },
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ""
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Rank"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "custom.width",
+                "value": 90
+              },
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Number"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 153
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GitHub login"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 659
+              }
+            ]
+          }
+        ]
+      },
       "gridPos": {
         "h": 20,
         "w": 24,
@@ -35,84 +197,18 @@
       "id": 1,
       "interval": "",
       "links": [],
-      "options": {},
-      "pageSize": 1000,
-      "scroll": true,
-      "showHeader": true,
-      "sort": {
-        "col": 3,
-        "desc": true
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
       },
-      "styles": [
-        {
-          "alias": "Time",
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": null,
-          "pattern": "Time",
-          "type": "hidden"
-        },
-        {
-          "alias": "GitHub login",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "pattern": "name",
-          "preserveFormat": false,
-          "thresholds": [],
-          "type": "string",
-          "unit": "short"
-        },
-        {
-          "alias": "Number",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 0,
-          "pattern": "value",
-          "thresholds": [],
-          "type": "number",
-          "unit": "none"
-        },
-        {
-          "alias": "",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "",
-          "thresholds": [],
-          "type": "number",
-          "unit": "short"
-        },
-        {
-          "alias": "",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "decimals": 0,
-          "pattern": "Rank",
-          "thresholds": [],
-          "type": "string",
-          "unit": "short"
-        }
-      ],
+      "pluginVersion": "8.5.27",
       "targets": [
         {
           "alias": "",
@@ -166,13 +262,22 @@
           ]
         }
       ],
-      "timeFrom": null,
       "title": "[[full_name]] Developers statistics ([[metric]], Range: [[period_name]], Repository group: [[repogroup_name]]), bots excluded",
-      "transform": "table",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {
+            "reducers": []
+          }
+        }
+      ],
       "type": "table"
     },
     {
-      "content": "${docs:raw}",
+      "datasource": {
+        "type": "postgres",
+        "uid": "P172949F98CB31475"
+      },
       "gridPos": {
         "h": 13,
         "w": 24,
@@ -181,14 +286,17 @@
       },
       "id": 3,
       "links": [],
-      "mode": "html",
-      "options": {},
+      "options": {
+        "content": "${docs:raw}",
+        "mode": "html"
+      },
+      "pluginVersion": "8.5.27",
       "title": "Dashboard documentation",
       "type": "text"
     }
   ],
   "refresh": false,
-  "schemaVersion": 19,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [
     "dashboard",
@@ -200,12 +308,15 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
+          "selected": true,
           "text": "Last decade",
           "value": "Last decade"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "",
         "hide": 0,
         "includeAll": false,
@@ -219,15 +330,13 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "Contributions",
           "value": "contributions"
         },
@@ -308,16 +417,18 @@
         "type": "custom"
       },
       {
-        "allValue": null,
         "current": {
+          "selected": false,
           "text": "y10",
           "value": "y10"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "",
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "period",
         "options": [],
@@ -327,22 +438,23 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
+          "selected": false,
           "text": "All CNCF",
           "value": "All CNCF"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "",
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "full_name",
         "options": [],
@@ -352,18 +464,20 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
+          "selected": false,
           "text": "All",
           "value": "All"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "",
         "hide": 0,
         "includeAll": false,
@@ -377,18 +491,20 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
+          "selected": false,
           "text": "all",
           "value": "all"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "",
         "hide": 2,
         "includeAll": false,
@@ -402,22 +518,23 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
-          "text": "<h1 id=\"kubernetes-dashboard\">All CNCF Developer Activity Counts by Repository Group dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Main metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/project_developer_stats.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Approves metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/kubernetes/hist_approvers.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Reviews metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/kubernetes/hist_reviewers.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/kubernetes/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>Developer activity</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/developer-activity-counts-by-repository-group.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows various developer metrics groupped by their affiliated companies.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>You can select single repository group or summary for all of them.</li>\n<li>You can select country from a drop-down or summary for all countries.</li>\n<li>You can select company/companies from a drop-down or all to display all companies.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots when calculating statistics, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n<li>We are determining user's company affiliation from <a href=\"https://github.com/cncf/devstats/blob/master/github_users.json\" target=\"_blank\">this file</a>, which is imported from <code>cncf/gitdm</code>.</li>\n</ul>",
-          "value": "<h1 id=\"kubernetes-dashboard\">All CNCF Developer Activity Counts by Repository Group dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Main metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/project_developer_stats.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Approves metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/kubernetes/hist_approvers.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>Reviews metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/kubernetes/hist_reviewers.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/kubernetes/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>Developer activity</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/developer-activity-counts-by-repository-group.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows various developer metrics groupped by their affiliated companies.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>You can select single repository group or summary for all of them.</li>\n<li>You can select country from a drop-down or summary for all countries.</li>\n<li>You can select company/companies from a drop-down or all to display all companies.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots when calculating statistics, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n<li>We are determining user's company affiliation from <a href=\"https://github.com/cncf/devstats/blob/master/github_users.json\" target=\"_blank\">this file</a>, which is imported from <code>cncf/gitdm</code>.</li>\n</ul>"
+          "selected": false,
+          "text": "<h1 id=\"dashboard-header\">All CNCF Developer Activity Counts by Companies dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/project_developer_stats.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>Developer summary</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/developer-activity-counts-by-companies.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows various developer metrics groupped by their affiliated companies.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>You can select single repository group or summary for all of them.</li>\n<li>You can select country from a drop-down or summary for all countries.</li>\n<li>You can select company/companies from a drop-down or all to display all companies.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots when calculating statistics, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n<li>We are determining user's company affiliation from <a href=\"https://github.com/cncf/devstats/blob/master/github_users.json\" target=\"_blank\">this file</a>, which is imported from <code>cncf/gitdm</code>.</li>\n</ul>",
+          "value": "<h1 id=\"dashboard-header\">All CNCF Developer Activity Counts by Companies dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/project_developer_stats.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>Developer summary</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/developer-activity-counts-by-companies.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows various developer metrics groupped by their affiliated companies.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>You can select single repository group or summary for all of them.</li>\n<li>You can select country from a drop-down or summary for all countries.</li>\n<li>You can select company/companies from a drop-down or all to display all companies.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots when calculating statistics, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n<li>We are determining user's company affiliation from <a href=\"https://github.com/cncf/devstats/blob/master/github_users.json\" target=\"_blank\">this file</a>, which is imported from <code>cncf/gitdm</code>.</li>\n</ul>"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "select value_s from gha_vars where name = 'developer_company_stats_docs_html'",
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "docs",
         "options": [],
@@ -427,18 +544,20 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
+          "selected": false,
           "text": "all",
           "value": "all"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "",
         "hide": 2,
         "includeAll": false,
@@ -452,7 +571,6 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -460,10 +578,14 @@
       {
         "allValue": "all",
         "current": {
+          "selected": false,
           "text": "All",
           "value": "All"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "",
         "hide": 0,
         "includeAll": false,
@@ -477,7 +599,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -485,12 +606,18 @@
       {
         "allValue": "null",
         "current": {
-          "text": "All",
+          "selected": false,
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "select companies_name from tcompanies order by time",
         "hide": 0,
         "includeAll": true,
@@ -504,7 +631,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -544,5 +670,6 @@
   "timezone": "",
   "title": "Developer Activity Counts by Companies",
   "uid": "66",
-  "version": 2
+  "version": 2,
+  "weekStart": ""
 }
