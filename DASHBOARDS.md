@@ -7,12 +7,14 @@ Each dashboard is defined by its metrics SQL, saved Grafana JSON export and link
 Many dashboards use "Repository group" drop-down. Repository groups are defined manually to group similar repositories into single projects.
 They are defined here: [repo_groups.sql](https://github.com/cncf/devstats/blob/master/scripts/kubernetes/repo_groups.sql)
 
+
 # Import and export
 
 - To get all currently defined dashboard from their Grafana's SQLite databases use: `./devel/get_all_sqlite_jsons.sh`.
 - To put all JSONs into their Grafana's SQLite databases use: `./devel/put_all_charts.sh`. If all is OK, clean DB backups: `./devel/put_all_charts_cleanup.sh`.
 - To specify a list of projects to import/export prepend commands with: `ONLY="project1 project2 ... projectN"`.
 - See [this](https://github.com/cncf/devstats/blob/master/SQLITE.md) file for more details.
+
 
 # Kubernetes dashboards
 
@@ -64,6 +66,7 @@ Similar set of metrics is defined for Prometheus, OpenTracing, ..., Rook (All CN
 - And so on...
 - You can autogenerate list of dashboards using [vim script](https://github.com/cncf/devstats/blob/master/util_sh/auto_gen_dashboards_info.vim).
 
+
 # Prometheus dashboards
 
 All non-k8s projects currently have the same set of dashbords, you only need to replace prometheus with other project's name.
@@ -100,7 +103,16 @@ All non-k8s projects currently have the same set of dashbords, you only need to 
 - User reviews: [user-reviews.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/prometheus/user-reviews.json), [view](https://prometheus.devstats.cncf.io/d/46/user-reviews?orgId=1)
 - Users stats: [users-stats.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/prometheus/users-stats.json), [view](https://prometheus.devstats.cncf.io/d/48/users-stats?orgId=1)
 
+
+# Special dashboards to track multiple project statistics from *All CNCF* DevStats instance:
+
+- Company contribution counts repository groups: [company-contribution-counts-in-repository-groups.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/company-contribution-counts-in-repository-groups.json), [view](https://all.devstats.cncf.io/d/83/company-contribution-counts-in-repository-groups)
+
+
+# All CNCF DevStats instance
+
 There is also an 'All' [Project](https://all.devstats.cncf.io) on the test server that contains all CNCF projects data combined. Each CNCF projects is a repository group there.
+
 
 # Adding new project
 
