@@ -25,7 +25,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1692633105801,
+  "iteration": 1692634032289,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -436,9 +436,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "Last 3 years",
-          "value": "Last 3 years"
+          "selected": true,
+          "text": "Last decade",
+          "value": "Last decade"
         },
         "datasource": {
           "type": "postgres",
@@ -685,6 +685,6 @@
   "timezone": "",
   "title": "Bus Factor in Repository Groups",
   "uid": "84",
-  "version": 6,
+  "version": 2,
   "weekStart": ""
 }

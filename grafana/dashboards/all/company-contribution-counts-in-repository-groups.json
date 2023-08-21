@@ -24,8 +24,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 6,
-  "iteration": 1692612263679,
+  "id": 7,
+  "iteration": 1692634067535,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -205,7 +205,7 @@
           "policy": "default",
           "query": "SELECT \"name\", \"value\" FROM \"top_commenters_[[repogroup]]_[[period]]\" WHERE $timeFilter",
           "rawQuery": true,
-          "rawSql": "select\n  row_number() over (order by value desc) as \"Rank\",\n  name,\n  value\nfrom\n  shcom_contrib\nwhere\n  series = 'hcom_contrib[[company]][[metric]]'\n  and period = '[[period]]'",
+          "rawSql": "select\n  (row_number() over (order by value desc)) - 1 as \"Rank\",\n  name,\n  value\nfrom\n  shcom_contrib\nwhere\n  series = 'hcom_contrib[[company]][[metric]]'\n  and period = '[[period]]'",
           "refId": "A",
           "resultFormat": "table",
           "select": [
@@ -358,10 +358,9 @@
       },
       {
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "<h1 id=\"dashboard-header\">All CNCF company contribution counts in repository groups dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/company_contribution_counts.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/all/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>hcom_contrib</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/company-contribution-counts-in-repository-groups.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard show projects/repository groups where given company has most contributions (selected metric) for a selected period.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>",
+          "value": "<h1 id=\"dashboard-header\">All CNCF company contribution counts in repository groups dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/company_contribution_counts.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/all/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>hcom_contrib</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/company-contribution-counts-in-repository-groups.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard show projects/repository groups where given company has most contributions (selected metric) for a selected period.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>"
         },
         "datasource": {
           "type": "postgres",
@@ -468,7 +467,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "Independent",
           "value": "Independent"
         },
@@ -548,6 +547,6 @@
   "timezone": "",
   "title": "Company contribution counts in Repository Groups",
   "uid": "83",
-  "version": 4,
+  "version": 2,
   "weekStart": ""
 }
