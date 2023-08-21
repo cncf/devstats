@@ -84,6 +84,12 @@ metrics:
     env:
       GHA2DB_NCPUS?@d7: 4
       GHA2DB_NCPUS?!d7: 10
+  - name: Company contribution counts in repository groups
+    histogram: true
+    annotations_ranges: true
+    series_name_or_func: multi_row_single_column
+    sql: company_contribution_counts
+    merge_series: hcom_contrib
   - name: Projects health
     series_name_or_func: multi_row_single_column
     sql: projects_health

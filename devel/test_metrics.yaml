@@ -1,53 +1,8 @@
 ---
 metrics:
-  - name: Time metrics
-    series_name_or_func: multi_row_multi_column
-    sql: time_metrics
-    periods: d,w,m,q,y
-    aggregate: 1,7
-    skip: w7,m7,q7,y7
-    desc: time_diff_as_string
-    merge_series: time_metrics
-    drop: stime_metrics
-  - name: Opened to merged
-    series_name_or_func: multi_row_multi_column
-    sql: opened_to_merged
-    periods: d,w,m,q,y
-    aggregate: 1,7
-    skip: d,w7,m7,q7,y7
-    desc: time_diff_as_string
-    merge_series: opened_to_merged
-    drop: sopened_to_merged
-  - name: Developer summary
-    sql: project_developer_stats
-    series_name_or_func: multi_row_single_column
-    histogram: true
-    annotations_ranges: true
-    allow_fail: true
-    merge_series: hdev
-    env:
-      GHA2DB_NCPUS?: 8
-  - name: Companies summary
-    sqls: [project_company_stats, doc_committers_hist]
-    series_name_or_func: multi_row_single_column
-    histogram: true
-    annotations_ranges: true
-    merge_series: hcom
-    allow_fail: true
-  - name: Project statistics
+  - name: Company contribution counts in repository groups
     histogram: true
     annotations_ranges: true
     series_name_or_func: multi_row_single_column
-    sql: project_stats
-    merge_series: pstat
-    allow_fail: true
-  - name: Users stats
-    series_name_or_func: multi_row_multi_column
-    sqls: [user_activity, user_activity_commits, user_activity_issues, user_activity_prs]
-    periods: d,w,m,q,y
-    aggregate: 1,7
-    skip: w7,m7,q7,y7
-    multi_value: true
-    merge_series: user_activity
-    drop: suser_activity
-    allow_fail: true
+    sql: company_contribution_counts
+    merge_series: hcom_contrib
