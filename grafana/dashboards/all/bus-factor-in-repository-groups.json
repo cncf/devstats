@@ -25,7 +25,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1692634032289,
+  "iteration": 1692638780768,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -67,33 +67,13 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Bus factor"
+              "options": "BF%"
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 86
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Project/Repository Group"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 258
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Bus %"
-            },
-            "properties": [
+                "id": "decimals",
+                "value": 2
+              },
               {
                 "id": "custom.width",
                 "value": 56
@@ -103,72 +83,16 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Companies"
+              "options": "Oth. %"
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 377
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Bus Factor"
-            },
-            "properties": [
+                "id": "decimals",
+                "value": 2
+              },
               {
                 "id": "custom.width",
-                "value": 84
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Bus Factor Companies"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 597
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Others #"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 72
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Others %"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 74
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Top 10"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 63
+                "value": 71
               }
             ]
           },
@@ -179,44 +103,12 @@
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 86
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Top companies"
-            },
-            "properties": [
+                "id": "decimals",
+                "value": 2
+              },
               {
                 "id": "custom.width",
-                "value": 822
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Remaining #"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 95
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Rem. #"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 73
+                "value": 87
               }
             ]
           },
@@ -227,8 +119,12 @@
             },
             "properties": [
               {
+                "id": "decimals",
+                "value": 2
+              },
+              {
                 "id": "custom.width",
-                "value": 76
+                "value": 80
               }
             ]
           },
@@ -240,19 +136,19 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 57
+                "value": 38
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "BF%"
+              "options": "Bus Factor Companies"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 56
+                "value": 553
               }
             ]
           },
@@ -264,19 +160,31 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 71
+                "value": 73
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "Oth. %"
+              "options": "Rem. #"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 68
+                "value": 76
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Project/Repository Group"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 337
               }
             ]
           },
@@ -288,19 +196,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 802
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Top %"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 72
+                "value": 770
               }
             ]
           }
@@ -436,7 +332,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "Last decade",
           "value": "Last decade"
         },
@@ -685,6 +581,6 @@
   "timezone": "",
   "title": "Bus Factor in Repository Groups",
   "uid": "84",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
