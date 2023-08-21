@@ -1,8 +1,8 @@
 ---
 metrics:
-  - name: Company contribution counts in repository groups
+  - name: Bus factor in repository groups
     histogram: true
     annotations_ranges: true
     series_name_or_func: multi_row_single_column
-    sql: company_contribution_counts
-    merge_series: hcom_contrib
+    sql: bus_factor
+    merge_series: hbf
