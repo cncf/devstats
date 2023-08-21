@@ -25,7 +25,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1692631312719,
+  "iteration": 1692633105801,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -34,7 +34,7 @@
         "type": "postgres",
         "uid": "P172949F98CB31475"
       },
-      "description": "Shows [[full_name]] [[company_name]] [[metric]] in [[period]]",
+      "description": "Shows [[full_name]] [[typ:text]] [[metric:text]] [[period_name]] bus factor stats",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -327,7 +327,7 @@
         "showHeader": true,
         "sortBy": [
           {
-            "desc": true,
+            "desc": false,
             "displayName": "Project/Repository Group"
           }
         ]
@@ -390,7 +390,7 @@
           ]
         }
       ],
-      "title": "[[full_name]], [[company_name]], [[metric]] for [[period_name]]",
+      "title": "[[full_name]] [[typ]] [[metric]] [[period_name]] bus factor stats",
       "transformations": [
         {
           "id": "merge",
@@ -436,9 +436,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "Last decade",
-          "value": "Last decade"
+          "selected": false,
+          "text": "Last 3 years",
+          "value": "Last 3 years"
         },
         "datasource": {
           "type": "postgres",
@@ -464,8 +464,8 @@
       {
         "current": {
           "selected": false,
-          "text": "y10",
-          "value": "y10"
+          "text": "y3",
+          "value": "y3"
         },
         "datasource": {
           "type": "postgres",
@@ -685,6 +685,6 @@
   "timezone": "",
   "title": "Bus Factor in Repository Groups",
   "uid": "84",
-  "version": 4,
+  "version": 6,
   "weekStart": ""
 }
