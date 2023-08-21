@@ -464,8 +464,8 @@
       {
         "current": {
           "selected": false,
-          "text": "y3",
-          "value": "y3"
+          "text": "y10",
+          "value": "y10"
         },
         "datasource": {
           "type": "postgres",
