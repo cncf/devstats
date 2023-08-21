@@ -106,7 +106,8 @@ All non-k8s projects currently have the same set of dashbords, you only need to 
 
 # Special dashboards to track multiple project statistics from *All CNCF* DevStats instance:
 
-- Company contribution counts repository groups: [company-contribution-counts-in-repository-groups.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/company-contribution-counts-in-repository-groups.json), [view](https://all.devstats.cncf.io/d/83/company-contribution-counts-in-repository-groups)
+- Company contribution counts Repository Groups: [company-contribution-counts-in-repository-groups.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/company-contribution-counts-in-repository-groups.json), [view](https://all.devstats.cncf.io/d/83/company-contribution-counts-in-repository-groups)
+- Bus factor in Repository Groups: [bus-factor.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/bus-factor.json), [view](https://all.devstats.cncf.io/d/84/bus-factor-in-repository-groups)
 
 
 # All CNCF DevStats instance
