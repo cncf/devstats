@@ -667,7 +667,7 @@ with commits_data as (
     and cr.metric = b.metric
     and cr.tp = b.tp
     and cr.row_number <= b.bus_factor
-    and cr.row_number <= 16
+    and cr.row_number <= 10
 ), bfa as (
   select
     b.repo_group,
