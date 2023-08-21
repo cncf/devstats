@@ -3,7 +3,7 @@
 <ul>
 <li>Metric <a href="https://github.com/cncf/devstats/blob/master/metrics/shared/bus_factor.sql" target="_blank">SQL file</a>.</li>
 <li>TSDB <a href="https://github.com/cncf/devstats/blob/master/metrics/all/metrics.yaml" target="_blank">series definition</a>. Search for <code>bus_factor</code></li>
-<li>Grafana dashboard <a href="https://github.com/cncf/devstats/blob/master/grafana/dashboards/[[lower_name]]/bus_factor-in-repository-groups.json" target="_blank">JSON</a>.</li>
+<li>Grafana dashboard <a href="https://github.com/cncf/devstats/blob/master/grafana/dashboards/[[lower_name]]/bus-factor-in-repository-groups.json" target="_blank">JSON</a>.</li>
 </ul>
 <h1 id="description">Description</h1>
 <ul>

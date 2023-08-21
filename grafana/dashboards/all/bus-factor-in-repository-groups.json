@@ -24,8 +24,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 48,
-  "iteration": 1692627408466,
+  "id": 2,
+  "iteration": 1692629469187,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -84,7 +84,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 273
+                "value": 258
               }
             ]
           },
@@ -216,7 +216,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 60
+                "value": 73
               }
             ]
           },
@@ -228,7 +228,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 62
+                "value": 76
               }
             ]
           },
@@ -240,7 +240,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 17
+                "value": 57
               }
             ]
           },
@@ -252,7 +252,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 40
+                "value": 56
               }
             ]
           },
@@ -264,7 +264,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 57
+                "value": 71
               }
             ]
           },
@@ -276,7 +276,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 59
+                "value": 68
               }
             ]
           },
@@ -288,14 +288,26 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 851
+                "value": 802
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Top %"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 72
               }
             ]
           }
         ]
       },
       "gridPos": {
-        "h": 22,
+        "h": 25,
         "w": 24,
         "x": 0,
         "y": 0
@@ -313,7 +325,12 @@
           "show": false
         },
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Project/Repository Group"
+          }
+        ]
       },
       "pluginVersion": "8.5.27",
       "targets": [
@@ -345,7 +362,7 @@
           "policy": "default",
           "query": "SELECT \"name\", \"value\" FROM \"top_commenters_[[repogroup]]_[[period]]\" WHERE $timeFilter",
           "rawQuery": true,
-          "rawSql": "select\n  split_part(name, '$$', 1) as \"Project/Repository Group\",\n  value as \"BF\",\n  split_part(name, '$$', 2) as \"BF%\",\n  split_part(name, '$$', 3) as \"Bus Factor Companies\",\n  split_part(name, '$$', 4) as \"Oth. #\",\n  split_part(name, '$$', 5) as \"Oth. %\",\n  -- split_part(name, '$$', 6) as \"Top 10\",\n  split_part(name, '$$', 7) as \"Top %\",\n  split_part(name, '$$', 8) as \"Top Companies\",\n  split_part(name, '$$', 9) as \"Rem. #\",\n  split_part(name, '$$', 10) as \"Rem. %\"\nfrom\n  shbf\nwhere\n  series = 'hbus[[typ]][[metric]]'\n  and period = '[[period]]'\norder by\n  1",
+          "rawSql": "select\n  split_part(name, '$$', 1) as \"Project/Repository Group\",\n  value as \"BF\",\n  split_part(name, '$$', 2)::numeric as \"BF%\",\n  split_part(name, '$$', 3) as \"Bus Factor Companies\",\n  split_part(name, '$$', 4)::numeric as \"Oth. #\",\n  split_part(name, '$$', 5)::numeric as \"Oth. %\",\n  -- split_part(name, '$$', 6) as \"Top 10\",\n  split_part(name, '$$', 7)::numeric as \"Top %\",\n  split_part(name, '$$', 8) as \"Top Companies\",\n  split_part(name, '$$', 9)::numeric as \"Rem. #\",\n  split_part(name, '$$', 10)::numeric as \"Rem. %\"\nfrom\n  shbf\nwhere\n  series = 'hbus[[typ]][[metric]]'\n  and period = '[[period]]'\norder by\n  1",
           "refId": "A",
           "resultFormat": "table",
           "select": [
@@ -393,7 +410,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 25
       },
       "id": 11,
       "links": [],
@@ -419,9 +436,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "Last decade",
-          "value": "Last decade"
+          "selected": true,
+          "text": "Last month",
+          "value": "Last month"
         },
         "datasource": {
           "type": "postgres",
@@ -447,8 +464,8 @@
       {
         "current": {
           "selected": false,
-          "text": "y10",
-          "value": "y10"
+          "text": "m",
+          "value": "m"
         },
         "datasource": {
           "type": "postgres",
@@ -499,8 +516,8 @@
       {
         "current": {
           "selected": false,
-          "text": "<h1 id=\"dashboard-header\">All CNCF company contribution counts in repository groups dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/company_contribution_counts.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/all/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>hcom_contrib</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/company-contribution-counts-in-repository-groups.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard show projects/repository groups where given company has most contributions (selected metric) for a selected period.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>",
-          "value": "<h1 id=\"dashboard-header\">All CNCF company contribution counts in repository groups dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/company_contribution_counts.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/all/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>hcom_contrib</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/company-contribution-counts-in-repository-groups.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard show projects/repository groups where given company has most contributions (selected metric) for a selected period.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>"
+          "text": "<h1 id=\"dashboard-header\">All CNCF bus factor in repository groups dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/bus_factor.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/all/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>bus_factor</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/bus_factor-in-repository-groups.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard show bus factor and top 10 companies/contributors data for a giuven repository group and metric combination.</li>\n<li>You can choose between organizations/companies and users/contributors bus factors/top 10 stats.</li>\n<li>Bus factor value for a selected repository group/project is a minimal number of companies/contributors that contribute to >50% of all contributions of given type.</li>\n<li>It also displays companies/users who contribute to a bus factor and top 10 and percentage value of those contributions and percentage nad counts of remainign contributors/organizations.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>",
+          "value": "<h1 id=\"dashboard-header\">All CNCF bus factor in repository groups dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/bus_factor.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/all/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>bus_factor</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/bus_factor-in-repository-groups.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard show bus factor and top 10 companies/contributors data for a giuven repository group and metric combination.</li>\n<li>You can choose between organizations/companies and users/contributors bus factors/top 10 stats.</li>\n<li>Bus factor value for a selected repository group/project is a minimal number of companies/contributors that contribute to >50% of all contributions of given type.</li>\n<li>It also displays companies/users who contribute to a bus factor and top 10 and percentage value of those contributions and percentage nad counts of remainign contributors/organizations.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>"
         },
         "datasource": {
           "type": "postgres",
@@ -542,7 +559,7 @@
           {
             "selected": false,
             "text": "Commit comments",
-            "value": "commit_comments"
+            "value": "commitcomments"
           },
           {
             "selected": false,
@@ -562,7 +579,7 @@
           {
             "selected": false,
             "text": "Issue comments",
-            "value": "issue_comments"
+            "value": "issuecomments"
           },
           {
             "selected": false,
@@ -577,12 +594,12 @@
           {
             "selected": false,
             "text": "Merged PRs",
-            "value": "merged_prs"
+            "value": "mergedprs"
           },
           {
             "selected": false,
             "text": "Review comments",
-            "value": "review_comments"
+            "value": "reviewcomments"
           },
           {
             "selected": false,
@@ -597,19 +614,19 @@
           {
             "selected": false,
             "text": "Active repositories",
-            "value": "active_repos"
+            "value": "activerepos"
           }
         ],
-        "query": "comments,commit_comments,commits,events,pushes,contributions,issue_comments,issues,prs,merged_prs,review_comments,active_repos,reviews",
+        "query": "comments,commitcomments,commits,events,pushes,contributions,issuecomments,issues,prs,mergedprs,reviewcomments,activerepos,reviews",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
       {
         "current": {
-          "selected": false,
-          "text": "org",
-          "value": "Organizations"
+          "selected": true,
+          "text": "Organizations",
+          "value": "org"
         },
         "hide": 0,
         "includeAll": false,
