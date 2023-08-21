@@ -6,3 +6,4 @@ metrics:
     series_name_or_func: multi_row_single_column
     sql: bus_factor
     merge_series: hbf
+    allow_fail: true
