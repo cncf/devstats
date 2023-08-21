@@ -24,8 +24,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 42,
-  "iteration": 1692607785964,
+  "id": 6,
+  "iteration": 1692612263679,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -41,6 +41,7 @@
             "mode": "thresholds"
           },
           "custom": {
+            "align": "auto",
             "displayMode": "auto",
             "inspect": false
           },
@@ -71,15 +72,7 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "Repository group/Project"
-              },
-              {
-                "id": "unit",
-                "value": "short"
-              },
-              {
-                "id": "decimals",
-                "value": 2
+                "value": "Project/Repository Group"
               },
               {
                 "id": "custom.align",
@@ -95,14 +88,15 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "[[metric]]"
+                "value": "[[metric:text]]"
               },
               {
                 "id": "unit",
                 "value": "none"
               },
               {
-                "id": "custom.align"
+                "id": "custom.align",
+                "value": "right"
               }
             ]
           },
@@ -118,31 +112,43 @@
               },
               {
                 "id": "custom.width",
-                "value": 91
+                "value": 100
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "Repository group/Project"
+              "options": "Project/Repository Group"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 1501
+                "value": 1636
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "events"
+              "options": "Contributions"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 194
+                "value": 161
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PRs"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 193
               }
             ]
           }
@@ -227,7 +233,7 @@
           ]
         }
       ],
-      "title": "[[full_name]] [[company_name]] [[metric]] (range: [[period_name]])",
+      "title": "[[full_name]], [[company_name]], [[metric]] for [[period_name]]",
       "transformations": [
         {
           "id": "merge",
@@ -327,8 +333,8 @@
       {
         "current": {
           "selected": false,
-          "text": "TUF",
-          "value": "TUF"
+          "text": "All CNCF",
+          "value": "All CNCF"
         },
         "datasource": {
           "type": "postgres",
@@ -378,10 +384,8 @@
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
-          "selected": false,
-          "tags": [],
+          "selected": true,
           "text": "Contributions",
           "value": "contributions"
         },
@@ -458,6 +462,7 @@
           }
         ],
         "query": "comments,commit_comments,commits,events,pushes,contributions,issue_comments,issues,prs,merged_prs,review_comments,active_repos,reviews",
+        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -466,6 +471,10 @@
           "selected": true,
           "text": "Independent",
           "value": "Independent"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
         },
         "definition": "select companies_name from tcompanies order by time",
         "hide": 0,
@@ -484,8 +493,12 @@
       {
         "current": {
           "selected": false,
-          "text": "None",
-          "value": "None"
+          "text": "independent",
+          "value": "independent"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
         },
         "definition": "select companies_value from tcompanies where companies_name = '[[company_name]]'",
         "hide": 2,

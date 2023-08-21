@@ -357,7 +357,7 @@ vars:
       - [full_name, full_name]
       - [proj_name, $GHA2DB_PROJECT]
       - [url_prefix, proj_name]
-  - name: company_contribution_docs_html
+  - name: company_contribution_counts_docs_html
     type: s
     command:
       - cat
