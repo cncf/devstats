@@ -25,7 +25,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1692638780768,
+  "iteration": 1692691242378,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -34,7 +34,7 @@
         "type": "postgres",
         "uid": "P172949F98CB31475"
       },
-      "description": "Shows [[full_name]] [[typ:text]] [[metric:text]] [[period_name]] bus factor stats",
+      "description": "Shows [[full_name]] [[typ:text]] [[metric:text]] [[period_name]] Elephant/Bus Factor stats",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -143,7 +143,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Bus Factor Companies"
+              "options": "Bus/Elephant Factor Organizations"
             },
             "properties": [
               {
@@ -191,7 +191,31 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Top Companies"
+              "options": "Top Organizations"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 770
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Bus/Elaphant Factor Users"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 553
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Top Users"
             },
             "properties": [
               {
@@ -258,7 +282,7 @@
           "policy": "default",
           "query": "SELECT \"name\", \"value\" FROM \"top_commenters_[[repogroup]]_[[period]]\" WHERE $timeFilter",
           "rawQuery": true,
-          "rawSql": "select\n  split_part(name, '$$', 1) as \"Project/Repository Group\",\n  value as \"BF\",\n  split_part(name, '$$', 2)::numeric as \"BF%\",\n  split_part(name, '$$', 3) as \"Bus Factor Companies\",\n  split_part(name, '$$', 4)::numeric as \"Oth. #\",\n  split_part(name, '$$', 5)::numeric as \"Oth. %\",\n  -- split_part(name, '$$', 6) as \"Top 10\",\n  split_part(name, '$$', 7)::numeric as \"Top 10 %\",\n  split_part(name, '$$', 8) as \"Top Companies\",\n  split_part(name, '$$', 9)::numeric as \"Rem. #\",\n  split_part(name, '$$', 10)::numeric as \"Rem. %\"\nfrom\n  shbf\nwhere\n  series = 'hbus[[typ]][[metric]]'\n  and period = '[[period]]'\norder by\n  1",
+          "rawSql": "select\n  split_part(name, '$$', 1) as \"Project/Repository Group\",\n  value as \"BF\",\n  split_part(name, '$$', 2)::numeric as \"BF%\",\n  split_part(name, '$$', 3) as \"Bus/Elaphant Factor [[typ:text]]\",\n  split_part(name, '$$', 4)::numeric as \"Oth. #\",\n  split_part(name, '$$', 5)::numeric as \"Oth. %\",\n  -- split_part(name, '$$', 6) as \"Top 10\",\n  split_part(name, '$$', 7)::numeric as \"Top 10 %\",\n  split_part(name, '$$', 8) as \"Top [[typ:text]]\",\n  split_part(name, '$$', 9)::numeric as \"Rem. #\",\n  split_part(name, '$$', 10)::numeric as \"Rem. %\"\nfrom\n  shbf\nwhere\n  series = 'hbus[[typ]][[metric]]'\n  and period = '[[period]]'\norder by\n  1",
           "refId": "A",
           "resultFormat": "table",
           "select": [
@@ -286,7 +310,7 @@
           ]
         }
       ],
-      "title": "[[full_name]] [[typ]] [[metric]] [[period_name]] bus factor stats",
+      "title": "[[full_name]] [[typ]] [[metric]] [[period_name]] Elephant/Bus Factor stats",
       "transformations": [
         {
           "id": "merge",
@@ -412,8 +436,8 @@
       {
         "current": {
           "selected": false,
-          "text": "<h1 id=\"dashboard-header\">All CNCF bus factor in repository groups dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/bus_factor.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/all/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>bus_factor</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/bus-factor-in-repository-groups.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard show bus factor and top 10 companies/contributors data for a giuven repository group and metric combination.</li>\n<li>You can choose between organizations/companies and users/contributors bus factors/top 10 stats.</li>\n<li>Bus factor value for a selected repository group/project is a minimal number of companies/contributors that contribute to >50% of all contributions of given type.</li>\n<li>It also displays companies/users who contribute to a bus factor and top 10 and percentage value of those contributions and percentage nad counts of remainign contributors/organizations.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>",
-          "value": "<h1 id=\"dashboard-header\">All CNCF bus factor in repository groups dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/bus_factor.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/all/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>bus_factor</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/bus-factor-in-repository-groups.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard show bus factor and top 10 companies/contributors data for a giuven repository group and metric combination.</li>\n<li>You can choose between organizations/companies and users/contributors bus factors/top 10 stats.</li>\n<li>Bus factor value for a selected repository group/project is a minimal number of companies/contributors that contribute to >50% of all contributions of given type.</li>\n<li>It also displays companies/users who contribute to a bus factor and top 10 and percentage value of those contributions and percentage nad counts of remainign contributors/organizations.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>"
+          "text": "<h1 id=\"dashboard-header\">All CNCF elephant/bus factor in repository groups dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/bus_factor.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/all/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>bus_factor</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/bus-factor-in-repository-groups.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard show bus factor and top 10 companies/contributors data for a giuven repository group and metric combination.</li>\n<li>You can choose between organizations/companies and users/contributors bus factors/top 10 stats.</li>\n<li>Bus factor value for a selected repository group/project is a minimal number of companies/contributors that contribute to >50% of all contributions of given type.</li>\n<li>It also displays companies/users who contribute to a bus factor and top 10 and percentage value of those contributions and percentage nad counts of remainign contributors/organizations.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>",
+          "value": "<h1 id=\"dashboard-header\">All CNCF elephant/bus factor in repository groups dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/bus_factor.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/all/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>bus_factor</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/bus-factor-in-repository-groups.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard show bus factor and top 10 companies/contributors data for a giuven repository group and metric combination.</li>\n<li>You can choose between organizations/companies and users/contributors bus factors/top 10 stats.</li>\n<li>Bus factor value for a selected repository group/project is a minimal number of companies/contributors that contribute to >50% of all contributions of given type.</li>\n<li>It also displays companies/users who contribute to a bus factor and top 10 and percentage value of those contributions and percentage nad counts of remainign contributors/organizations.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n<li>We are skipping bots activity, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>"
         },
         "datasource": {
           "type": "postgres",
@@ -437,7 +461,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "Contributions",
           "value": "contributions"
         },
@@ -579,8 +603,8 @@
     ]
   },
   "timezone": "",
-  "title": "Bus Factor in Repository Groups",
+  "title": "Elephant/Bus Factor in Repository Groups",
   "uid": "84",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }
