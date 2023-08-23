@@ -1604,7 +1604,7 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   openclustermanagement:
     order: 116
-    name: Open Cluster management
+    name: Open Cluster MAnagement
     status: Sandbox
     command_line:
     - 'open-cluster-management-io'
