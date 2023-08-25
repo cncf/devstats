@@ -340,6 +340,243 @@ with commits_data as (
   group by
     r.repo_group,
     aa.company_name
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_text(sha)))) desc
+    ) as row_number,
+    'All',
+    'commits' as metric,
+    'org' as tp,
+    company as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_text(sha)))) as cnt
+  from
+    commits_data
+  where
+    company != ''
+  group by
+    company
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) desc
+    ) as row_number,
+    'All',
+    'contributions' as metric,
+    'org' as tp,
+    aa.company_name as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
+  from
+    gha_events e,
+    gha_repos r,
+    gha_actors_affiliations aa
+  where
+    r.name = e.dup_repo_name
+    and r.id = e.repo_id
+    and e.actor_id = aa.actor_id
+    and aa.dt_from <= e.created_at
+    and aa.dt_to > e.created_at
+    and e.type in (
+      'IssuesEvent', 'PullRequestEvent', 'PushEvent',
+      'PullRequestReviewCommentEvent', 'IssueCommentEvent',
+      'CommitCommentEvent', 'ForkEvent', 'WatchEvent', 'PullRequestReviewEvent'
+    )
+    and aa.company_name != ''
+    and {{period:e.created_at}}
+    and (lower(e.dup_actor_login) {{exclude_bots}})
+  group by
+    aa.company_name
+  union select
+    row_number() over (
+      partition by
+        e.type
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) desc
+    ) as row_number,
+    'All',
+    case e.type
+      when 'PushEvent' then 'pushes'
+      when 'PullRequestReviewCommentEvent' then 'review_comments'
+      when 'PullRequestReviewEvent' then 'reviews'
+      when 'IssueCommentEvent' then 'issue_comments'
+      when 'CommitCommentEvent' then 'commit_comments'
+    end as metric,
+    'org' as tp,
+    aa.company_name as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
+  from
+    gha_events e,
+    gha_repos r,
+    gha_actors_affiliations aa
+  where
+    r.name = e.dup_repo_name
+    and r.id = e.repo_id
+    and aa.actor_id = e.actor_id
+    and aa.dt_from <= e.created_at
+    and aa.dt_to > e.created_at
+    and e.type in (
+      'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
+      'IssueCommentEvent', 'CommitCommentEvent'
+    )
+    and aa.company_name != ''
+    and {{period:e.created_at}}
+    and (lower(e.dup_actor_login) {{exclude_bots}})
+  group by
+    aa.company_name,
+    e.type
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) desc
+    ) as row_number,
+    'All',
+    'active_repos' as metric,
+    'org' as tp,
+    aa.company_name as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) as cnt
+  from
+    gha_events e,
+    gha_repos r,
+    gha_actors_affiliations aa
+  where
+    r.name = e.dup_repo_name
+    and r.id = e.repo_id
+    and aa.actor_id = e.actor_id
+    and aa.dt_from <= e.created_at
+    and aa.dt_to > e.created_at
+    and aa.company_name != ''
+    and {{period:e.created_at}}
+    and (lower(e.dup_actor_login) {{exclude_bots}})
+  group by
+    aa.company_name
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) desc
+    ) as row_number,
+    'All',
+    'comments' as metric,
+    'org' as tp,
+    aa.company_name as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) as cnt
+  from
+    gha_repos r,
+    gha_comments c,
+    gha_actors_affiliations aa
+  where
+    r.name = c.dup_repo_name
+    and r.id = c.dup_repo_id
+    and aa.actor_id = c.user_id
+    and aa.dt_from <= c.created_at
+    and aa.dt_to > c.created_at
+    and aa.company_name != ''
+    and {{period:c.created_at}}
+    and (lower(c.dup_user_login) {{exclude_bots}})
+  group by
+    aa.company_name
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) desc
+    ) as row_number,
+    'All',
+    'issues' as metric,
+    'org' as tp,
+    aa.company_name as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
+  from
+    gha_repos r,
+    gha_issues i,
+    gha_actors_affiliations aa
+  where
+    r.name = i.dup_repo_name
+    and r.id = i.dup_repo_id
+    and aa.actor_id = i.user_id
+    and aa.dt_from <= i.created_at
+    and aa.dt_to > i.created_at
+    and aa.company_name != ''
+    and i.is_pull_request = false
+    and {{period:i.created_at}}
+    and (lower(i.dup_user_login) {{exclude_bots}})
+  group by
+    aa.company_name
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) desc
+    ) as row_number,
+    'All',
+    'prs' as metric,
+    'org' as tp,
+    aa.company_name as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
+  from
+    gha_repos r,
+    gha_issues i,
+    gha_actors_affiliations aa
+  where
+    r.name = i.dup_repo_name
+    and r.id = i.dup_repo_id
+    and aa.actor_id = i.user_id
+    and aa.dt_from <= i.created_at
+    and aa.dt_to > i.created_at
+    and aa.company_name != ''
+    and i.is_pull_request = true
+    and {{period:i.created_at}}
+    and (lower(i.dup_user_login) {{exclude_bots}})
+  group by
+    aa.company_name
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) desc
+    ) as row_number,
+    'All',
+    'merged_prs' as metric,
+    'org' as tp,
+    aa.company_name as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
+  from
+    gha_repos r,
+    gha_pull_requests i,
+    gha_actors_affiliations aa
+  where
+    r.name = i.dup_repo_name
+    and r.id = i.dup_repo_id
+    and aa.actor_id = i.user_id
+    and i.merged_at is not null
+    and aa.dt_from <= i.merged_at
+    and aa.dt_to > i.merged_at
+    and aa.company_name != ''
+    and {{period:i.merged_at}}
+    and (lower(i.dup_user_login) {{exclude_bots}})
+  group by
+    aa.company_name
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) desc
+    ) as row_number,
+    'All',
+    'events' as metric,
+    'org' as tp,
+    aa.company_name as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
+  from
+    gha_repos r,
+    gha_events e,
+    gha_actors_affiliations aa
+  where
+    r.name = e.dup_repo_name
+    and r.id = e.repo_id
+    and aa.actor_id = e.actor_id
+    and aa.dt_from <= e.created_at
+    and aa.dt_to > e.created_at
+    and aa.company_name != ''
+    and {{period:e.created_at}}
+    and (lower(e.dup_actor_login) {{exclude_bots}})
+  group by
+    aa.company_name
 ), urg as (
   select
     row_number() over (
@@ -561,6 +798,201 @@ with commits_data as (
     and (lower(e.dup_actor_login) {{exclude_bots}})
   group by
     r.repo_group,
+    e.dup_actor_login
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_text(sha)))) desc
+    ) as row_number,
+    'All',
+    'commits' as metric,
+    'usr' as tp,
+    actor_login as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_text(sha)))) as cnt
+  from
+    commits_data
+  group by
+    actor_login
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) desc
+    ) as row_number,
+    'All',
+    'contributions' as metric,
+    'usr' as tp,
+    e.dup_actor_login as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
+  from
+    gha_events e,
+    gha_repos r
+  where
+    r.name = e.dup_repo_name
+    and r.id = e.repo_id
+    and e.type in (
+      'IssuesEvent', 'PullRequestEvent', 'PushEvent',
+      'PullRequestReviewCommentEvent', 'IssueCommentEvent',
+      'CommitCommentEvent', 'ForkEvent', 'WatchEvent', 'PullRequestReviewEvent'
+    )
+    and {{period:e.created_at}}
+    and (lower(e.dup_actor_login) {{exclude_bots}})
+  group by
+    e.dup_actor_login
+  union select
+    row_number() over (
+      partition by
+        e.type
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) desc
+    ) as row_number,
+    'All',
+    case e.type
+      when 'PushEvent' then 'pushes'
+      when 'PullRequestReviewCommentEvent' then 'review_comments'
+      when 'PullRequestReviewEvent' then 'reviews'
+      when 'IssueCommentEvent' then 'issue_comments'
+      when 'CommitCommentEvent' then 'commit_comments'
+    end as metric,
+    'usr' as tp,
+    e.dup_actor_login as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
+  from
+    gha_events e,
+    gha_repos r
+  where
+    r.name = e.dup_repo_name
+    and r.id = e.repo_id
+    and e.type in (
+      'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
+      'IssueCommentEvent', 'CommitCommentEvent'
+    )
+    and {{period:e.created_at}}
+    and (lower(e.dup_actor_login) {{exclude_bots}})
+  group by
+    e.dup_actor_login,
+    e.type
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) desc
+    ) as row_number,
+    'All',
+    'active_repos' as metric,
+    'usr' as tp,
+    e.dup_actor_login as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) as cnt
+  from
+    gha_events e,
+    gha_repos r
+  where
+    r.name = e.dup_repo_name
+    and r.id = e.repo_id
+    and {{period:e.created_at}}
+    and (lower(e.dup_actor_login) {{exclude_bots}})
+  group by
+    e.dup_actor_login
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) desc
+    ) as row_number,
+    'All',
+    'comments' as metric,
+    'usr' as tp,
+    c.dup_user_login as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) as cnt
+  from
+    gha_repos r,
+    gha_comments c
+  where
+    r.name = c.dup_repo_name
+    and r.id = c.dup_repo_id
+    and {{period:c.created_at}}
+    and (lower(c.dup_user_login) {{exclude_bots}})
+  group by
+    c.dup_user_login
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) desc
+    ) as row_number,
+    'All',
+    'issues' as metric,
+    'usr' as tp,
+    i.dup_user_login as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
+  from
+    gha_repos r,
+    gha_issues i
+  where
+    r.name = i.dup_repo_name
+    and r.id = i.dup_repo_id
+    and i.is_pull_request = false
+    and {{period:i.created_at}}
+    and (lower(i.dup_user_login) {{exclude_bots}})
+  group by
+    i.dup_user_login
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) desc
+    ) as row_number,
+    'All',
+    'prs' as metric,
+    'usr' as tp,
+    i.dup_user_login as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
+  from
+    gha_repos r,
+    gha_issues i
+  where
+    r.name = i.dup_repo_name
+    and r.id = i.dup_repo_id
+    and i.is_pull_request = true
+    and {{period:i.created_at}}
+    and (lower(i.dup_user_login) {{exclude_bots}})
+  group by
+    i.dup_user_login
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) desc
+    ) as row_number,
+    'All',
+    'merged_prs' as metric,
+    'usr' as tp,
+    i.dup_user_login as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
+  from
+    gha_repos r,
+    gha_pull_requests i
+  where
+    r.name = i.dup_repo_name
+    and r.id = i.dup_repo_id
+    and i.merged_at is not null
+    and {{period:i.merged_at}}
+    and (lower(i.dup_user_login) {{exclude_bots}})
+  group by
+    i.dup_user_login
+  union select
+    row_number() over (
+      order by
+        round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) desc
+    ) as row_number,
+    'All',
+    'events' as metric,
+    'usr' as tp,
+    e.dup_actor_login as name,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
+  from
+    gha_repos r,
+    gha_events e
+  where
+    r.name = e.dup_repo_name
+    and r.id = e.repo_id
+    and {{period:e.created_at}}
+    and (lower(e.dup_actor_login) {{exclude_bots}})
+  group by
     e.dup_actor_login
 ), rg as (
   select
