@@ -1,0 +1,67 @@
+    <tr>
+      <td colspan="9" class="cncf-sep">Graduated</td>
+    </tr>
+    <tr>
+        <td class="cncf-bl"><a href="https://k8s.devstats.cncf.io" target="_blank">Kubernetes</a></td>
+        <td><a href="https://prometheus.devstats.cncf.io" target="_blank">Prometheus</a></td>
+        <td><a href="https://envoy.devstats.cncf.io" target="_blank">Envoy</a></td>
+        <td><a href="https://coredns.devstats.cncf.io" target="_blank">CoreDNS</a></td>
+        <td><a href="https://containerd.devstats.cncf.io" target="_blank">containerd</a></td>
+        <td><a href="https://fluentd.devstats.cncf.io" target="_blank">Fluentd</a></td>
+        <td><a href="https://jaeger.devstats.cncf.io" target="_blank">Jaeger</a></td>
+        <td><a href="https://vitess.devstats.cncf.io" target="_blank">Vitess</a></td>
+        <td class="cncf-br"><a href="https://tuf.devstats.cncf.io" target="_blank">TUF</a></td>
+    </tr>
+    <tr>
+        <td class="cncf-bb cncf-bl"><a href="https://k8s.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="k8s.svg" alt="Kubernetes" height="80" width="80" /></a></td>
+        <td class="cncf-bb"d><a href="https://prometheus.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="prometheus.svg" alt="Prometheus" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://envoy.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="envoy.svg" alt="Envoy" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://coredns.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="coredns.svg" alt="CoreDNS" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://containerd.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="containerd.svg" alt="containerd" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://fluentd.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="fluentd.svg" alt="Fluentd" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://jaeger.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="jaeger.svg" alt="Jaeger" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://vitess.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="vitess.svg" alt="Vitess" height="80" width="80" /></a></td>
+        <td class="cncf-bb cncf-br"><a href="https://tuf.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="tuf.svg" alt="TUF" height="80" width="80" /></a></td>
+    </tr>
+    <tr>
+      <td colspan="9" class="cncf-sep">Graduated</td>
+    </tr>
+    <tr>
+        <td class="cncf-bl"><a href="https://helm.devstats.cncf.io" target="_blank">Helm</a></td>
+        <td><a href="https://harbor.devstats.cncf.io" target="_blank">Harbor</a></td>
+        <td><a href="https://tikv.devstats.cncf.io" target="_blank">TiKV</a></td>
+        <td><a href="https://rook.devstats.cncf.io" target="_blank">Rook</a></td>
+        <td><a href="https://etcd.devstats.cncf.io" target="_blank">etcd</a></td>
+        <td><a href="https://opa.devstats.cncf.io" target="_blank">OPA</a></td>
+        <td><a href="https://linkerd.devstats.cncf.io" target="_blank">Linkerd</a></td>
+        <td><a href="https://flux.devstats.cncf.io" target="_blank">Flux</a></td>
+        <td class="cncf-br"><a href="https://argo.devstats.cncf.io" target="_blank">Argo</a></td>
+    </tr>
+    <tr>
+        <td class="cncf-bb cncf-bl"><a href="https://helm.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="helm.svg" alt="Helm" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://harbor.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="harbor.svg" alt="Harbor" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://tikv.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="tikv.svg" alt="TiKV" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://rook.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="rook.svg" alt="Rook" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://etcd.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="etcd.svg" alt="etcd" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://opa.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="opa.svg" alt="OPA" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://linkerd.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="linkerd.svg" alt="Linkerd" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://flux.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="flux.svg" alt="Flux" height="80" width="80" /></a></td>
+        <td class="cncf-bb cncf-br"><a href="https://argo.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="argo.svg" alt="Argo" height="80" width="80" /></a></td>
+    </tr>
+    <tr>
+      <td colspan="5" class="cncf-sep">Graduated</td>
+    </tr>
+    <tr>
+        <td class="cncf-bl"><a href="https://spiffe.devstats.cncf.io" target="_blank">SPIFFE</a></td>
+        <td><a href="https://spire.devstats.cncf.io" target="_blank">SPIRE</a></td>
+        <td><a href="https://istio.devstats.cncf.io" target="_blank">Istio</a></td>
+        <td><a href="https://crio.devstats.cncf.io" target="_blank">CRI-O</a></td>
+        <td class="cncf-br"><a href="https://keda.devstats.cncf.io" target="_blank">KEDA</a></td>
+    </tr>
+    <tr>
+        <td class="cncf-bb cncf-bl"><a href="https://spiffe.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="spiffe.svg" alt="SPIFFE" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://spire.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="spire.svg" alt="SPIRE" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://istio.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="istio.svg" alt="Istio" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://crio.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="crio.svg" alt="CRI-O" height="80" width="80" /></a></td>
+        <td class="cncf-bb cncf-br"><a href="https://keda.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="keda.svg" alt="KEDA" height="80" width="80" /></a></td>
+    </tr>
