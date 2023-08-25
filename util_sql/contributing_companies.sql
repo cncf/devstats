@@ -17,6 +17,7 @@ from (
     and e.created_at < '{{to}}'
     and (lower(e.dup_actor_login) {{exclude_bots}})
     and aa.company_name != ''
+    and aa.company_name not in ('(Robots)')
   group by
     aa.company_name
   ) sub
