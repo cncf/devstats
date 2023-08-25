@@ -261,6 +261,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "KEDA",
+      "tooltip": "Opens KEDA projects dashboards",
+      "type": "link",
+      "url": "https://keda.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -395,16 +405,6 @@
       "tooltip": "Opens Emissary-ingress projects dashboards",
       "type": "link",
       "url": "https://emissaryingress.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "KEDA",
-      "tooltip": "Opens KEDA projects dashboards",
-      "type": "link",
-      "url": "https://keda.[[hostname]]"
     },
     {
       "icon": "dashboard",
