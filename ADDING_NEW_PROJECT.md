@@ -77,6 +77,8 @@ This file describes how to add new project on the test and production servers.
 - Per-project data: `` for f in prj1 prj2; do cp -Rv "$f/" "/usr/share/nginx/html/backups/grafana/$f"; cp -Rv "dashboards/$f/" "/usr/share/nginx/html/backups/grafana/dashboards/$f"; done ``.
 - Permissions: `chmod -R ugo+rwx /usr/share/nginx/html/backups/grafana/`, cleanup: `rm -rf devstats-grafana.tar /grafana/`. Also `rm devstats-grafana.tar` locally.
 - To get updated Grafana dashboards (saved using browser): `PROD=1 ONLY='clusterpedia opencost aerakimesh curve openfeature kubewarden devstream' ./devel/get_all_sqlite_jsons.sh`.
+- Recreate grafanas: `` cd cncf/devstats-k8s-lf/util/ && rm ~/recreate.log && ITER=1 ./delete_objects.sh po devstats-grafana- &>> ~/recreate.log & ``.
+- Track progress: `` clear && tail -f ~/recreate.log ``.
 
 # Updating artwork icons
 
