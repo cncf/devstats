@@ -1,2 +1,23 @@
 ---
 tags:
+  - name: Companies
+    sql: companies_tags
+    series_name: companies
+    name_tag: companies_name
+    value_tag: companies_value
+  - name: Repository groups including All
+    sql: repo_groups_tags_with_all
+    series_name: all_repo_groups
+    name_tag: all_repo_group_name
+    value_tag: all_repo_group_value
+  - name: Repos
+    sql: repos_tags
+    series_name: repos
+    name_tag: repo_name
+    value_tag: repo_value
+    limit: 500
+  - name: Companies
+    sql: companies_tags
+    series_name: companies
+    name_tag: companies_name
+    value_tag: companies_value

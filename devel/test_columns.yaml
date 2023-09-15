@@ -1,2 +1,5 @@
 ---
 columns:
+  - table_regexp: '^scompany_activity(_repos)?$'
+    tag: tcompanies
+    column: companies_name
