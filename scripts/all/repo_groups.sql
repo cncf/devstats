@@ -1770,6 +1770,56 @@ where
   or name in ('google/kubeflow')
 ;
 
+-- Copacetic
+update
+  gha_repos
+set
+  repo_group = 'Copacetic'
+where
+  org_login in ('project-copacetic')
+;
+
+-- Logging Operator
+update
+  gha_repos
+set
+  repo_group = 'Logging Operator'
+where
+  org_login in ('kube-logging')
+  or name in ('banzaicloud/logging-operator')
+;
+
+-- Kanister
+update
+  gha_repos
+set
+  repo_group = 'Kanister'
+where
+  org_login in ('kanisterio')
+;
+
+-- kcp
+update
+  gha_repos
+set
+  repo_group = 'kcp'
+where
+  org_login in ('kcp-dev')
+;
+
+-- KCL
+update
+  gha_repos
+set
+  repo_group = 'KCL'
+where
+  org_login in ('kcl-lang')
+  or name in (
+    'KusionStack/kcl',
+    'KusionStack/KCLVM'
+  )
+;
+
 -- CNCF
 update
   gha_repos
