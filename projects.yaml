@@ -2333,6 +2333,71 @@ projects:
     main_repo: kubeflow/kubeflow
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
+  copacetic:
+    order: 172
+    name: Copacetic
+    status: Sandbox
+    command_line:
+      - 'project-copacetic'
+    start_date: 2023-01-11T00:00:00Z
+    join_date: 2023-09-19T00:00:00Z
+    psql_db: 'copacetic'
+    shared_db: allprj
+    main_repo: project-copacetic/copacetic
+    annotation_regexp: '^v\d+\.\d+\.\d+$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  loggingoperator:
+    order: 173
+    name: 'Logging Operator'
+    status: Sandbox
+    command_line:
+      - 'kube-logging'
+    start_date: 2018-08-02T00:00:00Z
+    join_date: 2023-09-19T00:00:00Z
+    psql_db: 'loggingoperator'
+    shared_db: allprj
+    main_repo: kube-logging/logging-operator
+    annotation_regexp: '^\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  kanister:
+    order: 174
+    name: Kanister
+    status: Sandbox
+    command_line:
+      - 'kanisterio'
+    start_date: 2017-11-22T00:00:00Z
+    join_date: 2023-09-19T00:00:00Z
+    psql_db: 'kanister'
+    shared_db: allprj
+    main_repo: kanisterio/kanister
+    annotation_regexp: '^\d+\.\d*0\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  kcp:
+    order: 175
+    name: kcp
+    status: Sandbox
+    command_line:
+      - 'kcp-dev'
+    start_date: 2021-04-01T00:00:00Z
+    join_date: 2023-09-19T00:00:00Z
+    psql_db: 'kcp'
+    shared_db: allprj
+    main_repo: kcp-dev/kcp
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  kcl:
+    order: 176
+    name: KCL
+    status: Sandbox
+    command_line:
+      - 'kcl-lang'
+    start_date: 2022-05-13T00:00:00Z
+    join_date: 2023-09-19T00:00:00Z
+    psql_db: 'kcl'
+    shared_db: allprj
+    main_repo: kcl-lang/kcl
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: ''
   opencontainers:
     order: 200
     name: OCI
@@ -2567,7 +2632,7 @@ projects:
          clastix/capsule-helm-chart,clastix/flux2-capsule-multi-tenancy,slimtoolkit,\
          clastix/capsule-ns-filter,clastix/Capsule,clastix/ckd-capsule-app,\
          sustainable-computing-io,GoogleContainerTools/kpt,kubeclipper-labs,\
-         buildpacks-community"
+         buildpacks-community,project-copacetic,kube-logging,kanisterio,kcp-dev,kcl-lang"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
