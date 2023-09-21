@@ -33,6 +33,7 @@ confidentialcontainers,confidential-containers
 containerd,containerd,docker/containerd
 containerssh,ContainerSSH,janoszen/ContainerSSH,janoszen/containerssh
 contour,projectcontour,heptio/contour
+copacetic,project-copacetic
 cord,opencord
 coredns,miekg/coredns,coredns
 cortex,cortexproject,weaveworks/cortex,weaveworks/prism,weaveworks/frankenstein
@@ -85,7 +86,10 @@ k3s,k3s-io
 k8dash,indeedeng/k8dash,indeedeng/k8dash-website,herbrandson/k8dash,skooner-k8s
 k8gb,k8gb-io,AbsaOSS/k8gb,AbsaOSS/ohmyglb
 k8up,k8up-io,vshn/k8up
+kanister,kanisterio
 karmada,karmada-io
+kcl,kcl-lang,KusionStack/kcl,KusionStack/KCLVM
+kcp,kcp-dev
 keda,kedacore,tomkerkhove/sample-dotnet-queue-worker,tomkerkhove/sample-dotnet-queue-worker-servicebus-queue,tomkerkhove/sample-dotnet-worker-servicebus-queue
 kepler,sustainable-computing-io
 keptn,keptn
@@ -119,6 +123,7 @@ lima,lima-vm,AkihiroSuda/lima
 linkerd,linkerd
 linux,torvalds/linux,linux
 litmuschaos,litmuschaos,openebs/test-storage,openebs/litmus
+loggingoperator,kube-logging,banzaicloud/logging-operator
 longhorn,longhorn,rancher/longhorn
 merbridge,merbridge,kebe7jun/mepf,kebe7jun/mebpf
 meshery,regexp:(?i)^(layer5io\/.*meshery|meshery\/.*)
