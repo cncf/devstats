@@ -1735,6 +1735,56 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Copacetic",
+      "tooltip": "Opens Copacetic projects dashboards",
+      "type": "link",
+      "url": "https://copacetic.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Logging Operator",
+      "tooltip": "Opens Logging Operator projects dashboards",
+      "type": "link",
+      "url": "https://loggingoperator.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kanister",
+      "tooltip": "Opens Kanister projects dashboards",
+      "type": "link",
+      "url": "https://kanister.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "kcp",
+      "tooltip": "Opens kcp projects dashboards",
+      "type": "link",
+      "url": "https://kcp.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KCL",
+      "tooltip": "Opens KCL projects dashboards",
+      "type": "link",
+      "url": "https://kcl.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
