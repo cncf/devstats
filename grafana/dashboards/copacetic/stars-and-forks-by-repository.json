@@ -505,7 +505,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "openfeature"
+    "copacetic"
   ],
   "templating": {
     "list": [
@@ -565,8 +565,8 @@
       {
         "current": {
           "selected": false,
-          "text": "openfeature",
-          "value": "openfeature"
+          "text": "copacetic",
+          "value": "copacetic"
         },
         "datasource": {
           "type": "postgres",

@@ -503,7 +503,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "kubeflow"
+    "kanister"
   ],
   "templating": {
     "list": [

@@ -1939,13 +1939,13 @@
         "showStarred": false,
         "tags": [
           "dashboard",
-          "kubeflow"
+          "kanister"
         ]
       },
       "pluginVersion": "8.5.27",
       "tags": [
         "dashboard",
-        "kubeflow"
+        "kanister"
       ],
       "title": "All [[full_name]] Dashboards",
       "type": "dashlist"
@@ -1978,7 +1978,7 @@
   "tags": [
     "home",
     "all",
-    "kubeflow"
+    "kanister"
   ],
   "templating": {
     "list": [

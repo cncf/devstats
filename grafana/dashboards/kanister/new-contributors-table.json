@@ -232,7 +232,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "kubeflow",
+    "kanister",
     "table"
   ],
   "templating": {

@@ -505,7 +505,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "opencost"
+    "loggingoperator"
   ],
   "templating": {
     "list": [
@@ -565,8 +565,8 @@
       {
         "current": {
           "selected": false,
-          "text": "opencost",
-          "value": "opencost"
+          "text": "loggingoperator",
+          "value": "loggingoperator"
         },
         "datasource": {
           "type": "postgres",

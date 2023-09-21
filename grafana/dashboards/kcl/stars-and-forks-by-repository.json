@@ -505,7 +505,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "openfeature"
+    "kcl"
   ],
   "templating": {
     "list": [
@@ -565,8 +565,8 @@
       {
         "current": {
           "selected": false,
-          "text": "openfeature",
-          "value": "openfeature"
+          "text": "kcl",
+          "value": "kcl"
         },
         "datasource": {
           "type": "postgres",

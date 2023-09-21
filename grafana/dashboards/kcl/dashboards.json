@@ -1916,7 +1916,7 @@
       "starred": false,
       "tags": [
         "dashboard",
-        "openfeature"
+        "kcl"
       ],
       "title": "All [[full_name]] Dashboards",
       "type": "dashlist"
@@ -1943,7 +1943,7 @@
   "tags": [
     "home",
     "all",
-    "openfeature"
+    "kcl"
   ],
   "templating": {
     "list": [

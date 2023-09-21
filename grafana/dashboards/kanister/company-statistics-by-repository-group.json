@@ -313,7 +313,7 @@
   "tags": [
     "companies",
     "dashboard",
-    "kubeflow"
+    "kanister"
   ],
   "templating": {
     "list": [
