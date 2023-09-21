@@ -19,3 +19,4 @@ CREATE INDEX repo_groups_org_login_idx ON public.gha_repo_groups USING btree (or
 CREATE INDEX repo_groups_repo_group_idx ON public.gha_repo_groups USING btree (repo_group);
 
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, repo_group, org_id, org_login from gha_repos on conflict do nothing;
+insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, org_login, org_id, org_login from gha_repos where org_login is not null and trim(org_login) != '' on conflict do nothing;
