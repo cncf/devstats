@@ -1071,6 +1071,23 @@ CREATE TABLE public.gha_repos (
 
 ALTER TABLE public.gha_repos OWNER TO gha_admin;
 
+
+--
+-- Name: gha_repo_groups; Type: TABLE; Schema: public; Owner: gha_admin
+--
+
+CREATE TABLE public.gha_repo_groups (
+    id bigint NOT NULL,
+    name character varying(160) NOT NULL,
+    repo_group character varying(80),
+    org_id bigint,
+    org_login character varying(100),
+    alias character varying(160)
+);
+
+
+ALTER TABLE public.gha_repo_groups OWNER TO gha_admin;
+
 --
 -- Name: gha_repos_langs; Type: TABLE; Schema: public; Owner: gha_admin
 --
@@ -1812,6 +1829,14 @@ COPY public.gha_repos (id, name, org_id, org_login, repo_group, alias, license_k
 
 
 --
+-- Data for Name: gha_repo_groups; Type: TABLE DATA; Schema: public; Owner: gha_admin
+--
+
+COPY public.gha_repo_groups (id, name, repo_group, org_id, org_login, alias) FROM stdin;
+\.
+
+
+--
 -- Data for Name: gha_repos_langs; Type: TABLE DATA; Schema: public; Owner: gha_admin
 --
 
@@ -2160,6 +2185,14 @@ ALTER TABLE ONLY public.gha_repos_langs
 
 ALTER TABLE ONLY public.gha_repos
     ADD CONSTRAINT gha_repos_pkey PRIMARY KEY (id, name);
+
+
+--
+-- Name: gha_repo_groups gha_repo_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: gha_admin
+--
+
+ALTER TABLE ONLY public.gha_repo_groups
+    ADD CONSTRAINT gha_repo_groups_pkey PRIMARY KEY (id, name, repo_group);
 
 
 --
@@ -4111,6 +4144,48 @@ CREATE INDEX repos_repo_group_idx ON public.gha_repos USING btree (repo_group);
 --
 
 CREATE INDEX repos_updated_at_idx ON public.gha_repos USING btree (updated_at);
+
+
+--
+-- Name: repo_groups_alias_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX repo_groups_alias_idx ON public.gha_repo_groups USING btree (alias);
+
+
+--
+-- Name: repo_groups_id_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX repo_groups_id_idx ON public.gha_repo_groups USING btree (id);
+
+
+--
+-- Name: repo_groups_name_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX repo_groups_name_idx ON public.gha_repo_groups USING btree (name);
+
+
+--
+-- Name: repo_groups_org_id_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX repo_groups_org_id_idx ON public.gha_repo_groups USING btree (org_id);
+
+
+--
+-- Name: repo_groups_org_login_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX repo_groups_org_login_idx ON public.gha_repo_groups USING btree (org_login);
+
+
+--
+-- Name: repo_groups_repo_group_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX repo_groups_repo_group_idx ON public.gha_repo_groups USING btree (repo_group);
 
 
 --
