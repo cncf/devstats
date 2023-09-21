@@ -2,6 +2,7 @@
 
 - Most project use 'repository groups' to group data under them.
 - It is usually defined on the repository level, which means that for example 3 repositories belong to 'repository group 1', and some 2 others belong to 'repository group 2'.
+- One repository can belong to multiple repository groups by using 'gha_repo_groups' table.
 - They can also be defined on the file level, meaning that some files from some repos can belong to a one repository group, while others belong to the other repository group.
 - Only Kubernetes project uses 'file level granularity' repository groups definitions.
 - For Kubernetes they are defined in main postgres script: [kubernetes/psql.sh](https://github.com/cncf/devstats/blob/master/kubernetes/psql.sh#L13).
@@ -33,6 +34,7 @@ where
 - Important part is to update only where commit's file's repo group [is not yet set](https://github.com/cncf/devstats/blob/master/util_sql/postprocess_repo_groups_from_repos.sql#L11) and only when commit's file's repository has [repo group set](https://github.com/cncf/devstats/blob/master/util_sql/postprocess_repo_groups_from_repos.sql#L10).
 - Generally all postprocess scripts that run every hour are defined in the table `gha_postprocess_scripts` (see table info [here](https://github.com/cncf/devstats/blob/master/docs/tables/gha_postprocess_scripts.md)), currently: repo groups, labels, texts, PRs, issues.
 - More info about `gha_repos` table [here](https://github.com/cncf/devstats/blob/master/docs/tables/gha_repos.md).
+- More info about `gha_repo_groups` table [here](https://github.com/cncf/devstats/blob/master/docs/tables/gha_repo_groups.md).
 
 # Other projects
 - Non Kubernetes projects are not setting `util_sql/repo_groups_postprocess_script.sql`, for example Prometheus uses [this](https://github.com/cncf/devstats/blob/master/prometheus/setup_scripts.sh). Note missing [util_sql/postprocess_repo_groups.sql](https://github.com/cncf/devstats/blob/master/util_sql/postprocess_repo_groups.sql) part.
