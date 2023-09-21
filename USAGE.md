@@ -273,6 +273,7 @@ List of tables:
 - `gha_releases`: variable, releases
 - `gha_releases_assets`: variable, release assets
 - `gha_repos`: const, repos
+- `gha_repo_groups`: const, repos (this allows single repo to belong to multiple repo groups - it is almost 1:1 copy of gha_repos but with repo_group added to PK)
 - `gha_teams`: variable, teams
 - `gha_teams_repositories`: variable, teams repositories connections
 - `gha_reviews`: variable, reviews
@@ -425,7 +426,7 @@ To load it into our database use:
 
 There are some groups of repositories that can be used to create metrics for lists of repositories.
 They are defined in [scripts/kubernetes/repo_groups.sql](https://github.com/cncf/devstats/blob/master/scripts/kubernetes/repo_groups.sql).
-Repository group is defined on `gha_repos` table using `repo_group` value.
+Repository group is defined on `gha_repos` and/or `gha_repo_groups` table using `repo_group` value.
 
 To setup default repository groups:
 - `PG_PASS=pwd ./kubernetes/setup_repo_groups.sh`.
