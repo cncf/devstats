@@ -207,6 +207,12 @@ icontypes=(
   ["cdf"]="color"
   ["contrib"]="color"
   ["allcdf"]="color"
+  ["zephyr"]="color"
+  ["graphql"]="color"
+  ["graphqljs"]="color"
+  ["graphiql"]="color"
+  ["expressgraphql"]="color"
+  ["graphqlspec"]="color"
 )
 icontype=${icontypes[$1]}
 if [ -z "$icontype" ]

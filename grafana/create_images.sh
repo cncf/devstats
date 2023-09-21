@@ -5,7 +5,7 @@
 . ./devel/all_projs.sh || exit 2
 for proj in $all
 do
-  if ( [ "$proj" = "opencontainers" ] || [ "$proj" = "prestodb" ] || [ "$proj" = "godotengine" ] || [ "$icon" = "linux" ] )
+  if ( [ "$proj" = "opencontainers" ] || [ "$proj" = "prestodb" ] || [ "$proj" = "godotengine" ] || [ "$proj" = "linux" ] || [ "$proj" = "zephyr" ] || [ "$proj" = "graphql" ] || [ "$proj" = "graphqljs" ] || [ "$proj" = "graphiql" ] || [ "$proj" = "expressgraphql" ] || [ "$proj" = "graphqlspec" ] )
   then
     continue
   fi
