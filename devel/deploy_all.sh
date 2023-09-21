@@ -616,6 +616,21 @@ do
   elif [ "$proj" = "kubeflow" ]
   then
     PROJ=kubeflow            PROJDB=kubeflow       PROJREPO="kubeflow/kubeflow"               ORGNAME=Kubeflow          PORT=3246 ICON=kubeflow       GRAFSUFF=kubeflow       GA="UA-241436121-31" ./devel/deploy_proj.sh || exit 171
+  elif [ "$proj" = "copacetic" ]
+  then
+    PROJ=copacetic           PROJDB=copacetic      PROJREPO="project-copacetic/copacetic"     ORGNAME=Copacetic         PORT=3247 ICON=copacetic      GRAFSUFF=copacetic      GA="UA-241436121-32" ./devel/deploy_proj.sh || exit 172
+  elif [ "$proj" = "loggingoperator" ]
+  then
+    PROJ=loggingoperator     PROJDB=loggingoperator PROJREPO="kube-logging/logging-operator"  ORGNAME="Logging Operator" PORT=3248 ICON=loggingoperator GRAFSUFF=loggingoperator GA="UA-241436121-33" ./devel/deploy_proj.sh || exit 173
+  elif [ "$proj" = "kanister" ]
+  then
+    PROJ=kanister            PROJDB=kanister       PROJREPO="kanisterio/kanister"             ORGNAME=Kanister          PORT=3249 ICON=kanister       GRAFSUFF=kanister       GA="UA-241436121-34" ./devel/deploy_proj.sh || exit 174
+  elif [ "$proj" = "kcp" ]
+  then
+    PROJ=kcp                 PROJDB=kcp            PROJREPO="kcp-dev/kcp"                     ORGNAME=kcp               PORT=3250 ICON=kcp            GRAFSUFF=kcp            GA="UA-241436121-35" ./devel/deploy_proj.sh || exit 175
+  elif [ "$proj" = "kcl" ]
+  then
+    PROJ=kcl                 PROJDB=kcl            PROJREPO="kcl-lang/kcl"                    ORGNAME=KCL               PORT=3251 ICON=kcl           GRAFSUFF=kcl             GA="UA-241436121-36" ./devel/deploy_proj.sh || exit 176
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="UA-108085315-19" ./devel/deploy_proj.sh || exit 32
