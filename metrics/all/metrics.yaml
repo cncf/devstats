@@ -202,6 +202,7 @@ metrics:
     multi_value: true
     escape_value_name: true
     drop: 'spr_apprappr;spr_apprwait'
+    allow_fail: true
   - name: Companies stats
     series_name_or_func: multi_row_multi_column
     sqls: [company_activity, company_activity_commits]
