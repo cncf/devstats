@@ -4,7 +4,7 @@ from (
   select r.repo_group,
     count(distinct e.id) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events e
   where
     e.repo_id = r.id
