@@ -11,27 +11,27 @@ then
   echo "$0: you need to specify kenv=test|prod"
   exit 2
 fi
-if [ "${kenv}" = "test" ]
-then
-  export TEST_SERVER=1
-  export member=$(kubectl exec -itn devstats-${kenv} devstats-postgres-0 -- patronictl list -f json | jq -rS '.[]  | select(.Role == "Leader") | .Member')
-  echo "R/W member on ${kenv} is ${member}"
-elif [ "${kenv}" = "prod" ]
-then
-  export PROD_SERVER=1
-  export member=$(kubectl exec -itn devstats-${kenv} devstats-postgres-0 -- patronictl list -f json | jq -rS '.[]  | select(.Role == "Leader") | .Member')
-  echo "R/W member on ${kenv} is ${member}"
-else
-  echo "kenv must be test or prod, got: ${kenv}"
-  exit 3
-fi
-. ./devel/all_dbs.sh || exit 2
 if ( [ ! -z "${kenv2}" ] && [ ! "${kenv}" = "${kenv2}" ] )
 then
   echo "overwritting kenv $kenv -> $kenv2"
 else
   export kenv2="${kenv}"
 fi
+if [ "${kenv}" = "test" ]
+then
+  export TEST_SERVER=1
+  export member=$(kubectl exec -itn devstats-${kenv2} devstats-postgres-0 -- patronictl list -f json | jq -rS '.[]  | select(.Role == "Leader") | .Member')
+  echo "R/W member on ${kenv} is ${member}"
+elif [ "${kenv}" = "prod" ]
+then
+  export PROD_SERVER=1
+  export member=$(kubectl exec -itn devstats-${kenv2} devstats-postgres-0 -- patronictl list -f json | jq -rS '.[]  | select(.Role == "Leader") | .Member')
+  echo "R/W member on ${kenv} is ${member}"
+else
+  echo "kenv must be test or prod, got: ${kenv}"
+  exit 3
+fi
+. ./devel/all_dbs.sh || exit 2
 for db in $all
 do
   for sql in $*
