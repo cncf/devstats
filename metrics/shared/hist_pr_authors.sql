@@ -7,7 +7,7 @@ from (
     pr.dup_user_login as author,
     pr.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests pr
   where
     {{period:pr.created_at}}

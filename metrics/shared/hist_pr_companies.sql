@@ -7,7 +7,7 @@ from (
     a.company_name as company,
     pr.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations a,
     gha_pull_requests pr
   where

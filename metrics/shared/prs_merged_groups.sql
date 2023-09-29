@@ -5,7 +5,7 @@ from (
   select 'grp_pr_merg,' || r.repo_group as repo_group,
     pr.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests pr
   where
     r.name = pr.dup_repo_name

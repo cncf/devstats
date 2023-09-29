@@ -11,7 +11,7 @@ union select 'new_prs,' || r.repo_group as repo_group,
   round(count(distinct pr.id) / {{n}}, 2) as new
 from
   gha_pull_requests pr,
-  gha_repos r
+  gha_repo_groups r
 where
   pr.dup_repo_id = r.id
   and pr.dup_repo_name = r.name
@@ -32,7 +32,7 @@ union select 'new_prs_bots,' || r.repo_group as repo_group,
   round(count(distinct pr.id) / {{n}}, 2) as new
 from
   gha_pull_requests pr,
-  gha_repos r
+  gha_repo_groups r
 where
   pr.dup_repo_id = r.id
   and pr.dup_repo_name = r.name

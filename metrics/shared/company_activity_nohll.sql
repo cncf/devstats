@@ -53,7 +53,7 @@ from (
     count(distinct ev.id) filter(where ev.type = 'CommitCommentEvent') as commit_comments
   from
     gha_actors_affiliations affs,
-    gha_repos r,
+    gha_repo_groups r,
     gha_events ev
   where
     r.id = ev.repo_id
@@ -103,7 +103,7 @@ from (
     count(distinct ev.id) filter(where ev.type = 'IssueCommentEvent') as issue_comments,
     count(distinct ev.id) filter(where ev.type = 'CommitCommentEvent') as commit_comments
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events ev
   where
     r.id = ev.repo_id

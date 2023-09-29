@@ -13,7 +13,7 @@ from (
   select 'rcomments,' || r.repo_group as repo_group,
     t.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_comments t
   where
     r.id = t.dup_repo_id

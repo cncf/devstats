@@ -23,7 +23,7 @@ from (
     pr.user_id,
     pr.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests pr
   where
     pr.dup_repo_id = r.id

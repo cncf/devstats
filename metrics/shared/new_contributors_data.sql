@@ -46,7 +46,7 @@ union select 'ncd,' || r.repo_group as metric,
   case a.name is null when true then a.login else case a.name when '' then a.login else a.name || ' (' || a.login || ')' end end as contributor
 from
   gha_actors a,
-  gha_repos r,
+  gha_repo_groups r,
   contributors c
 where
   c.user_id = a.id

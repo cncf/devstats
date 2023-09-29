@@ -27,7 +27,7 @@ from (
     c.author_id
   from
     gha_events_commits_files ecf,
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   left join
     gha_actors_affiliations affs

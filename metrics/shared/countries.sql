@@ -74,7 +74,7 @@ from (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'ForkEvent' when true then e.actor_id end)))) as forkers,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'ForkEvent' when true then e.id end)))) as forks
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors a,
     gha_events e
   where

@@ -10,7 +10,7 @@ from (
     coalesce('*bot: ' || b.login || ' *', pr.dupn_merged_by_login) as merger,
     pr.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests pr
   left join
     bots b

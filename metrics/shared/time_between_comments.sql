@@ -28,7 +28,7 @@ with issues as (
     r.repo_group as repo_group
   from
     issues i,
-    gha_repos r
+    gha_repo_groups r
   where
     r.name = i.repo
 )

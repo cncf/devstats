@@ -62,7 +62,7 @@ union select 'pr_appr;' || r.repo_group ||';appr,wait' as name,
   round((hll_cardinality(hll_add_agg(hll_hash_bigint(case a.id is not null when true then prs.id end))) / {{n}})::numeric, 2) as approved,
   round((hll_cardinality(hll_add_agg(hll_hash_bigint(case a.id is null when true then prs.id end))) / {{n}})::numeric, 2) as awaiting
 from
-  gha_repos r
+  gha_repo_groups r
 join
   all_prs prs
 on

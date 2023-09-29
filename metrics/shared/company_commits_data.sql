@@ -14,7 +14,7 @@ from (
     c.dup_created_at as commit_date
   from 
     gha_actors_affiliations af,
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   left join
     gha_actors_names an

@@ -5,7 +5,7 @@ from (
   select 'act,' || r.repo_group as repo_group,
     ev.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events ev
   where
     r.name = ev.dup_repo_name

@@ -4,7 +4,7 @@ with company_commits_data as (
     c.dup_actor_id as actor_id,
     af.company_name as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations af,
     gha_commits c
   where
@@ -24,7 +24,7 @@ with company_commits_data as (
     c.author_id as actor_id,
     af.company_name as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations af,
     gha_commits c
   where
@@ -45,7 +45,7 @@ with company_commits_data as (
     c.committer_id as actor_id,
     af.company_name as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations af,
     gha_commits c
   where
@@ -66,7 +66,7 @@ with company_commits_data as (
     c.sha,
     c.dup_actor_id as actor_id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   where
     c.dup_repo_id = r.id
@@ -79,7 +79,7 @@ with company_commits_data as (
     c.sha,
     c.author_id as actor_id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   where
     c.dup_repo_id = r.id
@@ -93,7 +93,7 @@ with company_commits_data as (
     c.sha,
     c.committer_id as actor_id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   where
     c.dup_repo_id = r.id

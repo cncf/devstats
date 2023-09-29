@@ -105,7 +105,7 @@ from (
       e.dup_actor_login as author,
       e.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     where
       r.name = e.dup_repo_name
@@ -129,7 +129,7 @@ from (
       e.dup_actor_login as author,
       e.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     where
       r.name = e.dup_repo_name
@@ -153,7 +153,7 @@ from (
       c.dup_user_login as author,
       c.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_comments c
     where
       c.dup_repo_name = r.name
@@ -177,7 +177,7 @@ from (
       i.id,
       i.is_pull_request
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_issues i
     where
       i.dup_repo_name = r.name
@@ -197,7 +197,7 @@ from (
       i.dup_user_login as author,
       i.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_pull_requests i
     where
       i.dup_repo_name = r.name
@@ -218,7 +218,7 @@ from (
       e.dup_actor_login as author,
       e.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     where
       r.name = e.dup_repo_name
@@ -372,7 +372,7 @@ from (
       e.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     where
       r.name = e.dup_repo_name
@@ -401,7 +401,7 @@ from (
       e.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     where
       r.name = e.dup_repo_name
@@ -430,7 +430,7 @@ from (
       c.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_comments c
     where
       c.dup_repo_name = r.name
@@ -459,7 +459,7 @@ from (
       i.is_pull_request
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_issues i
     where
       i.dup_repo_name = r.name
@@ -484,7 +484,7 @@ from (
       i.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_pull_requests i
     where
       i.dup_repo_name = r.name
@@ -510,7 +510,7 @@ from (
       e.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     where
       r.name = e.dup_repo_name
@@ -680,7 +680,7 @@ from (
       aa.company_name as company,
       e.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_actors_affiliations aa,
       gha_events e
     where
@@ -711,7 +711,7 @@ from (
       aa.company_name as company,
       e.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_actors_affiliations aa,
       gha_events e
     where
@@ -742,7 +742,7 @@ from (
       aa.company_name as company,
       c.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_actors_affiliations aa,
       gha_comments c
     where
@@ -773,7 +773,7 @@ from (
       i.id,
       i.is_pull_request
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_actors_affiliations aa,
       gha_issues i
     where
@@ -800,7 +800,7 @@ from (
       aa.company_name as company,
       i.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_actors_affiliations aa,
       gha_pull_requests i
     where
@@ -828,7 +828,7 @@ from (
       aa.company_name as company,
       e.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_actors_affiliations aa,
       gha_events e
     where
@@ -1033,7 +1033,7 @@ from (
       e.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_actors_affiliations aa,
       gha_events e
     where
@@ -1069,7 +1069,7 @@ from (
       e.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_actors_affiliations aa,
       gha_events e
     where
@@ -1105,7 +1105,7 @@ from (
       c.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_actors_affiliations aa,
       gha_comments c
     where
@@ -1141,7 +1141,7 @@ from (
       i.is_pull_request
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_actors_affiliations aa,
       gha_issues i
     where
@@ -1173,7 +1173,7 @@ from (
       i.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_actors_affiliations aa,
       gha_pull_requests i
     where
@@ -1206,7 +1206,7 @@ from (
       e.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_actors_affiliations aa,
       gha_events e
     where

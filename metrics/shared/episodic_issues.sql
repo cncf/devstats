@@ -40,7 +40,7 @@ from (
     i.user_id,
     i.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i
   left join
     prev_cnt pc

@@ -4,7 +4,7 @@ with issues as (
     i.created_at,
     i.closed_at as closed_at
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i
   where
     i.is_pull_request = false

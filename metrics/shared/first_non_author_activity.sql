@@ -24,7 +24,7 @@ with issues as (
     r.repo_group as repo_group
   from
     issues i,
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i2
   where
     i.id = i2.id
@@ -52,7 +52,7 @@ with issues as (
     r.repo_group as repo_group
   from
     prs p,
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests p2
   where
     p.id = p2.id

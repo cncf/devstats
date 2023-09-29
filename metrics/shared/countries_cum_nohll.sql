@@ -73,7 +73,7 @@ from (
     count(distinct e.actor_id) filter (where e.type = 'ForkEvent') as forkers,
     count(distinct e.id) filter (where e.type = 'ForkEvent') as forks
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors a,
     gha_events e
   where

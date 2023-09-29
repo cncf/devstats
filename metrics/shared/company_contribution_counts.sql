@@ -3,7 +3,7 @@ with commits_data as (
     c.sha,
     aa.company_name as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c,
     gha_actors_affiliations aa
   where
@@ -19,7 +19,7 @@ with commits_data as (
     c.sha,
     aa.company_name as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c,
     gha_actors_affiliations aa
   where
@@ -36,7 +36,7 @@ with commits_data as (
     c.sha,
     aa.company_name as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c,
     gha_actors_affiliations aa
   where
@@ -53,7 +53,7 @@ with commits_data as (
     cr.sha,
     aa.company_name as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits_roles cr,
     gha_actors_affiliations aa
   where
@@ -75,7 +75,7 @@ with commits_data as (
     e.id
   from
     gha_events e,
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations aa
   where
     r.name = e.dup_repo_name
@@ -103,7 +103,7 @@ with commits_data as (
     e.id
   from
     gha_events e,
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations aa
   where
     r.name = e.dup_repo_name
@@ -124,7 +124,7 @@ with commits_data as (
     e.repo_id as id
   from
     gha_events e,
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations aa
   where
     r.name = e.dup_repo_name
@@ -140,7 +140,7 @@ with commits_data as (
     'comments' as metric,
     c.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_comments c,
     gha_actors_affiliations aa
   where
@@ -157,7 +157,7 @@ with commits_data as (
     'issues' as metric,
     i.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i,
     gha_actors_affiliations aa
   where
@@ -175,7 +175,7 @@ with commits_data as (
     'prs' as metric,
     i.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i,
     gha_actors_affiliations aa
   where
@@ -193,7 +193,7 @@ with commits_data as (
     'merged_prs' as metric,
     i.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests i,
     gha_actors_affiliations aa
   where
@@ -211,7 +211,7 @@ with commits_data as (
     'events' as metric,
     e.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events e,
     gha_actors_affiliations aa
   where

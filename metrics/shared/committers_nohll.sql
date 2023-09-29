@@ -5,7 +5,7 @@ with commits_data as (
     c.dup_actor_login as actor_login,
     aa.company_name as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   left join
     gha_actors_affiliations aa
@@ -25,7 +25,7 @@ with commits_data as (
     c.dup_author_login as actor_login,
     aa.company_name as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   left join
     gha_actors_affiliations aa
@@ -46,7 +46,7 @@ with commits_data as (
     c.dup_committer_login as actor_login,
     aa.company_name as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   left join
     gha_actors_affiliations aa

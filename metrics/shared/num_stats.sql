@@ -24,7 +24,7 @@ union select 'nstats;' || r.repo_group || ';comps,devs,unks' as name,
   count(distinct ev.actor_id) as n_authors,
   count(distinct ev.actor_id) filter (where affs.company_name is null) as n_unknown_authors
 from
-  gha_repos r,
+  gha_repo_groups r,
   gha_events ev
 left join
   gha_actors_affiliations affs

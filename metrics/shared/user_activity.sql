@@ -34,7 +34,7 @@ from (
     count(distinct ev.id) filter(where ev.type = 'CommitCommentEvent') as commit_comments,
     count(distinct ev.id) filter(where ev.type in ('IssuesEvent', 'PullRequestEvent', 'PushEvent', 'PullRequestReviewCommentEvent', 'IssueCommentEvent', 'CommitCommentEvent', 'PullRequestReviewEvent')) as contributions
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events ev
   where
     r.id = ev.repo_id
@@ -71,7 +71,7 @@ from (
     count(distinct ev.id) filter(where ev.type = 'CommitCommentEvent') as commit_comments,
     count(distinct ev.id) filter(where ev.type in ('IssuesEvent', 'PullRequestEvent', 'PushEvent', 'PullRequestReviewCommentEvent', 'IssueCommentEvent', 'CommitCommentEvent', 'PullRequestReviewEvent')) as contributions
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events ev
   where
     r.id = ev.repo_id

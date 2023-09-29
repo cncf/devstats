@@ -3,7 +3,7 @@ with commits as (
     c.sha,
     c.dup_actor_login as login
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   where
     c.dup_repo_id = r.id
@@ -16,7 +16,7 @@ with commits as (
     c.sha,
     c.dup_author_login as login
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   where
     c.dup_repo_id = r.id
@@ -30,7 +30,7 @@ with commits as (
     c.sha,
     c.dup_committer_login as login
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   where
     c.dup_repo_id = r.id

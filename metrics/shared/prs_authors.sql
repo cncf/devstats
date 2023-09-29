@@ -13,7 +13,7 @@ from (
   select 'pr_auth,' || r.repo_group as repo_group,
     pr.dup_user_login as author
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests pr
   where
     pr.dup_repo_id = r.id

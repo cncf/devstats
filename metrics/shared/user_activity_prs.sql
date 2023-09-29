@@ -20,7 +20,7 @@ from (
     r.repo_group as repo_group,
     count(distinct pr.id) as prs
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests pr
   where
     r.id = pr.dup_repo_id
@@ -49,7 +49,7 @@ from (
     r.repo_group as repo_group,
     count(distinct pr.id) as pr
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests pr
   where
     r.id = pr.dup_repo_id

@@ -31,7 +31,7 @@ with prs_latest as (
     pr.merged_at
   from
     prs_latest pr,
-    gha_repos r
+    gha_repo_groups r
   where
     r.id = pr.dup_repo_id
     and r.name = pr.dup_repo_name

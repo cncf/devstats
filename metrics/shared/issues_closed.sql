@@ -11,7 +11,7 @@ union select 'iclosed,' || r.repo_group as name,
   round(count(distinct i.id) / {{n}}, 2) as cnt
 from
   gha_issues i,
-  gha_repos r
+  gha_repo_groups r
 where
   i.dup_repo_id = r.id
   and i.dup_repo_name = r.name
@@ -33,7 +33,7 @@ union select 'prclosed,' || r.repo_group as name,
   round(count(distinct pr.id) / {{n}}, 2) as cnt
 from
   gha_pull_requests pr,
-  gha_repos r
+  gha_repo_groups r
 where
   pr.dup_repo_id = r.id
   and pr.dup_repo_name = r.name

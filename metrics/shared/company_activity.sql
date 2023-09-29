@@ -53,7 +53,7 @@ from (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(case ev.type = 'CommitCommentEvent' when true then ev.id end)))) as commit_comments
   from
     gha_actors_affiliations affs,
-    gha_repos r,
+    gha_repo_groups r,
     gha_events ev
   where
     r.id = ev.repo_id
@@ -103,7 +103,7 @@ from (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(case ev.type = 'IssueCommentEvent' when true then ev.id end)))) as issue_comments,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(case ev.type = 'CommitCommentEvent' when true then ev.id end)))) as commit_comments
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events ev
   where
     r.id = ev.repo_id

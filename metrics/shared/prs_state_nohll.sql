@@ -62,7 +62,7 @@ union select 'pr_appr;' || r.repo_group ||';appr,wait' as name,
   round(count(distinct prs.id) filter (where a.id is not null) / {{n}}, 2) as approved,
   round(count(distinct prs.id) filter (where a.id is null) / {{n}}, 2) as awaiting
 from
-  gha_repos r
+  gha_repo_groups r
 join
   all_prs prs
 on

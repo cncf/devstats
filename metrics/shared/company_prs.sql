@@ -13,7 +13,7 @@ from (
   from
     gha_pull_requests pr,
     gha_actors_affiliations aa,
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors a,
     gha_actors_names an,
     gha_actors_emails ae

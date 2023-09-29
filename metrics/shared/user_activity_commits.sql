@@ -4,7 +4,7 @@ with commits_data as (
     c.dup_actor_id as actor_id,
     c.dup_actor_login as actor_login
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   where
     c.dup_repo_id = r.id
@@ -18,7 +18,7 @@ with commits_data as (
     c.author_id as actor_id,
     c.dup_author_login as actor_login
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   where
     c.dup_repo_id = r.id
@@ -33,7 +33,7 @@ with commits_data as (
     c.committer_id as actor_id,
     c.dup_committer_login as actor_login
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   where
     c.dup_repo_id = r.id

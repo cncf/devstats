@@ -7,7 +7,7 @@ from (
     t.dup_actor_login as actor,
     t.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_comments t
   where
     {{period:t.created_at}}

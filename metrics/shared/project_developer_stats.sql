@@ -5,7 +5,7 @@ with commits_data as (
     lower(c.dup_actor_login) as actor_login,
     coalesce(aa.company_name, '') as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   left join
     gha_actors_affiliations aa
@@ -24,7 +24,7 @@ with commits_data as (
     lower(c.dup_author_login) as actor_login,
     coalesce(aa.company_name, '') as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   left join
     gha_actors_affiliations aa
@@ -44,7 +44,7 @@ with commits_data as (
     lower(c.dup_committer_login) as actor_login,
     coalesce(aa.company_name, '') as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   left join
     gha_actors_affiliations aa
@@ -64,7 +64,7 @@ with commits_data as (
     lower(cr.actor_login) as actor_login,
     coalesce(aa.company_name, '') as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits_roles cr
   left join
     gha_actors_affiliations aa
@@ -310,7 +310,7 @@ from (
       coalesce(aa.company_name, '') as company,
       e.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     left join
       gha_actors_affiliations aa
@@ -346,7 +346,7 @@ from (
       coalesce(aa.company_name, '') as company,
       e.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     left join
       gha_actors_affiliations aa
@@ -381,7 +381,7 @@ from (
       coalesce(aa.company_name, '') as company,
       e.repo_id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     left join
       gha_actors_affiliations aa
@@ -412,7 +412,7 @@ from (
       coalesce(aa.company_name, '') as company,
       c.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_comments c
     left join
       gha_actors_affiliations aa
@@ -447,7 +447,7 @@ from (
       i.id,
       i.is_pull_request
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_issues i
     left join
       gha_actors_affiliations aa
@@ -479,7 +479,7 @@ from (
       coalesce(aa.company_name, '') as company,
       i.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_pull_requests i
     left join
       gha_actors_affiliations aa
@@ -511,7 +511,7 @@ from (
       coalesce(aa.company_name, '') as company,
       e.id
     from
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     left join
       gha_actors_affiliations aa
@@ -831,7 +831,7 @@ from (
       e.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     left join
       gha_actors_affiliations aa
@@ -873,7 +873,7 @@ from (
       e.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     left join
       gha_actors_affiliations aa
@@ -914,7 +914,7 @@ from (
       e.repo_id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     left join
       gha_actors_affiliations aa
@@ -951,7 +951,7 @@ from (
       c.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_comments c
     left join
       gha_actors_affiliations aa
@@ -992,7 +992,7 @@ from (
       i.is_pull_request
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_issues i
     left join
       gha_actors_affiliations aa
@@ -1030,7 +1030,7 @@ from (
       i.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_pull_requests i
     left join
       gha_actors_affiliations aa
@@ -1068,7 +1068,7 @@ from (
       e.id
     from
       gha_actors a,
-      gha_repos r,
+      gha_repo_groups r,
       gha_events e
     left join
       gha_actors_affiliations aa

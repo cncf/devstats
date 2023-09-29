@@ -22,7 +22,7 @@ with prs as (
     r.repo_group as repo_group
   from
     prs pr,
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests pr2
   where
     pr.id = pr2.id

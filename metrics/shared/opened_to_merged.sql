@@ -15,7 +15,7 @@ with prs as (
     pr.merged_at as merged_at
   from
     gha_pull_requests pr,
-    gha_repos r
+    gha_repo_groups r
   where
     r.id = pr.dup_repo_id
     and r.name = pr.dup_repo_name

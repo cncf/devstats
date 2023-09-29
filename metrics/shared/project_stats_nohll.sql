@@ -3,7 +3,7 @@ with commits_data as (
     c.sha,
     c.dup_actor_id as actor_id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   where
     c.dup_repo_id = r.id
@@ -14,7 +14,7 @@ with commits_data as (
     c.sha,
     c.author_id as actor_id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   where
     c.dup_repo_id = r.id
@@ -26,7 +26,7 @@ with commits_data as (
     c.sha,
     c.committer_id as actor_id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   where
     c.dup_repo_id = r.id
@@ -40,7 +40,7 @@ select
   'Projects/Repository groups' as name,
   count(distinct repo_group) as value
 from
-  gha_repos
+  gha_repo_groups
 where
   repo_group is not null
 union select
@@ -91,7 +91,7 @@ from (
   from
     gha_events e,
     gha_actors a,
-    gha_repos r
+    gha_repo_groups r
   where
     {{period:e.created_at}}
     and e.repo_id = r.id
@@ -108,7 +108,7 @@ from (
   from
     gha_actors a,
     gha_commits c,
-    gha_repos r
+    gha_repo_groups r
   where
     {{period:c.dup_created_at}}
     and c.dup_repo_id = r.id
@@ -121,7 +121,7 @@ from (
   from
     gha_actors a,
     gha_commits c,
-    gha_repos r
+    gha_repo_groups r
   where
     {{period:c.dup_created_at}}
     and c.dup_repo_id = r.id
@@ -141,7 +141,7 @@ from (
   select 'pstat,' || r.repo_group as repo_group,
     e.dup_actor_login as actor
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events e
   where
     {{period:e.created_at}}
@@ -177,7 +177,7 @@ from (
   select 'pstat,' || r.repo_group as repo_group,
     e.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events e
   where
     {{period:e.created_at}}
@@ -213,7 +213,7 @@ from (
   select 'pstat,' || r.repo_group as repo_group,
     e.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events e
   where
     {{period:e.created_at}}
@@ -281,7 +281,7 @@ from (
     e.type,
     e.actor_id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events e
   where
     e.type in (
@@ -329,7 +329,7 @@ union select 'pstat,' || r.repo_group as repo_group,
   count(distinct e.repo_id) as value
 from
   gha_events e,
-  gha_repos r
+  gha_repo_groups r
 where
   {{period:e.created_at}}
   and e.repo_id = r.id
@@ -351,7 +351,7 @@ from (
   select 'pstat,' || r.repo_group as repo_group,
     c.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_comments c
   where
     {{period:c.created_at}}
@@ -378,7 +378,7 @@ from (
   select 'pstat,' || r.repo_group as repo_group,
     c.user_id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_comments c
   where
     {{period:c.created_at}}
@@ -405,7 +405,7 @@ from (
   select 'pstat,' || r.repo_group as repo_group,
     c.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_reviews c
   where
     {{period:c.submitted_at}}
@@ -432,7 +432,7 @@ from (
   select 'pstat,' || r.repo_group as repo_group,
     i.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i
   where
     {{period:i.created_at}}
@@ -461,7 +461,7 @@ from (
   select 'pstat,' || r.repo_group as repo_group,
     i.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i
   where
     {{period:i.created_at}}
@@ -490,7 +490,7 @@ from (
   select 'pstat,' || r.repo_group as repo_group,
     e.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events e
   where
     {{period:e.created_at}}

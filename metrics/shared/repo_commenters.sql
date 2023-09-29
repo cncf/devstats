@@ -13,7 +13,7 @@ from (
   select 'rcommenters,' || r.repo_group as repo_group,
     t.actor_login
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_texts t
   where
     r.id = t.repo_id

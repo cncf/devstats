@@ -4,7 +4,7 @@ with commits_data as (
     lower(c.dup_actor_login) as actor_login,
     coalesce(aa.company_name, '') as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   left join
     gha_actors_affiliations aa
@@ -22,7 +22,7 @@ with commits_data as (
     lower(c.dup_author_login) as actor_login,
     coalesce(aa.company_name, '') as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   left join
     gha_actors_affiliations aa
@@ -41,7 +41,7 @@ with commits_data as (
     lower(c.dup_committer_login) as actor_login,
     coalesce(aa.company_name, '') as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits c
   left join
     gha_actors_affiliations aa
@@ -60,7 +60,7 @@ with commits_data as (
     lower(cr.actor_login) as actor_login,
     coalesce(aa.company_name, '') as company
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_commits_roles cr
   left join
     gha_actors_affiliations aa
@@ -110,7 +110,7 @@ with commits_data as (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
   from
     gha_events e,
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations aa
   where
     r.name = e.dup_repo_name
@@ -150,7 +150,7 @@ with commits_data as (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
   from
     gha_events e,
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations aa
   where
     r.name = e.dup_repo_name
@@ -183,7 +183,7 @@ with commits_data as (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) as cnt
   from
     gha_events e,
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations aa
   where
     r.name = e.dup_repo_name
@@ -210,7 +210,7 @@ with commits_data as (
     aa.company_name as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_comments c,
     gha_actors_affiliations aa
   where
@@ -238,7 +238,7 @@ with commits_data as (
     aa.company_name as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i,
     gha_actors_affiliations aa
   where
@@ -267,7 +267,7 @@ with commits_data as (
     aa.company_name as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i,
     gha_actors_affiliations aa
   where
@@ -296,7 +296,7 @@ with commits_data as (
     aa.company_name as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests i,
     gha_actors_affiliations aa
   where
@@ -325,7 +325,7 @@ with commits_data as (
     aa.company_name as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events e,
     gha_actors_affiliations aa
   where
@@ -368,7 +368,7 @@ with commits_data as (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
   from
     gha_events e,
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations aa
   where
     r.name = e.dup_repo_name
@@ -406,7 +406,7 @@ with commits_data as (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
   from
     gha_events e,
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations aa
   where
     r.name = e.dup_repo_name
@@ -436,7 +436,7 @@ with commits_data as (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) as cnt
   from
     gha_events e,
-    gha_repos r,
+    gha_repo_groups r,
     gha_actors_affiliations aa
   where
     r.name = e.dup_repo_name
@@ -460,7 +460,7 @@ with commits_data as (
     aa.company_name as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_comments c,
     gha_actors_affiliations aa
   where
@@ -485,7 +485,7 @@ with commits_data as (
     aa.company_name as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i,
     gha_actors_affiliations aa
   where
@@ -511,7 +511,7 @@ with commits_data as (
     aa.company_name as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i,
     gha_actors_affiliations aa
   where
@@ -537,7 +537,7 @@ with commits_data as (
     aa.company_name as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests i,
     gha_actors_affiliations aa
   where
@@ -563,7 +563,7 @@ with commits_data as (
     aa.company_name as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events e,
     gha_actors_affiliations aa
   where
@@ -609,7 +609,7 @@ with commits_data as (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
   from
     gha_events e,
-    gha_repos r
+    gha_repo_groups r
   where
     r.name = e.dup_repo_name
     and r.id = e.repo_id
@@ -644,7 +644,7 @@ with commits_data as (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
   from
     gha_events e,
-    gha_repos r
+    gha_repo_groups r
   where
     r.name = e.dup_repo_name
     and r.id = e.repo_id
@@ -672,7 +672,7 @@ with commits_data as (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) as cnt
   from
     gha_events e,
-    gha_repos r
+    gha_repo_groups r
   where
     r.name = e.dup_repo_name
     and r.id = e.repo_id
@@ -694,7 +694,7 @@ with commits_data as (
     c.dup_user_login as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_comments c
   where
     r.name = c.dup_repo_name
@@ -717,7 +717,7 @@ with commits_data as (
     i.dup_user_login as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i
   where
     r.name = i.dup_repo_name
@@ -741,7 +741,7 @@ with commits_data as (
     i.dup_user_login as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i
   where
     r.name = i.dup_repo_name
@@ -765,7 +765,7 @@ with commits_data as (
     i.dup_user_login as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests i
   where
     r.name = i.dup_repo_name
@@ -789,7 +789,7 @@ with commits_data as (
     e.dup_actor_login as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events e
   where
     r.name = e.dup_repo_name
@@ -825,7 +825,7 @@ with commits_data as (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
   from
     gha_events e,
-    gha_repos r
+    gha_repo_groups r
   where
     r.name = e.dup_repo_name
     and r.id = e.repo_id
@@ -858,7 +858,7 @@ with commits_data as (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
   from
     gha_events e,
-    gha_repos r
+    gha_repo_groups r
   where
     r.name = e.dup_repo_name
     and r.id = e.repo_id
@@ -883,7 +883,7 @@ with commits_data as (
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) as cnt
   from
     gha_events e,
-    gha_repos r
+    gha_repo_groups r
   where
     r.name = e.dup_repo_name
     and r.id = e.repo_id
@@ -902,7 +902,7 @@ with commits_data as (
     c.dup_user_login as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_comments c
   where
     r.name = c.dup_repo_name
@@ -922,7 +922,7 @@ with commits_data as (
     i.dup_user_login as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i
   where
     r.name = i.dup_repo_name
@@ -943,7 +943,7 @@ with commits_data as (
     i.dup_user_login as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i
   where
     r.name = i.dup_repo_name
@@ -964,7 +964,7 @@ with commits_data as (
     i.dup_user_login as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests i
   where
     r.name = i.dup_repo_name
@@ -985,7 +985,7 @@ with commits_data as (
     e.dup_actor_login as name,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as cnt
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_events e
   where
     r.name = e.dup_repo_name

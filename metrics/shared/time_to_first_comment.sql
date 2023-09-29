@@ -23,7 +23,7 @@ with issues as (
     r.repo_group as repo_group
   from
     issues i,
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i2
   where
     i.id = i2.id

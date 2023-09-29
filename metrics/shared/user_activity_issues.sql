@@ -21,7 +21,7 @@ from (
     r.repo_group as repo_group,
     count(distinct i.id) as issues
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i
   where
     r.id = i.dup_repo_id
@@ -52,7 +52,7 @@ from (
     r.repo_group as repo_group,
     count(distinct i.id) as issues
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_issues i
   where
     r.id = i.dup_repo_id

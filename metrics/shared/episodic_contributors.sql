@@ -37,7 +37,7 @@ from (
     pr.user_id,
     pr.id
   from
-    gha_repos r,
+    gha_repo_groups r,
     gha_pull_requests pr
   left join
     prev_cnt pc
