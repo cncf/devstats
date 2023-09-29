@@ -43,7 +43,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 15,
-  "iteration": 1695366009607,
+  "iteration": 1695996707754,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -452,7 +452,7 @@
       {
         "allValue": "",
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -491,14 +491,14 @@
           "type": "postgres",
           "uid": "P172949F98CB31475"
         },
-        "definition": "select multi_all_repo_group_name from tmulti_all_repo_groups order by 1",
+        "definition": "select all_repo_group_name from tall_repo_groups order by 1",
         "hide": 0,
         "includeAll": false,
         "label": "Repository group",
         "multi": false,
         "name": "repogroup_name",
         "options": [],
-        "query": "select multi_all_repo_group_name from tmulti_all_repo_groups order by 1",
+        "query": "select all_repo_group_name from tall_repo_groups order by 1",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -518,14 +518,14 @@
           "type": "postgres",
           "uid": "P172949F98CB31475"
         },
-        "definition": "select multi_all_repo_group_value from tmulti_all_repo_groups where multi_all_repo_group_name = '[[repogroup_name]]'",
+        "definition": "select all_repo_group_value from tall_repo_groups where all_repo_group_name = '[[repogroup_name]]'",
         "hide": 2,
         "includeAll": false,
         "label": "",
         "multi": false,
         "name": "repogroup",
         "options": [],
-        "query": "select multi_all_repo_group_value from tmulti_all_repo_groups where multi_all_repo_group_name = '[[repogroup_name]]'",
+        "query": "select all_repo_group_value from tall_repo_groups where all_repo_group_name = '[[repogroup_name]]'",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": true,
@@ -766,6 +766,6 @@
   "timezone": "",
   "title": "Countries Statistics in Repository Groups",
   "uid": "50",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }
