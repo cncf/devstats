@@ -1,4 +1,6 @@
 #!/bin/bash
+# kenv=test|prod
+# kenv2=test|prod
 if [ -z "$1" ]
 then
   echo "$0: at least one SQL script required"
@@ -24,6 +26,11 @@ else
   exit 3
 fi
 . ./devel/all_dbs.sh || exit 2
+if [ ! -z "${kenv2}" ]
+then
+  echo "overwritting kenv $kenv -> $kenv2"
+  export kenv="${kenv2}"
+fi
 for db in $all
 do
   for sql in $*
