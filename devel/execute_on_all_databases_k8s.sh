@@ -1,6 +1,6 @@
 #!/bin/bash
-# kenv=test|prod
-# kenv2=test|prod
+# kenv=test|prod (for DBs list)
+# kenv2=test|prod (for K8s namespace)
 if [ -z "$1" ]
 then
   echo "$0: at least one SQL script required"
@@ -26,17 +26,18 @@ else
   exit 3
 fi
 . ./devel/all_dbs.sh || exit 2
-if [ ! -z "${kenv2}" ]
+if ( [ ! -z "${kenv2}" ] && [ ! "${kenv}" = "${kenv2}" ] )
 then
   echo "overwritting kenv $kenv -> $kenv2"
-  export kenv="${kenv2}"
+else
+  export kenv2="${kenv}"
 fi
 for db in $all
 do
   for sql in $*
   do
     echo "Execute script '$sql' on '$db' database"
-    kubectl exec -in "devstats-${kenv}" "${member}" -- psql "$db" < "$sql"
+    kubectl exec -in "devstats-${kenv2}" "${member}" -- psql "$db" < "$sql"
   done
 done
 echo 'OK'
