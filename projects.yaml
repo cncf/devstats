@@ -2172,7 +2172,7 @@ projects:
       - keycloak
     start_date: 2014-01-01T00:00:00Z
     join_date: 2023-04-10T00:00:00Z
-    psql_db: 'keycloak'
+    psql_db: keycloak
     shared_db: allprj
     main_repo: keycloak/keycloak
     annotation_regexp: '^\d+\.0\.0(\.Final)?$'
@@ -2299,7 +2299,7 @@ projects:
     name: Microcks
     status: Sandbox
     command_line:
-      - 'microcks'
+      - microcks
     start_date: 2015-02-23T00:00:00Z
     join_date: 2023-06-22T00:00:00Z
     psql_db: 'microcks'
@@ -2315,7 +2315,7 @@ projects:
       - 'kubeclipper,kubeclipper-labs'
     start_date: 2022-06-17T00:00:00Z
     join_date: 2023-06-30T00:00:00Z
-    psql_db: 'kubeclipper'
+    psql_db: kubeclipper
     shared_db: allprj
     main_repo: kubeclipper/kubeclipper
     annotation_regexp: '^v\d+\.\d+\.0$'
@@ -2328,7 +2328,7 @@ projects:
       - 'kubeflow'
     start_date: 2017-11-30T00:00:00Z
     join_date: 2023-07-25T00:00:00Z
-    psql_db: 'kubeflow'
+    psql_db: kubeflow
     shared_db: allprj
     main_repo: kubeflow/kubeflow
     annotation_regexp: '^v\d+\.\d+\.0$'
@@ -2341,7 +2341,7 @@ projects:
       - 'project-copacetic'
     start_date: 2023-01-11T00:00:00Z
     join_date: 2023-09-19T00:00:00Z
-    psql_db: 'copacetic'
+    psql_db: copacetic
     shared_db: allprj
     main_repo: project-copacetic/copacetic
     annotation_regexp: '^v\d+\.\d+\.\d+$'

@@ -1,0 +1,42 @@
+# cat projects.yaml | yq '.projects[] |{.psql_db:.status}' | grep -E 'Incubating'
+# 36
+
+grpc: Incubating
+cni: Incubating
+notary: Incubating
+nats: Incubating
+cloudevents: Incubating
+openmetrics: Incubating
+cortex: Incubating
+buildpacks: Incubating
+falco: Incubating
+dragonfly: Incubating
+kubeedge: Incubating
+opentelemetry: Incubating
+thanos: Incubating
+intoto: Incubating
+kubevirt: Incubating
+longhorn: Incubating
+chubaofs: Incubating
+volcano: Incubating
+keptn: Incubating
+cloudcustodian: Incubating
+litmuschaos: Incubating
+crossplane: Incubating
+contour: Incubating
+operatorframework: Incubating
+chaosmesh: Incubating
+backstage: Incubating
+certmanager: Incubating
+openkruise: Incubating
+kyverno: Incubating
+emissaryingress: Incubating
+kubevela: Incubating
+cilium: Incubating
+dapr: Incubating
+knative: Incubating
+keycloak: Incubating
+kubeflow: Incubating
+
+# in ('grpc', 'cni', 'notary', 'nats', 'cloudevents', 'openmetrics', 'cortex', 'buildpacks', 'falco', 'dragonfly', 'kubeedge', 'opentelemetry', 'thanos', 'intoto', 'kubevirt', 'longhorn', 'chubaofs', 'volcano', 'keptn', 'cloudcustodian', 'litmuschaos', 'crossplane', 'contour', 'operatorframework', 'chaosmesh', 'backstage', 'certmanager', 'openkruise', 'kyverno', 'emissaryingress', 'kubevela', 'cilium', 'dapr', 'knative', 'keycloak', 'kubeflow')
+# V3: select id, slug, name, "parentSlug" from segments where lower(slug) in ('grpc', 'cni', 'notary', 'nats', 'cloudevents', 'openmetrics', 'cortex', 'buildpacks', 'falco', 'd7y', 'kubeedge', 'opentelemetry', 'thanos', 'intoto', 'kubevirt', 'longhorn', 'chubaofs', 'volcano', 'keptn', 'c7n', 'litmuschaos', 'crossplane', 'contour', 'operator-sdk', 'chaosmesh', 'backstage', 'cert-manager', 'openkruise', 'kyverno', 'emissary', 'kubevela', 'cilium', 'dapr', 'knative', 'keycloak', 'kubeflow') and "parentSlug" = 'cncf' order by slug;

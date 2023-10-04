@@ -1,0 +1,29 @@
+# cat projects.yaml | yq '.projects[] |{.psql_db:.status}' | grep -E 'Graduated'
+# 23
+
+kubernetes: Graduated
+prometheus: Graduated
+fluentd: Graduated
+linkerd: Graduated
+coredns: Graduated
+containerd: Graduated
+envoy: Graduated
+jaeger: Graduated
+tuf: Graduated
+rook: Graduated
+vitess: Graduated
+opa: Graduated
+spiffe: Graduated
+spire: Graduated
+helm: Graduated
+harbor: Graduated
+etcd: Graduated
+tikv: Graduated
+crio: Graduated
+flux: Graduated
+keda: Graduated
+argo: Graduated
+istio: Graduated
+
+# in ('kubernetes', 'prometheus', 'fluentd', 'linkerd', 'coredns', 'containerd', 'envoy', 'jaeger', 'tuf', 'rook', 'vitess', 'opa', 'spiffe', 'spire', 'helm', 'harbor', 'etcd', 'tikv', 'crio', 'flux', 'keda', 'argo', 'istio')
+# V3: select id, slug, name, "parentSlug" from segments where lower(slug) in ('k8s', 'prometheus', 'fluentd', 'linkerd', 'coredns', 'containerd', 'envoy', 'jaeger', 'tuf', 'rook', 'vitess', 'openpolicyagent', 'spiffe', 'spire', 'helm', 'harbor', 'etcd', 'tikv', 'cri-o', 'fluxcd', 'keda', 'argo', 'istio') and "parentSlug" = 'cncf' order by slug;
