@@ -2379,7 +2379,7 @@ projects:
     command_line:
       - 'kcp-dev'
     start_date: 2021-04-01T00:00:00Z
-    join_date: 2023-09-20T00:00:00Z
+    join_date: 2023-09-19T00:00:00Z
     psql_db: 'kcp'
     shared_db: allprj
     main_repo: kcp-dev/kcp
