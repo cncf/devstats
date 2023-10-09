@@ -691,7 +691,7 @@ projects:
   smi:
     order: 47
     name: SMI
-    status: Sandbox
+    status: Archived
     command_line:
       - servicemeshinterface
     start_date: 2019-05-21T00:00:00Z
@@ -2340,7 +2340,7 @@ projects:
     command_line:
       - 'project-copacetic'
     start_date: 2023-01-11T00:00:00Z
-    join_date: 2023-09-19T00:00:00Z
+    join_date: 2023-09-20T00:00:00Z
     psql_db: copacetic
     shared_db: allprj
     main_repo: project-copacetic/copacetic
@@ -2353,7 +2353,7 @@ projects:
     command_line:
       - 'kube-logging'
     start_date: 2018-08-02T00:00:00Z
-    join_date: 2023-09-19T00:00:00Z
+    join_date: 2023-09-20T00:00:00Z
     psql_db: 'loggingoperator'
     shared_db: allprj
     main_repo: kube-logging/logging-operator
@@ -2366,7 +2366,7 @@ projects:
     command_line:
       - 'kanisterio'
     start_date: 2017-11-22T00:00:00Z
-    join_date: 2023-09-19T00:00:00Z
+    join_date: 2023-09-20T00:00:00Z
     psql_db: 'kanister'
     shared_db: allprj
     main_repo: kanisterio/kanister
@@ -2379,7 +2379,7 @@ projects:
     command_line:
       - 'kcp-dev'
     start_date: 2021-04-01T00:00:00Z
-    join_date: 2023-09-19T00:00:00Z
+    join_date: 2023-09-20T00:00:00Z
     psql_db: 'kcp'
     shared_db: allprj
     main_repo: kcp-dev/kcp
@@ -2392,7 +2392,7 @@ projects:
     command_line:
       - 'kcl-lang'
     start_date: 2022-05-13T00:00:00Z
-    join_date: 2023-09-19T00:00:00Z
+    join_date: 2023-09-20T00:00:00Z
     psql_db: 'kcl'
     shared_db: allprj
     main_repo: kcl-lang/kcl
