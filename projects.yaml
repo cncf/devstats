@@ -1567,11 +1567,12 @@ projects:
   cilium:
     order: 113
     name: Cilium
-    status: Incubating
+    status: Graduated
     command_line:
     - 'cilium'
     start_date: 2016-08-15T00:00:00Z
     join_date: 2021-10-13T00:00:00Z
+    graduated_date: 2023-10-11T00:00:00Z
     psql_db: cilium
     shared_db: allprj
     main_repo: 'cilium/cilium'
