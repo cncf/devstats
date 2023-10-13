@@ -249,6 +249,36 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "CRI-O",
+      "tooltip": "Opens CRI-O projects dashboards",
+      "type": "link",
+      "url": "https://crio.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KEDA",
+      "tooltip": "Opens KEDA projects dashboards",
+      "type": "link",
+      "url": "https://keda.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Cilium",
+      "tooltip": "Opens Cilium projects dashboards",
+      "type": "link",
+      "url": "https://cilium.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -283,36 +313,6 @@
       "tooltip": "Opens NATS dashboards",
       "type": "link",
       "url": "https://nats.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "CRI-O",
-      "tooltip": "Opens CRI-O projects dashboards",
-      "type": "link",
-      "url": "https://crio.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "KEDA",
-      "tooltip": "Opens KEDA projects dashboards",
-      "type": "link",
-      "url": "https://keda.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Cilium",
-      "tooltip": "Opens Cilium projects dashboards",
-      "type": "link",
-      "url": "https://cilium.[[hostname]]"
     },
     {
       "icon": "dashboard",
