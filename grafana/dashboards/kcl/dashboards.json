@@ -283,6 +283,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Cilium",
+      "tooltip": "Opens Cilium projects dashboards",
+      "type": "link",
+      "url": "https://cilium.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -437,16 +447,6 @@
       "tooltip": "Opens Crossplane projects dashboards",
       "type": "link",
       "url": "https://crossplane.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Cilium",
-      "tooltip": "Opens Cilium projects dashboards",
-      "type": "link",
-      "url": "https://cilium.[[hostname]]"
     },
     {
       "icon": "dashboard",
