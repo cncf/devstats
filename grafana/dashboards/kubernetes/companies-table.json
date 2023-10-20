@@ -138,7 +138,7 @@
           "policy": "default",
           "query": "SELECT \"name\", \"value\" FROM \"project_company_stats_[[metric]]_[[period]]\" WHERE $timeFilter",
           "rawQuery": true,
-          "rawSql": "select (row_number() over (order by value desc) -1) as \"Rank\", name, value from \"shcom\" where series = 'hcom[[metric]]' and period = '[[period]]'",
+          "rawSql": "select (row_number() over (order by value desc, name asc) -1) as \"Rank\", name, value from \"shcom\" where series = 'hcom[[metric]]' and period = '[[period]]'",
           "refId": "A",
           "resultFormat": "table",
           "select": [

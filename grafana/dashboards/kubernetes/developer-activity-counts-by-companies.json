@@ -147,7 +147,7 @@
           "policy": "default",
           "query": "SELECT \"name\", \"value\" FROM \"developers_hist_[[metric]]_[[repogroup]]_[[period]]\" WHERE $timeFilter",
           "rawQuery": true,
-          "rawSql": "select \n  sub.\"Rank\",\n  split_part(sub.name, '$$$', 1) as name,\n  split_part(sub.name, '$$$', 2) as \"Company\",\n  sub.value \nfrom (\n  select row_number() over (order by value desc) as \"Rank\",\n    name,\n    value\n  from\n    shdev\n  where\n    series = 'hdev_[[metric]][[repogroup]][[country]]'\n    and period = '[[period]]'\n    and ('[[companies:csv]]' = 'null' or split_part(name, '$$$', 2) in ([[companies]]))\n) sub",
+          "rawSql": "select \n  sub.\"Rank\",\n  split_part(sub.name, '$$$', 1) as name,\n  split_part(sub.name, '$$$', 2) as \"Company\",\n  sub.value \nfrom (\n  select row_number() over (order by value desc, name asc) as \"Rank\",\n    name,\n    value\n  from\n    shdev\n  where\n    series = 'hdev_[[metric]][[repogroup]][[country]]'\n    and period = '[[period]]'\n    and ('[[companies:csv]]' = 'null' or split_part(name, '$$$', 2) in ([[companies]]))\n) sub",
           "refId": "A",
           "resultFormat": "table",
           "select": [
@@ -306,7 +306,7 @@
           "policy": "default",
           "query": "SELECT \"name\", \"value\" FROM \"developers_hist_[[metric]]_[[repogroup]]_[[period]]\" WHERE $timeFilter",
           "rawQuery": true,
-          "rawSql": "select \n  sub.\"Rank\",\n  split_part(sub.name, '$$$', 1) as name,\n  split_part(sub.name, '$$$', 2) as \"Company\",\n  sub.value \nfrom (\n  select row_number() over (order by value desc) as \"Rank\",\n    name,\n    value\n  from\n    shdev_repos\n  where\n    series = 'hdev_[[metric]][[repo]][[country]]'\n    and period = '[[period]]'\n    and ('[[companies:csv]]' = 'null' or split_part(name, '$$$', 2) in ([[companies]]))\n) sub",
+          "rawSql": "select \n  sub.\"Rank\",\n  split_part(sub.name, '$$$', 1) as name,\n  split_part(sub.name, '$$$', 2) as \"Company\",\n  sub.value \nfrom (\n  select row_number() over (order by value desc, name asc) as \"Rank\",\n    name,\n    value\n  from\n    shdev_repos\n  where\n    series = 'hdev_[[metric]][[repo]][[country]]'\n    and period = '[[period]]'\n    and ('[[companies:csv]]' = 'null' or split_part(name, '$$$', 2) in ([[companies]]))\n) sub",
           "refId": "A",
           "resultFormat": "table",
           "select": [

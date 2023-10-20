@@ -121,7 +121,7 @@
           "policy": "default",
           "query": "SELECT \"name\", \"value\" FROM \"top_commenters_[[repogroup]]_[[period]]\" WHERE $timeFilter",
           "rawQuery": true,
-          "rawSql": "select\n  row_number() over (order by value desc) as \"Rank\",\n  name,\n  value\nfrom\n  shtop_commenters\nwhere\n  series = 'htop_commenters[[repogroup]]'\n  and period = '[[period]]'",
+          "rawSql": "select\n  row_number() over (order by value desc, name asc) as \"Rank\",\n  name,\n  value\nfrom\n  shtop_commenters\nwhere\n  series = 'htop_commenters[[repogroup]]'\n  and period = '[[period]]'",
           "refId": "A",
           "resultFormat": "table",
           "select": [
