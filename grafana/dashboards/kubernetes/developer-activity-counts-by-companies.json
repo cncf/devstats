@@ -44,8 +44,8 @@
       "scroll": true,
       "showHeader": true,
       "sort": {
-        "col": 3,
-        "desc": true
+        "col": 0,
+        "desc": false
       },
       "styles": [
         {
@@ -203,8 +203,8 @@
       "scroll": true,
       "showHeader": true,
       "sort": {
-        "col": 3,
-        "desc": true
+        "col": 0,
+        "desc": false
       },
       "styles": [
         {
