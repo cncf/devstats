@@ -525,6 +525,12 @@ metrics:
     env:
       GHA2DB_NCPUS?@d7: 4
       GHA2DB_NCPUS?!d7: 10
+  - name: PRs mergers table
+    histogram: true
+    annotations_ranges: true
+    series_name_or_func: multi_row_single_column
+    sql: hist_pr_mergers
+    merge_series: hpr_mergers
   - name: Contributions chart (repositories)
     series_name_or_func: multi_row_multi_column
     sqls: [reviewers_repos, approvers_repos, committers_repos, contributors_repos]
