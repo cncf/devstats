@@ -549,7 +549,7 @@ do
     PROJ=devspace            PROJDB=devspace       PROJREPO="devspace-cloud/devspace-cloud"   ORGNAME=DevSpace          PORT=3223 ICON=devspace       GRAFSUFF=devspace       GA="UA-241436121-8"  ./devel/deploy_proj.sh || exit 148
   elif [ "$proj" = "capsule" ]
   then
-    PROJ=capsule             PROJDB=capsule        PROJREPO="cpasule-rs/capsule"              ORGNAME=capsule           PORT=3224 ICON=capsule        GRAFSUFF=capsule        GA="UA-241436121-9"  ./devel/deploy_proj.sh || exit 149
+    PROJ=capsule             PROJDB=capsule        PROJREPO="projectcapsule/capsule"          ORGNAME=capsule           PORT=3224 ICON=capsule        GRAFSUFF=capsule        GA="UA-241436121-9"  ./devel/deploy_proj.sh || exit 149
   elif [ "$proj" = "zot" ]
   then
     PROJ=zot                 PROJDB=zot            PROJREPO="project-zot/zot"                 ORGNAME=zot               PORT=3225 ICON=zot            GRAFSUFF=zot            GA="UA-241436121-10" ./devel/deploy_proj.sh || exit 150
