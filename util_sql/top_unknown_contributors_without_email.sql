@@ -26,7 +26,8 @@ with topu as (
         '%-ci%bot', '%-testing', 'codecov-%', '%clabot%', '%cla-bot%', '%-gerrit', '%-bot-%', 
         '%envoy-filter-example%', 'github-action-benchmark', 'knative-automation', 'covbot',
         'cdk8s-automation', 'github-action-benchmark', 'goreleaserbot', 'facebook-github-whois-bot-0',
-        'claassistant', 'containersshbuilder', 'wasmcloud-automation', 'fossabot'
+        'claassistant', 'containersshbuilder', 'wasmcloud-automation', 'fossabot', 'opentelemetrybot',
+        'invalid-email-address', 'fluxcdbot', 
     ])
     and aa.actor_id is null
 ), others as (
