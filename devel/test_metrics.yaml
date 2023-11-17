@@ -21,10 +21,41 @@ metrics:
 #     merge_series: user_reviews
 #     drop: suser_reviews
 #     allow_fail: true
-  - name: PRs mergers table
+  - name: Company statistics by repository groups
+    series_name_or_func: multi_row_multi_column
+    sqls: [company_activity, company_activity_commits]
+    periods: d,w,m,q,y
+    aggregate: 1,7
+    skip: w7,m7,q7,y7
+    multi_value: true
+    merge_series: company_activity
+    drop: scompany_activity
+    project: kubernetes
+  - name: Company statistics by repositories
+    series_name_or_func: multi_row_multi_column
+    sqls: [company_activity_repos, company_activity_commits_repos]
+    periods: d,w,m,q,y
+    aggregate: 1,7
+    skip: w7,m7,q7,y7
+    multi_value: true
+    merge_series: company_activity_repos
+    drop: scompany_activity_repos
+    project: kubernetes
+  - name: Developer activity counts
     histogram: true
     annotations_ranges: true
     series_name_or_func: multi_row_single_column
-    sql: hist_pr_mergers
-    merge_series: hpr_mergers
+    sqls: [hist_reviewers, hist_approvers, project_developer_stats]
+    merge_series: hdev
     project: kubernetes
+    env:
+      GHA2DB_NCPUS?: 4
+  - name: Developer activity counts (repositories)
+    histogram: true
+    annotations_ranges: true
+    series_name_or_func: multi_row_single_column
+    sqls: [hist_reviewers_repos, hist_approvers_repos, project_developer_stats_repos]
+    merge_series: hdev_repos
+    project: kubernetes
+    env:
+      GHA2DB_NCPUS?: 4
