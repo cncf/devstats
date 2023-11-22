@@ -230,6 +230,7 @@ then
   sqlite3 -echo -header -csv "/var/lib/grafana.$GRAFSUFF/grafana.db" < "$cfile" || exit 49
 
   # Optional SQL (newer Grafana has team_id field which is not present in the older one)
+  echo 'provisioning optional preferences'
   cfile="/etc/grafana.$GRAFSUFF/update_sqlite_optional.sql"
   cp "grafana/shared/update_sqlite_optional.sql" "$cfile"
   MODE=ss FROM='{{uid}}' TO="${uid}" replacer "$cfile"

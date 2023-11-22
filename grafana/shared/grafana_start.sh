@@ -116,6 +116,7 @@ then
 fi
 
 # Optional script that may fail and can be ignored (to handle incompatible grafana versions)
+echo 'Provisioning other optional preferences'
 cfile="grafana/shared/update_sqlite_optional.sql"
 if [ ! -z "${SHARED_GRAFANA}" ]
 then
