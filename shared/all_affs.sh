@@ -29,6 +29,7 @@ else
   ./devel/restore_db.sh $tdb || exit 3
 fi
 
+echo "Skip import/update TSDB: '${SKIP_IMP_AFFS}'/'${SKIP_UPD_AFFS}'"
 if [ "$SKIP_IMP_AFFS" = "0" ]
 then
   export SKIP_IMP_AFFS=''
@@ -66,6 +67,7 @@ then
     export SKIP_UPD_AFFS=''
   fi
 fi
+echo "Adjusted skip import/update TSDB: '${SKIP_IMP_AFFS}'/'${SKIP_UPD_AFFS}'"
 
 proj=$GHA2DB_PROJECT
 if [ -z "$SKIP_IMP_AFFS" ]
