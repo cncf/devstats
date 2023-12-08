@@ -49,6 +49,7 @@ This file describes how to add new project on the test and production servers.
 - For updating `partials/projects.html` or `apache/www/index_*.html`, copy the Graduated/Incubating/Sandbox section into some text file and then `KIND=Graduated SIZE=9 ./tsplit < graduated.txt > new_graduated.txt`.
 - If normalized project name is not equal to lower project name, you need to update projects health metric to do the mapping, for example `series_name_map: { clouddeploymentkitforkubernetes: cdk8s }`, see `metrics/*/*.yaml`.
 - Update the number of projects in `metrics/all/sync_vars.yaml`.
+- Generate new project key -> name mapping by running: `PROD_SERVER=1 ./devel/generate_project_names_mapping.sh`.
 - Update Apache proxy and SSL files `apache/www/index_* apache/*/sites-enabled/* apache/*/sites.txt` files. You can copy from `partials/projects.yaml` and then: `:'<,'>s/\[\[hostname]]/devstats.cncf.io/g`, `:'<,'>s/public\/img\/projects\///g` and `:'<,'>s/devstats\.cncf\.io/teststats.cncf.io/g`.
 - Generate new artwork icons: `[TEST_SERVER=1] ./devel/icons_all.sh`. On kubernetes/helm deployment do next: `Do all/everything command`.
 - Run deploy all script: `GHA2DB_PROJECTS_OVERRIDE="+proj1,+proj2" SKIPCERT=1 HEALTH=1 SKIPTEMP=1 CUSTGRAFPATH=1 PG_PASS=... ./devel/deploy_all.sh`. If succeeded `make install`.
@@ -60,6 +61,7 @@ This file describes how to add new project on the test and production servers.
 - If added disabled project, remember to add it to `crontab -e` via `GHA2DB_PROJECTS_OVERRIDE="+new_disabled_project"`.
 - Also add in other devstats repositories, follow `cncf/devstats-helm:ADDING_NEW_PROJECTS.md`.
 - Update cncf/gitdm affiliations with [official project maintainers](http://maintainers.cncf.io/).
+- If you need to copy (update) a dashboard from one project in all other projects do `[PROD_SERVER=1] [REPLACE_ON='-fiscalYearStartMonth'] ./util_sh/update_dashbord_from_project_to_all.sh "project-name" "dahboard-name.json"`.
 
 ## Update shared Grafana data
 
