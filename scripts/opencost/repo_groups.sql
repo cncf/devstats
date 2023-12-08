@@ -29,15 +29,21 @@ where
 update gha_repos set repo_group = alias;
 
 update gha_repos
-set repo_group = 'OpenCost', alias = 'OpenCost'
+set repo_group = 'OpenCost'
 where name in (
   'opencost/opencost',
   'opencost/opencost-helm-chart',
   'opencost/opencost-website'
 );
 
+update gha_repos
+set alias = 'OpenCost'
+where name in (
+  'opencost/opencost'
+);
+
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, coalesce(repo_group, name), org_id, org_login from gha_repos on conflict do nothing;
-insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, org_login, org_id, org_login from gha_repos where org_id is not null and org_login is not null and trim(org_login) != '' on conflict do nothing;
+-- insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, org_login, org_id, org_login from gha_repos where org_id is not null and org_login is not null and trim(org_login) != '' on conflict do nothing;
 
 select
   repo_group,
