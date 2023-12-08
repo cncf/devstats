@@ -1791,7 +1791,7 @@ projects:
     name: OpenCost
     status: Sandbox
     command_line:
-      - 'kubecost,opencost'
+      - 'opencost'
     start_date: 2018-11-21T00:00:00Z
     join_date: 2022-06-17T00:00:00Z
     psql_db: opencost
@@ -2623,7 +2623,7 @@ projects:
          meshery,service-mesh-performance,knative,knative-sandbox,FabEdge,krator-rs,\
          confidential-containers,tellerops,cncf/tag-app-delivery,knative-extensions,\
          SpectralOps/setup-teller-action,OpenFunction,sealerio,clusterpedia-io,\
-         kubecost,aeraki-mesh,opencurve,open-feature,kubewarden,devstream-io,kubevela,\
+         aeraki-mesh,opencurve,open-feature,kubewarden,devstream-io,kubevela,\
          hexa-org,konveyor,armadaproject,external-secrets,Serverless-Devs,\
          ContainerSSH,openfga,kubereboot,lima-vm,istio,carvel-dev,merbridge,opencost,\
          devspace-cloud,project-zot,paralus,carina-io,ko-build,opcr-io,werf,getsops,\

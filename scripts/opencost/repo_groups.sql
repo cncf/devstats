@@ -31,9 +31,9 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'OpenCost', alias = 'OpenCost'
 where name in (
-  'kubecost/cost-model',
-  'kubecost/opencost',
-  'opencost/opencost'
+  'opencost/opencost',
+  'opencost/opencost-helm-chart',
+  'opencost/opencost-website'
 );
 
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, coalesce(repo_group, name), org_id, org_login from gha_repos on conflict do nothing;

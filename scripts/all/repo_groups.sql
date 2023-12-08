@@ -1371,7 +1371,7 @@ update
 set
   repo_group = 'OpenCost'
 where
-  org_login in ('opencost', 'kubecost')
+  org_login in ('opencost')
 ;
 
 -- Aeraki Mesh
@@ -1447,7 +1447,7 @@ set
   repo_group = 'Armada'
 where
   name in ('G-Research/armada')
-  or org_login in ('armadaproject') 
+  or org_login in ('armadaproject')
 ;
 
 -- External Secrets Operator
