@@ -8,6 +8,7 @@ delete from gha_releases_assets where event_id in (select id from gha_events whe
 delete from gha_commits_files where sha in (select sha from gha_commits where dup_repo_name in (select name from repos));
 delete from gha_skip_commits where sha in (select sha from gha_commits where dup_repo_name in (select name from repos));
 delete from gha_repos where name in (select name from repos);
+delete from gha_repo_groups where name in (select name from repos);
 delete from gha_events where dup_repo_name in (select name from repos);
 delete from gha_repos_langs where repo_name in (select name from repos);
 delete from gha_payloads where dup_repo_name in (select name from repos);
