@@ -631,6 +631,26 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Karmada",
+      "tooltip": "Opens Karmada projects dashboards",
+      "type": "link",
+      "url": "https://karmada.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "OpenFeature",
+      "tooltip": "Opens OpenFeature projects dashboards",
+      "type": "link",
+      "url": "https://openfeature.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -1161,16 +1181,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Karmada",
-      "tooltip": "Opens Karmada projects dashboards",
-      "type": "link",
-      "url": "https://karmada.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Inclavare Containers",
       "tooltip": "Opens Inclavare Containers projects dashboards",
       "type": "link",
@@ -1355,16 +1365,6 @@
       "tooltip": "Opens Curve projects dashboards",
       "type": "link",
       "url": "https://curve.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OpenFeature",
-      "tooltip": "Opens OpenFeature projects dashboards",
-      "type": "link",
-      "url": "https://openfeature.[[hostname]]"
     },
     {
       "icon": "dashboard",
