@@ -1528,11 +1528,12 @@ projects:
   karmada:
     order: 110
     name: Karmada
-    status: Sandbox
+    status: Incubating
     command_line:
     - 'karmada-io'
     start_date: 2021-04-23T00:00:00Z
     join_date: 2021-09-14T00:00:00Z
+    incubating_date: 2023-12-12T00:00:00Z
     psql_db: karmada
     shared_db: allprj
     main_repo: 'karmada-io/karmada'
@@ -1829,11 +1830,12 @@ projects:
   openfeature:
     order: 133
     name: OpenFeature
-    status: Sandbox
+    status: Incubating
     command_line:
       - 'open-feature'
     start_date: 2022-02-11T00:00:00Z
     join_date: 2022-06-17T00:00:00Z
+    incubating_date: 2023-11-21T00:00:00Z
     psql_db: openfeature
     shared_db: allprj
     main_repo: open-feature/spec
