@@ -240,8 +240,8 @@
           {
             "$$hashKey": "object:1598",
             "selected": true,
-            "text": "7 Days MA",
-            "value": "d7"
+            "text": "Day",
+            "value": "d"
           },
           {
             "$$hashKey": "object:1600",
@@ -256,7 +256,7 @@
             "value": "m"
           }
         ],
-        "query": "d7,w,m",
+        "query": "d,w,m",
         "skipUrlSync": false,
         "type": "custom"
       },
