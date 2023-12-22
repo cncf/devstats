@@ -60,8 +60,13 @@ This file describes how to add new project on the test and production servers.
 - Final deploy script is: `./devel/deploy_all.sh`. It should do all deployment automatically on the prod server. Follow all code from this script (eventually run some parts manually, the final version should do full deploy OOTB).
 - If added disabled project, remember to add it to `crontab -e` via `GHA2DB_PROJECTS_OVERRIDE="+new_disabled_project"`.
 - Also add in other devstats repositories, follow `cncf/devstats-helm:ADDING_NEW_PROJECTS.md`.
-- Update cncf/gitdm affiliations with [official project maintainers](http://maintainers.cncf.io/).
+- Update `cncf/gitdm` affiliations with [official project maintainers](http://maintainers.cncf.io/).
+
+
+## Mass update dashboard from one project to all other project conditionally
+
 - If you need to copy (update) a dashboard from one project in all other projects do `[PROD_SERVER=1] [REPLACE_ON='-fiscalYearStartMonth'] ./util_sh/update_dashbord_from_project_to_all.sh "project-name" "dahboard-name.json"`.
+
 
 ## Update shared Grafana data
 
