@@ -206,8 +206,8 @@ do
     continue
   elif [ "$icon" = "aerakimesh" ]
   then
-    cp "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/AerakiMesh_icon-color.svg" "grafana/img/$suff.svg" || exit 21
-    convert "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/AerakiMesh_icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 20
+    cp "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/aerakimesh-icon-color.svg" "grafana/img/$suff.svg" || exit 21
+    convert "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/aerakimesh-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 20
     continue
   fi
   cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 2
