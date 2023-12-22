@@ -505,7 +505,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "kcl"
+    "spiderpool"
   ],
   "templating": {
     "list": [
@@ -565,8 +565,8 @@
       {
         "current": {
           "selected": false,
-          "text": "kcl",
-          "value": "kcl"
+          "text": "spiderpool",
+          "value": "spiderpool"
         },
         "datasource": {
           "type": "postgres",

@@ -508,7 +508,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "pipecd"
+    "krknchaos"
   ],
   "templating": {
     "list": [
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "pipecd",
-          "value": "pipecd"
+          "text": "krknchaos",
+          "value": "krknchaos"
         },
         "datasource": {
           "type": "postgres",

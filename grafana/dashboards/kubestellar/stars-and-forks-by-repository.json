@@ -505,7 +505,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "kcl"
+    "kubestellar"
   ],
   "templating": {
     "list": [
@@ -565,8 +565,8 @@
       {
         "current": {
           "selected": false,
-          "text": "kcl",
-          "value": "kcl"
+          "text": "kubestellar",
+          "value": "kubestellar"
         },
         "datasource": {
           "type": "postgres",

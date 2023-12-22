@@ -196,7 +196,7 @@
   "tags": [
     "companies",
     "dashboard",
-    "kcl"
+    "kubestellar"
   ],
   "templating": {
     "list": [

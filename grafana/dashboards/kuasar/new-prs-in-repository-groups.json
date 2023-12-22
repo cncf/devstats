@@ -226,7 +226,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "kcl"
+    "kuasar"
   ],
   "templating": {
     "list": [

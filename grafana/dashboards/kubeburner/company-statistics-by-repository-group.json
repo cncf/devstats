@@ -328,7 +328,7 @@
   "tags": [
     "companies",
     "dashboard",
-    "pipecd"
+    "kubeburner"
   ],
   "templating": {
     "list": [

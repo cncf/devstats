@@ -1987,13 +1987,13 @@
         "showStarred": false,
         "tags": [
           "dashboard",
-          "pipecd"
+          "kubeburner"
         ]
       },
       "pluginVersion": "8.5.25",
       "tags": [
         "dashboard",
-        "pipecd"
+        "kubeburner"
       ],
       "title": "All [[full_name]] Dashboards",
       "type": "dashlist"
@@ -2026,7 +2026,7 @@
   "tags": [
     "home",
     "all",
-    "pipecd"
+    "kubeburner"
   ],
   "templating": {
     "list": [

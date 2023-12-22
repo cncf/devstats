@@ -506,7 +506,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "kanister"
+    "easegress"
   ],
   "templating": {
     "list": [
@@ -566,8 +566,8 @@
       {
         "current": {
           "selected": false,
-          "text": "kanister",
-          "value": "kanister"
+          "text": "easegress",
+          "value": "easegress"
         },
         "datasource": {
           "type": "postgres",

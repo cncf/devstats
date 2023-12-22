@@ -1979,13 +1979,13 @@
         "showStarred": false,
         "tags": [
           "dashboard",
-          "kanister"
+          "easegress"
         ]
       },
       "pluginVersion": "8.5.27",
       "tags": [
         "dashboard",
-        "kanister"
+        "easegress"
       ],
       "title": "All [[full_name]] Dashboards",
       "type": "dashlist"
@@ -2018,7 +2018,7 @@
   "tags": [
     "home",
     "all",
-    "kanister"
+    "easegress"
   ],
   "templating": {
     "list": [

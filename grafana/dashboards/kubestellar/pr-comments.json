@@ -208,7 +208,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "kcl"
+    "kubestellar"
   ],
   "templating": {
     "list": [

@@ -505,7 +505,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "kcl"
+    "kuasar"
   ],
   "templating": {
     "list": [
@@ -565,8 +565,8 @@
       {
         "current": {
           "selected": false,
-          "text": "kcl",
-          "value": "kcl"
+          "text": "kuasar",
+          "value": "kuasar"
         },
         "datasource": {
           "type": "postgres",

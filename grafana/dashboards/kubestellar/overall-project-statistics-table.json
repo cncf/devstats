@@ -162,7 +162,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "kcl",
+    "kubestellar",
     "table"
   ],
   "templating": {

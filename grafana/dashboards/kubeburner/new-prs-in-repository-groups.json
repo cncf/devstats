@@ -226,7 +226,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "pipecd"
+    "kubeburner"
   ],
   "templating": {
     "list": [

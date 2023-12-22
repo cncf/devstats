@@ -229,7 +229,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "kcl",
+    "kuasar",
     "table"
   ],
   "templating": {

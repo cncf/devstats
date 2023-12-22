@@ -1987,13 +1987,13 @@
         "showStarred": false,
         "tags": [
           "dashboard",
-          "kcl"
+          "spiderpool"
         ]
       },
       "pluginVersion": "8.5.27",
       "tags": [
         "dashboard",
-        "kcl"
+        "spiderpool"
       ],
       "title": "All [[full_name]] Dashboards",
       "type": "dashlist"
@@ -2023,7 +2023,7 @@
   "tags": [
     "home",
     "all",
-    "kcl"
+    "spiderpool"
   ],
   "templating": {
     "list": [
