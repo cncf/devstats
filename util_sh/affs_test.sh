@@ -52,10 +52,13 @@ GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cn
 ONLY="keycloak sops headlamp slimtoolkit kepler pipecd eraser xline hwameistor kpt microcks kubeclipper kubeflow copacetic loggingoperator kanister kcp kcl" ./devel/all_affs.sh || exit 17
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" devstats
 
-ONLY="cncf opencontainers sam azf riff fn openwhisk openfaas" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" ./devel/all_affs.sh || exit 18
+ONLY="kubeburner kuasar krknchaos kubestellar easegress spiderpool k8sgpt" ./devel/all_affs.sh || exit 18
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" devstats
 
-ONLY="linux zephyr cii prestodb godotengine all" GHA2DB_PROJECTS_OVERRIDE="+linux,+zephyr,+cii" ./devel/all_affs.sh || exit 19
+ONLY="cncf opencontainers sam azf riff fn openwhisk openfaas" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" ./devel/all_affs.sh || exit 19
+GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" devstats
+
+ONLY="linux zephyr cii prestodb godotengine all" GHA2DB_PROJECTS_OVERRIDE="+linux,+zephyr,+cii" ./devel/all_affs.sh || exit 20
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+linux,+zephyr,+sam,+azf,+riff,+fn,+openwhisk,+openfaas,+cii" devstats
 
 ./devel/columns_all.sh
