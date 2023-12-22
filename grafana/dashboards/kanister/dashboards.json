@@ -1781,6 +1781,76 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "kube-burner",
+      "tooltip": "Opens kube-burner projects dashboards",
+      "type": "link",
+      "url": "https://kubeburner.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kuasar",
+      "tooltip": "Opens Kuasar projects dashboards",
+      "type": "link",
+      "url": "https://kuasar.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KrknChaos",
+      "tooltip": "Opens KrknChaos projects dashboards",
+      "type": "link",
+      "url": "https://krknchaos.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kubestellar",
+      "tooltip": "Opens Kubestellar projects dashboards",
+      "type": "link",
+      "url": "https://kubestellar.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "easegress",
+      "tooltip": "Opens easegress projects dashboards",
+      "type": "link",
+      "url": "https://easegress.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Spiderpool",
+      "tooltip": "Opens Spiderpool projects dashboards",
+      "type": "link",
+      "url": "https://spiderpool.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "K8sGPT",
+      "tooltip": "Opens K8sGPT projects dashboards",
+      "type": "link",
+      "url": "https://k8sgpt.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
