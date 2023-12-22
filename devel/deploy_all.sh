@@ -630,7 +630,28 @@ do
     PROJ=kcp                 PROJDB=kcp            PROJREPO="kcp-dev/kcp"                     ORGNAME=kcp               PORT=3250 ICON=kcp            GRAFSUFF=kcp            GA="UA-241436121-35" ./devel/deploy_proj.sh || exit 175
   elif [ "$proj" = "kcl" ]
   then
-    PROJ=kcl                 PROJDB=kcl            PROJREPO="kcl-lang/kcl"                    ORGNAME=KCL               PORT=3251 ICON=kcl           GRAFSUFF=kcl             GA="UA-241436121-36" ./devel/deploy_proj.sh || exit 176
+    PROJ=kcl                 PROJDB=kcl            PROJREPO="kcl-lang/kcl"                    ORGNAME=KCL               PORT=3251 ICON=kcl            GRAFSUFF=kcl            GA="UA-241436121-36" ./devel/deploy_proj.sh || exit 176
+  elif [ "$proj" = "kubeburner" ]
+  then
+    PROJ=kubeburner          PROJDB=kubeburner     PROJREPO="kube-burner/kube-burner"         ORGNAME='kube-burner'     PORT=3252 ICON=kubeburner     GRAFSUFF=kubeburner     GA="UA-241436121-37" ./devel/deploy_proj.sh || exit 177
+  elif [ "$proj" = "kuasar" ]
+  then
+    PROJ=kuasar              PROJDB=kuasar         PROJREPO="kuasar-io/kuasar"                ORGNAME=Kuasar            PORT=3253 ICON=kuasar         GRAFSUFF=kuasar         GA="UA-241436121-38" ./devel/deploy_proj.sh || exit 178
+  elif [ "$proj" = "krknchaos" ]
+  then
+    PROJ=krknchaos           PROJDB=krknchaos      PROJREPO="redhat-chaos/krknChaos"          ORGNAME=KrknChaos         PORT=3254 ICON=krknchaos      GRAFSUFF=krknchaos      GA="UA-241436121-39" ./devel/deploy_proj.sh || exit 179
+  elif [ "$proj" = "kubestellar" ]
+  then
+    PROJ=kubestellar         PROJDB=kubestellar    PROJREPO="kubestellar/kubestellar"         ORGNAME=Kubestellar       PORT=3255 ICON=kubestellar    GRAFSUFF=kubestellar    GA="UA-241436121-40" ./devel/deploy_proj.sh || exit 180
+  elif [ "$proj" = "easegress" ]
+  then
+    PROJ=easegress           PROJDB=easegress      PROJREPO="megaease/easegress"              ORGNAME=easegress         PORT=3256 ICON=easegress      GRAFSUFF=easegress      GA="UA-241436121-41" ./devel/deploy_proj.sh || exit 181
+  elif [ "$proj" = "spiderpool" ]
+  then
+    PROJ=spiderpool          PROJDB=spiderpool     PROJREPO="spidernet-io/spiderpool"         ORGNAME=Spiderpool        PORT=3257 ICON=spiderpool     GRAFSUFF=spiderpool     GA="UA-241436121-42" ./devel/deploy_proj.sh || exit 182
+  elif [ "$proj" = "k8sgpt" ]
+  then
+    PROJ=k8sgpt              PROJDB=k8sgpt         PROJREPO="k8sgpt-ai/k8sgpt"                ORGNAME=K8sGPT            PORT=3258 ICON=k8sgpt         GRAFSUFF=k8sgpt         GA="UA-241436121-43" ./devel/deploy_proj.sh || exit 183
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="UA-108085315-19" ./devel/deploy_proj.sh || exit 32
