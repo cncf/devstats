@@ -1820,6 +1820,85 @@ where
   )
 ;
 
+-- kube-burner
+update
+  gha_repos
+set
+  repo_group = 'kube-burner'
+where
+  org_login in ('kube-burner')
+  or name in (
+    'cloud-bulldozer/kube-burner',
+    'cloud-bulldozer/rosa-burner'
+  )
+;
+
+-- Kuasar
+update
+  gha_repos
+set
+  repo_group = 'Kuasar'
+where
+  org_login in ('kuasar-io')
+;
+
+-- KrknChaos
+update
+  gha_repos
+set
+  repo_group = 'KrknChaos'
+where
+  org_login in (
+    'redhat-chaos',
+    'chaos-kubox'
+  ) or name in (
+    'cloud-bulldozer/krkn',
+    'cloud-bulldozer/kraken',
+    'openshift-scale/kraken'
+  )
+;
+
+-- Kubestellar
+update
+  gha_repos
+set
+  repo_group = 'Kubestellar'
+where
+  org_login in (
+    'kubestellar',
+    'KubeStellar'
+  ) or name in (
+    'kcp-dev/edge-mc'
+  )
+;
+
+-- easegress
+update
+  gha_repos
+set
+  repo_group = 'easegress'
+where
+  org_login in ('megaease')
+;
+
+-- Spiderpool
+update
+  gha_repos
+set
+  repo_group = 'Spiderpool'
+where
+  org_login in ('spidernet-io')
+;
+
+-- K8sGPT
+update
+  gha_repos
+set
+  repo_group = 'K8sGPT'
+where
+  org_login in ('k8sgpt-ai')
+;
+
 -- CNCF
 update
   gha_repos
