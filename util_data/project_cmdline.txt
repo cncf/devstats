@@ -48,6 +48,7 @@ devstream,devstream-io,merico-dev/stream,maricso-dev/OpenStream
 dex,dexidp,coreos/dex
 distribution,distribution,docker/distribution
 dragonfly,dragonflyoss,alibaba/Dragonfly
+easegress,megaease
 emissaryingress,emissary-ingress,datawire/ambassador
 envoy,envoyproxy,lyft/envoy
 eraser,regexp:(?i)^(Azure\/.*eraser.*|eraser-dev\/.*)$
@@ -85,6 +86,7 @@ jenkinsx,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,jenkins
 k3s,k3s-io
 k8dash,indeedeng/k8dash,indeedeng/k8dash-website,herbrandson/k8dash,skooner-k8s
 k8gb,k8gb-io,AbsaOSS/k8gb,AbsaOSS/ohmyglb
+k8sgpt,k8sgpt-ai
 k8up,k8up-io,vshn/k8up
 kanister,kanisterio
 karmada,karmada-io
@@ -100,8 +102,11 @@ ko,ko-build,google/ko
 konveyor,konveyor,fusor/mig-operator
 kpt,regexp:(?i)^GoogleContainerTools\/.*kpt.*$
 krator,krator-rs
+krknchaos,redhat-chaos,chaos-kubox,cloud-bulldozer/krkn,cloud-bulldozer/kraken,openshift-scale/kraken
 krustlet,deislabs/krustlet,krustlet
+kuasar,kuasar-io
 kubearmor,kubearmor,accuknox/KubeArmor
+kubeburner,kube-burner,cloud-bulldozer/kube-burner,cloud-bulldozer/rosa-burner
 kubeclipper,kubeclipper,kubeclipper-labs
 kubedl,kubedl-io,alibaba/kubedl
 kubeedge,kubeedge
@@ -111,6 +116,7 @@ kuberhealthy,Comcast/kuberhealthy,kuberhealthy
 kubernetes,kubernetes,kubernetes-client,kubernetes-incubator,kubernetes-csi,kubernetes-graveyard,kubernetes-incubator-retired,kubernetes-sig-testing,kubernetes-providers,kubernetes-addons,kubernetes-extensions,kubernetes-federation,kubernetes-security,kubernetes-sigs,kubernetes-sidecars,kubernetes-tools,kubernetes-test,kubernetes-retired
 kubers,kube-rs,clux/kube-rs,clux/kubernetes-rust
 kubescape,kubescape,armosec/kubescape
+kubestellar,kubestellar,KubeStellar,kcp-dev/edge-mc
 kubevela,regexp:(?i)^(oam-dev\/.*vela|kubevela\/.*)
 kubevip,kube-vip,plunder-app/kube-vip
 kubevirt,kubevirt
@@ -186,6 +192,7 @@ shipwright,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-
 slimtoolkit,slimtoolkit,docker-slim,cloudimmunity/docker-slim
 smi,servicemeshinterface,deislabs/smi-spec,deislabs/smi-sdk-go,deislabs/smi-metrics,deislabs/smi-adapter-istio,deislabs/smi-spec.io
 sops,getsops,mozilla/sops,mozilla/sotp,mozilla-services/sops
+spiderpool,spidernet-io
 spiffe,spiffe
 spinnaker,spinnaker
 spire,regexp:(?i)^(spiffe\/spire.*)$
