@@ -2441,7 +2441,7 @@ projects:
     main_repo: redchat-chaos/krknChaos
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
-  kubestella:
+  kubestellar:
     order: 180
     name: Kubestellar
     status: Sandbox
