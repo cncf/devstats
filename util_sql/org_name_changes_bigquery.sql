@@ -8,6 +8,9 @@ select
   max(created_at) as date_to
 from
 --  [githubarchive:month.202201],
+  [githubarchive:month.202311],
+  [githubarchive:month.202310],
+  [githubarchive:month.202309],
   [githubarchive:month.202308],
   [githubarchive:month.202307],
   [githubarchive:month.202306],
@@ -31,6 +34,9 @@ where
       org.id
     from
 --      [githubarchive:month.202201],
+      [githubarchive:month.202311],
+      [githubarchive:month.202310],
+      [githubarchive:month.202309],
       [githubarchive:month.202308],
       [githubarchive:month.202307],
       [githubarchive:month.202306],

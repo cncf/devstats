@@ -9,6 +9,9 @@ select
 from
 --  TABLE_DATE_RANGE([githubarchive:day.], TIMESTAMP('2018-01-01'), TIMESTAMP('2019-08-01'))
 --  [githubarchive:month.202201],
+  [githubarchive:month.202311],
+  [githubarchive:month.202310],
+  [githubarchive:month.202309],
   [githubarchive:month.202308],
   [githubarchive:month.202307],
   [githubarchive:month.202306],
@@ -33,6 +36,9 @@ where
     from
 --      TABLE_DATE_RANGE([githubarchive:day.], TIMESTAMP('2018-01-01'), TIMESTAMP('2019-08-01'))
 --      [githubarchive:month.202201],
+      [githubarchive:month.202311],
+      [githubarchive:month.202310],
+      [githubarchive:month.202309],
       [githubarchive:month.202308],
       [githubarchive:month.202307],
       [githubarchive:month.202306],
