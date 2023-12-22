@@ -2402,6 +2402,97 @@ projects:
     main_repo: kcl-lang/kcl
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
+  kubeburner:
+    order: 177
+    name: 'kube-burner'
+    status: Sandbox
+    command_line:
+      - 'kube-burner'
+    start_date: 2020-09-02T00:00:00Z
+    join_date: 2023-12-19T00:00:00Z
+    psql_db: 'kubeburner'
+    shared_db: allprj
+    main_repo: kubeburner/kube-burner
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  kuasar:
+    order: 178
+    name: Kuasar
+    status: Sandbox
+    command_line:
+      - 'kuasar-io'
+    start_date: 2022-10-13T00:00:00Z
+    join_date: 2023-12-19T00:00:00Z
+    psql_db: 'kuasar'
+    shared_db: allprj
+    main_repo: kuasar-io/kuasar
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: ''
+  krknchaos:
+    order: 179
+    name: KrknChaos
+    status: Sandbox
+    command_line:
+      - 'redhat-chaos'
+    start_date: 2020-04-19T00:00:00Z
+    join_date: 2023-12-19T00:00:00Z
+    psql_db: 'krknchaos'
+    shared_db: allprj
+    main_repo: redchat-chaos/krknChaos
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: ''
+  kubestella:
+    order: 180
+    name: Kubestellar
+    status: Sandbox
+    command_line:
+      - 'kubestellar'
+    start_date: 2022-11-03T00:00:00Z
+    join_date: 2023-12-19T00:00:00Z
+    psql_db: 'kubestellar'
+    shared_db: allprj
+    main_repo: kubestellar/kubestellar
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  easegress:
+    order: 181
+    name: easegress
+    status: Sandbox
+    command_line:
+      - 'megaease'
+    start_date: 2017-06-07T00:00:00Z
+    join_date: 2023-12-19T00:00:00Z
+    psql_db: 'easegress'
+    shared_db: allprj
+    main_repo: megaease/easegress
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  spiderpool:
+    order: 182
+    name: Spiderpool
+    status: Sandbox
+    command_line:
+      - 'spidernet-io'
+    start_date: 2022-03-11T00:00:00Z
+    join_date: 2023-12-19T00:00:00Z
+    psql_db: 'spiderpool'
+    shared_db: allprj
+    main_repo: spidernet-io/spiderpool
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  k8sgpt:
+    order: 183
+    name: K8sGPT
+    status: Sandbox
+    command_line:
+      - 'k8sgpt-ai'
+    start_date: 2023-03-22T00:00:00Z
+    join_date: 2023-12-19T00:00:00Z
+    psql_db: 'k8sgpt'
+    shared_db: allprj
+    main_repo: k8sgpt-ai/k8sgpt
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opencontainers:
     order: 200
     name: OCI
@@ -2632,7 +2723,8 @@ projects:
          devspace-cloud,project-zot,paralus,carina-io,ko-build,opcr-io,werf,getsops,\
          pipe-cd,slimtoolkit,projectcapsule,sustainable-computing-io,\
          GoogleContainerTools/kpt,kubeclipper-labs,buildpacks-community,\
-         project-copacetic,kube-logging,kanisterio,kcp-dev,kcl-lang"
+         project-copacetic,kube-logging,kanisterio,kcp-dev,kcl-lang,kube-burner,\
+         kuasar-io,redhat-chaoss,kubestellar,megaease,spidernet-io,k8sgpt-ai"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
