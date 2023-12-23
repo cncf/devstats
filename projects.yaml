@@ -2438,7 +2438,7 @@ projects:
     join_date: 2023-12-19T00:00:00Z
     psql_db: 'krknchaos'
     shared_db: allprj
-    main_repo: redchat-chaos/krknChaos
+    main_repo: redhat-chaos/krknChaos
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
   kubestellar:
