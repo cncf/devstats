@@ -3,33 +3,42 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 36,
-  "iteration": 1620189343232,
+  "id": 37,
+  "iteration": 1703352041127,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "columns": [],
-      "datasource": "psql",
-      "description": "[[full_name]] Repository Groups definitions",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "postgres",
+        "uid": "P172949F98CB31475"
       },
+      "description": "[[full_name]] Repository Groups definitions",
       "fontSize": "90%",
       "gridPos": {
-        "h": 23,
+        "h": 24,
         "w": 24,
         "x": 0,
         "y": 0
@@ -99,15 +108,13 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "[[full_name]] Repository Groups definitions",
       "transform": "table",
       "type": "table-old"
     }
   ],
   "refresh": false,
-  "schemaVersion": 27,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [
     "dashboard",
@@ -117,19 +124,18 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
           "selected": false,
-          "text": "Submariner",
-          "value": "Submariner"
+          "text": "KrknChaos",
+          "value": "KrknChaos"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "full_name",
         "options": [],
@@ -139,7 +145,6 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -155,10 +160,11 @@
             "$__all"
           ]
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "select repo_group_name from trepo_groups union select 'Not specified' order by 1",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Repository groups",
@@ -171,7 +177,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -211,5 +216,6 @@
   "timezone": "",
   "title": "Repository groups",
   "uid": "68",
-  "version": 2
+  "version": 2,
+  "weekStart": ""
 }
