@@ -2412,7 +2412,7 @@ projects:
     join_date: 2023-12-19T00:00:00Z
     psql_db: 'kubeburner'
     shared_db: allprj
-    main_repo: kube-burner/kube-burner
+    main_repo: cloud-bulldozer/kube-burner
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   kuasar:

@@ -633,7 +633,7 @@ do
     PROJ=kcl                 PROJDB=kcl            PROJREPO="kcl-lang/kcl"                    ORGNAME=KCL               PORT=3251 ICON=kcl            GRAFSUFF=kcl            GA="UA-241436121-36" ./devel/deploy_proj.sh || exit 176
   elif [ "$proj" = "kubeburner" ]
   then
-    PROJ=kubeburner          PROJDB=kubeburner     PROJREPO="kube-burner/kube-burner"         ORGNAME='kube-burner'     PORT=3252 ICON=kubeburner     GRAFSUFF=kubeburner     GA="UA-241436121-37" ./devel/deploy_proj.sh || exit 177
+    PROJ=kubeburner          PROJDB=kubeburner     PROJREPO="cloud-bulldozer/kube-burner"     ORGNAME='kube-burner'     PORT=3252 ICON=kubeburner     GRAFSUFF=kubeburner     GA="UA-241436121-37" ./devel/deploy_proj.sh || exit 177
   elif [ "$proj" = "kuasar" ]
   then
     PROJ=kuasar              PROJDB=kuasar         PROJREPO="kuasar-io/kuasar"                ORGNAME=Kuasar            PORT=3253 ICON=kuasar         GRAFSUFF=kuasar         GA="UA-241436121-38" ./devel/deploy_proj.sh || exit 178
