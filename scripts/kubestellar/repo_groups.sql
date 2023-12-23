@@ -29,7 +29,7 @@ where
 update gha_repos set repo_group = alias;
 
 update gha_repos
-set repo_group = 'Kubestellar', alias = 'KubeStellar'
+set repo_group = 'Kubestellar', alias = 'Kubestellar'
 where lower(name) in (
   'kubestellar/kubestellar',
   'kcp-dev/edge-mc'
