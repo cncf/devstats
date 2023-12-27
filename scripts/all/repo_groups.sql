@@ -1550,7 +1550,8 @@ update
 set
   repo_group = 'Capsule'
 where
-  name ~ '(?i)^clastix\/.*capsule.*$'
+  org_login in ('projectcapsule')
+  or name ~ '(?i)^clastix\/.*capsule.*$'
 ;
 
 -- zot
@@ -1952,6 +1953,8 @@ where
   and r.name not like '%/%/%'
 ;
 
+delete from gha_repo_groups;
+
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, coalesce(repo_group, name), org_id, org_login from gha_repos on conflict do nothing;
 -- insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, org_login, org_id, org_login from gha_repos where org_id is not null and org_login is not null and trim(org_login) != '' on conflict do nothing;
 
@@ -1963,8 +1966,10 @@ from
   gha_repo_groups
 where
   repo_group is not null
+  and repo_group like '%/%'
 group by
   repo_group
 order by
   number_of_repos desc,
-  repo_group asc;
+  repo_group asc
+;
