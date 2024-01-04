@@ -538,8 +538,8 @@
       {
         "current": {
           "selected": true,
-          "text": "GoogleContainerTools/kpt",
-          "value": "GoogleContainerTools/kpt"
+          "text": "kptdev/kpt",
+          "value": "kptdev/kpt"
         },
         "datasource": {
           "type": "postgres",
@@ -565,8 +565,8 @@
       {
         "current": {
           "selected": false,
-          "text": "googlecontainertoolskpt",
-          "value": "googlecontainertoolskpt"
+          "text": "kptdevkpt",
+          "value": "kptdevkpt"
         },
         "datasource": {
           "type": "postgres",

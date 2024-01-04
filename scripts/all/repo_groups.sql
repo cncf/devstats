@@ -1740,7 +1740,8 @@ update
 set
   repo_group = 'kpt'
 where
-  name ~ '(?i)^GoogleContainerTools\/.*kpt.*$'
+  org_login in ('kptdev')
+  or name ~ '(?i)^GoogleContainerTools\/.*kpt.*$'
 ;
 
 -- Microcks

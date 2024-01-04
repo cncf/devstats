@@ -606,7 +606,7 @@ do
     PROJ=hwameistor          PROJDB=hwameistor     PROJREPO="hwameistor/hwameistor"           ORGNAME=Hwameistor        PORT=3242 ICON=hwameistor     GRAFSUFF=hwameistor     GA="UA-241436121-27" ./devel/deploy_proj.sh || exit 167
   elif [ "$proj" = "kpt" ]
   then
-    PROJ=kpt                 PROJDB=kpt            PROJREPO="GoogleContainerTools/kpt"        ORGNAME=kpt               PORT=3243 ICON=kpt            GRAFSUFF=kpt            GA="UA-241436121-28" ./devel/deploy_proj.sh || exit 168
+    PROJ=kpt                 PROJDB=kpt            PROJREPO="kptdev/kpt"                      ORGNAME=kpt               PORT=3243 ICON=kpt            GRAFSUFF=kpt            GA="UA-241436121-28" ./devel/deploy_proj.sh || exit 168
   elif [ "$proj" = "microcks" ]
   then
     PROJ=microcks            PROJDB=microcks       PROJREPO="microcks/microcks"               ORGNAME=Microcks          PORT=3244 ICON=microcks       GRAFSUFF=microcks       GA="UA-241436121-29" ./devel/deploy_proj.sh || exit 169
