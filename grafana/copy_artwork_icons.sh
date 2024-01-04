@@ -84,8 +84,16 @@ do
   then
     icon="inspektor-gadget"
   fi
+  if [ "$icon" = "kubeburner" ]
+  then
+    icon="kube-burner"
+  fi
+  if [ "$icon" = "loggingoperator" ]
+  then
+    icon="kube-logging"
+  fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "copacetic" ] || [ "$icon" = "loggingoperator" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "kubeflow" ] || [ "$icon" = "sops" ] || [ "$icon" = "keycloak" ] || [ "$icon" = "containerssh" ] || [ "$icon" = "lima" ] || [ "$icon" = "hexapolicyorchestrator" ] || [ "$icon" = "externalsecretsoperator" ] || [ "$icon" = "devstream" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "capsule" ] || [ "$icon" = "ko" ] || [ "$icon" = "kubeburner" ] || [ "$icon" = "kuasar" ] || [ "$icon" = "krknchaos" ] || [ "$icon" = "kubestellar" ] || [ "$icon" = "easegress" ] || [ "$icon" = "spiderpool" ] || [ "$icon" = "k8sgpt" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "kubeflow" ] || [ "$icon" = "sops" ] || [ "$icon" = "containerssh" ] || [ "$icon" = "lima" ] || [ "$icon" = "hexapolicyorchestrator" ] || [ "$icon" = "externalsecretsoperator" ] || [ "$icon" = "devstream" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "kuasar" ] || [ "$icon" = "krknchaos" ] || [ "$icon" = "easegress" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi

@@ -93,12 +93,20 @@ do
   then
     icon="inspektor-gadget"
   fi
+  if [ "$icon" = "kubeburner" ]
+  then
+    icon="kube-burner"
+  fi
+  if [ "$icon" = "loggingoperator" ]
+  then
+    icon="kube-logging"
+  fi
   if [ "$icon" = "cdevents" ]
   then
     dash="_"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "copacetic" ] || [ "$icon" = "loggingoperator" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "kubeflow" ] || [ "$icon" = "sops" ] || [ "$icon" = "keycloak" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "capsule" ] || [ "$icon" = "ko" ] || [ "$icon" = "kubeburner" ] || [ "$icon" = "kuasar" ] || [ "$icon" = "krknchaos" ] || [ "$icon" = "kubestellar" ] || [ "$icon" = "easegress" ] || [ "$icon" = "spiderpool" ] || [ "$icon" = "k8sgpt" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "kubeflow" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "kuasar" ] || [ "$icon" = "krknchaos" ] || [ "$icon" = "easegress" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -208,6 +216,11 @@ do
   then
     cp "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/aerakimesh-icon-color.svg" "grafana/img/$suff.svg" || exit 21
     convert "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/aerakimesh-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 20
+    continue
+  elif [ "$icon" = "copacetic" ]
+  then
+    cp "$HOME/dev/cncf/artwork/projects/copa/Icon/Color/copa-icon-color.svg" "grafana/img/$suff.svg" || exit 23
+    convert "$HOME/dev/cncf/artwork/projects/copa/Icon/Color/copa-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 22
     continue
   fi
   cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 2
