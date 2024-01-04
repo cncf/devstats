@@ -2290,12 +2290,12 @@ projects:
     name: kpt
     status: Sandbox
     command_line:
-      - 'regexp:(?i)^GoogleContainerTools\/.*kpt.*$'
+      - 'kptdev'
     start_date: 2020-02-03T00:00:00Z
     join_date: 2023-06-30T00:00:00Z
     psql_db: 'kpt'
     shared_db: allprj
-    main_repo: GoogleContainerTools/kpt
+    main_repo: kptdev/kpt
     annotation_regexp: '^v\d+\.\d+\.0(-beta\.\d*0)?$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   microcks:
@@ -2303,7 +2303,7 @@ projects:
     name: Microcks
     status: Sandbox
     command_line:
-      - microcks
+      - 'microcks'
     start_date: 2015-02-23T00:00:00Z
     join_date: 2023-06-22T00:00:00Z
     psql_db: 'microcks'
@@ -2721,10 +2721,10 @@ projects:
          hexa-org,konveyor,armadaproject,external-secrets,Serverless-Devs,\
          ContainerSSH,openfga,kubereboot,lima-vm,istio,carvel-dev,merbridge,opencost,\
          devspace-cloud,project-zot,paralus,carina-io,ko-build,opcr-io,werf,getsops,\
-         pipe-cd,slimtoolkit,projectcapsule,sustainable-computing-io,\
-         GoogleContainerTools/kpt,kubeclipper-labs,buildpacks-community,\
-         project-copacetic,kube-logging,kanisterio,kcp-dev,kcl-lang,kube-burner,\
-         kuasar-io,redhat-chaoss,kubestellar,megaease,spidernet-io,k8sgpt-ai"
+         pipe-cd,slimtoolkit,projectcapsule,sustainable-computing-io,kptdev,\
+         kubeclipper-labs,buildpacks-community,project-copacetic,kube-logging,\
+         kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,redhat-chaoss,kubestellar,\
+         megaease,spidernet-io,k8sgpt-ai"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
