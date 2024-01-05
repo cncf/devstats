@@ -546,7 +546,7 @@ do
     PROJ=merbridge           PROJDB=merbridge      PROJREPO="merbridge/merbridge"             ORGNAME=Merbridge         PORT=3222 ICON=merbridge      GRAFSUFF=merbridge      GA="UA-241436121-7"  ./devel/deploy_proj.sh || exit 147
   elif [ "$proj" = "devspace" ]
   then
-    PROJ=devspace            PROJDB=devspace       PROJREPO="devspace-cloud/devspace-cloud"   ORGNAME=DevSpace          PORT=3223 ICON=devspace       GRAFSUFF=devspace       GA="UA-241436121-8"  ./devel/deploy_proj.sh || exit 148
+    PROJ=devspace            PROJDB=devspace       PROJREPO="devspace-sh/devspace"            ORGNAME=DevSpace          PORT=3223 ICON=devspace       GRAFSUFF=devspace       GA="UA-241436121-8"  ./devel/deploy_proj.sh || exit 148
   elif [ "$proj" = "capsule" ]
   then
     PROJ=capsule             PROJDB=capsule        PROJREPO="projectcapsule/capsule"          ORGNAME=capsule           PORT=3224 ICON=capsule        GRAFSUFF=capsule        GA="UA-241436121-9"  ./devel/deploy_proj.sh || exit 149
