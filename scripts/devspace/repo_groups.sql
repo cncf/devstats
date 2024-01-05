@@ -31,7 +31,10 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'DevSpace', alias = 'DevSpace'
 where name in (
-  'devspace-cloud/devspace-cloud'
+  'devspace-sh/devspace',
+  'devspace-cloud/devspace',
+  'loft-sh/devspace',
+  'covexo/devspace'
 );
 
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, coalesce(repo_group, name), org_id, org_login from gha_repos on conflict do nothing;
