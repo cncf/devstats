@@ -2344,7 +2344,7 @@ projects:
     command_line:
       - 'project-copacetic'
     start_date: 2023-01-11T00:00:00Z
-    join_date: 2023-09-20T00:00:00Z
+    join_date: 2023-09-19T00:00:00Z
     psql_db: copacetic
     shared_db: allprj
     main_repo: project-copacetic/copacetic
