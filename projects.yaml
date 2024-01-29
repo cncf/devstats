@@ -315,12 +315,13 @@ projects:
   cloudevents:
     order: 21
     name: CloudEvents
-    status: Incubating
+    status: Graduated
     command_line:
       - cloudevents
     start_date: 2017-12-09T00:00:00Z
     join_date: 2018-05-15T00:00:00Z
     incubating_date: 2019-10-24T00:00:00Z
+    graduated_date: 2024-01-25T00:00:00Z
     psql_db: cloudevents
     shared_db: allprj
     main_repo: cloudevents/spec
