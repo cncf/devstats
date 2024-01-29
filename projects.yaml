@@ -2357,7 +2357,7 @@ projects:
     command_line:
       - 'kube-logging'
     start_date: 2018-08-02T00:00:00Z
-    join_date: 2023-09-20T00:00:00Z
+    join_date: 2023-09-19T00:00:00Z
     psql_db: 'loggingoperator'
     shared_db: allprj
     main_repo: kube-logging/logging-operator
@@ -2409,7 +2409,7 @@ projects:
     command_line:
       - 'kube-burner'
     start_date: 2020-09-02T00:00:00Z
-    join_date: 2023-12-19T00:00:00Z
+    join_date: 2023-12-18T00:00:00Z
     psql_db: 'kubeburner'
     shared_db: allprj
     main_repo: cloud-bulldozer/kube-burner
