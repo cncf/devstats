@@ -102,7 +102,7 @@ ko,ko-build,google/ko
 konveyor,konveyor,fusor/mig-operator
 kpt,regexp:(?i)^(kptdev\/.*|GoogleContainerTools\/.*kpt.*)$
 krator,krator-rs
-krknchaos,redhat-chaos,chaos-kubox,cloud-bulldozer/krkn,cloud-bulldozer/kraken,openshift-scale/kraken
+krknchaos,krkn-chaos,redhat-chaos,chaos-kubox,cloud-bulldozer/krkn,cloud-bulldozer/kraken,openshift-scale/kraken
 krustlet,deislabs/krustlet,krustlet
 kuasar,kuasar-io
 kubearmor,kubearmor,accuknox/KubeArmor

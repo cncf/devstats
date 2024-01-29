@@ -31,6 +31,7 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'KrknChaos', alias = 'KrknChaos'
 where name in (
+  'krkn-chaos/krkn',
   'redhat-chaos/krknChaos',
   'redhat-chaos/krkn',
   'chaos-kubox/krkn',

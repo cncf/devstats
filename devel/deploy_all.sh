@@ -633,13 +633,13 @@ do
     PROJ=kcl                 PROJDB=kcl            PROJREPO="kcl-lang/kcl"                    ORGNAME=KCL               PORT=3251 ICON=kcl            GRAFSUFF=kcl            GA="UA-241436121-36" ./devel/deploy_proj.sh || exit 176
   elif [ "$proj" = "kubeburner" ]
   then
-    PROJ=kubeburner          PROJDB=kubeburner     PROJREPO="cloud-bulldozer/kube-burner"     ORGNAME='kube-burner'     PORT=3252 ICON=kubeburner     GRAFSUFF=kubeburner     GA="UA-241436121-37" ./devel/deploy_proj.sh || exit 177
+    PROJ=kubeburner          PROJDB=kubeburner     PROJREPO="kube-burner/kube-burner"         ORGNAME='kube-burner'     PORT=3252 ICON=kubeburner     GRAFSUFF=kubeburner     GA="UA-241436121-37" ./devel/deploy_proj.sh || exit 177
   elif [ "$proj" = "kuasar" ]
   then
     PROJ=kuasar              PROJDB=kuasar         PROJREPO="kuasar-io/kuasar"                ORGNAME=Kuasar            PORT=3253 ICON=kuasar         GRAFSUFF=kuasar         GA="UA-241436121-38" ./devel/deploy_proj.sh || exit 178
   elif [ "$proj" = "krknchaos" ]
   then
-    PROJ=krknchaos           PROJDB=krknchaos      PROJREPO="redhat-chaos/krknChaos"          ORGNAME=KrknChaos         PORT=3254 ICON=krknchaos      GRAFSUFF=krknchaos      GA="UA-241436121-39" ./devel/deploy_proj.sh || exit 179
+    PROJ=krknchaos           PROJDB=krknchaos      PROJREPO="krkn-chaos/krkn"                 ORGNAME=KrknChaos         PORT=3254 ICON=krknchaos      GRAFSUFF=krknchaos      GA="UA-241436121-39" ./devel/deploy_proj.sh || exit 179
   elif [ "$proj" = "kubestellar" ]
   then
     PROJ=kubestellar         PROJDB=kubestellar    PROJREPO="kubestellar/kubestellar"         ORGNAME=Kubestellar       PORT=3255 ICON=kubestellar    GRAFSUFF=kubestellar    GA="UA-241436121-40" ./devel/deploy_proj.sh || exit 180

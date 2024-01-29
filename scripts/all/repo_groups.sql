@@ -1851,6 +1851,7 @@ set
   repo_group = 'KrknChaos'
 where
   org_login in (
+    'krkn-chaos',
     'redhat-chaos',
     'chaos-kubox'
   ) or name in (
