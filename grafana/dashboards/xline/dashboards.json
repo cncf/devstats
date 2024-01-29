@@ -293,6 +293,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "CloudEvents",
+      "tooltip": "Opens CloudEvents projects dashboards",
+      "type": "link",
+      "url": "https://cloudevents.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -327,16 +337,6 @@
       "tooltip": "Opens NATS dashboards",
       "type": "link",
       "url": "https://nats.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "CloudEvents",
-      "tooltip": "Opens CloudEvents projects dashboards",
-      "type": "link",
-      "url": "https://cloudevents.[[hostname]]"
     },
     {
       "icon": "dashboard",
