@@ -21,11 +21,10 @@ metrics:
 #     merge_series: user_reviews
 #     drop: suser_reviews
 #     allow_fail: true
-  - name: Developer summary
-    sql: project_developer_stats
+  - name: Company commits table
     series_name_or_func: multi_row_single_column
-    histogram: true
-    annotations_ranges: true
-    merge_series: hdev
-    env:
-      GHA2DB_NCPUS?: 6
+    sql: company_commits_data
+    custom_data: true
+    merge_series: company_commits_data
+    periods: d
+    drop: scompany_commits_data
