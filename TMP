@@ -1,4 +1,0 @@
-  gha_repo_groups rg,
-(...)
-  r.id = rg.id
-  and r.name = rg.name
