@@ -101,12 +101,16 @@ do
   then
     icon="kube-logging"
   fi
+  if [ "$icon" = "krknchaos" ]
+  then
+    icon="krkn"
+  fi
   if [ "$icon" = "cdevents" ]
   then
     dash="_"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "kubeflow" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "krknchaos" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "kubeflow" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
