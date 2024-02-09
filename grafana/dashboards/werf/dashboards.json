@@ -661,6 +661,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Strimzi",
+      "tooltip": "Opens Strimzi projects dashboards",
+      "type": "link",
+      "url": "https://strimzi.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -695,26 +705,6 @@
       "tooltip": "Opens Network Service Mesh projects dashboards",
       "type": "link",
       "url": "https://networkservicemesh.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OpenEBS",
-      "tooltip": "Opens OpenEBS projects dashboards",
-      "type": "link",
-      "url": "https://openebs.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Strimzi",
-      "tooltip": "Opens Strimzi projects dashboards",
-      "type": "link",
-      "url": "https://strimzi.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -981,16 +971,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "ingraind",
-      "tooltip": "Opens ingraind projects dashboards",
-      "type": "link",
-      "url": "https://ingraind.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Kuberhealthy",
       "tooltip": "Opens Kuberhealthy projects dashboards",
       "type": "link",
@@ -1135,16 +1115,6 @@
       "tooltip": "Opens Krustlet projects dashboards",
       "type": "link",
       "url": "https://krustlet.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Krator",
-      "tooltip": "Opens Krator projects dashboards",
-      "type": "link",
-      "url": "https://krator.[[hostname]]"
     },
     {
       "icon": "dashboard",
