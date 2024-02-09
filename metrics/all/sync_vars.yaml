@@ -27,5 +27,5 @@ vars:
       - [metrics, "select series, name, str from sprojects_health where period = 'd' and series like 'phealth%' order by name asc", series]
     loops_before: true
     loops:
-      - [0,0,184,1] # number of prod CNCF projects 25G + 36I + 116S + 5A + 2 (N+2 because includes 'CNCF' on test, and has 'All CNCF' it also has archived 'rkt', 'opentracing', 'brigade', 'smi', 'openservicemesh'/'osm' on test)
+      - [0,0,184,1] # number of prod CNCF projects 25G + 37I + 112S + 8A + 2 (N+2 because includes 'CNCF' on test, and has 'All CNCF' it also has archived 'rkt', 'opentracing', 'brigade', 'smi', 'openservicemesh'/'osm', 'openebs', 'krator', 'ingraind/fonio' on test)
       - [1,0,76,1]  # number of metrics in projects health
