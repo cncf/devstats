@@ -545,11 +545,12 @@ projects:
   openebs:
     order: 37
     name: OpenEBS
-    status: Sandbox
+    status: Archived
     command_line:
       - openebs
     start_date: 2016-08-01T00:00:00Z
     join_date: 2019-05-14T00:00:00Z
+    archived_date: 2024-01-31T00:00:00Z
     psql_db: openebs
     shared_db: allprj
     main_repo: openebs/openebs
@@ -619,11 +620,12 @@ projects:
   strimzi:
     order: 42
     name: Strimzi
-    status: Sandbox
+    status: Incubating
     command_line:
       - strimzi
     start_date: 2016-05-06T00:00:00Z
     join_date: 2019-08-28T00:00:00Z
+    incubating_date: 2024-02-08T00:00:00Z
     psql_db: strimzi
     shared_db: allprj
     main_repo: strimzi/strimzi-kafka-operator
@@ -1229,11 +1231,12 @@ projects:
   ingraind:
     order: 87
     name: Foniod
-    status: Sandbox
+    status: Archived
     command_line:
       - 'foniod'
     start_date: 2018-09-25T00:00:00Z
     join_date: 2021-03-30T00:00:00Z
+    archived_date: 2024-01-31T00:00:00Z
     psql_db: ingraind
     shared_db: allprj
     main_repo: 'foniod/foniod'
@@ -1464,11 +1467,12 @@ projects:
   krator:
     order: 105
     name: Krator
-    status: Sandbox
+    status: Archived
     command_line:
     - 'krator-rs'
     start_date: 2021-05-17T00:00:00Z
     join_date: 2021-07-13T00:00:00Z
+    archived_date: 2024-01-31T00:00:00Z
     psql_db: krator
     shared_db: allprj
     main_repo: 'krator-rs/krator'
