@@ -33,6 +33,7 @@ set repo_group = 'OpenCost'
 where name in (
   'opencost/opencost',
   'opencost/opencost-helm-chart',
+  'opencost/opencost-parquet-exporter',
   'opencost/opencost-website'
 );
 
