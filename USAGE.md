@@ -2,7 +2,7 @@
 
 Author: Łukasz Gryglicki <lukaszgryglick@o2.pl>
 
-# Implemented in two languages (historcally)
+# Implemented in two languages (historically)
 
 This toolset was first implemented in Ruby with Postgres database.
 
@@ -20,7 +20,7 @@ Influx DB was used as a time series database. Then it was dropped and replaced w
 
 Postgres is faster as a time series database than a dedicated time series database InfluxDB.
 
-This tools filter GitHub archives for given date period and given organization, repository and save results in a Postgres database.
+This tool filters GitHub archives for given date period and given organization, repository and save results in a Postgres database.
 It can also save results into JSON files.
 It displays results using Grafana and Postgres as a time series database.
 
