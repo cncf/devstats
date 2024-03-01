@@ -446,12 +446,13 @@ projects:
   falco:
     order: 30
     name: Falco
-    status: Incubating
+    status: Graduated
     command_line:
       - falcosecurity
     start_date: 2016-05-17T00:00:00Z
     join_date: 2018-10-10T00:00:00Z
     incubating_date: 2020-01-08T00:00:00Z
+    graduated_date: 2024-02-29T00:00:00Z
     psql_db: falco
     shared_db: allprj
     main_repo: falcosecurity/falco
