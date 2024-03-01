@@ -90,7 +90,7 @@ do
   fi
   if [ "$icon" = "loggingoperator" ]
   then
-    icon="kube-logging"
+    icon="logging-operator"
   fi
   if [ "$icon" = "krknchaos" ]
   then
