@@ -301,6 +301,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Falco",
+      "tooltip": "Opens Falco projects dashboards",
+      "type": "link",
+      "url": "https://falco.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -335,16 +345,6 @@
       "tooltip": "Opens NATS dashboards",
       "type": "link",
       "url": "https://nats.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Falco",
-      "tooltip": "Opens Falco projects dashboards",
-      "type": "link",
-      "url": "https://falco.[[hostname]]"
     },
     {
       "icon": "dashboard",
