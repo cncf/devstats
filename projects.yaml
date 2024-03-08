@@ -361,7 +361,7 @@ projects:
     name: OpenMetrics
     status: Incubating
     command_line:
-      - OpenObservability,OpenMetrics,openmetrics
+      - "OpenObservability,OpenMetrics,openmetrics"
     start_date: 2017-06-22T00:00:00Z
     join_date: 2018-08-10T00:00:00Z
     incubating_date: 2022-02-03T00:00:00Z
