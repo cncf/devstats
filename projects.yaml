@@ -361,7 +361,7 @@ projects:
     name: OpenMetrics
     status: Incubating
     command_line:
-      - OpenObservability,OpenMetrics
+      - OpenObservability,OpenMetrics,openmetrics
     start_date: 2017-06-22T00:00:00Z
     join_date: 2018-08-10T00:00:00Z
     incubating_date: 2022-02-03T00:00:00Z
@@ -2730,7 +2730,7 @@ projects:
          pipe-cd,slimtoolkit,projectcapsule,sustainable-computing-io,kptdev,krkn-chaos,\
          kubeclipper-labs,buildpacks-community,project-copacetic,kube-logging,\
          kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,\
-         megaease,spidernet-io,k8sgpt-ai,OpenMetrics"
+         megaease,spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj

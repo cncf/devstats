@@ -155,7 +155,7 @@ openfeature,open-feature,openfeatureflags
 openfga,openfga
 openfunction,OpenFunction
 openkruise,openkruise,kruiseio
-openmetrics,OpenObservability,RichiH/OpenMetrics
+openmetrics,OpenObservability,OpenMetrics,openmetrics,RichiH/OpenMetrics
 opennetworkinglab,opennetworkinglab
 opensecuritycontroller,opensecuritycontroller
 openservicemesh,openservicemesh

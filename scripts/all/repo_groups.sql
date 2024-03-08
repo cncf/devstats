@@ -264,7 +264,7 @@ update
 set
   repo_group = 'OpenMetrics'
 where
-  org_login = 'OpenObservability'
+  org_login in ('OpenObservability', 'OpenMetrics', 'openmetrics')
   or name in ('RichiH/OpenMetrics')
 ;
 
