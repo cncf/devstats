@@ -61,7 +61,7 @@ fluentd,regexp:(?i)^(fluent|fluent-plugins-nursery\/.*fluent.*|.+\/fluentd?-plug
 fluid,fluid-cloudnative,cheyang/fluid
 flux,fluxcd,weaveworks/flux
 fn,fnproject,fnhub/katacoda-scenarios,treeder/fn-plugin-example,treeder/fn-ext-dns,treeder/fn-ext-example,treeder/fn-ext-auth
-gitopswg,gitops-working-group,fluxcd/gitops-working-group,cncf/tag-app-delivery,cncf/sig-app-delivery
+gitopswg,gitops-working-group,fluxcd/gitops-working-group,cncf/tag-app-delivery,cncf/sig-app-delivery,open-gitops
 godotengine,godotengine
 graphiql,graphql/graphiql
 graphql,graphql,facebook/graphql

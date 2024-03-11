@@ -872,7 +872,7 @@ update
 set
   repo_group = 'GitOps WG'
 where
-  org_login in ('gitops-working-group')
+  org_login in ('gitops-working-group', 'open-gitops')
   or name in (
     'fluxcd/gitops-working-group',
     'cncf/tag-app-delivery',

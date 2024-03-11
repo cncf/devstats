@@ -5,7 +5,7 @@ vars:
     command: [hostname]
   - name: full_name
     type: s
-    value: GitOps WG
+    value: OpenGitOps
   - name: lower_name
     type: s
     value: gitopswg
