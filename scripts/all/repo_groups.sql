@@ -866,11 +866,11 @@ where
   or name in ('nirmata/kyverno')
 ;
 
--- GitOps WG
+-- OpenGitOps
 update
   gha_repos
 set
-  repo_group = 'GitOps WG'
+  repo_group = 'OpenGitOps'
 where
   org_login in ('gitops-working-group', 'open-gitops')
   or name in (
