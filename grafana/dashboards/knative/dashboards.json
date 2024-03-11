@@ -895,8 +895,8 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "GitOps WG",
-      "tooltip": "Opens GitOps WG projects dashboards",
+      "title": "OpenGitOps",
+      "tooltip": "Opens OpenGitOps projects dashboards",
       "type": "link",
       "url": "https://gitopswg.[[hostname]]"
     },
