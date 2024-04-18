@@ -44,7 +44,7 @@ GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" devstats
 ONLY="keycloak sops headlamp slimtoolkit kepler pipecd eraser xline hwameistor kpt microcks kubeclipper kubeflow copacetic loggingoperator kanister kcp kcl" ./devel/all_affs.sh || exit 14
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" devstats
 
-ONLY="kubeburner kuasar krknchaos kubestellar easegress spiderpool k8sgpt" ./devel/all_affs.sh || exit 15
+ONLY="kubeburner kuasar krknchaos kubestellar easegress spiderpool k8sgpt kubeslice connect kairos kubean koordinator radius" ./devel/all_affs.sh || exit 15
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" devstats
 
 ONLY="smi argo volcano cnigenie keptn kudo cloudcustodian dex litmuschaos artifacthub kuma parsec bfe crossplane" ./devel/all_affs.sh || exit 16
