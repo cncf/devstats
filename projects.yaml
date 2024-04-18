@@ -2500,6 +2500,84 @@ projects:
     main_repo: k8sgpt-ai/k8sgpt
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  kubeslice:
+    order: 184
+    name: Kubeslice
+    status: Sandbox
+    command_line:
+      - kubeslice
+    start_date: 2022-05-05T00:00:00Z
+    join_date: 2024-04-16T00:00:00Z
+    psql_db: kubeslice
+    shared_db: allprj
+    main_repo: kubeslice/kubeslice
+    annotation_regexp: '^kubeslice-worker-\d+\.\d+\.0$'
+    files_skip_pattern: ''
+  connect:
+    order: 185
+    name: Connect
+    status: Sandbox
+    command_line:
+      - connectrpc
+    start_date: 2021-11-01T00:00:00Z
+    join_date: 2024-04-16T00:00:00Z
+    psql_db: connect
+    shared_db: allprj
+    main_repo: connectrpc/connect-go
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  kairos:
+    order: 186
+    name: Kairos
+    status: Sandbox
+    command_line:
+      - kairos-io
+    start_date: 2021-07-30T00:00:00Z
+    join_date: 2024-04-16T00:00:00Z
+    psql_db: kairos
+    shared_db: allprj
+    main_repo: kairos-io/kairos
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  kubean:
+    order: 187
+    name: Kubean
+    status: Sandbox
+    command_line:
+      - kubean-io
+    start_date: 2022-07-05T00:00:00Z
+    join_date: 2024-04-16T00:00:00Z
+    psql_db: kubean
+    shared_db: allprj
+    main_repo: kubean-io/kubean
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  koordinator:
+    order: 188
+    name: Koordinator
+    status: Sandbox
+    command_line:
+      - koordinator-sh
+    start_date: 2022-03-16T00:00:00Z
+    join_date: 2024-04-16T00:00:00Z
+    psql_db: koordinator
+    shared_db: allprj
+    main_repo: koordinator-sh/koordinator
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  radius:
+    order: 189
+    name: Radius
+    status: Sandbox
+    command_line:
+      - radius-project
+    start_date: 2023-10-16T00:00:00Z
+    join_date: 2024-04-16T00:00:00Z
+    psql_db: radius
+    shared_db: allprj
+    main_repo: radius-project/radius
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opencontainers:
     order: 200
     name: OCI
@@ -2730,8 +2808,9 @@ projects:
          devspace-cloud,project-zot,paralus,carina-io,ko-build,opcr-io,werf,getsops,\
          pipe-cd,slimtoolkit,projectcapsule,sustainable-computing-io,kptdev,krkn-chaos,\
          kubeclipper-labs,buildpacks-community,project-copacetic,kube-logging,\
-         kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,\
-         megaease,spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops"
+         kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,megaease,\
+         spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops,kubeslice,\
+         connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
