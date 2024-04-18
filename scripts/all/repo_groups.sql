@@ -1902,6 +1902,66 @@ where
   org_login in ('k8sgpt-ai')
 ;
 
+-- Kubeslice
+update
+  gha_repos
+set
+  repo_group = 'Kubeslice'
+where
+  org_login in ('kubeslice')
+;
+
+-- Connect
+update
+  gha_repos
+set
+  repo_group = 'Connect'
+where
+  org_login in ('connectrpc')
+  or name in (
+    'bufbuild/connect-go',
+    'bufbuild/rerpc',
+    'rerpc/rerpc'
+  )
+;
+
+-- Kairos
+update
+  gha_repos
+set
+  repo_group = 'Kairos'
+where
+  org_login in ('kairos-io', 'c3os-io')
+  or name in ('mudler/c3os')
+;
+
+-- Kubean
+update
+  gha_repos
+set
+  repo_group = 'Kubean'
+where
+  org_login in ('kubean-io')
+;
+
+-- Koordinator
+update
+  gha_repos
+set
+  repo_group = 'Koordinator'
+where
+  org_login in ('koordinator-sh')
+;
+
+-- Radius
+update
+  gha_repos
+set
+  repo_group = 'Radius'
+where
+  org_login in ('radius-project')
+;
+
 -- CNCF
 update
   gha_repos
