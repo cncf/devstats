@@ -33,6 +33,7 @@ set repo_group = 'kairos', alias = 'kairos'
 where name in (
   'kairos-io/kairos',
   'c3os-io/kairos',
+  'c3os-io/c3os',
   'mudler/c3os'
 );
 
