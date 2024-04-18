@@ -1809,6 +1809,66 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Kubeslice",
+      "tooltip": "Opens Kubeslice projects dashboards",
+      "type": "link",
+      "url": "https://kubeslice.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Connect",
+      "tooltip": "Opens Connect projects dashboards",
+      "type": "link",
+      "url": "https://connect.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kairos",
+      "tooltip": "Opens Kairos projects dashboards",
+      "type": "link",
+      "url": "https://kairos.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kubean",
+      "tooltip": "Opens Kubean projects dashboards",
+      "type": "link",
+      "url": "https://kubean.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Koordinator",
+      "tooltip": "Opens Koordinator projects dashboards",
+      "type": "link",
+      "url": "https://koordinator.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Radius",
+      "tooltip": "Opens Radius projects dashboards",
+      "type": "link",
+      "url": "https://radius.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
