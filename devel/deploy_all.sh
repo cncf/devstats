@@ -652,6 +652,24 @@ do
   elif [ "$proj" = "k8sgpt" ]
   then
     PROJ=k8sgpt              PROJDB=k8sgpt         PROJREPO="k8sgpt-ai/k8sgpt"                ORGNAME=K8sGPT            PORT=3258 ICON=k8sgpt         GRAFSUFF=k8sgpt         GA="UA-241436121-43" ./devel/deploy_proj.sh || exit 183
+  elif [ "$proj" = "kubeslice" ]
+  then
+    PROJ=kubeslice           PROJDB=kubeslice      PROJREPO="kubeslice/kubeslice"             ORGNAME=Kubeslice         PORT=3259 ICON=kubeslice      GRAFSUFF=kubeslice      GA="-" ./devel/deploy_proj.sh               || exit 184
+  elif [ "$proj" = "connect" ]
+  then
+    PROJ=connect             PROJDB=connect        PROJREPO="connectrpc/connect-go"           ORGNAME=Connect           PORT=3260 ICON=connect        GRAFSUFF=connect         GA="-" ./devel/deploy_proj.sh              || exit 185
+  elif [ "$proj" = "kairos" ]
+  then
+    PROJ=kairos              PROJDB=kairos         PROJREPO="kairos-io/kairos"                ORGNAME=Kairos            PORT=3261 ICON=kairos         GRAFSUFF=kairos         GA="-" ./devel/deploy_proj.sh               || exit 186
+  elif [ "$proj" = "kubean" ]
+  then
+    PROJ=kubean              PROJDB=kubean         PROJREPO="kubean-io/kubean"                ORGNAME=Kubean            PORT=3262 ICON=kubean         GRAFSUFF=kubean         GA="-" ./devel/deploy_proj.sh               || exit 187
+  elif [ "$proj" = "koordinator" ]
+  then
+    PROJ=koordinator         PROJDB=koordinator    PROJREPO="koordinator-sh/koordinator"      ORGNAME=Koordinator       PORT=3263 ICON=koordinator    GRAFSUFF=koordinator    GA="-" ./devel/deploy_proj.sh               || exit 188
+  elif [ "$proj" = "radius" ]
+  then
+    PROJ=radius              PROJDB=radius         PROJREPO="radius-project/radius"           ORGNAME=Radius            PORT=3264 ICON=radius         GRAFSUFF=radius         GA="-" ./devel/deploy_proj.sh               || exit 189
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="UA-108085315-19" ./devel/deploy_proj.sh || exit 32
