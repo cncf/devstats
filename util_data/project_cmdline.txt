@@ -30,6 +30,7 @@ cncf,cncf,crosscloudci,cdfoundation
 cni,containernetworking,appc/cni
 cnigenie,cni-genie,Huawei-PaaS/CNI-Genie
 confidentialcontainers,confidential-containers
+connect,connectrpc,bufbuild/connect-go,bufbuild/rerpc,rerpc/rerpc
 containerd,containerd,docker/containerd
 containerssh,ContainerSSH,janoszen/ContainerSSH,janoszen/containerssh
 contour,projectcontour,heptio/contour
@@ -88,6 +89,7 @@ k8dash,indeedeng/k8dash,indeedeng/k8dash-website,herbrandson/k8dash,skooner-k8s
 k8gb,k8gb-io,AbsaOSS/k8gb,AbsaOSS/ohmyglb
 k8sgpt,k8sgpt-ai
 k8up,k8up-io,vshn/k8up
+kairos,kairos-io,c3os-io,mudler/c3os
 kanister,kanisterio
 karmada,karmada-io
 kcl,kcl-lang,KusionStack/kcl,KusionStack/KCLVM
@@ -100,11 +102,13 @@ keylime,keylime,mit-ll/python-keylime,mit-ll/keylime
 knative,knative,knative-sandbox,knative-extensions
 ko,ko-build,google/ko
 konveyor,konveyor,fusor/mig-operator
+koordinator,koordinator-sh
 kpt,regexp:(?i)^(kptdev\/.*|GoogleContainerTools\/.*kpt.*)$
 krator,krator-rs
 krknchaos,krkn-chaos,redhat-chaos,chaos-kubox,cloud-bulldozer/krkn,cloud-bulldozer/kraken,openshift-scale/kraken
 krustlet,deislabs/krustlet,krustlet
 kuasar,kuasar-io
+kubean,kubean-io
 kubearmor,kubearmor,accuknox/KubeArmor
 kubeburner,kube-burner,cloud-bulldozer/kube-burner,cloud-bulldozer/rosa-burner
 kubeclipper,kubeclipper,kubeclipper-labs
@@ -116,6 +120,7 @@ kuberhealthy,Comcast/kuberhealthy,kuberhealthy
 kubernetes,kubernetes,kubernetes-client,kubernetes-incubator,kubernetes-csi,kubernetes-graveyard,kubernetes-incubator-retired,kubernetes-sig-testing,kubernetes-providers,kubernetes-addons,kubernetes-extensions,kubernetes-federation,kubernetes-security,kubernetes-sigs,kubernetes-sidecars,kubernetes-tools,kubernetes-test,kubernetes-retired
 kubers,kube-rs,clux/kube-rs,clux/kubernetes-rust
 kubescape,kubescape,armosec/kubescape
+kubeslice,kubeslice
 kubestellar,kubestellar,KubeStellar,kcp-dev/edge-mc
 kubevela,regexp:(?i)^(oam-dev\/.*vela|kubevela\/.*)
 kubevip,kube-vip,plunder-app/kube-vip
@@ -178,6 +183,7 @@ pravega,pravega
 prestodb,prestodb
 prometheus,prometheus
 pyrsia,pyrsia
+radius,radius-project
 riff,projectriff,markfisher/sk8s,jldec/projectriff.io,pivotal-cf/pfs-system-test,ericbottard/sk8s-go,ericbottard/sk8s-types,ericbottard/kubernetes-model,ericbottard/sk8s-http-gateway,ericbottard/function-sidecar,ericbottard/sk8s-topic-controller
 rkt,rkt
 rook,rook
