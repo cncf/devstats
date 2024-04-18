@@ -51,7 +51,7 @@ This file describes how to add new project on the test and production servers.
 - Update the number of projects in `metrics/all/sync_vars.yaml`.
 - Generate new project key -> name mapping by running: `PROD_SERVER=1 ./devel/generate_project_names_mapping.sh`.
 - Update Apache index pages, proxy and SSL files `apache/www/index_* apache/*/sites-enabled/* apache/*/sites.txt` files. You can copy from `partials/projects.yaml` and then: `:'<,'>s/\[\[hostname]]/devstats.cncf.io/g`, `:'<,'>s/public\/img\/projects\///g` and `:'<,'>s/devstats\.cncf\.io/teststats.cncf.io/g`.
-- Generate new artwork icons: `[TEST_SERVER=1] ./devel/icons_all.sh`. On kubernetes/helm deployment do next: `Do all/everything command`.
+- Generate new artwork icons: `[COMPRESS=1] [TEST_SERVER=1] ./devel/icons_all.sh`. On kubernetes/helm deployment do next: `Do all/everything command`.
 - Run deploy all script: `GHA2DB_PROJECTS_OVERRIDE="+proj1,+proj2" SKIPCERT=1 HEALTH=1 SKIPTEMP=1 CUSTGRAFPATH=1 PG_PASS=... ./devel/deploy_all.sh`. If succeeded `make install`.
 - Because this can take few hours to complete (for a project 10 years old for example), run next sync manually. Get sync command from `crontab -l` and prepend it with `GHA2DB_RECENT_RANGE="6 hours"` to avoid missing GitHub API events.
 - You can also deploy automatically from webhook (even on the test server), but it takes very long time and is harder to debug, see [continuous deployment](https://github.com/cncf/devstats/blob/master/CONTINUOUS_DEPLOYMENT.md).
