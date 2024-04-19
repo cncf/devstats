@@ -13,3 +13,4 @@ metrics:
       clouddeploymentkitforkubernetes: cdk8s
       piraeusdatastore: piraeus
       chubaofs: cubefs
+      gitopswg: opengitops

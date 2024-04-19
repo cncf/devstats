@@ -17,3 +17,4 @@ metrics:
       wasmedgeruntime: wasmedge
       vscodekubernetestools: vscodek8stools
       chubaofs: cubefs
+      gitopswg: opengitops
