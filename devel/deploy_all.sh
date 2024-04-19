@@ -465,7 +465,7 @@ do
     PROJ=k8up                PROJDB=k8up           PROJREPO="k8up-io/k8up"                    ORGNAME=K8up              PORT=3119 ICON=k8up           GRAFSUFF=k8up           GA="UA-145264316-80" ./devel/deploy_proj.sh || exit 138
   elif [ "$proj" = "kubers" ]
   then
-    PROJ=kubers              PROJDB=kubers         PROJREPO="kube-rs/kube-rs"                 ORGNAME=kube-rs           PORT=3120 ICON=kubers         GRAFSUFF=kubers         GA="UA-145264316-81" ./devel/deploy_proj.sh || exit 139
+    PROJ=kubers              PROJDB=kubers         PROJREPO="kube-rs/kube"                    ORGNAME=kube-rs           PORT=3120 ICON=kubers         GRAFSUFF=kubers         GA="UA-145264316-81" ./devel/deploy_proj.sh || exit 139
   elif [ "$proj" = "devfile" ]
   then
     PROJ=devfile             PROJDB=devfile        PROJREPO="devfile/api"                     ORGNAME=devfile           PORT=3121 ICON=devfile        GRAFSUFF=devfile        GA="UA-145264316-82" ./devel/deploy_proj.sh || exit 140

@@ -31,6 +31,7 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'kube-rs', alias = 'kube-rs'
 where name in (
+  'kube-rs/kube',
   'kube-rs/kube-rs',
   'clux/kube-rs',
   'clux/kubernetes-rust'
