@@ -25,7 +25,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 25,
-  "iteration": 1703315964038,
+  "iteration": 1713511259304,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -41,6 +41,7 @@
             "mode": "thresholds"
           },
           "custom": {
+            "align": "auto",
             "displayMode": "auto",
             "inspect": false
           },
@@ -123,7 +124,7 @@
         ]
       },
       "gridPos": {
-        "h": 22,
+        "h": 24,
         "w": 24,
         "x": 0,
         "y": 0
@@ -205,7 +206,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 24
       },
       "id": 11,
       "links": [],
@@ -231,8 +232,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Spiderpool",
-          "value": "Spiderpool"
+          "text": "Kubeslice",
+          "value": "Kubeslice"
         },
         "datasource": {
           "type": "postgres",
@@ -364,8 +365,8 @@
       {
         "current": {
           "selected": false,
-          "text": "<h1 id=\"dashboard-header\">Spiderpool project statistics dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Main metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/project_stats.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>project_stats</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/spiderpool/project-statistics.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows various project metrics.</li>\n<li>Contributor is defined as somebody who made a review, comment, commit or created PR or issue.</li>\n<li>Pusher is somebody who pushed the commit into the repository, committer is somebody who made/authored a commit/PR pushed by the pusher, this can be the same person or not.</li>\n<li>Stargazers/Watchers are calculated as sum of distinct actors who performed a watch action on any of repositories that belong to a selected repository group.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>You can select single repository group or summary for all of them.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots when calculating statistics, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>",
-          "value": "<h1 id=\"dashboard-header\">Spiderpool project statistics dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Main metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/project_stats.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>project_stats</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/spiderpool/project-statistics.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows various project metrics.</li>\n<li>Contributor is defined as somebody who made a review, comment, commit or created PR or issue.</li>\n<li>Pusher is somebody who pushed the commit into the repository, committer is somebody who made/authored a commit/PR pushed by the pusher, this can be the same person or not.</li>\n<li>Stargazers/Watchers are calculated as sum of distinct actors who performed a watch action on any of repositories that belong to a selected repository group.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>You can select single repository group or summary for all of them.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots when calculating statistics, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>"
+          "text": "<h1 id=\"dashboard-header\">Kubeslice project statistics dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Main metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/project_stats.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>project_stats</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubeslice/project-statistics.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows various project metrics.</li>\n<li>Contributor is defined as somebody who made a review, comment, commit or created PR or issue.</li>\n<li>Pusher is somebody who pushed the commit into the repository, committer is somebody who made/authored a commit/PR pushed by the pusher, this can be the same person or not.</li>\n<li>Stargazers/Watchers are calculated as sum of distinct actors who performed a watch action on any of repositories that belong to a selected repository group.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>You can select single repository group or summary for all of them.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots when calculating statistics, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>",
+          "value": "<h1 id=\"dashboard-header\">Kubeslice project statistics dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Main metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/project_stats.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>project_stats</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubeslice/project-statistics.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows various project metrics.</li>\n<li>Contributor is defined as somebody who made a review, comment, commit or created PR or issue.</li>\n<li>Pusher is somebody who pushed the commit into the repository, committer is somebody who made/authored a commit/PR pushed by the pusher, this can be the same person or not.</li>\n<li>Stargazers/Watchers are calculated as sum of distinct actors who performed a watch action on any of repositories that belong to a selected repository group.</li>\n<li>You can select last day, month, week etc. range or date range between releases, for example <code>v1.9 - v1.10</code>.</li>\n<li>You can select single repository group or summary for all of them.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/repository_groups.md\" target=\"_blank\">here</a> for more informations about repository groups.</li>\n<li>We are skipping bots when calculating statistics, see <a href=\"https://github.com/cncf/devstats/blob/master/docs/excluding_bots.md\" target=\"_blank\">excluding bots</a> for details.</li>\n</ul>"
         },
         "datasource": {
           "type": "postgres",
