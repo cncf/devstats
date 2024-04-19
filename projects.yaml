@@ -1897,7 +1897,7 @@ projects:
     join_date: 2022-07-26T00:00:00Z
     psql_db: konveyor
     shared_db: allprj
-    main_repo: konveyor/tackle2-operator
+    main_repo: konveyor/operator
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: ''
   armada:

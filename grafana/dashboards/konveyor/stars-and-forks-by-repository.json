@@ -538,8 +538,8 @@
       {
         "current": {
           "selected": true,
-          "text": "konveyor/tackle2-operator",
-          "value": "konveyor/tackle2-operator"
+          "text": "konveyor/operator",
+          "value": "konveyor/operator"
         },
         "datasource": {
           "type": "postgres",
