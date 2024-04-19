@@ -2466,12 +2466,12 @@ projects:
     name: easegress
     status: Sandbox
     command_line:
-      - 'megaease'
+      - easegress-io
     start_date: 2017-06-07T00:00:00Z
     join_date: 2023-12-19T00:00:00Z
     psql_db: 'easegress'
     shared_db: allprj
-    main_repo: megaease/easegress
+    main_repo: easegress-io/easegress
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   spiderpool:
@@ -2808,7 +2808,7 @@ projects:
          devspace-cloud,project-zot,paralus,carina-io,ko-build,opcr-io,werf,getsops,\
          pipe-cd,slimtoolkit,projectcapsule,sustainable-computing-io,kptdev,krkn-chaos,\
          kubeclipper-labs,buildpacks-community,project-copacetic,kube-logging,\
-         kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,megaease,\
+         kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,easegress-io,\
          spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops,kubeslice,\
          connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project"
     start_date: 2014-01-01T00:00:00Z

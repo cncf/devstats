@@ -49,7 +49,7 @@ devstream,devstream-io,merico-dev/stream,maricso-dev/OpenStream
 dex,dexidp,coreos/dex
 distribution,distribution,docker/distribution
 dragonfly,dragonflyoss,alibaba/Dragonfly
-easegress,megaease
+easegress,megaease,easegress-io
 emissaryingress,emissary-ingress,datawire/ambassador
 envoy,envoyproxy,lyft/envoy
 eraser,regexp:(?i)^(Azure\/.*eraser.*|eraser-dev\/.*)$
