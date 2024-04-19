@@ -645,7 +645,7 @@ do
     PROJ=kubestellar         PROJDB=kubestellar    PROJREPO="kubestellar/kubestellar"         ORGNAME=Kubestellar       PORT=3255 ICON=kubestellar    GRAFSUFF=kubestellar    GA="UA-241436121-40" ./devel/deploy_proj.sh || exit 180
   elif [ "$proj" = "easegress" ]
   then
-    PROJ=easegress           PROJDB=easegress      PROJREPO="megaease/easegress"              ORGNAME=easegress         PORT=3256 ICON=easegress      GRAFSUFF=easegress      GA="UA-241436121-41" ./devel/deploy_proj.sh || exit 181
+    PROJ=easegress           PROJDB=easegress      PROJREPO="easegress-io/easegress"          ORGNAME=easegress         PORT=3256 ICON=easegress      GRAFSUFF=easegress      GA="UA-241436121-41" ./devel/deploy_proj.sh || exit 181
   elif [ "$proj" = "spiderpool" ]
   then
     PROJ=spiderpool          PROJDB=spiderpool     PROJREPO="spidernet-io/spiderpool"         ORGNAME=Spiderpool        PORT=3257 ICON=spiderpool     GRAFSUFF=spiderpool     GA="UA-241436121-42" ./devel/deploy_proj.sh || exit 182

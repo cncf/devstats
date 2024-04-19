@@ -1881,7 +1881,7 @@ update
 set
   repo_group = 'easegress'
 where
-  org_login in ('megaease')
+  org_login in ('megaease', 'easegress-io')
 ;
 
 -- Spiderpool
