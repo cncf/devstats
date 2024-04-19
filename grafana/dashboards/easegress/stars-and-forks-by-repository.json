@@ -43,7 +43,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 38,
-  "iteration": 1703367681132,
+  "iteration": 1713513720935,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -566,8 +566,8 @@
       {
         "current": {
           "selected": false,
-          "text": "easegress-ioeasegress",
-          "value": "easegress-ioeasegress"
+          "text": "easegressioeasegress",
+          "value": "easegressioeasegress"
         },
         "datasource": {
           "type": "postgres",
