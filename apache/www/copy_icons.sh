@@ -104,7 +104,7 @@ do
     icon="krkn"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "kubeslice" ] || [ "$icon" = "connect" ] || [ "$icon" = "kairos" ] || [ "$icon" = "kubean" ] || [ "$icon" = "koordinator" ] || [ "$icon" = "radius" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "kubeflow" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "kubeslice" ] || [ "$icon" = "connect" ] || [ "$icon" = "kairos" ] || [ "$icon" = "kubean" ] || [ "$icon" = "koordinator" ] || [ "$icon" = "radius" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -124,6 +124,10 @@ do
   if [ "$icon" = "skooner" ]
   then
     icon=Skooner
+  fi
+  if [ "$path" = "projects/notary" ]
+  then
+    icon="notary-project"
   fi
   if [ "$icon" = "servicemeshperformance" ]
   then
@@ -220,6 +224,21 @@ do
     convert "$HOME/dev/cncf/artwork/projects/copa/Icon/Color/copa-icon-color.svg" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 24
     cp "$HOME/dev/cncf/artwork/projects/copa/Icon/Color/copa-icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 25
     continue
+  elif [ "$icon" = "kubeflow" ]
+  then
+    cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/kubeflow-icon.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 26
+    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/kubeflow-icon.svg" -resize 80x80 "/var/www/html/img/$proj-icon-color.png"
+    continue
+  fi
+  # All others
+  cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 26
+  # Allow fail falling back to CNCF icon
+  convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" -resize 80x80 "/var/www/html/img/$proj-icon-color.png"
+  result=$?
+  if [ ! "$result" = "0" ]
+  then
+    echo "WARNING: $HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg failed, falling back to CNCF"
+    convert "$HOME/dev/cncf/artwork/other/cncf/icon/color/cncf-icon-color.svg" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 27
   fi
 done
 

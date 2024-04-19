@@ -110,7 +110,7 @@ do
     dash="_"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "kubeslice" ] || [ "$icon" = "connect" ] || [ "$icon" = "kairos" ] || [ "$icon" = "kubean" ] || [ "$icon" = "koordinator" ] || [ "$icon" = "radius" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "kubeflow" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "kubeslice" ] || [ "$icon" = "connect" ] || [ "$icon" = "kairos" ] || [ "$icon" = "kubean" ] || [ "$icon" = "koordinator" ] || [ "$icon" = "radius" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -130,6 +130,10 @@ do
   if [ "$icon" = "skooner" ]
   then
     icon=Skooner
+  fi
+  if [ "$path" = "projects/notary" ]
+  then
+    icon="notary-project"
   fi
   if [ "$icon" = "servicemeshperformance" ]
   then
@@ -226,7 +230,13 @@ do
     cp "$HOME/dev/cncf/artwork/projects/copa/Icon/Color/copa-icon-color.svg" "grafana/img/$suff.svg" || exit 23
     convert "$HOME/dev/cncf/artwork/projects/copa/Icon/Color/copa-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 22
     continue
+  elif [ "$icon" = "kubeflow" ]
+  then
+    cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/kubeflow-icon.svg" "grafana/img/$suff.svg" || exit 25
+    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/kubeflow-icon.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 24
+    continue
   fi
+  # echo "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg"
   cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 2
   convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
 done
