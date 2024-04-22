@@ -15,6 +15,7 @@ with all_prs as (
       ipr.issue_id = i.id
       and ipr.pull_request_id = pr.id
       and i.number = pr.number
+      and i.number = ipr.number
       and i.dup_repo_id = pr.dup_repo_id
       and i.dup_repo_name = pr.dup_repo_name
       and i.dup_repo_id = ipr.repo_id
@@ -24,6 +25,8 @@ with all_prs as (
       and i.is_pull_request = true
       and i.updated_at >= '{{from}}'
       and i.updated_at < '{{to}}'
+      and pr.updated_at >= '{{from}}'
+      and pr.updated_at < '{{to}}'
       and (
         pr.merged_at is not null
         or pr.closed_at is null
@@ -44,6 +47,7 @@ with all_prs as (
     ipr.issue_id = i.id
     and ipr.pull_request_id = pr.id
     and i.number = pr.number
+    and i.number = ipr.number
     and i.dup_repo_id = pr.dup_repo_id
     and i.dup_repo_name = pr.dup_repo_name
     and i.dup_repo_id = ipr.repo_id
@@ -54,6 +58,8 @@ with all_prs as (
     and i.is_pull_request = true
     and i.updated_at >= '{{from}}'
     and i.updated_at < '{{to}}'
+    and pr.updated_at >= '{{from}}'
+    and pr.updated_at < '{{to}}'
     and (
       pr.merged_at is not null
       or (
