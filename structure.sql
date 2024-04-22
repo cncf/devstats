@@ -2691,6 +2691,13 @@ CREATE INDEX comments_event_id_idx ON public.gha_comments USING btree (event_id)
 
 
 --
+-- Name: comments_id_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX comments_id_idx ON public.gha_comments USING btree (id);
+
+
+--
 -- Name: comments_pull_request_review_id_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
@@ -3309,6 +3316,20 @@ CREATE INDEX issues_event_id_idx ON public.gha_issues USING btree (event_id);
 
 
 --
+-- Name: issues_id_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX issues_id_idx ON public.gha_issues USING btree (id);
+
+
+--
+-- Name: issues_number_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX issues_number_idx ON public.gha_issues USING btree (number);
+
+
+--
 -- Name: issues_events_labels_actor_id_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
@@ -3632,6 +3653,13 @@ CREATE INDEX milestones_event_id_idx ON public.gha_milestones USING btree (event
 
 
 --
+-- Name: milestones_id_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX milestones_id_idx ON public.gha_milestones USING btree (id);
+
+
+--
 -- Name: milestones_state_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
@@ -3926,6 +3954,20 @@ CREATE INDEX pull_requests_dupn_merged_by_login_idx ON public.gha_pull_requests 
 --
 
 CREATE INDEX pull_requests_event_id_idx ON public.gha_pull_requests USING btree (event_id);
+
+
+--
+-- Name: pull_requests_id_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX pull_requests_id_idx ON public.gha_pull_requests USING btree (id);
+
+
+--
+-- Name: pull_requests_number_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX pull_requests_number_idx ON public.gha_pull_requests USING btree (number);
 
 
 --
