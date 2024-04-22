@@ -71,7 +71,7 @@ create index on all_prs_{{rnd}}_ip(merged_at);
 create index on all_prs_{{rnd}}_ip(closed_at);
 analyze all_prs_{{rnd}}_ip;
 
-create temp table all_prs as (
+create temp table all_prs_{{rnd}} as (
   select distinct
     id,
     dup_repo_id,
@@ -82,9 +82,9 @@ create temp table all_prs as (
     merged_at is not null
     or closed_at is null
 );
-create index on all_prs(id);
-create index on all_prs(dup_repo_id);
-create index on all_prs(dup_repo_name);
+create index on all_prs_{{rnd}}(id);
+create index on all_prs_{{rnd}}(dup_repo_id);
+create index on all_prs_{{rnd}}(dup_repo_name);
 analyze all_prs;
 
 create temp table approved_prs_{{rnd}} as (
@@ -111,7 +111,7 @@ select
   round(count(distinct prs.id) filter (where a.id is not null) / {{n}}, 2) as approved,
   round(count(distinct prs.id) filter (where a.id is null) / {{n}}, 2) as awaiting
 from
-  all_prs prs
+  all_prs_{{rnd}} prs
 left join 
   approved_prs_{{rnd}} a
 on
@@ -122,7 +122,7 @@ union select 'pr_appr;' || r.repo_group ||';appr,wait' as name,
 from
   gha_repo_groups r
 join
-  all_prs prs
+  all_prs_{{rnd}} prs
 on
   prs.dup_repo_name = r.name
   and prs.dup_repo_id = r.id
