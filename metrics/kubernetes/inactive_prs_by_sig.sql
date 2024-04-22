@@ -33,6 +33,7 @@ create temp table issues{{rnd}} as
       sub.closed_at is null;
 create index on issues{{rnd}}(issue_id);
 create index on issues{{rnd}}(user_id);
+analyze issues{{rnd}};
 create temp table prs{{rnd}} as
   select distinct i.issue_id,
     ipr.pull_request_id as pr_id,
@@ -78,6 +79,7 @@ create index on prs{{rnd}}(number);
 create index on prs{{rnd}}(repo_name);
 create index on prs{{rnd}}(user_id);
 create index on prs{{rnd}}(event_id);
+analyze prs{{rnd}};
 create temp table pr_sigs{{rnd}} as
   select sub2.issue_id,
     sub2.pr_id,
@@ -128,6 +130,7 @@ create temp table pr_sigs{{rnd}} as
   ) sub2;
 create index on pr_sigs{{rnd}}(number);
 create index on pr_sigs{{rnd}}(repo_name);
+analyze pr_sigs{{rnd}};
 create temp table issues_act{{rnd}} as
   select i2.number,
     i2.dup_repo_name as repo_name,
@@ -155,6 +158,7 @@ create temp table issues_act{{rnd}} as
     );
 create index on issues_act{{rnd}}(number);
 create index on issues_act{{rnd}}(repo_name);
+analyze issues_act{{rnd}};
 create temp table prs_act{{rnd}} as
   select pr2.number,
     pr2.dup_repo_name as repo_name,
@@ -182,6 +186,7 @@ create temp table prs_act{{rnd}} as
     );
 create index on prs_act{{rnd}}(number);
 create index on prs_act{{rnd}}(repo_name);
+analyze prs_act{{rnd}};
 create temp table act_on_issue{{rnd}} as
   select
     p.number,
@@ -198,6 +203,7 @@ create temp table act_on_issue{{rnd}} as
     and p.number = ia.number;
 create index on act_on_issue{{rnd}}(number);
 create index on act_on_issue{{rnd}}(repo_name);
+analyze act_on_issue{{rnd}};
 create temp table act{{rnd}} as
   select
     aoi.number,
@@ -213,6 +219,7 @@ create temp table act{{rnd}} as
     and aoi.number = pra.number;
 create index on act{{rnd}}(number);
 create index on act{{rnd}}(repo_name);
+analyze act{{rnd}};
 select
   'inactive_prs_by_sig;' || sub.sig || ';w2,d30,d90' as metric,
   count(distinct sub.pr) filter(where sub.inactive_for > 1209600) as inactive_14,

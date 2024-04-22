@@ -26,6 +26,7 @@ create temp table issues{{rnd}} as
   where
     sub.closed_at is null;
 create index on issues{{rnd}}(issue_id);
+analyze issues{{rnd}};
 create temp table prs{{rnd}} as
   select i.issue_id,
     i.event_id
@@ -59,6 +60,7 @@ create temp table prs{{rnd}} as
     and pr.merged_at is null;
 create index on prs{{rnd}}(issue_id);
 create index on prs{{rnd}}(event_id);
+analyze prs{{rnd}};
 create temp table pr_sizes{{rnd}} as
   select sub.issue_id,
     sub.size
@@ -75,6 +77,7 @@ create temp table pr_sizes{{rnd}} as
   where
     sub.size is not null;
 create index on pr_sizes{{rnd}}(issue_id);
+analyze pr_sizes{{rnd}};
 create temp table pr_sigs{{rnd}} as
   select sub2.issue_id,
     case sub2.sig
@@ -111,6 +114,7 @@ create temp table pr_sigs{{rnd}} as
       and sub.sig not like '%use-only-as-a-last-resort'
   ) sub2;
 create index on pr_sigs{{rnd}}(issue_id);
+analyze pr_sigs{{rnd}};
 create temp table reviewers_text{{rnd}} as
   select t.event_id,
     pl.issue_id
@@ -142,6 +146,7 @@ create temp table issue_events{{rnd}} as
     ) sub;
 create index on issue_events{{rnd}}(issue_id);
 create index on issue_events{{rnd}}(event_id);
+analyze issue_events{{rnd}};
 create temp table issue_sig_labels{{rnd}} as
   select distinct issue_id,
     lower(substring(dup_label_name from '(?i)sig/(.*)')) as sig
@@ -151,6 +156,7 @@ create temp table issue_sig_labels{{rnd}} as
     dup_created_at < '{{to}}'
     and dup_created_at >= '{{to}}'::date - '1 year'::interval;
 create index on issue_sig_labels{{rnd}}(issue_id);
+analyze issue_sig_labels{{rnd}};
 create temp table sig_reviewers{{rnd}} as
   select sub2.sig,
     count(distinct sub2.dup_actor_login) as rev
@@ -185,6 +191,7 @@ create temp table sig_reviewers{{rnd}} as
   group by
     sub2.sig;
 create index on sig_reviewers{{rnd}}(sig);
+analyze sig_reviewers{{rnd}};
 select
   'sig_pr_wl;' || sub.sig || ';iss,abs,rev,rel' as metric,
   sub.iss,

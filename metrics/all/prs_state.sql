@@ -1,4 +1,4 @@
-create temp table all_prs_i as (
+create temp table all_prs_{{rnd}}_i as (
   select distinct
     id,
     event_id,
@@ -9,15 +9,15 @@ create temp table all_prs_i as (
     gha_issues
   where
     is_pull_request = true
-    and updated_at >= '2024-04-01'
-    and updated_at < '2024-04-08'
+    and updated_at >= '{{from}}'
+    and updated_at < '{{to}}'
 );
-create index on all_prs_i(number);
-create index on all_prs_i(dup_repo_id);
-create index on all_prs_i(dup_repo_name);
-analyze all_prs_i;
+create index on all_prs_{{rnd}}_i(number);
+create index on all_prs_{{rnd}}_i(dup_repo_id);
+create index on all_prs_{{rnd}}_i(dup_repo_name);
+analyze all_prs_{{rnd}}_i;
 
-create temp table all_prs_p as (
+create temp table all_prs_{{rnd}}_p as (
   select distinct
     i.id,
     i.event_id,
@@ -28,7 +28,7 @@ create temp table all_prs_p as (
     i.dup_repo_id,
     i.dup_repo_name
   from
-    all_prs_i i
+    all_prs_{{rnd}}_i i
   inner join
     gha_pull_requests pr
   on
@@ -37,17 +37,17 @@ create temp table all_prs_p as (
     and i.dup_repo_name = pr.dup_repo_name
   where
     -- this was not in the original query: but this was a bug IMHO
-    pr.updated_at >= '2024-04-01'
-    and pr.updated_at < '2024-04-08'
+    pr.updated_at >= '{{from}}'
+    and pr.updated_at < '{{to}}'
 );
-create index on all_prs_p(id);
-create index on all_prs_p(number);
-create index on all_prs_p(pr_id);
-create index on all_prs_p(dup_repo_id);
-create index on all_prs_p(dup_repo_name);
-analyze all_prs_p;
+create index on all_prs_{{rnd}}_p(id);
+create index on all_prs_{{rnd}}_p(number);
+create index on all_prs_{{rnd}}_p(pr_id);
+create index on all_prs_{{rnd}}_p(dup_repo_id);
+create index on all_prs_{{rnd}}_p(dup_repo_name);
+analyze all_prs_{{rnd}}_p;
 
-create temp table all_prs_ip as (
+create temp table all_prs_{{rnd}}_ip as (
   select distinct
     i.id,
     i.event_id,
@@ -56,7 +56,7 @@ create temp table all_prs_ip as (
     i.dup_repo_id,
     i.dup_repo_name
   from
-    all_prs_p i
+    all_prs_{{rnd}}_p i
   inner join
     gha_issues_pull_requests ipr
   on
@@ -66,10 +66,10 @@ create temp table all_prs_ip as (
     and i.dup_repo_name = ipr.repo_name
     and ipr.number = i.number
 );
-create index on all_prs_ip(event_id);
-create index on all_prs_ip(merged_at);
-create index on all_prs_ip(closed_at);
-analyze all_prs_ip;
+create index on all_prs_{{rnd}}_ip(event_id);
+create index on all_prs_{{rnd}}_ip(merged_at);
+create index on all_prs_{{rnd}}_ip(closed_at);
+analyze all_prs_{{rnd}}_ip;
 
 create temp table all_prs as (
   select distinct
@@ -77,7 +77,7 @@ create temp table all_prs as (
     dup_repo_id,
     dup_repo_name
   from
-    all_prs_ip
+    all_prs_{{rnd}}_ip
   where
     merged_at is not null
     or closed_at is null
@@ -87,11 +87,11 @@ create index on all_prs(dup_repo_id);
 create index on all_prs(dup_repo_name);
 analyze all_prs;
 
-create temp table approved_prs as (
+create temp table approved_prs_{{rnd}} as (
   select distinct
     i.id
   from
-    all_prs_ip i
+    all_prs_{{rnd}}_ip i
   join
     gha_comments c
   on
@@ -103,8 +103,8 @@ create temp table approved_prs as (
       and substring(c.body from '(?i)(?:^|\n|\r)\s*/(approve|lgtm)\s*(?:\n|\r|$)') is not null
     )
 );
-create index on approved_prs(id);
-analyze approved_prs;
+create index on approved_prs_{{rnd}}(id);
+analyze approved_prs_{{rnd}};
 
 select
   'pr_appr;All;appr,wait' as name,
@@ -113,7 +113,7 @@ select
 from
   all_prs prs
 left join 
-  approved_prs a
+  approved_prs_{{rnd}} a
 on
   prs.id = a.id
 union select 'pr_appr;' || r.repo_group ||';appr,wait' as name,
@@ -129,7 +129,7 @@ on
   and r.repo_group is not null
   and r.repo_group in (select all_repo_group_name from tall_repo_groups)
 left join 
-  approved_prs a
+  approved_prs_{{rnd}} a
 on
   prs.id = a.id
 group by

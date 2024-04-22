@@ -37,6 +37,7 @@ create temp table issues{{rnd}} as
 create index on issues{{rnd}}(issue_id);
 create index on issues{{rnd}}(user_id);
 create index on issues{{rnd}}(event_id);
+analyze issues{{rnd}};
 create temp table issues_sigs{{rnd}} as
   select sub2.issue_id,
     sub2.event_id,
@@ -80,6 +81,7 @@ create temp table issues_sigs{{rnd}} as
       and sub.sig in (select sig_mentions_labels_name from tsig_mentions_labels)
   ) sub2;
 create index on issues_sigs{{rnd}}(issue_id);
+analyze issues_sigs{{rnd}};
 create temp table issues_act{{rnd}} as
   select i.issue_id,
     extract(epoch from i2.updated_at - i.created_at) as diff
@@ -105,6 +107,7 @@ create temp table issues_act{{rnd}} as
       limit 1
     );
 create index on issues_act{{rnd}}(issue_id);
+analyze issues_act{{rnd}};
 create temp table act{{rnd}} as
   select i.issue_id,
     coalesce(ia.diff, extract(epoch from d.dtto - i.created_at)) as inactive_for
@@ -116,6 +119,7 @@ create temp table act{{rnd}} as
   on
     i.issue_id = ia.issue_id;
 create index on act{{rnd}}(issue_id);
+analyze act{{rnd}};
 select
   'inactive_issues_by_sig_repos;' || sub.sig || '`' || sub.repo || ';w2,d30,d90' as metric,
   count(distinct sub.issue_id) filter(where sub.inactive_for > 1209600) as inactive_14,
