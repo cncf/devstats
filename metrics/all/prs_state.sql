@@ -85,7 +85,7 @@ create temp table all_prs_{{rnd}} as (
 create index on all_prs_{{rnd}}(id);
 create index on all_prs_{{rnd}}(dup_repo_id);
 create index on all_prs_{{rnd}}(dup_repo_name);
-analyze all_prs;
+analyze all_prs{{rnd}};
 
 create temp table approved_prs_{{rnd}} as (
   select distinct
