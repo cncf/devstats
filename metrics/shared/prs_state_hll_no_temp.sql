@@ -10,11 +10,15 @@ with all_prs as (
     ipr.issue_id = i.id
     and ipr.pull_request_id = pr.id
     and i.number = pr.number
+    and i.number = ipr.number
+    and pr.number = ipr.number
     and i.dup_repo_id = pr.dup_repo_id
     and i.dup_repo_name = pr.dup_repo_name
     and pr.dup_repo_id = ipr.repo_id
     and pr.dup_repo_name = ipr.repo_name
     and i.is_pull_request = true
+    and pr.updated_at >= '{{from}}'
+    and pr.updated_at < '{{to}}'
     and i.updated_at >= '{{from}}'
     and i.updated_at < '{{to}}'
     and (
@@ -32,12 +36,16 @@ with all_prs as (
     ipr.issue_id = i.id
     and ipr.pull_request_id = pr.id
     and i.number = pr.number
+    and i.number = ipr.number
+    and pr.number = ipr.number
     and i.dup_repo_id = pr.dup_repo_id
     and i.dup_repo_name = pr.dup_repo_name
     and pr.dup_repo_id = ipr.repo_id
     and pr.dup_repo_name = ipr.repo_name
     and i.event_id = c.event_id
     and i.is_pull_request = true
+    and pr.updated_at >= '{{from}}'
+    and pr.updated_at < '{{to}}'
     and i.updated_at >= '{{from}}'
     and i.updated_at < '{{to}}'
     and (
