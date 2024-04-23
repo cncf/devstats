@@ -28,12 +28,21 @@ metrics:
 #     merge_series: company_commits_data
 #     periods: d
 #     drop: scompany_commits_data
-  - name: PRs approval
+#   - name: PRs approval
+#     series_name_or_func: multi_row_multi_column
+#     sql: prs_state
+#     periods: d,w,m,q,y
+#     aggregate: 1,7
+#     skip: d,w7,m7,q7,y7
+#     multi_value: true
+#     escape_value_name: true
+#     drop: 'spr_apprappr;spr_apprwait'
+  - name: First non-author activity
     series_name_or_func: multi_row_multi_column
-    sql: prs_state
+    sql: first_non_author_activity
     periods: d,w,m,q,y
     aggregate: 1,7
     skip: d,w7,m7,q7,y7
-    multi_value: true
-    escape_value_name: true
-    drop: 'spr_apprappr;spr_apprwait'
+    desc: time_diff_as_string
+    merge_series: first_non_author
+    drop: sfirst_non_author

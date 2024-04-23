@@ -1,5 +1,6 @@
-with issues as (
-  select distinct id,
+create temp table issues_{{rnd}} as (
+  select distinct
+    id,
     user_id,
     created_at
   from
@@ -9,8 +10,41 @@ with issues as (
     and created_at >= '{{from}}'
     and created_at < '{{to}}'
     and (lower(dup_user_login) {{exclude_bots}})
-), prs as (
-  select distinct id,
+);
+create index on issues_{{rnd}}(id);
+create index on issues_{{rnd}}(user_id);
+create index on issues_{{rnd}}(created_at);
+analyze issues_{{rnd}};
+
+create temp table issues_next_{{rnd}} as (
+  select
+    c.id,
+    c.created_at,
+    n.dup_repo_id as repo_id,
+    n.dup_repo_name as repo_name,
+    min(n.updated_at) as updated_at
+  from
+    issues_{{rnd}} c,
+    gha_issues n
+  where
+    n.id = c.id
+    and n.is_pull_request = true
+    and n.dup_actor_id != c.user_id
+    and n.created_at >= '{{from}}'
+    and n.created_at < '{{to}}'
+    and n.updated_at > c.created_at + '30 seconds'::interval
+    and n.dup_type like '%Event'
+    and (lower(n.dup_actor_login) {{exclude_bots}})
+  group by
+    1, 2, 3, 4
+);
+create index on issues_next_{{rnd}}(repo_id);
+create index on issues_next_{{rnd}}(repo_name);
+analyze issues_next_{{rnd}};
+
+create temp table prs_{{rnd}} as (
+  select distinct
+    id,
     user_id,
     created_at
   from
@@ -19,77 +53,77 @@ with issues as (
     created_at >= '{{from}}'
     and created_at < '{{to}}'
     and (lower(dup_user_login) {{exclude_bots}})
-), tdiffs as (
-  select extract(epoch from i2.updated_at - i.created_at) / 3600 as diff,
+);
+create index on prs_{{rnd}}(id);
+create index on prs_{{rnd}}(user_id);
+create index on prs_{{rnd}}(created_at);
+analyze prs_{{rnd}};
+
+create temp table prs_next_{{rnd}} as (
+  select
+    c.id,
+    c.created_at,
+    n.dup_repo_id as repo_id,
+    n.dup_repo_name as repo_name,
+    min(n.updated_at) as updated_at
+  from
+    prs_{{rnd}} c,
+    gha_pull_requests n
+  where
+    n.id = c.id
+    and n.dup_actor_id != c.user_id
+    and n.created_at >= '{{from}}'
+    and n.created_at < '{{to}}'
+    and n.updated_at > c.created_at + '30 seconds'::interval
+    and n.dup_type like '%Event'
+    and (lower(n.dup_actor_login) {{exclude_bots}})
+  group by
+    1, 2, 3, 4
+);
+create index on prs_next_{{rnd}}(repo_id);
+create index on prs_next_{{rnd}}(repo_name);
+analyze prs_next_{{rnd}};
+
+create temp table tdiffs_{{rnd}} as (
+  select
+    i.id,
+    extract(epoch from i.updated_at - i.created_at) / 3600 as diff,
     r.repo_group as repo_group
   from
-    issues i,
-    gha_repo_groups r,
-    gha_issues i2
+    issues_next_{{rnd}} i,
+    gha_repo_groups r
   where
-    i.id = i2.id
-    and r.name = i2.dup_repo_name
-    and r.id = i2.dup_repo_id
-    and (lower(i2.dup_actor_login) {{exclude_bots}})
-    and i2.created_at >= '{{from}}'
-    and i2.created_at < '{{to}}'
-    and i2.event_id in (
-      select event_id
-      from
-        gha_issues sub
-      where
-        sub.dup_actor_id != i.user_id
-        and sub.id = i.id
-        and sub.created_at >= '{{from}}'
-        and sub.created_at < '{{to}}'
-        and sub.updated_at > i.created_at + '30 seconds'::interval
-        and sub.dup_type like '%Event'
-      order by
-        sub.updated_at asc
-      limit 1
-    )
-  union select extract(epoch from p2.updated_at - p.created_at) / 3600 as diff,
+    r.name = i.repo_name
+    and r.id = i.repo_id
+  union select
+    p.id,
+    extract(epoch from p.updated_at - p.created_at) / 3600 as diff,
     r.repo_group as repo_group
   from
-    prs p,
-    gha_repo_groups r,
-    gha_pull_requests p2
+    prs_next_{{rnd}} p,
+    gha_repo_groups r
   where
-    p.id = p2.id
-    and r.name = p2.dup_repo_name
-    and r.id = p2.dup_repo_id
-    and (lower(p2.dup_actor_login) {{exclude_bots}})
-    and p2.created_at >= '{{from}}'
-    and p2.created_at < '{{to}}'
-    and p2.event_id in (
-      select event_id
-      from
-        gha_pull_requests sub
-      where
-        sub.dup_actor_id != p.user_id
-        and sub.id = p.id
-        and sub.created_at >= '{{from}}'
-        and sub.created_at < '{{to}}'
-        and sub.updated_at > p.created_at + '30 seconds'::interval
-        and sub.dup_type like '%Event'
-      order by
-        sub.updated_at asc
-      limit 1
-    )
-)
+    r.name = p.repo_name
+    and r.id = p.repo_id
+);
+create index on tdiffs_{{rnd}}(repo_group);
+analyze tdiffs_{{rnd}};
+
 select
   'non_auth;All;p15,med,p85' as name,
   percentile_disc(0.15) within group (order by diff asc) as non_author_15_percentile,
   percentile_disc(0.5) within group (order by diff asc) as non_author_median,
   percentile_disc(0.85) within group (order by diff asc) as non_author_85_percentile
 from
-  tdiffs
+  tdiffs_{{rnd}}
+where
+  repo_group is not null
 union select 'non_auth;' || repo_group || ';p15,med,p85' as name,
   percentile_disc(0.15) within group (order by diff asc) as non_author_15_percentile,
   percentile_disc(0.5) within group (order by diff asc) as non_author_median,
   percentile_disc(0.85) within group (order by diff asc) as non_author_85_percentile
 from
-  tdiffs
+  tdiffs_{{rnd}}
 where
   repo_group is not null
 group by
