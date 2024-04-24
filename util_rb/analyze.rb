@@ -40,7 +40,7 @@ metric_ary.each do |metric|
   puts "#{metric}:"
   data = data.sort_by { |row| -row[0] }
   data.each_with_index do |row, i|
-    break if top > 0 and i >= top
+    break if !top.nil? and top > 0 and i >= top
     v = sprintf "%.2f", row[0]
     puts "#{i+1}) #{metric}: ##{row[2]}) #{v}:\t\t#{row[3].strip}"
   end

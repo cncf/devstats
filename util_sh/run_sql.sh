@@ -10,4 +10,8 @@ then
   echo "$0: you need to specify a database: DB=gha $0 filename.sql [other args]"
   exit 2
 fi
-runq.sh "${1}" ${@:2} > "${1}.runq" && kubectl exec -in devstats-prod devstats-postgres-0 -- psql "${DB}" < "${1}.runq"
+if [ -z "$NODE" ]
+then
+  export NODE=0
+fi
+runq.sh "${1}" ${@:2} > "${1}.runq" && kubectl exec -in devstats-prod "devstats-postgres-${NODE}" -- psql "${DB}" < "${1}.runq"
