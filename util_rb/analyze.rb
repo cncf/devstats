@@ -13,7 +13,7 @@ top = top.to_i unless top.nil?
 
 data = []
 File.readlines(fn).each_with_index do |line, i|
-  m = line.match /.*#{metric}=(\d+i(\.\d+)?)\.\.(\d+(\.\d+)?).*/
+  m = line.match /.*#{metric}=(\d+\.\d+|\d+)\.\.(\d+\.\d+|\d+).*/
   if m
     t = m[2].to_f - m[1].to_f
     next if t == 0.0
@@ -23,7 +23,7 @@ File.readlines(fn).each_with_index do |line, i|
     data << [t, s, i, line]
     next
   end
-  m = line.match /.*#{metric}=(\d+(\.\d+)?).*/
+  m = line.match /.*#{metric}=(\d+\.\d+|\d+).*/
   if m
     t = m[1].to_f
     next if t == 0.0
