@@ -1,1334 +1,441 @@
+-- explain (analyze, costs, verbose, buffers)
+create temp table contributions_{{rnd}} as (
+  with events as (
+    select distinct on (id)
+      id,
+      repo_id,
+      dup_repo_name as repo_name,
+      created_at,
+      type,
+      actor_id,
+      dup_actor_login as author
+    from
+      gha_events
+    where
+      type in (
+        'PushEvent', 'PullRequestEvent', 'IssuesEvent', 'PullRequestReviewEvent',
+        'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent'
+      )
+      and created_at >= '{{from}}'
+      and created_at < '{{to}}'
+      and (lower(dup_actor_login) {{exclude_bots}})
+  ), comments as (
+    select distinct on (id)
+      dup_repo_id as repo_id,
+      dup_repo_name as repo_name,
+      created_at,
+      user_id as actor_id,
+      dup_user_login as author,
+      id
+    from
+      gha_comments
+    where
+      created_at >= '{{from}}'
+      and created_at < '{{to}}'
+      and (lower(dup_user_login) {{exclude_bots}})
+  ), issues as (
+    select distinct on (id)
+      dup_repo_id as repo_id,
+      dup_repo_name as repo_name,
+      created_at,
+      user_id as actor_id,
+      dup_user_login as author,
+      id
+    from
+      gha_issues
+    where
+      created_at >= '{{from}}'
+      and created_at < '{{to}}'
+      and is_pull_request = false
+      and (lower(dup_user_login) {{exclude_bots}})
+  ), prs as (
+    select distinct on (id)
+      dup_repo_id as repo_id,
+      dup_repo_name as repo_name,
+      created_at,
+      user_id as actor_id,
+      dup_user_login as author,
+      id
+    from
+      gha_issues
+    where
+      created_at >= '{{from}}'
+      and created_at < '{{to}}'
+      and is_pull_request = true
+      and (lower(dup_user_login) {{exclude_bots}})
+  ), merged_prs as (
+    select distinct on (id)
+      dup_repo_id as repo_id,
+      dup_repo_name as repo_name,
+      created_at,
+      user_id as actor_id,
+      dup_user_login as author,
+      id
+    from
+      gha_pull_requests
+    where
+      merged_at >= '{{from}}'
+      and merged_at < '{{to}}'
+      and (lower(dup_user_login) {{exclude_bots}})
+  )
+  select
+    case type
+      when 'PushEvent' then 'pushes'
+      when 'PullRequestReviewCommentEvent' then 'review_comments'
+      when 'PullRequestReviewEvent' then 'reviews'
+      when 'IssueCommentEvent' then 'issue_comments'
+      when 'CommitCommentEvent' then 'commit_comments'
+    end as metric,
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
+  from
+    events
+  where
+    type in (
+      'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
+      'IssueCommentEvent', 'CommitCommentEvent'
+    )
+  union select
+    'contributions' as metric,
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
+  from
+    events
+  union select
+    'comments' as metric,
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
+  from
+    comments
+  union select
+    'issues' as metric,
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
+  from
+    issues
+  union select
+    'prs' as metric,
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
+  from
+    prs
+  union select
+    'merged_prs' as metric,
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
+  from
+    merged_prs
+  union select
+    'events' as metric,
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
+  from
+    events
+);
+create index on contributions_{{rnd}}(id);
+create index on contributions_{{rnd}}(repo_id);
+create index on contributions_{{rnd}}(repo_name);
+create index on contributions_{{rnd}}(created_at);
+create index on contributions_{{rnd}}(actor_id);
+create index on contributions_{{rnd}}(author);
+analyze contributions_{{rnd}};
+
+create temp table actors_affiliations_{{rnd}} as (
+  select
+    actor_id,
+    company_name,
+    dt_from,
+    dt_to
+  from
+    gha_actors_affiliations aa
+  inner join
+    tcompanies c
+  on
+    c.companies_name = aa.company_name
+  where
+    aa.dt_from <= '{{to}}'
+    and aa.dt_to >= '{{from}}'
+);
+create index on actors_affiliations_{{rnd}}(actor_id);
+create index on actors_affiliations_{{rnd}}(dt_from);
+create index on actors_affiliations_{{rnd}}(dt_to);
+analyze actors_affiliations_{{rnd}};
+
+create temp table contributions_country_{{rnd}} as (
+  select
+    c.metric,
+    c.created_at,
+    c.repo_id,
+    c.repo_name,
+    a.country_name as country,
+    c.author,
+    c.actor_id,
+    c.id
+  from
+    contributions_{{rnd}} c
+  inner join
+    gha_actors a
+  on
+    c.actor_id = a.id
+    and c.author = a.login
+    -- previous was using the line below with 'OR'
+    -- c.actor_id = a.id or c.author = a.login
+    -- Can also be one of those:
+    -- c.author = a.login
+    -- c.actor_id = a.id
+  where
+    a.country_name is not null
+);
+create index on contributions_country_{{rnd}}(id);
+create index on contributions_country_{{rnd}}(actor_id);
+create index on contributions_country_{{rnd}}(created_at);
+create index on contributions_country_{{rnd}}(repo_id);
+create index on contributions_country_{{rnd}}(repo_name);
+analyze contributions_country_{{rnd}};
+
+
+create temp table contributions_company_{{rnd}} as (
+  select
+    c.metric,
+    c.created_at,
+    c.repo_id,
+    c.repo_name,
+    aa.company_name as company,
+    c.author,
+    c.actor_id,
+    c.id
+  from
+    contributions_{{rnd}} c
+  inner join
+    actors_affiliations_{{rnd}} aa
+  on
+    aa.actor_id = c.actor_id
+    and aa.dt_from <= c.created_at
+    and aa.dt_to > c.created_at
+);
+create index on contributions_company_{{rnd}}(id);
+create index on contributions_company_{{rnd}}(repo_id);
+create index on contributions_company_{{rnd}}(repo_name);
+analyze contributions_company_{{rnd}};
+
+
+create temp table contributions_repo_group_country_{{rnd}} as (
+  select
+    c.metric,
+    c.created_at,
+    c.repo_id,
+    c.repo_name,
+    coalesce(ecf.repo_group, r.repo_group) as repo_group,
+    c.country,
+    c.author,
+    c.actor_id,
+    c.id
+  from
+    contributions_country_{{rnd}} c
+  inner join
+    gha_repos r
+  on
+    c.repo_id = r.id
+    and c.repo_name = r.name
+  left join
+    gha_events_commits_files ecf
+  on
+    ecf.event_id = c.id
+  where
+    coalesce(ecf.repo_group, r.repo_group) is not null
+);
+create index on contributions_repo_group_country_{{rnd}}(actor_id);
+create index on contributions_repo_group_country_{{rnd}}(created_at);
+analyze contributions_repo_group_country_{{rnd}};
+
+with contributions_repo_group as (
+  select
+    c.metric,
+    c.created_at,
+    c.repo_id,
+    c.repo_name,
+    coalesce(ecf.repo_group, r.repo_group) as repo_group,
+    c.author,
+    c.actor_id,
+    c.id
+  from
+    contributions_{{rnd}} c
+  inner join
+    gha_repos r
+  on
+    c.repo_id = r.id
+    and c.repo_name = r.name
+  left join
+    gha_events_commits_files ecf
+  on
+    ecf.event_id = c.id
+  where
+    coalesce(ecf.repo_group, r.repo_group) is not null
+), contributions_country_company as (
+  select
+    c.metric,
+    c.created_at,
+    c.repo_id,
+    c.repo_name,
+    c.country,
+    aa.company_name as company,
+    c.author,
+    c.actor_id,
+    c.id
+  from
+    contributions_country_{{rnd}} c
+  inner join
+    actors_affiliations_{{rnd}} aa
+  on
+    aa.actor_id = c.actor_id
+    and aa.dt_from <= c.created_at
+    and aa.dt_to > c.created_at
+), contributions_repo_group_company as (
+  select
+    c.metric,
+    c.created_at,
+    c.repo_id,
+    c.repo_name,
+    coalesce(ecf.repo_group, r.repo_group) as repo_group,
+    c.company,
+    c.author,
+    c.actor_id,
+    c.id
+  from
+    contributions_company_{{rnd}} c
+  inner join
+    gha_repos r
+  on
+    c.repo_id = r.id
+    and c.repo_name = r.name
+  left join
+    gha_events_commits_files ecf
+  on
+    ecf.event_id = c.id
+  where
+    coalesce(ecf.repo_group, r.repo_group) is not null
+), contributions_repo_group_country_company as (
+  select
+    c.metric,
+    c.created_at,
+    c.repo_id,
+    c.repo_name,
+    c.repo_group,
+    c.country,
+    aa.company_name as company,
+    c.author,
+    c.actor_id,
+    c.id
+  from
+    contributions_repo_group_country_{{rnd}} c
+  inner join
+    actors_affiliations_{{rnd}} aa
+  on
+    aa.actor_id = c.actor_id
+    and aa.dt_from <= c.created_at
+    and aa.dt_to > c.created_at
+)
 select 
-  'cs;' || sub.metric || '_All_All_All;evs,acts' as metric,
-  round(count(distinct sub.id) / {{n}}, 2) as evs,
-  count(distinct sub.author) as acts
-from (
-  select case e.type
-      when 'PushEvent' then 'pushes'
-      when 'PullRequestReviewCommentEvent' then 'review_comments'
-      when 'PullRequestReviewEvent' then 'reviews'
-      when 'IssueCommentEvent' then 'issue_comments'
-      when 'CommitCommentEvent' then 'commit_comments'
-    end as metric,
-    e.dup_actor_login as author,
-    e.id
-  from
-    gha_events e
-  where
-    e.type in (
-      'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
-      'IssueCommentEvent', 'CommitCommentEvent'
-    )
-    and e.created_at >= '{{from}}'
-    and e.created_at < '{{to}}'
-    and (lower(e.dup_actor_login) {{exclude_bots}})
-  union all select 'contributions' as metric,
-    e.dup_actor_login as author,
-    e.id
-  from
-    gha_events e
-  where
-    e.type in (
-      'PushEvent', 'PullRequestEvent', 'IssuesEvent', 'PullRequestReviewEvent',
-      'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent'
-    )
-    and e.created_at >= '{{from}}'
-    and e.created_at < '{{to}}'
-    and (lower(e.dup_actor_login) {{exclude_bots}})
-  union all select 'comments' as metric,
-    c.dup_user_login as author,
-    c.id
-  from
-    gha_comments c
-  where
-    c.created_at >= '{{from}}'
-    and c.created_at < '{{to}}'
-    and (lower(c.dup_user_login) {{exclude_bots}})
-  union all select 'issues' as metric,
-    i.dup_user_login as author,
-    i.id
-  from
-    gha_issues i
-  where
-    i.created_at >= '{{from}}'
-    and i.created_at < '{{to}}'
-    and i.is_pull_request = false
-    and (lower(i.dup_user_login) {{exclude_bots}})
-  union all select 'prs' as metric,
-    i.dup_user_login as author,
-    i.id
-  from
-    gha_issues i
-  where
-    i.created_at >= '{{from}}'
-    and i.created_at < '{{to}}'
-    and i.is_pull_request = true
-    and (lower(i.dup_user_login) {{exclude_bots}})
-  union all select 'merged_prs' as metric,
-    i.dup_user_login as author,
-    i.id
-  from
-    gha_pull_requests i
-  where
-    i.merged_at >= '{{from}}'
-    and i.merged_at < '{{to}}'
-    and (lower(i.dup_user_login) {{exclude_bots}})
-  union all select 'events' as metric,
-    e.dup_actor_login as author,
-    e.id
-  from
-    gha_events e
-  where
-    e.created_at >= '{{from}}'
-    and e.created_at < '{{to}}'
-    and (lower(e.dup_actor_login) {{exclude_bots}})
-  ) sub
+  'cs;' || metric || '_All_All_All;evs,acts' as metric,
+  round(count(distinct id) / {{n}}, 2) as evs,
+  count(distinct author) as acts
+from
+  contributions_{{rnd}}
 group by
-  sub.metric
-union all select 'cs;' || sub.metric || '_' || sub.repo_group || '_All_All;evs,acts' as metric,
-  round(count(distinct sub.id) / {{n}}, 2) as evs,
-  count(distinct sub.author) as acts
-from (
-  select case sub.type
-      when 'PushEvent' then 'pushes'
-      when 'PullRequestReviewCommentEvent' then 'review_comments'
-      when 'PullRequestReviewEvent' then 'reviews'
-      when 'IssueCommentEvent' then 'issue_comments'
-      when 'CommitCommentEvent' then 'commit_comments'
-    end as metric,
-    sub.repo_group,
-    sub.author,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      e.type,
-      e.dup_actor_login as author,
-      e.id
-    from
-      gha_repos r,
-      gha_events e
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = e.id
-    where
-      r.name = e.dup_repo_name
-      and r.id = e.repo_id
-      and e.type in (
-        'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
-        'IssueCommentEvent', 'CommitCommentEvent'
-      )
-      and e.created_at >= '{{from}}'
-      and e.created_at < '{{to}}'
-      and (lower(e.dup_actor_login) {{exclude_bots}})
-  ) sub
-  where
-    sub.repo_group is not null
-  union all select 'contributions' as metric,
-    sub.repo_group,
-    sub.author,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      e.dup_actor_login as author,
-      e.id
-    from
-      gha_repos r,
-      gha_events e
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = e.id
-    where
-      r.name = e.dup_repo_name
-      and r.id = e.repo_id
-      and e.type in (
-        'PushEvent', 'PullRequestEvent', 'IssuesEvent', 'PullRequestReviewEvent',
-        'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent'
-      )
-      and e.created_at >= '{{from}}'
-      and e.created_at < '{{to}}'
-      and (lower(e.dup_actor_login) {{exclude_bots}})
-  ) sub
-  where
-    sub.repo_group is not null
-  union all select 'comments' as metric,
-    sub.repo_group,
-    sub.author,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      c.dup_user_login as author,
-      c.id
-    from
-      gha_repos r,
-      gha_comments c
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = c.event_id
-    where
-      c.dup_repo_name = r.name
-      and c.dup_repo_id = r.id
-      and c.created_at >= '{{from}}'
-      and c.created_at < '{{to}}'
-      and (lower(c.dup_user_login) {{exclude_bots}})
-  ) sub
-  where
-    sub.repo_group is not null
-  union all select case sub.is_pull_request
-      when true then 'prs'
-      else 'issues'
-    end as metric,
-    sub.repo_group,
-    sub.author,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      i.dup_user_login as author,
-      i.id,
-      i.is_pull_request
-    from
-      gha_repos r,
-      gha_issues i
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = i.event_id
-    where
-      i.dup_repo_name = r.name
-      and i.dup_repo_id = r.id
-      and i.created_at >= '{{from}}'
-      and i.created_at < '{{to}}'
-      and (lower(i.dup_user_login) {{exclude_bots}})
-  ) sub
-  where
-    sub.repo_group is not null
-  union all select 'merged_prs' as metric,
-    sub.repo_group,
-    sub.author,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      i.dup_user_login as author,
-      i.id
-    from
-      gha_repos r,
-      gha_pull_requests i
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = i.event_id
-    where
-      i.dup_repo_name = r.name
-      and i.merged_at is not null
-      and i.dup_repo_id = r.id
-      and i.merged_at >= '{{from}}'
-      and i.merged_at < '{{to}}'
-      and (lower(i.dup_user_login) {{exclude_bots}})
-  ) sub
-  where
-    sub.repo_group is not null
-  union all select 'events' as metric,
-    sub.repo_group,
-    sub.author,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      e.dup_actor_login as author,
-      e.id
-    from
-      gha_repos r,
-      gha_events e
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = e.id
-    where
-      r.name = e.dup_repo_name
-      and r.id = e.repo_id
-      and e.created_at >= '{{from}}'
-      and e.created_at < '{{to}}'
-      and (lower(e.dup_actor_login) {{exclude_bots}})
-  ) sub
-  where
-    sub.repo_group is not null
-) sub
+  metric
+union
+  select 'cs;' || metric || '_' || repo_group || '_All_All;evs,acts' as metric,
+  round(count(distinct id) / {{n}}, 2) as evs,
+  count(distinct author) as acts
+from
+  contributions_repo_group
 group by
-  sub.metric,
-  sub.repo_group
-union all select 'cs;' || sub.metric || '_All_' || sub.country || '_All;evs,acts' as metric,
-  round(count(distinct sub.id) / {{n}}, 2) as evs,
-  count(distinct sub.author) as acts
-from (
-  select case e.type
-      when 'PushEvent' then 'pushes'
-      when 'PullRequestReviewCommentEvent' then 'review_comments'
-      when 'PullRequestReviewEvent' then 'reviews'
-      when 'IssueCommentEvent' then 'issue_comments'
-      when 'CommitCommentEvent' then 'commit_comments'
-    end as metric,
-    a.country_name as country,
-    a.login as author,
-    e.id
-  from
-    gha_actors a,
-    gha_events e
-  where
-    (e.actor_id = a.id or e.dup_actor_login = a.login)
-    and e.type in (
-      'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
-      'IssueCommentEvent', 'CommitCommentEvent'
-    )
-    and e.created_at >= '{{from}}'
-    and e.created_at < '{{to}}'
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-  union all select 'contributions' as metric,
-    a.country_name as country,
-    a.login as author,
-    e.id
-  from
-    gha_actors a,
-    gha_events e
-  where
-    (e.actor_id = a.id or e.dup_actor_login = a.login)
-    and e.type in (
-      'PushEvent', 'PullRequestEvent', 'IssuesEvent', 'PullRequestReviewEvent',
-      'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent'
-    )
-    and e.created_at >= '{{from}}'
-    and e.created_at < '{{to}}'
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-  union all select 'comments' as metric,
-    a.country_name as country,
-    a.login as author,
-    c.id
-  from
-    gha_actors a,
-    gha_comments c
-  where
-    (c.user_id = a.id or c.dup_user_login = a.login)
-    and c.created_at >= '{{from}}'
-    and c.created_at < '{{to}}'
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-  union all select 'issues' as metric,
-    a.country_name as country,
-    a.login as author,
-    i.id
-  from
-    gha_actors a,
-    gha_issues i
-  where
-    (i.user_id = a.id or i.dup_user_login = a.login)
-    and i.created_at >= '{{from}}'
-    and i.created_at < '{{to}}'
-    and i.is_pull_request = false
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-  union all select 'prs' as metric,
-    a.country_name as country,
-    a.login as author,
-    pr.id as value
-  from
-    gha_actors a,
-    gha_issues pr
-  where
-    (pr.user_id = a.id or pr.dup_user_login = a.login)
-    and pr.created_at >= '{{from}}'
-    and pr.created_at < '{{to}}'
-    and pr.is_pull_request = true
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-  union all select 'merged_prs' as metric,
-    a.country_name as country,
-    a.login as author,
-    pr.id
-  from
-    gha_actors a,
-    gha_pull_requests pr
-  where
-    (pr.user_id = a.id or pr.dup_user_login = a.login)
-    and pr.merged_at is not null
-    and pr.merged_at >= '{{from}}'
-    and pr.merged_at < '{{to}}'
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-  union all select 'events' as metric,
-    a.country_name as country,
-    a.login as author,
-    e.id
-  from
-    gha_actors a,
-    gha_events e
-  where
-    (e.actor_id = a.id or e.dup_actor_login = a.login)
-    and e.created_at >= '{{from}}'
-    and e.created_at < '{{to}}'
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-  ) sub
+  metric,
+  repo_group
+union select 'cs;' || metric || '_All_' || country || '_All;evs,acts' as metric,
+  round(count(distinct id) / {{n}}, 2) as evs,
+  count(distinct author) as acts
+from
+  contributions_country_{{rnd}}
 group by
-  sub.metric,
-  sub.country
-union all select 'cs;' || sub.metric || '_'|| sub.repo_group || '_' || sub.country || '_All;evs,acts' as metric,
-  round(count(distinct sub.id) / {{n}}, 2) as evs,
-  count(distinct sub.author) as acts
-from (
-  select case sub.type
-      when 'PushEvent' then 'pushes'
-      when 'PullRequestReviewCommentEvent' then 'review_comments'
-      when 'PullRequestReviewEvent' then 'reviews'
-      when 'IssueCommentEvent' then 'issue_comments'
-      when 'CommitCommentEvent' then 'commit_comments'
-    end as metric,
-    sub.repo_group,
-    sub.country,
-    sub.author,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      e.type,
-      a.country_name as country,
-      a.login as author,
-      e.id
-    from
-      gha_actors a,
-      gha_repos r,
-      gha_events e
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = e.id
-    where
-      r.name = e.dup_repo_name
-      and r.id = e.repo_id
-      and (e.actor_id = a.id or e.dup_actor_login = a.login)
-      and e.type in (
-        'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
-        'IssueCommentEvent', 'CommitCommentEvent'
-      )
-      and e.created_at >= '{{from}}'
-      and e.created_at < '{{to}}'
-      and (lower(a.login) {{exclude_bots}})
-  ) sub
-  where
-    sub.repo_group is not null
-    and sub.country is not null
-  union all select 'contributions' as metric,
-    sub.repo_group,
-    sub.country,
-    sub.author,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      a.country_name as country,
-      a.login as author,
-      e.id
-    from
-      gha_actors a,
-      gha_repos r,
-      gha_events e
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = e.id
-    where
-      r.name = e.dup_repo_name
-      and r.id = e.repo_id
-      and (e.actor_id = a.id or e.dup_actor_login = a.login)
-      and e.type in (
-        'PushEvent', 'PullRequestEvent', 'IssuesEvent', 'PullRequestReviewEvent',
-        'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent'
-      )
-      and e.created_at >= '{{from}}'
-      and e.created_at < '{{to}}'
-      and (lower(a.login) {{exclude_bots}})
-  ) sub
-  where
-    sub.repo_group is not null
-    and sub.country is not null
-  union all select 'comments' as metric,
-    sub.repo_group,
-    sub.country,
-    sub.author,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      a.country_name as country,
-      a.login as author,
-      c.id
-    from
-      gha_actors a,
-      gha_repos r,
-      gha_comments c
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = c.event_id
-    where
-      c.dup_repo_name = r.name
-      and c.dup_repo_id = r.id
-      and (c.user_id = a.id or c.dup_user_login = a.login)
-      and c.created_at >= '{{from}}'
-      and c.created_at < '{{to}}'
-      and (lower(a.login) {{exclude_bots}})
-  ) sub
-  where
-    sub.repo_group is not null
-    and sub.country is not null
-  union all select case sub.is_pull_request
-      when true then 'prs'
-      else 'issues'
-    end as metric,
-    sub.repo_group,
-    sub.country,
-    sub.author,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      a.country_name as country,
-      a.login as author,
-      i.id,
-      i.is_pull_request
-    from
-      gha_actors a,
-      gha_repos r,
-      gha_issues i
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = i.event_id
-    where
-      i.dup_repo_name = r.name
-      and i.dup_repo_id = r.id
-      and (i.user_id = a.id or i.dup_user_login = a.login)
-      and i.created_at >= '{{from}}'
-      and i.created_at < '{{to}}'
-      and (lower(a.login) {{exclude_bots}})
-  ) sub
-  where
-    sub.repo_group is not null
-    and sub.country is not null
-  union all select 'merged_prs' as metric,
-    sub.repo_group,
-    sub.country,
-    sub.author,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      a.country_name as country,
-      a.login as author,
-      i.id
-    from
-      gha_actors a,
-      gha_repos r,
-      gha_pull_requests i
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = i.event_id
-    where
-      i.dup_repo_name = r.name
-      and i.merged_at is not null
-      and i.dup_repo_id = r.id
-      and (i.user_id = a.id or i.dup_user_login = a.login)
-      and i.merged_at >= '{{from}}'
-      and i.merged_at < '{{to}}'
-      and (lower(a.login) {{exclude_bots}})
-  ) sub
-  where
-    sub.repo_group is not null
-    and sub.country is not null
-  union all select 'events' as metric,
-    sub.repo_group,
-    sub.country,
-    sub.author,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      a.country_name as country,
-      a.login as author,
-      e.id
-    from
-      gha_actors a,
-      gha_repos r,
-      gha_events e
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = e.id
-    where
-      r.name = e.dup_repo_name
-      and r.id = e.repo_id
-      and (e.actor_id = a.id or e.dup_actor_login = a.login)
-      and e.created_at >= '{{from}}'
-      and e.created_at < '{{to}}'
-      and (lower(e.dup_actor_login) {{exclude_bots}})
-  ) sub
-  where
-    sub.repo_group is not null
-    and sub.country is not null
-  ) sub
+  metric,
+  country
+union select 'cs;' || metric || '_'|| repo_group || '_' || country || '_All;evs,acts' as metric,
+  round(count(distinct id) / {{n}}, 2) as evs,
+  count(distinct author) as acts
+from
+  contributions_repo_group_country_{{rnd}}
 group by
-  sub.metric,
-  sub.repo_group,
-  sub.country
-union all select 'cs;' || sub.metric || '_All_All_' || sub.company || ';evs,acts' as metric,
-  round(count(distinct sub.id) / {{n}}, 2) as evs,
-  count(distinct sub.author) as acts
-from (
-  select case e.type
-      when 'PushEvent' then 'pushes'
-      when 'PullRequestReviewCommentEvent' then 'review_comments'
-      when 'PullRequestReviewEvent' then 'reviews'
-      when 'IssueCommentEvent' then 'issue_comments'
-      when 'CommitCommentEvent' then 'commit_comments'
-    end as metric,
-    e.dup_actor_login as author,
-    aa.company_name as company,
-    e.id
-  from
-    gha_events e,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = e.actor_id
-    and aa.dt_from <= e.created_at
-    and aa.dt_to > e.created_at
-    and e.type in (
-      'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
-      'IssueCommentEvent', 'CommitCommentEvent'
-    )
-    and e.created_at >= '{{from}}'
-    and e.created_at < '{{to}}'
-    and (lower(e.dup_actor_login) {{exclude_bots}})
-    and aa.company_name in (select companies_name from tcompanies)
-  union all select 'contributions' as metric,
-    e.dup_actor_login as author,
-    aa.company_name as company,
-    e.id
-  from
-    gha_events e,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = e.actor_id
-    and aa.dt_from <= e.created_at
-    and aa.dt_to > e.created_at
-    and e.type in (
-      'PushEvent', 'PullRequestEvent', 'IssuesEvent', 'PullRequestReviewEvent',
-      'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent'
-    )
-    and e.created_at >= '{{from}}'
-    and e.created_at < '{{to}}'
-    and (lower(e.dup_actor_login) {{exclude_bots}})
-    and aa.company_name in (select companies_name from tcompanies)
-  union all select 'comments' as metric,
-    c.dup_user_login as author,
-    aa.company_name as company,
-    c.id
-  from
-    gha_comments c,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = c.user_id
-    and aa.dt_from <= c.created_at
-    and aa.dt_to > c.created_at
-    and c.created_at >= '{{from}}'
-    and c.created_at < '{{to}}'
-    and (lower(c.dup_user_login) {{exclude_bots}})
-    and aa.company_name in (select companies_name from tcompanies)
-  union all select 'issues' as metric,
-    i.dup_user_login as author,
-    aa.company_name as company,
-    i.id
-  from
-    gha_issues i,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = i.user_id
-    and aa.dt_from <= i.created_at
-    and aa.dt_to > i.created_at
-    and i.created_at >= '{{from}}'
-    and i.created_at < '{{to}}'
-    and i.is_pull_request = false
-    and (lower(i.dup_user_login) {{exclude_bots}})
-    and aa.company_name in (select companies_name from tcompanies)
-  union all select 'prs' as metric,
-    i.dup_user_login as author,
-    aa.company_name as company,
-    i.id
-  from
-    gha_issues i,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = i.user_id
-    and aa.dt_from <= i.created_at
-    and aa.dt_to > i.created_at
-    and i.created_at >= '{{from}}'
-    and i.created_at < '{{to}}'
-    and i.is_pull_request = true
-    and (lower(i.dup_user_login) {{exclude_bots}})
-    and aa.company_name in (select companies_name from tcompanies)
-  union all select 'merged_prs' as metric,
-    i.dup_user_login as author,
-    aa.company_name as company,
-    i.id
-  from
-    gha_pull_requests i,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = i.user_id
-    and i.merged_at is not null
-    and aa.dt_from <= i.merged_at
-    and aa.dt_to > i.merged_at
-    and i.merged_at >= '{{from}}'
-    and i.merged_at < '{{to}}'
-    and (lower(i.dup_user_login) {{exclude_bots}})
-    and aa.company_name in (select companies_name from tcompanies)
-  union all select 'events' as metric,
-    e.dup_actor_login as author,
-    aa.company_name as company,
-    e.id
-  from
-    gha_events e,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = e.actor_id
-    and aa.dt_from <= e.created_at
-    and aa.dt_to > e.created_at
-    and e.created_at >= '{{from}}'
-    and e.created_at < '{{to}}'
-    and (lower(e.dup_actor_login) {{exclude_bots}})
-    and aa.company_name in (select companies_name from tcompanies)
-  ) sub
+  metric,
+  repo_group,
+  country
+union select 'cs;' || metric || '_All_All_' || company || ';evs,acts' as metric,
+  round(count(distinct id) / {{n}}, 2) as evs,
+  count(distinct author) as acts
+from
+  contributions_company_{{rnd}}
 group by
-  sub.metric,
-  sub.company
-union all select 'cs;' || sub.metric || '_' || sub.repo_group || '_All_' || sub.company || ';evs,acts' as metric,
-  round(count(distinct sub.id) / {{n}}, 2) as evs,
-  count(distinct sub.author) as acts
-from (
-  select case sub.type
-      when 'PushEvent' then 'pushes'
-      when 'PullRequestReviewCommentEvent' then 'review_comments'
-      when 'PullRequestReviewEvent' then 'reviews'
-      when 'IssueCommentEvent' then 'issue_comments'
-      when 'CommitCommentEvent' then 'commit_comments'
-    end as metric,
-    sub.repo_group,
-    sub.author,
-    sub.company,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      e.type,
-      e.dup_actor_login as author,
-      aa.company_name as company,
-      e.id
-    from
-      gha_repos r,
-      gha_actors_affiliations aa,
-      gha_events e
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = e.id
-    where
-      aa.actor_id = e.actor_id
-      and aa.dt_from <= e.created_at
-      and aa.dt_to > e.created_at
-      and r.name = e.dup_repo_name
-      and r.id = e.repo_id
-      and e.type in (
-        'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
-        'IssueCommentEvent', 'CommitCommentEvent'
-      )
-      and e.created_at >= '{{from}}'
-      and e.created_at < '{{to}}'
-      and (lower(e.dup_actor_login) {{exclude_bots}})
-      and aa.company_name in (select companies_name from tcompanies)
-  ) sub
-  where
-    sub.repo_group is not null
-  union all select 'contributions' as metric,
-    sub.repo_group,
-    sub.author,
-    sub.company,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      e.dup_actor_login as author,
-      aa.company_name as company,
-      e.id
-    from
-      gha_repos r,
-      gha_actors_affiliations aa,
-      gha_events e
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = e.id
-    where
-      aa.actor_id = e.actor_id
-      and aa.dt_from <= e.created_at
-      and aa.dt_to > e.created_at
-      and r.name = e.dup_repo_name
-      and r.id = e.repo_id
-      and e.type in (
-        'PushEvent', 'PullRequestEvent', 'IssuesEvent', 'PullRequestReviewEvent',
-        'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent'
-      )
-      and e.created_at >= '{{from}}'
-      and e.created_at < '{{to}}'
-      and (lower(e.dup_actor_login) {{exclude_bots}})
-      and aa.company_name in (select companies_name from tcompanies)
-  ) sub
-  where
-    sub.repo_group is not null
-  union all select 'comments' as metric,
-    sub.repo_group,
-    sub.author,
-    sub.company,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      c.dup_user_login as author,
-      aa.company_name as company,
-      c.id
-    from
-      gha_repos r,
-      gha_actors_affiliations aa,
-      gha_comments c
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = c.event_id
-    where
-      aa.actor_id = c.user_id
-      and aa.dt_from <= c.created_at
-      and aa.dt_to > c.created_at
-      and c.dup_repo_name = r.name
-      and c.dup_repo_id = r.id
-      and c.created_at >= '{{from}}'
-      and c.created_at < '{{to}}'
-      and (lower(c.dup_user_login) {{exclude_bots}})
-      and aa.company_name in (select companies_name from tcompanies)
-  ) sub
-  where
-    sub.repo_group is not null
-  union all select case sub.is_pull_request
-      when true then 'prs'
-      else 'issues'
-    end as metric,
-    sub.repo_group,
-    sub.author,
-    sub.company,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      i.dup_user_login as author,
-      aa.company_name as company,
-      i.id,
-      i.is_pull_request
-    from
-      gha_repos r,
-      gha_actors_affiliations aa,
-      gha_issues i
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = i.event_id
-    where
-      aa.actor_id = i.user_id
-      and aa.dt_from <= i.created_at
-      and aa.dt_to > i.created_at
-      and i.dup_repo_name = r.name
-      and i.dup_repo_id = r.id
-      and i.created_at >= '{{from}}'
-      and i.created_at < '{{to}}'
-      and (lower(i.dup_user_login) {{exclude_bots}})
-      and aa.company_name in (select companies_name from tcompanies)
-  ) sub
-  where
-    sub.repo_group is not null
-  union all select 'merged_prs' as metric,
-    sub.repo_group,
-    sub.author,
-    sub.company,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      i.dup_user_login as author,
-      aa.company_name as company,
-      i.id
-    from
-      gha_repos r,
-      gha_actors_affiliations aa,
-      gha_pull_requests i
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = i.event_id
-    where
-      aa.actor_id = i.user_id
-      and aa.dt_from <= i.merged_at
-      and aa.dt_to > i.merged_at
-      and i.dup_repo_name = r.name
-      and i.merged_at is not null
-      and i.dup_repo_id = r.id
-      and i.merged_at >= '{{from}}'
-      and i.merged_at < '{{to}}'
-      and (lower(i.dup_user_login) {{exclude_bots}})
-      and aa.company_name in (select companies_name from tcompanies)
-  ) sub
-  where
-    sub.repo_group is not null
-  union all select 'events' as metric,
-    sub.repo_group,
-    sub.author,
-    sub.company,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      e.dup_actor_login as author,
-      aa.company_name as company,
-      e.id
-    from
-      gha_repos r,
-      gha_actors_affiliations aa,
-      gha_events e
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = e.id
-    where
-      aa.actor_id = e.actor_id
-      and aa.dt_from <= e.created_at
-      and aa.dt_to > e.created_at
-      and r.name = e.dup_repo_name
-      and r.id = e.repo_id
-      and e.created_at >= '{{from}}'
-      and e.created_at < '{{to}}'
-      and (lower(e.dup_actor_login) {{exclude_bots}})
-      and aa.company_name in (select companies_name from tcompanies)
-  ) sub
-  where
-    sub.repo_group is not null
-) sub
+  metric,
+  company
+union select 'cs;' || metric || '_' || repo_group || '_All_' || company || ';evs,acts' as metric,
+  round(count(distinct id) / {{n}}, 2) as evs,
+  count(distinct author) as acts
+from
+  contributions_repo_group_company
 group by
-  sub.metric,
-  sub.repo_group,
-  sub.company
-union all select 'cs;' || sub.metric || '_All_' || sub.country || '_' || sub.company || ';evs,acts' as metric,
-  round(count(distinct sub.id) / {{n}}, 2) as evs,
-  count(distinct sub.author) as acts
-from (
-  select case e.type
-      when 'PushEvent' then 'pushes'
-      when 'PullRequestReviewCommentEvent' then 'review_comments'
-      when 'PullRequestReviewEvent' then 'reviews'
-      when 'IssueCommentEvent' then 'issue_comments'
-      when 'CommitCommentEvent' then 'commit_comments'
-    end as metric,
-    a.country_name as country,
-    a.login as author,
-    aa.company_name as company,
-    e.id
-  from
-    gha_actors a,
-    gha_events e,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = e.actor_id
-    and aa.dt_from <= e.created_at
-    and aa.dt_to > e.created_at
-    and (e.actor_id = a.id or e.dup_actor_login = a.login)
-    and e.type in (
-      'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
-      'IssueCommentEvent', 'CommitCommentEvent'
-    )
-    and e.created_at >= '{{from}}'
-    and e.created_at < '{{to}}'
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-    and aa.company_name in (select companies_name from tcompanies)
-  union all select 'contributions' as metric,
-    a.country_name as country,
-    a.login as author,
-    aa.company_name as company,
-    e.id
-  from
-    gha_actors a,
-    gha_events e,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = e.actor_id
-    and aa.dt_from <= e.created_at
-    and aa.dt_to > e.created_at
-    and (e.actor_id = a.id or e.dup_actor_login = a.login)
-    and e.type in (
-      'PushEvent', 'PullRequestEvent', 'IssuesEvent', 'PullRequestReviewEvent',
-      'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent'
-    )
-    and e.created_at >= '{{from}}'
-    and e.created_at < '{{to}}'
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-    and aa.company_name in (select companies_name from tcompanies)
-  union all select 'comments' as metric,
-    a.country_name as country,
-    a.login as author,
-    aa.company_name as company,
-    c.id
-  from
-    gha_actors a,
-    gha_comments c,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = c.user_id
-    and aa.dt_from <= c.created_at
-    and aa.dt_to > c.created_at
-    and (c.user_id = a.id or c.dup_user_login = a.login)
-    and c.created_at >= '{{from}}'
-    and c.created_at < '{{to}}'
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-    and aa.company_name in (select companies_name from tcompanies)
-  union all select 'issues' as metric,
-    a.country_name as country,
-    a.login as author,
-    aa.company_name as company,
-    i.id
-  from
-    gha_actors a,
-    gha_issues i,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = i.user_id
-    and aa.dt_from <= i.created_at
-    and aa.dt_to > i.created_at
-    and (i.user_id = a.id or i.dup_user_login = a.login)
-    and i.created_at >= '{{from}}'
-    and i.created_at < '{{to}}'
-    and i.is_pull_request = false
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-    and aa.company_name in (select companies_name from tcompanies)
-  union all select 'prs' as metric,
-    a.country_name as country,
-    a.login as author,
-    aa.company_name as company,
-    pr.id
-  from
-    gha_actors a,
-    gha_issues pr,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = pr.user_id
-    and aa.dt_from <= pr.created_at
-    and aa.dt_to > pr.created_at
-    and (pr.user_id = a.id or pr.dup_user_login = a.login)
-    and pr.created_at >= '{{from}}'
-    and pr.created_at < '{{to}}'
-    and pr.is_pull_request = true
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-    and aa.company_name in (select companies_name from tcompanies)
-  union all select 'merged_prs' as metric,
-    a.country_name as country,
-    a.login as author,
-    aa.company_name as company,
-    pr.id
-  from
-    gha_actors a,
-    gha_pull_requests pr,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = pr.user_id
-    and aa.dt_from <= pr.merged_at
-    and aa.dt_to > pr.merged_at
-    and (pr.user_id = a.id or pr.dup_user_login = a.login)
-    and pr.merged_at is not null
-    and pr.merged_at >= '{{from}}'
-    and pr.merged_at < '{{to}}'
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-    and aa.company_name in (select companies_name from tcompanies)
-  union all select 'events' as metric,
-    a.country_name as country,
-    a.login as author,
-    aa.company_name as company,
-    e.id
-  from
-    gha_actors a,
-    gha_events e,
-    gha_actors_affiliations aa
-  where
-    aa.actor_id = e.actor_id
-    and aa.dt_from <= e.created_at
-    and aa.dt_to > e.created_at
-    and (e.actor_id = a.id or e.dup_actor_login = a.login)
-    and e.created_at >= '{{from}}'
-    and e.created_at < '{{to}}'
-    and (lower(a.login) {{exclude_bots}})
-    and a.country_name is not null
-    and aa.company_name in (select companies_name from tcompanies)
-  ) sub
+  metric,
+  repo_group,
+  company
+union select 'cs;' || metric || '_All_' || country || '_' || company || ';evs,acts' as metric,
+  round(count(distinct id) / {{n}}, 2) as evs,
+  count(distinct author) as acts
+from
+  contributions_country_company
 group by
-  sub.metric,
-  sub.country,
-  sub.company
-union all select 'cs;' || sub.metric || '_' || sub.repo_group || '_' || sub.country || '_' || sub.company || ';evs,acts' as metric,
-  round(count(distinct sub.id) / {{n}}, 2) as evs,
-  count(distinct sub.author) as acts
-from (
-  select case sub.type
-      when 'PushEvent' then 'pushes'
-      when 'PullRequestReviewCommentEvent' then 'review_comments'
-      when 'PullRequestReviewEvent' then 'reviews'
-      when 'IssueCommentEvent' then 'issue_comments'
-      when 'CommitCommentEvent' then 'commit_comments'
-    end as metric,
-    sub.repo_group,
-    sub.country,
-    sub.author,
-    sub.company,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      e.type,
-      a.country_name as country,
-      a.login as author,
-      aa.company_name as company,
-      e.id
-    from
-      gha_actors a,
-      gha_repos r,
-      gha_actors_affiliations aa,
-      gha_events e
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = e.id
-    where
-      aa.actor_id = e.actor_id
-      and aa.dt_from <= e.created_at
-      and aa.dt_to > e.created_at
-      and r.name = e.dup_repo_name
-      and r.id = e.repo_id
-      and (e.actor_id = a.id or e.dup_actor_login = a.login)
-      and e.type in (
-        'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
-        'IssueCommentEvent', 'CommitCommentEvent'
-      )
-      and e.created_at >= '{{from}}'
-      and e.created_at < '{{to}}'
-      and (lower(a.login) {{exclude_bots}})
-      and aa.company_name in (select companies_name from tcompanies)
-  ) sub
-  where
-    sub.repo_group is not null
-    and sub.country is not null
-  union all select 'contributions' as metric,
-    sub.repo_group,
-    sub.country,
-    sub.author,
-    sub.company,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      a.country_name as country,
-      a.login as author,
-      aa.company_name as company,
-      e.id
-    from
-      gha_actors a,
-      gha_repos r,
-      gha_actors_affiliations aa,
-      gha_events e
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = e.id
-    where
-      aa.actor_id = e.actor_id
-      and aa.dt_from <= e.created_at
-      and aa.dt_to > e.created_at
-      and r.name = e.dup_repo_name
-      and r.id = e.repo_id
-      and (e.actor_id = a.id or e.dup_actor_login = a.login)
-      and e.type in (
-        'PushEvent', 'PullRequestEvent', 'IssuesEvent', 'PullRequestReviewEvent',
-        'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent'
-      )
-      and e.created_at >= '{{from}}'
-      and e.created_at < '{{to}}'
-      and (lower(a.login) {{exclude_bots}})
-      and aa.company_name in (select companies_name from tcompanies)
-  ) sub
-  where
-    sub.repo_group is not null
-    and sub.country is not null
-  union all select 'comments' as metric,
-    sub.repo_group,
-    sub.country,
-    sub.author,
-    sub.company,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      a.country_name as country,
-      a.login as author,
-      aa.company_name as company,
-      c.id
-    from
-      gha_actors a,
-      gha_repos r,
-      gha_actors_affiliations aa,
-      gha_comments c
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = c.event_id
-    where
-      aa.actor_id = c.user_id
-      and aa.dt_from <= c.created_at
-      and aa.dt_to > c.created_at
-      and c.dup_repo_name = r.name
-      and c.dup_repo_id = r.id
-      and (c.user_id = a.id or c.dup_user_login = a.login)
-      and c.created_at >= '{{from}}'
-      and c.created_at < '{{to}}'
-      and (lower(a.login) {{exclude_bots}})
-      and aa.company_name in (select companies_name from tcompanies)
-  ) sub
-  where
-    sub.repo_group is not null
-    and sub.country is not null
-  union all select case sub.is_pull_request
-      when true then 'prs'
-      else 'issues'
-    end as metric,
-    sub.repo_group,
-    sub.country,
-    sub.author,
-    sub.company,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      a.country_name as country,
-      a.login as author,
-      aa.company_name as company,
-      i.id,
-      i.is_pull_request
-    from
-      gha_actors a,
-      gha_repos r,
-      gha_actors_affiliations aa,
-      gha_issues i
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = i.event_id
-    where
-      aa.actor_id = i.user_id
-      and aa.dt_from <= i.created_at
-      and aa.dt_to > i.created_at
-      and i.dup_repo_name = r.name
-      and i.dup_repo_id = r.id
-      and (i.user_id = a.id or i.dup_user_login = a.login)
-      and i.created_at >= '{{from}}'
-      and i.created_at < '{{to}}'
-      and (lower(a.login) {{exclude_bots}})
-      and aa.company_name in (select companies_name from tcompanies)
-  ) sub
-  where
-    sub.repo_group is not null
-    and sub.country is not null
-  union all select 'merged_prs' as metric,
-    sub.repo_group,
-    sub.country,
-    sub.author,
-    sub.company,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      a.country_name as country,
-      a.login as author,
-      aa.company_name as company,
-      i.id
-    from
-      gha_actors a,
-      gha_repos r,
-      gha_actors_affiliations aa,
-      gha_pull_requests i
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = i.event_id
-    where
-      aa.actor_id = i.user_id
-      and aa.dt_from <= i.merged_at
-      and aa.dt_to > i.merged_at
-      and i.dup_repo_name = r.name
-      and i.merged_at is not null
-      and i.dup_repo_id = r.id
-      and (i.user_id = a.id or i.dup_user_login = a.login)
-      and i.merged_at >= '{{from}}'
-      and i.merged_at < '{{to}}'
-      and (lower(a.login) {{exclude_bots}})
-      and aa.company_name in (select companies_name from tcompanies)
-  ) sub
-  where
-    sub.repo_group is not null
-    and sub.country is not null
-  union all select 'events' as metric,
-    sub.repo_group,
-    sub.country,
-    sub.author,
-    sub.company,
-    sub.id
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      a.country_name as country,
-      a.login as author,
-      aa.company_name as company,
-      e.id
-    from
-      gha_actors a,
-      gha_repos r,
-      gha_actors_affiliations aa,
-      gha_events e
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = e.id
-    where
-      aa.actor_id = e.actor_id
-      and aa.dt_from <= e.created_at
-      and aa.dt_to > e.created_at
-      and r.name = e.dup_repo_name
-      and r.id = e.repo_id
-      and (e.actor_id = a.id or e.dup_actor_login = a.login)
-      and e.created_at >= '{{from}}'
-      and e.created_at < '{{to}}'
-      and (lower(e.dup_actor_login) {{exclude_bots}})
-      and aa.company_name in (select companies_name from tcompanies)
-  ) sub
-  where
-    sub.repo_group is not null
-    and sub.country is not null
-  ) sub
+  metric,
+  country,
+  company
+union select 'cs;' || metric || '_' || repo_group || '_' || country || '_' || company || ';evs,acts' as metric,
+  round(count(distinct id) / {{n}}, 2) as evs,
+  count(distinct author) as acts
+from
+  contributions_repo_group_country_company
 group by
-  sub.metric,
-  sub.repo_group,
-  sub.country,
-  sub.company
+  metric,
+  repo_group,
+  country,
+  company
+;
 /*
 order by
   acts desc,
   evs desc
 */
-;
