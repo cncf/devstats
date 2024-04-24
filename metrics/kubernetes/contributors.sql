@@ -248,7 +248,7 @@ analyze contributions_company_{{rnd}};
 
 
 create temp table contributions_repo_group_country_{{rnd}} as (
-  select
+  select distinct
     c.metric,
     c.created_at,
     c.repo_id,
@@ -277,7 +277,7 @@ create index on contributions_repo_group_country_{{rnd}}(created_at);
 analyze contributions_repo_group_country_{{rnd}};
 
 with contributions_repo_group as (
-  select
+  select distinct
     c.metric,
     c.created_at,
     c.repo_id,
@@ -319,7 +319,7 @@ with contributions_repo_group as (
     and aa.dt_from <= c.created_at
     and aa.dt_to > c.created_at
 ), contributions_repo_group_company as (
-  select
+  select distinct
     c.metric,
     c.created_at,
     c.repo_id,
