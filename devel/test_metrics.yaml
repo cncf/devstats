@@ -66,23 +66,33 @@ metrics:
 #     merge_series: first_non_author_repos
 #     drop: sfirst_non_author_repos
 #     project: kubernetes
-  - name: Contributions chart
+#   - name: Contributions chart
+#     series_name_or_func: multi_row_multi_column
+#     sql: committers
+#     periods: d,w,m
+#     aggregate: 1,7
+#     skip: d,w7,m7
+#     merge_series: cs
+#     # drop: scs
+#     project: '!kubernetes'
+#     env:
+#       GHA2DB_NCPUS?: 8
+#   - name: Contributions chart
+#     series_name_or_func: multi_row_multi_column
+#     sqls: [reviewers, approvers, committers, contributors]
+#     periods: w,m
+#     merge_series: cs
+#     drop: scs
+#     project: kubernetes
+#     env:
+#       GHA2DB_NCPUS?@d7: 4
+#       GHA2DB_NCPUS?!d7: 10
+  - name: Contributions chart (repositories)
     series_name_or_func: multi_row_multi_column
-    sql: committers
-    periods: d,w,m
-    aggregate: 1,7
-    skip: d,w7,m7
-    merge_series: cs
-    # drop: scs
-    project: '!kubernetes'
-    env:
-      GHA2DB_NCPUS?: 8
-  - name: Contributions chart
-    series_name_or_func: multi_row_multi_column
-    sqls: [reviewers, approvers, committers, contributors]
+    sql: contributors_repos
     periods: w,m
-    merge_series: cs
-    drop: scs
+    merge_series: csr
+    # drop: scsr
     project: kubernetes
     env:
       GHA2DB_NCPUS?@d7: 4

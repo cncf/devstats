@@ -306,7 +306,7 @@ metrics:
     allow_fail: true
     project: '!kubernetes'
     env:
-      GHA2DB_NCPUS?: 8
+      GHA2DB_NCPUS?: 2
   - name: PRs mergers table
     histogram: true
     annotations_ranges: true

@@ -82,4 +82,4 @@ metrics:
     allow_fail: true
     project: '!kubernetes'
     env:
-      GHA2DB_NCPUS?: 8
+      GHA2DB_NCPUS?: 2
