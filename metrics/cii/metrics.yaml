@@ -143,16 +143,9 @@ metrics:
     series_name_or_func: multi_row_single_column
     histogram: true
     annotations_ranges: true
-    allow_fail: true
-    wait_after_fail: 600
     merge_series: hdev
     env:
-      GHA2DB_NCPUS?: 2
-  - name: Company PRs in repository groups
-    sql: company_prs
-    series_name_or_func: company_prs
-    histogram: true
-    annotations_ranges: true
+      GHA2DB_NCPUS?: 4
   - name: Repository comments
     series_name_or_func: multi_row_single_column
     sql: repo_comments
@@ -276,7 +269,7 @@ metrics:
     merge_series: countriescum
     drop: scountriescum
     env:
-      GHA2DB_NCPUS?: 4
+      GHA2DB_NCPUS?: 8
   - name: New contributors table
     series_name_or_func: multi_row_single_column
     sql: new_contributors_data
@@ -291,6 +284,11 @@ metrics:
     merge_series: company_commits_data
     periods: d
     drop: scompany_commits_data
+  - name: Company PRs in repository groups
+    sql: company_prs
+    series_name_or_func: company_prs
+    histogram: true
+    annotations_ranges: true
   - name: Documentation committers stats
     series_name_or_func: multi_row_multi_column
     sql: doc_committers
@@ -305,41 +303,16 @@ metrics:
     periods: w,m
     merge_series: cs
     drop: scs
+    allow_fail: true
     project: '!kubernetes'
     env:
-      GHA2DB_NCPUS?@d7: 4
-      GHA2DB_NCPUS?!d7: 10
-  - name: Company contribution counts in repository groups
+      GHA2DB_NCPUS?: 8
+  - name: PRs mergers table
     histogram: true
     annotations_ranges: true
     series_name_or_func: multi_row_single_column
-    sql: company_contribution_counts
-    merge_series: hcom_contrib
-  - name: Bus factor in repository groups
-    histogram: true
-    annotations_ranges: true
-    series_name_or_func: multi_row_single_column
-    sql: bus_factor
-    merge_series: hbf
-    allow_fail: true
-  - name: Projects health
-    series_name_or_func: multi_row_single_column
-    sql: projects_health
-    merge_series: projects_health
-    histogram: true
-    custom_data: true
-    periods: d
-    series_name_map:
-      graphqljavascript: graphqljs
-      graphqlide: graphiql
-      clouddeploymentkitforkubernetes: cdk8s
-      piraeusdatastore: piraeus
-      skooner: k8dash
-      foniod: ingraind
-      wasmedgeruntime: wasmedge
-      vscodekubernetestools: vscodek8stools
-      chubaofs: cubefs
-      gitopswg: opengitops
+    sql: hist_pr_mergers
+    merge_series: hpr_mergers
   - name: GitHub activity
     series_name_or_func: events_h
     sql: events
