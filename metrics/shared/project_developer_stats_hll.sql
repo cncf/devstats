@@ -81,7 +81,7 @@ with commits_data as (
     and {{period:cr.dup_created_at}}
     and (lower(cr.actor_login) {{exclude_bots}})
 )
-select 
+select
   'hdev_' || sub.metric || ',All_All' as metric,
   sub.author || '$$$' || sub.company as name,
   sub.value as value
