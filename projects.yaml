@@ -2533,7 +2533,7 @@ projects:
     command_line:
       - kairos-io
     start_date: 2021-07-30T00:00:00Z
-    join_date: 2024-04-16T00:00:00Z
+    join_date: 2024-04-13T00:00:00Z
     psql_db: kairos
     shared_db: allprj
     main_repo: kairos-io/kairos
