@@ -89,7 +89,7 @@ from (
   select 'commits' as metric,
     actor_login as author,
     company,
-    count(distinct sha) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_text(sha)))) as value
   from
     commits_data
   group by
@@ -104,7 +104,7 @@ from (
     end as metric,
     lower(e.dup_actor_login) as author,
     coalesce(aa.company_name, '') as company,
-    count(e.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
   from
     gha_events e
   left join
@@ -127,7 +127,7 @@ from (
   union select 'contributions' as metric,
     lower(e.dup_actor_login) as author,
     coalesce(aa.company_name, '') as company,
-    count(e.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
   from
     gha_events e
   left join
@@ -149,7 +149,7 @@ from (
   union select 'active_repos' as metric,
     lower(e.dup_actor_login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct e.repo_id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) as value
   from
     gha_events e
   left join
@@ -167,7 +167,7 @@ from (
   union select 'comments' as metric,
     lower(dup_user_login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(id)))) as value
   from
     gha_comments c
   left join
@@ -185,7 +185,7 @@ from (
   union select 'issues' as metric,
     lower(i.dup_user_login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct i.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as value
   from
     gha_issues i
   left join
@@ -204,7 +204,7 @@ from (
   union select 'prs' as metric,
     lower(i.dup_user_login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct i.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as value
   from
     gha_issues i
   left join
@@ -223,7 +223,7 @@ from (
   union select 'merged_prs' as metric,
     lower(i.dup_user_login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct i.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as value
   from
     gha_pull_requests i
   left join
@@ -242,7 +242,7 @@ from (
   union select 'events' as metric,
     lower(e.dup_actor_login) as author,
     coalesce(aa.company_name, '') as company,
-    count(e.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
   from
     gha_events e
   left join
@@ -283,7 +283,7 @@ from (
     repo_group,
     actor_login as author,
     company,
-    count(distinct sha) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_text(sha)))) as value
   from
     commits_data
   where
@@ -302,7 +302,7 @@ from (
     sub.repo_group,
     sub.author,
     sub.company,
-    count(distinct sub.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
   from (
     select r.repo_group as repo_group,
       e.type,
@@ -339,7 +339,7 @@ from (
     sub.repo_group,
     sub.author,
     sub.company,
-    count(distinct sub.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
   from (
     select r.repo_group as repo_group,
       lower(e.dup_actor_login) as author,
@@ -374,7 +374,7 @@ from (
     sub.repo_group,
     sub.author,
     sub.company,
-    count(distinct sub.repo_id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.repo_id)))) as value
   from (
     select r.repo_group as repo_group,
       lower(e.dup_actor_login) as author,
@@ -405,7 +405,7 @@ from (
     sub.repo_group,
     sub.author,
     sub.company,
-    count(distinct sub.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
   from (
     select r.repo_group as repo_group,
       lower(c.dup_user_login) as author,
@@ -439,7 +439,7 @@ from (
     sub.repo_group,
     sub.author,
     sub.company,
-    count(distinct sub.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
   from (
     select r.repo_group as repo_group,
       lower(i.dup_user_login) as author,
@@ -472,7 +472,7 @@ from (
     sub.repo_group,
     sub.author,
     sub.company,
-    count(distinct sub.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
   from (
     select r.repo_group as repo_group,
       lower(i.dup_user_login) as author,
@@ -504,7 +504,7 @@ from (
     sub.repo_group,
     sub.author,
     sub.company,
-    count(distinct sub.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
   from (
     select r.repo_group as repo_group,
       lower(e.dup_actor_login) as author,
@@ -557,7 +557,7 @@ from (
     a.country_name as country,
     a.login as author,
     c.company,
-    count(distinct c.sha) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_text(c.sha)))) as value
   from
     commits_data c,
     gha_actors a
@@ -578,7 +578,7 @@ from (
     a.country_name as country,
     lower(a.login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct e.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
   from
     gha_actors a,
     gha_events e
@@ -606,7 +606,7 @@ from (
     a.country_name as country,
     lower(a.login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct e.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
   from
     gha_actors a,
     gha_events e
@@ -633,7 +633,7 @@ from (
     a.country_name as country,
     lower(a.login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct e.repo_id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.repo_id)))) as value
   from
     gha_actors a,
     gha_events e
@@ -656,7 +656,7 @@ from (
     a.country_name as country,
     lower(a.login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct c.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(c.id)))) as value
   from
     gha_actors a,
     gha_comments c
@@ -679,7 +679,7 @@ from (
     a.country_name as country,
     lower(a.login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct i.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(i.id)))) as value
   from
     gha_actors a,
     gha_issues i
@@ -703,7 +703,7 @@ from (
     a.country_name as country,
     lower(a.login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct pr.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(pr.id)))) as value
   from
     gha_actors a,
     gha_issues pr
@@ -727,7 +727,7 @@ from (
     a.country_name as country,
     lower(a.login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct pr.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(pr.id)))) as value
   from
     gha_actors a,
     gha_pull_requests pr
@@ -751,7 +751,7 @@ from (
     a.country_name as country,
     lower(a.login) as author,
     coalesce(aa.company_name, '') as company,
-    count(distinct e.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as value
   from
     gha_actors a,
     gha_events e
@@ -797,7 +797,7 @@ from (
     a.country_name as country,
     a.login as author,
     c.company,
-    count(distinct c.sha) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_text(c.sha)))) as value
   from
     commits_data c,
     gha_actors a
@@ -821,7 +821,7 @@ from (
     sub.country,
     sub.author,
     sub.company,
-    count(distinct sub.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
   from (
     select r.repo_group as repo_group,
       e.type,
@@ -864,7 +864,7 @@ from (
     sub.country,
     sub.author,
     sub.company,
-    count(distinct sub.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
   from (
     select r.repo_group as repo_group,
       a.country_name as country,
@@ -905,7 +905,7 @@ from (
     sub.country,
     sub.author,
     sub.company,
-    count(distinct sub.repo_id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.repo_id)))) as value
   from (
     select r.repo_group as repo_group,
       a.country_name as country,
@@ -942,7 +942,7 @@ from (
     sub.country,
     sub.author,
     sub.company,
-    count(distinct sub.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
   from (
     select r.repo_group as repo_group,
       a.country_name as country,
@@ -982,7 +982,7 @@ from (
     sub.country,
     sub.author,
     sub.company,
-    count(distinct sub.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
   from (
     select r.repo_group as repo_group,
       a.country_name as country,
@@ -1021,7 +1021,7 @@ from (
     sub.country,
     sub.author,
     sub.company,
-    count(distinct sub.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
   from (
     select r.repo_group as repo_group,
       a.country_name as country,
@@ -1059,7 +1059,7 @@ from (
     sub.country,
     sub.author,
     sub.company,
-    count(distinct sub.id) as value
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(sub.id)))) as value
   from (
     select r.repo_group as repo_group,
       a.country_name as country,
