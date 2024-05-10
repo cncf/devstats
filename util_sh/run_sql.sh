@@ -14,4 +14,5 @@ if [ -z "$NODE" ]
 then
   export NODE=0
 fi
+# ./util_sh/runq.sh "${1}" ${@:2} > "${1}.runq" && kubectl exec -in devstats-prod "devstats-postgres-${NODE}" -- psql "${DB}" < "${1}.runq"
 runq.sh "${1}" ${@:2} > "${1}.runq" && kubectl exec -in devstats-prod "devstats-postgres-${NODE}" -- psql "${DB}" < "${1}.runq"
