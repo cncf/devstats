@@ -83,4 +83,4 @@ metrics:
     drop: scs
     project: '!kubernetes'
     env:
-      GHA2DB_NCPUS?: 8
+      GHA2DB_NCPUS?: 4
