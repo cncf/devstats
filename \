@@ -2019,11 +2019,7 @@ delete from gha_repo_groups;
 
 -- cncf/toc should be a separate entity
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, 'CNCF TOC', org_id, org_login from gha_repos where name = 'cncf/toc' on conflict do nothing;
-
--- copy from gha_repos
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, coalesce(repo_group, name), org_id, org_login from gha_repos on conflict do nothing;
-
--- create repo groups for github orgs
 -- insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, org_login, org_id, org_login from gha_repos where org_id is not null and org_login is not null and trim(org_login) != '' on conflict do nothing;
 
 -- Stats
