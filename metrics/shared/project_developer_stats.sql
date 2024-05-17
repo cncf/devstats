@@ -127,7 +127,7 @@ from (
   union select 'contributions' as metric,
     lower(e.dup_actor_login) as author,
     coalesce(aa.company_name, '') as company,
-    count(e.id) as value
+    count(distinct e.id) as value
   from
     gha_events e
   left join
