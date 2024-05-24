@@ -25,7 +25,7 @@ then
   ./devel/db.sh psql allprj -c "delete from gha_vars" || exit 3
   ./devel/db.sh psql allprj -c "delete from gha_computed" || exit 4
   GHA2DB_PROJECT=all PG_DB=allprj GHA2DB_LOCAL=1 vars || exit 5
-  GHA2DB_ENABLE_METRICS_DROP=1 GHA2DB_SKIP_METRICS="projects_health" GHA2DB_EXCLUDE_VARS="projects_health_partial_html" GHA2DB_PROJECT=all PG_DB=allprj GHA2DB_CMDDEBUG=1 GHA2DB_RESETTSDB=1 GHA2DB_RESET_ES_RAW=1 GHA2DB_LOCAL=1 GHA2DB_SKIP_VARS=1 gha2db_sync || exit 6
+  GHA2DB_ENABLE_METRICS_DROP=1 GHA2DB_SKIP_METRICS="projects_health" GHA2DB_EXCLUDE_VARS="projects_health_partial_html" GHA2DB_PROJECT=all PG_DB=allprj GHA2DB_CMDDEBUG=1 GHA2DB_RESETTSDB=1 GHA2DB_LOCAL=1 GHA2DB_SKIP_VARS=1 gha2db_sync || exit 6
   if [ ! -z "$HEALTH" ]
   then
     ./devel/add_all_annotations.sh || exit 7
@@ -43,7 +43,7 @@ else
   ./devel/db.sh psql allprj_temp -c "delete from gha_vars" || exit 14
   ./devel/db.sh psql allprj_temp -c "delete from gha_computed" || exit 15
   GHA2DB_PROJECT=all PG_DB=allprj_temp GHA2DB_LOCAL=1 vars || exit 16
-  GHA2DB_ENABLE_METRICS_DROP=1 GHA2DB_SKIP_METRICS="projects_health" GHA2DB_EXCLUDE_VARS="projects_health_partial_html" GHA2DB_PROJECT=all PG_DB=allprj_temp GHA2DB_CMDDEBUG=1 GHA2DB_RESETTSDB=1 GHA2DB_RESET_ES_RAW=1 GHA2DB_LOCAL=1 GHA2DB_SKIP_VARS=1 gha2db_sync || exit 17
+  GHA2DB_ENABLE_METRICS_DROP=1 GHA2DB_SKIP_METRICS="projects_health" GHA2DB_EXCLUDE_VARS="projects_health_partial_html" GHA2DB_PROJECT=all PG_DB=allprj_temp GHA2DB_CMDDEBUG=1 GHA2DB_RESETTSDB=1 GHA2DB_LOCAL=1 GHA2DB_SKIP_VARS=1 gha2db_sync || exit 17
   # HEALTH=1 unsupported in temp database mode
   ./devel/drop_psql_db.sh allprj || exit 18
   ./devel/db.sh psql postgres -c "select pg_terminate_backend(pid) from pg_stat_activity where datname = 'allprj_temp'" || exit 19
