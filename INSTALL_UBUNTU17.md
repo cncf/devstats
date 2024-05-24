@@ -20,7 +20,6 @@ Prerequisites:
     - [errcheck](https://github.com/kisielk/errcheck): `go get github.com/kisielk/errcheck`
     - [cors](https://github.com/rs/cors): `go get -u github.com/rs/cors`
     - [jsoniter](https://github.com/json-iterator/go): `go get -u github.com/json-iterator/go`
-    - If you want to use ElasticSearch output: [elastic](https://github.com/olivere/elastic): `go get -u github.com/olivere/elastic`.
     - Go Postgres client: install with: `go get github.com/lib/pq`
     - Go unicode text transform tools: install with: `go get golang.org/x/text/transform` and `go get golang.org/x/text/unicode/norm`
     - Go YAML parser library: install with: `go get gopkg.in/yaml.v2`

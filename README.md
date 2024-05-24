@@ -18,7 +18,7 @@ Please see [example Helm chart](https://github.com/cncf/devstats-helm-example) f
 
 Please see [Helm chart](https://github.com/cncf/devstats-helm) for a full Helm deployment.
 
-Please see [LF Helm chart](https://github.com/cncf/devstats-helm-lf) for the LF Helm deployment (it is a data deployment, has no Grafana, and uses ElasticSearch in addition to Postgres to store data).
+Please see [LF Helm chart](https://github.com/cncf/devstats-helm-lf) for the LF Helm deployment (it is a data deployment, has no Grafana).
 
 Please see [GraphQL Helm chart](https://github.com/cncf/devstats-helm-graphql) for GraphQL foundation DevStats deployment.
 
