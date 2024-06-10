@@ -307,7 +307,7 @@ metrics:
     drop: scs
     project: '!kubernetes'
     env:
-      GHA2DB_NCPUS?: 4
+      GHA2DB_NCPUS?: 3
   - name: PRs mergers table
     histogram: true
     annotations_ranges: true
