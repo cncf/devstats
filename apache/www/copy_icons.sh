@@ -51,6 +51,12 @@ do
   then
     icon="cncf-distribution"
   fi
+  if [ "$icon" = "connect" ]
+  then
+    icon="connect-rpc"
+    mid=''
+    dash=''
+  fi
   if [ "$icon" = "wasmedge" ]
   then
     icon="wasm-edge-runtime"
@@ -104,7 +110,7 @@ do
     icon="krkn"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "connect" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
