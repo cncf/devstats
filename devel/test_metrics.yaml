@@ -107,15 +107,27 @@ metrics:
 #     project: '!kubernetes'
 #     env:
 #       GHA2DB_NCPUS?: 2
-  - name: Companies summary
-    sqls: [project_company_stats, doc_committers_hist]
-    series_name_or_func: multi_row_single_column
+#   - name: Companies summary
+#     sqls: [project_company_stats, doc_committers_hist]
+#     series_name_or_func: multi_row_single_column
+#     histogram: true
+#     annotations_ranges: true
+#     merge_series: hcom
+#   - name: Developer summary
+#     sql: project_developer_stats
+#     series_name_or_func: multi_row_single_column
+#     histogram: true
+#     annotations_ranges: true
+#     merge_series: hdev
+  - name: Company PRs in repository groups
+    sql: company_prs
+    series_name_or_func: company_prs
     histogram: true
     annotations_ranges: true
-    merge_series: hcom
-  - name: Developer summary
-    sql: project_developer_stats
-    series_name_or_func: multi_row_single_column
+    project: kubernetes
+  - name: Company PRs in repositories
+    sql: company_prs_repos
+    series_name_or_func: company_prs_repos
     histogram: true
     annotations_ranges: true
-    merge_series: hdev
+    project: kubernetes
