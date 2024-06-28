@@ -6,7 +6,7 @@ from (
   from
     gha_texts
   where
-    created_at >= now() - '10 years'::interval
+    created_at >= now() - '100 years'::interval
   union select
     distinct lower(substring(sub.dup_label_name from '(?i)sig/(.*)')) as sig
   from (

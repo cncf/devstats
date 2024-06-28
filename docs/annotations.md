@@ -30,7 +30,7 @@ gha=# select * from sannotations ;
 ```
 - `quick_ranges` this series contain data between proceeding annotations. For example if you have annotations for v1.0 = 2014-01-01, v2.0 = 2015-01-01 and v3.0 = 2016-01-01, it will create ranges: `v1.0 - v2.0` (2014-01-01 - 2015-01-01), `v2.0 - v3.0` (2015-01-01 - 2016-01-01), `v3.0 - now` (2016-01-01 - now).
 - So if you have 10 annotations it will create `a_0_1`, `a_1_2`, `a_2_3`, .., `a_8_9`, `a_9_n`.
-- It will also create special periods: last day, last week, last month, last quarter, last 6 months, last year, last 10 days, last decade (10 years).
+- It will also create special periods: last day, last week, last month, last quarter, last 6 months, last year, last 10 days, last decade (10 years), last century (100 years).
 - Some of those period have fixed length, not changing in time (all of then not ending now - past ones), those periods will only be calculated once and special marker will be set in the `gha_computed` table to avoid calculating them multiple times.
 - This flag (skip past calculation) is the default flag, unless we're full regenerating data, search for `ctx.ResetTSDB` [here](https://github.com/cncf/devstats/blob/master/cmd/gha2db_sync/gha2db_sync.go).
 - Example quick ranges (for Kubernetes):
@@ -49,6 +49,7 @@ gha=# select * from tquick_ranges ;
 2014-01-01 05:00:00 | y3;3 years;;                                     | y3                  | Last 3 years
 2014-01-01 05:00:00 | y5;5 years;;                                     | y5                  | Last 5 years
 2014-01-01 06:00:00 | y10;10 years;;                                   | y10                 | Last decade
+2014-01-01 07:00:00 | y100;100 years;;                                 | y100                | Last century
 2014-01-02 03:00:00 | a_20_21;;2015-07-11 04:02:31;2015-09-25 23:41:40 | a_20_21             | v1.0.0 - v1.1.0
 2014-01-02 04:00:00 | a_21_22;;2015-09-25 23:41:40;2016-03-16 22:01:03 | a_21_22             | v1.1.0 - v1.2.0
 2014-01-02 05:00:00 | a_22_23;;2016-03-16 22:01:03;2016-07-01 19:19:06 | a_22_23             | v1.2.0 - v1.3.0
