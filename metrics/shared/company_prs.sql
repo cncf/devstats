@@ -7,16 +7,22 @@ from (
     aa.company_name as company,
     a.login as github_id,
     coalesce(a.country_name, '-') as country,
-    coalesce(string_agg(distinct an.name, ', '), '-') as author_names,
-    coalesce(string_agg(distinct ae.email, ', '), '-') as author_emails,
+    coalesce(string_agg(distinct coalesce(an.name, '-'), ', '), '-') as author_names,
+    coalesce(string_agg(distinct coalesce(ae.email, '-'), ', '), '-') as author_emails,
     count(distinct pr.id) as PRs
   from
     gha_pull_requests pr,
     gha_actors_affiliations aa,
     gha_repo_groups r,
-    gha_actors a,
-    gha_actors_names an,
+    gha_actors a
+  left join
+    gha_actors_names an
+  on
+    an.actor_id = a.id
+  left join
     gha_actors_emails ae
+  on
+    ae.actor_id = a.id
   where
     aa.actor_id = pr.user_id
     and an.actor_id = a.id
