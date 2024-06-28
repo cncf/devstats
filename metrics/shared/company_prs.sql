@@ -25,8 +25,6 @@ from (
     ae.actor_id = a.id
   where
     aa.actor_id = pr.user_id
-    and an.actor_id = a.id
-    and ae.actor_id = a.id
     and aa.actor_id = a.id
     and aa.dt_from <= pr.created_at
     and aa.dt_to > pr.created_at
