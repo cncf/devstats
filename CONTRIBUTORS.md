@@ -1,4 +1,4 @@
-# Conntributors repors
+# Contributors reports
 
 Make sure to apply Format -> Number -> Plain text to all data.
 
