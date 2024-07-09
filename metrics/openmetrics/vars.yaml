@@ -5,10 +5,10 @@ vars:
     command: [hostname]
   - name: full_name
     type: s
-    value: OpenMetrics
+    value: Prometheus # OpenMetrics
   - name: lower_name
     type: s
-    value: openmetrics
+    value: prometheus # openmetrics
   - name: projects_partial_html
     type: s
     command:

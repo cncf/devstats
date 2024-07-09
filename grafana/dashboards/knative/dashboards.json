@@ -485,16 +485,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "OpenMetrics",
-      "tooltip": "Opens OpenMetrics projects dashboards",
-      "type": "link",
-      "url": "https://openmetrics.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Kyverno",
       "tooltip": "Opens Kyverno projects dashboards",
       "type": "link",
@@ -939,16 +929,6 @@
       "tooltip": "Opens Kube-OVN projects dashboards",
       "type": "link",
       "url": "https://kubeovn.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Curiefense",
-      "tooltip": "Opens Curiefense projects dashboards",
-      "type": "link",
-      "url": "https://curiefense.[[hostname]]"
     },
     {
       "icon": "dashboard",
