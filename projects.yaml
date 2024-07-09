@@ -38,7 +38,7 @@ projects:
     name: Prometheus
     status: Graduated
     command_line:
-      - prometheus
+      - 'prometheus,OpenObservability,OpenMetrics,openmetrics'
     start_date: 2014-01-06T00:00:00Z
     join_date: 2016-05-09T00:00:00Z
     graduated_date: 2018-08-09T00:00:00Z
@@ -360,12 +360,13 @@ projects:
   openmetrics:
     order: 24
     name: OpenMetrics
-    status: Incubating
+    status: Archived # Merged into Prometheus
     command_line:
       - "OpenObservability,OpenMetrics,openmetrics"
     start_date: 2017-06-22T00:00:00Z
     join_date: 2018-08-10T00:00:00Z
     incubating_date: 2022-02-03T00:00:00Z
+    archived_date: 2024-07-08T00:00:00Z
     psql_db: openmetrics
     shared_db: allprj
     main_repo: OpenObservability/OpenMetrics
@@ -1209,11 +1210,12 @@ projects:
   curiefense:
     order: 85
     name: Curiefense
-    status: Sandbox
+    status: Archived
     command_line:
       - 'curiefense'
     start_date: 2020-02-06T00:00:00Z
     join_date: 2021-01-26T00:00:00Z
+    archived_date: 2024-07-08T00:00:00Z
     psql_db: curiefense
     shared_db: allprj
     main_repo: 'curiefense/curiefense'
@@ -2781,12 +2783,12 @@ projects:
          kubernetes-providers,kubernetes-addons,kubernetes-retired,kubernetes-sigs,\
          kubernetes-extensions,kubernetes-federation,kubernetes-security,crossplaneio,\
          kubernetes-sidecars,kubernetes-tools,kubernetes-test,kubernetes-charts,xline-kv,\
-         prometheus,opentracing,fluent,linkerd,grpc,coredns,containerd,rkt,notaryproject,\
+         prometheus,opentracing,fluent,linkerd,grpc,coredns,containerd,notaryproject,\
          containernetworking,envoyproxy,jaegertracing,theupdateframework,crossplane-contrib,\
          rook,cncf,crosscloudci,vitessio,nats-io,open-policy-agent,spiffe,headlamp-k8s,\
          cloudevents,telepresenceio,helm,kubernetes-csi,goharbor,tikv,etcd-io,hwameistor,\
          OpenObservability,cortexproject,buildpacks,falcosecurity,dragonflyoss,microcks,\
-         virtual-kubelet,kubeedge,brigadecore,cri-o,networkservicemesh,openebs,kubeclipper,\
+         virtual-kubelet,kubeedge,brigadecore,cri-o,networkservicemesh,kubeclipper,\
          open-telemetry,thanos-io,fluxcd,in-toto,strimzi,kubevirt,cdfoundation,kubeflow,\
          longhorn,chubaofs,cubefs,kedacore,servicemeshinterface,argoproj,volcano-sh,\
          cni-genie,keptn,kudobuilder,cloud-custodian,dexidp,litmuschaos,artifacthub,\
@@ -2794,14 +2796,14 @@ projects:
          chaos-mesh,serverlessworkflow,tremor-rs,metal3-io,openservicemesh,keylime,\
          Kong/kumacut,Kong/docker-kuma,getporter,schemahero,openkruise,openyurtio,\
          tinkerbell,pravega,kyverno,cert-manager,cdk8s-team,k8up-io,kube-rs,devfile,\
-         k3s-io,gitops-working-group,piraeusdatastore,skooner-k8s,AthenZ,curiefense,\
-         distribution,kubeovn,foniod,k8gb-io,trickstercache,emissary-ingress,\
+         k3s-io,gitops-working-group,piraeusdatastore,skooner-k8s,AthenZ,\
+         distribution,kubeovn,k8gb-io,trickstercache,emissary-ingress,\
          backstage,kuberhealthy,WasmEdge,chaosblade-io,v6d-io,antrea-io,pixie-io,\
          fluid-cloudnative,submariner-io,argoproj-labs,kube-vip,kubedl-io,keycloak,\
          oras-project,krustlet,wasmCloud,project-akri,metallb,karmada-io,clusternet,\
          inclavare-containers,superedge,cilium,dapr,openelb,kubescape,inspektor-gadget,\
          open-cluster-management-io,vscode-kubernetes-tools,nocalhost,kubearmor,\
-         meshery,service-mesh-performance,knative,knative-sandbox,FabEdge,krator-rs,\
+         meshery,service-mesh-performance,knative,knative-sandbox,FabEdge,\
          confidential-containers,tellerops,cncf/tag-app-delivery,knative-extensions,\
          SpectralOps/setup-teller-action,OpenFunction,sealerio,clusterpedia-io,\
          aeraki-mesh,opencurve,open-feature,kubewarden,devstream-io,kubevela,\
