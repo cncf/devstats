@@ -69,6 +69,10 @@ do
   then
     icon="fonio"
   fi
+  if [ "$icon" = "openmetrics" ]
+  then
+    icon="prometheus"
+  fi
   if [ "$icon" = "inclavarecontainers" ]
   then
     icon="inclavare"
@@ -126,7 +130,7 @@ do
   if ( [ "$path" = "devstats" ] || [ "$path" = "cncf" ] || [ "$path" = "gitopswg" ] )
   then
     path="other/$icon"
-  elif ( [ "$icon" = "rkt" ] || [ "$icon" = "brigade" ] || [ "$icon" = "opentracing" ] || [ "$icon" = "openservicemesh" ] || [ "$icon" = "servicemeshinterface" ] )
+  elif ( [ "$icon" = "rkt" ] || [ "$icon" = "brigade" ] || [ "$icon" = "opentracing" ] || [ "$icon" = "openservicemesh" ] || [ "$icon" = "servicemeshinterface" ] || [ $icon" = "curiefense" ] || [ $icon" = "krator" ] || [ $icon" = "fonio" ] || [ $icon" = "openebs" ] )
   then
     path="archived/$icon"
   elif [ "$iconorg" = "cncf" ]
