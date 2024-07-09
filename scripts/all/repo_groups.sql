@@ -258,11 +258,11 @@ where
   or name in ('kubernetes/helm', 'kubernetes/deployment-manager', 'kubernetes/charts', 'kubernetes/application-dm-templates')
 ;
 
--- OpenMetrics
+-- OpenMetrics merged to Prometheus
 update
   gha_repos
 set
-  repo_group = 'OpenMetrics'
+  repo_group = 'Prometheus'
 where
   org_login in ('OpenObservability', 'OpenMetrics', 'openmetrics')
   or name in ('RichiH/OpenMetrics')
