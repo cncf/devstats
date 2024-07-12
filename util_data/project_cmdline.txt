@@ -6,9 +6,12 @@ argo,argoproj,argoproj-labs
 armada,armadaproject,G-Research/armada
 artifacthub,artifacthub,cncf/hub
 athenz,regexp:(?i)^(AthenZ\/.*|yahoo\/.*athenz.*)$
+atlantis,runatlantis,atlantisnorth/atlantis
 azf,Azure/Azure-Functions,Azure/azure-functions-host,Azure/azure-webjobs-sdk,Azure/azure-webjobs-sdk-extensions,Azure/azure-functions-durable-extension,Azure/azure-functions-durable-js,Azure/azure-functions-core-tools,Azure/azure-functions-nodejs-worker,Azure/azure-functions-java-worker,Azure/azure-functions-python-worker,Azure/azure-functions-ux,Azure/azure-functions-templates,Azure/azure-webjobs-sdk-script-samples,Azure/azure-functions-vs-build-sdk,Azure/azure-webjobs-sdk-script,Azure/azure-webjobs-sdk-templates,Azure/azure-functions-cli,projectkudu/AzureFunctions,projectkudu/WebJobsPortal,projectkudu/AzureFunctionsPortal,projectkudu/azure-functions-ux
 backstage,backstage,spotify/backstage
+bankvaults,bank-vaults,banzaicloud/bank-vaults,banzaicloud/vault-dogsbody
 bfe,bfenetworks,baidu/bfe
+bpfman,bpfman,bpfd-dev,redhat-et/bpfd
 brigade,brigadecore,Azure/brigade
 buildpacks,buildpack,buildpacks,buildpacks-community
 capsule,regexp:(?i)^(clastix\/.*capsule.*|projectcapsule\/.*)$
@@ -107,6 +110,7 @@ kpt,regexp:(?i)^(kptdev\/.*|GoogleContainerTools\/.*kpt.*)$
 krator,krator-rs
 krknchaos,krkn-chaos,redhat-chaos,chaos-kubox,cloud-bulldozer/krkn,cloud-bulldozer/kraken,openshift-scale/kraken
 krustlet,deislabs/krustlet,krustlet
+kuadrant,Kuadrant,3scale-labs/authorino
 kuasar,kuasar-io
 kubean,kubean-io
 kubearmor,kubearmor,accuknox/KubeArmor
@@ -158,6 +162,7 @@ openelb,openelb,kubesphere/openelb,kubesphere/porterlb,kubesphere/porter
 openfaas,openfaas,open-faas,stefanprodan/caddy-builder,alexellis/faas,alexellis/faas-cli,alexellis/java-afterburn,alexellis/faas-netes,alexellis/caddy-builder,alexellis/openfaas-workshop,alexellis/derek,alexellis/java-openfaas-fast-fork,alexellis/openfaas-cloud,alexellis/faas-nats,alexellis/serverless-faas,alexellis/faas-provider,alexellis/nodejs-afterburn
 openfeature,open-feature,openfeatureflags
 openfga,openfga
+opengemini,openGemini
 openfunction,OpenFunction
 openkruise,openkruise,kruiseio
 openmetrics,OpenObservability,OpenMetrics,openmetrics,RichiH/OpenMetrics
@@ -189,6 +194,7 @@ rkt,rkt
 rook,rook
 sam,awslabs/aws-sam-cli,awslabs/serverless-application-model,awslabs/aws-sam-local
 schemahero,schemahero
+score,score-spec
 screwdrivercd,screwdriver-cd
 sealer,sealerio,alibaba/sealer
 serverlessdevs,Serverless-Devs,ServerlessTool
@@ -202,6 +208,7 @@ spiderpool,spidernet-io
 spiffe,spiffe
 spinnaker,spinnaker
 spire,regexp:(?i)^(spiffe\/spire.*)$
+stacker,project-stacker,anuvu/stacker
 strimzi,strimzi,EnMasseProject/barnabas,ppatierno/barnabas,ppatierno/kaas
 submariner,submariner-io,rancher/submariner
 superedge,superedge
@@ -212,6 +219,7 @@ thanos,thanos-io,improbable-eng/promlts,improbable-eng/thanos
 tikv,pingcap/tikv,tikv
 tinkerbell,tinkerbell,packethost/tinkerbell
 tremor,wayfair-tremor,tremor-rs
+trestlegrc,oscal-compass,IBM/compliance-trestle
 trickster,tricksterproxy,trickstercache,Comcast/trickster
 tuf,theupdateframework
 tungstenfabric,tungstenfabric
