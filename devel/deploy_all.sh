@@ -670,6 +670,30 @@ do
   elif [ "$proj" = "radius" ]
   then
     PROJ=radius              PROJDB=radius         PROJREPO="radius-project/radius"           ORGNAME=Radius            PORT=3264 ICON=radius         GRAFSUFF=radius         GA="-" ./devel/deploy_proj.sh               || exit 189
+  elif [ "$proj" = "bankvaults" ]
+  then
+    PROJ=bankvaults          PROJDB=bankvaults     PROJREPO="bank-vaults/bank-vaults"         ORGNAME='Bank-Vaults'     PORT=3265 ICON=bankvaults     GRAFSUFF=bankvaults     GA="-" ./devel/deploy_proj.sh               || exit 190
+  elif [ "$proj" = "atlantis" ]
+  then
+    PROJ=atlantis            PROJDB=atlantis       PROJREPO="runatlantis/atlantis"            ORGNAME=Atlantis          PORT=3266 ICON=atlantis       GRAFSUFF=atlantis       GA="-" ./devel/deploy_proj.sh               || exit 191
+  elif [ "$proj" = "stacker" ]
+  then
+    PROJ=stacker             PROJDB=stacker        PROJREPO="project-stacker/stacker"         ORGNAME=Stacker           PORT=3267 ICON=stacker        GRAFSUFF=stacker        GA="-" ./devel/deploy_proj.sh               || exit 192
+  elif [ "$proj" = "trestlegrc" ]
+  then
+    PROJ=trestlegrc          PROJDB=trestlegrc     PROJREPO="oscal-compass/compliance-trestle" ORGNAME=TrestleGRC       PORT=3268 ICON=trestlegrc     GRAFSUFF=trestlegrc     GA="-" ./devel/deploy_proj.sh               || exit 193
+  elif [ "$proj" = "kuadrant" ]
+  then
+    PROJ=kuadrant            PROJDB=kuadrant       PROJREPO="Kuadrant/authorino"              ORGNAME=Kuadrant          PORT=3269 ICON=kuadrant       GRAFSUFF=kuadrant       GA="-" ./devel/deploy_proj.sh               || exit 194
+  elif [ "$proj" = "opengemini" ]
+  then
+    PROJ=opengemini          PROJDB=opengemini     PROJREPO="openGemini/openGemini"           ORGNAME=openGemini        PORT=3270 ICON=opengemini     GRAFSUFF=opengemini     GA="-" ./devel/deploy_proj.sh               || exit 195
+  elif [ "$proj" = "score" ]
+  then
+    PROJ=score               PROJDB=score          PROJREPO="score-spec/score-go"             ORGNAME=Score             PORT=3271 ICON=score          GRAFSUFF=score          GA="-" ./devel/deploy_proj.sh               || exit 196
+  elif [ "$proj" = "bpfman" ]
+  then
+    PROJ=bpfman              PROJDB=bpfman         PROJREPO="bpfman/bpfman"                   ORGNAME=bpfman            PORT=3272 ICON=bpfman         GRAFSUFF=bpfman         GA="-" ./devel/deploy_proj.sh               || exit 197
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="UA-108085315-19" ./devel/deploy_proj.sh || exit 32
