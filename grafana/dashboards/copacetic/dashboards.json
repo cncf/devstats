@@ -1863,6 +1863,86 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Bank-Vaults",
+      "tooltip": "Opens Bank-Vaults projects dashboards",
+      "type": "link",
+      "url": "https://bankvaults.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Atlantis",
+      "tooltip": "Opens Atlantis projects dashboards",
+      "type": "link",
+      "url": "https://atlantis.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Stacker",
+      "tooltip": "Opens Stacker projects dashboards",
+      "type": "link",
+      "url": "https://stacker.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "TrestleGRC",
+      "tooltip": "Opens TrestleGRC projects dashboards",
+      "type": "link",
+      "url": "https://trestlegrc.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kuadrant",
+      "tooltip": "Opens Kuadrant projects dashboards",
+      "type": "link",
+      "url": "https://kuadrant.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "openGemini",
+      "tooltip": "Opens openGemini projects dashboards",
+      "type": "link",
+      "url": "https://opengemini.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Score",
+      "tooltip": "Opens Score projects dashboards",
+      "type": "link",
+      "url": "https://score.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "bpfman",
+      "tooltip": "Opens bpfman projects dashboards",
+      "type": "link",
+      "url": "https://bpfman.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
