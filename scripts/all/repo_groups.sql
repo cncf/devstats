@@ -1962,6 +1962,87 @@ where
   org_login in ('radius-project')
 ;
 
+-- Bank-Vaults
+update
+  gha_repos
+set
+  repo_group = 'Bank-Vaults'
+where
+  org_login in ('bank-vaults')
+  or name in (
+    'banzaicloud/bank-vaults',
+    'banzaicloud/vault-dogsbody'
+  )
+;
+
+-- Atlantis
+update
+  gha_repos
+set
+  repo_group = 'Atlantis'
+where
+  org_login in ('runatlantis')
+  or name in ('atlantisnorth/atlantis')
+;
+
+-- Stacker
+update
+  gha_repos
+set
+  repo_group = 'Stacker'
+where
+  org_login in ('project-stacker')
+  or name in ('anuvu/stacker')
+;
+
+-- TrestleGRC
+update
+  gha_repos
+set
+  repo_group = 'TrestleGRC'
+where
+  org_login in ('oscal-compass')
+  or name in ('IBM/compliance-trestle')
+;
+
+-- Kuadrant
+update
+  gha_repos
+set
+  repo_group = 'Kuadrant'
+where
+  org_login in ('Kuadrant')
+  or name in ('3scale-labs/authorino')
+;
+
+-- openGemini
+update
+  gha_repos
+set
+  repo_group = 'openGemini'
+where
+  org_login in ('openGemini')
+;
+
+-- Score
+update
+  gha_repos
+set
+  repo_group = 'Score'
+where
+  org_login in ('score-spec')
+;
+
+-- bpfman
+update
+  gha_repos
+set
+  repo_group = 'bpfman'
+where
+  org_login in ('bpfman', 'bpfd-dev')
+  or name in ('redhat-et/bpfd')
+;
+
 -- CNCF
 update
   gha_repos
