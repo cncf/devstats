@@ -7,6 +7,9 @@ select
   min(created_at) as date_from,
   max(created_at) as date_to
 from
+  [githubarchive:month.202406],
+  [githubarchive:month.202405],
+  [githubarchive:month.202404],
   [githubarchive:month.202403],
   [githubarchive:month.202402],
   [githubarchive:month.202401],
@@ -25,6 +28,9 @@ where
     select
       org.id
     from
+      [githubarchive:month.202406],
+      [githubarchive:month.202405],
+      [githubarchive:month.202404],
       [githubarchive:month.202403],
       [githubarchive:month.202402],
       [githubarchive:month.202401],
