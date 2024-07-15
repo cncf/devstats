@@ -2602,7 +2602,7 @@ projects:
     command_line:
       - runatlantis
     start_date: 2018-02-06T00:00:00Z
-    join_date: 2024-07-18T00:00:00Z
+    join_date: 2024-06-18T00:00:00Z
     psql_db: atlantis
     shared_db: allprj
     main_repo: runatlantis/atlantis
@@ -2641,7 +2641,7 @@ projects:
     command_line:
       - Kuadrant
     start_date: 2020-12-22T00:00:00Z
-    join_date: 2024-07-19T00:00:00Z
+    join_date: 2024-06-19T00:00:00Z
     psql_db: kuadrant
     shared_db: allprj
     main_repo: Kuadrant/authorino
