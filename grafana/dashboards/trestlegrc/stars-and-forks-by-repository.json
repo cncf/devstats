@@ -45,7 +45,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 38,
-  "iteration": 1703352052196,
+  "iteration": 1721018467521,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -515,8 +515,8 @@
       {
         "current": {
           "selected": false,
-          "text": "KrknChaos",
-          "value": "KrknChaos"
+          "text": "TrestleGRC",
+          "value": "TrestleGRC"
         },
         "datasource": {
           "type": "postgres",
@@ -540,9 +540,9 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "KrknChaos",
-          "value": "KrknChaos"
+          "selected": false,
+          "text": "oscal-compass/compliance-trestle",
+          "value": "oscal-compass/compliance-trestle"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "trestlegrc",
-          "value": "trestlegrc"
+          "text": "oscalcompasscompliancetrestle",
+          "value": "oscalcompasscompliancetrestle"
         },
         "datasource": {
           "type": "postgres",
@@ -595,8 +595,8 @@
       {
         "current": {
           "selected": false,
-          "text": "<h1 id=\"dashboard-header\">KrknChaos community stats dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/watchers_by_alias.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>watchers</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/krknchaos/community-stats.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows forks, stars, open issues and PRs charts for a given repository</li>\n<li>Selecting period (for example week) means that dashboard will show maximum value in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>",
-          "value": "<h1 id=\"dashboard-header\">KrknChaos community stats dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/watchers_by_alias.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>watchers</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/krknchaos/community-stats.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows forks, stars, open issues and PRs charts for a given repository</li>\n<li>Selecting period (for example week) means that dashboard will show maximum value in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>"
+          "text": "<h1 id=\"dashboard-header\">TrestleGRC community stats dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/watchers_by_alias.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>watchers</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/trestlegrc/community-stats.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows forks, stars, open issues and PRs charts for a given repository</li>\n<li>Selecting period (for example week) means that dashboard will show maximum value in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>",
+          "value": "<h1 id=\"dashboard-header\">TrestleGRC community stats dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/watchers_by_alias.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>watchers</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/trestlegrc/community-stats.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows forks, stars, open issues and PRs charts for a given repository</li>\n<li>Selecting period (for example week) means that dashboard will show maximum value in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>"
         },
         "datasource": {
           "type": "postgres",
@@ -621,7 +621,7 @@
     ]
   },
   "time": {
-    "from": "now-2y",
+    "from": "now-3y",
     "to": "now"
   },
   "timepicker": {
