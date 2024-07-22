@@ -2667,7 +2667,7 @@ projects:
     command_line:
       - score-spec
     start_date: 2022-10-16T00:00:00Z
-    join_date: 2024-07-16T00:00:00Z
+    join_date: 2024-07-08T00:00:00Z
     psql_db: score
     shared_db: allprj
     main_repo: score-spec/score-go
@@ -2680,7 +2680,7 @@ projects:
     command_line:
       - bpfman
     start_date: 2022-01-14T00:00:00Z
-    join_date: 2024-07-16T00:00:00Z
+    join_date: 2024-06-19T00:00:00Z
     psql_db: bpfman
     shared_db: allprj
     main_repo: bpfman/bpfman
