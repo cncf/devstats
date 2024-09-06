@@ -1982,7 +1982,7 @@ set
   repo_group = 'Atlantis'
 where
   org_login in ('runatlantis')
-  or name in ('atlantisnorth/atlantis')
+  or name in ('atlantisnorth/atlantis', 'runatlantis/atlantis-example')
 ;
 
 -- Stacker
