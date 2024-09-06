@@ -2171,7 +2171,7 @@ from
   gha_repo_groups
 where
   repo_group is not null
-  and repo_group like '%/%'
+  -- and repo_group like '%/%'
 group by
   repo_group
 order by
