@@ -2043,6 +2043,62 @@ where
   or name in ('redhat-et/bpfd')
 ;
 
+-- LoxiLB
+update
+  gha_repos
+set
+  repo_group = 'LoxiLB'
+where
+  org_login in ('loxilb-io')
+;
+
+-- Cartography
+update
+  gha_repos
+set
+  repo_group = 'Cartography'
+where
+  name in ('lyft/cartography')
+;
+
+-- Perses
+update
+  gha_repos
+set
+  repo_group = 'Perses'
+where
+  org_login in ('perses')
+;
+
+-- Ratify
+update
+  gha_repos
+set
+  repo_group = 'Ratify'
+where
+  org_login in ('ratify-project')
+  or name in ('deislabs/ratify', 'deislabs/ratify-web', 'deislabs/ratify-action')
+;
+
+-- HAMi
+update
+  gha_repos
+set
+  repo_group = 'HAMi'
+where
+  org_login in ('Project-HAMi')
+;
+
+-- Shipwright
+update
+  gha_repos
+set
+  repo_group = 'Shipwright'
+where
+  org_login in ('shipwright-io')
+  or name in ('redhat-developer/build', 'redhat-developer/buildv2', 'redhat-developer/buildv2-operator')
+;
+
 -- CNCF
 update
   gha_repos
