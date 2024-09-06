@@ -2686,6 +2686,84 @@ projects:
     main_repo: bpfman/bpfman
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
+  loxilb:
+    order: 198
+    name: LoxiLB
+    status: Sandbox
+    command_line:
+      - loxilb-io
+    start_date: 2022-06-27T00:00:00Z
+    join_date: 2024-08-29T00:00:00Z
+    psql_db: loxilb
+    shared_db: allprj
+    main_repo: loxilb-io/loxilb
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  cartography:
+    order: 199
+    name: Cartography
+    status: Sandbox
+    command_line:
+      - lyft/cartography
+    start_date: 2019-03-01T00:00:00Z
+    join_date: 2024-08-29T00:00:00Z
+    psql_db: cartography
+    shared_db: allprj
+    main_repo: lyft/cartography
+    annotation_regexp: '^\d+\.\d+\.0$'
+    files_skip_pattern: ''
+  perses:
+    order: 200
+    name: Perses
+    status: Sandbox
+    command_line:
+      - perses
+    start_date: 2021-01-26T00:00:00Z
+    join_date: 2024-08-29T00:00:00Z
+    psql_db: perses
+    shared_db: allprj
+    main_repo: perses/perses
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  ratify:
+    order: 201
+    name: Ratify
+    status: Sandbox
+    command_line:
+      - ratify-project
+    start_date: 2021-11-15T00:00:00Z
+    join_date: 2024-08-29T00:00:00Z
+    psql_db: ratify
+    shared_db: allprj
+    main_repo: ratify-project/ratify
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  hami:
+    order: 202
+    name: HAMi
+    status: Sandbox
+    command_line:
+      - Project-HAMi
+    start_date: 2024-01-31T00:00:00Z
+    join_date: 2024-08-29T00:00:00Z
+    psql_db: hami
+    shared_db: allprj
+    main_repo: Project-HAMi/HAMi
+    annotation_regexp: '^v\d+\.\d+\.\d*0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  shipwrightcncf:
+    order: 203
+    name: Shipwright
+    status: Sandbox
+    command_line:
+      - shipwright-io
+    start_date: 2020-02-06T00:00:00Z
+    join_date: 2024-08-29T00:00:00Z
+    psql_db: shipwrightcncf
+    shared_db: allprj
+    main_repo: shipwright-io/build
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opencontainers:
     order: 1200
     name: OCI
@@ -2918,7 +2996,8 @@ projects:
          kubeclipper-labs,buildpacks-community,project-copacetic,kube-logging,bpfman,\
          kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,easegress-io,\
          spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops,kubeslice,score-spec,\
-         connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass"
+         connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass,\
+         loxilb-io,lyft/cartography,perses,ratify-project,Project-HAMi,shipwright-io"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
