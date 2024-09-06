@@ -694,6 +694,24 @@ do
   elif [ "$proj" = "bpfman" ]
   then
     PROJ=bpfman              PROJDB=bpfman         PROJREPO="bpfman/bpfman"                   ORGNAME=bpfman            PORT=3272 ICON=bpfman         GRAFSUFF=bpfman         GA="-" ./devel/deploy_proj.sh               || exit 197
+  elif [ "$proj" = "loxilb" ]
+  then
+    PROJ=loxilb              PROJDB=loxilb         PROJREPO="loxilb-io/loxilb"                ORGNAME=LoxiLB            PORT=3273 ICON=loxilb         GRAFSUFF=loxilb         GA="-" ./devel/deploy_proj.sh               || exit 198
+  elif [ "$proj" = "cartography" ]
+  then
+    PROJ=cartography         PROJDB=cartography    PROJREPO="lyft/cartography"                ORGNAME=Cartography       PORT=3274 ICON=cartography    GRAFSUFF=cartography    GA="-" ./devel/deploy_proj.sh               || exit 199
+  elif [ "$proj" = "perses" ]
+  then
+    PROJ=perses              PROJDB=perses         PROJREPO="perses/perses"                   ORGNAME=Perses            PORT=3275 ICON=perses         GRAFSUFF=perses         GA="-" ./devel/deploy_proj.sh               || exit 200
+  elif [ "$proj" = "ratify" ]
+  then
+    PROJ=ratify              PROJDB=ratify         PROJREPO="ratify-project/ratify"           ORGNAME=ratify            PORT=3276 ICON=ratify         GRAFSUFF=ratify         GA="-" ./devel/deploy_proj.sh               || exit 201
+  elif [ "$proj" = "hami" ]
+  then
+    PROJ=hami                PROJDB=hami           PROJREPO="Project-HAMi/HAMi"               ORGNAME=HAMi              PORT=3277 ICON=hami           GRAFSUFF=hami           GA="-" ./devel/deploy_proj.sh               || exit 202
+  elif [ "$proj" = "shipwrightcncf" ]
+  then
+    PROJ=shipwrightcncf      PROJDB=shipwrightcncf PROJREPO="shipwright-io/build"             ORGNAME=Shipwright        PORT=3278 ICON=shipwrightcncf GRAFSUFF=shipwrightcncf GA="-" ./devel/deploy_proj.sh               || exit 203
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="UA-108085315-19" ./devel/deploy_proj.sh || exit 32
