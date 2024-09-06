@@ -1935,6 +1935,66 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "LoxiLB",
+      "tooltip": "Opens LoxiLB projects dashboards",
+      "type": "link",
+      "url": "https://loxilb.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Cartography",
+      "tooltip": "Opens Cartography projects dashboards",
+      "type": "link",
+      "url": "https://cartography.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Perses",
+      "tooltip": "Opens Perses projects dashboards",
+      "type": "link",
+      "url": "https://perses.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Ratify",
+      "tooltip": "Opens Ratify projects dashboards",
+      "type": "link",
+      "url": "https://ratify.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "HAMi",
+      "tooltip": "Opens HAMi projects dashboards",
+      "type": "link",
+      "url": "https://hami.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Shipwright",
+      "tooltip": "Opens Shipwright projects dashboards",
+      "type": "link",
+      "url": "https://shipwrightcncf.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
