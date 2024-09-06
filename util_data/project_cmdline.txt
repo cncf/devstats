@@ -16,6 +16,7 @@ brigade,brigadecore,Azure/brigade
 buildpacks,buildpack,buildpacks,buildpacks-community
 capsule,regexp:(?i)^(clastix\/.*capsule.*|projectcapsule\/.*)$
 carina,carina-io
+cartography,lyft/cartography
 carvel,vmware-tanzu/carvel,k14s,carvel-dev
 cdevents,cdevents
 cdk8s,cdk8s-team,awslabs/cdk8s
@@ -72,6 +73,7 @@ graphql,graphql,facebook/graphql
 graphqljs,graphql/graphql-js
 graphqlspec,graphql/graphql-spec,facebook/graphql
 grpc,grpc
+hami,Project-HAMi
 harbor,goharbor,vmware/harbor
 headlamp,headlamp-k8s,kinvolk/headlamp
 helm,helm,kubernetes-helm,kubernetes-charts,kubernetes/helm,kubernetes/charts,kubernetes/deployment-manager,kubernetes/application-dm-templates
@@ -140,6 +142,7 @@ linux,torvalds/linux,linux
 litmuschaos,litmuschaos,openebs/test-storage,openebs/litmus
 loggingoperator,kube-logging,banzaicloud/logging-operator
 longhorn,longhorn,rancher/longhorn
+loxilb,loxilb-io
 merbridge,merbridge,kebe7jun/mepf,kebe7jun/mebpf
 meshery,regexp:(?i)^(layer5io\/.*meshery|meshery\/.*)
 metal3,metal3-io
@@ -162,8 +165,8 @@ openelb,openelb,kubesphere/openelb,kubesphere/porterlb,kubesphere/porter
 openfaas,openfaas,open-faas,stefanprodan/caddy-builder,alexellis/faas,alexellis/faas-cli,alexellis/java-afterburn,alexellis/faas-netes,alexellis/caddy-builder,alexellis/openfaas-workshop,alexellis/derek,alexellis/java-openfaas-fast-fork,alexellis/openfaas-cloud,alexellis/faas-nats,alexellis/serverless-faas,alexellis/faas-provider,alexellis/nodejs-afterburn
 openfeature,open-feature,openfeatureflags
 openfga,openfga
-opengemini,openGemini
 openfunction,OpenFunction
+opengemini,openGemini
 openkruise,openkruise,kruiseio
 openmetrics,OpenObservability,OpenMetrics,openmetrics,RichiH/OpenMetrics
 opennetworkinglab,opennetworkinglab
@@ -180,6 +183,7 @@ ortelius,ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-s
 p4lang,p4lang
 paralus,paralus
 parsec,parallaxsecond,docker/pasl
+perses,perses
 pipecd,pipe-cd
 piraeus,piraeusdatastore
 pixie,regexp:(?i)^(pixie-labs\/(.*pixie.*|.*px.*|grafana-plugin)|pixie-io\/.*)$
@@ -189,6 +193,7 @@ prestodb,prestodb
 prometheus,prometheus,OpenMetrics,openmetrics,RichiH/OpenMetrics
 pyrsia,pyrsia
 radius,radius-project
+ratify,ratify-project,deislabs/ratify,deislabs/ratify-web,deislabs/ratify-action
 riff,projectriff,markfisher/sk8s,jldec/projectriff.io,pivotal-cf/pfs-system-test,ericbottard/sk8s-go,ericbottard/sk8s-types,ericbottard/kubernetes-model,ericbottard/sk8s-http-gateway,ericbottard/function-sidecar,ericbottard/sk8s-topic-controller
 rkt,rkt
 rook,rook
@@ -201,6 +206,7 @@ serverlessdevs,Serverless-Devs,ServerlessTool
 serverlessworkflow,serverlessworkflow,cncf/wg-serverless-workflow
 servicemeshperformance,regexp:(?i)^(layer5io\/.*(service-mesh|performance|benchmark)|service-mesh-performance\/.*)
 shipwright,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator
+shipwrightcncf,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator
 slimtoolkit,slimtoolkit,docker-slim,cloudimmunity/docker-slim
 smi,servicemeshinterface,deislabs/smi-spec,deislabs/smi-sdk-go,deislabs/smi-metrics,deislabs/smi-adapter-istio,deislabs/smi-spec.io
 sops,getsops,mozilla/sops,mozilla/sotp,mozilla-services/sops
