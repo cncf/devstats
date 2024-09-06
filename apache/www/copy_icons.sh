@@ -114,7 +114,7 @@ do
     icon="krkn"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "bankvaults" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "stacker" ] || [ "$icon" = "trestlegrc" ] || [ "$icon" = "opengemini" ] || [ "$icon" = "score" ] || [ "$icon" = "bpfman" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "loxilb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "ratify" ] || [ "$icon" = "hami" ] || [ "$icon" = "shipwright" ] || [ "$icon" = "bankvaults" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "stacker" ] || [ "$icon" = "bpfman" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -243,6 +243,16 @@ do
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-${icontype}light.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 28
     convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-${icontype}light.svg" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 29
+    continue
+  elif [ "$icon" = "opengemini" ]
+  then
+    convert "$HOME/dev/cncf/artwork/projects/openGemini/icon/color/openGemini_icon_color.svg" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 30
+    cp "$HOME/dev/cncf/artwork/projects/openGemini/icon/color/openGemini_icon_color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 31
+    continue
+  elif [ "$icon" = "trestlegrc" ]
+  then
+    convert "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.svg" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 32
+    cp "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 33
     continue
   fi
   # All others

@@ -120,7 +120,7 @@ do
     dash=''
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "bankvaults" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "stacker" ] || [ "$icon" = "trestlegrc" ] || [ "$icon" = "opengemini" ] || [ "$icon" = "score" ] || [ "$icon" = "bpfman" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [[ "$icon" = "loxilb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "ratify" ] || [ "$icon" = "hami" ] || [ "$icon" = "shipwright" ] ||  "$icon" = "bankvaults" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "stacker" ] || [ "$icon" = "bpfman" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sops" ] || [ "$icon" = "lima" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "devspace" ] || [ "$icon" = "ko" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -249,6 +249,16 @@ do
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-${icontype}light.svg" "grafana/img/$suff.svg" || exit 27
     convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-${icontype}light.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 28
+    continue
+  elif [ "$icon" = "opengemini" ]
+  then
+    cp "$HOME/dev/cncf/artwork/projects/openGemini/icon/color/openGemini_icon_color.svg" "grafana/img/$suff.svg" || exit 29
+    convert "$HOME/dev/cncf/artwork/projects/openGemini/icon/color/openGemini_icon_color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 30
+    continue
+  elif [ "$icon" = "trestlegrc" ]
+  then
+    cp "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.svg" "grafana/img/$suff.svg" || exit 31
+    convert "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 32
     continue
   fi
   # echo "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg"
