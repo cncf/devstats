@@ -182,3 +182,26 @@ The servers to run `devstats` are generously provided by [Equinix](https://metal
 
 - Use: `PG_PASS=... PG_DB=allprj ./devel/activity.sh '1 month,,' > all.txt`.
 - Example results [here](https://teststats.cncf.io) - all CNCF project activity during January 2018, excluding bots.
+
+
+# Troubleshooting
+
+If you see error like this `pq: row is too big: size 8192, maximum size 8160` and/or `Error result for xyz (took 11m52.048191357s)`:
+
+- Shell into logging database and check:
+- Run on DevStats node: `k exec -itn devstats-prod devstats-postgres-0 -- psql devstats`.
+- Run while on `devstats` database: `select dt, run_dt, msg from gha_logs where msg like '%Error result for%';`.
+```
+             dt             |           run_dt           |                                  msg
+----------------------------+----------------------------+-----------------------------------------------------------------------
+ 2024-09-01 00:48:07.079436 | 2024-09-01 00:34:26.426402 | Error result for helm (took 13m36.712884455s): exit status 2
+ 2024-09-07 00:16:11.132541 | 2024-09-07 00:04:14.051939 | Error result for prometheus (took 11m52.048191357s): exit status 2
+ 2024-09-07 00:26:43.701404 | 2024-09-07 00:05:55.08925  | Error result for fluentd (took 15m1.328366817s): exit status 2
+ 2024-09-07 00:16:11.038887 | 2024-09-07 00:08:43.846938 | Error result for grpc (took 7m24.348182232s): exit status 2
+ 2024-09-03 13:20:02.682134 | 2024-09-03 12:57:23.220227 | Error result for opentelemetry (took 22m29.324614973s): exit status 2
+ 2024-09-03 13:09:56.535074 | 2024-09-03 13:04:43.451026 | Error result for spinnaker (took 5m7.631109092s): exit status 2
+(6 rows)
+```
+- You can investigate each via: `` echo "select dt, prog, proj, msg from gha_logs where run_dt = '2024-09-01 00:34:26.426402';" | k exec -itn devstats-prod devstats-postgres-1 -- psql devstats > log.txt ``.
+- `row is too big` is usually caused by metric: `suser_activity`. You can add this metric to `./devel/test_metrics.yaml` and generate devstats docker images to reinitialize it for given project(s) via:
+- `helm install --generate-name ./devstats-helm --set namespace='devstats-prod',skipSecrets=1,skipPVs=1,skipBackupsPV=1,skipVacuum=1,skipBackups=1,skipBootstrap=1,skipCrons=1,skipAffiliations=1,skipGrafanas=1,skipServices=1,skipPostgres=1,skipIngress=1,skipStatic=1,skipAPI=1,skipNamespaces=1,testServer='',prodServer='1',provisionImage='lukaszgryglicki/devstats-prod',provisionCommand='./devstats-helm/add_metric.sh',nCPUs=8,indexProvisionsFrom=N,indexProvisionsTo=M`.
