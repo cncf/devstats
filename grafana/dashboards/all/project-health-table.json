@@ -25,7 +25,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 34,
-  "iteration": 1725854416122,
+  "iteration": 1725860132497,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -145,7 +145,7 @@
           "policy": "default",
           "query": "",
           "rawQuery": true,
-          "rawSql": "select name, case str when 'Up' then '⇧' when 'Down' then '⇩' else str end from \"sprojects_health\" where series in ('phealth[[repogroup]]', 'phealth[[repogroup]]cncf') and period = 'd'",
+          "rawSql": "select name, case str when 'Up' then '⇧' when 'Down' then '⇩' else str end from \"sprojects_health\" where series = 'phealth[[repogroup]]' and period = 'd'",
           "refId": "A",
           "resultFormat": "table",
           "select": [
@@ -350,6 +350,6 @@
   "timezone": "",
   "title": "Project Health Table",
   "uid": "54",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
