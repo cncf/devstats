@@ -3,30 +3,39 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 31,
-  "iteration": 1618559121821,
+  "id": 34,
+  "iteration": 1725854416122,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "columns": [],
-      "datasource": "psql",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "postgres",
+        "uid": "P172949F98CB31475"
       },
+      "description": "",
       "fontSize": "90%",
       "gridPos": {
         "h": 66,
@@ -48,7 +57,6 @@
         {
           "alias": "Metric",
           "align": "auto",
-          "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
@@ -65,7 +73,6 @@
         {
           "alias": "Value",
           "align": "auto",
-          "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
@@ -81,7 +88,6 @@
         {
           "alias": "",
           "align": "auto",
-          "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
@@ -98,7 +104,6 @@
         {
           "alias": "",
           "align": "auto",
-          "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
@@ -114,8 +119,13 @@
       "targets": [
         {
           "alias": "",
+          "datasource": {
+            "type": "postgres",
+            "uid": "P172949F98CB31475"
+          },
           "dsType": "influxdb",
           "format": "table",
+          "group": [],
           "groupBy": [
             {
               "params": [
@@ -130,11 +140,12 @@
               "type": "fill"
             }
           ],
+          "metricColumn": "none",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "",
           "rawQuery": true,
-          "rawSql": "select name, case str when 'Up' then '⇧' when 'Down' then '⇩' else str end from \"sprojects_health\" where series = 'phealth[[repogroup]]' and period = 'd'",
+          "rawSql": "select name, case str when 'Up' then '⇧' when 'Down' then '⇩' else str end from \"sprojects_health\" where series in ('phealth[[repogroup]]', 'phealth[[repogroup]]cncf') and period = 'd'",
           "refId": "A",
           "resultFormat": "table",
           "select": [
@@ -151,20 +162,25 @@
               }
             ]
           ],
-          "tags": []
+          "tags": [],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "[[repogroup_name]] health",
       "transform": "table",
       "type": "table-old"
     },
     {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "postgres",
+        "uid": "P172949F98CB31475"
       },
       "gridPos": {
         "h": 8,
@@ -178,13 +194,13 @@
         "content": "${docs:raw}",
         "mode": "html"
       },
-      "pluginVersion": "7.5.4",
+      "pluginVersion": "8.5.27",
       "title": "Dashboard documentation",
       "type": "text"
     }
   ],
   "refresh": false,
-  "schemaVersion": 27,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [
     "dashboard",
@@ -194,19 +210,18 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
           "selected": false,
           "text": "All CNCF",
           "value": "All CNCF"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "full_name",
         "options": [],
@@ -216,22 +231,21 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
-          "selected": false,
-          "text": "Emissary-ingress",
-          "value": "Emissary-ingress"
+          "selected": true,
+          "text": "Shipwright",
+          "value": "Shipwright"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Project",
@@ -244,22 +258,21 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
           "selected": false,
-          "text": "emissaryingress",
-          "value": "emissaryingress"
+          "text": "shipwright",
+          "value": "shipwright"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
         "label": "",
@@ -272,25 +285,23 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
           "selected": false,
           "text": "<h1 id=\"dashboard-header\">Project health dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Projects health metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/projects_health.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>Projects health</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/project-health.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows various projects health metrics.</li>\n<li>You can select a project from the drop-down.</li>\n</ul>",
           "value": "<h1 id=\"dashboard-header\">Project health dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Projects health metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/projects_health.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>Projects health</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/project-health.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows various projects health metrics.</li>\n<li>You can select a project from the drop-down.</li>\n</ul>"
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "docs",
         "options": [],
@@ -300,7 +311,6 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -340,5 +350,6 @@
   "timezone": "",
   "title": "Project Health Table",
   "uid": "54",
-  "version": 3
+  "version": 2,
+  "weekStart": ""
 }
