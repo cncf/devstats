@@ -1,18 +1,79 @@
-with projects as (
-  select distinct period as project,
-    repo,
-    last_value(time) over projects_by_time as last_release_date,
-    last_value(title) over projects_by_time as last_release_tag,
-    last_value(description) over projects_by_time as last_release_desc
+with suffix_projects as (
+  -- projects for which we want to add a suffix
+  select
+    'none' as project,
+    'cncf' as suffix
+), strip_projects as (
+  -- projects from which we want to remove a suffix
+  select
+    'shipwrightcncf' as project,
+    'cncf' as strip
+), skip_projects as (
+  -- projects which we want to skip with original mapping name
+  select
+    'shipwrightcncf' as project
+), projects as (
+  select distinct p.period as project,
+    p.repo,
+    last_value(p.time) over projects_by_time as last_release_date,
+    last_value(p.title) over projects_by_time as last_release_tag,
+    last_value(p.description) over projects_by_time as last_release_desc
   from
-    sannotations_shared
+    sannotations_shared p
+  left join
+    skip_projects sp
+  on
+    sp.project = p.period
   where
-    title != 'CNCF join date'
+    sp.project is null
+    and p.title != 'CNCF join date'
   window
     projects_by_time as (
-      partition by period
+      partition by p.period
       order by
-        time asc
+        p.time asc
+      range between current row
+      and unbounded following
+    )
+  union select distinct p.period || sp.suffix as project,
+    p.repo,
+    last_value(p.time) over projects_by_time as last_release_date,
+    last_value(p.title) over projects_by_time as last_release_tag,
+    last_value(p.description) over projects_by_time as last_release_desc
+  from
+    suffix_projects sp
+  inner join
+    sannotations_shared p
+  on
+    sp.project = p.period
+  where
+    p.title != 'CNCF join date'
+  window
+    projects_by_time as (
+      partition by p.period
+      order by
+        p.time asc
+      range between current row
+      and unbounded following
+    )
+  union select distinct trim(trailing sp.strip from p.period) as project,
+    p.repo,
+    last_value(p.time) over projects_by_time as last_release_date,
+    last_value(p.title) over projects_by_time as last_release_tag,
+    last_value(p.description) over projects_by_time as last_release_desc
+  from
+    strip_projects sp
+  inner join
+    sannotations_shared p
+  on
+    sp.project = p.period
+  where
+    p.title != 'CNCF join date'
+  window
+    projects_by_time as (
+      partition by p.period
+      order by
+        p.time asc
       range between current row
       and unbounded following
     )
