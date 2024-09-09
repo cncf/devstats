@@ -2654,7 +2654,7 @@ projects:
     command_line:
       - openGemini
     start_date: 2022-06-27T00:00:00Z
-    join_date: 2024-07-16T00:00:00Z
+    join_date: 2024-07-09T00:00:00Z
     psql_db: opengemini
     shared_db: allprj
     main_repo: openGemini/openGemini
@@ -2693,7 +2693,7 @@ projects:
     command_line:
       - loxilb-io
     start_date: 2022-06-27T00:00:00Z
-    join_date: 2024-08-29T00:00:00Z
+    join_date: 2024-08-30T00:00:00Z
     psql_db: loxilb
     shared_db: allprj
     main_repo: loxilb-io/loxilb
@@ -2745,7 +2745,7 @@ projects:
     command_line:
       - Project-HAMi
     start_date: 2024-01-31T00:00:00Z
-    join_date: 2024-08-29T00:00:00Z
+    join_date: 2024-08-21T00:00:00Z
     psql_db: hami
     shared_db: allprj
     main_repo: Project-HAMi/HAMi
