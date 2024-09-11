@@ -2099,6 +2099,16 @@ where
   or name in ('redhat-developer/build', 'redhat-developer/buildv2', 'redhat-developer/buildv2-operator')
 ;
 
+-- Flatcar
+update
+  gha_repos
+set
+  repo_group = 'Flatcar'
+where
+  org_login in ('flatcar', 'flatcar-linux')
+  or name in ('kinvolk/Flatcar', 'kinvolk/flatcar-scripts', 'kinvolk/mantle')
+;
+
 -- CNCF
 update
   gha_repos
