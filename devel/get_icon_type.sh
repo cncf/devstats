@@ -220,6 +220,7 @@ icontypes=(
   ["ratify"]="color"
   ["hami"]="color"
   ["shipwrightcncf"]="color"
+  ["flatcar"]="color"
   ["tekton"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
