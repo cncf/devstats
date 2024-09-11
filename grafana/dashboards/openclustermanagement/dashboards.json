@@ -1998,6 +1998,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Flatcar",
+      "tooltip": "Opens Flatcar projects dashboards",
+      "type": "link",
+      "url": "https://flatcar.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
