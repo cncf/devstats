@@ -712,6 +712,9 @@ do
   elif [ "$proj" = "shipwrightcncf" ]
   then
     PROJ=shipwrightcncf      PROJDB=shipwrightcncf PROJREPO="shipwright-io/build"             ORGNAME=Shipwright        PORT=3278 ICON=shipwrightcncf GRAFSUFF=shipwrightcncf GA="-" ./devel/deploy_proj.sh               || exit 203
+  elif [ "$proj" = "flatcar" ]
+  then
+    PROJ=flatcar             PROJDB=flatcar        PROJREPO="flatcar/mantle"                  ORGNAME=Flatcar           PORT=3279 ICON=flatcar        GRAFSUFF=flatcar        GA="-" ./devel/deploy_proj.sh               || exit 204
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="UA-108085315-19" ./devel/deploy_proj.sh || exit 32
