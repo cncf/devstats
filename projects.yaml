@@ -2764,6 +2764,19 @@ projects:
     main_repo: shipwright-io/build
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  flatcar:
+    order: 204
+    name: Flatcar
+    status: Incubating
+    command_line:
+      - flatcar,flatcar-linux
+    start_date: 2018-03-05T00:00:00Z
+    join_date: 2024-09-09T00:00:00Z
+    psql_db: flatcar
+    shared_db: allprj
+    main_repo: flatcar/mantle
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opencontainers:
     order: 1200
     name: OCI
@@ -2997,7 +3010,8 @@ projects:
          kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,easegress-io,\
          spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops,kubeslice,score-spec,\
          connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass,\
-         loxilb-io,lyft/cartography,perses,ratify-project,Project-HAMi,shipwright-io"
+         loxilb-io,lyft/cartography,perses,ratify-project,Project-HAMi,shipwright-io,\
+         flatcar,flatcar-linux"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
