@@ -2615,7 +2615,7 @@ projects:
     command_line:
       - project-stacker
     start_date: 2017-11-30T00:00:00Z
-    join_date: 2024-07-16T00:00:00Z
+    join_date: 2024-06-19T00:00:00Z
     psql_db: stacker
     shared_db: allprj
     main_repo: project-stacker/stacker
@@ -2628,7 +2628,7 @@ projects:
     command_line:
       - oscal-compass
     start_date: 2020-08-30T00:00:00Z
-    join_date: 2024-07-16T00:00:00Z
+    join_date: 2024-06-21T00:00:00Z
     psql_db: trestlegrc
     shared_db: allprj
     main_repo: oscal-compass/compliance-trestle
@@ -2771,7 +2771,7 @@ projects:
     command_line:
       - flatcar,flatcar-linux
     start_date: 2018-03-05T00:00:00Z
-    join_date: 2024-09-09T00:00:00Z
+    join_date: 2024-08-02T00:00:00Z
     psql_db: flatcar
     shared_db: allprj
     main_repo: flatcar/mantle
