@@ -38,7 +38,7 @@ with data as (
     r.repo_group
 )
 select
-  concat(inn.type, ';', inn.country_name, '`', inn.repo_group, ';contributors,contributions,users,events,committers,commits,prcreators,prs,issuecreators,issues,commenters,comments,reviewers,reviews,watchers,watches,forkers,forks') as name,
+  concat(inn.type, ';', inn.repo_group, '`', inn.country_name, ';contributors,contributions,users,events,committers,commits,prcreators,prs,issuecreators,issues,commenters,comments,reviewers,reviews,watchers,watches,forkers,forks') as name,
   inn.contributors,
   inn.contributions,
   inn.users,
