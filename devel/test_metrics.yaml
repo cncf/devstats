@@ -1,16 +1,12 @@
 ---
 metrics:
-  - name: Users stats
+  - name: Countries Projects stats
     series_name_or_func: multi_row_multi_column
-    sqls: [user_activity, user_activity_commits, user_activity_issues, user_activity_prs]
-    periods: d,w,m,q,y
-    aggregate: 1,7
-    skip: w7,m7,q7,y7
+    sqls: [project_countries]
+    periods: w,m,q,m6,y,y2,y3,y5
     multi_value: true
-    merge_series: user_activity
-    drop: suser_activity
-    allow_fail: true
-    project: '!kubernetes'
+    merge_series: prjcntr
+    drop: sprjcntr
 #   - name: Users stats
 #     series_name_or_func: multi_row_multi_column
 #     sqls: [user_activity, user_activity_commits, user_activity_issues, user_activity_prs]
