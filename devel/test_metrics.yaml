@@ -5,7 +5,7 @@ metrics:
     sqls: [project_countries, project_countries_commiters]
     periods: m,q,y
     multi_value: true
-    # skip_escape_series_name: true
+    skip_escape_series_name: true
     hll: true
     merge_series: prjcntr
     drop: sprjcntr
