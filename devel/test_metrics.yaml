@@ -1,21 +1,21 @@
 ---
 metrics:
-#   - name: Countries Projects stats
-#     series_name_or_func: multi_row_multi_column
-#     sqls: [project_countries, project_countries_commiters]
-#     periods: m,q,y
-#     multi_value: true
-#     hll: true
-#     merge_series: prjcntr
-#     drop: sprjcntr
-  - name: Countries Projects stats cumulative
+  - name: Countries Projects stats
     series_name_or_func: multi_row_multi_column
-    sqls: [project_countries_cum, project_countries_commiters_cum]
-    periods: m
+    sqls: [project_countries, project_countries_commiters]
+    periods: m,q,y
     multi_value: true
     hll: true
-    merge_series: prjcntrcum
-    drop: sprjcntrcum
+    merge_series: prjcntr
+    drop: sprjcntr
+#   - name: Countries Projects stats cumulative
+#     series_name_or_func: multi_row_multi_column
+#     sqls: [project_countries_cum, project_countries_commiters_cum]
+#     periods: m
+#     multi_value: true
+#     hll: true
+#     merge_series: prjcntrcum
+#     drop: sprjcntrcum
 #   - name: Users stats
 #     series_name_or_func: multi_row_multi_column
 #     sqls: [user_activity, user_activity_commits, user_activity_issues, user_activity_prs]
