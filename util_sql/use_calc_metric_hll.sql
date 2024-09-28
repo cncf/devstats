@@ -6,7 +6,7 @@ from
   sprjcntr
 where
   period = 'y'
-  and series like 'prjcnt%rcommitters'
+  and series like 'prjcntr%rcommitters'
 group by
   time
 order by
