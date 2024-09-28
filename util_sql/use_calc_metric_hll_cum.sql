@@ -18,7 +18,8 @@ on
   s.time <= d.time
 where
   s.period = 'q'
-  and s.series like 'prjcntr%rcommitters'
+  -- and s.series like 'prjcntr%rcommitters'
+  and s.series like any(array['%unitedstatesrcommitters', '%chinarcommitters', '%germanyrcommitters', '%polandrcommitters'])
 group by
   d.time
 order by
