@@ -1,2 +1,9 @@
 ---
 columns:
+  - table_regexp: '^scountries'
+    tag: tcountries
+    column: country_name
+  - table_regexp: '^sprjcntr$'
+    tag: trepo_groups
+    column: repo_group_name
+    hll: true
