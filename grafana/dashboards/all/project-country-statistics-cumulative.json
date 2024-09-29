@@ -42,7 +42,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 34,
+  "hideControls": false,
+  "id": null,
   "iteration": 1727583600899,
   "links": [],
   "liveNow": false,
@@ -146,7 +147,7 @@
           "orderByTime": "ASC",
           "policy": "default",
           "rawQuery": true,
-          "rawSql": "with countries as (\n  select unnest(string_to_array('${countries:csv}', ',')) as country\n)\nselect\n  s.time,\n  [[columns]]\nfrom\n  sprjcntr s,\n  countries c\nwhere\n  $__timeFilter(s.time)\n  and s.period = '[[period]]'\n  and s.series = 'prjcntr' || c.country || '[[metric]]'\ngroup by\n  s.time\norder by\n  s.time",
+          "rawSql": "with countries as (\n  select unnest(string_to_array('${countries:csv}', ',')) as country\n)\nselect\n  s.time,\n  [[columns]]\nfrom\n  sprjcntr s,\n  countries c\nwhere\n  $__timeFilter(s.time)\n  and s.period = 'm'\n  and s.series = 'prjcntr' || c.country || '[[metric]]'\ngroup by\n  s.time\norder by\n  s.time",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -272,7 +273,7 @@
           "orderByTime": "ASC",
           "policy": "default",
           "rawQuery": true,
-          "rawSql": "with countries as (\n  select unnest(string_to_array('${countries:csv}', ',')) as country\n)\nselect\n  s.time,\n  [[columns]]\nfrom\n  sprjcntr s,\n  countries c\nwhere\n  $__timeFilter(s.time)\n  and s.period = '[[period]]'\n  and s.series = 'prjcntr' || c.country || '[[metric]]'\ngroup by\n  s.time\norder by\n  s.time",
+          "rawSql": "with countries as (\n  select unnest(string_to_array('${countries:csv}', ',')) as country\n)\nselect\n  s.time,\n  [[columns]]\nfrom\n  sprjcntr s,\n  countries c\nwhere\n  $__timeFilter(s.time)\n  and s.period = 'm'\n  and s.series = 'prjcntr' || c.country || '[[metric]]'\ngroup by\n  s.time\norder by\n  s.time",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -397,7 +398,7 @@
           "orderByTime": "ASC",
           "policy": "default",
           "rawQuery": true,
-          "rawSql": "with countries as (\n  select unnest(string_to_array('${countries:csv}', ',')) as country\n)\nselect\n  s.time,\n  [[columns]]\nfrom\n  sprjcntr s,\n  countries c\nwhere\n  $__timeFilter(s.time)\n  and s.period = '[[period]]'\n  and s.series = 'prjcntr' || c.country || '[[metric]]'\ngroup by\n  s.time\norder by\n  s.time",
+          "rawSql": "with countries as (\n  select unnest(string_to_array('${countries:csv}', ',')) as country\n)\nselect\n  s.time,\n  [[columns]]\nfrom\n  sprjcntr s,\n  countries c\nwhere\n  $__timeFilter(s.time)\n  and s.period = 'm'\n  and s.series = 'prjcntr' || c.country || '[[metric]]'\ngroup by\n  s.time\norder by\n  s.time",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -600,39 +601,6 @@
         "type": "custom"
       },
       {
-        "current": {
-          "selected": true,
-          "text": "Year",
-          "value": "y"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "label": "Period",
-        "multi": false,
-        "name": "period",
-        "options": [
-          {
-            "selected": false,
-            "text": "Month",
-            "value": "m"
-          },
-          {
-            "selected": false,
-            "text": "Quarter",
-            "value": "q"
-          },
-          {
-            "selected": true,
-            "text": "Year",
-            "value": "y"
-          }
-        ],
-        "query": "Month : m,Quarter : q,Year : y",
-        "queryValue": "",
-        "skipUrlSync": false,
-        "type": "custom"
-      },
-      {
         "allValue": "",
         "current": {
           "selected": true,
@@ -738,7 +706,7 @@
         "multi": false,
         "name": "docs",
         "options": [],
-        "query": "select value_s from gha_vars where name = 'project_countries_stats_docs_html'",
+        "query": "select value_s from gha_vars where name = 'project_countries_cum_stats_docs_html'",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": true,
@@ -780,8 +748,8 @@
     ]
   },
   "timezone": "",
-  "title": "Project Country Statistics",
-  "uid": "85",
-  "version": 13,
+  "title": "Project Country Statistics cumulative",
+  "uid": "86",
+  "version": 1,
   "weekStart": ""
 }

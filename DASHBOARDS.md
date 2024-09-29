@@ -108,6 +108,9 @@ All non-k8s projects currently have the same set of dashbords, you only need to 
 
 - Company contribution counts Repository Groups: [company-contribution-counts-in-repository-groups.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/company-contribution-counts-in-repository-groups.json), [view](https://all.devstats.cncf.io/d/83/company-contribution-counts-in-repository-groups)
 - Bus factor in Repository Groups: [elephant-bus-factor-in-repository-groups.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/elephant-bus-factor-in-repository-groups.json), [view](https://all.devstats.cncf.io/d/84/elephant-bus-factor-in-repository-groups)
+- Project Country Statistics: [project-country-statistics.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/project-country-statistics.json), [view](https://all.devstats.cncf.io/d/85/project-country-statistics)
+- Project Country Statistics: [project-country-statistics.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/project-country-statistics.json), [view](https://all.devstats.cncf.io/d/85/project-country-statistics)
+- Project Country Statistics cumulative: [project-country-statistics-cumulative.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/all/project-country-statistics-cumulative.json), [view](https://all.devstats.cncf.io/d/86/project-country-statistics-cumulative)
 
 
 # All CNCF DevStats instance

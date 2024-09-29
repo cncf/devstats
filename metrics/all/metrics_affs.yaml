@@ -44,6 +44,15 @@ metrics:
     drop: scountriescum
     env:
       GHA2DB_NCPUS?: 4
+  - name: Countries Projects stats
+    series_name_or_func: multi_row_multi_column
+    sqls: [project_countries, project_countries_commiters]
+    periods: m,q,y
+    multi_value: true
+    skip_escape_series_name: true
+    hll: true
+    merge_series: prjcntr
+    drop: sprjcntr
   - name: Company PRs in repository groups
     sql: company_prs
     series_name_or_func: company_prs
