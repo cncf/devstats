@@ -12,8 +12,8 @@
 <li>Contributor is defined as somebody who made a review, comment, commit, created PR or issue.</li>
 <li>Contribution is a review, comment, commit, issue or PR.</li>
 <li>We are determining contributor's country by using GitHub localization and searching for a country using <a href="http://www.geonames.org" target="_blank">geonames</a> database.</li>
-<li>You can select one, multiple or all countries to generate statistics for, quarter, year. Countries are displayed in order of top contributing ones</li>
-<li>You can select one, multiple or all projects to be displayed (stacked, line chart and 100% stacked). Projects are displayed in order of top contributing ones</li>
+<li>You can select one, multiple or all countries to generate statistics for, quarter, year. Countries are displayed in order of top contributing ones.</li>
+<li>You can select one, multiple or all projects to be displayed (stacked, line chart and 100% stacked). Projects are displayed in order of top contributing ones.</li>
 <li>You can choose to display contributors, contributions, users, issues, PRs, actvity, committers, commits etc.</li>
 <li>Selecting period (for example month, quarter, year) means that dashboard will show data in those periods.</li>
 <li>See <a href="https://github.com/cncf/devstats/blob/master/docs/periods.md" target="_blank">here</a> for more informations about periods.</li>
