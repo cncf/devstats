@@ -1,0 +1,15 @@
+---
+tags:
+  - name: Users
+    sql: users_tags
+    series_name: users
+    name_tag: users_name
+  - name: Reviewers
+    sql: reviewers_tags
+    series_name: reviewers
+    name_tag: reviewers_name
+  - name: Country names
+    sql: countries_tags
+    series_name: countries
+    name_tag: country_name
+    value_tag: country_value
