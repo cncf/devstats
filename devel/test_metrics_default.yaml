@@ -10,7 +10,7 @@ metrics:
     merge_series: user_activity
     drop: suser_activity
     allow_fail: true
-    project: '!kubernetes'
+    project: '!kubernetes,all,allcdf,cii,graphql,istio,kyverno,lfn,opentelemetry,prestodb'
   - name: User reviews
     series_name_or_func: multi_row_single_column
     sql: reviews_per_user
