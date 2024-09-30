@@ -1651,6 +1651,7 @@ set
   repo_group = 'Keycloak'
 where
   org_login in ('keycloak')
+  or name in ('keycloak')
 ;
 
 -- SOPS
