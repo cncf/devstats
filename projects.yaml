@@ -2986,9 +2986,9 @@ projects:
          rook,cncf,crosscloudci,vitessio,nats-io,open-policy-agent,spiffe,headlamp-k8s,\
          cloudevents,telepresenceio,helm,kubernetes-csi,goharbor,tikv,etcd-io,hwameistor,\
          OpenObservability,cortexproject,buildpacks,falcosecurity,dragonflyoss,microcks,\
-         virtual-kubelet,kubeedge,brigadecore,cri-o,networkservicemesh,kubeclipper,\
+         virtual-kubelet,kubeedge,cri-o,networkservicemesh,kubeclipper,\
          open-telemetry,thanos-io,fluxcd,in-toto,strimzi,kubevirt,cdfoundation,kubeflow,\
-         longhorn,chubaofs,cubefs,kedacore,servicemeshinterface,argoproj,volcano-sh,\
+         longhorn,chubaofs,cubefs,kedacore,argoproj,volcano-sh,\
          cni-genie,keptn,kudobuilder,cloud-custodian,dexidp,litmuschaos,artifacthub,\
          parallaxsecond,bfenetworks,crossplane,kumahq,projectcontour,operator-framework,\
          chaos-mesh,serverlessworkflow,tremor-rs,metal3-io,openservicemesh,keylime,\
