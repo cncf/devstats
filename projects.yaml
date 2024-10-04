@@ -2991,14 +2991,14 @@ projects:
          longhorn,chubaofs,cubefs,kedacore,argoproj,volcano-sh,\
          cni-genie,keptn,kudobuilder,cloud-custodian,dexidp,litmuschaos,artifacthub,\
          parallaxsecond,bfenetworks,crossplane,kumahq,projectcontour,operator-framework,\
-         chaos-mesh,serverlessworkflow,tremor-rs,metal3-io,openservicemesh,keylime,\
+         chaos-mesh,serverlessworkflow,tremor-rs,metal3-io,keylime,\
          Kong/kumacut,Kong/docker-kuma,getporter,schemahero,openkruise,openyurtio,\
          tinkerbell,pravega,kyverno,cert-manager,cdk8s-team,k8up-io,kube-rs,devfile,\
          k3s-io,gitops-working-group,piraeusdatastore,skooner-k8s,AthenZ,bank-vaults,\
          distribution,kubeovn,k8gb-io,trickstercache,emissary-ingress,runatlantis,\
          backstage,kuberhealthy,WasmEdge,chaosblade-io,v6d-io,antrea-io,pixie-io,\
          fluid-cloudnative,submariner-io,argoproj-labs,kube-vip,kubedl-io,keycloak,\
-         oras-project,krustlet,wasmCloud,project-akri,metallb,karmada-io,clusternet,\
+         oras-project,wasmCloud,project-akri,metallb,karmada-io,clusternet,\
          inclavare-containers,superedge,cilium,dapr,openelb,kubescape,inspektor-gadget,\
          open-cluster-management-io,vscode-kubernetes-tools,nocalhost,kubearmor,\
          meshery,service-mesh-performance,knative,knative-sandbox,FabEdge,project-stacker,\
