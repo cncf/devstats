@@ -1079,16 +1079,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Krustlet",
-      "tooltip": "Opens Krustlet projects dashboards",
-      "type": "link",
-      "url": "https://krustlet.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "ORAS",
       "tooltip": "Opens ORAS projects dashboards",
       "type": "link",
