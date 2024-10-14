@@ -27,7 +27,7 @@ org_name = XYZ
 org_role = Read Only Editor
 ```
 
-To enable Google analytics:
+To enable Google analytics (outdated - uses GA prior to v4 which is no longer supported):
 google_analytics_ua_id = UA-XXXXXXXXX-Y
 - Restart grafana server.
 
