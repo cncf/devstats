@@ -109,6 +109,22 @@ where
   r.name = c.repo
 ;
 
+-- To see missing repos
+/*
+select
+  c.repo
+from
+  repos c
+left join
+  gha_repos r
+on
+  r.name = c.repo
+where
+  r.name is null;
+;
+*/
+
+
 -- Remaining repos that were not assigned to at least 1 repo group fall back to 'Other' repo group
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login)
 select
