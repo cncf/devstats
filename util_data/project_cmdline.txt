@@ -131,7 +131,7 @@ kubeslice,kubeslice
 kubestellar,kubestellar,KubeStellar,kcp-dev/edge-mc
 kubevela,regexp:(?i)^(oam-dev\/.*vela|kubevela\/.*)
 kubevip,kube-vip,plunder-app/kube-vip
-kubevirt,kubevirt
+kubevirt,kubevirt,k8snetworkplumbingwg/kubemacpool,k8snetworkplumbingwg/multi-networkpolicy-iptables,k8snetworkplumbingwg/sriov-network-operator,nmstate/kubernetes-nmstate
 kubewarden,kubewarden,chimera-kube
 kudo,kudobuilder,patras-sdk/kubebuilder-maestro,patras-sdk/maestro,maestrosdk/maestro,maestrosdk/frameworks
 kuma,kumahq,Kong/kuma,Kong/kuma-website,Kong/kuma-demo,Kong/kuma-gui,Kong/kumacut,Kong/docker-kuma

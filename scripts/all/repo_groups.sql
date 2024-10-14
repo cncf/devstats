@@ -471,6 +471,12 @@ set
   repo_group = 'KubeVirt'
 where
   org_login in ('kubevirt')
+  or name in (
+    'k8snetworkplumbingwg/kubemacpool',
+    'k8snetworkplumbingwg/multi-networkpolicy-iptables',
+    'k8snetworkplumbingwg/sriov-network-operator',
+    'nmstate/kubernetes-nmstate'
+  )
 ;
 
 -- Longhorn

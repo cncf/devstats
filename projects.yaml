@@ -640,7 +640,7 @@ projects:
     name: KubeVirt
     status: Incubating
     command_line:
-      - kubevirt
+      - 'kubevirt,k8snetworkplumbingwg/kubemacpool,k8snetworkplumbingwg/multi-networkpolicy-iptables,k8snetworkplumbingwg/sriov-network-operator,nmstate/kubernetes-nmstate'
     start_date: 2016-04-27T00:00:00Z
     join_date: 2019-09-06T00:00:00Z
     incubating_date: 2022-04-19T00:00:00Z
@@ -2986,9 +2986,10 @@ projects:
          rook,cncf,crosscloudci,vitessio,nats-io,open-policy-agent,spiffe,headlamp-k8s,\
          cloudevents,telepresenceio,helm,kubernetes-csi,goharbor,tikv,etcd-io,hwameistor,\
          OpenObservability,cortexproject,buildpacks,falcosecurity,dragonflyoss,microcks,\
-         virtual-kubelet,kubeedge,cri-o,networkservicemesh,kubeclipper,\
+         virtual-kubelet,kubeedge,cri-o,networkservicemesh,kubeclipper,nmstate/kubernetes-nmstate,\
          open-telemetry,thanos-io,fluxcd,in-toto,strimzi,kubevirt,cdfoundation,kubeflow,\
-         longhorn,chubaofs,cubefs,kedacore,argoproj,volcano-sh,\
+         longhorn,chubaofs,cubefs,kedacore,argoproj,volcano-sh,k8snetworkplumbingwg/kubemacpool,\
+         k8snetworkplumbingwg/multi-networkpolicy-iptables,k8snetworkplumbingwg/sriov-network-operator,\
          cni-genie,keptn,kudobuilder,cloud-custodian,dexidp,litmuschaos,artifacthub,\
          parallaxsecond,bfenetworks,crossplane,kumahq,projectcontour,operator-framework,\
          chaos-mesh,serverlessworkflow,tremor-rs,metal3-io,keylime,\
