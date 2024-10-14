@@ -18,7 +18,9 @@ echo 'Patching Grafana'
 host=`hostname`
 if [ -z "$GA" ]
 then
-  ga=";"
+  # ga=";"
+  # Support GA4:
+  ga="google_tag_manager_id = GTM-M5KXPQ53"
 else
   ga="google_analytics_ua_id = $GA"
 fi

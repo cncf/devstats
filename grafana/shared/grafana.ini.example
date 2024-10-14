@@ -146,6 +146,7 @@ timeout = 60
 
 # Google Analytics universal tracking code, only enabled if you specify an id here
 ;google_analytics_ua_id =
+;google_tag_manager_id =
 {{ga}}
 
 # Google Tag Manager ID, only enabled if you specify an id here

@@ -28,7 +28,15 @@ org_role = Read Only Editor
 ```
 
 To enable Google analytics (outdated - uses GA prior to v4 which is no longer supported):
+```
 google_analytics_ua_id = UA-XXXXXXXXX-Y
+```
+
+To enable GA4 (requires Grafana >= 9.X):
+```
+google_tag_manager_id = GTM-M5KXPQ53
+```
+
 - Restart grafana server.
 
 To restrict using GRAFANA by server IP, for example 147.72.202.77:3000, you can set:
