@@ -26,126 +26,102 @@ where
   r.name like '%_/_%'
   and r.name not like '%/%/%'
 ;
-update gha_repos set repo_group = alias;
 
-insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, coalesce(repo_group, name), org_id, org_login from gha_repos on conflict do nothing;
-insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, org_login, org_id, org_login from gha_repos where org_id is not null and org_login is not null and trim(org_login) != '' on conflict do nothing;
-
+-- Maybe some new repos specified in CTE config appeared, so their config will be changed
+-- And because we only want to assign not specified to 'Other' - we do this configuration again
+delete from gha_repo_groups;
 
 -- Per each SIG that has claimed ownership via one of it's subprojects we add a new entry in gha_repo_groups
+-- 'repos' CTE is a full mapping between repo name N:M repo group
+-- each line is ('repo/name', 'Repo Group Name'),
+with repos as (
+  select
+    repo,
+    repo_group
+  from (
+    values
+      -- sig-compute
+      ('kubevirt/ansible-kubevirt-modules', 'sig-compute'),
+      ('kubevirt/cloud-image-builder', 'sig-compute'),
+      ('kubevirt/cluster-api-provider-external', 'sig-compute'),
+      ('kubevirt/cluster-network-addons-operator', 'sig-compute'),
+      ('kubevirt/common-templates', 'sig-compute'),
+      ('kubevirt/community', 'sig-compute'),
+      ('kubevirt/cpu-nfd-plugin', 'sig-compute'),
+      ('kubevirt/csi-driver', 'sig-compute'),
+      ('kubevirt/external-storage', 'sig-compute'),
+      ('kubevirt/hostpath-provisioner', 'sig-compute'),
+      ('kubevirt/hyperconverged-cluster-operator', 'sig-compute'),
+      ('kubevirt/katacoda-scenarios', 'sig-compute'),
+      ('kubevirt/krew-index', 'sig-compute'),
+      ('kubevirt/kubectl-virt-plugin', 'sig-compute'),
+      ('kubevirt/kubevirt', 'sig-compute'),
+      ('kubevirt/kubevirt-ssp-operator', 'sig-compute'),
+      ('kubevirt/kubevirt-tekton-tasks', 'sig-compute'),
+      ('kubevirt/kubevirt-template-validator', 'sig-compute'),
+      ('kubevirt/kvm-info-nfd-plugin', 'sig-compute'),
+      ('kubevirt/libvirt', 'sig-compute'),
+      ('kubevirt/machine-remediation', 'sig-compute'),
+      ('kubevirt/macvtap-cni', 'sig-compute'),
+      ('kubevirt/must-gather', 'sig-compute'),
+      ('kubevirt/node-labeller', 'sig-compute'),
+      ('kubevirt/node-maintenance-operator', 'sig-compute'),
+      ('kubevirt/ovs-cni', 'sig-compute'),
+      ('kubevirt/ssp-operator', 'sig-compute'),
+      -- documentation
+      ('kubevirt/demo', 'documentation'),
+      ('kubevirt/kubevirt-tutorial', 'documentation'),
+      ('kubevirt/kubevirt.github.io', 'documentation'),
+      ('kubevirt/user-guide', 'documentation'),
+      -- storage
+      ('kubevirt/containerized-data-importer', 'storage'),
+      -- testing
+      ('kubevirt/kubevirtci', 'testing'),
+      ('kubevirt/project-infra', 'testing'),
+      -- network
+      ('k8snetworkplumbingwg/kubemacpool', 'network'),
+      ('k8snetworkplumbingwg/multi-networkpolicy-iptables', 'network'),
+      ('k8snetworkplumbingwg/sriov-network-operator', 'network'),
+      ('nmstate/kubernetes-nmstate', 'network'),
+      -- KubeVirt Perf and Scale SIG
+      ('kubevirt/kubevirt', 'KubeVirt Perf and Scale SIG'),
+      -- observability
+      ('kubevirt/cluster-network-addons-operator', 'observability'),
+      ('kubevirt/containerized-data-importer', 'observability'),
+      ('kubevirt/hostpath-provisioner', 'observability'),
+      ('kubevirt/hostpath-provisioner-operator', 'observability'),
+      ('kubevirt/hyperconverged-cluster-operator', 'observability'),
+      ('kubevirt/kubevirt', 'observability'),
+      ('kubevirt/monitoring', 'observability'),
+      ('kubevirt/must-gather', 'observability'),
+      ('kubevirt/ssp-operator', 'observability'),
+      -- KubeVirt Buildsystem SIG
+      ('kubevirt/kubevirt', 'KubeVirt Buildsystem SIG')
+  ) AS a (repo, repo_group)
+)
+insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login)
+select
+  r.id, r.name, r.alias, c.repo_group, r.org_id, r.org_login
+from
+  gha_repos r,
+  repos c
+where
+  r.name = c.repo
+;
 
-insert into gha_repo_groups(id, name, repo_group, alias, org_id, org_login)
-select id, name, 'sig-compute', alias, org_id, org_login
-  from gha_repo_groups
- where lower(name) in (
-          'kubevirt/ansible-kubevirt-modules',
-          'kubevirt/cloud-image-builder',
-          'kubevirt/cluster-api-provider-external',
-          'kubevirt/cluster-network-addons-operator',
-          'kubevirt/common-templates',
-          'kubevirt/community',
-          'kubevirt/cpu-nfd-plugin',
-          'kubevirt/csi-driver',
-          'kubevirt/external-storage',
-          'kubevirt/hostpath-provisioner',
-          'kubevirt/hyperconverged-cluster-operator',
-          'kubevirt/katacoda-scenarios',
-          'kubevirt/krew-index',
-          'kubevirt/kubectl-virt-plugin',
-          'kubevirt/kubevirt',
-          'kubevirt/kubevirt-ssp-operator',
-          'kubevirt/kubevirt-tekton-tasks',
-          'kubevirt/kubevirt-template-validator',
-          'kubevirt/kvm-info-nfd-plugin',
-          'kubevirt/libvirt',
-          'kubevirt/machine-remediation',
-          'kubevirt/macvtap-cni',
-          'kubevirt/must-gather',
-          'kubevirt/node-labeller',
-          'kubevirt/node-maintenance-operator',
-          'kubevirt/ovs-cni',
-          'kubevirt/ssp-operator',
-       )
-  on conflict update;
-
-insert into gha_repo_groups(id, name, repo_group, alias, org_id, org_login)
-select id, name, 'documentation', alias, org_id, org_login
-  from gha_repo_groups
- where lower(name) in (
-          'kubevirt/demo',
-          'kubevirt/kubevirt-tutorial',
-          'kubevirt/kubevirt.github.io',
-          'kubevirt/user-guide',
-       )
-  on conflict update;
-
-insert into gha_repo_groups(id, name, repo_group, alias, org_id, org_login)
-select id, name, 'storage', alias, org_id, org_login
-  from gha_repo_groups
- where lower(name) in (
-          'kubevirt/containerized-data-importer',
-       )
-  on conflict update;
-
-insert into gha_repo_groups(id, name, repo_group, alias, org_id, org_login)
-select id, name, 'testing', alias, org_id, org_login
-  from gha_repo_groups
- where lower(name) in (
-          'kubevirt/kubevirtci',
-          'kubevirt/project-infra',
-       )
-  on conflict update;
-
-insert into gha_repo_groups(id, name, repo_group, alias, org_id, org_login)
-select id, name, 'network', alias, org_id, org_login
-  from gha_repo_groups
- where lower(name) in (
-          'k8snetworkplumbingwg/kubemacpool',
-          'k8snetworkplumbingwg/multi-networkpolicy-iptables',
-          'k8snetworkplumbingwg/sriov-network-operator',
-          'nmstate/kubernetes-nmstate',
-       )
-  on conflict update;
-
-insert into gha_repo_groups(id, name, repo_group, alias, org_id, org_login)
-select id, name, 'KubeVirt Perf and Scale SIG', alias, org_id, org_login
-  from gha_repo_groups
- where lower(name) in (
-          'kubevirt/kubevirt',
-       )
-  on conflict update;
-
-insert into gha_repo_groups(id, name, repo_group, alias, org_id, org_login)
-select id, name, 'observability', alias, org_id, org_login
-  from gha_repo_groups
- where lower(name) in (
-          'kubevirt/cluster-network-addons-operator',
-          'kubevirt/containerized-data-importer',
-          'kubevirt/hostpath-provisioner',
-          'kubevirt/hostpath-provisioner-operator',
-          'kubevirt/hyperconverged-cluster-operator',
-          'kubevirt/kubevirt',
-          'kubevirt/monitoring',
-          'kubevirt/must-gather',
-          'kubevirt/ssp-operator',
-       )
-  on conflict update;
-
-insert into gha_repo_groups(id, name, repo_group, alias, org_id, org_login)
-select id, name, 'KubeVirt Buildsystem SIG', alias, org_id, org_login
-  from gha_repo_groups
- where lower(name) in (
-          'kubevirt/kubevirt',
-       )
-  on conflict update;
-
-
--- for the remaining rows where the repo_group has not been touched we set the default "Other"
-
-UPDATE gha_repos
-SET repo_group = 'Other'
-WHERE repo_group = alias
-
+-- Remaining repos that were not assigned to at least 1 repo group fall back to 'Other' repo group
+insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login)
+select
+  r.id, r.name, r.alias, 'Other', r.org_id, r.org_login
+from
+  gha_repos r
+left join
+  gha_repo_groups rg
+on
+  r.name = rg.name
+where
+  rg.name is null
+;
 
 select
   repo_group,
