@@ -35,7 +35,7 @@ then
 fi
 
 host=`hostname`
-if [ "$GA" = "-" ]
+if ( [ "$GA" = "-" ] || [ "$GA" = "" ] )
 then
   # ga=";"
   # Support GA4:

@@ -144,7 +144,11 @@ cookie_name = {{project}}_grafana_sess{{test}}
 
 # Google Analytics universal tracking code, only enabled if you specify an id here
 ;google_analytics_ua_id =
+
+# Google Tag Manager ID, only enabled if you specify an id here
 ;google_tag_manager_id =
+
+# Currently only GA4 is supported
 {{ga}}
 
 #################################### Security ####################################
