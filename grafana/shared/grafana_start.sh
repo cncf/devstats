@@ -38,7 +38,10 @@ cp "grafana/img/$ICON.svg" "/usr/share/grafana/public/img/grafana_icon.svg" || e
 cp "grafana/img/$ICON.svg" "/usr/share/grafana/public/img/grafana_com_auth_icon.svg" || exit 11
 cp "grafana/img/$ICON.svg" "/usr/share/grafana/public/img/grafana_net_logo.svg" || exit 12
 cp "grafana/img/$ICON.svg" "/usr/share/grafana/public/img/grafana_mask_icon.svg" || exit 13
+echo 'Change title and icons'
 GRAFANA_DATA="/usr/share/grafana/" ./grafana/$PROJ/change_title_and_icons.sh || exit 14
+echo 'Inject GA4 custom script'
+find /usr/share/grafana -iname "index*.html" -exec sed -i 's|<head>|<head><script src="https://cmp.osano.com/16A0DbT9yDNIaQkvZ/c3494b1e-ff3a-436f-978d-842e9a0bed27/osano.js"></script>|' "{}" \;
 mkdir /usr/share/grafana/public/img/projects 2>/dev/null
 cp grafana/img/*.svg /usr/share/grafana/public/img/projects/ || exit 26
 cfile="/etc/grafana/grafana.ini"
