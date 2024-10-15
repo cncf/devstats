@@ -43,7 +43,11 @@ GRAFANA_DATA="/usr/share/grafana/" ./grafana/$PROJ/change_title_and_icons.sh || 
 echo 'Inject GA4 custom script'
 find /usr/share/grafana -iname "index*.html" -exec sed -i 's|<head>|<head><script src="https://cmp.osano.com/16A0DbT9yDNIaQkvZ/c3494b1e-ff3a-436f-978d-842e9a0bed27/osano.js"></script>|' "{}" \;
 echo 'Update AppTitle'
-find /usr/share/grafana -iname "index*.html" -exec sed -i "s|\[\[\.AppTitle\]\]|${ORGNAME} - DevStats|g" "{}" \;
+for f in $(find /usr/share/grafana -type f -exec grep -l '\[\[.AppTitle]]' "{}" \; | sort | uniq)
+do
+  ls -l "$f"
+  sed -i "s|\[\[\.AppTitle\]\]|${ORGNAME} - DevStats|g" "$f"
+done
 mkdir /usr/share/grafana/public/img/projects 2>/dev/null
 cp grafana/img/*.svg /usr/share/grafana/public/img/projects/ || exit 26
 cfile="/etc/grafana/grafana.ini"
