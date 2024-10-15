@@ -16,7 +16,7 @@ fi
 # Patch Grafana per our project
 echo 'Patching Grafana'
 host=`hostname`
-if ( [ -z "$GA"] || [ "$GA" = "-" ] || [ "$GA" = "" ] )
+if ( [ -z "$GA" ] || [ "$GA" = "-" ] || [ "$GA" = "" ] )
 then
   # ga=";"
   # Support GA4:
