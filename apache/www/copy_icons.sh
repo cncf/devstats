@@ -135,6 +135,9 @@ do
   elif ( [ "$icon" = "rkt" ] || [ "$icon" = "brigade" ] || [ "$icon" = "opentracing" ] || [ "$icon" = "openservicemesh" ] || [ "$icon" = "servicemeshinterface" ] || [ $icon" = "curiefense" ] || [ $icon" = "krator" ] || [ $icon" = "fonio" ] || [ $icon" = "openebs" ] )
   then
     path="archived/$icon"
+  elif [ "$proj" = "shipwright" ]
+  then
+    path="former_projects/$icon"
   elif [ "$iconorg" = "cncf" ]
   then
     path="projects/$icon"
@@ -229,8 +232,8 @@ do
     continue
   elif [ "$icon" = "pyrsia" ]
   then
-    convert "$HOME/dev/cdfoundation/artwork/pyrsia/artwork/logo.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
-    cp "$HOME/dev/cdfoundation/artwork/pyrsia/artwork/logo.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
+    convert "$HOME/dev/cdfoundation/artwork/former_projects/pyrsia/artwork/logo.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
+    cp "$HOME/dev/cdfoundation/artwork/former_projects/pyrsia/artwork/logo.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
     continue
   elif [ "$icon" = "aerakimesh" ]
   then
