@@ -2735,7 +2735,7 @@ projects:
     command_line:
       - ratify-project
     start_date: 2021-11-15T00:00:00Z
-    join_date: 2024-08-29T00:00:00Z
+    join_date: 2024-08-30T00:00:00Z
     psql_db: ratify
     shared_db: allprj
     main_repo: ratify-project/ratify
