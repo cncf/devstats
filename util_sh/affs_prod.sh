@@ -47,7 +47,7 @@ GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" devstats
 ONLY="kubeburner kuasar krknchaos kubestellar easegress spiderpool k8sgpt kubeslice connect kairos kubean koordinator radius" ./devel/all_affs.sh || exit 15
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" devstats
 
-ONLY="bankvaults atlantis stacker trestlegrc kuadrant opengemini score bpfman loxilb cartography perses ratify hami shipwrightcncf flatcar" ./devel/all_affs.sh || exit 16
+ONLY="bankvaults atlantis stacker trestlegrc kuadrant opengemini score bpfman loxilb cartography perses ratify hami shipwrightcncf flatcar kusionstack" ./devel/all_affs.sh || exit 16
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" devstats
 
 ONLY="smi argo volcano cnigenie keptn kudo cloudcustodian dex litmuschaos artifacthub kuma parsec bfe crossplane" ./devel/all_affs.sh || exit 17

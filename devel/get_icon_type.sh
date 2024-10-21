@@ -221,6 +221,7 @@ icontypes=(
   ["hami"]="color"
   ["shipwrightcncf"]="color"
   ["flatcar"]="color"
+  ["kusionstack"]="color"
   ["tekton"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
