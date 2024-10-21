@@ -2780,6 +2780,19 @@ projects:
     main_repo: flatcar/mantle
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  kusionstack:
+    order: 205
+    name: KusionStack
+    status: Sandbox
+    command_line:
+      - KusionStack
+    start_date: 2022-05-06T00:00:00Z
+    join_date: 2024-08-02T00:00:00Z
+    psql_db: kusionstack
+    shared_db: allprj
+    main_repo: KusionStack/kusion
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opencontainers:
     order: 1200
     name: OCI
@@ -2992,7 +3005,7 @@ projects:
          k8snetworkplumbingwg/multi-networkpolicy-iptables,k8snetworkplumbingwg/sriov-network-operator,\
          cni-genie,keptn,kudobuilder,cloud-custodian,dexidp,litmuschaos,artifacthub,\
          parallaxsecond,bfenetworks,crossplane,kumahq,projectcontour,operator-framework,\
-         chaos-mesh,serverlessworkflow,tremor-rs,metal3-io,keylime,\
+         chaos-mesh,serverlessworkflow,tremor-rs,metal3-io,keylime,KusionStack,\
          Kong/kumacut,Kong/docker-kuma,getporter,schemahero,openkruise,openyurtio,\
          tinkerbell,pravega,kyverno,cert-manager,cdk8s-team,k8up-io,kube-rs,devfile,\
          k3s-io,gitops-working-group,piraeusdatastore,skooner-k8s,AthenZ,bank-vaults,\
