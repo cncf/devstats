@@ -2116,6 +2116,15 @@ where
   or name in ('kinvolk/Flatcar', 'kinvolk/flatcar-scripts', 'kinvolk/mantle')
 ;
 
+-- KusionStack
+update
+  gha_repos
+set
+  repo_group = 'KusionStack'
+where
+  org_login in ('KusionStack')
+;
+
 -- CNCF
 update
   gha_repos
