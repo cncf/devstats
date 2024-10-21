@@ -136,6 +136,7 @@ kubewarden,kubewarden,chimera-kube
 kudo,kudobuilder,patras-sdk/kubebuilder-maestro,patras-sdk/maestro,maestrosdk/maestro,maestrosdk/frameworks
 kuma,kumahq,Kong/kuma,Kong/kuma-website,Kong/kuma-demo,Kong/kuma-gui,Kong/kumacut,Kong/docker-kuma
 kured,kubereboot,weaveworks/kured
+kusionstack,KusionStack
 kyverno,kyverno
 lima,lima-vm,AkihiroSuda/lima
 linkerd,linkerd
