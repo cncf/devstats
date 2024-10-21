@@ -715,12 +715,15 @@ do
   elif [ "$proj" = "flatcar" ]
   then
     PROJ=flatcar             PROJDB=flatcar        PROJREPO="flatcar/mantle"                  ORGNAME=Flatcar           PORT=3279 ICON=flatcar        GRAFSUFF=flatcar        GA="-" ./devel/deploy_proj.sh               || exit 204
+  elif [ "$proj" = "kusionstack" ]
+  then
+    PROJ=kusionstack         PROJDB=kusionstack    PROJREPO="KusionStack/kusion"              ORGNAME=KusionStack       PORT=3280 ICON=kusionstack    GRAFSUFF=kusionstack    GA="-" ./devel/deploy_proj.sh               || exit 205
   elif [ "$proj" = "opencontainers" ]
   then
-    PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh || exit 32
+    PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
   elif [ "$proj" = "cncf" ]
   then
-    PROJ=cncf                PROJDB=cncf           PROJREPO="cncf/landscapeapp"               ORGNAME=CNCF              PORT=3255 ICON=cncf           GRAFSUFF=cncf           GA="-"  ./devel/deploy_proj.sh || exit 33
+    PROJ=cncf                PROJDB=cncf           PROJREPO="cncf/landscapeapp"               ORGNAME=CNCF              PORT=3255 ICON=cncf           GRAFSUFF=cncf           GA="-"  ./devel/deploy_proj.sh              || exit 33
   elif [ "$proj" = "sam" ]
   then
     PROJ=sam                 PROJDB=sam            PROJREPO="awslabs/serverless-application-model" ORGNAME="AWS SAM"    PORT=3224 ICON=cncf           GRAFSUFF=sam            GA="-"               ./devel/deploy_proj.sh || exit 54
