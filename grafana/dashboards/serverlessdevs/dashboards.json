@@ -2003,6 +2003,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "KusionStack",
+      "tooltip": "Opens KusionStack projects dashboards",
+      "type": "link",
+      "url": "https://kusionstack.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
