@@ -16,7 +16,7 @@ brigade,brigadecore,Azure/brigade
 buildpacks,buildpack,buildpacks,buildpacks-community
 capsule,regexp:(?i)^(clastix\/.*capsule.*|projectcapsule\/.*)$
 carina,carina-io
-cartography,lyft/cartography
+cartography,cartography-cncf,lyft/cartography
 carvel,vmware-tanzu/carvel,k14s,carvel-dev
 cdevents,cdevents
 cdk8s,cdk8s-team,awslabs/cdk8s

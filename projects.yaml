@@ -2707,12 +2707,12 @@ projects:
     name: Cartography
     status: Sandbox
     command_line:
-      - lyft/cartography
+      - cartography-cncf
     start_date: 2019-03-01T00:00:00Z
     join_date: 2024-08-23T00:00:00Z
     psql_db: cartography
     shared_db: allprj
-    main_repo: lyft/cartography
+    main_repo: cartography-cncf/cartography
     annotation_regexp: '^\d+\.\d+\.0$'
     files_skip_pattern: ''
   perses:
@@ -3027,7 +3027,7 @@ projects:
          kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,easegress-io,\
          spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops,kubeslice,score-spec,\
          connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass,\
-         loxilb-io,lyft/cartography,perses,ratify-project,Project-HAMi,shipwright-io,\
+         loxilb-io,cartography-cncf,perses,ratify-project,Project-HAMi,shipwright-io,\
          flatcar,flatcar-linux"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z

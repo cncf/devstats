@@ -2065,7 +2065,8 @@ update
 set
   repo_group = 'Cartography'
 where
-  name in ('lyft/cartography')
+  org_login in ('cartography-cncf')
+  or name in ('lyft/cartography')
 ;
 
 -- Perses

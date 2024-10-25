@@ -699,7 +699,7 @@ do
     PROJ=loxilb              PROJDB=loxilb         PROJREPO="loxilb-io/loxilb"                ORGNAME=LoxiLB            PORT=3273 ICON=loxilb         GRAFSUFF=loxilb         GA="-" ./devel/deploy_proj.sh               || exit 198
   elif [ "$proj" = "cartography" ]
   then
-    PROJ=cartography         PROJDB=cartography    PROJREPO="lyft/cartography"                ORGNAME=Cartography       PORT=3274 ICON=cartography    GRAFSUFF=cartography    GA="-" ./devel/deploy_proj.sh               || exit 199
+    PROJ=cartography         PROJDB=cartography    PROJREPO="cartography-cncf/cartography"    ORGNAME=Cartography       PORT=3274 ICON=cartography    GRAFSUFF=cartography    GA="-" ./devel/deploy_proj.sh               || exit 199
   elif [ "$proj" = "perses" ]
   then
     PROJ=perses              PROJDB=perses         PROJREPO="perses/perses"                   ORGNAME=Perses            PORT=3275 ICON=perses         GRAFSUFF=perses         GA="-" ./devel/deploy_proj.sh               || exit 200

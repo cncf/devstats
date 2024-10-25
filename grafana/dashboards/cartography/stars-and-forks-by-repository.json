@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": true,
-          "text": "lyft/cartography",
-          "value": "lyft/cartography"
+          "text": "cartography-cncf/cartography",
+          "value": "cartography-cncf/cartography"
         },
         "datasource": {
           "type": "postgres",
