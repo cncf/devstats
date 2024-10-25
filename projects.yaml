@@ -492,12 +492,13 @@ projects:
   kubeedge:
     order: 33
     name: KubeEdge
-    status: Incubating
+    status: Graduated
     command_line:
       - 'kubeedge'
     start_date: 2018-11-12T00:00:00Z
     join_date: 2019-03-18T00:00:00Z
     incubating_date: 2020-09-16T00:00:00Z
+    graduated_date: 2024-09-11T00:00:00Z
     psql_db: kubeedge
     shared_db: allprj
     main_repo: kubeedge/kubeedge
@@ -554,7 +555,6 @@ projects:
       - openebs
     start_date: 2016-08-01T00:00:00Z
     join_date: 2024-10-10T00:00:00Z
-    archived_date: 2024-01-31T00:00:00Z
     psql_db: openebs
     shared_db: allprj
     main_repo: openebs/openebs
@@ -1078,12 +1078,13 @@ projects:
   certmanager:
     order: 75
     name: cert-manager
-    status: Incubating
+    status: Graduated
     command_line:
       - 'cert-manager'
     start_date: 2017-08-07T00:00:00Z
     join_date: 2020-11-10T00:00:00Z
     incubating_date: 2022-09-19T00:00:00Z
+    graduated_date: 2024-09-29T00:00:00Z
     psql_db: certmanager
     shared_db: allprj
     main_repo: cert-manager/cert-manager
@@ -1173,11 +1174,12 @@ projects:
   k8dash:
     order: 82
     name: Skooner
-    status: Sandbox
+    status: Archived
     command_line:
       - 'skooner-k8s'
     start_date: 2019-03-05T00:00:00Z
     join_date: 2021-01-26T00:00:00Z
+    archived_date: 2024-10-24T00:00:00Z
     psql_db: k8dash
     shared_db: allprj
     main_repo: 'skooner-k8s/skooner'
@@ -3008,7 +3010,7 @@ projects:
          chaos-mesh,serverlessworkflow,tremor-rs,metal3-io,keylime,KusionStack,\
          Kong/kumacut,Kong/docker-kuma,getporter,schemahero,openkruise,openyurtio,\
          tinkerbell,pravega,kyverno,cert-manager,cdk8s-team,k8up-io,kube-rs,devfile,\
-         k3s-io,gitops-working-group,piraeusdatastore,skooner-k8s,AthenZ,bank-vaults,\
+         k3s-io,gitops-working-group,piraeusdatastore,openebs,AthenZ,bank-vaults,\
          distribution,kubeovn,k8gb-io,trickstercache,emissary-ingress,runatlantis,\
          backstage,kuberhealthy,WasmEdge,chaosblade-io,v6d-io,antrea-io,pixie-io,\
          fluid-cloudnative,submariner-io,argoproj-labs,kube-vip,kubedl-io,keycloak,\
