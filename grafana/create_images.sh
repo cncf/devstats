@@ -271,6 +271,13 @@ do
     cp "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.svg" "grafana/img/$suff.svg" || exit 31
     convert "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 32
     continue
+  elif [ "$icon" = "atlantis" ]
+  then
+    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 33
+    icon="cncf"
+    path="other/$icon"
+    cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 34
+    continue
   fi
   # echo "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg"
   cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 2
