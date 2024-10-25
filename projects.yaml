@@ -549,11 +549,11 @@ projects:
   openebs:
     order: 37
     name: OpenEBS
-    status: Archived
+    status: Sandbox
     command_line:
       - openebs
     start_date: 2016-08-01T00:00:00Z
-    join_date: 2019-05-14T00:00:00Z
+    join_date: 2024-10-10T00:00:00Z
     archived_date: 2024-01-31T00:00:00Z
     psql_db: openebs
     shared_db: allprj
@@ -2709,7 +2709,7 @@ projects:
     command_line:
       - lyft/cartography
     start_date: 2019-03-01T00:00:00Z
-    join_date: 2024-08-29T00:00:00Z
+    join_date: 2024-08-23T00:00:00Z
     psql_db: cartography
     shared_db: allprj
     main_repo: lyft/cartography
