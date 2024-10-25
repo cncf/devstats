@@ -299,6 +299,26 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "KubeEdge",
+      "tooltip": "Opens KubeEdge projects dashboards",
+      "type": "link",
+      "url": "https://kubeedge.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "cert-manager",
+      "tooltip": "Opens cert-manager projects dashboards",
+      "type": "link",
+      "url": "https://certmanager.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -393,16 +413,6 @@
       "tooltip": "Opens Buildpacks projects dashboards",
       "type": "link",
       "url": "https://buildpacks.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "KubeEdge",
-      "tooltip": "Opens KubeEdge projects dashboards",
-      "type": "link",
-      "url": "https://kubeedge.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -513,16 +523,6 @@
       "tooltip": "Opens Cloud Custodian projects dashboards",
       "type": "link",
       "url": "https://cloudcustodian.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "cert-manager",
-      "tooltip": "Opens cert-manager projects dashboards",
-      "type": "link",
-      "url": "https://certmanager.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -893,16 +893,6 @@
       "tooltip": "Opens Piraeus-Datastore projects dashboards",
       "type": "link",
       "url": "https://piraeus.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "k8dash",
-      "tooltip": "Opens k8dash projects dashboards",
-      "type": "link",
-      "url": "https://k8dash.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -2003,7 +1993,17 @@
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
       "url": "https://all.[[hostname]]"
-    }
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "OpenEBS",
+      "tooltip": "Opens OpenEBS projects dashboards",
+      "type": "link",
+      "url": "https://openebs.[[hostname]]"
+    },
   ],
   "panels": [
     {
