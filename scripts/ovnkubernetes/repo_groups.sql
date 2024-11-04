@@ -32,7 +32,7 @@ update gha_repos
 set repo_group = 'OVN-Kubernetes', alias = 'OVN-Kubernetes'
 where name in (
   'ovn-org/ovn-kubernetes',
-  'openswitch/ovn-kubernetes'
+  'openvswitch/ovn-kubernetes'
 );
 
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, coalesce(repo_group, name), org_id, org_login from gha_repos on conflict do nothing;

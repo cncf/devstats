@@ -2172,7 +2172,7 @@ set
   repo_group = 'OVN-Kubernetes'
 where
   org_login in ('ovn-org')
-  or name in ('openswitch/ovn-kubernetes')
+  or name in ('openvswitch/ovn-kubernetes')
 ;
 
 -- CNCF
