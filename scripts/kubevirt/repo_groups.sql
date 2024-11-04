@@ -79,8 +79,9 @@ with repos as (
       ('kubevirt/kubevirtci', 'testing'),
       ('kubevirt/project-infra', 'testing'),
       -- network
+      ('containernetworking/plugins', 'network'),
       ('k8snetworkplumbingwg/kubemacpool', 'network'),
-      ('k8snetworkplumbingwg/multi-networkpolicy-iptables', 'network'),
+      ('k8snetworkplumbingwg/ovs-cni', 'network'),
       ('k8snetworkplumbingwg/sriov-network-operator', 'network'),
       ('nmstate/kubernetes-nmstate', 'network'),
       -- KubeVirt Perf and Scale SIG
