@@ -726,7 +726,7 @@ do
     PROJ=kaito               PROJDB=kaito          PROJREPO="kaito-project/kaito"             ORGNAME=KAITO             PORT=3282 ICON=kaito          GRAFSUFF=kaito          GA="-" ./devel/deploy_proj.sh               || exit 207
   elif [ "$proj" = "sermant" ]
   then
-    PROJ=sermant             PROJDB=sermant        PROJREPO="sermant-io/sermant"              ORGNAME=Sermant           PORT=3283 ICON=sermant        GRAFSUFF=sermant        GA="-" ./devel/deploy_proj.sh               || exit 208
+    PROJ=sermant             PROJDB=sermant        PROJREPO="sermant-io/Sermant"              ORGNAME=Sermant           PORT=3283 ICON=sermant        GRAFSUFF=sermant        GA="-" ./devel/deploy_proj.sh               || exit 208
   elif [ "$proj" = "kmesh" ]
   then
     PROJ=kmesh               PROJDB=kmesh          PROJREPO="kmesh-net/kmesh"                 ORGNAME=Kmesh             PORT=3284 ICON=kmesh          GRAFSUFF=kmesh          GA="-" ./devel/deploy_proj.sh               || exit 209
