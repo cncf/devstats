@@ -718,6 +718,21 @@ do
   elif [ "$proj" = "kusionstack" ]
   then
     PROJ=kusionstack         PROJDB=kusionstack    PROJREPO="KusionStack/kusion"              ORGNAME=KusionStack       PORT=3280 ICON=kusionstack    GRAFSUFF=kusionstack    GA="-" ./devel/deploy_proj.sh               || exit 205
+  elif [ "$proj" = "youki" ]
+  then
+    PROJ=youki               PROJDB=youki          PROJREPO="youki-dev/youki"                 ORGNAME=Youki             PORT=3281 ICON=youki          GRAFSUFF=youki          GA="-" ./devel/deploy_proj.sh               || exit 206
+  elif [ "$proj" = "kaito" ]
+  then
+    PROJ=kaito               PROJDB=kaito          PROJREPO="kaito-project/kaito"             ORGNAME=KAITO             PORT=3282 ICON=kaito          GRAFSUFF=kaito          GA="-" ./devel/deploy_proj.sh               || exit 207
+  elif [ "$proj" = "sermant" ]
+  then
+    PROJ=sermant             PROJDB=sermant        PROJREPO="sermant-io/sermant"              ORGNAME=Sermant           PORT=3283 ICON=sermant        GRAFSUFF=sermant        GA="-" ./devel/deploy_proj.sh               || exit 208
+  elif [ "$proj" = "kmesh" ]
+  then
+    PROJ=kmesh               PROJDB=kmesh          PROJREPO="kmesh-net/kmesh"                 ORGNAME=Kmesh             PORT=3284 ICON=kmesh          GRAFSUFF=kmesh          GA="-" ./devel/deploy_proj.sh               || exit 209
+  elif [ "$proj" = "ovnkubernetes" ]
+  then
+    PROJ=ovnkubernetes       PROJDB=ovnkubernetes  PROJREPO="ovn-org/ovn-kubernetes"          ORGNAME='OVN-Kubernetes'  PORT=3285 ICON=ovnkubernetes  GRAFSUFF=ovnkubernetes  GA="-" ./devel/deploy_proj.sh               || exit 210
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
