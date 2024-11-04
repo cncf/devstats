@@ -62,6 +62,7 @@ This file describes how to add new project on the test and production servers.
 - If added disabled project, remember to add it to `crontab -e` via `GHA2DB_PROJECTS_OVERRIDE="+new_disabled_project"`.
 - Also add in other devstats repositories, follow `cncf/devstats-helm:ADDING_NEW_PROJECTS.md`.
 - Update `cncf/gitdm` affiliations with [official project maintainers](http://maintainers.cncf.io/).
+- To speedup/slowdown any subcommand processing, you can ssh into pod and create `env.env` file with `GHA2DB_NCPUS=8`.
 
 
 ## Mass update dashboard from one project to all other project conditionally
