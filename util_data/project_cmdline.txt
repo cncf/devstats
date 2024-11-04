@@ -184,7 +184,7 @@ openyurt,openyurtio,alibaba/openyurt
 operatorframework,operator-framework
 oras,oras-project,deislabs/oras,shizhMSFT/oras
 ortelius,ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-setup,ortelius/keptn-config,ortelius/keptn-ortelius-service,ortelius/la-sbom-ledger,ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach
-ovnkubernetes,ovn-org,openswitch/ovn-kubernetes
+ovnkubernetes,ovn-org,openvswitch/ovn-kubernetes
 p4lang,p4lang
 paralus,paralus
 parsec,parallaxsecond,docker/pasl
