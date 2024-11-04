@@ -2126,6 +2126,55 @@ where
   org_login in ('KusionStack')
 ;
 
+-- Youki
+update
+  gha_repos
+set
+  repo_group = 'Youki'
+where
+  org_login in ('youki-dev')
+  or name in ('containers/youki', 'utam0k/youki')
+;
+
+-- KAITO
+update
+  gha_repos
+set
+  repo_group = 'KAITO'
+where
+  org_login in ('kaito-project')
+  or name in ('Azure/kaito')
+;
+
+-- Sermant
+update
+  gha_repos
+set
+  repo_group = 'Sermant'
+where
+  org_login in ('sermant-io')
+  or name in ('huaweicloud/Sermant', 'huaweicloud/java-mesh', 'huaweicloud/JavaMesh')
+;
+
+-- Kmesh
+update
+  gha_repos
+set
+  repo_group = 'Kmesh'
+where
+  org_login in ('kmesh-net')
+;
+
+-- OVN-Kubernetes
+update
+  gha_repos
+set
+  repo_group = 'OVN-Kubernetes'
+where
+  org_login in ('ovn-org')
+  or name in ('openswitch/ovn-kubernetes')
+;
+
 -- CNCF
 update
   gha_repos
