@@ -96,6 +96,7 @@ k8gb,k8gb-io,AbsaOSS/k8gb,AbsaOSS/ohmyglb
 k8sgpt,k8sgpt-ai
 k8up,k8up-io,vshn/k8up
 kairos,kairos-io,c3os-io,mudler/c3os
+kaito,kaito-project,Azure/kaito
 kanister,kanisterio
 karmada,karmada-io
 kcl,kcl-lang,KusionStack/kcl,KusionStack/KCLVM
@@ -105,6 +106,7 @@ kepler,sustainable-computing-io
 keptn,keptn
 keycloak,keycloak
 keylime,keylime,mit-ll/python-keylime,mit-ll/keylime
+kmesh,kmesh-net
 knative,knative,knative-sandbox,knative-extensions
 ko,ko-build,google/ko
 konveyor,konveyor,fusor/mig-operator
@@ -182,6 +184,7 @@ openyurt,openyurtio,alibaba/openyurt
 operatorframework,operator-framework
 oras,oras-project,deislabs/oras,shizhMSFT/oras
 ortelius,ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-setup,ortelius/keptn-config,ortelius/keptn-ortelius-service,ortelius/la-sbom-ledger,ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach
+ovnkubernetes,ovn-org,openswitch/ovn-kubernetes
 p4lang,p4lang
 paralus,paralus
 parsec,parallaxsecond,docker/pasl
@@ -204,6 +207,7 @@ schemahero,schemahero
 score,score-spec
 screwdrivercd,screwdriver-cd
 sealer,sealerio,alibaba/sealer
+sermant,sermant-io,huaweicloud/Sermant,huaweicloud/java-mesh,huaweicloud/JavaMesh
 serverlessdevs,Serverless-Devs,ServerlessTool
 serverlessworkflow,serverlessworkflow,cncf/wg-serverless-workflow
 servicemeshperformance,regexp:(?i)^(layer5io\/.*(service-mesh|performance|benchmark)|service-mesh-performance\/.*)
@@ -240,5 +244,6 @@ wasmcloud,wasmCloud,wascc,wascaruntime,waxosuit
 wasmedge,WasmEdge,second-state/SSVM
 werf,werf,flant/werf,flant/dapp,flant/dapper
 xline,xline-kv,datenlord/Xline
+youki,youki-dev,containers/youki
 zephyr,zephyrproject-rtos
 zot,project-zot,anuvu/zot
