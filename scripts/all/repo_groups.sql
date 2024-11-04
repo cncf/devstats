@@ -2132,7 +2132,7 @@ update
 set
   repo_group = 'CNCF'
 where
-  org_login in ('cncf', 'crosscloudci', 'cdfoundation')
+  org_login in ('cncf', 'crosscloudci', 'cdfoundation', 'cncf-tags')
   and name not in (
     'cncf/hub',
     'cncf/wg-serverless-workflow',
