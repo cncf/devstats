@@ -1995,21 +1995,71 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "All CNCF",
-      "tooltip": "Opens All CNCF projects dashboards",
+      "title": "OpenEBS",
+      "tooltip": "Opens OpenEBS projects dashboards",
       "type": "link",
-      "url": "https://all.[[hostname]]"
+      "url": "https://openebs.[[hostname]]"
     },
     {
       "icon": "dashboard",
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "OpenEBS",
-      "tooltip": "Opens OpenEBS projects dashboards",
+      "title": "Youki",
+      "tooltip": "Opens Youki projects dashboards",
       "type": "link",
-      "url": "https://openebs.[[hostname]]"
+      "url": "https://youki.[[hostname]]"
     },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KAITO",
+      "tooltip": "Opens KAITO projects dashboards",
+      "type": "link",
+      "url": "https://kaito.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Sermant",
+      "tooltip": "Opens Sermant projects dashboards",
+      "type": "link",
+      "url": "https://sermant.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kmesh",
+      "tooltip": "Opens Kmesh projects dashboards",
+      "type": "link",
+      "url": "https://kmesh.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "OVN-Kubernetes",
+      "tooltip": "Opens OVN-Kubernetes projects dashboards",
+      "type": "link",
+      "url": "https://ovnkubernetes.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "All CNCF",
+      "tooltip": "Opens All CNCF projects dashboards",
+      "type": "link",
+      "url": "https://all.[[hostname]]"
+    }
   ],
   "liveNow": false,
   "panels": [
