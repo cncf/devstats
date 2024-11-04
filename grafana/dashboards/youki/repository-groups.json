@@ -25,7 +25,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 37,
-  "iteration": 1703352041127,
+  "iteration": 1730759488507,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -126,8 +126,8 @@
       {
         "current": {
           "selected": false,
-          "text": "KrknChaos",
-          "value": "KrknChaos"
+          "text": "Youki",
+          "value": "Youki"
         },
         "datasource": {
           "type": "postgres",
