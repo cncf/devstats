@@ -30,7 +30,7 @@ cloudcustodian,cloud-custodian,capitalone/cloud-custodian
 cloudevents,cloudevents,openeventing
 clusternet,clusternet
 clusterpedia,clusterpedia-io
-cncf,cncf,crosscloudci,cdfoundation
+cncf,cncf,crosscloudci,cdfoundation,cncf-tags
 cni,containernetworking,appc/cni
 cnigenie,cni-genie,Huawei-PaaS/CNI-Genie
 confidentialcontainers,confidential-containers
