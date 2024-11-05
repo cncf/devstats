@@ -97,7 +97,11 @@ with repos as (
       ('kubevirt/must-gather', 'observability'),
       ('kubevirt/ssp-operator', 'observability'),
       -- KubeVirt Buildsystem SIG
-      ('kubevirt/kubevirt', 'KubeVirt Buildsystem SIG')
+      ('kubevirt/containerized-data-importer', 'KubeVirt Buildsystem SIG'),
+      ('kubevirt/kubevirt', 'KubeVirt Buildsystem SIG'),
+      ('kubevirt/kubevirtci', 'KubeVirt Buildsystem SIG'),
+      -- KubeVirt CI Operations Group
+      ('kubevirt/project-infra', 'KubeVirt CI Operations Group')
   ) AS a (repo, repo_group)
 )
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login)
