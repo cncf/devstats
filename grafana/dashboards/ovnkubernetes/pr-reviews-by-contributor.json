@@ -42,8 +42,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 26,
-  "iteration": 1671095179404,
+  "id": 27,
+  "iteration": 1730767166665,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -91,7 +91,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.5.15",
+      "pluginVersion": "8.5.27",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -180,7 +180,7 @@
         "content": "${docs:raw}",
         "mode": "html"
       },
-      "pluginVersion": "8.5.15",
+      "pluginVersion": "8.5.27",
       "title": "Dashboard documentation",
       "type": "text"
     }
@@ -300,14 +300,82 @@
         "current": {
           "selected": true,
           "text": [
-            "\"kirkonru\"",
-            "\"Zhbert\"",
-            "\"alexey-igrychev\""
+            "\"maiqueb\"",
+            "\"tssurya\"",
+            "\"trozet\"",
+            "\"jcaamano\"",
+            "\"npinaeva\"",
+            "\"dceara\"",
+            "\"ormergi\"",
+            "\"qinqon\"",
+            "\"RamLavi\"",
+            "\"martinkennelly\"",
+            "\"kyrtapz\"",
+            "\"pperiyasamy\"",
+            "\"ricky-rav\"",
+            "\"oshoval\"",
+            "\"JacobTanenbaum\"",
+            "\"flavio-fernandes\"",
+            "\"arghosh93\"",
+            "\"crnithya\"",
+            "\"pliurh\"",
+            "\"phoracek\"",
+            "\"JoelSpeed\"",
+            "\"amorenoz\"",
+            "\"tiagonux\"",
+            "\"cathy-zhou\"",
+            "\"shaneutt\"",
+            "\"jordigilh\"",
+            "\"jluhrsen\"",
+            "\"girishmg\"",
+            "\"fnordahl\"",
+            "\"wizhaoredhat\"",
+            "\"mkalcok\"",
+            "\"igsilya\"",
+            "\"EvenChang\"",
+            "\"dougbtv\"",
+            "\"putnopvut\"",
+            "\"dave-tucker\"",
+            "\"danwinship\""
           ],
           "value": [
-            "\"kirkonru\"",
-            "\"Zhbert\"",
-            "\"alexey-igrychev\""
+            "\"maiqueb\"",
+            "\"tssurya\"",
+            "\"trozet\"",
+            "\"jcaamano\"",
+            "\"npinaeva\"",
+            "\"dceara\"",
+            "\"ormergi\"",
+            "\"qinqon\"",
+            "\"RamLavi\"",
+            "\"martinkennelly\"",
+            "\"kyrtapz\"",
+            "\"pperiyasamy\"",
+            "\"ricky-rav\"",
+            "\"oshoval\"",
+            "\"JacobTanenbaum\"",
+            "\"flavio-fernandes\"",
+            "\"arghosh93\"",
+            "\"crnithya\"",
+            "\"pliurh\"",
+            "\"phoracek\"",
+            "\"JoelSpeed\"",
+            "\"amorenoz\"",
+            "\"tiagonux\"",
+            "\"cathy-zhou\"",
+            "\"shaneutt\"",
+            "\"jordigilh\"",
+            "\"jluhrsen\"",
+            "\"girishmg\"",
+            "\"fnordahl\"",
+            "\"wizhaoredhat\"",
+            "\"mkalcok\"",
+            "\"igsilya\"",
+            "\"EvenChang\"",
+            "\"dougbtv\"",
+            "\"putnopvut\"",
+            "\"dave-tucker\"",
+            "\"danwinship\""
           ]
         },
         "datasource": {
@@ -334,8 +402,8 @@
       {
         "current": {
           "selected": false,
-          "text": "ovnkubernetes",
-          "value": "ovnkubernetes"
+          "text": "OVN-Kubernetes",
+          "value": "OVN-Kubernetes"
         },
         "datasource": {
           "type": "postgres",
@@ -360,8 +428,8 @@
       {
         "current": {
           "selected": false,
-          "text": "<h1 id=\"dashboard-header\">werf user reviews dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/reviews_per_user.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>reviews_per_user</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/werf/user-reviews.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows number of PR reviews most active reviewers.</li>\n<li>Review means user added PR review comment.</li>\n<li>You can select reviewer from the reviewers drop-down, it shows top active reviewers from last 3 months.</li>\n<li>To find top active reviewers we sum number of reviews per user.</li>\n<li>You can select single repository or summary for all of them.</li>\n<li>You can filter by period and choose multiple reviewers to stack their data.</li>\n<li>Selecting period (for example week) means that dashboard will show reviews in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>",
-          "value": "<h1 id=\"dashboard-header\">werf user reviews dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/reviews_per_user.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>reviews_per_user</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/werf/user-reviews.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows number of PR reviews most active reviewers.</li>\n<li>Review means user added PR review comment.</li>\n<li>You can select reviewer from the reviewers drop-down, it shows top active reviewers from last 3 months.</li>\n<li>To find top active reviewers we sum number of reviews per user.</li>\n<li>You can select single repository or summary for all of them.</li>\n<li>You can filter by period and choose multiple reviewers to stack their data.</li>\n<li>Selecting period (for example week) means that dashboard will show reviews in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>"
+          "text": "<h1 id=\"dashboard-header\">OVN-Kubernetes user reviews dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/reviews_per_user.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>reviews_per_user</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/ovnkubernetes/user-reviews.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows number of PR reviews most active reviewers.</li>\n<li>Review means user added PR review comment.</li>\n<li>You can select reviewer from the reviewers drop-down, it shows top active reviewers from last 3 months.</li>\n<li>To find top active reviewers we sum number of reviews per user.</li>\n<li>You can select single repository or summary for all of them.</li>\n<li>You can filter by period and choose multiple reviewers to stack their data.</li>\n<li>Selecting period (for example week) means that dashboard will show reviews in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>",
+          "value": "<h1 id=\"dashboard-header\">OVN-Kubernetes user reviews dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/reviews_per_user.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>reviews_per_user</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/ovnkubernetes/user-reviews.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows number of PR reviews most active reviewers.</li>\n<li>Review means user added PR review comment.</li>\n<li>You can select reviewer from the reviewers drop-down, it shows top active reviewers from last 3 months.</li>\n<li>To find top active reviewers we sum number of reviews per user.</li>\n<li>You can select single repository or summary for all of them.</li>\n<li>You can filter by period and choose multiple reviewers to stack their data.</li>\n<li>Selecting period (for example week) means that dashboard will show reviews in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>"
         },
         "datasource": {
           "type": "postgres",
