@@ -14,6 +14,7 @@ Those steps are generally needed to change project status (usually from `Incubat
 - You only need to move projects that changed state to that text file, and then it will take care of right/left/bottom separators and dividing into columns/rows.
 - Run to update partials: `PG_PASS=... ./devel/vars_all.sh`. Not needed with Helm installation.
 - Update test and production www index files: `apache/www/index_test.html apache/www/index_prod.html`. Possibly others too like for GraphQL.
+- Update `apache/*/sites-enabled/* apache/*/sites.txt` files.
 - To do this you can copy `prod`/`test` section from already modified `partials/projects.html` and then do the following replacements:
 - `` :'<,'>s/\[\[hostname]]/teststats.cncf.io/g `` or `` :'<,'>s/\[\[hostname]]/devstats.cncf.io/g ``, followed by `` :'<,'>s/public\/img\/projects\///g ``.
 - Install them as `/var/www/html/index.html` on test and production respectively: `cp apache/www/index_envname.html /var/www/html/index.html`.
