@@ -1728,11 +1728,12 @@ projects:
   fabedge:
     order: 124
     name: FabEdge
-    status: Sandbox
+    status: Archived
     command_line:
       - 'FabEdge'
     start_date: 2021-07-16T00:00:00Z
     join_date: 2022-03-08T00:00:00Z
+    archived_date: 2024-11-05T00:00:00Z
     psql_db: fabedge
     shared_db: allprj
     main_repo: FabEdge/fabedge
@@ -1833,11 +1834,12 @@ projects:
   curve:
     order: 132
     name: Curve
-    status: Sandbox
+    status: Archived
     command_line:
       - 'opencurve'
     start_date: 2020-07-01T00:00:00Z
     join_date: 2022-06-17T00:00:00Z
+    archived_date: 2024-11-06T00:00:00Z
     psql_db: curve
     shared_db: allprj
     main_repo: opencurve/curve
@@ -3082,10 +3084,10 @@ projects:
          oras-project,wasmCloud,project-akri,metallb,karmada-io,clusternet,youki-dev,\
          inclavare-containers,superedge,cilium,dapr,openelb,kubescape,inspektor-gadget,\
          open-cluster-management-io,vscode-kubernetes-tools,nocalhost,kubearmor,cncf-tags,\
-         meshery,service-mesh-performance,knative,knative-sandbox,FabEdge,project-stacker,\
+         meshery,service-mesh-performance,knative,knative-sandbox,project-stacker,\
          confidential-containers,tellerops,cncf/tag-app-delivery,knative-extensions,\
          SpectralOps/setup-teller-action,OpenFunction,sealerio,clusterpedia-io,Kuadrant,\
-         aeraki-mesh,opencurve,open-feature,kubewarden,devstream-io,kubevela,openGemini,\
+         aeraki-mesh,open-feature,kubewarden,devstream-io,kubevela,openGemini,\
          hexa-org,konveyor,armadaproject,external-secrets,Serverless-Devs,devspace-sh,\
          ContainerSSH,openfga,kubereboot,lima-vm,istio,carvel-dev,merbridge,opencost,\
          devspace-cloud,project-zot,paralus,carina-io,ko-build,opcr-io,werf,getsops,\
