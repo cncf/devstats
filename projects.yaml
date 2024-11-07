@@ -1807,12 +1807,13 @@ projects:
   opencost:
     order: 130
     name: OpenCost
-    status: Sandbox
+    status: Incubating
     command_line:
       - 'opencost'
     # start_date: 2018-11-21T00:00:00Z - this was with kubecost included
     start_date: 2022-07-15T00:00:00Z
     join_date: 2022-06-17T00:00:00Z
+    incubating_date: 2024-10-25T00:00:00Z
     psql_db: opencost
     shared_db: allprj
     main_repo: opencost/opencost
@@ -2596,7 +2597,7 @@ projects:
     command_line:
       - bank-vaults
     start_date: 2018-03-07T00:00:00Z
-    join_date: 2024-07-16T00:00:00Z
+    join_date: 2024-06-18T00:00:00Z
     psql_db: bankvaults
     shared_db: allprj
     main_repo: bank-vaults/bank-vaults
@@ -2791,7 +2792,7 @@ projects:
     command_line:
       - KusionStack
     start_date: 2022-05-06T00:00:00Z
-    join_date: 2024-08-02T00:00:00Z
+    join_date: 2024-09-12T00:00:00Z
     psql_db: kusionstack
     shared_db: allprj
     main_repo: KusionStack/kusion
@@ -2830,7 +2831,7 @@ projects:
     command_line:
       - sermant-io
     start_date: 2021-09-07T00:00:00Z
-    join_date: 2024-10-17T00:00:00Z
+    join_date: 2024-10-09T00:00:00Z
     psql_db: sermant
     shared_db: allprj
     main_repo: sermant-io/Sermant
