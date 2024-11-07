@@ -668,6 +668,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "OpenCost",
+      "tooltip": "Opens OpenCost projects dashboards",
+      "type": "link",
+      "url": "https://opencost.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -1262,16 +1272,6 @@
       "tooltip": "Opens Clusterpedia projects dashboards",
       "type": "link",
       "url": "https://clusterpedia.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OpenCost",
-      "tooltip": "Opens OpenCost projects dashboards",
-      "type": "link",
-      "url": "https://opencost.[[hostname]]"
     },
     {
       "icon": "dashboard",
