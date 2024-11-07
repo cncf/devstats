@@ -1231,16 +1231,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "FabEdge",
-      "tooltip": "Opens FabEdge projects dashboards",
-      "type": "link",
-      "url": "https://fabedge.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Confidential Containers",
       "tooltip": "Opens Confidential Containers projects dashboards",
       "type": "link",
@@ -1305,16 +1295,6 @@
       "tooltip": "Opens Aeraki Mesh projects dashboards",
       "type": "link",
       "url": "https://aerakimesh.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Curve",
-      "tooltip": "Opens Curve projects dashboards",
-      "type": "link",
-      "url": "https://curve.[[hostname]]"
     },
     {
       "icon": "dashboard",
