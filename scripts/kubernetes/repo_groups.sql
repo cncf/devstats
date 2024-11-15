@@ -180,6 +180,7 @@ update gha_repos set repo_group = 'SIG Cluster Lifecycle' where lower(name) in (
 
 update gha_repos set repo_group = 'SIG Cluster Lifecycle (Cluster API)' where lower(name) in (
   'kubernetes-sigs/cluster-api',
+  'kubernetes-sigs/cluster-api-operator',
   'kubernetes-sigs/cluster-api-bootstrap-provider-kubeadm',
   'kubernetes-sigs/cluster-api-provider-aws',
   'kubernetes-sigs/cluster-api-provider-azure',
