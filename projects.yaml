@@ -1064,7 +1064,7 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   cdk8s:
     order: 74
-    name: Cloud Deployment Kit for Kubernetes
+    name: Cloud Development Kit for Kubernetes
     status: Sandbox
     command_line:
       - 'cdk8s-team'
