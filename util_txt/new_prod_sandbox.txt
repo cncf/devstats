@@ -91,7 +91,7 @@
     <tr>
         <td class="cncf-bl"><a href="https://keylime.devstats.cncf.io" target="_blank">Keylime</a></td>
         <td><a href="https://schemahero.devstats.cncf.io" target="_blank">SchemaHero</a></td>
-        <td><a style="font-size:0.5em;" href="https://cdk8s.devstats.cncf.io" target="_blank">Cloud Deployment Kit for Kubernetes</a></td>
+        <td><a style="font-size:0.5em;" href="https://cdk8s.devstats.cncf.io" target="_blank">Cloud Development Kit for Kubernetes</a></td>
         <td><a href="https://certmanager.devstats.cncf.io" target="_blank">cert-manager</a></td>
         <td><a href="https://openkruise.devstats.cncf.io" target="_blank">OpenKruise</a></td>
         <td><a href="https://tinkerbell.devstats.cncf.io" target="_blank">Tinkerbell</a></td>
@@ -104,7 +104,7 @@
     <tr>
         <td class="cncf-bb cncf-bl"><a href="https://keylime.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="keylime.svg" alt="Keylime" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://schemahero.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="schemahero.svg" alt="SchemaHero" height="80" width="80" /></a></td>
-        <td class="cncf-bb"><a href="https://cdk8s.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="cdk8s.svg" alt="Cloud Deployment Kit for Kubernetes" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://cdk8s.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="cdk8s.svg" alt="Cloud Development Kit for Kubernetes" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://certmanager.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="certmanager.svg" alt="cert-manager" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://openkruise.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="openkruise.svg" alt="OpenKruise" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://tinkerbell.devstats.cncf.io" target="_blank"><img class="cncf-proj" src="tinkerbell.svg" alt="Tinkerbell" height="80" width="80" /></a></td>
