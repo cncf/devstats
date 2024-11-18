@@ -29,7 +29,7 @@ where
 update gha_repos set repo_group = alias;
 
 update gha_repos
-set repo_group = 'Cloud Deployment Kit for Kubernetes', alias = 'Cloud Deployment Kit for Kubernetes'
+set repo_group = 'Cloud Development Kit for Kubernetes', alias = 'Cloud Development Kit for Kubernetes'
 where name in (
   'awslabs/cdk8s',
   'cdk8s-team/cdk8s'

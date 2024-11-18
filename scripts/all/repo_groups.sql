@@ -813,12 +813,12 @@ where
   org_login in ('schemahero')
 ;
 
--- Cloud Deployment Kit for Kubernetes
+-- Cloud Development Kit for Kubernetes
 -- CDK8s
 update
   gha_repos
 set
-  repo_group = 'Cloud Deployment Kit for Kubernetes'
+  repo_group = 'Cloud Development Kit for Kubernetes'
 where
   org_login in ('cdk8s-team')
   or name in ('awslabs/cdk8s')
