@@ -31,7 +31,7 @@ select
   round(hll_cardinality(hll_union_agg(s."Harbor"))) as "Harbor",
   round(hll_cardinality(hll_union_agg(s."Fluentd"))) as "Fluentd",
   round(hll_cardinality(hll_union_agg(s."Vitess"))) as "Vitess",
-  round(hll_cardinality(hll_union_agg(s."Cloud Deployment Kit for Kubernetes"))) as "Cloud Deployment Kit for Kubernetes",
+  round(hll_cardinality(hll_union_agg(s."Cloud Development Kit for Kubernetes"))) as "Cloud Development Kit for Kubernetes",
   round(hll_cardinality(hll_union_agg(s."Falco"))) as "Falco",
   round(hll_cardinality(hll_union_agg(s."Keptn"))) as "Keptn",
   round(hll_cardinality(hll_union_agg(s."Rook"))) as "Rook",

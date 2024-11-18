@@ -868,8 +868,8 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Cloud Deployment Kit for Kubernetes",
-      "tooltip": "Opens Cloud Deployment Kit for Kubernetes projects dashboards",
+      "title": "Cloud Development Kit for Kubernetes",
+      "tooltip": "Opens Cloud Development Kit for Kubernetes projects dashboards",
       "type": "link",
       "url": "https://cdk8s.[[hostname]]"
     },
