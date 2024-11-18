@@ -333,6 +333,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Dapr",
+      "tooltip": "Opens Dapr projects dashboards",
+      "type": "link",
+      "url": "https://dapr.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -467,16 +477,6 @@
       "tooltip": "Opens Longhorn projects dashboards",
       "type": "link",
       "url": "https://longhorn.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Dapr",
-      "tooltip": "Opens Dapr projects dashboards",
-      "type": "link",
-      "url": "https://dapr.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -677,6 +677,16 @@
       "tooltip": "Opens OpenCost projects dashboards",
       "type": "link",
       "url": "https://opencost.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "wasmCloud",
+      "tooltip": "Opens wasmCloud projects dashboards",
+      "type": "link",
+      "url": "https://wasmcloud.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1097,16 +1107,6 @@
       "tooltip": "Opens ORAS projects dashboards",
       "type": "link",
       "url": "https://oras.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "wasmCloud",
-      "tooltip": "Opens wasmCloud projects dashboards",
-      "type": "link",
-      "url": "https://wasmcloud.[[hostname]]"
     },
     {
       "icon": "dashboard",
