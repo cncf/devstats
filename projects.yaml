@@ -1505,11 +1505,12 @@ projects:
   wasmcloud:
     order: 107
     name: wasmCloud
-    status: Sandbox
+    status: Incubating
     command_line:
     - 'wasmCloud'
     start_date: 2019-06-20T00:00:00Z
     join_date: 2021-07-13T00:00:00Z
+    incubating_date: 2024-11-08T00:00:00Z
     psql_db: wasmcloud
     shared_db: allprj
     main_repo: 'wasmCloud/wasmCloud'
@@ -1598,11 +1599,12 @@ projects:
   dapr:
     order: 114
     name: Dapr
-    status: Incubating
+    status: Graduated
     command_line:
     - 'dapr'
     start_date: 2019-10-16T00:00:00Z
     join_date: 2021-11-09T00:00:00Z
+    graduated_date: 2024-10-30T00:00:00Z
     psql_db: dapr
     shared_db: allprj
     main_repo: 'dapr/dapr'
