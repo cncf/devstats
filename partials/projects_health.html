@@ -134,6 +134,7 @@ col:last-child {background: #000;}
         <td><a href="https://falco.[[hostname]]" target="_blank">Falco</a></td>
         <td><a href="https://kubeedge.[[hostname]]" target="_blank">KubeEdge</a></td>
         <td><a href="https://certmanager.[[hostname]]" target="_blank">cert-manager</a></td>
+        <td class="cncf-br"><a href="https://dapr.[[hostname]]" target="_blank">Dapr</a></td>
         <td class="cncf-bl"><a href="https://grpc.[[hostname]]" target="_blank">gRPC</a></td>
         testsrv=[[hostname]] <td><a style="font-size:x-small;" href="https://opentracing.[[hostname]]" target="_blank">OpenTracing (archived)</a></td> [[hostname]]=testsrv
         testsrv=[[hostname]] <td><a style="font-size:x-small;" href="https://rkt.[[hostname]]" target="_blank">rkt (archived)</a></td> [[hostname]]=testsrv
@@ -150,7 +151,6 @@ col:last-child {background: #000;}
         <td><a href="https://opentelemetry.[[hostname]]" target="_blank">OpenTelemetry</a></td>
         <td><a href="https://crossplane.[[hostname]]" target="_blank">Crossplane</a></td>
         <td><a href="https://longhorn.[[hostname]]" target="_blank">Longhorn</a></td>
-        <td><a href="https://dapr.[[hostname]]" target="_blank">Dapr</a></td>
         <td><a href="https://litmuschaos.[[hostname]]" target="_blank">LitmusChaos</a></td>
         <td><a href="https://knative.[[hostname]]" target="_blank">Knative</a></td>
         testsrv=[[skip]] <td><a href="https://openmetrics.[[hostname]]" target="_blank">OpenMetrics (merged into prometheus)</a></td> [[skip]]=testsrv
@@ -172,7 +172,8 @@ col:last-child {background: #000;}
         <td><a href="https://strimzi.[[hostname]]" target="_blank">Strimzi</a></td>
         <td><a href="https://artifacthub.[[hostname]]" target="_blank">Artifact Hub</a></td>
         <td><a href="https://flatcar.[[hostname]]" target="_blank">Flatcar</a></td>
-        <td class="cncf-br"><a href="https://opencost.[[hostname]]" target="_blank">OpenCost</a></td>
+        <td><a href="https://opencost.[[hostname]]" target="_blank">OpenCost</a></td>
+        <td class="cncf-br"><a href="https://wasmcloud.[[hostname]]" target="_blank">wasmCloud</a></td>
         <td class="cncf-bl"><a href="https://telepresence.[[hostname]]" target="_blank">Telepresence</a></td>
         <td><a href="https://virtualkubelet.[[hostname]]" target="_blank">Virtual Kubelet</a></td>
         testsrv=[[hostname]] <td><a href="https://brigade.[[hostname]]" target="_blank">Brigade (archived)</a></td> [[hostname]]=testsrv
@@ -222,7 +223,6 @@ col:last-child {background: #000;}
         testsrv=[[hostname]] <td><a href="https://krustlet.[[hostname]]" target="_blank">Krustlet (archived)</a></td> [[hostname]]=testsrv
         testsrv=[[hostname]] <td><a href="https://krator.[[hostname]]" target="_blank">Krator (archived)</a></td> [[hostname]]=testsrv
         <td><a href="https://oras.[[hostname]]" target="_blank">ORAS</a></td>
-        <td><a href="https://wasmcloud.[[hostname]]" target="_blank">wasmCloud</a></td>
         <td><a href="https://akri.[[hostname]]" target="_blank">Akri</a></td>
         <td><a href="https://metallb.[[hostname]]" target="_blank">MetalLB</a></td>
         <td><a style="font-size:x-small;" href="https://inclavarecontainers.[[hostname]]" target="_blank">Inclavare Containers</a></td>
@@ -350,7 +350,8 @@ col:last-child {background: #000;}
         <td class="cncf-bb"><a href="https://cloudevents.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/cloudevents.svg" alt="CloudEvents" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://falco.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/falco.svg" alt="Falco" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://kubeedge.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/kubeedge.svg" alt="KubeEdge" height="80" width="80" /></a></td>
-        <td class="cncf-bb cncf-br"><a href="https://certmanager.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/certmanager.svg" alt="cert-manager" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://certmanager.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/certmanager.svg" alt="cert-manager" height="80" width="80" /></a></td>
+        <td class="cncf-bb cncf-br"><a href="https://dapr.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/dapr.svg" alt="Dapr" height="80" width="80" /></a></td>
         <td class="cncf-bb cncf-bl"><a href="https://grpc.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/grpc.svg" alt="gRPC" height="80" width="80" /></a></td>
         testsrv=[[hostname]] <td class="cncf-bb"><a href="https://opentracing.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/opentracing.svg" alt="OpenTracing" height="80" width="80" /></a></td> [[hostname]]=testsrv
         testsrv=[[hostname]] <td class="cncf-bb"><a href="https://rkt.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/rkt.svg" alt="rkt" height="80" width="80" /></a></td> [[hostname]]=testsrv
@@ -367,7 +368,6 @@ col:last-child {background: #000;}
         <td class="cncf-bb"><a href="https://opentelemetry.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/opentelemetry.svg" alt="OpenTelemetry" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://crossplane.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/crossplane.svg" alt="Crossplane" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://longhorn.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/longhorn.svg" alt="Longhorn" height="80" width="80" /></a></td>
-        <td class="cncf-bb"><a href="https://dapr.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/dapr.svg" alt="Dapr" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://litmuschaos.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/litmuschaos.svg" alt="LitmusChaos" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://knative.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/knative.svg" alt="Knative" height="80" width="80" /></a></td>
         testsrv=[[skip]] <td class="cncf-bb"><a href="https://openmetrics.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/openmetrics.svg" alt="OpenMetrics" height="80" width="80" /></a></td> [[skip]]=testsrv
@@ -389,7 +389,8 @@ col:last-child {background: #000;}
         <td class="cncf-bb"><a href="https://strimzi.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/strimzi.svg" alt="Strimzi" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://artifacthub.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/artifacthub.svg" alt="Artifact Hub" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://flatcar.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/flatcar.svg" alt="Flatcar" height="80" width="80" /></a></td>
-        <td class="cncf-bb cncf-br"><a href="https://opencost.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/opencost.svg" alt="OpenCost" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://opencost.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/opencost.svg" alt="OpenCost" height="80" width="80" /></a></td>
+        <td class="cncf-bb cncf-br"><a href="https://wasmcloud.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/wasmcloud.svg" alt="wasmCloud" height="80" width="80" /></a></td>
         <td class="cncf-bb cncf-bl"><a href="https://telepresence.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/telepresence.svg" alt="Telepresence" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://virtualkubelet.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/virtualkubelet.svg" alt="Virtual Kubelet" height="80" width="80" /></a></td>
         testsrv=[[hostname]] <td class="cncf-bb"><a href="https://brigade.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/brigade.svg" alt="Brigade" height="80" width="80" /></a></td> [[hostname]]=testsrv
@@ -439,7 +440,6 @@ col:last-child {background: #000;}
         testsrv=[[hostname]] <td class="cncf-bb"><a href="https://krustlet.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/krustlet.svg" alt="Krustlet" height="80" width="80" /></a></td> [[hostname]]=testsrv
         testsrv=[[hostname]] <td class="cncf-bb"><a href="https://krator.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/krator.svg" alt="Krator" height="80" width="80" /></a></td> [[hostname]]=testsrv
         <td class="cncf-bb"><a href="https://oras.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/oras.svg" alt="ORAS" height="80" width="80" /></a></td>
-        <td class="cncf-bb"><a href="https://wasmcloud.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/wasmcloud.svg" alt="wasmCloud" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://akri.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/akri.svg" alt="Akri" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://metallb.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/metallb.svg" alt="MetalLB" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://inclavarecontainers.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/inclavarecontainers.svg" alt="Inclavare Containers" height="80" width="80" /></a></td>
@@ -568,7 +568,8 @@ col:last-child {background: #000;}
         <td class="cncf-bb">metrics:series:phealthcloudevents:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthfalco:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthkubeedge:loop:1:i:2</td>
-        <td class="cncf-bb cncf-br">metrics:series:phealthcertmanager:loop:1:i:2</td>
+        <td class="cncf-bb">metrics:series:phealthcertmanager:loop:1:i:2</td>
+        <td class="cncf-bb cncf-br">metrics:series:phealthdapr:loop:1:i:2</td>
         <td class="cncf-bb cncf-bl">metrics:series:phealthgrpc:loop:1:i:2</td>
         testsrv=[[hostname]] <td class="cncf-bb">metrics:series:phealthopentracing:loop:1:i:2</td> [[hostname]]=testsrv
         testsrv=[[hostname]] <td class="cncf-bb">metrics:series:phealthrkt:loop:1:i:2</td> [[hostname]]=testsrv
@@ -585,7 +586,6 @@ col:last-child {background: #000;}
         <td class="cncf-bb">metrics:series:phealthopentelemetry:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthcrossplane:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthlonghorn:loop:1:i:2</td>
-        <td class="cncf-bb">metrics:series:phealthdapr:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthlitmuschaos:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthknative:loop:1:i:2</td>
         testsrv=[[skip]] <td class="cncf-bb">metrics:series:phealthopenmetrics:loop:1:i:2</td> [[skip]]=testsrv
@@ -607,7 +607,8 @@ col:last-child {background: #000;}
         <td class="cncf-bb">metrics:series:phealthstrimzi:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthartifacthub:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthflatcar:loop:1:i:2</td>
-        <td class="cncf-bb cncf-br">metrics:series:phealthopencost:loop:1:i:2</td>
+        <td class="cncf-bb">metrics:series:phealthopencost:loop:1:i:2</td>
+        <td class="cncf-bb cncf-br">metrics:series:phealthwasmcloud:loop:1:i:2</td>
         <td class="cncf-bb cncf-bl">metrics:series:phealthtelepresence:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthvirtualkubelet:loop:1:i:2</td>
         testsrv=[[hostname]] <td class="cncf-bb">metrics:series:phealthbrigade:loop:1:i:2</td> [[hostname]]=testsrv
@@ -657,7 +658,6 @@ col:last-child {background: #000;}
         testsrv=[[hostname]] <td class="cncf-bb">metrics:series:phealthkrustlet:loop:1:i:2</td> [[hostname]]=testsrv
         testsrv=[[hostname]] <td class="cncf-bb">metrics:series:phealthkrator:loop:1:i:2</td> [[hostname]]=testsrv
         <td class="cncf-bb">metrics:series:phealthoras:loop:1:i:2</td>
-        <td class="cncf-bb">metrics:series:phealthwasmcloud:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthakri:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthmetallb:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthinclavarecontainers:loop:1:i:2</td>
