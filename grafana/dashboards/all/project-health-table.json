@@ -24,8 +24,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 34,
-  "iteration": 1725860132497,
+  "id": 36,
+  "iteration": 1731936579725,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -38,7 +38,7 @@
       "description": "",
       "fontSize": "90%",
       "gridPos": {
-        "h": 66,
+        "h": 68,
         "w": 24,
         "x": 0,
         "y": 0
@@ -183,10 +183,10 @@
         "uid": "P172949F98CB31475"
       },
       "gridPos": {
-        "h": 8,
+        "h": 9,
         "w": 24,
         "x": 0,
-        "y": 66
+        "y": 68
       },
       "id": 11,
       "links": [],
@@ -237,9 +237,9 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "Shipwright",
-          "value": "Shipwright"
+          "selected": false,
+          "text": "Dapr",
+          "value": "Dapr"
         },
         "datasource": {
           "type": "postgres",
@@ -265,8 +265,8 @@
       {
         "current": {
           "selected": false,
-          "text": "shipwright",
-          "value": "shipwright"
+          "text": "dapr",
+          "value": "dapr"
         },
         "datasource": {
           "type": "postgres",
@@ -350,6 +350,6 @@
   "timezone": "",
   "title": "Project Health Table",
   "uid": "54",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }
