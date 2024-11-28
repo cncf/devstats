@@ -59,14 +59,11 @@ with repos as (
       ('kubevirt/kubevirt-ssp-operator', 'sig-compute'),
       ('kubevirt/kubevirt-tekton-tasks', 'sig-compute'),
       ('kubevirt/kubevirt-template-validator', 'sig-compute'),
-      ('kubevirt/kvm-info-nfd-plugin', 'sig-compute'),
       ('kubevirt/libvirt', 'sig-compute'),
       ('kubevirt/machine-remediation', 'sig-compute'),
-      ('kubevirt/macvtap-cni', 'sig-compute'),
       ('kubevirt/must-gather', 'sig-compute'),
       ('kubevirt/node-labeller', 'sig-compute'),
       ('kubevirt/node-maintenance-operator', 'sig-compute'),
-      ('kubevirt/ovs-cni', 'sig-compute'),
       ('kubevirt/ssp-operator', 'sig-compute'),
       -- documentation
       ('kubevirt/demo', 'documentation'),
@@ -79,11 +76,13 @@ with repos as (
       ('kubevirt/kubevirtci', 'testing'),
       ('kubevirt/project-infra', 'testing'),
       -- network
-      ('containernetworking/plugins', 'network'),
       ('k8snetworkplumbingwg/kubemacpool', 'network'),
-      ('k8snetworkplumbingwg/ovs-cni', 'network'),
-      ('k8snetworkplumbingwg/sriov-network-operator', 'network'),
-      ('nmstate/kubernetes-nmstate', 'network'),
+      ('k8snetworkplumbingwg/multus-dynamic-networks-controller', 'network'),
+      ('kubevirt/cluster-network-addons-operator', 'network'),
+      ('kubevirt/ipam-extensions', 'network'),
+      ('kubevirt/kubevirt', 'network'),
+      ('kubevirt/macvtap-cni', 'network'),
+      ('kubevirt/user-guide', 'network'),
       -- KubeVirt Perf and Scale SIG
       ('kubevirt/kubevirt', 'KubeVirt Perf and Scale SIG'),
       -- observability
