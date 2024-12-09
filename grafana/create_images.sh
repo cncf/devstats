@@ -278,6 +278,11 @@ do
     path="other/$icon"
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 34
     continue
+  elif [ "$icon" = "kaito" ]
+  then
+    cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid.svg" "grafana/img/$suff.svg" || exit 35
+    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 36
+    continue
   fi
   # echo "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg"
   cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 2

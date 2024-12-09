@@ -265,6 +265,11 @@ do
     convert "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.svg" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 32
     cp "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 33
     continue
+  elif [ "$icon" = "kaito" ]
+  then
+    cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 34
+    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid.svg" -resize 80x80 "/var/www/html/img/$proj-icon-color.png"
+    continue
   fi
   # All others
   cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 26
