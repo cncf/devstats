@@ -203,5 +203,7 @@ If you see error like this `pq: row is too big: size 8192, maximum size 8160` an
 (6 rows)
 ```
 - You can investigate each via: `` echo "select dt, prog, proj, msg from gha_logs where run_dt = '2024-09-01 00:34:26.426402';" | k exec -itn devstats-prod devstats-postgres-1 -- psql devstats > log.txt ``.
+- Or: `` select distinct proj from gha_logs where msg like '%row is too big%'; ``.
+- Eventually check: `` vim logs_prod.txt logs_test.txt ``.
 - `row is too big` is usually caused by metric: `suser_activity`. You can add this metric to `./devel/test_metrics.yaml` and generate devstats docker images to reinitialize it for given project(s) via:
 - `helm install --generate-name ./devstats-helm --set namespace='devstats-prod',skipSecrets=1,skipPVs=1,skipBackupsPV=1,skipVacuum=1,skipBackups=1,skipBootstrap=1,skipCrons=1,skipAffiliations=1,skipGrafanas=1,skipServices=1,skipPostgres=1,skipIngress=1,skipStatic=1,skipAPI=1,skipNamespaces=1,testServer='',prodServer='1',provisionImage='lukaszgryglicki/devstats-prod',provisionCommand='./devstats-helm/add_metric.sh',nCPUs=8,indexProvisionsFrom=N,indexProvisionsTo=M`.
