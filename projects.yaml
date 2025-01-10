@@ -472,7 +472,7 @@ projects:
     incubating_date: 2020-04-09T00:00:00Z
     psql_db: dragonfly
     shared_db: allprj
-    main_repo: dragonflyoss/Dragonfly2
+    main_repo: dragonflyoss/Dragonfly
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: ''
   virtualkubelet:

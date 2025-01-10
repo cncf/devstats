@@ -195,7 +195,7 @@ do
          PROJ=falco          PROJDB=falco          PROJREPO="falcosecurity/falco"             ORGNAME=Falco             PORT=3029 ICON=falco          GRAFSUFF=falco          GA="-" ./devel/deploy_proj.sh || exit 31
   elif [ "$proj" = "dragonfly" ]
   then
-         PROJ=dragonfly      PROJDB=dragonfly      PROJREPO="dragonflyoss/Dragonfly2"         ORGNAME=Dragonfly         PORT=3030 ICON=dragonfly      GRAFSUFF=dragonfly       GA="-" ./devel/deploy_proj.sh || exit 39
+         PROJ=dragonfly      PROJDB=dragonfly      PROJREPO="dragonflyoss/Dragonfly"          ORGNAME=Dragonfly         PORT=3030 ICON=dragonfly      GRAFSUFF=dragonfly       GA="-" ./devel/deploy_proj.sh || exit 39
   elif [ "$proj" = "virtualkubelet" ]
   then
     PROJ=virtualkubelet      PROJDB=virtualkubelet PROJREPO="virtual-kubelet/virtual-kubelet" ORGNAME="Virtual Kubelet" PORT=3031 ICON=virtualkubelet GRAFSUFF=virtualkubelet GA="-" ./devel/deploy_proj.sh || exit 40

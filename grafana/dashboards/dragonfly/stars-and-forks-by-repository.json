@@ -536,8 +536,8 @@
       {
         "current": {
           "selected": false,
-          "text": "dragonflyoss/Dragonfly2",
-          "value": "dragonflyoss/Dragonfly2"
+          "text": "dragonflyoss/Dragonfly",
+          "value": "dragonflyoss/Dragonfly"
         },
         "datasource": {
           "type": "postgres",
@@ -563,8 +563,8 @@
       {
         "current": {
           "selected": false,
-          "text": "dragonflyossdragonfly2",
-          "value": "dragonflyossdragonfly2"
+          "text": "dragonflyossdragonfly",
+          "value": "dragonflyossdragonfly"
         },
         "datasource": {
           "type": "postgres",
