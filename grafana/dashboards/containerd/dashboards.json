@@ -329,6 +329,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "CubeFS",
+      "tooltip": "Opens CubeFS projects dashboards",
+      "type": "link",
+      "url": "https://chubaofs.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -503,16 +513,6 @@
       "tooltip": "Opens Keptn projects dashboards",
       "type": "link",
       "url": "https://keptn.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "CubeFS",
-      "tooltip": "Opens CubeFS projects dashboards",
-      "type": "link",
-      "url": "https://chubaofs.[[hostname]]"
     },
     {
       "icon": "dashboard",
