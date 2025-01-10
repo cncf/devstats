@@ -667,12 +667,13 @@ projects:
   chubaofs:
     order: 45
     name: CubeFS
-    status: Incubating
+    status: Graduated
     command_line:
       - chubaofs,cubefs
     start_date: 2018-09-29T00:00:00Z
     join_date: 2019-12-16T00:00:00Z
     incubating_date: 2022-07-03T00:00:00Z
+    graduated_date: 2024-12-11T00:00:00Z
     psql_db: chubaofs
     shared_db: allprj
     main_repo: cubefs/cubefs
