@@ -681,6 +681,26 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "OpenYurt",
+      "tooltip": "Opens OpenYurt projects dashboards",
+      "type": "link",
+      "url": "https://openyurt.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kubescape",
+      "tooltip": "Opens Kubescape projects dashboards",
+      "type": "link",
+      "url": "https://kubescape.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -825,16 +845,6 @@
       "tooltip": "Opens Porter projects dashboards",
       "type": "link",
       "url": "https://porter.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OpenYurt",
-      "tooltip": "Opens OpenYurt projects dashboards",
-      "type": "link",
-      "url": "https://openyurt.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1485,16 +1495,6 @@
       "tooltip": "Opens werf projects dashboards",
       "type": "link",
       "url": "https://werf.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Kubescape",
-      "tooltip": "Opens Kubescape projects dashboards",
-      "type": "link",
-      "url": "https://kubescape.[[hostname]]"
     },
     {
       "icon": "dashboard",
