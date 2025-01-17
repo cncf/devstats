@@ -38,7 +38,7 @@ projects:
     name: Prometheus
     status: Graduated
     command_line:
-      - 'prometheus,OpenObservability,OpenMetrics,openmetrics'
+      - 'prometheus,OpenObservability,OpenMetrics,openmetrics,prometheus-community'
     start_date: 2014-01-06T00:00:00Z
     join_date: 2016-05-09T00:00:00Z
     graduated_date: 2018-08-09T00:00:00Z
@@ -3101,7 +3101,7 @@ projects:
          spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops,kubeslice,score-spec,\
          connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass,\
          loxilb-io,cartography-cncf,perses,ratify-project,Project-HAMi,shipwright-io,\
-         flatcar,flatcar-linux,sermant-io,kmesh-net,ovn-org"
+         flatcar,flatcar-linux,sermant-io,kmesh-net,ovn-org,prometheus-community"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
