@@ -1741,7 +1741,7 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "flatcar",
+      "title": "easegress",
       "tooltip": "Opens easegress projects dashboards",
       "type": "link",
       "url": "https://easegress.[[hostname]]"
