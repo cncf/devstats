@@ -264,7 +264,7 @@ update
 set
   repo_group = 'Prometheus'
 where
-  org_login in ('OpenObservability', 'OpenMetrics', 'openmetrics')
+  org_login in ('OpenObservability', 'OpenMetrics', 'openmetrics', 'prometheus-community')
   or name in ('RichiH/OpenMetrics')
 ;
 

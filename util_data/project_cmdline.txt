@@ -195,7 +195,7 @@ pixie,regexp:(?i)^(pixie-labs\/(.*pixie.*|.*px.*|grafana-plugin)|pixie-io\/.*)$
 porter,getporter
 pravega,pravega
 prestodb,prestodb
-prometheus,prometheus,OpenMetrics,openmetrics,RichiH/OpenMetrics
+prometheus,prometheus,OpenMetrics,openmetrics,RichiH/OpenMetrics,OpenObservability,prometheus-community
 pyrsia,pyrsia
 radius,radius-project
 ratify,ratify-project,deislabs/ratify,deislabs/ratify-web,deislabs/ratify-action
