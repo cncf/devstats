@@ -7,16 +7,8 @@ select
   min(created_at) as date_from,
   max(created_at) as date_to
 from
-  [githubarchive:month.202410],
-  [githubarchive:month.202409],
-  [githubarchive:month.202408],
-  [githubarchive:month.202407],
-  [githubarchive:month.202406],
-  [githubarchive:month.202405],
-  [githubarchive:month.202404],
-  [githubarchive:month.202403],
-  [githubarchive:month.202402],
-  [githubarchive:month.202401],
+--  [githubarchive:month.202501],
+  [githubarchive:year.2024],
   [githubarchive:year.2023],
   [githubarchive:year.2022],
   [githubarchive:year.2021],
@@ -32,16 +24,8 @@ where
     select
       org.id
     from
-      [githubarchive:month.202410],
-      [githubarchive:month.202409],
-      [githubarchive:month.202408],
-      [githubarchive:month.202407],
-      [githubarchive:month.202406],
-      [githubarchive:month.202405],
-      [githubarchive:month.202404],
-      [githubarchive:month.202403],
-      [githubarchive:month.202402],
-      [githubarchive:month.202401],
+--      [githubarchive:month.202501],
+      [githubarchive:year.2024],
       [githubarchive:year.2023],
       [githubarchive:year.2022],
       [githubarchive:year.2021],
