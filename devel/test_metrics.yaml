@@ -10,7 +10,8 @@ metrics:
     merge_series: user_activity
     drop: suser_activity
     allow_fail: true
-    project: '!kubernetes,all,allcdf,cii,graphql,istio,kyverno,lfn,opentelemetry,prestodb'
+    # project: '!kubernetes,all,allcdf,cii,graphql,istio,kyverno,lfn,opentelemetry,prestodb'
+    project: '!kubernetes,all,allcdf,graphql,istio,kyverno,lfn,opentelemetry,prestodb'
 #   - name: Countries Projects stats
 #     series_name_or_func: multi_row_multi_column
 #     sqls: [project_countries, project_countries_commiters]
