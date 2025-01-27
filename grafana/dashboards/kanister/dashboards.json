@@ -2041,6 +2041,146 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Tratteria",
+      "tooltip": "Opens Tratteria projects dashboards",
+      "type": "link",
+      "url": "https://tratteria.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Spin",
+      "tooltip": "Opens Spin projects dashboards",
+      "type": "link",
+      "url": "https://spin.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "SpinKube",
+      "tooltip": "Opens SpinKube projects dashboards",
+      "type": "link",
+      "url": "https://spinkube.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "SlimFaaS",
+      "tooltip": "Opens SlimFaaS projects dashboards",
+      "type": "link",
+      "url": "https://slimfaas.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "container2wasm",
+      "tooltip": "Opens container2wasm projects dashboards",
+      "type": "link",
+      "url": "https://container2wasm.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "k0s",
+      "tooltip": "Opens k0s projects dashboards",
+      "type": "link",
+      "url": "https://k0s.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Runme Notebooks",
+      "tooltip": "Opens Runme Notebooks projects dashboards",
+      "type": "link",
+      "url": "https://runmenotebooks.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "CloudNativePG",
+      "tooltip": "Opens CloudNativePG projects dashboards",
+      "type": "link",
+      "url": "https://cloudnativepg.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KubeFleet",
+      "tooltip": "Opens KubeFleet projects dashboards",
+      "type": "link",
+      "url": "https://kubefleet.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Podman Desktop",
+      "tooltip": "Opens Podman Desktop projects dashboards",
+      "type": "link",
+      "url": "https://podmandesktop.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Podman Container Tools",
+      "tooltip": "Opens Podman Container Tools projects dashboards",
+      "type": "link",
+      "url": "https://podmancontainertools.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "bootc",
+      "tooltip": "Opens bootc projects dashboards",
+      "type": "link",
+      "url": "https://bootc.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "composefs",
+      "tooltip": "Opens composefs projects dashboards",
+      "type": "link",
+      "url": "https://composefs.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Drasi",
+      "tooltip": "Opens Drasi projects dashboards",
+      "type": "link",
+      "url": "https://drasi.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
