@@ -2175,6 +2175,138 @@ where
   or name in ('openvswitch/ovn-kubernetes')
 ;
 
+-- Tratteria
+update
+  gha_repos
+set
+  repo_group = 'Tratteria'
+where
+  org_login in ('tratteria')
+;
+
+-- Spin
+update
+  gha_repos
+set
+  repo_group = 'Spin'
+where
+  name ~ '(?i)^fermyon\/(.*spin.*|platform-plugin)$'
+;
+
+-- SpinKube
+update
+  gha_repos
+set
+  repo_group = 'SpinKube'
+where
+  org_login in ('spinkube')
+;
+
+-- SlimFaaS
+update
+  gha_repos
+set
+  repo_group = 'SlimFaaS'
+where
+  name in ('AxaFrance/SlimFaas')
+;
+
+-- container2wasm
+update
+  gha_repos
+set
+  repo_group = 'container2wasm'
+where
+  name in ('ktock/container2wasm')
+;
+
+-- k0s
+update
+  gha_repos
+set
+  repo_group = 'k0s'
+where
+  org_login in ('k0sproject')
+;
+
+-- Runme Notebooks
+update
+  gha_repos
+set
+  repo_group = 'Runme Notebooks'
+where
+  name ~ '(?i)^stateful\/.*runme.*$'
+;
+
+-- CloudNativePG
+update
+  gha_repos
+set
+  repo_group = 'CloudNativePG'
+where
+  org_login in ('cloudnative-pg')
+;
+
+-- KubeFleet
+update
+  gha_repos
+set
+  repo_group = 'KubeFleet'
+where
+  name ~ '(?i)^Azure\/.*fleet.*$'
+;
+
+-- Podman Desktop
+update
+  gha_repos
+set
+  repo_group = 'Podman Desktop'
+where
+  org_login in ('podman-desktop')
+  or name ~ '(?i)^containers\/(.*podman-desktop.*|desktop)$'
+;
+
+-- Podman Container Tools
+update
+  gha_repos
+set
+  repo_group = 'Podman Container Tools'
+where
+  name in (
+    'containers/podman', 'containers/buildah', 'containers/skopeo',
+    'containers/netavark', 'containers/aardvark-dns', 'containers/image',
+    'containers/storage', 'containers/common', 'containers/conmon',
+    'containers/podman-py', 'projectatomic/skopeo'
+  )
+;
+
+-- bootc
+update
+  gha_repos
+set
+  repo_group = 'bootc'
+where
+  name in ('containers/bootc', 'cgwalters/bootc')
+;
+
+-- composefs
+update
+  gha_repos
+set
+  repo_group = 'composefs'
+where
+  name in ('containers/composefs', 'giuseppe/composefs')
+;
+
+-- Drasi
+update
+  gha_repos
+set
+  repo_group = 'Drasi'
+where
+  org_login in ('drasi-project')
+;
+
 -- CNCF
 update
   gha_repos
