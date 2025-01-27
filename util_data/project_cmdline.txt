@@ -11,7 +11,7 @@ azf,Azure/Azure-Functions,Azure/azure-functions-host,Azure/azure-webjobs-sdk,Azu
 backstage,backstage,spotify/backstage
 bankvaults,bank-vaults,banzaicloud/bank-vaults,banzaicloud/vault-dogsbody
 bfe,bfenetworks,baidu/bfe
-bootc/containers/bootc,cgwalters/bootc
+bootc,containers/bootc,cgwalters/bootc
 bpfman,bpfman,bpfd-dev,redhat-et/bpfd
 brigade,brigadecore,Azure/brigade
 buildpacks,buildpack,buildpacks,buildpacks-community
