@@ -733,6 +733,48 @@ do
   elif [ "$proj" = "ovnkubernetes" ]
   then
     PROJ=ovnkubernetes       PROJDB=ovnkubernetes  PROJREPO="ovn-org/ovn-kubernetes"          ORGNAME='OVN-Kubernetes'  PORT=3285 ICON=ovnkubernetes  GRAFSUFF=ovnkubernetes  GA="-" ./devel/deploy_proj.sh               || exit 210
+  elif [ "$proj" = "tratteria" ]
+  then
+    PROJ=tratteria           PROJDB=tratteria      PROJREPO="tratteria/tratteria"             ORGNAME='Tratteria'       PORT=3286 ICON=tratteria      GRAFSUFF=tratteria      GA="-" ./devel/deploy_proj.sh               || exit 211
+  elif [ "$proj" = "spin" ]
+  then
+    PROJ=spin                PROJDB=spin           PROJREPO="fermyon/spin"                    ORGNAME='Spin'            PORT=3287 ICON=spin           GRAFSUFF=spin           GA="-" ./devel/deploy_proj.sh               || exit 212
+  elif [ "$proj" = "spinkube" ]
+  then
+    PROJ=spinkube            PROJDB=spinkube       PROJREPO="spinkube/spin-operator"          ORGNAME='SpinKube'        PORT=3288 ICON=spinkube       GRAFSUFF=spinkube       GA="-" ./devel/deploy_proj.sh               || exit 213
+  elif [ "$proj" = "slimfaas" ]
+  then
+    PROJ=slimfaas            PROJDB=slimfaas       PROJREPO="AxaFrance/SlimFaas"              ORGNAME='SlimFaaS'        PORT=3289 ICON=slimfaas       GRAFSUFF=slimfaas       GA="-" ./devel/deploy_proj.sh               || exit 214
+  elif [ "$proj" = "container2wasm" ]
+  then
+    PROJ=container2wasm      PROJDB=container2wasm PROJREPO="ktock/container2wasm"            ORGNAME='container2wasm'  PORT=3290 ICON=container2wasm GRAFSUFF=container2wasm GA="-" ./devel/deploy_proj.sh               || exit 215
+  elif [ "$proj" = "k0s" ]
+  then
+    PROJ=k0s                 PROJDB=k0s            PROJREPO="k0sproject/k0s"                  ORGNAME='k0s'             PORT=3291 ICON=k0s            GRAFSUFF=k0s            GA="-" ./devel/deploy_proj.sh               || exit 216
+  elif [ "$proj" = "runmenotebooks" ]
+  then
+    PROJ=runmenotebooks      PROJDB=runmenotebooks PROJREPO="stateful/runme"                  ORGNAME='Runme Notebooks' PORT=3292 ICON=runmenotebooks GRAFSUFF=runmenotebooks GA="-" ./devel/deploy_proj.sh               || exit 217
+  elif [ "$proj" = "cloudnativepg" ]
+  then
+    PROJ=cloudnativepg       PROJDB=cloudnativepg  PROJREPO="cloudnative-pg/cloudnative-pg"   ORGNAME='CloudNativePG'   PORT=3293 ICON=cloudnativepg  GRAFSUFF=coloudnativepg GA="-" ./devel/deploy_proj.sh               || exit 218
+  elif [ "$proj" = "kubefleet" ]
+  then
+    PROJ=kubefleet           PROJDB=kubefleet      PROJREPO="Azure/fleet"                     ORGNAME='KubeFleet'       PORT=3294 ICON=kubefleet      GRAFSUFF=kubefleet      GA="-" ./devel/deploy_proj.sh               || exit 219
+  elif [ "$proj" = "podmandesktop" ]
+  then
+    PROJ=podmandesktop       PROJDB=podmandesktop  PROJREPO="podmat-desktop/podman-desktop"   ORGNAME='Podman Desktop'  PORT=3295 ICON=podmandesktop  GRAFSUFF=podmandesktop  GA="-" ./devel/deploy_proj.sh               || exit 220
+  elif [ "$proj" = "podmancontainertools" ]
+  then
+    PROJ=podmancontainertools PROJDB=podmancontainertools PROJREPO="containers/podman"        ORGNAME='Podman Container Tools' PORT=3296 ICON=podmancontainertools GRAFSUFF=podmancontainertools GA="-" ./devel/deploy_proj.sh || exit 221
+  elif [ "$proj" = "bootc" ]
+  then
+    PROJ=bootc               PROJDB=bootc          PROJREPO="containers/bootc"                ORGNAME='bootc'           PORT=3297 ICON=bootc          GRAFSUFF=bootc          GA="-" ./devel/deploy_proj.sh               || exit 222
+  elif [ "$proj" = "composefs" ]
+  then
+    PROJ=composefs           PROJDB=composefs      PROJREPO="containers/composefs"            ORGNAME='composefs'       PORT=3298 ICON=composefs      GRAFSUFF=composefs      GA="-" ./devel/deploy_proj.sh               || exit 223
+  elif [ "$proj" = "drasi" ]
+  then
+    PROJ=drasi               PROJDB=drasi          PROJREPO="drasi-project/drasi-platform"    ORGNAME='Drasi'           PORT=3299 ICON=drasi          GRAFSUFF=drasi          GA="-" ./devel/deploy_proj.sh               || exit 224
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
