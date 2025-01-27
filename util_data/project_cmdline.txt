@@ -11,6 +11,7 @@ azf,Azure/Azure-Functions,Azure/azure-functions-host,Azure/azure-webjobs-sdk,Azu
 backstage,backstage,spotify/backstage
 bankvaults,bank-vaults,banzaicloud/bank-vaults,banzaicloud/vault-dogsbody
 bfe,bfenetworks,baidu/bfe
+bootc/containers/bootc,cgwalters/bootc
 bpfman,bpfman,bpfd-dev,redhat-et/bpfd
 brigade,brigadecore,Azure/brigade
 buildpacks,buildpack,buildpacks,buildpacks-community
@@ -28,13 +29,16 @@ cii,BendingBender/object-assign-shim,DataTables/DataTables,FasterXML/jackson-ann
 cilium,cilium,noironetworks/cilium-net
 cloudcustodian,cloud-custodian,capitalone/cloud-custodian
 cloudevents,cloudevents,openeventing
+cloudnativepg,cloudnative-pg
 clusternet,clusternet
 clusterpedia,clusterpedia-io
 cncf,cncf,crosscloudci,cdfoundation,cncf-tags
 cni,containernetworking,appc/cni
 cnigenie,cni-genie,Huawei-PaaS/CNI-Genie
+composefs,containers/composefs,giuseppe/composefs
 confidentialcontainers,confidential-containers
 connect,connectrpc,bufbuild/connect-go,bufbuild/rerpc,rerpc/rerpc
+container2wasm,ktock/container2wasm
 containerd,containerd,docker/containerd
 containerssh,ContainerSSH,janoszen/ContainerSSH,janoszen/containerssh
 contour,projectcontour,heptio/contour
@@ -53,6 +57,7 @@ devstream,devstream-io,merico-dev/stream,maricso-dev/OpenStream
 dex,dexidp,coreos/dex
 distribution,distribution,docker/distribution
 dragonfly,dragonflyoss,alibaba/Dragonfly
+drasi,drasi-project
 easegress,megaease,easegress-io
 emissaryingress,emissary-ingress,datawire/ambassador
 envoy,envoyproxy,lyft/envoy
@@ -90,6 +95,7 @@ istio,istio
 jaeger,jaegertracing,uber/jaeger
 jenkins,jenkinsci,jenkins-infra
 jenkinsx,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins
+k0s,k0sproject
 k3s,k3s-io
 k8dash,indeedeng/k8dash,indeedeng/k8dash-website,herbrandson/k8dash,skooner-k8s
 k8gb,k8gb-io,AbsaOSS/k8gb,AbsaOSS/ohmyglb
@@ -123,6 +129,7 @@ kubeburner,kube-burner,cloud-bulldozer/kube-burner,cloud-bulldozer/rosa-burner
 kubeclipper,kubeclipper,kubeclipper-labs
 kubedl,kubedl-io,alibaba/kubedl
 kubeedge,kubeedge
+kubefleet,regexp:(?i)^Azure\/.*fleet.*$
 kubeflow,kubeflow,google/kubeflow
 kubeovn,kubeovn,alauda/kube-ovn
 kuberhealthy,Comcast/kuberhealthy,kuberhealthy
@@ -192,6 +199,8 @@ perses,perses
 pipecd,pipe-cd
 piraeus,piraeusdatastore
 pixie,regexp:(?i)^(pixie-labs\/(.*pixie.*|.*px.*|grafana-plugin)|pixie-io\/.*)$
+podmancontainertools,containers/podman,containers/buildah,containers/skopeo,containers/netavark,containers/aardvark-dns,containers/image,containers/storage,containers/common,containers/conmon,containers/podman-py,projectatomic/skopeo
+podmandesktop,regexp:(?i)^(podman-desktop\/.*|containers\/(desktop|.*podman-desktop.*))$
 porter,getporter
 pravega,pravega
 prestodb,prestodb
@@ -202,6 +211,7 @@ ratify,ratify-project,deislabs/ratify,deislabs/ratify-web,deislabs/ratify-action
 riff,projectriff,markfisher/sk8s,jldec/projectriff.io,pivotal-cf/pfs-system-test,ericbottard/sk8s-go,ericbottard/sk8s-types,ericbottard/kubernetes-model,ericbottard/sk8s-http-gateway,ericbottard/function-sidecar,ericbottard/sk8s-topic-controller
 rkt,rkt
 rook,rook
+runmenotebooks,regexp:(?i)^stateful\/.*runme.*$
 sam,awslabs/aws-sam-cli,awslabs/serverless-application-model,awslabs/aws-sam-local
 schemahero,schemahero
 score,score-spec
@@ -213,11 +223,14 @@ serverlessworkflow,serverlessworkflow,cncf/wg-serverless-workflow
 servicemeshperformance,regexp:(?i)^(layer5io\/.*(service-mesh|performance|benchmark)|service-mesh-performance\/.*)
 shipwright,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator
 shipwrightcncf,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator
+slimfaas,AxaFrance/SlimFaas
 slimtoolkit,slimtoolkit,docker-slim,cloudimmunity/docker-slim
 smi,servicemeshinterface,deislabs/smi-spec,deislabs/smi-sdk-go,deislabs/smi-metrics,deislabs/smi-adapter-istio,deislabs/smi-spec.io
 sops,getsops,mozilla/sops,mozilla/sotp,mozilla-services/sops
 spiderpool,spidernet-io
 spiffe,spiffe
+spin,regexp:(?i)^fermyon\/(.*spin.*|platform-plugin)$
+spinkube,spinkube
 spinnaker,spinnaker
 spire,regexp:(?i)^(spiffe\/spire.*)$
 stacker,project-stacker,anuvu/stacker
@@ -230,6 +243,7 @@ teller,SpectralOps/teller,SpectralOps/helm-teller,SpectralOps/setup-teller-actio
 thanos,thanos-io,improbable-eng/promlts,improbable-eng/thanos
 tikv,pingcap/tikv,tikv
 tinkerbell,tinkerbell,packethost/tinkerbell
+tratteria,tratteria
 tremor,wayfair-tremor,tremor-rs
 trestlegrc,oscal-compass,IBM/compliance-trestle
 trickster,tricksterproxy,trickstercache,Comcast/trickster
