@@ -2868,6 +2868,188 @@ projects:
     main_repo: ovn-org/ovn-kubernetes
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  tratteria:
+    order: 211
+    name: Tratteria
+    status: Sandbox
+    command_line:
+      - tratteria
+    start_date: 2024-05-20T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: tratteria
+    shared_db: allprj
+    main_repo: tratteria/tratteria
+    annotation_regexp: '^v\d+\.\d+\.\d+$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  spin:
+    order: 212
+    name: Spin
+    status: Sandbox
+    command_line:
+      - 'regexp:(?i)^fermyon\/(.*spin.*|platform-plugin)$'
+    start_date: 2022-03-18T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: spin
+    shared_db: allprj
+    main_repo: fermyon/spin
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: ''
+  spinkube:
+    order: 213
+    name: SpinKube
+    status: Sandbox
+    command_line:
+      - spinkube
+    start_date: 2024-03-08T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: spinkube
+    shared_db: allprj
+    main_repo: spinkube/spin-operator
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  slimfaas:
+    order: 214
+    name: SlimFaaS
+    status: Sandbox
+    command_line:
+      - AxaFrance/SlimFaas
+    start_date: 2023-06-21T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: slimfaas
+    shared_db: allprj
+    main_repo: AxaFrance/SlimFaas
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: ''
+  container2wasm:
+    order: 215
+    name: container2wasm
+    status: Sandbox
+    command_line:
+      - ktock/container2wasm
+    start_date: 2023-02-28T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: container2wasm
+    shared_db: allprj
+    main_repo: ktock/container2wasm
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  k0s:
+    order: 216
+    name: k0s
+    status: Sandbox
+    command_line:
+      - k0sproject
+    start_date: 2020-11-02T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: k0s
+    shared_db: allprj
+    main_repo: k0sproject/k0s
+    annotation_regexp: '^v\d+\.\d+\.0\+k0s\.\d+$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  runmenotebooks:
+    order: 217
+    name: "Runme Notebooks"
+    status: Sandbox
+    command_line:
+      - 'regexp:(?i)^stateful\/.*runme.*$'
+    start_date: 2022-10-14T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: runmenotebooks
+    shared_db: allprj
+    main_repo: stateful/runme
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  cloudnativepg:
+    order: 218
+    name: CloudNativePG
+    status: Sandbox
+    command_line:
+      - cloudnative-pg
+    start_date: 2022-04-21T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: cloudnativepg
+    shared_db: allprj
+    main_repo: cloudnative-pg/cloudnative-pg
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  kubefleet:
+    order: 219
+    name: KubeFleet
+    status: Sandbox
+    command_line:
+      - 'regexp:(?i)^Azure\/.*fleet.*$'
+    start_date: 2022-04-29T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: kubefleet
+    shared_db: allprj
+    main_repo: Azure/kubefleet
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  podmandesktop:
+    order: 220
+    name: "Podman Desktop"
+    status: Sandbox
+    command_line:
+      - podman-desktop
+    start_date: 2022-03-03T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: podmandesktop
+    shared_db: allprj
+    main_repo: podman-desktop/podman-desktop
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: ''
+  podmancontainertools:
+    order: 221
+    name: "Podman Container Tools"
+    status: Sandbox
+    command_line:
+      - 'regexp:(?i)^containers\/(podman|buildah|skopeo|netavark|aardvark-dns|image|storage|common|conmon|podman-py)$'
+    start_date: 2016-03-07T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: podmancontainertools
+    shared_db: allprj
+    main_repo: containers/podman
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  bootc:
+    order: 222
+    name: bootc
+    status: Sandbox
+    command_line:
+      - containers/bootc
+    start_date: 2022-12-01T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: bootc
+    shared_db: allprj
+    main_repo: containers/bootc
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: ''
+  composefs:
+    order: 223
+    name: composefs
+    status: Sandbox
+    command_line:
+      - containers/composefs
+    start_date: 2021-10-30T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
+    psql_db: composefs
+    shared_db: allprj
+    main_repo: containers/composefs
+    annotation_regexp: '^v\d+\.\d+\.\d+$'
+    files_skip_pattern: ''
+  drasi:
+    order: 224
+    name: Drasi
+    status: Sandbox
+    command_line:
+      - drasi-project
+    start_date: 2024-09-23T00:00:00Z
+    join_date: 2025-01-25T00:00:00Z
+    psql_db: drasi
+    shared_db: allprj
+    main_repo: drasi-project/drasi-platform
+    annotation_regexp: '^\d+\.\d+\.\d+$'
+    files_skip_pattern: ''
   opencontainers:
     order: 1200
     name: OCI
@@ -3103,7 +3285,21 @@ projects:
          spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops,kubeslice,score-spec,\
          connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass,\
          loxilb-io,cartography-cncf,perses,ratify-project,Project-HAMi,shipwright-io,\
-         flatcar,flatcar-linux,sermant-io,kmesh-net,ovn-org,prometheus-community"
+         flatcar,flatcar-linux,sermant-io,kmesh-net,ovn-org,prometheus-community,\
+         tratteria,fermyon/spin,fermyon/spin-python-sdk,fermyon/spin-js-sdk,spinkube,\
+         fermyon/spin-rust-sdk,fermyon/spin-dotnet-sdk,fermyon/spin-nim-sdk,k0sproject,\
+         fermyon/spin-plugins,fermyon/spin-test,fermyon/platform-plugin,AxaFrance/SlimFaas,\
+         fermyon/spin-trigger-command,fermyon/spin-trigger-sqs,fermyon/spin-trigger-cron,\
+         ktock/container2wasm,stateful/runme,stateful/runme.dev,stateful/runmejs,\
+         stateful/runme-web-extension,stateful/runme-action,stateful/docs.runme.dev,\
+         stateful/runme-action-examples,stateful/mkdocs-runme-plugin,stateful/Runme-CDEs,\
+         stateful/runme-terramate-aws,stateful/terramate-runme-example,cloudnative-pg,\
+         stateful/runme-terramate-example,stateful/runme-foyle-ai,Azure/Fleet-PRSE,\
+         Azure/fleet-networking,Azure/fleet,Azure/azure-rest-api-specs-fleet,podman-desktop,\
+         containers/podman,containers/buildah,containers/skopeo,containers/netavark,\
+         containers/aardvark-dns,containers/image,containers/storage,containers/common,\
+         containers/conmon,containers/podman-py,containers/bootc,containers/composefs,\
+         drasi-project"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
