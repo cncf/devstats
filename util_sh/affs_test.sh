@@ -58,13 +58,16 @@ GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cn
 ONLY="bankvaults atlantis stacker trestlegrc kuadrant opengemini score bpfman loxilb cartography perses ratify hami shipwrightcncf flatcar" ./devel/all_affs.sh || exit 19
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" devstats
 
-ONLY="kusionstack youki kaito sermant kmesh ovnkubernetes" ./devel/all_affs.sh || exit 20
+ONLY="kusionstack youki kaito sermant kmesh ovnkubernetes tratteria spin spinkube slimfaas container2wasm k0s runmenotebooks cloudnativepg" ./devel/all_affs.sh || exit 20
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" devstats
 
-ONLY="cncf opencontainers sam azf riff fn openwhisk openfaas" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" ./devel/all_affs.sh || exit 21
+ONLY="kubefleet podmandesktop podmancontainertools bootc composefs drasi" ./devel/all_affs.sh || exit 21
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" devstats
 
-ONLY="linux zephyr cii prestodb godotengine all" GHA2DB_PROJECTS_OVERRIDE="+linux,+zephyr,+cii" ./devel/all_affs.sh || exit 22
+ONLY="cncf opencontainers sam azf riff fn openwhisk openfaas" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" ./devel/all_affs.sh || exit 22
+GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" devstats
+
+ONLY="linux zephyr cii prestodb godotengine all" GHA2DB_PROJECTS_OVERRIDE="+linux,+zephyr,+cii" ./devel/all_affs.sh || exit 23
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+linux,+zephyr,+sam,+azf,+riff,+fn,+openwhisk,+openfaas,+cii" devstats
 
 ./devel/columns_all.sh
