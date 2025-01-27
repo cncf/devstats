@@ -5,17 +5,16 @@ select
   min(created_at) as date_from,
   max(created_at) as date_to
 from (
-  select * from
-    [githubarchive:month.202110],
-    [githubarchive:month.202109],
-    [githubarchive:month.202108],
-    [githubarchive:month.202107],
-    [githubarchive:month.202106],
-    [githubarchive:month.202105],
-    [githubarchive:month.202104],
-    [githubarchive:month.202103],
-    [githubarchive:month.202102],
-    [githubarchive:month.202101]
+  select
+    org.login,
+    repo.name,
+    repo.id,
+    created_at
+  from
+    [githubarchive:year.2024],
+    [githubarchive:year.2023],
+    [githubarchive:year.2022],
+    [githubarchive:year.2021],
     [githubarchive:year.2020],
     [githubarchive:year.2019],
     [githubarchive:year.2018],
@@ -23,30 +22,37 @@ from (
     [githubarchive:year.2016],
     [githubarchive:year.2015],
     [githubarchive:year.2014]
- )
+  group by
+    org.login,
+    repo.name,
+    repo.id,
+    created_at
+  )
 where
   repo.id in (
     select
       repo.id
     from
-      [githubarchive:month.202110],
-      [githubarchive:month.202109],
-      [githubarchive:month.202108],
-      [githubarchive:month.202107],
-      [githubarchive:month.202106],
-      [githubarchive:month.202105],
-      [githubarchive:month.202104],
-      [githubarchive:month.202103],
-      [githubarchive:month.202102],
-      [githubarchive:month.202101]
+      [githubarchive:year.2024],
+      [githubarchive:year.2023],
+      [githubarchive:year.2022],
+      [githubarchive:year.2021],
       [githubarchive:year.2020],
+      [githubarchive:year.2019]
+      [githubarchive:year.2018],
+      [githubarchive:year.2017],
+      [githubarchive:year.2016],
+      [githubarchive:year.2015],
+      [githubarchive:year.2014]
     where
-      repo.name like 'org_name/%'
+      lower(repo.name) like lower('{{org}}/%')
     group by
       repo.id
   )
 group by
-  org, repo, rid
+  org,
+  repo,
+  rid
 order by
   date_from
 ;
