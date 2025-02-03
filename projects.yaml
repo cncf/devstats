@@ -2860,12 +2860,12 @@ projects:
     name: OVN-Kubernetes
     status: Sandbox
     command_line:
-      - ovn-org
+      - ovn-org,ovn-kubernetes
     start_date: 2016-08-11T00:00:00Z
     join_date: 2024-10-17T00:00:00Z
     psql_db: ovnkubernetes
     shared_db: allprj
-    main_repo: ovn-org/ovn-kubernetes
+    main_repo: ovn-kubernetes/ovn-kubernetes
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   tratteria:
@@ -3285,7 +3285,7 @@ projects:
          spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops,kubeslice,score-spec,\
          connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass,\
          loxilb-io,cartography-cncf,perses,ratify-project,Project-HAMi,shipwright-io,\
-         flatcar,flatcar-linux,sermant-io,kmesh-net,ovn-org,prometheus-community,\
+         flatcar,flatcar-linux,sermant-io,kmesh-net,ovn-org,ovn-kubernetes,prometheus-community,\
          tratteria,fermyon/spin,fermyon/spin-python-sdk,fermyon/spin-js-sdk,spinkube,\
          fermyon/spin-rust-sdk,fermyon/spin-dotnet-sdk,fermyon/spin-nim-sdk,k0sproject,\
          fermyon/spin-plugins,fermyon/spin-test,fermyon/platform-plugin,AxaFrance/SlimFaas,\
