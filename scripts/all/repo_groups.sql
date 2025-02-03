@@ -2171,7 +2171,7 @@ update
 set
   repo_group = 'OVN-Kubernetes'
 where
-  org_login in ('ovn-org')
+  org_login in ('ovn-org', 'ovn-kubernetes')
   or name in ('openvswitch/ovn-kubernetes')
 ;
 

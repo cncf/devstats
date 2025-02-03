@@ -31,6 +31,7 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'OVN-Kubernetes', alias = 'OVN-Kubernetes'
 where name in (
+  'ovn-kubernetes/ovn-kubernetes',
   'ovn-org/ovn-kubernetes',
   'openvswitch/ovn-kubernetes'
 );
