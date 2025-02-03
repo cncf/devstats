@@ -732,7 +732,7 @@ do
     PROJ=kmesh               PROJDB=kmesh          PROJREPO="kmesh-net/kmesh"                 ORGNAME=Kmesh             PORT=3284 ICON=kmesh          GRAFSUFF=kmesh          GA="-" ./devel/deploy_proj.sh               || exit 209
   elif [ "$proj" = "ovnkubernetes" ]
   then
-    PROJ=ovnkubernetes       PROJDB=ovnkubernetes  PROJREPO="ovn-org/ovn-kubernetes"          ORGNAME='OVN-Kubernetes'  PORT=3285 ICON=ovnkubernetes  GRAFSUFF=ovnkubernetes  GA="-" ./devel/deploy_proj.sh               || exit 210
+    PROJ=ovnkubernetes       PROJDB=ovnkubernetes  PROJREPO="ovn-kubernetes/ovn-kubernetes"   ORGNAME='OVN-Kubernetes'  PORT=3285 ICON=ovnkubernetes  GRAFSUFF=ovnkubernetes  GA="-" ./devel/deploy_proj.sh               || exit 210
   elif [ "$proj" = "tratteria" ]
   then
     PROJ=tratteria           PROJDB=tratteria      PROJREPO="tratteria/tratteria"             ORGNAME='Tratteria'       PORT=3286 ICON=tratteria      GRAFSUFF=tratteria      GA="-" ./devel/deploy_proj.sh               || exit 211
