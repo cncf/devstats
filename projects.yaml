@@ -2982,7 +2982,7 @@ projects:
     join_date: 2025-01-21T00:00:00Z
     psql_db: kubefleet
     shared_db: allprj
-    main_repo: Azure/kubefleet
+    main_repo: Azure/fleet
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   podmandesktop:
