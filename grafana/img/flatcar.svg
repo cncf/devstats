@@ -1,19 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 26.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="a" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 389 389" style="enable-background:new 0 0 389 389;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#0086FF;}
-	.st1{fill:#93EAFF;}
-</style>
-<g>
-	<path class="st0" d="M72.8,250.7h-48v112.6h112.2v-48.4H72.8V250.7z"/>
-	<path class="st0" d="M314.1,251.2v63.7h-64.3v48.4h112.2V250.7h-48.5L314.1,251.2z"/>
-	<path class="st0" d="M24.9,138.6h48.5l-0.5-0.5V74.5h64.3V26H24.9V138.6z"/>
-	<path class="st0" d="M249.9,26v48.4h64.3v64.2h48V26C362.1,26,249.9,26,249.9,26z"/>
-	<path class="st1" d="M243.5,138.6l-64.3-64.2h70.6V26H137.1v48.4l64.3,64.2H243.5z"/>
-	<path class="st1" d="M185.6,250.7h-42.2l53.2,53.2l10.5,11h-70.1v48.4h112.8v-49l-32.1-31.6L185.6,250.7z"/>
-	<path class="st1" d="M314.1,138.6v70l-11.1-11.1l-53.2-53.2V187l31.6,31.6l32.1,32.1h48.5V138.6H314.1L314.1,138.6z"/>
-	<path class="st1" d="M137.1,202.3l-63.8-63.7H24.9v112h48v-70l64.3,64.2V202.3z"/>
-</g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 488 300">
+  <!-- Generator: Adobe Illustrator 29.2.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 116)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #13bdce;
+      }
+    </style>
+  </defs>
+  <path class="st0" d="M279.4,43.2h-14.3v14.3h14.3v-14.3Z"/>
+  <path class="st0" d="M243.8,164.9h-28.7v14.3h28.7v-14.3Z"/>
+  <path class="st0" d="M372.9,164.9h-28.7v14.3h28.7v-14.3Z"/>
+  <path class="st0" d="M473.2,171.8h-14.3v85.9h-14.3V114.5h-28.8V0H71.8v114.5h-28.7v143.2h-14.3v-85.9h-14.5v85.9H0v28.1h28.7v14.3h43v-14.3h14.3v14.3h43v-14.3h229.5v14.3h43v-14.3h14.3v14.3h43v-14.3h28.7v-28.1h-14.3v-85.9h0ZM322.4,14.6h71.7v28.6h-21.2v57.3h-28.7v-57.3h-21.8V14.6h0ZM236.4,28.9h14.3v-14.3h43v14.3h14.3v71.6h-28.6v-28.6h-14.3v28.6h-28.7V28.9ZM93,71.9V14.6h57.4v21.2h-28.7v14.3h28.7v21.8h-28.7v28.6h-28.7v-28.6h0ZM157.8,179.2h-43.1v28.6h43v42.9h-86v-114.5h86v28.6s0,14.3,0,14.3h0ZM164.7,100.5h0V14.6h28.7v57.3h28.7v28.6h-57.4ZM286.8,250.8h-43v-42.9h-28.7v42.9h-43v-100.2h14.3v-14.3h86v14.3h14.3v14.3c.1,0,.1,85.9.1,85.9ZM415.9,164.9h0v42.9h-14.3v14.3h14.3v28.6h-43v-28.6h-14.3v-14.3h-14.3v42.9h-43v-114.6h114.7v28.6h0Z"/>
 </svg>

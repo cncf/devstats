@@ -128,7 +128,7 @@ do
     icon="shipwright"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "tratteria" ] || [ "$icon" = "spin" ] || [ "$icon" = "spinkube" ] || [ "$icon" = "slimfaas" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "k0s" ] || [ "$icon" = "runmenotebooks" ] || [ "$icon" = "kubefleet" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "drasi" ] || [ "$icon" = "youki" ] || [ "$icon" = "kmesh" ] || [ "$icon" = "ovnkubernetes" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "flatcar" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "tratteria" ] || [ "$icon" = "spin" ] || [ "$icon" = "spinkube" ] || [ "$icon" = "slimfaas" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "k0s" ] || [ "$icon" = "runmenotebooks" ] || [ "$icon" = "kubefleet" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "drasi" ] || [ "$icon" = "youki" ] || [ "$icon" = "ovnkubernetes" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -282,6 +282,11 @@ do
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid.svg" "grafana/img/$suff.svg" || exit 35
     convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 36
+    continue
+  elif [ "$icon" = "kmesh" ]
+  then
+    cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/KMESH$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 37
+    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/KMESH$dash$mid-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 38
     continue
   fi
   # echo "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg"
