@@ -609,12 +609,13 @@ projects:
   intoto:
     order: 41
     name: in-toto
-    status: Incubating
+    status: Graduated
     command_line:
       - in-toto
     start_date: 2016-10-18T00:00:00Z
     join_date: 2019-08-14T00:00:00Z
     incubating_date: 2022-03-10T00:00:00Z
+    graduated_date: 2025-02-10T00:00:00Z
     psql_db: intoto
     shared_db: allprj
     main_repo: in-toto/in-toto
