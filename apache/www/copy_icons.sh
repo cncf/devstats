@@ -122,7 +122,7 @@ do
     icon="shipwright"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "tratteria" ] || [ "$icon" = "spin" ] || [ "$icon" = "spinkube" ] || [ "$icon" = "slimfaas" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "k0s" ] || [ "$icon" = "runmenotebooks" ] || [ "$icon" = "kubefleet" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "drasi" ] || [ "$icon" = "youki" ] || [ "$icon" = "ovnkubernetes" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "tratteria" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "k0s" ] || [ "$icon" = "runmenotebooks" ] || [ "$icon" = "kubefleet" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "drasi" ] || [ "$icon" = "youki" ] || [ "$icon" = "ovnkubernetes" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -264,11 +264,6 @@ do
   then
     convert "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.svg" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 32
     cp "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 33
-    continue
-  elif [ "$icon" = "kaito" ]
-  then
-    cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 34
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid.svg" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 35
     continue
   elif [ "$icon" = "kmesh" ]
   then
