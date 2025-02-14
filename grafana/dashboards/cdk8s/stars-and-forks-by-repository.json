@@ -543,8 +543,8 @@
       {
         "allValue": null,
         "current": {
-          "text": "clouddeploymentkitforkubernetes",
-          "value": "clouddeploymentkitforkubernetes"
+          "text": "clouddevelopmentkitforkubernetes",
+          "value": "clouddevelopmentkitforkubernetes"
         },
         "datasource": "psql",
         "definition": "",

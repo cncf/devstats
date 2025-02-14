@@ -48,7 +48,7 @@ This file describes how to add new project on the test and production servers.
 - Update projects counts (graduated, incubating, sandbox, archived) in `apache/www/index_*.html`, `partials/projects_health.html` and `partials/projects.html` files.
 - Look for `/\cdevstats projects:\|projects:\|graduated:\|incubating:\|sandbox:`. Also remember about `col-spans` (especially in `./partials/projects_health.html`).
 - For updating `partials/projects.html` or `apache/www/index_*.html`, copy the Graduated/Incubating/Sandbox section into some text file and then `KIND=Graduated SIZE=9 ./tsplit < graduated.txt > new_graduated.txt`.
-- If normalized project name is not equal to lower project name, you need to update projects health metric to do the mapping, for example `series_name_map: { clouddeploymentkitforkubernetes: cdk8s }`, see `metrics/*/*.yaml`.
+- If normalized project name is not equal to lower project name, you need to update projects health metric to do the mapping, for example `series_name_map: { clouddevelopmentkitforkubernetes: cdk8s }`, see `metrics/*/*.yaml`.
 - Update the number of projects in `metrics/all/sync_vars.yaml`.
 - Generate new project key -> name mapping by running: `PROD_SERVER=1 ./devel/generate_project_names_mapping.sh`.
 - Update Apache index pages, proxy and SSL files `apache/www/index_* apache/*/sites-enabled/* apache/*/sites.txt` files. You can copy from `partials/projects.yaml` and then: `:'<,'>s/\[\[hostname]]/devstats.cncf.io/g`, `:'<,'>s/public\/img\/projects\///g` and `:'<,'>s/devstats\.cncf\.io/teststats.cncf.io/g`.
