@@ -135,7 +135,8 @@ col:last-child {background: #000;}
         <td><a href="https://kubeedge.[[hostname]]" target="_blank">KubeEdge</a></td>
         <td><a href="https://certmanager.[[hostname]]" target="_blank">cert-manager</a></td>
         <td><a href="https://dapr.[[hostname]]" target="_blank">Dapr</a></td>
-        <td class="cncf-br"><a href="https://chubaofs.[[hostname]]" target="_blank">CubeFS</a></td>
+        <td><a href="https://chubaofs.[[hostname]]" target="_blank">CubeFS</a></td>
+        <td class="cncf-br"><a href="https://intoto.[[hostname]]" target="_blank">in-toto</a></td>
         <td class="cncf-bl"><a href="https://grpc.[[hostname]]" target="_blank">gRPC</a></td>
         testsrv=[[hostname]] <td><a style="font-size:x-small;" href="https://opentracing.[[hostname]]" target="_blank">OpenTracing (archived)</a></td> [[hostname]]=testsrv
         testsrv=[[hostname]] <td><a style="font-size:x-small;" href="https://rkt.[[hostname]]" target="_blank">rkt (archived)</a></td> [[hostname]]=testsrv
@@ -160,7 +161,6 @@ col:last-child {background: #000;}
         <td><a href="https://cloudcustodian.[[hostname]]" target="_blank">Cloud Custodian</a></td>
         <td><a href="https://openkruise.[[hostname]]" target="_blank">OpenKruise</a></td>
         <td><a href="https://kubevela.[[hostname]]" target="_blank">KubeVela</a></td>
-        <td><a href="https://intoto.[[hostname]]" target="_blank">in-toto</a></td>
         <td><a href="https://kubevirt.[[hostname]]" target="_blank">KubeVirt</a></td>
         <td><a href="https://volcano.[[hostname]]" target="_blank">Volcano</a></td>
         <td><a href="https://chaosmesh.[[hostname]]" target="_blank">Chaos Mesh</a></td>
@@ -366,7 +366,8 @@ col:last-child {background: #000;}
         <td class="cncf-bb"><a href="https://kubeedge.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/kubeedge.svg" alt="KubeEdge" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://certmanager.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/certmanager.svg" alt="cert-manager" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://dapr.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/dapr.svg" alt="Dapr" height="80" width="80" /></a></td>
-        <td class="cncf-bb cncf-br"><a href="https://chubaofs.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/chubaofs.svg" alt="CubeFS" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://chubaofs.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/chubaofs.svg" alt="CubeFS" height="80" width="80" /></a></td>
+        <td class="cncf-bb cncf-br"><a href="https://intoto.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/intoto.svg" alt="in-toto" height="80" width="80" /></a></td>
         <td class="cncf-bb cncf-bl"><a href="https://grpc.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/grpc.svg" alt="gRPC" height="80" width="80" /></a></td>
         testsrv=[[hostname]] <td class="cncf-bb"><a href="https://opentracing.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/opentracing.svg" alt="OpenTracing" height="80" width="80" /></a></td> [[hostname]]=testsrv
         testsrv=[[hostname]] <td class="cncf-bb"><a href="https://rkt.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/rkt.svg" alt="rkt" height="80" width="80" /></a></td> [[hostname]]=testsrv
@@ -391,7 +392,6 @@ col:last-child {background: #000;}
         <td class="cncf-bb"><a href="https://cloudcustodian.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/cloudcustodian.svg" alt="Cloud Custodian" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://openkruise.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/openkruise.svg" alt="OpenKruise" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://kubevela.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/kubevela.svg" alt="KubeVela" height="80" width="80" /></a></td>
-        <td class="cncf-bb"><a href="https://intoto.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/intoto.svg" alt="in-toto" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://kubevirt.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/kubevirt.svg" alt="KubeVirt" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://volcano.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/volcano.svg" alt="Volcano" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://chaosmesh.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/chaosmesh.svg" alt="Chaos Mesh" height="80" width="80" /></a></td>
@@ -598,7 +598,8 @@ col:last-child {background: #000;}
         <td class="cncf-bb">metrics:series:phealthkubeedge:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthcertmanager:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthdapr:loop:1:i:2</td>
-        <td class="cncf-bb cncf-br">metrics:series:phealthcubefs:loop:1:i:2</td>
+        <td class="cncf-bb">metrics:series:phealthcubefs:loop:1:i:2</td>
+        <td class="cncf-bb cncf-br">metrics:series:phealthintoto:loop:1:i:2</td>
         <td class="cncf-bb cncf-bl">metrics:series:phealthgrpc:loop:1:i:2</td>
         testsrv=[[hostname]] <td class="cncf-bb">metrics:series:phealthopentracing:loop:1:i:2</td> [[hostname]]=testsrv
         testsrv=[[hostname]] <td class="cncf-bb">metrics:series:phealthrkt:loop:1:i:2</td> [[hostname]]=testsrv
@@ -623,7 +624,6 @@ col:last-child {background: #000;}
         <td class="cncf-bb">metrics:series:phealthcloudcustodian:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthopenkruise:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthkubevela:loop:1:i:2</td>
-        <td class="cncf-bb">metrics:series:phealthintoto:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthkubevirt:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthvolcano:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthchaosmesh:loop:1:i:2</td>
