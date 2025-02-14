@@ -341,6 +341,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "in-toto",
+      "tooltip": "Opens intoto projects dashboards",
+      "type": "link",
+      "url": "https://intoto.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -545,16 +555,6 @@
       "tooltip": "Opens KubeVela projects dashboards",
       "type": "link",
       "url": "https://kubevela.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "in-toto",
-      "tooltip": "Opens intoto projects dashboards",
-      "type": "link",
-      "url": "https://intoto.[[hostname]]"
     },
     {
       "icon": "dashboard",
