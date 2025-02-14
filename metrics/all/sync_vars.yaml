@@ -27,7 +27,7 @@ vars:
       - [metrics, "select series, name, str from sprojects_health where period = 'd' and series like 'phealth%' order by name asc", series]
     loops_before: true
     loops:
-      - [0,0,225,1] # number of prod CNCF projects 30G + 37I + 144S + 13A + 2O (13A = 2I + 10S + 1SM, N+2 because includes 'CNCF' on test, and has 'All CNCF')
+      - [0,0,225,1] # number of prod CNCF projects 31G + 36I + 144S + 13A + 2O (13A = 2I + 10S + 1SM, N+2 because includes 'CNCF' on test, and has 'All CNCF')
                     # 'openmetrics' was merged into prometheus (1SM - SandboxMerge) in 11A
                     # it also has archived I: 'rkt', 'opentracing'
                     # archived S: 'brigade', 'smi', 'openservicemesh'/'osm', 'krator', 'ingraind/fonio', 'curiefense', 'krustlet', 'skooner/k8dash', 'curve', 'fabedge' on test
