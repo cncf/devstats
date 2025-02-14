@@ -46,7 +46,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 12,
-  "iteration": 1739530058473,
+  "iteration": 1739530092043,
   "links": [
     {
       "icon": "dashboard",
@@ -2354,7 +2354,7 @@
       },
       "description": "List of all projects.",
       "gridPos": {
-        "h": 73,
+        "h": 75,
         "w": 24,
         "x": 0,
         "y": 6
@@ -2379,7 +2379,7 @@
         "h": 52,
         "w": 24,
         "x": 0,
-        "y": 79
+        "y": 81
       },
       "id": 4,
       "links": [
@@ -2418,7 +2418,7 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 131
+        "y": 133
       },
       "id": 6,
       "links": [],
@@ -2580,6 +2580,6 @@
   "timezone": "",
   "title": "Dashboards",
   "uid": "8",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
