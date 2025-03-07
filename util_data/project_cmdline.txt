@@ -46,6 +46,7 @@ copacetic,project-copacetic
 cord,opencord
 coredns,miekg/coredns,coredns
 cortex,cortexproject,weaveworks/cortex,weaveworks/prism,weaveworks/frankenstein
+cozystack,regexp:(?i)^aenix-io\/(.*cozy.*|etcd-operator|talm|talos-bootstrap|kubernetes-in-kubernetes|kubefarm)$
 crio,kubernetes-incubator/ocid,kubernetes-incubator/cri-o,kubernetes-sigs/cri-o,cri-o
 crossplane,crossplane,crossplaneio,crossplane-contrib
 curiefense,curiefense
@@ -86,9 +87,11 @@ helm,helm,kubernetes-helm,kubernetes-charts,kubernetes/helm,kubernetes/charts,ku
 hexapolicyorchestrator,hexa-org
 hwameistor,hwameistor
 hyperledger,hyperledger,hyperledger-labs,hyperledger-cicd
+hyperlight,hyperlight-dev
 inclavarecontainers,inclavare-containers,alibaba/inclavare-containers
 ingraind,ingraind,foniod,redsift/ingraind
 inspektorgadget,inspektor-gadget,kinvolk/inspektor-gadget
+interlink,regexp:(?i)^interTwin-eu\/(.*interlink.*|vk-test-set)$
 intoto,in-toto
 iovisor,iovisor
 istio,istio
@@ -112,6 +115,8 @@ kepler,sustainable-computing-io
 keptn,keptn
 keycloak,keycloak
 keylime,keylime,mit-ll/python-keylime,mit-ll/keylime
+kgateway,kgateway-dev
+kitops,regexp:(?i)^jozu-ai\/(.*kitops.*|gh-kit-setup|daggerverse)$
 kmesh,kmesh-net
 knative,knative,knative-sandbox,knative-extensions
 ko,ko-build,google/ko
