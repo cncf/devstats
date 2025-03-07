@@ -3051,6 +3051,71 @@ projects:
     main_repo: drasi-project/drasi-platform
     annotation_regexp: '^\d+\.\d+\.\d+$'
     files_skip_pattern: ''
+  interlink:
+    order: 225
+    name: Interlink
+    status: Sandbox
+    command_line:
+      - 'regexp:(?i)^interTwin-eu\/(.*interlink.*|vk-test-set)$'
+    start_date: 2023-07-05T00:00:00Z
+    join_date: 2025-03-04T00:00:00Z
+    psql_db: interlink
+    shared_db: allprj
+    main_repo: interTwin-eu/interLink
+    annotation_regexp: '^\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  cozystack:
+    order: 226
+    name: CozyStack
+    status: Sandbox
+    command_line:
+      - 'regexp:(?i)^aenix-io\/(.*cozy.*|etcd-operator|talm|talos-bootstrap|kubernetes-in-kubernetes|kubefarm)$'
+    start_date: 2024-02-08T00:00:00Z
+    join_date: 2025-03-04T00:00:00Z
+    psql_db: cozystack
+    shared_db: allprj
+    main_repo: aenix-io/cozystack
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: ''
+  kgateway:
+    order: 227
+    name: kgateway
+    status: Sandbox
+    command_line:
+      - kgateway-dev/kgateway
+    start_date: 2018-03-05T00:00:00Z
+    join_date: 2025-03-04T00:00:00Z
+    psql_db: kgateway
+    shared_db: allprj
+    main_repo: kgateway-dev/kgateway
+    annotation_regexp: '^v\d+\.\d+\.(0|\d+0)$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  kitops:
+    order: 228
+    name: KitOps
+    status: Sandbox
+    command_line:
+      - 'regexp:(?i)^jozu-ai\/(.*kitops.*|gh-kit-setup|daggerverse)$'
+    start_date: 2024-03-07T00:00:00Z
+    join_date: 2025-03-04T00:00:00Z
+    psql_db: kitops
+    shared_db: allprj
+    main_repo: jozu-ai/kitops
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  hyperlight:
+    order: 229
+    name: Hyperlight
+    status: Sandbox
+    command_line:
+      - hyperlight-dev
+    start_date: 2024-11-05T00:00:00Z
+    join_date: 2025-03-04T00:00:00Z
+    psql_db: hyperlight
+    shared_db: allprj
+    main_repo: hyperlight-dev/hyperlight
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: ''
   opencontainers:
     order: 1200
     name: OCI
