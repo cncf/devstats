@@ -2181,6 +2181,56 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Interlink",
+      "tooltip": "Opens Interlink projects dashboards",
+      "type": "link",
+      "url": "https://interlink.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "CozyStack",
+      "tooltip": "Opens CozyStack projects dashboards",
+      "type": "link",
+      "url": "https://cozystack.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "kgateway",
+      "tooltip": "Opens kgateway projects dashboards",
+      "type": "link",
+      "url": "https://kgateway.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KitOps",
+      "tooltip": "Opens KitOps projects dashboards",
+      "type": "link",
+      "url": "https://kitops.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Hyperlight",
+      "tooltip": "Opens Hyperlight projects dashboards",
+      "type": "link",
+      "url": "https://hyperlight.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
