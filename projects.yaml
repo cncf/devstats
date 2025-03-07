@@ -3082,7 +3082,7 @@ projects:
     name: kgateway
     status: Sandbox
     command_line:
-      - kgateway-dev/kgateway
+      - 'kgateway-dev'
     start_date: 2018-03-05T00:00:00Z
     join_date: 2025-03-04T00:00:00Z
     psql_db: kgateway
