@@ -2307,6 +2307,52 @@ where
   org_login in ('drasi-project')
 ;
 
+-- Interlink
+update
+  gha_repos
+set
+  repo_group = 'Interlink'
+where
+  name ~ '(?i)^interTwin-eu\/(.*interlink.*|vk-test-set)$'
+;
+
+-- CozyStack
+update
+  gha_repos
+set
+  repo_group = 'CozyStack'
+where
+  name ~ '(?i)^aenix-io\/(.*cozy.*|etcd-operator|talm|talos-bootstrap|kubernetes-in-kubernetes|kubefarm)$'
+;
+
+-- kgateway
+update
+  gha_repos
+set
+  repo_group = 'kgateway'
+where
+  org_login in ('kgateway-dev', 'k8sgateway')
+  or name in ('solo-io/gloo')
+;
+
+-- KitOps
+update
+  gha_repos
+set
+  repo_group = 'KitOps'
+where
+  name ~ '(?i)^jozu-ai\/(.*kitops.*|gh-kit-setup|daggerverse)$'
+;
+
+-- Hyperlight
+update
+  gha_repos
+set
+  repo_group = 'Hyperlight'
+where
+  org_login in ('hyperlight-dev')
+;
+
 -- CNCF
 update
   gha_repos
