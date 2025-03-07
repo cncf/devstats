@@ -5,10 +5,10 @@ vars:
     command: [hostname]
   - name: full_name
     type: s
-    value: Drasi
+    value: Hyperlight
   - name: lower_name
     type: s
-    value: drasi
+    value: hyperlight
   - name: projects_partial_html
     type: s
     command:
