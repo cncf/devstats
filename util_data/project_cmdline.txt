@@ -46,7 +46,7 @@ copacetic,project-copacetic
 cord,opencord
 coredns,miekg/coredns,coredns
 cortex,cortexproject,weaveworks/cortex,weaveworks/prism,weaveworks/frankenstein
-cozystack,regexp:(?i)^aenix-io\/(.*cozy.*|etcd-operator|talm|talos-bootstrap|kubernetes-in-kubernetes|kubefarm)$
+cozystack,regexp:(?i)^(cozystack\/.*|aenix-io\/(.*cozy.*|etcd-operator|talm|talos-bootstrap|kubernetes-in-kubernetes|kubefarm))$
 crio,kubernetes-incubator/ocid,kubernetes-incubator/cri-o,kubernetes-sigs/cri-o,cri-o
 crossplane,crossplane,crossplaneio,crossplane-contrib
 curiefense,curiefense

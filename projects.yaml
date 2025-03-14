@@ -3069,12 +3069,12 @@ projects:
     name: CozyStack
     status: Sandbox
     command_line:
-      - 'regexp:(?i)^aenix-io\/(.*cozy.*|etcd-operator|talm|talos-bootstrap|kubernetes-in-kubernetes|kubefarm)$'
+      - 'regexp:(?i)^(cozystack\/.*|aenix-io\/(.*cozy.*|etcd-operator|talm|talos-bootstrap|kubernetes-in-kubernetes|kubefarm))$'
     start_date: 2024-02-08T00:00:00Z
     join_date: 2025-03-04T00:00:00Z
     psql_db: cozystack
     shared_db: allprj
-    main_repo: aenix-io/cozystack
+    main_repo: cozystack/cozystack
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
   kgateway:
@@ -3370,10 +3370,7 @@ projects:
          interTwin-eu/interlink-helm-chart,interTwin-eu/interlink-monitoring-stack,\
          interTwin-eu/interlink-htcondor-plugin,interTwin-eu/interlink-kueue-plugin,\
          interTwin-eu/interlink-arc-plugin,interTwin-eu/interlink-unicore-plugin,\
-         aenix-io/etcd-operator,aenix-io/talm,aenix-io/talos-bootstrap,aeniz-io/cozystack,\
-         aenix-io/kubernetes-in-kubernetes,aenix-io/kubefarm,aenix-io/cozystack-website,\
-         aenix-io/cozy-proxy,aenix-io/cozystack-telemetry-server,jozu-ai/kitops,\
-         aenix-io/cozystack-gitops-example,jozu-ai/gh-kit-setup,jozu-ai/daggerverse,\
+         cozystack,jozu-ai/kitops,jozu-ai/gh-kit-setup,jozu-ai/daggerverse,\
          drasi-project,jozu-ai/pykitops,hyperlight-dev,kgateway-dev"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z

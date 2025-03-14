@@ -780,7 +780,7 @@ do
     PROJ=interlink           PROJDB=interlink      PROJREPO="interTwin-eu/interLink"          ORGNAME='Interlink'       PORT=3300 ICON=interlink      GRAFSUFF=interlink      GA="-" ./devel/deploy_proj.sh               || exit 225
   elif [ "$proj" = "cozystack" ]
   then
-    PROJ=cozystack           PROJDB=cozystack      PROJREPO="aenix-io/cozystack"              ORGNAME='CozyStack'       PORT=3301 ICON=cozystack      GRAFSUFF=cozystack      GA="-" ./devel/deploy_proj.sh               || exit 226
+    PROJ=cozystack           PROJDB=cozystack      PROJREPO="cozystack/cozystack"             ORGNAME='CozyStack'       PORT=3301 ICON=cozystack      GRAFSUFF=cozystack      GA="-" ./devel/deploy_proj.sh               || exit 226
   elif [ "$proj" = "kgateway" ]
   then
     PROJ=kgateway            PROJDB=kgateway       PROJREPO="kgateway-dev/kgateway"           ORGNAME='kgateway'        PORT=3302 ICON=kgateway       GRAFSUFF=kgateway       GA="-" ./devel/deploy_proj.sh               || exit 227
