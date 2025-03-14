@@ -46,6 +46,7 @@ with data as (
     and (lower(c.dup_committer_login) {{exclude_bots}})
 )
 select
+  'contributors,organizations' as name,
   count(distinct actor_login) as contributors_count,
   count(distinct company) filter (where company != 'Independent') as orgs_count
 from
