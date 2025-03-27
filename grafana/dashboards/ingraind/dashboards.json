@@ -1091,16 +1091,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "KubeDL",
-      "tooltip": "Opens KubeDL projects dashboards",
-      "type": "link",
-      "url": "https://kubedl.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "ORAS",
       "tooltip": "Opens ORAS projects dashboards",
       "type": "link",
@@ -1141,16 +1131,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "SuperEdge",
-      "tooltip": "Opens SuperEdge projects dashboards",
-      "type": "link",
-      "url": "https://superedge.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "OpenELB",
       "tooltip": "Opens OpenELB projects dashboards",
       "type": "link",
@@ -1175,16 +1155,6 @@
       "tooltip": "Opens VS Code Kubernetes Tools projects dashboards",
       "type": "link",
       "url": "https://vscodek8stools.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Nocalhost",
-      "tooltip": "Opens nocalhost projects dashboards",
-      "type": "link",
-      "url": "https://nocalhost.[[hostname]]"
     },
     {
       "icon": "dashboard",
