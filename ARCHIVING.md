@@ -14,6 +14,4 @@ Those steps are generally needed to change project status (usually from `Incubat
 - Update `apache/*/sites-enabled/* apache/*/sites.txt` files.
 - To do this you can copy `prod`/`test` section from already modified `partials/projects.html` and then do the following replacements:
 - `` :'<,'>s/\[\[hostname]]/teststats.cncf.io/g `` or `` :'<,'>s/\[\[hostname]]/devstats.cncf.io/g ``, followed by `` :'<,'>s/public\/img\/projects\///g ``.
-- Install them as `/var/www/html/index.html` on test and production respectively: `cp apache/www/index_envname.html /var/www/html/index.html`.
-- Install everything: `make install`. Not needed with Helm installation, rebuild docker images and drop static pages and grafanas pods instead.
 - See `Update shared Grafana data` in `ADDING_NEW_PROJECT.md`.
