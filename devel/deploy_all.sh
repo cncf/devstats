@@ -786,7 +786,7 @@ do
     PROJ=kgateway            PROJDB=kgateway       PROJREPO="kgateway-dev/kgateway"           ORGNAME='kgateway'        PORT=3302 ICON=kgateway       GRAFSUFF=kgateway       GA="-" ./devel/deploy_proj.sh               || exit 227
   elif [ "$proj" = "kitops" ]
   then
-    PROJ=kitops              PROJDB=kitops         PROJREPO="jozu-ai/kitops"                  ORGNAME='KitOps'          PORT=3303 ICON=kitops         GRAFSUFF=kitops         GA="-" ./devel/deploy_proj.sh               || exit 228
+    PROJ=kitops              PROJDB=kitops         PROJREPO="kitops-ml/kitops"                ORGNAME='KitOps'          PORT=3303 ICON=kitops         GRAFSUFF=kitops         GA="-" ./devel/deploy_proj.sh               || exit 228
   elif [ "$proj" = "hyperlight" ]
   then
     PROJ=hyperlight          PROJDB=hyperlight     PROJREPO="hyperlight-dev/hyperlight"       ORGNAME='Hyperlight'      PORT=3304 ICON=hyperlight     GRAFSUFF=hyperlight     GA="-" ./devel/deploy_proj.sh               || exit 229

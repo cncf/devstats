@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": true,
-          "text": "jozu-ai/kitops",
-          "value": "jozu-ai/kitops"
+          "text": "kitops-ml/kitops",
+          "value": "kitops-ml/kitops"
         },
         "datasource": {
           "type": "postgres",

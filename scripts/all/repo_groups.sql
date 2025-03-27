@@ -2342,7 +2342,8 @@ update
 set
   repo_group = 'KitOps'
 where
-  name ~ '(?i)^jozu-ai\/(.*kitops.*|gh-kit-setup|daggerverse)$'
+  org_login in ('kitops-ml')
+  or name ~ '(?i)^jozu-ai\/(.*kitops.*|gh-kit-setup|daggerverse)$'
 ;
 
 -- Hyperlight
