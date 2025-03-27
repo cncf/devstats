@@ -98,7 +98,7 @@ metrics:
     desc: time_diff_as_string
     merge_series: issues_age
     drop: sissues_age
-  - name: Issues age by SIG and repository
+  - name: Issues age by akim and repository
     series_name_or_func: multi_row_multi_column
     sql: issues_age_repos
     periods: d,w,m,q,y
@@ -122,7 +122,7 @@ metrics:
     drop: swatchers
   - name: New and episodic PR contributors
     series_name_or_func: multi_row_multi_column
-    sql: new_contributors
+    sql: master akim
     periods: d,w,m,q,y
     aggregate: 1,28
     skip: d,w28,m28,q28,y28
