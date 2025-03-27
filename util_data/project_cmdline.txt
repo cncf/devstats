@@ -116,7 +116,7 @@ keptn,keptn
 keycloak,keycloak
 keylime,keylime,mit-ll/python-keylime,mit-ll/keylime
 kgateway,kgateway-dev,k8sgateway,solo-io/gloo
-kitops,regexp:(?i)^jozu-ai\/(.*kitops.*|gh-kit-setup|daggerverse)$
+kitops,regexp:(?i)^(jozu-ai\/(.*kitops.*|gh-kit-setup|daggerverse)|kitops-ml\/.*)$
 kmesh,kmesh-net
 knative,knative,knative-sandbox,knative-extensions
 ko,ko-build,google/ko
