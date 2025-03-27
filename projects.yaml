@@ -3095,12 +3095,12 @@ projects:
     name: KitOps
     status: Sandbox
     command_line:
-      - 'regexp:(?i)^jozu-ai\/(.*kitops.*|gh-kit-setup|daggerverse)$'
+      - 'kitops-ml'
     start_date: 2024-03-07T00:00:00Z
     join_date: 2025-03-04T00:00:00Z
     psql_db: kitops
     shared_db: allprj
-    main_repo: jozu-ai/kitops
+    main_repo: kitops-ml/kitops
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   hyperlight:
@@ -3370,8 +3370,7 @@ projects:
          interTwin-eu/interlink-helm-chart,interTwin-eu/interlink-monitoring-stack,\
          interTwin-eu/interlink-htcondor-plugin,interTwin-eu/interlink-kueue-plugin,\
          interTwin-eu/interlink-arc-plugin,interTwin-eu/interlink-unicore-plugin,\
-         cozystack,jozu-ai/kitops,jozu-ai/gh-kit-setup,jozu-ai/daggerverse,\
-         drasi-project,jozu-ai/pykitops,hyperlight-dev,kgateway-dev"
+         cozystack,kitops-ml,drasi-project,hyperlight-dev,kgateway-dev"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
