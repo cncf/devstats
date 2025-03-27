@@ -95,4 +95,8 @@ This file describes how to add new project on the test and production servers.
 
 # Graduating projects
 
-- See [graduating instructions](https://github.com/cncf/devstats/blob/master/GRADUATING.md). This can also be used for moving to Incubation state or Archived state.
+- See [graduating instructions](https://github.com/cncf/devstats/blob/master/GRADUATING.md). This can also be used for moving to Incubation state.
+
+# Archiving projects
+
+- See [archiving instructions](https://github.com/cncf/devstats/blob/master/ARCHIVING.md).
