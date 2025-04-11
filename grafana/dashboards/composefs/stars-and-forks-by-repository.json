@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": true,
-          "text": "containers/composefs",
-          "value": "containers/composefs"
+          "text": "composefs/composefs",
+          "value": "composefs/composefs"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "containerscomposefs",
-          "value": "containerscomposefs"
+          "text": "composefscomposefs",
+          "value": "composefscomposefs"
         },
         "datasource": {
           "type": "postgres",

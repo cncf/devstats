@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": true,
-          "text": "spinkube/spin-operator",
-          "value": "spinkube/spin-operator"
+          "text": "spinframework/spin-operator",
+          "value": "spinframework/spin-operator"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "spinkubespinoperator",
-          "value": "spinkubespinoperator"
+          "text": "spinframeworkspinoperator",
+          "value": "spinframeworkspinoperator"
         },
         "datasource": {
           "type": "postgres",

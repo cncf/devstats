@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": true,
-          "text": "fermyon/spin",
-          "value": "fermyon/spin"
+          "text": "spinframework/spin",
+          "value": "spinframework/spin"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "fermyonspin",
-          "value": "fermyonspin"
+          "text": "spinframeworkspin",
+          "value": "spinframeworkspin"
         },
         "datasource": {
           "type": "postgres",

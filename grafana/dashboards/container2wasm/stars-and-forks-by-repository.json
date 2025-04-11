@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": false,
-          "text": "ktock/container2wasm",
-          "value": "ktock/container2wasm"
+          "text": "container2wasm/container2wasm",
+          "value": "container2wasm/container2wasm"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "ktockcontainer2wasm",
-          "value": "ktockcontainer2wasm"
+          "text": "container2wasmcontainer2wasm",
+          "value": "container2wasmcontainer2wasm"
         },
         "datasource": {
           "type": "postgres",

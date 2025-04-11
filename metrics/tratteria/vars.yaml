@@ -5,7 +5,7 @@ vars:
     command: [hostname]
   - name: full_name
     type: s
-    value: Tratteria
+    value: Tokenetes
   - name: lower_name
     type: s
     value: tratteria

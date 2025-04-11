@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": true,
-          "text": "containers/bootc",
-          "value": "containers/bootc"
+          "text": "bootc-dev/bootc",
+          "value": "bootc-dev/bootc"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "containersbootc",
-          "value": "containersbootc"
+          "text": "bootcdevbootc",
+          "value": "bootcdevbootc"
         },
         "datasource": {
           "type": "postgres",

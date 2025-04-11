@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": true,
-          "text": "stateful/runme",
-          "value": "stateful/runme"
+          "text": "runmedev/runme",
+          "value": "runmedev/runme"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "statefulrunme",
-          "value": "statefulrunme"
+          "text": "runmedevrunme",
+          "value": "runmedevrunme"
         },
         "datasource": {
           "type": "postgres",
