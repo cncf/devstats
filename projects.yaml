@@ -2874,15 +2874,15 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   tratteria:
     order: 211
-    name: Tratteria
+    name: Tokenetes
     status: Sandbox
     command_line:
-      - tratteria
+      - tokenetes
     start_date: 2024-05-20T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: tratteria
     shared_db: allprj
-    main_repo: tratteria/tratteria
+    main_repo: tokenetes/tokenetes
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   spin:
@@ -2890,12 +2890,12 @@ projects:
     name: Spin
     status: Sandbox
     command_line:
-      - 'regexp:(?i)^fermyon\/(.*spin.*|platform-plugin)$'
+      - spinframework
     start_date: 2022-03-18T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: spin
     shared_db: allprj
-    main_repo: fermyon/spin
+    main_repo: spinframework/spin
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
   spinkube:
@@ -2903,12 +2903,12 @@ projects:
     name: SpinKube
     status: Sandbox
     command_line:
-      - spinkube
+      - spinframework
     start_date: 2024-03-08T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: spinkube
     shared_db: allprj
-    main_repo: spinkube/spin-operator
+    main_repo: spinframework/spin-operator
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   slimfaas:
@@ -2916,12 +2916,12 @@ projects:
     name: SlimFaaS
     status: Sandbox
     command_line:
-      - AxaFrance/SlimFaas
+      - SlimPlanet
     start_date: 2023-06-21T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: slimfaas
     shared_db: allprj
-    main_repo: AxaFrance/SlimFaas
+    main_repo: SlimPlanet/SlimFaas
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
   container2wasm:
@@ -2929,12 +2929,12 @@ projects:
     name: container2wasm
     status: Sandbox
     command_line:
-      - ktock/container2wasm
+      - container2wasm
     start_date: 2023-02-28T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: container2wasm
     shared_db: allprj
-    main_repo: ktock/container2wasm
+    main_repo: container2wasm/container2wasm
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   k0s:
@@ -2955,12 +2955,12 @@ projects:
     name: "Runme Notebooks"
     status: Sandbox
     command_line:
-      - 'regexp:(?i)^stateful\/.*runme.*$'
+      - runmedev
     start_date: 2022-10-14T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: runmenotebooks
     shared_db: allprj
-    main_repo: stateful/runme
+    main_repo: runmedev/runme
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   cloudnativepg:
@@ -3020,12 +3020,12 @@ projects:
     name: bootc
     status: Sandbox
     command_line:
-      - containers/bootc
+      - bootc-dev
     start_date: 2022-12-01T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: bootc
     shared_db: allprj
-    main_repo: containers/bootc
+    main_repo: bootc-dev/bootc
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
   composefs:
@@ -3033,12 +3033,12 @@ projects:
     name: composefs
     status: Sandbox
     command_line:
-      - containers/composefs
+      - composefs
     start_date: 2021-10-30T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: composefs
     shared_db: allprj
-    main_repo: containers/composefs
+    main_repo: composefs/composefs
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: ''
   drasi:
@@ -3048,7 +3048,7 @@ projects:
     command_line:
       - drasi-project
     start_date: 2024-09-23T00:00:00Z
-    join_date: 2025-01-25T00:00:00Z
+    join_date: 2025-01-21T00:00:00Z
     psql_db: drasi
     shared_db: allprj
     main_repo: drasi-project/drasi-platform
@@ -3355,25 +3355,17 @@ projects:
          connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass,\
          loxilb-io,cartography-cncf,perses,ratify-project,Project-HAMi,shipwright-io,\
          flatcar,flatcar-linux,sermant-io,kmesh-net,ovn-org,ovn-kubernetes,prometheus-community,\
-         tratteria,fermyon/spin,fermyon/spin-python-sdk,fermyon/spin-js-sdk,spinkube,\
-         fermyon/spin-rust-sdk,fermyon/spin-dotnet-sdk,fermyon/spin-nim-sdk,k0sproject,\
-         fermyon/spin-plugins,fermyon/spin-test,fermyon/platform-plugin,AxaFrance/SlimFaas,\
-         fermyon/spin-trigger-command,fermyon/spin-trigger-sqs,fermyon/spin-trigger-cron,\
-         ktock/container2wasm,stateful/runme,stateful/runme.dev,stateful/runmejs,\
-         stateful/runme-web-extension,stateful/runme-action,stateful/docs.runme.dev,\
-         stateful/runme-action-examples,stateful/mkdocs-runme-plugin,stateful/Runme-CDEs,\
-         stateful/runme-terramate-aws,stateful/terramate-runme-example,cloudnative-pg,\
-         stateful/runme-terramate-example,stateful/runme-foyle-ai,Azure/Fleet-PRSE,\
-         Azure/fleet-networking,Azure/fleet,Azure/azure-rest-api-specs-fleet,podman-desktop,\
-         containers/podman,containers/buildah,containers/skopeo,containers/netavark,\
+         tokenetes,spinframework,k0sproject,SlimPlanet,container2wasm,runmedev,cloudnative-pg,\
+         Azure/Fleet-PRSE,Azure/fleet-networking,Azure/fleet,Azure/azure-rest-api-specs-fleet,\
+         podman-desktop,containers/podman,containers/buildah,containers/skopeo,containers/netavark,\
          containers/aardvark-dns,containers/image,containers/storage,containers/common,\
-         containers/conmon,containers/podman-py,containers/bootc,containers/composefs,\
-         interTwin-eu/interLink,interTwin-eu/vk-test-set,interTwin-eu/interlink-jhub,\
-         interTwin-eu/interlink-slurm-plugin,interTwin-eu/interlink-docker-plugin,\
-         interTwin-eu/interlink-helm-chart,interTwin-eu/interlink-monitoring-stack,\
-         interTwin-eu/interlink-htcondor-plugin,interTwin-eu/interlink-kueue-plugin,\
-         interTwin-eu/interlink-arc-plugin,interTwin-eu/interlink-unicore-plugin,\
-         cozystack,kitops-ml,drasi-project,hyperlight-dev,kgateway-dev"
+         containers/conmon,containers/podman-py,interTwin-eu/interLink,interTwin-eu/vk-test-set,\
+         interTwin-eu/interlink-jhub,interTwin-eu/interlink-slurm-plugin,\
+         interTwin-eu/interlink-docker-plugin,interTwin-eu/interlink-helm-chart,\
+         interTwin-eu/interlink-monitoring-stack,interTwin-eu/interlink-htcondor-plugin,\
+         interTwin-eu/interlink-kueue-plugin,interTwin-eu/interlink-arc-plugin,\
+         interTwin-eu/interlink-unicore-plugin,cozystack,kitops-ml,drasi-project,\
+         hyperlight-dev,kgateway-dev,bootc-dev,composefs"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
