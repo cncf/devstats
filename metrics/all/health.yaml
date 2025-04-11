@@ -18,4 +18,5 @@ metrics:
       vscodekubernetestools: vscodek8stools
       chubaofs: cubefs
       gitopswg: opengitops
+      tratteria: tokenetes
       # shipwright: shipwrightcncf

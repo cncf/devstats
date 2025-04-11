@@ -349,6 +349,7 @@ metrics:
       vscodekubernetestools: vscodek8stools
       chubaofs: cubefs
       gitopswg: opengitops
+      tratteria: tokenetes
       # shipwright: shipwrightcncf
   - name: GitHub activity
     series_name_or_func: events_h
