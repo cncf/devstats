@@ -11,7 +11,7 @@ azf,Azure/Azure-Functions,Azure/azure-functions-host,Azure/azure-webjobs-sdk,Azu
 backstage,backstage,spotify/backstage
 bankvaults,bank-vaults,banzaicloud/bank-vaults,banzaicloud/vault-dogsbody
 bfe,bfenetworks,baidu/bfe
-bootc,containers/bootc,cgwalters/bootc
+bootc,containers/bootc,cgwalters/bootc,bootc-dev
 bpfman,bpfman,bpfd-dev,redhat-et/bpfd
 brigade,brigadecore,Azure/brigade
 buildpacks,buildpack,buildpacks,buildpacks-community
@@ -35,10 +35,10 @@ clusterpedia,clusterpedia-io
 cncf,cncf,crosscloudci,cdfoundation,cncf-tags
 cni,containernetworking,appc/cni
 cnigenie,cni-genie,Huawei-PaaS/CNI-Genie
-composefs,containers/composefs,giuseppe/composefs
+composefs,containers/composefs,giuseppe/composefs,composefs
 confidentialcontainers,confidential-containers
 connect,connectrpc,bufbuild/connect-go,bufbuild/rerpc,rerpc/rerpc
-container2wasm,ktock/container2wasm
+container2wasm,ktock/container2wasm,container2wasm
 containerd,containerd,docker/containerd
 containerssh,ContainerSSH,janoszen/ContainerSSH,janoszen/containerssh
 contour,projectcontour,heptio/contour
@@ -216,7 +216,7 @@ ratify,ratify-project,deislabs/ratify,deislabs/ratify-web,deislabs/ratify-action
 riff,projectriff,markfisher/sk8s,jldec/projectriff.io,pivotal-cf/pfs-system-test,ericbottard/sk8s-go,ericbottard/sk8s-types,ericbottard/kubernetes-model,ericbottard/sk8s-http-gateway,ericbottard/function-sidecar,ericbottard/sk8s-topic-controller
 rkt,rkt
 rook,rook
-runmenotebooks,regexp:(?i)^stateful\/.*runme.*$
+runmenotebooks,regexp:(?i)^(stateful\/.*runme.*|runmedev\/.*)$
 sam,awslabs/aws-sam-cli,awslabs/serverless-application-model,awslabs/aws-sam-local
 schemahero,schemahero
 score,score-spec
@@ -228,14 +228,14 @@ serverlessworkflow,serverlessworkflow,cncf/wg-serverless-workflow
 servicemeshperformance,regexp:(?i)^(layer5io\/.*(service-mesh|performance|benchmark)|service-mesh-performance\/.*)
 shipwright,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator
 shipwrightcncf,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator
-slimfaas,AxaFrance/SlimFaas
+slimfaas,AxaFrance/SlimFaas,SlimPlanet
 slimtoolkit,slimtoolkit,docker-slim,cloudimmunity/docker-slim
 smi,servicemeshinterface,deislabs/smi-spec,deislabs/smi-sdk-go,deislabs/smi-metrics,deislabs/smi-adapter-istio,deislabs/smi-spec.io
 sops,getsops,mozilla/sops,mozilla/sotp,mozilla-services/sops
 spiderpool,spidernet-io
 spiffe,spiffe
-spin,regexp:(?i)^fermyon\/(.*spin.*|platform-plugin)$
-spinkube,spinkube
+spin,regexp:(?i)^(fermyon\/(.*spin.*|platform-plugin)|spinframework\/.*)$
+spinkube,spinkube,spinframework
 spinnaker,spinnaker
 spire,regexp:(?i)^(spiffe\/spire.*)$
 stacker,project-stacker,anuvu/stacker
@@ -248,7 +248,7 @@ teller,SpectralOps/teller,SpectralOps/helm-teller,SpectralOps/setup-teller-actio
 thanos,thanos-io,improbable-eng/promlts,improbable-eng/thanos
 tikv,pingcap/tikv,tikv
 tinkerbell,tinkerbell,packethost/tinkerbell
-tratteria,tratteria
+tratteria,tratteria,tokenetes
 tremor,wayfair-tremor,tremor-rs
 trestlegrc,oscal-compass,IBM/compliance-trestle
 trickster,tricksterproxy,trickstercache,Comcast/trickster

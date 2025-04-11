@@ -2175,13 +2175,13 @@ where
   or name in ('openvswitch/ovn-kubernetes')
 ;
 
--- Tratteria
+-- Tratteria -> Tokenetes
 update
   gha_repos
 set
-  repo_group = 'Tratteria'
+  repo_group = 'Tokenetes'
 where
-  org_login in ('tratteria')
+  org_login in ('tratteria', 'tokenetes')
 ;
 
 -- Spin
@@ -2190,7 +2190,8 @@ update
 set
   repo_group = 'Spin'
 where
-  name ~ '(?i)^fermyon\/(.*spin.*|platform-plugin)$'
+  org_login in ('spinframework')
+  or name ~ '(?i)^fermyon\/(.*spin.*|platform-plugin)$'
 ;
 
 -- SpinKube
@@ -2199,7 +2200,7 @@ update
 set
   repo_group = 'SpinKube'
 where
-  org_login in ('spinkube')
+  org_login in ('spinkube', 'spinframework')
 ;
 
 -- SlimFaaS
@@ -2208,7 +2209,8 @@ update
 set
   repo_group = 'SlimFaaS'
 where
-  name in ('AxaFrance/SlimFaas')
+  org_login in ('SlimPlanet')
+  or name in ('AxaFrance/SlimFaas')
 ;
 
 -- container2wasm
@@ -2217,7 +2219,8 @@ update
 set
   repo_group = 'container2wasm'
 where
-  name in ('ktock/container2wasm')
+  org_login in ('container2wasm')
+  or name in ('ktock/container2wasm')
 ;
 
 -- k0s
@@ -2235,7 +2238,8 @@ update
 set
   repo_group = 'Runme Notebooks'
 where
-  name ~ '(?i)^stateful\/.*runme.*$'
+  org_login in ('runmedev')
+  or name ~ '(?i)^stateful\/.*runme.*$'
 ;
 
 -- CloudNativePG
@@ -2286,7 +2290,8 @@ update
 set
   repo_group = 'bootc'
 where
-  name in ('containers/bootc', 'cgwalters/bootc')
+  org_login in ('bootc-dev')
+  or name in ('containers/bootc', 'cgwalters/bootc')
 ;
 
 -- composefs
@@ -2295,7 +2300,8 @@ update
 set
   repo_group = 'composefs'
 where
-  name in ('containers/composefs', 'giuseppe/composefs')
+  org_login in ('composefs')
+  or name in ('containers/composefs', 'giuseppe/composefs')
 ;
 
 -- Drasi
