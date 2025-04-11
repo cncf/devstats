@@ -184,6 +184,11 @@ The servers to run `devstats` are generously provided by [Equinix](https://metal
 - Example results [here](https://teststats.cncf.io) - all CNCF project activity during January 2018, excluding bots.
 
 
+# Project moving to a new GitHub organization
+
+Please check `NEW_ORG.md`.
+
+
 # Troubleshooting
 
 If you see error like this `pq: row is too big: size 8192, maximum size 8160` and/or `Error result for xyz (took 11m52.048191357s)`:
