@@ -233,7 +233,7 @@ org_name = {{org}}
 # specify role for unauthenticated users
 org_role = Viewer
 
-#################################### Github Auth ##########################
+#################################### GitHub Auth ##########################
 [auth.github]
 ;enabled = false
 ;allow_sign_up = true

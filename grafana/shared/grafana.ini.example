@@ -270,7 +270,7 @@ org_name = {{org}}
 ;org_role = Viewer
 org_role = Viewer
 
-#################################### Github Auth ##########################
+#################################### GitHub Auth ##########################
 [auth.github]
 ;enabled = false
 ;allow_sign_up = true

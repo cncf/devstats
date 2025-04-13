@@ -17,7 +17,7 @@ Project uses use GitHub archives and local copy of all git repositories. The pos
 - You can use GitHub hook callbacks, but they only fire for current events.
 
 3) GitHub archives
-- All GitHub events are packed into multi-json gzipped files each hour and made available from [Github Archive](https://www.githubarchive.org/). To use this data, you need to extract all hours (since the Kubernetes project started) and filter out all data except for events from the 4 kubernetes organizations ([kubernetes](https://github.com/kubernetes), [kubernetes-incubator](https://github.com/kubernetes-incubator), [kubernetes-client](https://github.com/kubernetes-client), [kubernetes-csi](https://github.com/kubernetes-csi)).
+- All GitHub events are packed into multi-json gzipped files each hour and made available from [GitHub Archive](https://www.githubarchive.org/). To use this data, you need to extract all hours (since the Kubernetes project started) and filter out all data except for events from the 4 kubernetes organizations ([kubernetes](https://github.com/kubernetes), [kubernetes-incubator](https://github.com/kubernetes-incubator), [kubernetes-client](https://github.com/kubernetes-client), [kubernetes-csi](https://github.com/kubernetes-csi)).
 - This is a lot of data to process, but you have all possible GitHub events in the past, processing more than 3 years of this data takes about 2-2,5 hours, but this must only be done once and then the processed results are available for other's use.
 - You have a lot of data in a single file, that can be processed/filtered in memory.
 - You are getting all possible events, and all of them include the current state of PRs, issues, repos at given point in time.
@@ -115,7 +115,7 @@ We're getting all possible GitHub data for all objects, and all objects historic
 - `tags` is used to add tags. Those tags are used to populate Grafana template drop-down values and names. This is used to auto-populate Repository groups drop down, so when somebody adds new repository group - it will automatically appear in the drop-down.
 - `tags` uses [tags.yaml](https://github.com/cncf/devstats/blob/master/metrics/kubernetes/tags.yaml) file to configure tags generation.
 - [columns](https://github.com/cncf/devstats/blob/master/cmd/columns/columns.go)
-- `columns` is used to specify which columns are mandatory on which time series tables (because missing column is an error in Postgres). You can define table9s) by regexp and then specify which columns are mandatory by specifying tags table and column. 
+- `columns` is used to specify which columns are mandatory on which time series tables (because missing column is an error in Postgres). You can define table9s) by regexp and then specify which columns are mandatory by specifying tags table and column.
 - `columns` uses [columns.yaml](https://github.com/cncf/devstats/blob/master/metrics/kubernetes/columns.yaml) file to configure mandatory columns.
 - You can use all defined environments variables, but add `_SRC` suffic for source database and `_DST` suffix for destination database.
 - [webhook](https://github.com/cncf/devstats/blob/master/cmd/webhook/webhook.go)

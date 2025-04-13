@@ -1,6 +1,6 @@
 ---
 metrics:
-  - name: Github Stats by Repository Group
+  - name: GitHub Stats by Repository Group
     series_name_or_func: multi_row_single_column
     sql: github_stats_by_repo_groups
     periods: h,d,w,m,q,y
@@ -11,7 +11,7 @@ metrics:
     #start_from: 2018-01-01T00:00:00Z
     #last_hours: 8766
     drop: sgh_stats_rgrp
-  - name: Github Stats by Repository
+  - name: GitHub Stats by Repository
     series_name_or_func: multi_row_single_column
     sql: github_stats_by_repos
     periods: h,d,w,m,q,y
@@ -113,7 +113,7 @@ metrics:
     periods: d,w,m,q,y
     aggregate: 1,7
     skip: w7,m7,q7,y7
-    drop: 'spr_comms_med;spr_comms_p85;spr_comms_p95'
+    drop: "spr_comms_med;spr_comms_p85;spr_comms_p95"
   - name: Stars and forks by repository
     series_name_or_func: multi_row_multi_column
     sql: watchers_by_alias
@@ -224,7 +224,7 @@ metrics:
     skip: w7,m7,q7,y7
     multi_value: true
     merge_series: bot_commands
-    drop:  sbot_commands
+    drop: sbot_commands
   - name: Bot commands repositories
     series_name_or_func: multi_row_single_column
     sql: bot_commands_repos
@@ -233,7 +233,7 @@ metrics:
     skip: w7,m7,q7,y7
     multi_value: true
     merge_series: bot_commands_repos
-    drop:  sbot_commands_repos
+    drop: sbot_commands_repos
   - name: Open issues/PRs by milestone and repository
     series_name_or_func: multi_row_single_column
     sql: open_issues_sigs_milestones
@@ -262,7 +262,12 @@ metrics:
     series_name_or_func: multi_row_single_column
     allow_fail: true
     wait_after_fail: 600
-    sqls: [hist_reviewers_repos, hist_approvers_repos, project_developer_stats_repos]
+    sqls:
+      [
+        hist_reviewers_repos,
+        hist_approvers_repos,
+        project_developer_stats_repos,
+      ]
     merge_series: hdev_repos
     env:
       GHA2DB_NCPUS?: 2
@@ -295,7 +300,7 @@ metrics:
     sql: pr_workload
     periods: d
     multi_value: true
-    drop: 'ssig_pr_wlabs;ssig_pr_wliss;ssig_pr_wlrel;ssig_pr_wlrev'
+    drop: "ssig_pr_wlabs;ssig_pr_wliss;ssig_pr_wlrel;ssig_pr_wlrev"
   - name: PR workload per SIG table (repositories)
     sql: pr_workload_table_repos
     series_name_or_func: multi_row_multi_column
@@ -340,7 +345,7 @@ metrics:
     aggregate: 1,7
     skip: d,w7,m7,q7,y7
     multi_value: true
-    drop: 'spr_apprappr;spr_apprwait'
+    drop: "spr_apprappr;spr_apprwait"
   - name: PRs approval repositories
     series_name_or_func: multi_row_multi_column
     sql: prs_state_repos
@@ -348,7 +353,7 @@ metrics:
     aggregate: 1,7
     skip: d,w7,m7,q7,y7
     multi_value: true
-    drop: 'spr_repapprappr;spr_repapprwait'
+    drop: "spr_repapprappr;spr_repapprwait"
   - name: Blocked PRs repository groups
     series_name_or_func: multi_row_multi_column
     sql: prs_blocked
@@ -356,7 +361,7 @@ metrics:
     aggregate: 1,7
     skip: d,w7,m7,q7,y7
     multi_value: true
-    drop: 'sprblckall;sprblckdo_not_merge;sprblckneeds_ok_to_test;sprblckno_approve;sprblckno_lgtm;sprblckrelease_note_label_needed'
+    drop: "sprblckall;sprblckdo_not_merge;sprblckneeds_ok_to_test;sprblckno_approve;sprblckno_lgtm;sprblckrelease_note_label_needed"
   - name: Blocked PRs by repository
     series_name_or_func: multi_row_multi_column
     sql: prs_blocked_repos
@@ -364,7 +369,7 @@ metrics:
     aggregate: 1,7
     skip: d,w7,m7,q7,y7
     multi_value: true
-    drop: 'srepprblckall;srepprblckdo_not_merge;srepprblckneeds_ok_to_test;srepprblckno_approve;srepprblckno_lgtm;srepprblckrelease_note_label_needed'
+    drop: "srepprblckall;srepprblckdo_not_merge;srepprblckneeds_ok_to_test;srepprblckno_approve;srepprblckno_lgtm;srepprblckrelease_note_label_needed"
   - name: Company statistics by repository groups
     series_name_or_func: multi_row_multi_column
     sqls: [company_activity, company_activity_commits]
@@ -471,7 +476,7 @@ metrics:
     sql: awaiting_prs_by_sig
     periods: d
     multi_value: true
-    drop: 'sawaiting_prs_by_sigd10;sawaiting_prs_by_sigd30;sawaiting_prs_by_sigd60;sawaiting_prs_by_sigd90;sawaiting_prs_by_sigy'
+    drop: "sawaiting_prs_by_sigd10;sawaiting_prs_by_sigd30;sawaiting_prs_by_sigd60;sawaiting_prs_by_sigd90;sawaiting_prs_by_sigy"
   - name: Awaiting PRs by SIG and repository
     series_name_or_func: multi_row_multi_column
     sql: awaiting_prs_by_sig_repos
@@ -490,7 +495,7 @@ metrics:
     sql: inactive_prs_by_sig
     periods: d
     multi_value: true
-    drop: 'sinactive_prs_by_sigw2;sinactive_prs_by_sigd30;sinactive_prs_by_sigd90'
+    drop: "sinactive_prs_by_sigw2;sinactive_prs_by_sigd30;sinactive_prs_by_sigd90"
     env:
       GHA2DB_NCPUS?: 4
   - name: Inactive PRs by SIG and repository
@@ -507,7 +512,7 @@ metrics:
     sql: inactive_issues_by_sig
     periods: d
     multi_value: true
-    drop: 'sinactive_issues_by_sigw2;sinactive_issues_by_sigd30;sinactive_issues_by_sigd90'
+    drop: "sinactive_issues_by_sigw2;sinactive_issues_by_sigd30;sinactive_issues_by_sigd90"
     env:
       GHA2DB_NCPUS?: 4
   - name: Inactive issues by SIG and repository
@@ -537,7 +542,8 @@ metrics:
     merge_series: hpr_mergers
   - name: Contributions chart (repositories)
     series_name_or_func: multi_row_multi_column
-    sqls: [reviewers_repos, approvers_repos, committers_repos, contributors_repos]
+    sqls:
+      [reviewers_repos, approvers_repos, committers_repos, contributors_repos]
     periods: w,m
     merge_series: csr
     drop: scsr

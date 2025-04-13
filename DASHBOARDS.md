@@ -2,7 +2,7 @@
 
 This is a list of dashboards for Kubernetes project only:
 
-Each dashboard is defined by its metrics SQL, saved Grafana JSON export and link to dashboard running on <https://k8s.devstats.cncf.io>  
+Each dashboard is defined by its metrics SQL, saved Grafana JSON export and link to dashboard running on <https://k8s.devstats.cncf.io>
 
 Many dashboards use "Repository group" drop-down. Repository groups are defined manually to group similar repositories into single projects.
 They are defined here: [repo_groups.sql](https://github.com/cncf/devstats/blob/master/scripts/kubernetes/repo_groups.sql)
@@ -25,8 +25,8 @@ They are defined here: [repo_groups.sql](https://github.com/cncf/devstats/blob/m
 - Company Statistics by Repository Group: [company-statistics-by-repository-group.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/company-statistics-by-repository-group.json), [view](https://k8s.devstats.cncf.io/d/8/company-statistics-by-repository-group?orgId=1)
 - Dashboards: [dashboards.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/dashboards.json), [view](https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1)
 - Developer Activity Counts by Repository Group: [developer-activity-counts-by-repository-group.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/developer-activity-counts-by-repository-group.json), [view](https://k8s.devstats.cncf.io/d/13/developer-activity-counts-by-repository-group?orgId=1)
-- Github Stats by Repository: [github-stats-by-repository.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/github-stats-by-repository.json), [view](https://k8s.devstats.cncf.io/d/49/github-stats-by-repository?orgId=1)
-- Github Stats by Repository Group: [github-stats-by-repository-group.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/github-stats-by-repository-group.json), [view](https://k8s.devstats.cncf.io/d/48/github-stats-by-repository-group?orgId=1)
+- GitHub Stats by Repository: [github-stats-by-repository.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/github-stats-by-repository.json), [view](https://k8s.devstats.cncf.io/d/49/github-stats-by-repository?orgId=1)
+- GitHub Stats by Repository Group: [github-stats-by-repository-group.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/github-stats-by-repository-group.json), [view](https://k8s.devstats.cncf.io/d/48/github-stats-by-repository-group?orgId=1)
 - Issues Opened/Closed by SIG: [issues-opened-closed-by-sig.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/issues-opened-closed-by-sig.json), [view](https://k8s.devstats.cncf.io/d/39/issues-opened-closed-by-sig?orgId=1)
 - Issues age by SIG and repository groups: [issues-age-by-sig-and-repository-groups.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/issues-age-by-sig-and-repository-groups.json), [view](https://k8s.devstats.cncf.io/d/15/issues-age-by-sig-and-repository-groups?orgId=1)
 - New And Episodic Issue Creators: [new-and-episodic-issue-creators.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/new-and-episodic-issue-creators.json), [view](https://k8s.devstats.cncf.io/d/19/new-and-episodic-issue-creators?orgId=1)
@@ -81,7 +81,7 @@ All non-k8s projects currently have the same set of dashbords, you only need to 
 - Dashboards: [dashboards.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/prometheus/dashboards.json), [view](https://prometheus.devstats.cncf.io/d/8/dashboards?orgId=1)
 - Developers summary: [developers-summary.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/prometheus/developers-summary.json), [view](https://prometheus.devstats.cncf.io/d/9/developers-summary?orgId=1)
 - First non-author activity: [first-non-author-activity.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/prometheus/first-non-author-activity.json), [view](https://prometheus.devstats.cncf.io/d/10/first-non-author-activity?orgId=1)
-- Github events: [github-events.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/prometheus/github-events.json), [view](https://prometheus.devstats.cncf.io/d/47/github-events?orgId=1)
+- GitHub events: [github-events.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/prometheus/github-events.json), [view](https://prometheus.devstats.cncf.io/d/47/github-events?orgId=1)
 - Issues age: [issues-age.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/prometheus/issues-age.json), [view](https://prometheus.devstats.cncf.io/d/11/issues-age?orgId=1)
 - Issues repository group: [issues-repository-group.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/prometheus/issues-repository-group.json), [view](https://prometheus.devstats.cncf.io/d/12/issues-repository-group?orgId=1)
 - New PRs: [new-prs.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/prometheus/new-prs.json), [view](https://prometheus.devstats.cncf.io/d/15/new-prs?orgId=1)
