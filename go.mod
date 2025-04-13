@@ -2,8 +2,6 @@ module github.com/cncf/devstats
 
 go 1.20
 
-toolchain go1.24.1
-
 require (
 	github.com/cncf/devstatscode v0.7.1-0.20230626085834-60cfd7d5c221
 	gopkg.in/yaml.v2 v2.4.0
