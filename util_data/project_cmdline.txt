@@ -134,7 +134,7 @@ kubeburner,kube-burner,cloud-bulldozer/kube-burner,cloud-bulldozer/rosa-burner
 kubeclipper,kubeclipper,kubeclipper-labs
 kubedl,kubedl-io,alibaba/kubedl
 kubeedge,kubeedge
-kubefleet,regexp:(?i)^Azure\/.*fleet.*$
+kubefleet,regexp:(?i)^(Azure\/.*fleet.*|kubefleet-dev\/.*)$
 kubeflow,kubeflow,google/kubeflow
 kubeovn,kubeovn,alauda/kube-ovn
 kuberhealthy,Comcast/kuberhealthy,kuberhealthy

@@ -2981,7 +2981,7 @@ projects:
     name: KubeFleet
     status: Sandbox
     command_line:
-      - 'regexp:(?i)^Azure\/.*fleet.*$'
+      - 'regexp:(?i)^(Azure\/.*fleet.*|kubefleet-dev\/.*)$'
     start_date: 2022-04-29T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: kubefleet
@@ -3365,7 +3365,7 @@ projects:
          interTwin-eu/interlink-monitoring-stack,interTwin-eu/interlink-htcondor-plugin,\
          interTwin-eu/interlink-kueue-plugin,interTwin-eu/interlink-arc-plugin,\
          interTwin-eu/interlink-unicore-plugin,cozystack,kitops-ml,drasi-project,\
-         hyperlight-dev,kgateway-dev,bootc-dev,composefs"
+         hyperlight-dev,kgateway-dev,bootc-dev,composefs,kubefleet-dev"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
