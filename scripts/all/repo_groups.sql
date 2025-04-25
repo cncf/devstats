@@ -2258,6 +2258,7 @@ set
   repo_group = 'KubeFleet'
 where
   name ~ '(?i)^Azure\/.*fleet.*$'
+  or org_login in ('kubefleet-dev')
 ;
 
 -- Podman Desktop
