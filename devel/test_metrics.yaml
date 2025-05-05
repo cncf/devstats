@@ -1,23 +1,34 @@
 ---
 metrics:
-#   - name: Users stats
-#     series_name_or_func: multi_row_multi_column
-#     sqls: [user_activity, user_activity_commits, user_activity_issues, user_activity_prs]
-#     periods: d,w,m,q,y
-#     aggregate: 1,7
-#     skip: w7,m7,q7,y7
-#     multi_value: true
-#     merge_series: user_activity
-#     drop: suser_activity
-#     allow_fail: true
-#     # project: '!kubernetes,all,allcdf,cii,graphql,istio,kyverno,lfn,opentelemetry,prestodb'
-#     project: '!xyz'
-  - name: Contributors and organizations
-    series_name_or_func: single_row_multi_column
-    sql: contributors_and_orgs_count
-    periods: m
-    merge_series: cntrs_and_orgs
-    drop: 'scntrs_and_orgs'
+  - name: Users stats
+    series_name_or_func: multi_row_multi_column
+    sqls: [user_activity, user_activity_commits, user_activity_issues, user_activity_prs]
+    periods: d,w,m,q,y
+    aggregate: 1,7
+    skip: w7,m7,q7,y7
+    multi_value: true
+    merge_series: user_activity
+    drop: suser_activity
+    allow_fail: true
+    # project: '!kubernetes,all,allcdf,cii,graphql,istio,kyverno,lfn,opentelemetry,prestodb'
+    project: '!xyz'
+  - name: User reviews
+    series_name_or_func: multi_row_single_column
+    sql: reviews_per_user
+    periods: d,w,m,q,y
+    aggregate: 1,7
+    skip: w7,m7,q7,y7
+    multi_value: true
+    merge_series: user_reviews
+    drop: suser_reviews
+    allow_fail: true
+    project: '!xyz'
+#   - name: Contributors and organizations
+#     series_name_or_func: single_row_multi_column
+#     sql: contributors_and_orgs_count
+#     periods: m
+#     merge_series: cntrs_and_orgs
+#     drop: 'scntrs_and_orgs'
 #   - name: Countries Projects stats
 #     series_name_or_func: multi_row_multi_column
 #     sqls: [project_countries, project_countries_commiters]
@@ -27,16 +38,6 @@ metrics:
 #     hll: true
 #     merge_series: prjcntr
 #     drop: sprjcntr
-#   - name: User reviews
-#     series_name_or_func: multi_row_single_column
-#     sql: reviews_per_user
-#     periods: d,w,m,q,y
-#     aggregate: 1,7
-#     skip: w7,m7,q7,y7
-#     multi_value: true
-#     merge_series: user_reviews
-#     drop: suser_reviews
-#     allow_fail: true
 #   - name: Company commits table
 #     series_name_or_func: multi_row_single_column
 #     sql: company_commits_data
