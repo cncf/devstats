@@ -160,7 +160,7 @@ loggingoperator,kube-logging,banzaicloud/logging-operator
 longhorn,longhorn,rancher/longhorn
 loxilb,loxilb-io
 merbridge,merbridge,kebe7jun/mepf,kebe7jun/mebpf
-meshery,regexp:(?i)^(layer5io\/.*meshery|meshery\/.*)
+meshery,regexp:(?i)^(layer5io\/.*meshery|meshery\/.*|meshery-extensions\/.*)
 metal3,metal3-io
 metallb,metallb,danderson/metallb,google/metallb
 microcks,microcks

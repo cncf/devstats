@@ -1403,7 +1403,7 @@ projects:
     name: Meshery
     status: Sandbox
     command_line:
-    - 'regexp:(?i)^(layer5io\/.*meshery|meshery\/.*)'
+    - 'regexp:(?i)^(layer5io\/.*meshery|meshery\/.*|meshery-extensions\/.*)'
     start_date: 2018-11-14T00:00:00Z
     join_date: 2021-06-22T00:00:00Z
     psql_db: meshery
@@ -3341,7 +3341,7 @@ projects:
          oras-project,wasmCloud,project-akri,metallb,karmada-io,clusternet,youki-dev,\
          inclavare-containers,cilium,dapr,openelb,kubescape,inspektor-gadget,\
          open-cluster-management-io,vscode-kubernetes-tools,kubearmor,cncf-tags,\
-         meshery,service-mesh-performance,knative,knative-sandbox,project-stacker,\
+         meshery,meshery-extensions,service-mesh-performance,knative,knative-sandbox,project-stacker,\
          confidential-containers,tellerops,cncf/tag-app-delivery,knative-extensions,\
          SpectralOps/setup-teller-action,OpenFunction,sealerio,clusterpedia-io,Kuadrant,\
          aeraki-mesh,open-feature,kubewarden,devstream-io,kubevela,openGemini,\

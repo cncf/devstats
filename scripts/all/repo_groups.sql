@@ -1073,7 +1073,7 @@ update
 set
   repo_group = 'Meshery'
 where
-  org_login in ('meshery')
+  org_login in ('meshery', 'meshery-extensions')
   or name ~ '(?i)layer5io\/.*meshery'
 ;
 
