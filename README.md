@@ -195,7 +195,7 @@ If you see error like this `pq: row is too big: size 8192, maximum size 8160` an
 
 - Shell into logging database and check:
 - Run on DevStats node: `k exec -itn devstats-prod devstats-postgres-0 -- psql devstats`.
-- Run while on `devstats` database: `select dt, run_dt, msg from gha_logs where msg like '%Error result for%';`.
+- Run while on `devstats` database: `select dt, run_dt, msg from gha_logs where msg like '%Error result for%' order by run_dt desc;`.
 ```
              dt             |           run_dt           |                                  msg
 ----------------------------+----------------------------+-----------------------------------------------------------------------
@@ -207,7 +207,7 @@ If you see error like this `pq: row is too big: size 8192, maximum size 8160` an
  2024-09-03 13:09:56.535074 | 2024-09-03 13:04:43.451026 | Error result for spinnaker (took 5m7.631109092s): exit status 2
 (6 rows)
 ```
-- You can investigate each via: `` echo "select dt, prog, proj, msg from gha_logs where run_dt = '2024-09-01 00:34:26.426402';" | k exec -itn devstats-prod devstats-postgres-1 -- psql devstats > log.txt ``.
+- You can investigate each via: `` echo "select dt, prog, proj, msg from gha_logs where run_dt = '2024-09-01 00:34:26.426402';" | k exec -in devstats-prod devstats-postgres-1 -- psql devstats > log.txt ``.
 - Or: `` select distinct proj from gha_logs where msg like '%row is too big%'; ``.
 - Eventually check: `` vim logs_prod.txt logs_test.txt ``.
 - `row is too big` is usually caused by metric: `suser_activity`. You can add this metric to `./devel/test_metrics.yaml` and generate devstats docker images to reinitialize it for given project(s) via:
