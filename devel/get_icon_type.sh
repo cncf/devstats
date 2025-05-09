@@ -246,6 +246,7 @@ icontypes=(
   ["kgateway"]="color"
   ["kitops"]="color"
   ["hyperlight"]="color"
+  ["opentofu"]="color"
   ["tekton"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
