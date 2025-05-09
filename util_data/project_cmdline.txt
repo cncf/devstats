@@ -190,6 +190,7 @@ opensecuritycontroller,opensecuritycontroller
 openservicemesh,openservicemesh
 openswitch,open-switch
 opentelemetry,open-telemetry,opentracing
+opentofu,opentofu,opentffoundation,openterraform
 opentracing,opentracing
 openwhisk,apache/incubator-openwhisk,apache/openwhisk
 openyurt,openyurtio,alibaba/openyurt
