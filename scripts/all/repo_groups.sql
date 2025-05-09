@@ -2362,6 +2362,15 @@ where
   org_login in ('hyperlight-dev')
 ;
 
+-- OpenTofu
+update
+  gha_repos
+set
+  repo_group = 'OpenTofu'
+where
+  org_login in ('opentofu', 'opentffoundation', 'openterraform')
+;
+
 -- CNCF
 update
   gha_repos
