@@ -790,6 +790,9 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "hyperlight" ]
   then
     PROJ=hyperlight          PROJDB=hyperlight     PROJREPO="hyperlight-dev/hyperlight"       ORGNAME='Hyperlight'      PORT=3304 ICON=hyperlight     GRAFSUFF=hyperlight     GA="-" ./devel/deploy_proj.sh               || exit 229
+  elif [ "$proj" = "opentofu" ]
+  then
+    PROJ=opentofu            PROJDB=opentofu       PROJREPO="opentofu/opentofu"               ORGNAME='OpenTofu'        PORT=3305 ICON=opentofu       GRAFSUFF=opentofu       GA="-" ./devel/deploy_proj.sh               || exit 230
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
