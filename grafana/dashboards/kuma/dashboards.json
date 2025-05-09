@@ -2189,6 +2189,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "OpenTofu",
+      "tooltip": "Opens OpenTofu projects dashboards",
+      "type": "link",
+      "url": "https://opentofu.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
