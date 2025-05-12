@@ -27,7 +27,8 @@ with topu as (
         '%envoy-filter-example%', 'github-action-benchmark', 'knative-automation', 'covbot',
         'cdk8s-automation', 'github-action-benchmark', 'goreleaserbot', 'facebook-github-whois-bot-0',
         'claassistant', 'containersshbuilder', 'wasmcloud-automation', 'fossabot', 'opentelemetrybot',
-        'invalid-email-address', 'fluxcdbot', 'megaeasex', 'kuasar-io-dev', 'startxfr', 'atlantisbot'
+        'invalid-email-address', 'fluxcdbot', 'megaeasex', 'kuasar-io-dev', 'startxfr', 'atlantisbot',
+        'openebs-pro-sa', 'stateful-wombot', 'fermybot', 'opentofu-provider-sync-service-account'
     ])
     and aa.actor_id is null
 ), others as (
