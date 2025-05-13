@@ -12,3 +12,4 @@ When project joins CNCF it usually moves from some company-based repo (or set of
 - Consider artwork updates check `ARTWORK.md`.
 - Go to `devstats-docker-images` and build new images, check output of: `` head images/build_images.sh ``.
 - Check `ADDING_NEW_PROJECT.md` in `devstats` follow instructions from `Update shared Grafana data`, especially: `Do all/everything command`.
+- check `ADD_ORG_REPO.md` in `devstats-helm` to backfill the data.
