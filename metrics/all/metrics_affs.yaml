@@ -106,6 +106,13 @@ metrics:
     sql: bus_factor
     merge_series: hbf
     allow_fail: true
+  - name: Contributors and organizations
+    series_name_or_func: single_row_multi_column
+    sql: contributors_and_orgs_count
+    periods: m
+    merge_series: cntrs_and_orgs
+    drop: 'scntrs_and_orgs'
+    always_recalc: true
   - name: Projects health
     series_name_or_func: multi_row_single_column
     sql: projects_health

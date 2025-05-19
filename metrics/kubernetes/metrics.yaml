@@ -551,6 +551,12 @@ metrics:
     env:
       GHA2DB_NCPUS?@d7: 4
       GHA2DB_NCPUS?!d7: 10
+  - name: Contributors and organizations
+    series_name_or_func: single_row_multi_column
+    sql: contributors_and_orgs_count
+    periods: m
+    merge_series: cntrs_and_orgs
+    drop: 'scntrs_and_orgs'
   - name: Home dashboard (must be listed last)
     series_name_or_func: events_h
     sql: events
