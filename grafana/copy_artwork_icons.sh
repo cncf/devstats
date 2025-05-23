@@ -123,7 +123,7 @@ do
     icon="runme"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "opentofu" ] || [ "$icon" = "interlink" ] || [ "$icon" = "kgateway" ] || [ "$icon" = "kitops" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "k0s" ] || [ "$icon" = "kubefleet" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "youki" ] || [ "$icon" = "ovnkubernetes" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "trestlegrc" ] || [ "$icon" = "opengemini" ] || [ "$icon" = "containerssh" ] || [ "$icon" = "lima" ] || [ "$icon" = "hexapolicyorchestrator" ] || [ "$icon" = "externalsecretsoperator" ] || [ "$icon" = "devstream" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "interlink" ] || [ "$icon" = "kgateway" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "k0s" ] || [ "$icon" = "kubefleet" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "youki" ] || [ "$icon" = "ovnkubernetes" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "trestlegrc" ] || [ "$icon" = "opengemini" ] || [ "$icon" = "containerssh" ] || [ "$icon" = "lima" ] || [ "$icon" = "hexapolicyorchestrator" ] || [ "$icon" = "externalsecretsoperator" ] || [ "$icon" = "devstream" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -133,8 +133,9 @@ do
   if ( [ "$path" = "devstats" ] || [ "$path" = "cncf" ] || [ "$path" = "gitopswg" ] )
   then
     path="other/$icon"
-  elif ( [ "$icon" = "rkt" ] || [ "$icon" = "brigade" ] || [ "$icon" = "opentracing" ] || [ "$icon" = "openservicemesh" ] || [ "$icon" = "servicemeshinterface" ] || [ "$icon" = "curiefense" ] || [ "$icon" = "krator" ] || [ "$icon" = "fonio" ] || [ "$icon" = "krustlet" ] )
+  elif ( [ "$icon" = "devstream" ] || [ "$icon" = "curve" ] || [ "$icon" = "nocalhost" ] || [ "$icon" = "superedge" ] || [ "$icon" = "kubedl" ] || [ "$icon" = "teller" ] || [ "$icon" = "merbridge" ] || [ "$icon" = "skooner" ] || [ "$icon" = "rkt" ] || [ "$icon" = "brigade" ] || [ "$icon" = "opentracing" ] || [ "$icon" = "openservicemesh" ] || [ "$icon" = "servicemeshinterface" ] || [ "$icon" = "curiefense" ] || [ "$icon" = "krator" ] || [ "$icon" = "fonio" ] || [ "$icon" = "krustlet" ] )
   then
+    # 2025-05-23: Archivals: DevStream, OpenELB, Krustlet, Curve, FabEdge, Nocalhost, Superedge, KubeDL, Sealer, Teller, Merbridge, Skooner, CNI-Genie
     path="archived/$icon"
   elif [ "$iconorg" = "cncf" ]
   then
