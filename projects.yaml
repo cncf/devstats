@@ -743,11 +743,12 @@ projects:
   cnigenie:
     order: 50
     name: CNI-Genie
-    status: Sandbox
+    status: Archived
     command_line:
       - cni-genie
     start_date: 2017-03-25T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
+    archived_date: 2025-05-22T00:00:00Z
     psql_db: cnigenie
     shared_db: allprj
     main_repo: cni-genie/CNI-Genie
@@ -1618,11 +1619,12 @@ projects:
   openelb:
     order: 115
     name: OpenELB
-    status: Sandbox
+    status: Archived
     command_line:
     - 'openelb'
     start_date: 2019-02-01T00:00:00Z
     join_date: 2021-11-09T00:00:00Z
+    archived_date: 2025-05-22T00:00:00Z
     psql_db: openelb
     shared_db: allprj
     main_repo: 'openelb/openelb'
@@ -1776,11 +1778,12 @@ projects:
   teller:
     order: 127
     name: Teller
-    status: Sandbox
+    status: Archived
     command_line:
       - 'tellerops,SpectralOps/setup-teller-action'
     start_date: 2021-03-24T00:00:00Z
     join_date: 2022-04-26T00:00:00Z
+    archived_date: 2025-05-22T00:00:00Z
     psql_db: teller
     shared_db: allprj
     main_repo: tellerops/teller
@@ -1789,11 +1792,12 @@ projects:
   sealer:
     order: 128
     name: sealer
-    status: Sandbox
+    status: Archived
     command_line:
       - 'sealerio'
     start_date: 2021-04-29T00:00:00Z
     join_date: 2022-04-26T00:00:00Z
+    archived_date: 2025-05-22T00:00:00Z
     psql_db: sealer
     shared_db: allprj
     main_repo: sealerio/sealer
@@ -1884,11 +1888,12 @@ projects:
   devstream:
     order: 135
     name: DevStream
-    status: Sandbox
+    status: Archived
     command_line:
       - 'devstream-io'
     start_date: 2021-10-09T00:00:00Z
     join_date: 2022-06-17T00:00:00Z
+    archived_date: 2025-05-22T00:00:00Z
     psql_db: devstream
     shared_db: allprj
     main_repo: devstream-io/devstream
@@ -2042,11 +2047,12 @@ projects:
   merbridge:
     order: 147
     name: Merbridge
-    status: Sandbox
+    status: Archived
     command_line:
       - merbridge
     start_date: 2022-01-12T00:00:00Z
     join_date: 2022-12-14T00:00:00Z
+    archived_date: 2025-05-22T00:00:00Z
     psql_db: 'merbridge'
     shared_db: allprj
     main_repo: merbridge/merbridge
@@ -3342,27 +3348,23 @@ projects:
          open-telemetry,thanos-io,fluxcd,in-toto,strimzi,kubevirt,cdfoundation,kubeflow,\
          longhorn,chubaofs,cubefs,kedacore,argoproj,volcano-sh,k8snetworkplumbingwg/kubemacpool,\
          k8snetworkplumbingwg/multi-networkpolicy-iptables,k8snetworkplumbingwg/sriov-network-operator,\
-         cni-genie,keptn,kudobuilder,cloud-custodian,dexidp,litmuschaos,artifacthub,\
-         parallaxsecond,bfenetworks,crossplane,kumahq,projectcontour,operator-framework,\
-         chaos-mesh,serverlessworkflow,tremor-rs,metal3-io,keylime,KusionStack,kaito-project,\
-         Kong/kumacut,Kong/docker-kuma,getporter,schemahero,openkruise,openyurtio,\
-         tinkerbell,pravega,kyverno,cert-manager,cdk8s-team,k8up-io,kube-rs,devfile,\
-         k3s-io,gitops-working-group,piraeusdatastore,openebs,AthenZ,bank-vaults,\
-         distribution,kubeovn,k8gb-io,trickstercache,emissary-ingress,runatlantis,\
-         backstage,kuberhealthy,WasmEdge,chaosblade-io,v6d-io,antrea-io,pixie-io,\
-         fluid-cloudnative,submariner-io,argoproj-labs,kube-vip,keycloak,\
-         oras-project,wasmCloud,project-akri,metallb,karmada-io,clusternet,youki-dev,\
-         inclavare-containers,cilium,dapr,openelb,kubescape,inspektor-gadget,\
-         open-cluster-management-io,vscode-kubernetes-tools,kubearmor,cncf-tags,\
-         meshery,meshery-extensions,service-mesh-performance,knative,knative-sandbox,project-stacker,\
-         confidential-containers,tellerops,cncf/tag-app-delivery,knative-extensions,\
-         SpectralOps/setup-teller-action,OpenFunction,sealerio,clusterpedia-io,Kuadrant,\
-         aeraki-mesh,open-feature,kubewarden,devstream-io,kubevela,openGemini,\
-         hexa-org,konveyor,armadaproject,external-secrets,Serverless-Devs,devspace-sh,\
-         ContainerSSH,openfga,kubereboot,lima-vm,istio,carvel-dev,merbridge,opencost,\
-         devspace-cloud,project-zot,paralus,carina-io,ko-build,opcr-io,werf,getsops,\
-         pipe-cd,slimtoolkit,projectcapsule,sustainable-computing-io,kptdev,krkn-chaos,\
-         kubeclipper-labs,buildpacks-community,project-copacetic,kube-logging,bpfman,\
+         keptn,kudobuilder,cloud-custodian,dexidp,litmuschaos,artifacthub,parallaxsecond,bfenetworks,\
+         crossplane,kumahq,projectcontour,operator-framework,chaos-mesh,serverlessworkflow,tremor-rs,\
+         metal3-io,keylime,KusionStack,kaito-project,Kong/kumacut,Kong/docker-kuma,getporter,\
+         schemahero,openkruise,openyurtio,tinkerbell,pravega,kyverno,cert-manager,cdk8s-team,k8up-io,\
+         kube-rs,devfile,k3s-io,gitops-working-group,piraeusdatastore,openebs,AthenZ,bank-vaults,\
+         distribution,kubeovn,k8gb-io,trickstercache,emissary-ingress,runatlantis,backstage,\
+         kuberhealthy,WasmEdge,chaosblade-io,v6d-io,antrea-io,pixie-io,fluid-cloudnative,submariner-io,\
+         argoproj-labs,kube-vip,keycloak,oras-project,wasmCloud,project-akri,metallb,karmada-io,\
+         clusternet,youki-dev,inclavare-containers,cilium,dapr,kubescape,inspektor-gadget,\
+         open-cluster-management-io,vscode-kubernetes-tools,kubearmor,cncf-tags,meshery,\
+         meshery-extensions,service-mesh-performance,knative,knative-sandbox,project-stacker,\
+         confidential-containers,cncf/tag-app-delivery,knative-extensions,OpenFunction,clusterpedia-io,\
+         Kuadrant,aeraki-mesh,open-feature,kubewarden,kubevela,openGemini,hexa-org,konveyor,\
+         armadaproject,external-secrets,Serverless-Devs,devspace-sh,ContainerSSH,openfga,kubereboot,\
+         lima-vm,istio,carvel-dev,opencost,devspace-cloud,project-zot,paralus,carina-io,ko-build,\
+         opcr-io,werf,getsops,pipe-cd,slimtoolkit,projectcapsule,sustainable-computing-io,kptdev,\
+         krkn-chaos,kubeclipper-labs,buildpacks-community,project-copacetic,kube-logging,bpfman,\
          kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,easegress-io,\
          spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops,kubeslice,score-spec,\
          connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass,\
