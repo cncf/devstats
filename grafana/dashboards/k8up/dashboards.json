@@ -748,16 +748,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "CNI-Genie",
-      "tooltip": "Opens CNI-Genie projects dashboards",
-      "type": "link",
-      "url": "https://cnigenie.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Kudo",
       "tooltip": "Opens Kudo projects dashboards",
       "type": "link",
@@ -1138,16 +1128,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "OpenELB",
-      "tooltip": "Opens OpenELB projects dashboards",
-      "type": "link",
-      "url": "https://openelb.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Open Cluster Management",
       "tooltip": "Opens Open Cluster Management projects dashboards",
       "type": "link",
@@ -1228,26 +1208,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Teller",
-      "tooltip": "Opens Teller projects dashboards",
-      "type": "link",
-      "url": "https://teller.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "sealer",
-      "tooltip": "Opens sealer projects dashboards",
-      "type": "link",
-      "url": "https://sealer.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Clusterpedia",
       "tooltip": "Opens Clusterpedia projects dashboards",
       "type": "link",
@@ -1272,16 +1232,6 @@
       "tooltip": "Opens kubewarden projects dashboards",
       "type": "link",
       "url": "https://kubewarden.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "DevStream",
-      "tooltip": "Opens DevStream projects dashboards",
-      "type": "link",
-      "url": "https://devstream.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1382,16 +1332,6 @@
       "tooltip": "Opens Lima projects dashboards",
       "type": "link",
       "url": "https://lima.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Merbridge",
-      "tooltip": "Opens Merbridge projects dashboards",
-      "type": "link",
-      "url": "https://merbridge.[[hostname]]"
     },
     {
       "icon": "dashboard",
