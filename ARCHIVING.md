@@ -16,3 +16,4 @@ Those steps are generally needed to change project status (usually from `Incubat
 - To do this you can copy `prod`/`test` section from already modified `partials/projects.html` and then do the following replacements:
 - `` :'<,'>s/\[\[hostname]]/teststats.cncf.io/g `` or `` :'<,'>s/\[\[hostname]]/devstats.cncf.io/g ``, followed by `` :'<,'>s/public\/img\/projects\///g ``.
 - See `Update shared Grafana data` in `ADDING_NEW_PROJECT.md`.
+- Regenerate `devstats-docker-images`: `head images/build_images.sh` and build all images.
