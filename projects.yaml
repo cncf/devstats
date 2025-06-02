@@ -3138,6 +3138,45 @@ projects:
     main_repo: opentofu/opentofu
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  cadence:
+    order: 231
+    name: Cadence
+    status: Sandbox
+    command_line:
+      - cadence-workflow
+    start_date: 2017-06-06T00:00:00Z
+    join_date: 2025-05-22T00:00:00Z
+    psql_db: cadence
+    shared_db: allprj
+    main_repo: cadence-workflow/cadence
+    annotation_regexp: '^v\d+\.\d+\.(0|\d+0)$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  kagent:
+    order: 232
+    name: kagent
+    status: Sandbox
+    command_line:
+      - kagent-dev
+    start_date: 2025-02-20T00:00:00Z
+    join_date: 2025-05-22T00:00:00Z
+    psql_db: kagent
+    shared_db: allprj
+    main_repo: kagent-dev/kagent
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: ''
+  urunc:
+    order: 233
+    name: urunc
+    status: Sandbox
+    command_line:
+      - urunc-dev
+    start_date: 2023-09-14T00:00:00Z
+    join_date: 2025-05-22T00:00:00Z
+    psql_db: urunc
+    shared_db: allprj
+    main_repo: urunc-dev/urunc
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opencontainers:
     order: 1200
     name: OCI
@@ -3375,10 +3414,10 @@ projects:
          podman-desktop,containers/podman,containers/buildah,containers/skopeo,containers/netavark,\
          containers/aardvark-dns,containers/image,containers/storage,containers/common,\
          containers/conmon,containers/podman-py,interTwin-eu/interLink,interTwin-eu/vk-test-set,\
-         interTwin-eu/interlink-jhub,interTwin-eu/interlink-slurm-plugin,\
-         interTwin-eu/interlink-docker-plugin,interTwin-eu/interlink-helm-chart,\
+         interTwin-eu/interlink-jhub,interTwin-eu/interlink-slurm-plugin,cadence-workflow,\
+         interTwin-eu/interlink-docker-plugin,interTwin-eu/interlink-helm-chart,kagent-dev,\
          interTwin-eu/interlink-monitoring-stack,interTwin-eu/interlink-htcondor-plugin,\
-         interTwin-eu/interlink-kueue-plugin,interTwin-eu/interlink-arc-plugin,\
+         interTwin-eu/interlink-kueue-plugin,interTwin-eu/interlink-arc-plugin,urunc-dev,\
          interTwin-eu/interlink-unicore-plugin,cozystack,kitops-ml,drasi-project,\
          hyperlight-dev,kgateway-dev,bootc-dev,composefs,kubefleet-dev,opentofu"
     start_date: 2014-01-01T00:00:00Z
