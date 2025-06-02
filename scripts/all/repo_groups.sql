@@ -2375,6 +2375,35 @@ where
   org_login in ('opentofu', 'opentffoundation', 'openterraform')
 ;
 
+-- Cadence
+update
+  gha_repos
+set
+  repo_group = 'Cadence'
+where
+  org_login in ('cadence-workflow')
+  or name in ('uber/cadence')
+;
+
+-- kagent
+update
+  gha_repos
+set
+  repo_group = 'kagent'
+where
+  org_login in ('kagent-dev')
+;
+
+-- urunc
+update
+  gha_repos
+set
+  repo_group = 'urunc'
+where
+  org_login in ('urunc')
+  or name in ('nubificus/urunc')
+;
+
 -- CNCF
 update
   gha_repos
