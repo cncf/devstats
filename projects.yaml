@@ -32,7 +32,7 @@ projects:
          kubernetes/kube-scheduler,kubernetes/kubelet,kubernetes/sample-cli-plugin,\
          kubernetes/application-dm-templates,kubernetes/cluster-bootstrap,\
          kubernetes/cloud-provider,kubernetes-sigs/cri-o,kubernetes-incubator/ocid,\
-         kubernetes-incubator/cri-o"
+         kubernetes-incubator/cri-o,kubernetes-sigs/headlamp"
   prometheus:
     order: 2
     name: Prometheus
@@ -2233,12 +2233,12 @@ projects:
     name: Headlamp
     status: Sandbox
     command_line:
-      - 'headlamp-k8s'
+      - 'headlamp-k8s,kubernetes-sigs/headlamp'
     start_date: 2020-04-01T00:00:00Z
     join_date: 2023-05-17T00:00:00Z
     psql_db: 'headlamp'
     shared_db: allprj
-    main_repo: headlamp-k8s/headlamp
+    main_repo: kubernetes-sigs/headlamp
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
   slimtoolkit:
