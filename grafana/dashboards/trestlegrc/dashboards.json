@@ -2153,6 +2153,36 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Cadence",
+      "tooltip": "Opens Cadence projects dashboards",
+      "type": "link",
+      "url": "https://cadence.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "kagent",
+      "tooltip": "Opens kagent projects dashboards",
+      "type": "link",
+      "url": "https://kagent.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "urunc",
+      "tooltip": "Opens urunc projects dashboards",
+      "type": "link",
+      "url": "https://urunc.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
