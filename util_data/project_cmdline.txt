@@ -82,7 +82,7 @@ graphqlspec,graphql/graphql-spec,facebook/graphql
 grpc,grpc
 hami,Project-HAMi
 harbor,goharbor,vmware/harbor
-headlamp,headlamp-k8s,kinvolk/headlamp
+headlamp,headlamp-k8s,kinvolk/headlamp,kubernetes-purgatory/headlamp,kubernetes-sigs/headlamp
 helm,helm,kubernetes-helm,kubernetes-charts,kubernetes/helm,kubernetes/charts,kubernetes/deployment-manager,kubernetes/application-dm-templates
 hexapolicyorchestrator,hexa-org
 hwameistor,hwameistor
