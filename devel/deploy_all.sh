@@ -585,7 +585,7 @@ do
     PROJ=sops                PROJDB=sops           PROJREPO="getsops/sops"                    ORGNAME=SOPS              PORT=3235 ICON=soprs          GRAFSUFF=sops           GA="-" ./devel/deploy_proj.sh || exit 160
   elif [ "$proj" = "headlamp" ]
   then
-    PROJ=headlamp            PROJDB=headlamp       PROJREPO="headlamp-k8s/headlamp"           ORGNAME=Headlamp          PORT=3236 ICON=headlamp       GRAFSUFF=headlamp       GA="-" ./devel/deploy_proj.sh || exit 161
+    PROJ=headlamp            PROJDB=headlamp       PROJREPO="kubernetes-sigs/headlamp"        ORGNAME=Headlamp          PORT=3236 ICON=headlamp       GRAFSUFF=headlamp       GA="-" ./devel/deploy_proj.sh || exit 161
   elif [ "$proj" = "slimtoolkit" ]
   then
     PROJ=slimtoolkit         PROJDB=slimtoolkit    PROJREPO="slimtoolkit/slim"                ORGNAME=SlimToolkit       PORT=3237 ICON=slimtoolkit    GRAFSUFF=slimtoolkit    GA="-" ./devel/deploy_proj.sh || exit 162

@@ -27,7 +27,7 @@ where
   ) and name not in (
     'kubernetes/helm', 'kubernetes/deployment-manager', 'kubernetes/charts',
     'kubernetes/application-dm-templates', 'kubernetes-sigs/cri-o',
-    'kubernetes-incubator/ocid', 'kubernetes-incubator/cri-o'
+    'kubernetes-incubator/ocid', 'kubernetes-incubator/cri-o', 'kubernetes-sigs/headlamp'
   )
 ;
 
@@ -1681,7 +1681,11 @@ set
   repo_group = 'Headlamp'
 where
   org_login in ('headlamp-k8s')
-  or name in ('kinvolk/headlamp')
+  or name in (
+    'kinvolk/headlamp',
+    'kubernetes-sigs/headlamp',
+    'kubernetes-purgatory/headlamp'
+  )
 ;
 
 -- SlimToolkit
