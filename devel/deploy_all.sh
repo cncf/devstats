@@ -793,6 +793,15 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "opentofu" ]
   then
     PROJ=opentofu            PROJDB=opentofu       PROJREPO="opentofu/opentofu"               ORGNAME='OpenTofu'        PORT=3305 ICON=opentofu       GRAFSUFF=opentofu       GA="-" ./devel/deploy_proj.sh               || exit 230
+  elif [ "$proj" = "cadence" ]
+  then
+    PROJ=cadence             PROJDB=cadence        PROJREPO="cadence-workflow/cadence"        ORGNAME='Cadence'         PORT=3306 ICON=cadence        GRAFSUFF=cadence        GA="-" ./devel/deploy_proj.sh               || exit 231
+  elif [ "$proj" = "kagent" ]
+  then
+    PROJ=kagent              PROJDB=kagent         PROJREPO="kagent-dev/kagent"               ORGNAME='kagent'          PORT=3307 ICON=kagent         GRAFSUFF=kagent         GA="-" ./devel/deploy_proj.sh               || exit 232
+  elif [ "$proj" = "urunc" ]
+  then
+    PROJ=urunc               PROJDB=urunc          PROJREPO="urunc-dev/urunc"                 ORGNAME='urunc'           PORT=3308 ICON=urunc          GRAFSUFF=urunc          GA="-" ./devel/deploy_proj.sh               || exit 233
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
