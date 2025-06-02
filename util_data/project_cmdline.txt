@@ -15,6 +15,7 @@ bootc,containers/bootc,cgwalters/bootc,bootc-dev
 bpfman,bpfman,bpfd-dev,redhat-et/bpfd
 brigade,brigadecore,Azure/brigade
 buildpacks,buildpack,buildpacks,buildpacks-community
+cadence,cadence-workflow,uber/cadence
 capsule,regexp:(?i)^(clastix\/.*capsule.*|projectcapsule\/.*)$
 carina,carina-io
 cartography,cartography-cncf,lyft/cartography
@@ -104,6 +105,7 @@ k8dash,indeedeng/k8dash,indeedeng/k8dash-website,herbrandson/k8dash,skooner-k8s
 k8gb,k8gb-io,AbsaOSS/k8gb,AbsaOSS/ohmyglb
 k8sgpt,k8sgpt-ai
 k8up,k8up-io,vshn/k8up
+kagent,kagent-dev
 kairos,kairos-io,c3os-io,mudler/c3os
 kaito,kaito-project,Azure/kaito
 kanister,kanisterio
@@ -255,6 +257,7 @@ trestlegrc,oscal-compass,IBM/compliance-trestle
 trickster,tricksterproxy,trickstercache,Comcast/trickster
 tuf,theupdateframework
 tungstenfabric,tungstenfabric
+urunc,urunc-dev,nubificus/urunc
 vineyard,v6d-io,alibaba/v6d,alibaba/libvineyard
 virtualkubelet,virtual-kubelet,Virtual-Kubelet
 vitess,vitessio,youtube/vitess
