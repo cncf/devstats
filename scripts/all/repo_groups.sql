@@ -2400,7 +2400,7 @@ update
 set
   repo_group = 'urunc'
 where
-  org_login in ('urunc')
+  org_login in ('urunc-dev')
   or name in ('nubificus/urunc')
 ;
 
