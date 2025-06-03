@@ -31,7 +31,7 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'Cadence', alias = 'Cadence'
 where name in (
-  'cadence-worflow/cadence',
+  'cadence-workflow/cadence',
   'uber/cadence'
 );
 
