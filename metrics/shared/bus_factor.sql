@@ -92,7 +92,7 @@ with commits_data as (
   from
     commits_data
   where
-    company != ''
+    company not in ('', 'Independent', '(Robots)')
   group by
     repo_group,
     company
@@ -123,7 +123,7 @@ with commits_data as (
       'PullRequestReviewCommentEvent', 'IssueCommentEvent',
       'CommitCommentEvent', 'ForkEvent', 'WatchEvent', 'PullRequestReviewEvent'
     )
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and {{period:e.created_at}}
     and (lower(e.dup_actor_login) {{exclude_bots}})
   group by
@@ -162,7 +162,7 @@ with commits_data as (
       'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
       'IssueCommentEvent', 'CommitCommentEvent'
     )
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and {{period:e.created_at}}
     and (lower(e.dup_actor_login) {{exclude_bots}})
   group by
@@ -191,7 +191,7 @@ with commits_data as (
     and aa.actor_id = e.actor_id
     and aa.dt_from <= e.created_at
     and aa.dt_to > e.created_at
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and {{period:e.created_at}}
     and (lower(e.dup_actor_login) {{exclude_bots}})
   group by
@@ -219,7 +219,7 @@ with commits_data as (
     and aa.actor_id = c.user_id
     and aa.dt_from <= c.created_at
     and aa.dt_to > c.created_at
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and {{period:c.created_at}}
     and (lower(c.dup_user_login) {{exclude_bots}})
   group by
@@ -247,7 +247,7 @@ with commits_data as (
     and aa.actor_id = i.user_id
     and aa.dt_from <= i.created_at
     and aa.dt_to > i.created_at
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and i.is_pull_request = false
     and {{period:i.created_at}}
     and (lower(i.dup_user_login) {{exclude_bots}})
@@ -276,7 +276,7 @@ with commits_data as (
     and aa.actor_id = i.user_id
     and aa.dt_from <= i.created_at
     and aa.dt_to > i.created_at
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and i.is_pull_request = true
     and {{period:i.created_at}}
     and (lower(i.dup_user_login) {{exclude_bots}})
@@ -306,7 +306,7 @@ with commits_data as (
     and i.merged_at is not null
     and aa.dt_from <= i.merged_at
     and aa.dt_to > i.merged_at
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and {{period:i.merged_at}}
     and (lower(i.dup_user_login) {{exclude_bots}})
   group by
@@ -334,7 +334,7 @@ with commits_data as (
     and aa.actor_id = e.actor_id
     and aa.dt_from <= e.created_at
     and aa.dt_to > e.created_at
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and {{period:e.created_at}}
     and (lower(e.dup_actor_login) {{exclude_bots}})
   group by
@@ -353,7 +353,7 @@ with commits_data as (
   from
     commits_data
   where
-    company != ''
+    company not in ('', 'Independent', '(Robots)')
   group by
     company
   union select
@@ -381,7 +381,7 @@ with commits_data as (
       'PullRequestReviewCommentEvent', 'IssueCommentEvent',
       'CommitCommentEvent', 'ForkEvent', 'WatchEvent', 'PullRequestReviewEvent'
     )
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and {{period:e.created_at}}
     and (lower(e.dup_actor_login) {{exclude_bots}})
   group by
@@ -418,7 +418,7 @@ with commits_data as (
       'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
       'IssueCommentEvent', 'CommitCommentEvent'
     )
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and {{period:e.created_at}}
     and (lower(e.dup_actor_login) {{exclude_bots}})
   group by
@@ -444,7 +444,7 @@ with commits_data as (
     and aa.actor_id = e.actor_id
     and aa.dt_from <= e.created_at
     and aa.dt_to > e.created_at
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and {{period:e.created_at}}
     and (lower(e.dup_actor_login) {{exclude_bots}})
   group by
@@ -469,7 +469,7 @@ with commits_data as (
     and aa.actor_id = c.user_id
     and aa.dt_from <= c.created_at
     and aa.dt_to > c.created_at
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and {{period:c.created_at}}
     and (lower(c.dup_user_login) {{exclude_bots}})
   group by
@@ -494,7 +494,7 @@ with commits_data as (
     and aa.actor_id = i.user_id
     and aa.dt_from <= i.created_at
     and aa.dt_to > i.created_at
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and i.is_pull_request = false
     and {{period:i.created_at}}
     and (lower(i.dup_user_login) {{exclude_bots}})
@@ -520,7 +520,7 @@ with commits_data as (
     and aa.actor_id = i.user_id
     and aa.dt_from <= i.created_at
     and aa.dt_to > i.created_at
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and i.is_pull_request = true
     and {{period:i.created_at}}
     and (lower(i.dup_user_login) {{exclude_bots}})
@@ -547,7 +547,7 @@ with commits_data as (
     and i.merged_at is not null
     and aa.dt_from <= i.merged_at
     and aa.dt_to > i.merged_at
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and {{period:i.merged_at}}
     and (lower(i.dup_user_login) {{exclude_bots}})
   group by
@@ -572,7 +572,7 @@ with commits_data as (
     and aa.actor_id = e.actor_id
     and aa.dt_from <= e.created_at
     and aa.dt_to > e.created_at
-    and aa.company_name != ''
+    and aa.company_name not in ('', 'Independent', '(Robots)')
     and {{period:e.created_at}}
     and (lower(e.dup_actor_login) {{exclude_bots}})
   group by
