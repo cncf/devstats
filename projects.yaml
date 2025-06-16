@@ -3177,6 +3177,32 @@ projects:
     main_repo: urunc-dev/urunc
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  xregistry:
+    order: 234
+    name: xRegistry
+    status: Sandbox
+    command_line:
+      - xregistry
+    start_date: 2023-03-03T00:00:00Z
+    join_date: 2025-06-05T00:00:00Z
+    psql_db: xregistry
+    shared_db: allprj
+    main_repo: xregistry/server
+    annotation_regexp: '^.*$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  modelpack:
+    order: 235
+    name: ModelPack
+    status: Sandbox
+    command_line:
+      - CloudNativeAI
+    start_date: 2024-08-28T00:00:00Z
+    join_date: 2025-06-05T00:00:00Z
+    psql_db: modelpack
+    shared_db: allprj
+    main_repo: CloudNativeAI/model-spec
+    annotation_regexp: '^v\d+\.\d+\.\d+$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opencontainers:
     order: 1200
     name: OCI
@@ -3404,7 +3430,7 @@ projects:
          lima-vm,istio,carvel-dev,opencost,devspace-cloud,project-zot,paralus,carina-io,ko-build,\
          opcr-io,werf,getsops,pipe-cd,slimtoolkit,projectcapsule,sustainable-computing-io,kptdev,\
          krkn-chaos,kubeclipper-labs,buildpacks-community,project-copacetic,kube-logging,bpfman,\
-         kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,easegress-io,\
+         kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,easegress-io,xregistry,\
          spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops,kubeslice,score-spec,\
          connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass,\
          loxilb-io,cartography-cncf,perses,ratify-project,Project-HAMi,shipwright-io,\
@@ -3418,7 +3444,7 @@ projects:
          interTwin-eu/interlink-docker-plugin,interTwin-eu/interlink-helm-chart,kagent-dev,\
          interTwin-eu/interlink-monitoring-stack,interTwin-eu/interlink-htcondor-plugin,\
          interTwin-eu/interlink-kueue-plugin,interTwin-eu/interlink-arc-plugin,urunc-dev,\
-         interTwin-eu/interlink-unicore-plugin,cozystack,kitops-ml,drasi-project,\
+         interTwin-eu/interlink-unicore-plugin,cozystack,kitops-ml,drasi-project,CloudNativeAI,\
          hyperlight-dev,kgateway-dev,bootc-dev,composefs,kubefleet-dev,opentofu"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
