@@ -167,6 +167,7 @@ metal3,metal3-io
 metallb,metallb,danderson/metallb,google/metallb
 microcks,microcks
 mininet,mininet
+modelpack,CloudNativeAI
 nats,nats-io,apcera/nats,apcera/gnatsd
 networkservicemesh,networkservicemesh,NetworkServiceMesh,ligato/networkservicemesh
 nocalhost,nocalhost
@@ -267,6 +268,7 @@ wasmcloud,wasmCloud,wascc,wascaruntime,waxosuit
 wasmedge,WasmEdge,second-state/SSVM
 werf,werf,flant/werf,flant/dapp,flant/dapper
 xline,xline-kv,datenlord/Xline
+xregistry,xregistry
 youki,youki-dev,containers/youki
 zephyr,zephyrproject-rtos
 zot,project-zot,anuvu/zot
