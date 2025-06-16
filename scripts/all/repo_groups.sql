@@ -2404,6 +2404,24 @@ where
   or name in ('nubificus/urunc')
 ;
 
+-- xRegistry
+update
+  gha_repos
+set
+  repo_group = 'xRegistry'
+where
+  org_login in ('xregistry')
+;
+
+-- ModelPack
+update
+  gha_repos
+set
+  repo_group = 'ModelPack'
+where
+  org_login in ('CloudNativeAI')
+;
+
 -- CNCF
 update
   gha_repos
