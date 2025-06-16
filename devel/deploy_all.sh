@@ -802,6 +802,12 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "urunc" ]
   then
     PROJ=urunc               PROJDB=urunc          PROJREPO="urunc-dev/urunc"                 ORGNAME='urunc'           PORT=3308 ICON=urunc          GRAFSUFF=urunc          GA="-" ./devel/deploy_proj.sh               || exit 233
+  elif [ "$proj" = "xregistry" ]
+  then
+    PROJ=xregistry           PROJDB=xregistry      PROJREPO="xregistry/server"                ORGNAME='xRegistry'       PORT=3309 ICON=xregistry      GRAFSUFF=xregistry      GA="-" ./devel/deploy_proj.sh               || exit 234
+  elif [ "$proj" = "modelpack" ]
+  then
+    PROJ=modelpack           PROJDB=modelpack      PROJREPO="CloudNativeAI/model-spec"        ORGNAME='ModelPack'       PORT=3310 ICON=modelpack      GRAFSUFF=modelpack      GA="-" ./devel/deploy_proj.sh               || exit 235
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
