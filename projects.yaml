@@ -2950,7 +2950,7 @@ projects:
     command_line:
       - k0sproject
     start_date: 2020-11-02T00:00:00Z
-    join_date: 2025-01-21T00:00:00Z
+    join_date: 2025-01-19T00:00:00Z
     psql_db: k0s
     shared_db: allprj
     main_repo: k0sproject/k0s
