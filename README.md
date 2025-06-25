@@ -212,3 +212,8 @@ If you see error like this `pq: row is too big: size 8192, maximum size 8160` an
 - Eventually check: `` vim logs_prod.txt logs_test.txt ``.
 - `row is too big` is usually caused by metric: `suser_activity`. You can add this metric to `./devel/test_metrics.yaml` and generate devstats docker images to reinitialize it for given project(s) via:
 - `helm install --generate-name ./devstats-helm --set namespace='devstats-prod',skipSecrets=1,skipPVs=1,skipBackupsPV=1,skipVacuum=1,skipBackups=1,skipBootstrap=1,skipCrons=1,skipAffiliations=1,skipGrafanas=1,skipServices=1,skipPostgres=1,skipIngress=1,skipStatic=1,skipAPI=1,skipNamespaces=1,testServer='',prodServer='1',provisionImage='lukaszgryglicki/devstats-prod',provisionCommand='./devstats-helm/add_metric.sh',nCPUs=8,indexProvisionsFrom=N,indexProvisionsTo=M`.
+
+
+# Vacuum all TSDB tables
+
+Do: `` [N=2] [TEST=1] ./util_sh/vacuum_tsdb_tables_all.sh `` - eventually check which node is a master via: `` k exec -n devstats-env devstats-postgres-0 -- patronictl list ``.
