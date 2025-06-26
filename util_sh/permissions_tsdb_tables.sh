@@ -15,12 +15,16 @@ then
   export N='0'
 fi
 
-tmpfile=$(mktemp /tmp/vacuum_sql.XXXXXX.sql)
-trap "rm -f $tmpfile" EXIT
-kubectl exec -i -n "$KENV" "devstats-postgres-$N" -- psql -d "$1" -At -c \
-"SELECT 'VACUUM FULL \"' || schemaname || '\".\"' || tablename || '\";'
- FROM pg_tables
- WHERE schemaname = 'public' AND tablename LIKE 's%';" > "$tmpfile"
+tmpfile=$(mktemp /tmp/perms_sql.XXXXXX.sql)
+trap "rm -f \"$tmpfile\"" EXIT
+> "$tmpfile"
+for t in $(kubectl exec -in "$KENV" "devstats-postgres-$N" -- psql -d "$1" -At -c "select tablename from pg_tables where schemaname = 'public' AND tablename LIKE 's%'")
+do
+    # echo "$1:$t"
+    echo "alter table \"$t\" owner to gha_admin;" >> "$tmpfile"
+    echo "grant select on \"$t\" to \"devstats_team\";" >> "$tmpfile"
+done
+
 # cat "$tmpfile"
 echo "kubectl exec -i -n \"$KENV\" \"devstats-postgres-$N\" -- psql -d \"$1\" < \"$tmpfile\""
 kubectl exec -i -n "$KENV" "devstats-postgres-$N" -- psql -d "$1" < "$tmpfile"

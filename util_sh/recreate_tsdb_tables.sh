@@ -25,6 +25,8 @@ do
     echo "insert into \"${t}_tmp\" select * from \"$t\";" >> "$tmpfile"
     echo "drop table \"$t\";" >> "$tmpfile"
     echo "alter table \"${t}_tmp\" rename to \"$t\";" >> "$tmpfile"
+    echo "alter table \"$t\" owner to gha_admin;" >> "$tmpfile"
+    echo "grant select on \"$t\" to \"devstats_team\";" >> "$tmpfile"
 done
 
 # cat "$tmpfile"

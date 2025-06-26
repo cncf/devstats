@@ -214,6 +214,8 @@ If you see error like this `pq: row is too big: size 8192, maximum size 8160` an
 - `helm install --generate-name ./devstats-helm --set namespace='devstats-prod',skipSecrets=1,skipPVs=1,skipBackupsPV=1,skipVacuum=1,skipBackups=1,skipBootstrap=1,skipCrons=1,skipAffiliations=1,skipGrafanas=1,skipServices=1,skipPostgres=1,skipIngress=1,skipStatic=1,skipAPI=1,skipNamespaces=1,testServer='',prodServer='1',provisionImage='lukaszgryglicki/devstats-prod',provisionCommand='./devstats-helm/add_metric.sh',nCPUs=8,indexProvisionsFrom=N,indexProvisionsTo=M`.
 
 
-# Vacuum all TSDB tables
+# TSDB tables - utils
 
-Do: `` [N=2] [TEST=1] ./util_sh/vacuum_tsdb_tables_all.sh `` - eventually check which node is a master via: `` k exec -n devstats-env devstats-postgres-0 -- patronictl list ``.
+- To vacuum all tables do: `` [N=2] [TEST=1] ./util_sh/vacuum_tsdb_tables_all.sh `` - eventually check which node is a master via: `` k exec -n devstats-env devstats-postgres-0 -- patronictl list ``.
+- To recreate all tables (needed to drop hidden unused columns) do: `` [N=2] [TEST=1] ./util_sh/recreate_tsdb_tables_all.sh ``.
+- To add permissions for all tables do: `` [N=2] [TEST=1] ./util_sh/permissions_tsdb_tables_all.sh ``.
