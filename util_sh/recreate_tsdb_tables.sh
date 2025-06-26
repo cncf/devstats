@@ -20,7 +20,7 @@ trap "rm -f \"$tmpfile\"" EXIT
 > "$tmpfile"
 for t in $(kubectl exec -in "$KENV" "devstats-postgres-$N" -- psql -d "$1" -At -c "select tablename from pg_tables where schemaname = 'public' AND tablename LIKE 's%'")
 do
-    echo "$1:$t"
+    # echo "$1:$t"
     echo "create table \"${t}_tmp\" (like \"$t\" including all);" >> "$tmpfile"
     echo "insert into \"${t}_tmp\" select * from \"$t\";" >> "$tmpfile"
     echo "drop table \"$t\";" >> "$tmpfile"
