@@ -23,6 +23,7 @@ do
     # echo "$1:$t"
     echo "alter table \"$t\" owner to gha_admin;" >> "$tmpfile"
     echo "grant select on \"$t\" to \"devstats_team\";" >> "$tmpfile"
+    echo "grant select on \"$t\" to \"ro_user\";" >> "$tmpfile"
 done
 
 # cat "$tmpfile"
