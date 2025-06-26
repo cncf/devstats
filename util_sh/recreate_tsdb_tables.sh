@@ -27,6 +27,6 @@ do
     echo "alter table \"${t}_tmp\" rename to \"$t\";" >> "$tmpfile"
 done
 
-cat "$tmpfile"
+# cat "$tmpfile"
 echo "kubectl exec -i -n \"$KENV\" \"devstats-postgres-$N\" -- psql -d \"$1\" < \"$tmpfile\""
 kubectl exec -i -n "$KENV" "devstats-postgres-$N" -- psql -d "$1" < "$tmpfile"
