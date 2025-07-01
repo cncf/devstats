@@ -22,7 +22,7 @@ with company_commits_data as (
     and (lower(c.dup_actor_login) {{exclude_bots}})
     and af.company_name != ''
     and af.company_name in (select companies_name from tcompanies)
-    and r.name in (select repo_name from trepos)
+    and r.repo_group in (select repo_group_name from trepo_groups)
   union select coalesce(ecf.repo_group, r.repo_group) as repo_group,
     c.sha,
     c.author_id as actor_id,
@@ -47,7 +47,7 @@ with company_commits_data as (
     and (lower(c.dup_author_login) {{exclude_bots}})
     and af.company_name != ''
     and af.company_name in (select companies_name from tcompanies)
-    and r.name in (select repo_name from trepos)
+    and r.repo_group in (select repo_group_name from trepo_groups)
   union select coalesce(ecf.repo_group, r.repo_group) as repo_group,
     c.sha,
     c.committer_id as actor_id,
@@ -72,7 +72,7 @@ with company_commits_data as (
     and (lower(c.dup_committer_login) {{exclude_bots}})
     and af.company_name != ''
     and af.company_name in (select companies_name from tcompanies)
-    and r.name in (select repo_name from trepos)
+    and r.repo_group in (select repo_group_name from trepo_groups)
 ), commits_data as (
   select coalesce(ecf.repo_group, r.repo_group) as repo_group,
     c.sha,
@@ -87,7 +87,7 @@ with company_commits_data as (
   where
     c.dup_repo_id = r.id
     and c.dup_repo_name = r.name
-    and r.name in (select repo_name from trepos)
+    and r.repo_group in (select repo_group_name from trepo_groups)
     and c.dup_created_at >= '{{from}}'
     and c.dup_created_at < '{{to}}'
     and (lower(c.dup_actor_login) {{exclude_bots}})
@@ -104,7 +104,7 @@ with company_commits_data as (
   where
     c.dup_repo_id = r.id
     and c.dup_repo_name = r.name
-    and r.name in (select repo_name from trepos)
+    and r.repo_group in (select repo_group_name from trepo_groups)
     and c.author_id is not null
     and c.dup_created_at >= '{{from}}'
     and c.dup_created_at < '{{to}}'
@@ -122,7 +122,7 @@ with company_commits_data as (
   where
     c.dup_repo_id = r.id
     and c.dup_repo_name = r.name
-    and r.name in (select repo_name from trepos)
+    and r.repo_group in (select repo_group_name from trepo_groups)
     and c.committer_id is not null
     and c.dup_created_at >= '{{from}}'
     and c.dup_created_at < '{{to}}'
