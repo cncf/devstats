@@ -43,6 +43,7 @@ from (
     and ev.created_at < '{{to}}'
     and (lower(ev.dup_actor_login) {{exclude_bots}})
     and ev.dup_actor_login in (select users_name from tusers)
+    and r.repo_group in (select repo_group_name from trepo_groups)
   group by
     ev.dup_actor_login,
     r.repo_group
@@ -79,6 +80,7 @@ from (
     and ev.created_at >= '{{from}}'
     and ev.created_at < '{{to}}'
     and (lower(ev.dup_actor_login) {{exclude_bots}})
+    and r.repo_group in (select repo_group_name from trepo_groups)
   group by
     r.repo_group
   order by

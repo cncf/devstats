@@ -35,6 +35,7 @@ from (
     and pr.dup_type = 'PullRequestEvent'
     and (lower(pr.dup_user_login) {{exclude_bots}})
     and pr.dup_user_login in (select users_name from tusers)
+    and r.repo_group in (select repo_group_name from trepo_groups)
   group by
     pr.dup_user_login,
     coalesce(ecf.repo_group, r.repo_group)
@@ -67,6 +68,7 @@ from (
     and pr.state = 'open'
     and pr.dup_type = 'PullRequestEvent'
     and (lower(pr.dup_user_login) {{exclude_bots}})
+    and r.repo_group in (select repo_group_name from trepo_groups)
   group by
     coalesce(ecf.repo_group, r.repo_group)
   order by

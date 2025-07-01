@@ -13,6 +13,7 @@ with commits_data as (
     and c.dup_created_at < '{{to}}'
     and (lower(c.dup_actor_login) {{exclude_bots}})
     and c.dup_actor_login in (select users_name from tusers)
+    and r.repo_group in (select repo_group_name from trepo_groups)
   union select r.repo_group as repo_group,
     c.sha,
     c.author_id as actor_id,
@@ -28,6 +29,7 @@ with commits_data as (
     and c.dup_created_at < '{{to}}'
     and (lower(c.dup_author_login) {{exclude_bots}})
     and c.dup_author_login in (select users_name from tusers)
+    and r.repo_group in (select repo_group_name from trepo_groups)
   union select r.repo_group as repo_group,
     c.sha,
     c.committer_id as actor_id,
@@ -43,6 +45,7 @@ with commits_data as (
     and c.dup_created_at < '{{to}}'
     and (lower(c.dup_committer_login) {{exclude_bots}})
     and c.dup_committer_login in (select users_name from tusers)
+    and r.repo_group in (select repo_group_name from trepo_groups)
 )
 select
   concat('user;', sub.cuser, '`', sub.repo_group, ';commits'),

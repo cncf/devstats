@@ -33,6 +33,7 @@ from (
     and i.dup_type = 'IssuesEvent'
     and (lower(i.dup_user_login) {{exclude_bots}})
     and i.dup_user_login in (select users_name from tusers)
+    and r.repo_group in (select repo_group_name from trepo_groups)
   group by
     i.dup_user_login,
     r.repo_group
@@ -63,6 +64,7 @@ from (
     and i.is_pull_request = false
     and i.dup_type = 'IssuesEvent'
     and (lower(i.dup_user_login) {{exclude_bots}})
+    and r.repo_group in (select repo_group_name from trepo_groups)
   group by
     r.repo_group
   order by
