@@ -5,23 +5,24 @@ tags:
     series_name: all_repo_groups
     name_tag: all_repo_group_name
     value_tag: all_repo_group_value
-    limit: 128
+    limit: 100
   - name: Repository groups without All
     sql: repo_groups_tags
     series_name: repo_groups
     name_tag: repo_group_name
     value_tag: repo_group_value
-    limit: 128
+    limit: 100
   - name: Repos
     sql: repos_tags
     series_name: repos
     name_tag: repo_name
-    limit: 500
+    limit: 200
   - name: Companies
     sql: companies_tags
     series_name: companies
     name_tag: companies_name
     value_tag: companies_value
+    limit: 200
   - name: Priority labels with all
     sql: labels_priorities_tags_with_all
     series_name: priority_labels_with_all
