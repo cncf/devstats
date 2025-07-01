@@ -86,6 +86,7 @@ from (
     and a.country_name != ''
     and e.created_at >= '{{from}}'
     and e.created_at < '{{to}}'
+    and r.repo_group in (select repo_group_name from trepo_groups)
   group by
     a.country_name,
     r.repo_group

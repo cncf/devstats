@@ -10,6 +10,7 @@ with commits_data as (
     and c.dup_repo_name = r.name
     and c.dup_created_at < '{{to}}'
     and (lower(c.dup_actor_login) {{exclude_bots}})
+    and r.repo_group in (select repo_group_name from trepo_groups)
   union select r.repo_group as repo_group,
     c.sha,
     c.author_id as actor_id
@@ -22,6 +23,7 @@ with commits_data as (
     and c.author_id is not null
     and c.dup_created_at < '{{to}}'
     and (lower(c.dup_author_login) {{exclude_bots}})
+    and r.repo_group in (select repo_group_name from trepo_groups)
   union select r.repo_group as repo_group,
     c.sha,
     c.committer_id as actor_id
@@ -34,6 +36,7 @@ with commits_data as (
     and c.committer_id is not null
     and c.dup_created_at < '{{to}}'
     and (lower(c.dup_committer_login) {{exclude_bots}})
+    and r.repo_group in (select repo_group_name from trepo_groups)
 )
 select
   concat(inn.type, ';', inn.country_name, '`', inn.repo_group, ';rcommitters,rcommits') as name,
