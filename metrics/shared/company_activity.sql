@@ -58,7 +58,6 @@ from (
   where
     r.id = ev.repo_id
     and r.name = ev.dup_repo_name
-    and r.name in (select repo_name from trepos)
     and ev.actor_id = affs.actor_id
     and affs.dt_from <= ev.created_at
     and affs.dt_to > ev.created_at
@@ -66,6 +65,7 @@ from (
     and ev.created_at < '{{to}}'
     and (lower(ev.dup_actor_login) {{exclude_bots}})
     and affs.company_name in (select companies_name from tcompanies)
+    and r.repo_group in (select repo_group_name from trepo_groups)
     and affs.company_name != ''
   group by
     affs.company_name,
@@ -108,9 +108,9 @@ from (
   where
     r.id = ev.repo_id
     and r.name = ev.dup_repo_name
-    and r.name in (select repo_name from trepos)
     and ev.created_at >= '{{from}}'
     and ev.created_at < '{{to}}'
+    and r.repo_group in (select repo_group_name from trepo_groups)
     and (lower(ev.dup_actor_login) {{exclude_bots}})
   group by
     r.repo_group
