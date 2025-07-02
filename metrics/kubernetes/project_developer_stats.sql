@@ -22,6 +22,7 @@ with commits_data as (
     and c.dup_repo_name = r.name
     and {{period:c.dup_created_at}}
     and (lower(c.dup_actor_login) {{exclude_bots}})
+    and r.repo_group in (select repo_group_name from trepo_groups)
   union select coalesce(ecf.repo_group, r.repo_group) as repo_group,
     c.sha,
     c.author_id as actor_id,
@@ -46,6 +47,7 @@ with commits_data as (
     and c.author_id is not null
     and {{period:c.dup_created_at}}
     and (lower(c.dup_author_login) {{exclude_bots}})
+    and r.repo_group in (select repo_group_name from trepo_groups)
   union select coalesce(ecf.repo_group, r.repo_group) as repo_group,
     c.sha,
     c.committer_id as actor_id,
@@ -70,6 +72,7 @@ with commits_data as (
     and c.committer_id is not null
     and {{period:c.dup_created_at}}
     and (lower(c.dup_committer_login) {{exclude_bots}})
+    and r.repo_group in (select repo_group_name from trepo_groups)
   union select r.repo_group as repo_group,
     cr.sha,
     cr.actor_id as actor_id,
@@ -92,6 +95,7 @@ with commits_data as (
     and cr.role = 'Co-authored-by'
     and {{period:cr.dup_created_at}}
     and (lower(cr.actor_login) {{exclude_bots}})
+    and r.repo_group in (select repo_group_name from trepo_groups)
 )
 select 
   'hdev_' || sub.metric || ',All_All' as metric,
@@ -345,6 +349,7 @@ from (
       )
       and {{period:e.created_at}}
       and (lower(e.dup_actor_login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -385,6 +390,7 @@ from (
       )
       and {{period:e.created_at}}
       and (lower(e.dup_actor_login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -420,6 +426,7 @@ from (
       and r.id = e.repo_id
       and {{period:e.created_at}}
       and (lower(e.dup_actor_login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -455,6 +462,7 @@ from (
       and c.dup_repo_id = r.id
       and {{period:c.created_at}}
       and (lower(c.dup_user_login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -494,6 +502,7 @@ from (
     and i.dup_repo_id = r.id
     and {{period:i.created_at}}
     and (lower(i.dup_user_login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -531,6 +540,7 @@ from (
     and i.dup_repo_id = r.id
     and {{period:i.merged_at}}
     and (lower(i.dup_user_login) {{exclude_bots}})
+    and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -566,6 +576,7 @@ from (
       and r.id = e.repo_id
       and {{period:e.created_at}}
       and (lower(e.dup_actor_login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -880,6 +891,7 @@ from (
       )
       and {{period:e.created_at}}
       and (lower(a.login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -926,6 +938,7 @@ from (
       )
       and {{period:e.created_at}}
       and (lower(a.login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -967,6 +980,7 @@ from (
       and (e.actor_id = a.id or e.dup_actor_login = a.login)
       and {{period:e.created_at}}
       and (lower(a.login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -1008,6 +1022,7 @@ from (
       and (c.user_id = a.id or c.dup_user_login = a.login)
       and {{period:c.created_at}}
       and (lower(a.login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -1053,6 +1068,7 @@ from (
       and (i.user_id = a.id or i.dup_user_login = a.login)
       and {{period:i.created_at}}
       and (lower(a.login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -1096,6 +1112,7 @@ from (
       and (i.user_id = a.id or i.dup_user_login = a.login)
       and {{period:i.merged_at}}
       and (lower(a.login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
@@ -1137,6 +1154,7 @@ from (
       and (e.actor_id = a.id or e.dup_actor_login = a.login)
       and {{period:e.created_at}}
       and (lower(e.dup_actor_login) {{exclude_bots}})
+      and r.repo_group in (select repo_group_name from trepo_groups)
   ) sub
   where
     sub.repo_group is not null
