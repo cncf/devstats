@@ -11,6 +11,7 @@ order by
   case when pg_catalog.has_database_privilege(d.datname, 'CONNECT')
     then pg_catalog.pg_database_size(d.datname)
     else null
-  end desc -- nulls first
-limit 100
+  end desc
+limit
+  10
 ;
