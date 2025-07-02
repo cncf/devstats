@@ -270,7 +270,8 @@ from (
     e.dup_actor_login,
     aa.company_name
   ) sub
-/*where
+-- limit amount of data
+where
   (sub.metric = 'events' and sub.value >= 200)
   or (sub.metric = 'active_repos' and sub.value >= 3)
   or (sub.metric = 'contributions' and sub.value >= 30)
@@ -286,7 +287,8 @@ from (
     'prs',
     'merged_prs'
   ) and sub.value > 1
-)*/
+)
+-- limit amount of data
 union select 'hdev_' || sub.metric || ',' || sub.repo_group || '_All' as metric,
   sub.author || '$$$' || sub.company as name,
   sub.value as value
@@ -794,7 +796,8 @@ from (
     a.login,
     aa.company_name
   ) sub
-/*where
+-- limit amount of data
+where
   (sub.metric = 'events' and sub.value >= 100)
   or (sub.metric = 'active_repos' and sub.value >= 3)
   or (sub.metric = 'contributions' and sub.value >= 15)
@@ -810,7 +813,8 @@ from (
     'prs',
     'merged_prs'
   ) and sub.value > 1
-)*/
+)
+-- limit amount of data
 union select 'hdev_' || sub.metric || ',' || sub.repo_group || '_' || sub.country as metric,
   sub.author || '$$$' || sub.company as name,
   sub.value as value
@@ -1143,7 +1147,8 @@ from (
     sub.author,
     sub.company
   ) sub
-/*where
+-- limit amount of data
+where
   (sub.metric = 'events' and sub.value >= 20)
   or (sub.metric = 'active_repos' and sub.value >= 2)
   or (sub.metric = 'contributions' and sub.value >= 5)
@@ -1159,7 +1164,8 @@ from (
     'prs',
     'merged_prs'
   )
-)*/
+)
+-- limit amount of data
 order by
   metric asc,
   value desc,
