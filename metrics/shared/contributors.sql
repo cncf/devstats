@@ -181,6 +181,7 @@ create temp table actors_affiliations_{{rnd}} as (
   where
     aa.dt_from <= '{{to}}'
     and aa.dt_to >= '{{from}}'
+    and aa.company_name in (select companies_name from tcompanies)
 );
 create index on actors_affiliations_{{rnd}}(actor_id);
 create index on actors_affiliations_{{rnd}}(dt_from);
@@ -211,6 +212,7 @@ create temp table contributions_country_{{rnd}} as (
     -- c.actor_id = a.id
   where
     a.country_name is not null
+    and a.country_name != ''
 );
 create index on contributions_country_{{rnd}}(actor_id);
 create index on contributions_country_{{rnd}}(created_at);
@@ -263,6 +265,7 @@ create temp table contributions_repo_group_country_{{rnd}} as (
     and c.repo_name = rg.name
   where
     rg.repo_group is not null
+    and rg.repo_group in (select repo_group_name from trepo_groups)
 );
 create index on contributions_repo_group_country_{{rnd}}(actor_id);
 create index on contributions_repo_group_country_{{rnd}}(created_at);
@@ -287,6 +290,7 @@ with contributions_repo_group as (
     and c.repo_name = rg.name
   where
     rg.repo_group is not null
+    and rg.repo_group in (select repo_group_name from trepo_groups)
 ), contributions_country_company as (
   select
     c.metric,
@@ -326,6 +330,7 @@ with contributions_repo_group as (
     and c.repo_name = rg.name
   where
     rg.repo_group is not null
+    and rg.repo_group in (select repo_group_name from trepo_groups)
 ), contributions_repo_group_country_company as (
   select
     c.metric,
