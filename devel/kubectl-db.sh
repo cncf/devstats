@@ -25,4 +25,5 @@ if [ ! -z "$DBDEBUG" ]
 then
   echo "'${cmd}' '${@}'" >&2
 fi
+# kubectl exec -itn "devstats-${STAGE}" "devstats-postgres-${N}" -- env VAR=VAL "${cmd}" "${@}"
 kubectl exec -itn "devstats-${STAGE}" "devstats-postgres-${N}" -- "${cmd}" "${@}"
