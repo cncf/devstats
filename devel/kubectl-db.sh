@@ -15,9 +15,14 @@ then
 fi
 cmd=${1}
 shift
-quoted_args=$(printf '%q ' "$@")
+#quoted_args=$(printf '%q ' "$@")
+#if [ ! -z "$DBDEBUG" ]
+#then
+#  echo "kubectl exec -itn 'devstats-${STAGE}' 'devstats-postgres-${N}' -- bash -c \"${cmd} ${quoted_args}\""
+#fi
+#kubectl exec -itn "devstats-${STAGE}" "devstats-postgres-${N}" -- bash -c "${cmd} ${quoted_args}"
 if [ ! -z "$DBDEBUG" ]
 then
-  echo "kubectl exec -itn 'devstats-${STAGE}' 'devstats-postgres-${N}' -- bash -c \"${cmd} ${quoted_args}\""
+  echo "'${cmd}' '${@}'" >&2
 fi
-kubectl exec -itn "devstats-${STAGE}" "devstats-postgres-${N}" -- bash -c "${cmd} ${quoted_args}"
+kubectl exec -itn "devstats-${STAGE}" "devstats-postgres-${N}" -- "${cmd}" "${@}"
