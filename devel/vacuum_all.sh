@@ -9,5 +9,5 @@ dbs=`./devel/db.sh psql -tAc "select datname from pg_database"`
 for db in $dbs
 do
   echo "${db}..."
-  ./devel/db.sh psql "$db" -c vacuum
+  ./devel/db.sh psql "$db" -c 'vacuum full'
 done
