@@ -14,7 +14,7 @@ tags:
     sql: repos_tags
     series_name: repos
     name_tag: repo_name
-    limit: 5000
+    limit: 1000
   - name: Companies
     sql: companies_tags
     series_name: companies

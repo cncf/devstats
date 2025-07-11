@@ -1,21 +1,15 @@
 ---
 metrics:
-  - name: Countries stats
-    series_name_or_func: multi_row_multi_column
-    sqls: [countries, committers_countries]
-    periods: w,m,q,m6,y,y2,y3,y5
-    multi_value: true
-    merge_series: countries
-    drop: scountries
-  - name: Countries stats cumulative
-    series_name_or_func: multi_row_multi_column
-    sqls: [countries_cum, committers_countries_cum]
-    periods: m
-    multi_value: true
-    merge_series: countriescum
-    drop: scountriescum
+  - name: Developer summary
+    sql: project_developer_stats
+    series_name_or_func: multi_row_single_column
+    histogram: true
+    annotations_ranges: true
+    allow_fail: true
+    wait_after_fail: 600
+    merge_series: hdev
     env:
-      GHA2DB_NCPUS?: 4
+      GHA2DB_NCPUS?: 2
 #   - name: Users stats
 #     series_name_or_func: multi_row_multi_column
 #     sqls: [user_activity, user_activity_commits, user_activity_issues, user_activity_prs]
