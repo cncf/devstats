@@ -1,160 +1,18 @@
 ---
 metrics:
-  - name: Developer summary
-    sql: project_developer_stats
-    series_name_or_func: multi_row_single_column
-    histogram: true
-    annotations_ranges: true
-    allow_fail: true
-    wait_after_fail: 600
-    merge_series: hdev
+  - name: Countries stats
+    series_name_or_func: multi_row_multi_column
+    sqls: [countries, committers_countries]
+    periods: w,m,q,m6,y,y2,y3,y5
+    multi_value: true
+    merge_series: countries
+    drop: scountries
+  - name: Countries stats cumulative
+    series_name_or_func: multi_row_multi_column
+    sqls: [countries_cum, committers_countries_cum]
+    periods: m
+    multi_value: true
+    merge_series: countriescum
+    drop: scountriescum
     env:
-      GHA2DB_NCPUS?: 2
-#   - name: Users stats
-#     series_name_or_func: multi_row_multi_column
-#     sqls: [user_activity, user_activity_commits, user_activity_issues, user_activity_prs]
-#     periods: d,w,m,q,y
-#     aggregate: 1,7
-#     skip: w7,m7,q7,y7
-#     multi_value: true
-#     merge_series: user_activity
-#     drop: suser_activity
-#     allow_fail: true
-#     # project: '!kubernetes,all,allcdf,cii,graphql,istio,kyverno,lfn,opentelemetry,prestodb'
-#     project: '!xyz'
-#   - name: User reviews
-#     series_name_or_func: multi_row_single_column
-#     sql: reviews_per_user
-#     periods: d,w,m,q,y
-#     aggregate: 1,7
-#     skip: w7,m7,q7,y7
-#     multi_value: true
-#     merge_series: user_reviews
-#     drop: suser_reviews
-#     allow_fail: true
-#     project: '!xyz'
-#   - name: Contributors and organizations
-#     series_name_or_func: single_row_multi_column
-#     sql: contributors_and_orgs_count
-#     periods: m
-#     merge_series: cntrs_and_orgs
-#     drop: 'scntrs_and_orgs'
-#   - name: Countries Projects stats
-#     series_name_or_func: multi_row_multi_column
-#     sqls: [project_countries, project_countries_commiters]
-#     periods: m,q,y
-#     multi_value: true
-#     skip_escape_series_name: true
-#     hll: true
-#     merge_series: prjcntr
-#     drop: sprjcntr
-#   - name: Company commits table
-#     series_name_or_func: multi_row_single_column
-#     sql: company_commits_data
-#     custom_data: true
-#     merge_series: company_commits_data
-#     periods: d
-#     drop: scompany_commits_data
-#   - name: PRs approval
-#     series_name_or_func: multi_row_multi_column
-#     sql: prs_state
-#     periods: d,w,m,q,y
-#     aggregate: 1,7
-#     skip: d,w7,m7,q7,y7
-#     multi_value: true
-#     escape_value_name: true
-#     drop: 'spr_apprappr;spr_apprwait'
-#   - name: First non-author activity
-#     series_name_or_func: multi_row_multi_column
-#     sql: first_non_author_activity
-#     periods: d,w,m,q,y
-#     aggregate: 1,7
-#     skip: d,w7,m7,q7,y7
-#     desc: time_diff_as_string
-#     merge_series: first_non_author
-#     drop: sfirst_non_author
-#   - name: PR time to engagement
-#     series_name_or_func: multi_row_multi_column
-#     sql: first_non_author_activity
-#     periods: d,w,m,q,y
-#     aggregate: 1,7
-#     skip: d,w7,m7,q7,y7
-#     desc: time_diff_as_string
-#     merge_series: first_non_author
-#     drop: sfirst_non_author
-#     project: kubernetes
-#   - name: PR time to engagement (repositories)
-#     series_name_or_func: multi_row_multi_column
-#     sql: first_non_author_activity_repos
-#     periods: d,w,m,q,y
-#     aggregate: 1,7
-#     skip: d,w7,m7,q7,y7
-#     desc: time_diff_as_string
-#     merge_series: first_non_author_repos
-#     drop: sfirst_non_author_repos
-#     project: kubernetes
-#   - name: Contributions chart
-#     series_name_or_func: multi_row_multi_column
-#     sql: committers
-#     periods: d,w,m
-#     aggregate: 1,7
-#     skip: d,w7,m7
-#     merge_series: cs
-#     # drop: scs
-#     project: '!kubernetes'
-#     env:
-#       GHA2DB_NCPUS?: 8
-#   - name: Contributions chart
-#     series_name_or_func: multi_row_multi_column
-#     sqls: [reviewers, approvers, committers, contributors]
-#     periods: w,m
-#     merge_series: cs
-#     drop: scs
-#     project: kubernetes
-#     env:
-#       GHA2DB_NCPUS?@d7: 4
-#       GHA2DB_NCPUS?!d7: 10
-#   - name: Contributions chart (repositories)
-#     series_name_or_func: multi_row_multi_column
-#     sql: contributors_repos
-#     periods: w,m
-#     merge_series: csr
-#     # drop: scsr
-#     project: kubernetes
-#     env:
-#       GHA2DB_NCPUS?@d7: 4
-#       GHA2DB_NCPUS?!d7: 10
-#   - name: Contributions chart
-#     series_name_or_func: multi_row_multi_column
-#     sql: contributors
-#     periods: w,m
-#     merge_series: cs
-#     # drop: scs
-#     allow_fail: true
-#     project: '!kubernetes'
-#     env:
-#       GHA2DB_NCPUS?: 2
-#   - name: Companies summary
-#     sqls: [project_company_stats, doc_committers_hist]
-#     series_name_or_func: multi_row_single_column
-#     histogram: true
-#     annotations_ranges: true
-#     merge_series: hcom
-#   - name: Developer summary
-#     sql: project_developer_stats
-#     series_name_or_func: multi_row_single_column
-#     histogram: true
-#     annotations_ranges: true
-#     merge_series: hdev
-#  - name: Company PRs in repository groups
-#    sql: company_prs
-#    series_name_or_func: company_prs
-#    histogram: true
-#    annotations_ranges: true
-#    project: kubernetes
-#  - name: Company PRs in repositories
-#    sql: company_prs_repos
-#    series_name_or_func: company_prs_repos
-#    histogram: true
-#    annotations_ranges: true
-#    project: kubernetes
+      GHA2DB_NCPUS?: 4
