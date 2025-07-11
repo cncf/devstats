@@ -20,3 +20,5 @@ If you find a new bot include it in:
 - `LF-Engineering/dev-analytics-json2hat`:
   - `json2hat.go`: `func updateBots`.
 
+- `cncf/velocity`:
+    - `BigQuery/velocity_*.sql`.
