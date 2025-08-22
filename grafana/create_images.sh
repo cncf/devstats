@@ -140,7 +140,7 @@ do
     icon="ovn-kubernetes"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "xregistry" ] || [ "$icon" = "modelpack" ] || [ "$icon" = "cadence" ] || [ "$icon" = "kagent" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kgateway" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "k0s" ] || [ "$icon" = "kubefleet" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "xregistry" ] || [ "$icon" = "modelpack" ] || [ "$icon" = "cadence" ] || [ "$icon" = "kagent" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kgateway" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "kubefleet" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -299,7 +299,12 @@ do
   elif [ "$icon" = "vscodek8stools" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.svg" "grafana/img/$suff.svg" || exit 39
-    convert "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.svg" -resize 32x32 "grafana/img/${suff}32.png" || exit 40
+    convert "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 40
+    continue
+  elif [ "$icon" = "k0s" ]
+  then
+    cp "$HOME/dev/cncf/artwork/projects/k0s/icon/color/k0s-logo-2025-icon.svg" "grafana/img/$suff.svg" || exit 41
+    convert "$HOME/dev/cncf/artwork/projects/k0s/icon/color/k0s-logo-2025-icon.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 42
     continue
   fi
   # echo "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg"
