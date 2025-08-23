@@ -1,40 +1,52 @@
 ---
 metrics:
-  - name: Developer activity counts
-    histogram: true
-    annotations_ranges: true
-    allow_fail: true
-    wait_after_fail: 600
+  - name: GitHub Stats by Repository
     series_name_or_func: multi_row_single_column
-    sqls: [hist_reviewers, hist_approvers, project_developer_stats]
-    merge_series: hdev
-    project: kubernetes
-    env:
-      GHA2DB_NCPUS?: 2
-  - name: Developer activity counts (repositories)
-    histogram: true
-    annotations_ranges: true
-    series_name_or_func: multi_row_single_column
+    sql: github_stats_by_repos
+    periods: h,d,w,m,q,y
+    aggregate: 1,7,24
+    skip: h7,w7,m7,q7,y7,d24,w24,m24,q24,y24
+    multi_value: true
+    merge_series: gh_stats_r
+    #start_from: 2018-01-01T00:00:00Z
+    #last_hours: 8766
+    drop: gh_stats_r
     allow_fail: true
-    wait_after_fail: 600
-    sqls:
-      [
-        hist_reviewers_repos,
-        hist_approvers_repos,
-        project_developer_stats_repos,
-      ]
-    merge_series: hdev_repos
-    project: kubernetes
-    env:
-      GHA2DB_NCPUS?: 2
-  - name: Developer summary
-    sql: project_developer_stats
-    series_name_or_func: multi_row_single_column
-    histogram: true
-    annotations_ranges: true
-    allow_fail: true
-    wait_after_fail: 600
-    merge_series: hdev
-    project: '!kubernetes'
-    env:
-      GHA2DB_NCPUS?: 2
+#   - name: Developer activity counts
+#     histogram: true
+#     annotations_ranges: true
+#     allow_fail: true
+#     wait_after_fail: 600
+#     series_name_or_func: multi_row_single_column
+#     sqls: [hist_reviewers, hist_approvers, project_developer_stats]
+#     merge_series: hdev
+#     project: kubernetes
+#     env:
+#       GHA2DB_NCPUS?: 2
+#   - name: Developer activity counts (repositories)
+#     histogram: true
+#     annotations_ranges: true
+#     series_name_or_func: multi_row_single_column
+#     allow_fail: true
+#     wait_after_fail: 600
+#     sqls:
+#       [
+#         hist_reviewers_repos,
+#         hist_approvers_repos,
+#         project_developer_stats_repos,
+#       ]
+#     merge_series: hdev_repos
+#     project: kubernetes
+#     env:
+#       GHA2DB_NCPUS?: 2
+#   - name: Developer summary
+#     sql: project_developer_stats
+#     series_name_or_func: multi_row_single_column
+#     histogram: true
+#     annotations_ranges: true
+#     allow_fail: true
+#     wait_after_fail: 600
+#     merge_series: hdev
+#     project: '!kubernetes'
+#     env:
+#       GHA2DB_NCPUS?: 2
