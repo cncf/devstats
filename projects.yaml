@@ -3197,7 +3197,7 @@ projects:
     command_line:
       - CloudNativeAI,modelpack
     start_date: 2024-08-28T00:00:00Z
-    join_date: 2025-06-05T00:00:00Z
+    join_date: 2025-05-13T00:00:00Z
     psql_db: modelpack
     shared_db: allprj
     main_repo: modelpack/model-spec
