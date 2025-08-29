@@ -989,11 +989,12 @@ projects:
   metal3:
     order: 68
     name: Metal³
-    status: Sandbox
+    status: Incubating
     command_line:
       - metal3-io
     start_date: 2019-04-23T00:00:00Z
     join_date: 2020-09-08T00:00:00Z
+    incubating_date: 2025-08-14T00:00:00Z
     psql_db: metal3
     shared_db: allprj
     main_repo: metal3-io/baremetal-operator
