@@ -3195,12 +3195,12 @@ projects:
     name: ModelPack
     status: Sandbox
     command_line:
-      - CloudNativeAI
+      - CloudNativeAI,modelpack
     start_date: 2024-08-28T00:00:00Z
     join_date: 2025-06-05T00:00:00Z
     psql_db: modelpack
     shared_db: allprj
-    main_repo: CloudNativeAI/model-spec
+    main_repo: modelpack/model-spec
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opencontainers:
@@ -3445,7 +3445,7 @@ projects:
          interTwin-eu/interlink-monitoring-stack,interTwin-eu/interlink-htcondor-plugin,\
          interTwin-eu/interlink-kueue-plugin,interTwin-eu/interlink-arc-plugin,urunc-dev,\
          interTwin-eu/interlink-unicore-plugin,cozystack,kitops-ml,drasi-project,CloudNativeAI,\
-         hyperlight-dev,kgateway-dev,bootc-dev,composefs,kubefleet-dev,opentofu"
+         hyperlight-dev,kgateway-dev,bootc-dev,composefs,kubefleet-dev,opentofu,modelpack"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj

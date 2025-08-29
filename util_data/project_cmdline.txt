@@ -167,7 +167,7 @@ metal3,metal3-io
 metallb,metallb,danderson/metallb,google/metallb
 microcks,microcks
 mininet,mininet
-modelpack,CloudNativeAI
+modelpack,CloudNativeAI,modelpack
 nats,nats-io,apcera/nats,apcera/gnatsd
 networkservicemesh,networkservicemesh,NetworkServiceMesh,ligato/networkservicemesh
 nocalhost,nocalhost

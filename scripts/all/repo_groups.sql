@@ -2419,7 +2419,7 @@ update
 set
   repo_group = 'ModelPack'
 where
-  org_login in ('CloudNativeAI')
+  org_login in ('CloudNativeAI', 'modelpack')
 ;
 
 -- CNCF
