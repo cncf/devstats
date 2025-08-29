@@ -699,6 +699,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Metal³",
+      "tooltip": "Opens Metal³ projects dashboards",
+      "type": "link",
+      "url": "https://metal3.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -813,16 +823,6 @@
       "tooltip": "Opens Tremor projects dashboards",
       "type": "link",
       "url": "https://tremor.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Metal³",
-      "tooltip": "Opens Metal³ projects dashboards",
-      "type": "link",
-      "url": "https://metal3.[[hostname]]"
     },
     {
       "icon": "dashboard",
