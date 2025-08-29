@@ -219,3 +219,4 @@ If you see error like this `pq: row is too big: size 8192, maximum size 8160` an
 - To vacuum all tables do: `` [N=2] [TEST=1] ./util_sh/vacuum_tsdb_tables_all.sh `` - eventually check which node is a master via: `` k exec -n devstats-env devstats-postgres-0 -- patronictl list ``.
 - To recreate all tables (needed to drop hidden unused columns) do: `` [N=2] [TEST=1] ./util_sh/recreate_tsdb_tables_all.sh ``.
 - To add permissions for all tables do: `` [N=2] [TEST=1] ./util_sh/permissions_tsdb_tables_all.sh ``.
+- To fix single table using transatcion: `` STAGE=prod ./util_sh/fix_table_by_recreating.sh jenkins sact ``.
