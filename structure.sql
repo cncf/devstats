@@ -1095,7 +1095,7 @@ ALTER TABLE public.gha_repo_groups OWNER TO gha_admin;
 CREATE TABLE public.gha_repos_langs (
     repo_name character varying(160) NOT NULL,
     lang_name character varying(60) NOT NULL,
-    lang_loc integer NOT NULL,
+    lang_loc bigint NOT NULL,
     lang_perc double precision NOT NULL,
     dt timestamp without time zone DEFAULT now()
 );

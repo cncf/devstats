@@ -1,7 +1,7 @@
 create table public.gha_repos_langs (
     repo_name character varying(160) not null,
     lang_name character varying(60) not null,
-    lang_loc integer not null,
+    lang_loc bigint not null,
     lang_perc double precision not null,
     dt timestamp without time zone default now()
 );
