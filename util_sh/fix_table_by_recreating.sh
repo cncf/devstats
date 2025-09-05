@@ -12,9 +12,11 @@ if [ -z "${N}" ]
 then
   N=0
 fi
-db="$1"
-tab="$2"
-kubectl exec -n "devstats-${STAGE}" -it "devstats-postgres-${N}" -- psql "$db" -tAc "
+db="${1}"
+tab="${2}"
+# echo "would recreate ${1}.${2}"
+# exit 0
+kubectl exec -n "devstats-${STAGE}" -it "devstats-postgres-${N}" -- psql "${db}" -tAc "
 set local client_min_messages = warning;
 begin;
 lock table \"${tab}\" in access exclusive mode;
