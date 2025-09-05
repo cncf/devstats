@@ -528,16 +528,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Keptn",
-      "tooltip": "Opens Keptn projects dashboards",
-      "type": "link",
-      "url": "https://keptn.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Cloud Custodian",
       "tooltip": "Opens Cloud Custodian projects dashboards",
       "type": "link",
