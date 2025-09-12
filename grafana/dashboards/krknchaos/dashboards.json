@@ -363,6 +363,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Knative",
+      "tooltip": "Opens Knative projects dashboards",
+      "type": "link",
+      "url": "https://knative.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -507,16 +517,6 @@
       "tooltip": "Opens LitmusChaos projects dashboards",
       "type": "link",
       "url": "https://litmuschaos.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Knative",
-      "tooltip": "Opens Knative projects dashboards",
-      "type": "link",
-      "url": "https://knative.[[hostname]]"
     },
     {
       "icon": "dashboard",
