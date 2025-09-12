@@ -1,3 +1,5 @@
+# Adding new org to a project
+
 When project joins CNCF it usually moves from some company-based repo (or set of repos) into its own GitHub org, to update DevStats to reflect this, please do the following:
 - You can lookup for all references to the old org by running `` find.sh . '*' old-org > ../out `` while in `~/go/src/github.com/cncf` directory (where you cloned all devstats, gitdm, velocity related CNCF repos. This is optional, you can also follow next steps listed here.
 - In `devstats` repo, update the following files (replace `proj` with given project name):
