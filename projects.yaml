@@ -1727,11 +1727,12 @@ projects:
   knative:
     order: 123
     name: Knative
-    status: Incubating
+    status: Graduated
     command_line:
       - 'knative,knative-sandbox,knative-extensions'
     start_date: 2018-07-23T00:00:00Z
     join_date: 2022-03-02T00:00:00Z
+    graduated_date: 2025-09-11T00:00:00Z
     psql_db: knative
     shared_db: allprj
     main_repo: knative/serving
