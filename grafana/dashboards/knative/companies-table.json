@@ -123,7 +123,7 @@
           "policy": "default",
           "query": "SELECT \"name\", \"value\" FROM \"project_company_stats_[[metric]]_[[period]]\" WHERE $timeFilter",
           "rawQuery": true,
-          "rawSql": "select\n  (row_number() over (order by value desc, name asc) -1) as \"Rank\",\n  name,\n  value\nfrom\n  shcom\nwhere\n  series = 'hcom[[metric]]'\n  and period = '[[period]]'",
+          "rawSql": "select\n  (row_number() over (order by value desc) -1) as \"Rank\",\n  name,\n  value\nfrom\n  shcom\nwhere\n  series = 'hcom[[metric]]'\n  and period = '[[period]]'",
           "refId": "A",
           "resultFormat": "table",
           "select": [

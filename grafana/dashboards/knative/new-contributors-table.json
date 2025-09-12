@@ -3,10 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": {
-          "type": "datasource",
-          "uid": "grafana"
-        },
+        "datasource": "-- Grafana --",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -24,112 +21,19 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 21,
-  "iteration": 1702970729181,
+  "id": 20,
+  "iteration": 1646401109975,
   "links": [],
   "liveNow": false,
   "panels": [
     {
+      "columns": [],
       "datasource": {
         "type": "postgres",
         "uid": "P172949F98CB31475"
       },
       "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "displayMode": "auto",
-            "inspect": false
-          },
-          "decimals": 0,
-          "displayName": "",
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "str"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Contributor"
-              },
-              {
-                "id": "unit",
-                "value": "short"
-              },
-              {
-                "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.align"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "dt"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "First contribution"
-              },
-              {
-                "id": "unit",
-                "value": "none"
-              },
-              {
-                "id": "unit",
-                "value": "time: MM/DD/YY h:mm:ss a"
-              },
-              {
-                "id": "custom.align"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": ""
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "short"
-              },
-              {
-                "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.align"
-              }
-            ]
-          }
-        ]
-      },
+      "fontSize": "90%",
       "gridPos": {
         "h": 25,
         "w": 24,
@@ -139,17 +43,76 @@
       "hideTimeOverride": false,
       "id": 1,
       "links": [],
-      "options": {
-        "footer": {
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true
+      "pageSize": 30,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 1,
+        "desc": false
       },
-      "pluginVersion": "8.5.27",
+      "styles": [
+        {
+          "alias": "Contributor",
+          "align": "auto",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "pattern": "str",
+          "preserveFormat": false,
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "First contribution",
+          "align": "auto",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "MM/DD/YY h:mm:ss a",
+          "decimals": 0,
+          "pattern": "dt",
+          "thresholds": [],
+          "type": "date",
+          "unit": "none"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
       "targets": [
         {
           "alias": "",
@@ -194,21 +157,10 @@
         }
       ],
       "title": "[[full_name]] New contributors table (Repository group [[repogroup_name]])",
-      "transformations": [
-        {
-          "id": "seriesToRows",
-          "options": {
-            "reducers": []
-          }
-        }
-      ],
-      "type": "table"
+      "transform": "timeseries_to_rows",
+      "type": "table-old"
     },
     {
-      "datasource": {
-        "type": "postgres",
-        "uid": "P172949F98CB31475"
-      },
       "gridPos": {
         "h": 11,
         "w": 24,
@@ -221,13 +173,13 @@
         "content": "${docs:raw}",
         "mode": "html"
       },
-      "pluginVersion": "8.5.27",
+      "pluginVersion": "8.4.3",
       "title": "Dashboard documentation",
       "type": "text"
     }
   ],
   "refresh": false,
-  "schemaVersion": 36,
+  "schemaVersion": 35,
   "style": "dark",
   "tags": [
     "dashboard",
