@@ -3,7 +3,7 @@
 Those steps are generally needed to change project status (usually from `Incubating` to `Graduated` or from `Sandbox` to `Incubating`):
 
 - Update status to `Archived` `projects.yaml`, add `archived_date`. Remove its orgs/repos from `All CNCF`.
-- Refer to [this](https://docs.google.com/spreadsheets/d/10-rSBsSMQZD6nCLBkyKfeU4kdffB4bOSV0NnZqF5bBk/edit#gid=1632287387) and/or issues on [cncf/toc](https://github.com/cncf/toc) repo.
+- Refer to issues/PRs on [cncf/toc](https://github.com/cncf/toc) repo.
 - Change projects links all home dashboards. Take for example `grafana/dashboards/all/dashboards.json`, copy list of projects links into `FROM` file, change order accordingly and paste it into `TO` file.
 - Run: `./devel/dashboards_replace_from_to.sh dashboards.json`.
 - Update `devel/all_prod_*.txt` files - remove archived project.

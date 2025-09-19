@@ -1051,16 +1051,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Service Mesh Performance",
-      "tooltip": "Opens Service Mesh Performance projects dashboards",
-      "type": "link",
-      "url": "https://servicemeshperformance.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "kube-vip",
       "tooltip": "Opens kube-vip projects dashboards",
       "type": "link",
