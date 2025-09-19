@@ -1417,11 +1417,12 @@ projects:
   servicemeshperformance:
     order: 100
     name: 'Service Mesh Performance'
-    status: Sandbox
+    status: Archived
     command_line:
     - 'regexp:(?i)^(layer5io\/.*(service-mesh|performance|benchmark)|service-mesh-performance\/.*)'
     start_date: 2019-02-02T00:00:00Z
     join_date: 2021-06-22T00:00:00Z
+    archived_date: 2025-09-17T00:00:00Z
     psql_db: servicemeshperformance
     shared_db: allprj
     main_repo: 'service-mesh-performance/service-mesh-performance'
@@ -3426,7 +3427,7 @@ projects:
          argoproj-labs,kube-vip,keycloak,oras-project,wasmCloud,project-akri,metallb,karmada-io,\
          clusternet,youki-dev,inclavare-containers,cilium,dapr,kubescape,inspektor-gadget,\
          open-cluster-management-io,vscode-kubernetes-tools,kubearmor,cncf-tags,meshery,\
-         meshery-extensions,service-mesh-performance,knative,knative-sandbox,project-stacker,\
+         meshery-extensions,knative,knative-sandbox,project-stacker,\
          confidential-containers,cncf/tag-app-delivery,knative-extensions,OpenFunction,clusterpedia-io,\
          Kuadrant,aeraki-mesh,open-feature,kubewarden,kubevela,openGemini,hexa-org,konveyor,\
          armadaproject,external-secrets,Serverless-Devs,devspace-sh,ContainerSSH,openfga,kubereboot,\
