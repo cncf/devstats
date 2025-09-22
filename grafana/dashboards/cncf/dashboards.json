@@ -1607,16 +1607,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Xline",
-      "tooltip": "Opens Xline projects dashboards",
-      "type": "link",
-      "url": "https://xline.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Hwameistor",
       "tooltip": "Opens Hwameistor projects dashboards",
       "type": "link",
