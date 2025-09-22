@@ -2300,11 +2300,12 @@ projects:
   xline:
     order: 166
     name: Xline
-    status: Sandbox
+    status: Archived
     command_line:
       - 'xline-kv'
     start_date: 2022-05-05T00:00:00Z
     join_date: 2023-06-30T00:00:00Z
+    archived_date: 2025-09-19T00:00:00Z
     psql_db: 'xline'
     shared_db: allprj
     main_repo: xline-kv/Xline
@@ -3407,7 +3408,7 @@ projects:
          kubernetes-graveyard,kubernetes-incubator-retired,kubernetes-sig-testing,\
          kubernetes-providers,kubernetes-addons,kubernetes-retired,kubernetes-sigs,\
          kubernetes-extensions,kubernetes-federation,kubernetes-security,crossplaneio,\
-         kubernetes-sidecars,kubernetes-tools,kubernetes-test,kubernetes-charts,xline-kv,\
+         kubernetes-sidecars,kubernetes-tools,kubernetes-test,kubernetes-charts,\
          prometheus,opentracing,fluent,linkerd,grpc,coredns,containerd,notaryproject,\
          containernetworking,envoyproxy,jaegertracing,theupdateframework,crossplane-contrib,\
          rook,cncf,crosscloudci,vitessio,nats-io,open-policy-agent,spiffe,headlamp-k8s,\
