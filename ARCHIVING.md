@@ -9,7 +9,7 @@ Those steps are generally needed to change project status (usually from `Incubat
 - Update `devel/all_prod_*.txt` files - remove archived project.
 - Consider updating `all/psql.sh` and `scripts/all/repo_groups.sql` - we currently don't remove archived projects from those files.
 - Update files: `partials/projects.html partials/projects_health.html metrics/all/sync_vars.yaml apache/www/index_prod.html apache/www/index_test.html` (remember about `cncf-` classes/separators). In `test` files add `(archived)` instead of removing.
-- Look for `/\cdevstats projects:\|projects:\|graduated:\|incubating:\|sandbox:` - update counts.
+- Look for `/\cdevstats projects:\|projects:\|graduated:\|incubating:\|sandbox:\|archived:\|merged:` - update counts.
 - Update projects counts (graduated, incubating, sandbox, archived) in `apache/www/index_*.html`, `partials/projects_health.html` and `partials/projects.html` files.
 - For updating `partials/projects.html` or `apache/www/index_*.html`, copy the Graduated/Incubating/Sandbox section into some text file and then `KIND=Graduated SIZE=9 ./tsplit < graduated.txt > new_graduated.txt`.
 - You only need to move projects that changed state to that text file, and then it will take care of right/left/bottom separators and dividing into columns/rows.
