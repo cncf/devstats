@@ -14,7 +14,7 @@ Those steps are generally needed to change project status (usually from `Incubat
 - For updating `partials/projects.html` or `apache/www/index_*.html`, copy the Graduated/Incubating/Sandbox section into some text file and then `KIND=Graduated SIZE=9 ./tsplit < graduated.txt > new_graduated.txt`.
 - You only need to move projects that changed state to that text file, and then it will take care of right/left/bottom separators and dividing into columns/rows.
 - Update test and production www index files: `apache/www/index_test.html apache/www/index_prod.html`. Possibly others too like for GraphQL.
-- Update `apache/*/sites-enabled/* apache/*/sites.txt` files.
+- Update `vim apache/*/sites-enabled/* apache/*/sites.txt` files.
 - To do this you can copy `prod`/`test` section from already modified `partials/projects.html` and then do the following replacements:
 - `` :'<,'>s/\[\[hostname]]/teststats.cncf.io/g `` or `` :'<,'>s/\[\[hostname]]/devstats.cncf.io/g ``, followed by `` :'<,'>s/public\/img\/projects\///g ``.
 - See `Update shared Grafana data` in `ADDING_NEW_PROJECT.md`.
