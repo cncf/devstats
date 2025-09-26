@@ -887,16 +887,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Pravega",
-      "tooltip": "Opens Pravega projects dashboards",
-      "type": "link",
-      "url": "https://pravega.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "OpenGitOps",
       "tooltip": "Opens OpenGitOps projects dashboards",
       "type": "link",
