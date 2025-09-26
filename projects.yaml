@@ -1126,11 +1126,12 @@ projects:
   pravega:
     order: 78
     name: Pravega
-    status: Sandbox
+    status: Archived
     command_line:
       - 'pravega'
     start_date: 2017-02-14T00:00:00Z
     join_date: 2020-11-10T00:00:00Z
+    archived_date: 2025-09-23T00:00:00Z
     psql_db: pravega
     shared_db: allprj
     main_repo: pravega/pravega
@@ -3421,7 +3422,7 @@ projects:
          kudobuilder,cloud-custodian,dexidp,litmuschaos,artifacthub,parallaxsecond,bfenetworks,\
          crossplane,kumahq,projectcontour,operator-framework,chaos-mesh,serverlessworkflow,tremor-rs,\
          metal3-io,keylime,KusionStack,kaito-project,Kong/kumacut,Kong/docker-kuma,getporter,\
-         schemahero,openkruise,openyurtio,tinkerbell,pravega,kyverno,cert-manager,cdk8s-team,k8up-io,\
+         schemahero,openkruise,openyurtio,tinkerbell,kyverno,cert-manager,cdk8s-team,k8up-io,\
          kube-rs,devfile,k3s-io,gitops-working-group,piraeusdatastore,openebs,AthenZ,bank-vaults,\
          distribution,kubeovn,k8gb-io,trickstercache,emissary-ingress,runatlantis,backstage,\
          kuberhealthy,WasmEdge,chaosblade-io,v6d-io,antrea-io,pixie-io,fluid-cloudnative,submariner-io,\
