@@ -311,6 +311,66 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "KubeEdge",
+      "tooltip": "Opens KubeEdge projects dashboards",
+      "type": "link",
+      "url": "https://kubeedge.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "cert-manager",
+      "tooltip": "Opens cert-manager projects dashboards",
+      "type": "link",
+      "url": "https://certmanager.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Dapr",
+      "tooltip": "Opens Dapr projects dashboards",
+      "type": "link",
+      "url": "https://dapr.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "CubeFS",
+      "tooltip": "Opens CubeFS projects dashboards",
+      "type": "link",
+      "url": "https://chubaofs.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "in-toto",
+      "tooltip": "Opens intoto projects dashboards",
+      "type": "link",
+      "url": "https://intoto.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Knative",
+      "tooltip": "Opens Knative projects dashboards",
+      "type": "link",
+      "url": "https://knative.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -411,16 +471,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "KubeEdge",
-      "tooltip": "Opens KubeEdge projects dashboards",
-      "type": "link",
-      "url": "https://kubeedge.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Emissary-ingress",
       "tooltip": "Opens Emissary-ingress projects dashboards",
       "type": "link",
@@ -461,30 +511,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Dapr",
-      "tooltip": "Opens Dapr projects dashboards",
-      "type": "link",
-      "url": "https://dapr.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "LitmusChaos",
       "tooltip": "Opens LitmusChaos projects dashboards",
       "type": "link",
       "url": "https://litmuschaos.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Knative",
-      "tooltip": "Opens Knative projects dashboards",
-      "type": "link",
-      "url": "https://knative.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -501,40 +531,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Keptn",
-      "tooltip": "Opens Keptn projects dashboards",
-      "type": "link",
-      "url": "https://keptn.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "CubeFS",
-      "tooltip": "Opens CubeFS projects dashboards",
-      "type": "link",
-      "url": "https://chubaofs.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Cloud Custodian",
       "tooltip": "Opens Cloud Custodian projects dashboards",
       "type": "link",
       "url": "https://cloudcustodian.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "cert-manager",
-      "tooltip": "Opens cert-manager projects dashboards",
-      "type": "link",
-      "url": "https://certmanager.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -555,16 +555,6 @@
       "tooltip": "Opens KubeVela projects dashboards",
       "type": "link",
       "url": "https://kubevela.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "in-toto",
-      "tooltip": "Opens intoto projects dashboards",
-      "type": "link",
-      "url": "https://intoto.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -671,6 +661,66 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "OpenCost",
+      "tooltip": "Opens OpenCost projects dashboards",
+      "type": "link",
+      "url": "https://opencost.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "wasmCloud",
+      "tooltip": "Opens wasmCloud projects dashboards",
+      "type": "link",
+      "url": "https://wasmcloud.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "OpenYurt",
+      "tooltip": "Opens OpenYurt projects dashboards",
+      "type": "link",
+      "url": "https://openyurt.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kubescape",
+      "tooltip": "Opens Kubescape projects dashboards",
+      "type": "link",
+      "url": "https://kubescape.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Metal³",
+      "tooltip": "Opens Metal³ projects dashboards",
+      "type": "link",
+      "url": "https://metal3.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KServe",
+      "tooltip": "Opens KServe projects dashboards",
+      "type": "link",
+      "url": "https://kserve.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -705,16 +755,6 @@
       "tooltip": "Opens Network Service Mesh projects dashboards",
       "type": "link",
       "url": "https://networkservicemesh.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "CNI-Genie",
-      "tooltip": "Opens CNI-Genie projects dashboards",
-      "type": "link",
-      "url": "https://cnigenie.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -801,30 +841,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Metal³",
-      "tooltip": "Opens Metal³ projects dashboards",
-      "type": "link",
-      "url": "https://metal3.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Porter",
       "tooltip": "Opens Porter projects dashboards",
       "type": "link",
       "url": "https://porter.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OpenYurt",
-      "tooltip": "Opens OpenYurt projects dashboards",
-      "type": "link",
-      "url": "https://openyurt.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -895,16 +915,6 @@
       "tooltip": "Opens Piraeus-Datastore projects dashboards",
       "type": "link",
       "url": "https://piraeus.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "k8dash",
-      "tooltip": "Opens k8dash projects dashboards",
-      "type": "link",
-      "url": "https://k8dash.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1061,30 +1071,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "KubeDL",
-      "tooltip": "Opens KubeDL projects dashboards",
-      "type": "link",
-      "url": "https://kubedl.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "ORAS",
       "tooltip": "Opens ORAS projects dashboards",
       "type": "link",
       "url": "https://oras.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "wasmCloud",
-      "tooltip": "Opens wasmCloud projects dashboards",
-      "type": "link",
-      "url": "https://wasmcloud.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1121,26 +1111,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "SuperEdge",
-      "tooltip": "Opens SuperEdge projects dashboards",
-      "type": "link",
-      "url": "https://superedge.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OpenELB",
-      "tooltip": "Opens OpenELB projects dashboards",
-      "type": "link",
-      "url": "https://openelb.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Open Cluster Management",
       "tooltip": "Opens Open Cluster Management projects dashboards",
       "type": "link",
@@ -1155,16 +1125,6 @@
       "tooltip": "Opens VS Code Kubernetes Tools projects dashboards",
       "type": "link",
       "url": "https://vscodek8stools.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Nocalhost",
-      "tooltip": "Opens nocalhost projects dashboards",
-      "type": "link",
-      "url": "https://nocalhost.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1231,40 +1191,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Teller",
-      "tooltip": "Opens Teller projects dashboards",
-      "type": "link",
-      "url": "https://teller.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "sealer",
-      "tooltip": "Opens sealer projects dashboards",
-      "type": "link",
-      "url": "https://sealer.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Clusterpedia",
       "tooltip": "Opens Clusterpedia projects dashboards",
       "type": "link",
       "url": "https://clusterpedia.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OpenCost",
-      "tooltip": "Opens OpenCost projects dashboards",
-      "type": "link",
-      "url": "https://opencost.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1285,16 +1215,6 @@
       "tooltip": "Opens kubewarden projects dashboards",
       "type": "link",
       "url": "https://kubewarden.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "DevStream",
-      "tooltip": "Opens DevStream projects dashboards",
-      "type": "link",
-      "url": "https://devstream.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1401,16 +1321,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Merbridge",
-      "tooltip": "Opens Merbridge projects dashboards",
-      "type": "link",
-      "url": "https://merbridge.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "DevSpace",
       "tooltip": "Opens DevSpace projects dashboards",
       "type": "link",
@@ -1485,16 +1395,6 @@
       "tooltip": "Opens werf projects dashboards",
       "type": "link",
       "url": "https://werf.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Kubescape",
-      "tooltip": "Opens Kubescape projects dashboards",
-      "type": "link",
-      "url": "https://kubescape.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1955,6 +1855,316 @@
       "tooltip": "Opens KusionStack projects dashboards",
       "type": "link",
       "url": "https://kusionstack.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "OpenEBS",
+      "tooltip": "Opens OpenEBS projects dashboards",
+      "type": "link",
+      "url": "https://openebs.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Youki",
+      "tooltip": "Opens Youki projects dashboards",
+      "type": "link",
+      "url": "https://youki.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KAITO",
+      "tooltip": "Opens KAITO projects dashboards",
+      "type": "link",
+      "url": "https://kaito.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Sermant",
+      "tooltip": "Opens Sermant projects dashboards",
+      "type": "link",
+      "url": "https://sermant.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kmesh",
+      "tooltip": "Opens Kmesh projects dashboards",
+      "type": "link",
+      "url": "https://kmesh.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "OVN-Kubernetes",
+      "tooltip": "Opens OVN-Kubernetes projects dashboards",
+      "type": "link",
+      "url": "https://ovnkubernetes.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Tratteria",
+      "tooltip": "Opens Tratteria projects dashboards",
+      "type": "link",
+      "url": "https://tratteria.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Spin",
+      "tooltip": "Opens Spin projects dashboards",
+      "type": "link",
+      "url": "https://spin.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "SpinKube",
+      "tooltip": "Opens SpinKube projects dashboards",
+      "type": "link",
+      "url": "https://spinkube.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "SlimFaaS",
+      "tooltip": "Opens SlimFaaS projects dashboards",
+      "type": "link",
+      "url": "https://slimfaas.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "container2wasm",
+      "tooltip": "Opens container2wasm projects dashboards",
+      "type": "link",
+      "url": "https://container2wasm.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "k0s",
+      "tooltip": "Opens k0s projects dashboards",
+      "type": "link",
+      "url": "https://k0s.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Runme Notebooks",
+      "tooltip": "Opens Runme Notebooks projects dashboards",
+      "type": "link",
+      "url": "https://runmenotebooks.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "CloudNativePG",
+      "tooltip": "Opens CloudNativePG projects dashboards",
+      "type": "link",
+      "url": "https://cloudnativepg.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KubeFleet",
+      "tooltip": "Opens KubeFleet projects dashboards",
+      "type": "link",
+      "url": "https://kubefleet.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Podman Desktop",
+      "tooltip": "Opens Podman Desktop projects dashboards",
+      "type": "link",
+      "url": "https://podmandesktop.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Podman Container Tools",
+      "tooltip": "Opens Podman Container Tools projects dashboards",
+      "type": "link",
+      "url": "https://podmancontainertools.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "bootc",
+      "tooltip": "Opens bootc projects dashboards",
+      "type": "link",
+      "url": "https://bootc.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "composefs",
+      "tooltip": "Opens composefs projects dashboards",
+      "type": "link",
+      "url": "https://composefs.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Drasi",
+      "tooltip": "Opens Drasi projects dashboards",
+      "type": "link",
+      "url": "https://drasi.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Interlink",
+      "tooltip": "Opens Interlink projects dashboards",
+      "type": "link",
+      "url": "https://interlink.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "CozyStack",
+      "tooltip": "Opens CozyStack projects dashboards",
+      "type": "link",
+      "url": "https://cozystack.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "kgateway",
+      "tooltip": "Opens kgateway projects dashboards",
+      "type": "link",
+      "url": "https://kgateway.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KitOps",
+      "tooltip": "Opens KitOps projects dashboards",
+      "type": "link",
+      "url": "https://kitops.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Hyperlight",
+      "tooltip": "Opens Hyperlight projects dashboards",
+      "type": "link",
+      "url": "https://hyperlight.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "OpenTofu",
+      "tooltip": "Opens OpenTofu projects dashboards",
+      "type": "link",
+      "url": "https://opentofu.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Cadence",
+      "tooltip": "Opens Cadence projects dashboards",
+      "type": "link",
+      "url": "https://cadence.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "kagent",
+      "tooltip": "Opens kagent projects dashboards",
+      "type": "link",
+      "url": "https://kagent.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "urunc",
+      "tooltip": "Opens urunc projects dashboards",
+      "type": "link",
+      "url": "https://urunc.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "xRegistry",
+      "tooltip": "Opens xRegistry projects dashboards",
+      "type": "link",
+      "url": "https://xregistry.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "ModelPack",
+      "tooltip": "Opens ModelPack projects dashboards",
+      "type": "link",
+      "url": "https://modelpack.[[hostname]]"
     },
     {
       "icon": "dashboard",
