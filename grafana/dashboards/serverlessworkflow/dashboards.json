@@ -699,6 +699,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "KServe",
+      "tooltip": "Opens KServe projects dashboards",
+      "type": "link",
+      "url": "https://kserve.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
