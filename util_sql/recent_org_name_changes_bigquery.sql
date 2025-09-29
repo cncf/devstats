@@ -7,23 +7,27 @@ select
   min(created_at) as date_from,
   max(created_at) as date_to
 from
-  [githubarchive:month.202410],
-  [githubarchive:month.202409],
-  [githubarchive:month.202408],
-  [githubarchive:month.202407],
-  [githubarchive:month.202406],
-  [githubarchive:month.202405],
+  [githubarchive:month.202508],
+  [githubarchive:month.202507],
+  [githubarchive:month.202506],
+  [githubarchive:month.202505],
+  [githubarchive:month.202504],
+  [githubarchive:month.202503],
+  [githubarchive:month.202502],
+  [githubarchive:month.202501]
 where
   org.id = (
     select
       org.id
     from
-      [githubarchive:month.202410],
-      [githubarchive:month.202409],
-      [githubarchive:month.202408],
-      [githubarchive:month.202407],
-      [githubarchive:month.202406],
-      [githubarchive:month.202405],
+      [githubarchive:month.202508],
+      [githubarchive:month.202507],
+      [githubarchive:month.202506],
+      [githubarchive:month.202505],
+      [githubarchive:month.202504],
+      [githubarchive:month.202503],
+      [githubarchive:month.202502],
+      [githubarchive:month.202501]
     where
       org.login = '{{org}}'
     group by

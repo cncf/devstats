@@ -11,6 +11,14 @@ from (
     repo.id,
     created_at
   from
+    [githubarchive:month.202508],
+    [githubarchive:month.202507],
+    [githubarchive:month.202506],
+    [githubarchive:month.202505],
+    [githubarchive:month.202504],
+    [githubarchive:month.202503],
+    [githubarchive:month.202502],
+    [githubarchive:month.202501],
     [githubarchive:year.2024],
     [githubarchive:year.2023],
     [githubarchive:year.2022],
@@ -33,6 +41,14 @@ where
     select
       repo.id
     from
+      [githubarchive:month.202508],
+      [githubarchive:month.202507],
+      [githubarchive:month.202506],
+      [githubarchive:month.202505],
+      [githubarchive:month.202504],
+      [githubarchive:month.202503],
+      [githubarchive:month.202502],
+      [githubarchive:month.202501],
       [githubarchive:year.2024],
       [githubarchive:year.2023],
       [githubarchive:year.2022],
