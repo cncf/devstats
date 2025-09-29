@@ -128,6 +128,7 @@ kpt,regexp:(?i)^(kptdev\/.*|GoogleContainerTools\/.*kpt.*)$
 krator,krator-rs
 krknchaos,krkn-chaos,redhat-chaos,chaos-kubox,cloud-bulldozer/krkn,cloud-bulldozer/kraken,openshift-scale/kraken
 krustlet,deislabs/krustlet,krustlet
+kserve,kserve,kubeflow/kfserving,kubeflow/kfserving-lts
 kuadrant,Kuadrant,3scale-labs/authorino
 kuasar,kuasar-io
 kubean,kubean-io
