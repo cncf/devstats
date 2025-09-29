@@ -807,7 +807,10 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=xregistry           PROJDB=xregistry      PROJREPO="xregistry/server"                ORGNAME='xRegistry'       PORT=3309 ICON=xregistry      GRAFSUFF=xregistry      GA="-" ./devel/deploy_proj.sh               || exit 234
   elif [ "$proj" = "modelpack" ]
   then
-    PROJ=modelpack           PROJDB=modelpack      PROJREPO="model-pack/model-spec"           ORGNAME='ModelPack'       PORT=3310 ICON=modelpack      GRAFSUFF=modelpack      GA="-" ./devel/deploy_proj.sh               || exit 235
+    PROJ=modelpack           PROJDB=modelpack      PROJREPO="model-pack/model-spec"           ORGNAME=ModelPack         PORT=3310 ICON=modelpack      GRAFSUFF=modelpack      GA="-" ./devel/deploy_proj.sh               || exit 235
+  elif [ "$proj" = "kserve" ]
+  then
+    PROJ=kserve              PROJDB=kserve         PROJREPO="kserve/kserve"                   ORGNAME=KServe            PORT=3311 ICON=kserve         GRAFSUFF=kserve         GA="-" ./devel/deploy_proj.sh               || exit 236
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
