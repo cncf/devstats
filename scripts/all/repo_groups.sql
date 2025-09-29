@@ -2422,6 +2422,16 @@ where
   org_login in ('CloudNativeAI', 'modelpack')
 ;
 
+-- KServe
+update
+  gha_repos
+set
+  repo_group = 'KServe'
+where
+  org_login in ('kserve')
+  or name in ('kubeflow/kfserving', 'kubeflow/kfserving-lts')
+;
+
 -- CNCF
 update
   gha_repos
