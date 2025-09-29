@@ -252,6 +252,7 @@ icontypes=(
   ["urunc"]="color"
   ["xregistry"]="color"
   ["modelpack"]="color"
+  ["kserve"]="color"
   ["tekton"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"

@@ -53,7 +53,7 @@ GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" devstats
 ONLY="openebs kusionstack youki kaito sermant kmesh ovnkubernetes tratteria spin spinkube slimfaas container2wasm k0s runmenotebooks cloudnativepg" ./devel/all_affs.sh || exit 17
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" devstats
 
-ONLY="kubefleet podmandesktop podmancontainertools bootc composefs drasi interlink cozystack kgateway kitops hyperlight opentofu cadence kagent urunc xregistry modelpack" ./devel/all_affs.sh || exit 18
+ONLY="kubefleet podmandesktop podmancontainertools bootc composefs drasi interlink cozystack kgateway kitops hyperlight opentofu cadence kagent urunc xregistry modelpack kserve" ./devel/all_affs.sh || exit 18
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" devstats
 
 ONLY="smi argo volcano cnigenie keptn kudo cloudcustodian dex litmuschaos artifacthub kuma parsec bfe crossplane" ./devel/all_affs.sh || exit 19

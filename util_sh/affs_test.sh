@@ -61,7 +61,7 @@ GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cn
 ONLY="kusionstack youki kaito sermant kmesh ovnkubernetes tratteria spin spinkube slimfaas container2wasm k0s runmenotebooks cloudnativepg" ./devel/all_affs.sh || exit 20
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" devstats
 
-ONLY="kubefleet podmandesktop podmancontainertools bootc composefs drasi interlink cozystack kgateway kitops hyperlight opentofu cadence kagent urunc xregistry modelpack" ./devel/all_affs.sh || exit 21
+ONLY="kubefleet podmandesktop podmancontainertools bootc composefs drasi interlink cozystack kgateway kitops hyperlight opentofu cadence kagent urunc xregistry modelpack kserve" ./devel/all_affs.sh || exit 21
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" devstats
 
 ONLY="cncf opencontainers sam azf riff fn openwhisk openfaas" GHA2DB_PROJECTS_OVERRIDE="+cncf,+opencontainers,+sam,+azf,+riff,+fn,+openwhisk,+openfaas" ./devel/all_affs.sh || exit 22
