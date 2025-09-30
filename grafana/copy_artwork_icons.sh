@@ -127,7 +127,7 @@ do
     icon="ovn-kubernetes"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "kserve" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "modelpack" ] || [ "$icon" = "cadence" ] || [ "$icon" = "kagent" ] || [ "$icon" = "kgateway" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "kubefleet" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "trestlegrc" ] || [ "$icon" = "opengemini" ] || [ "$icon" = "containerssh" ] || [ "$icon" = "lima" ] || [ "$icon" = "hexapolicyorchestrator" ] || [ "$icon" = "externalsecretsoperator" ] || [ "$icon" = "devstream" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "xregistry" ] || [ "$icon" = "modelpack" ] || [ "$icon" = "cadence" ] || [ "$icon" = "kagent" ] || [ "$icon" = "kgateway" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "kubefleet" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "trestlegrc" ] || [ "$icon" = "opengemini" ] || [ "$icon" = "containerssh" ] || [ "$icon" = "lima" ] || [ "$icon" = "hexapolicyorchestrator" ] || [ "$icon" = "externalsecretsoperator" ] || [ "$icon" = "devstream" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -151,6 +151,10 @@ do
   if [ "$path" = "projects/notary" ]
   then
     icon="notary-project"
+  fi
+  if [ "$path" = "projects/kserve" ]
+  then
+    icon="k-serve"
   fi
   # echo "Proj: $proj, icon: $icon, path: $path, icon type: $icontype:, icon org: $iconorg, suffix: $suff"
   cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "/usr/share/grafana.$suff/public/img/grafana_icon.svg" || exit 2
