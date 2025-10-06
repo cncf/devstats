@@ -2161,6 +2161,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Oauth2-Proxy",
+      "tooltip": "Opens Oauth2-Proxy projects dashboards",
+      "type": "link",
+      "url": "https://oauth2proxy.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
