@@ -811,6 +811,9 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "kserve" ]
   then
     PROJ=kserve              PROJDB=kserve         PROJREPO="kserve/kserve"                   ORGNAME=KServe            PORT=3311 ICON=kserve         GRAFSUFF=kserve         GA="-" ./devel/deploy_proj.sh               || exit 236
+  elif [ "$proj" = "oauth2proxy" ]
+  then
+    PROJ=oauth2proxy         PROJDB=oauth2proxy    PROJREPO="oauth2-proxy/oauth2-proxy"       ORGNAME="Oauth2-Proxy"    PORT=3312 ICON=oauth2proxy    GRAFSUFF=oauth2proxy    GA="-" ./devel/deploy_proj.sh               || exit 237
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
