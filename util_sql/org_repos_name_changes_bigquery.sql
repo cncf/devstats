@@ -11,6 +11,7 @@ from (
     repo.id,
     created_at
   from
+    [githubarchive:month.202509],
     [githubarchive:month.202508],
     [githubarchive:month.202507],
     [githubarchive:month.202506],
@@ -41,6 +42,7 @@ where
     select
       repo.id
     from
+      [githubarchive:month.202509],
       [githubarchive:month.202508],
       [githubarchive:month.202507],
       [githubarchive:month.202506],
