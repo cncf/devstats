@@ -3222,6 +3222,19 @@ projects:
     main_repo: kserve/kserve
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  oauth2proxy:
+    order: 237
+    name: "Oauth2 Proxy"
+    status: sandbox
+    command_line:
+      - oauth2-proxy
+    start_date: 2017-09-29T00:00:00Z
+    join_date: 2025-10-03T00:00:00Z
+    psql_db: oauth2proxy
+    shared_db: allprj
+    main_repo: oauth2-proxy/oauth2-proxy
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opencontainers:
     order: 1200
     name: OCI
@@ -3442,7 +3455,7 @@ projects:
          argoproj-labs,kube-vip,keycloak,oras-project,wasmCloud,project-akri,metallb,karmada-io,\
          clusternet,youki-dev,inclavare-containers,cilium,dapr,kubescape,inspektor-gadget,\
          open-cluster-management-io,vscode-kubernetes-tools,kubearmor,cncf-tags,meshery,\
-         meshery-extensions,knative,knative-sandbox,project-stacker,kserve,\
+         meshery-extensions,knative,knative-sandbox,project-stacker,kserve,oauth2-proxy,\
          confidential-containers,cncf/tag-app-delivery,knative-extensions,OpenFunction,clusterpedia-io,\
          Kuadrant,aeraki-mesh,open-feature,kubewarden,kubevela,openGemini,hexa-org,konveyor,\
          armadaproject,external-secrets,Serverless-Devs,devspace-sh,ContainerSSH,openfga,kubereboot,\
