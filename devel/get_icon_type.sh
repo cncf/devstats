@@ -253,6 +253,7 @@ icontypes=(
   ["xregistry"]="color"
   ["modelpack"]="color"
   ["kserve"]="color"
+  ["oauth2proxy"]="color"
   ["tekton"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
