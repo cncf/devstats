@@ -43,7 +43,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 27,
-  "iteration": 1748925895652,
+  "iteration": 1759812329735,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -196,8 +196,8 @@
       {
         "current": {
           "selected": true,
-          "text": "Month",
-          "value": "m"
+          "text": "Week",
+          "value": "w"
         },
         "hide": 0,
         "includeAll": false,
@@ -211,7 +211,7 @@
             "value": "d"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "Week",
             "value": "w"
           },
@@ -221,7 +221,7 @@
             "value": "d7"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "Month",
             "value": "m"
           },
@@ -300,70 +300,38 @@
         "current": {
           "selected": true,
           "text": [
-            "\"taylanisikdemir\"",
-            "\"Groxx\"",
-            "\"davidporter-id-au\"",
-            "\"Shaddoll\"",
-            "\"adhityamamallan\"",
-            "\"Assem-Uber\"",
-            "\"3vilhamster\"",
-            "\"timl3136\"",
-            "\"shijiesheng\"",
-            "\"natemort\"",
-            "\"fimanishi\"",
-            "\"dkrotx\"",
-            "\"jakobht\"",
-            "\"arzonus\"",
+            "\"tuunit\"",
+            "\"JoelSpeed\"",
+            "\"sourava01\"",
             "\"Copilot\"",
-            "\"gazi-yestemirova\"",
-            "\"badcount\"",
-            "\"sankari165\"",
-            "\"neil-xie\"",
-            "\"mandyschen\"",
-            "\"ribaraka\"",
-            "\"ibarrajo\"",
-            "\"abhishekj720\"",
-            "\"vishwa-uber\"",
-            "\"bowenxia\"",
-            "\"demirkayaender\"",
-            "\"gliptak\"",
-            "\"c-warren\"",
-            "\"tubignat\"",
-            "\"pandeyanshuman\"",
-            "\"none\""
+            "\"BobDu\"",
+            "\"wardviaene\"",
+            "\"OliverLeighC\"",
+            "\"matheuscscp\"",
+            "\"pierluigilenoci\"",
+            "\"pkking\"",
+            "\"haitch\"",
+            "\"willwill96\"",
+            "\"kvanzuijlen\"",
+            "\"younsl\"",
+            "\"the-technat\""
           ],
           "value": [
-            "\"taylanisikdemir\"",
-            "\"Groxx\"",
-            "\"davidporter-id-au\"",
-            "\"Shaddoll\"",
-            "\"adhityamamallan\"",
-            "\"Assem-Uber\"",
-            "\"3vilhamster\"",
-            "\"timl3136\"",
-            "\"shijiesheng\"",
-            "\"natemort\"",
-            "\"fimanishi\"",
-            "\"dkrotx\"",
-            "\"jakobht\"",
-            "\"arzonus\"",
+            "\"tuunit\"",
+            "\"JoelSpeed\"",
+            "\"sourava01\"",
             "\"Copilot\"",
-            "\"gazi-yestemirova\"",
-            "\"badcount\"",
-            "\"sankari165\"",
-            "\"neil-xie\"",
-            "\"mandyschen\"",
-            "\"ribaraka\"",
-            "\"ibarrajo\"",
-            "\"abhishekj720\"",
-            "\"vishwa-uber\"",
-            "\"bowenxia\"",
-            "\"demirkayaender\"",
-            "\"gliptak\"",
-            "\"c-warren\"",
-            "\"tubignat\"",
-            "\"pandeyanshuman\"",
-            "\"none\""
+            "\"BobDu\"",
+            "\"wardviaene\"",
+            "\"OliverLeighC\"",
+            "\"matheuscscp\"",
+            "\"pierluigilenoci\"",
+            "\"pkking\"",
+            "\"haitch\"",
+            "\"willwill96\"",
+            "\"kvanzuijlen\"",
+            "\"younsl\"",
+            "\"the-technat\""
           ]
         },
         "datasource": {
@@ -390,8 +358,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Cadence",
-          "value": "Cadence"
+          "text": "Oauth2-Proxy",
+          "value": "Oauth2-Proxy"
         },
         "datasource": {
           "type": "postgres",
@@ -416,8 +384,8 @@
       {
         "current": {
           "selected": false,
-          "text": "<h1 id=\"dashboard-header\">Cadence user reviews dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/reviews_per_user.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>reviews_per_user</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/cadence/user-reviews.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows number of PR reviews most active reviewers.</li>\n<li>Review means user added PR review comment.</li>\n<li>You can select reviewer from the reviewers drop-down, it shows top active reviewers from last 3 months.</li>\n<li>To find top active reviewers we sum number of reviews per user.</li>\n<li>You can select single repository or summary for all of them.</li>\n<li>You can filter by period and choose multiple reviewers to stack their data.</li>\n<li>Selecting period (for example week) means that dashboard will show reviews in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>",
-          "value": "<h1 id=\"dashboard-header\">Cadence user reviews dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/reviews_per_user.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>reviews_per_user</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/cadence/user-reviews.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows number of PR reviews most active reviewers.</li>\n<li>Review means user added PR review comment.</li>\n<li>You can select reviewer from the reviewers drop-down, it shows top active reviewers from last 3 months.</li>\n<li>To find top active reviewers we sum number of reviews per user.</li>\n<li>You can select single repository or summary for all of them.</li>\n<li>You can filter by period and choose multiple reviewers to stack their data.</li>\n<li>Selecting period (for example week) means that dashboard will show reviews in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>"
+          "text": "<h1 id=\"dashboard-header\">Oauth2-Proxy user reviews dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/reviews_per_user.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>reviews_per_user</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/oauth2proxy/user-reviews.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows number of PR reviews most active reviewers.</li>\n<li>Review means user added PR review comment.</li>\n<li>You can select reviewer from the reviewers drop-down, it shows top active reviewers from last 3 months.</li>\n<li>To find top active reviewers we sum number of reviews per user.</li>\n<li>You can select single repository or summary for all of them.</li>\n<li>You can filter by period and choose multiple reviewers to stack their data.</li>\n<li>Selecting period (for example week) means that dashboard will show reviews in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>",
+          "value": "<h1 id=\"dashboard-header\">Oauth2-Proxy user reviews dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/reviews_per_user.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>reviews_per_user</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/oauth2proxy/user-reviews.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows number of PR reviews most active reviewers.</li>\n<li>Review means user added PR review comment.</li>\n<li>You can select reviewer from the reviewers drop-down, it shows top active reviewers from last 3 months.</li>\n<li>To find top active reviewers we sum number of reviews per user.</li>\n<li>You can select single repository or summary for all of them.</li>\n<li>You can filter by period and choose multiple reviewers to stack their data.</li>\n<li>Selecting period (for example week) means that dashboard will show reviews in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>"
         },
         "datasource": {
           "type": "postgres",

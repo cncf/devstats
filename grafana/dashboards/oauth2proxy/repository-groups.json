@@ -25,7 +25,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 37,
-  "iteration": 1703367675758,
+  "iteration": 1759812336545,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -51,8 +51,8 @@
       "scroll": true,
       "showHeader": true,
       "sort": {
-        "col": 1,
-        "desc": false
+        "col": 0,
+        "desc": true
       },
       "styles": [],
       "targets": [
@@ -126,8 +126,8 @@
       {
         "current": {
           "selected": false,
-          "text": "oauth2proxy",
-          "value": "oauth2proxy"
+          "text": "Oauth2-Proxy",
+          "value": "Oauth2-Proxy"
         },
         "datasource": {
           "type": "postgres",
