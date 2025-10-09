@@ -2442,6 +2442,47 @@ where
   or name in ('pusher/oauth2_proxy')
 ;
 
+-- Oxia
+update
+  gha_repos
+set
+  repo_group = 'Oxia'
+where
+  org_login in ('oxia-db')
+  or name in ('streamnative/oxia')
+;
+
+-- HolmesGPT
+update
+  gha_repos
+set
+  repo_group = 'HolmesGPT'
+where
+  name in (
+    'robusta-dev/holmesgpt',
+    'robusta-dev/homebrew-holmesgpt',
+    'robusta-dev/holmesgpt-community-toolsets'
+ )
+;
+
+-- Cedar Policy
+update
+  gha_repos
+set
+  repo_group = 'Cedar Policy'
+where
+  org_login in ('cedar-policy')
+;
+
+-- Dalec
+update
+  gha_repos
+set
+  repo_group = 'Dalec'
+where
+  name in ('Azure/dalec')
+;
+
 -- CNCF
 update
   gha_repos
