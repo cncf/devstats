@@ -28,20 +28,24 @@ tags:
     series_name: priority_labels_with_all
     name_tag: priority_labels_name_with_all
     value_tag: priority_labels_value_with_all
+    limit: 100
   - name: Reviewers
     sql: reviewers_tags
     series_name: reviewers
     name_tag: reviewers_name
+    limit: 100
   - name: Repository aliases (top N)
     sql: top_repo_aliases_tags
     series_name: top_repo_names
     name_tag: top_repo_names_name
     value_tag: top_repo_names_value
+    limit: 200
   - name: Repository names (top N + All)
     sql: top_repos_tags_with_all
     series_name: top_repos_with_all
     name_tag: top_repos_name_with_all
     value_tag: top_repos_value_with_all
+    limit: 200
   - name: GitHub event types
     sql: event_types_tags
     series_name: event_types
@@ -51,6 +55,7 @@ tags:
     sql: users_tags
     series_name: users
     name_tag: users_name
+    limit: 200
   - name: Country names
     sql: countries_tags
     series_name: countries
