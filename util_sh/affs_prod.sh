@@ -56,7 +56,7 @@ GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" devstats
 ONLY="kubefleet podmandesktop podmancontainertools bootc composefs drasi interlink cozystack kgateway kitops hyperlight opentofu cadence" ./devel/all_affs.sh || exit 18
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" devstats
 
-ONLY="kagent urunc xregistry modelpack kserve oauth2proxy" ./devel/all_affs.sh || exit 19
+ONLY="kagent urunc xregistry modelpack kserve oauth2proxy oxia holmesgpt cedarpolicy dalec" ./devel/all_affs.sh || exit 19
 GHA2DB_RECENT_RANGE="4 hours" GHA2DB_TMOFFSET="-4" devstats
 
 ONLY="smi argo volcano cnigenie keptn kudo cloudcustodian dex litmuschaos artifacthub kuma parsec bfe crossplane" ./devel/all_affs.sh || exit 20
