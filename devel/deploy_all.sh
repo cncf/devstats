@@ -814,6 +814,18 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "oauth2proxy" ]
   then
     PROJ=oauth2proxy         PROJDB=oauth2proxy    PROJREPO="oauth2-proxy/oauth2-proxy"       ORGNAME="Oauth2-Proxy"    PORT=3312 ICON=oauth2proxy    GRAFSUFF=oauth2proxy    GA="-" ./devel/deploy_proj.sh               || exit 237
+  elif [ "$proj" = "oxia" ]
+  then
+    PROJ=oxia                PROJDB=oxia           PROJREPO="oxia-db/oxia"                    ORGNAME=Oxia              PORT=3313 ICON=oxia           GRAFSUFF=oxia           GA="-" ./devel/deploy_proj.sh               || exit 238
+  elif [ "$proj" = "holmesgpt" ]
+  then
+    PROJ=holemsgpt           PROJDB=holmesgpt      PROJREPO="reobusta-dev/holmesgpt"          ORGNAME=HolmesGPT         PORT=3314 ICON=holmesgpt      GRAFSUFF=holmesgpt      GA="-" ./devel/deploy_proj.sh               || exit 239
+  elif [ "$proj" = "cedarpolicy" ]
+  then
+    PROJ=cedarpolicy         PROJDB=cedarpolicy    PROJREPO="cedar-policy/cedar"              ORGNAME="Cedar Policy"    PORT=3315 ICON=cedarpolicy    GRAFSUFF=cedarpolicy    GA="-" ./devel/deploy_proj.sh               || exit 240
+  elif [ "$proj" = "dalec" ]
+  then
+    PROJ=dalec               PROJDB=dalec          PROJREPO="Azure/dalec"                     ORGNAME=Dalce             PORT=3316 ICON=dalce          GRAFSUFF=dalec          GA="-" ./devel/deploy_proj.sh               || exit 241
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
