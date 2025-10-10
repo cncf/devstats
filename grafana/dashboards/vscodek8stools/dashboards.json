@@ -2178,6 +2178,46 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Oxia",
+      "tooltip": "Opens Oxia projects dashboards",
+      "type": "link",
+      "url": "https://oxia.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "HolmesGPT",
+      "tooltip": "Opens HolmesGPT projects dashboards",
+      "type": "link",
+      "url": "https://holmesgpt.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Ceder Policy",
+      "tooltip": "Opens Ceder Policy projects dashboards",
+      "type": "link",
+      "url": "https://cederpolicy.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Dalec",
+      "tooltip": "Opens Dalec projects dashboards",
+      "type": "link",
+      "url": "https://dalec.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
