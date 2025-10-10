@@ -22,6 +22,7 @@ cartography,cartography-cncf,lyft/cartography
 carvel,vmware-tanzu/carvel,k14s,carvel-dev
 cdevents,cdevents
 cdk8s,cdk8s-team,awslabs/cdk8s
+cadarpolicy,cedar-policy
 certmanager,cert-manager,jetstack/certmanager,jetstack-experimental/cert-manager
 chaosblade,chaosblade-io
 chaosmesh,chaos-mesh,pingcap/chaos-mesh
@@ -52,6 +53,7 @@ crio,kubernetes-incubator/ocid,kubernetes-incubator/cri-o,kubernetes-sigs/cri-o,
 crossplane,crossplane,crossplaneio,crossplane-contrib
 curiefense,curiefense
 curve,opencurve
+dalec,Azure/dalec
 dapr,dapr
 devfile,devfile,che-incubator/devworkspace-api
 devspace,devspace-sh,devspace-cloud,covexo
@@ -86,6 +88,7 @@ harbor,goharbor,vmware/harbor
 headlamp,headlamp-k8s,kinvolk/headlamp,kubernetes-purgatory/headlamp,kubernetes-sigs/headlamp
 helm,helm,kubernetes-helm,kubernetes-charts,kubernetes/helm,kubernetes/charts,kubernetes/deployment-manager,kubernetes/application-dm-templates
 hexapolicyorchestrator,hexa-org
+holmesgpt,robusta-dev/holmesgpt,robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets
 hwameistor,hwameistor
 hyperledger,hyperledger,hyperledger-labs,hyperledger-cicd
 hyperlight,hyperlight-dev
@@ -203,6 +206,7 @@ operatorframework,operator-framework
 oras,oras-project,deislabs/oras,shizhMSFT/oras
 ortelius,ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-setup,ortelius/keptn-config,ortelius/keptn-ortelius-service,ortelius/la-sbom-ledger,ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach
 ovnkubernetes,ovn-org,ovn-kubernetes,openvswitch/ovn-kubernetes
+oxia,oxia-db,streamnative/oxia
 p4lang,p4lang
 paralus,paralus
 parsec,parallaxsecond,docker/pasl
