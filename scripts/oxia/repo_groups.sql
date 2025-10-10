@@ -29,10 +29,10 @@ where
 update gha_repos set repo_group = alias;
 
 update gha_repos
-set repo_group = 'Oauth2-Proxy', alias = 'Oauth2-Proxy'
+set repo_group = 'Oxia', alias = 'Oxia'
 where name in (
-  'oauth2-proxy/oauth2-proxy',
-  'pusher/oauth2_proxy'
+  'oxia-db/oxia',
+  'streamnative/oxia'
 );
 
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, coalesce(repo_group, name), org_id, org_login from gha_repos on conflict do nothing;
