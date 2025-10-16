@@ -711,6 +711,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Lima",
+      "tooltip": "Opens Lima projects dashboards",
+      "type": "link",
+      "url": "https://lima.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -1295,16 +1305,6 @@
       "tooltip": "Opens Carvel projects dashboards",
       "type": "link",
       "url": "https://carvel.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Lima",
-      "tooltip": "Opens Lima projects dashboards",
-      "type": "link",
-      "url": "https://lima.[[hostname]]"
     },
     {
       "icon": "dashboard",
