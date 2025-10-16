@@ -2024,11 +2024,12 @@ projects:
   lima:
     order: 145
     name: Lima
-    status: Sandbox
+    status: Incubating
     command_line:
       - 'lima-vm'
     start_date: 2021-08-02T00:00:00Z
     join_date: 2022-09-14T00:00:00Z
+    incubating_date: 2025-10-14T00:00:00Z
     psql_db: lima
     shared_db: allprj
     main_repo: lima-vm/lima
