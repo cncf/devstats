@@ -138,7 +138,7 @@ do
     icon="oauth2-proxy"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "oxia" ] || [ "$icon" = "holmesgpt" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "dalec" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "modelpack" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "oxia" ] || [ "$icon" = "holmesgpt" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -299,6 +299,11 @@ do
   then
     convert "$HOME/dev/cncf/artwork/projects/k0s/icon/color/k0s-logo-2025-icon.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 40
     cp "$HOME/dev/cncf/artwork/projects/k0s/icon/color/k0s-logo-2025-icon.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 41
+    continue
+  elif [ "$icon" = "modelpack" ]
+  then
+    convert "$HOME/dev/cncf/artwork/projects/modelpack/icon/color/ModelPack_Logo_Icon_Color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 42
+    cp "$HOME/dev/cncf/artwork/projects/modelpack/icon/color/ModelPack_Logo_Icon_Color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 43
     continue
   fi
   # All others

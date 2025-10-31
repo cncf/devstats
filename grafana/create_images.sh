@@ -144,7 +144,7 @@ do
     icon="oauth2-proxy"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "oxia" ] || [ "$icon" = "holmesgpt" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "dalec" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "modelpack" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "oxia" ] || [ "$icon" = "holmesgpt" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "container2wasm" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -312,6 +312,11 @@ do
   then
     cp "$HOME/dev/cncf/artwork/projects/k0s/icon/color/k0s-logo-2025-icon.svg" "grafana/img/$suff.svg" || exit 41
     convert "$HOME/dev/cncf/artwork/projects/k0s/icon/color/k0s-logo-2025-icon.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 42
+    continue
+  elif [ "$icon" = "modelpack" ]
+  then
+    cp "$HOME/dev/cncf/artwork/projects/modelpack/icon/color/ModelPack_Logo_Icon_Color.svg" "grafana/img/$suff.svg" || exit 43
+    convert "$HOME/dev/cncf/artwork/projects/modelpack/icon/color/ModelPack_Logo_Icon_Color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 44
     continue
   fi
   # echo "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg"
