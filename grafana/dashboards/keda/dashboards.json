@@ -725,6 +725,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "OpenFGA",
+      "tooltip": "Opens OpenFGA projects dashboards",
+      "type": "link",
+      "url": "https://openfga.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -1279,16 +1289,6 @@
       "tooltip": "Opens ContainerSSH projects dashboards",
       "type": "link",
       "url": "https://containerssh.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OpenFGA",
-      "tooltip": "Opens OpenFGA projects dashboards",
-      "type": "link",
-      "url": "https://openfga.[[hostname]]"
     },
     {
       "icon": "dashboard",
