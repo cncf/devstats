@@ -3280,12 +3280,12 @@ projects:
     name: Dalec
     status: Sandbox
     command_line:
-      - Azure/dalec
+      - project-dalec
     start_date: 2024-01-18T00:00:00Z
     join_date: 2025-10-08T00:00:00Z
     psql_db: dalec
     shared_db: allprj
-    main_repo: Azure/dalec
+    main_repo: project-dalec/dalec
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opencontainers:
@@ -3531,7 +3531,7 @@ projects:
          interTwin-eu/interlink-kueue-plugin,interTwin-eu/interlink-arc-plugin,urunc-dev,\
          interTwin-eu/interlink-unicore-plugin,cozystack,kitops-ml,drasi-project,CloudNativeAI,\
          hyperlight-dev,kgateway-dev,bootc-dev,composefs,kubefleet-dev,opentofu,modelpack,\
-         oxia-db,cedar-policy,Azure/dalec,robusta-dev/holmesgpt,robusta-dev/homebrew-holmesgpt,\
+         oxia-db,cedar-policy,project-dalec,robusta-dev/holmesgpt,robusta-dev/homebrew-holmesgpt,\
          robusta-dev/holmesgpt-community-toolsets"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z

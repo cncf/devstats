@@ -2480,7 +2480,8 @@ update
 set
   repo_group = 'Dalec'
 where
-  name in ('Azure/dalec')
+  org_login in ('project-dalec')
+  or name in ('Azure/dalec')
 ;
 
 -- CNCF

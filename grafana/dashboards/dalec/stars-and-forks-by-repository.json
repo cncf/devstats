@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": true,
-          "text": "Azure/dalec",
-          "value": "Azure/dalec"
+          "text": "project-dalec/dalec",
+          "value": "project-dalec/dalec"
         },
         "datasource": {
           "type": "postgres",

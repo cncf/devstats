@@ -825,7 +825,7 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=cedarpolicy         PROJDB=cedarpolicy    PROJREPO="cedar-policy/cedar"              ORGNAME="Cedar Policy"    PORT=3315 ICON=cedarpolicy    GRAFSUFF=cedarpolicy    GA="-" ./devel/deploy_proj.sh               || exit 240
   elif [ "$proj" = "dalec" ]
   then
-    PROJ=dalec               PROJDB=dalec          PROJREPO="Azure/dalec"                     ORGNAME=Dalce             PORT=3316 ICON=dalce          GRAFSUFF=dalec          GA="-" ./devel/deploy_proj.sh               || exit 241
+    PROJ=dalec               PROJDB=dalec          PROJREPO="project-dalec/dalec"             ORGNAME=Dalce             PORT=3316 ICON=dalce          GRAFSUFF=dalec          GA="-" ./devel/deploy_proj.sh               || exit 241
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
