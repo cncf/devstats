@@ -464,12 +464,13 @@ projects:
   dragonfly:
     order: 31
     name: Dragonfly
-    status: Incubating
+    status: Graduated
     command_line:
       - dragonflyoss
     start_date: 2017-11-19T00:00:00Z
     join_date: 2018-11-13T00:00:00Z
     incubating_date: 2020-04-09T00:00:00Z
+    graduated_date: 2025-10-28T00:00:00Z
     psql_db: dragonfly
     shared_db: allprj
     main_repo: dragonflyoss/Dragonfly
@@ -879,12 +880,13 @@ projects:
   crossplane:
     order: 60
     name: Crossplane
-    status: Incubating
+    status: Graduated
     command_line:
       - crossplane,crossplaneio,crossplane-contrib
     start_date: 2018-12-04T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
     incubating_date: 2021-09-14T00:00:00Z
+    graduated_date: 2025-10-28T00:00:00Z
     psql_db: crossplane
     shared_db: allprj
     main_repo: crossplane/crossplane
@@ -1985,11 +1987,12 @@ projects:
   openfga:
     order: 142
     name: OpenFGA
-    status: Sandbox
+    status: Incubating
     command_line:
       - 'openfga'
     start_date: 2022-06-09T00:00:00Z
     join_date: 2022-09-14T00:00:00Z
+    incubating_date: 2025-10-28T00:00:00Z
     psql_db: openfga
     shared_db: allprj
     main_repo: openfga/openfga
