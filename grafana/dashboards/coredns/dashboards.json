@@ -359,6 +359,26 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Dragonfly",
+      "tooltip": "Opens Dragonfly projects dashboards",
+      "type": "link",
+      "url": "https://dragonfly.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Crossplane",
+      "tooltip": "Opens Crossplane projects dashboards",
+      "type": "link",
+      "url": "https://crossplane.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -393,16 +413,6 @@
       "tooltip": "Opens NATS dashboards",
       "type": "link",
       "url": "https://nats.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Dragonfly",
-      "tooltip": "Opens Dragonfly projects dashboards",
-      "type": "link",
-      "url": "https://dragonfly.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -473,16 +483,6 @@
       "tooltip": "Opens OpenTelemetry projects dashboards",
       "type": "link",
       "url": "https://opentelemetry.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Crossplane",
-      "tooltip": "Opens Crossplane projects dashboards",
-      "type": "link",
-      "url": "https://crossplane.[[hostname]]"
     },
     {
       "icon": "dashboard",
