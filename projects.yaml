@@ -3230,7 +3230,7 @@ projects:
     command_line:
       - oauth2-proxy
     start_date: 2017-09-29T00:00:00Z
-    join_date: 2025-10-03T00:00:00Z
+    join_date: 2025-10-02T00:00:00Z
     psql_db: oauth2proxy
     shared_db: allprj
     main_repo: oauth2-proxy/oauth2-proxy
