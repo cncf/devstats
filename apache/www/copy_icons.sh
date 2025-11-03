@@ -172,149 +172,154 @@ do
   fi
   if [ "$icon" = "servicemeshperformance" ]
   then
-    convert "$HOME/dev/cncf/artwork/archived/servicemeshperformance/icon/smp-light.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 10
+    magick "$HOME/dev/cncf/artwork/archived/servicemeshperformance/icon/smp-light.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 10
     cp "$HOME/dev/cncf/artwork/archived/servicemeshperformance/icon/smp-light.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 11
     continue
   elif [ "$icon" = "meshery" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/meshery/icon/meshery-logo-light.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 14
+    magick "$HOME/dev/cncf/artwork/projects/meshery/icon/meshery-logo-light.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 14
     cp "$HOME/dev/cncf/artwork/projects/meshery/icon/meshery-logo-light.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 15
     continue
   elif [ "$icon" = "wasmcloud" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/wasmcloud/icon/color/wasmcloud.icon_green.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 16
+    magick "$HOME/dev/cncf/artwork/projects/wasmcloud/icon/color/wasmcloud.icon_green.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 16
     cp "$HOME/dev/cncf/artwork/projects/wasmcloud/icon/color/wasmcloud.icon_green.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 17
     continue
   elif [ "$icon" = "k8up" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/k8up/icon/k8up-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 18
+    magick "$HOME/dev/cncf/artwork/projects/k8up/icon/k8up-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 18
     cp "$HOME/dev/cncf/artwork/projects/k8up/icon/k8up-icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 19
     continue
   elif [ "$icon" = "openclustermanagement" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/open-cluster-management/icon/color/ocm-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 20
+    magick "$HOME/dev/cncf/artwork/projects/open-cluster-management/icon/color/ocm-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 20
     cp "$HOME/dev/cncf/artwork/projects/open-cluster-management/icon/color/ocm-icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 21
     continue
   elif [ "$icon" = "cilium" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/cilium/icon/color/cilium_icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 22
+    magick "$HOME/dev/cncf/artwork/projects/cilium/icon/color/cilium_icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 22
     cp "$HOME/dev/cncf/artwork/projects/cilium/icon/color/cilium_icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 23
     continue
   elif [ "$icon" = "confidentialcontainers" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/confidential-containers/icon/color/confidential-containers-icon.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 24
+    magick "$HOME/dev/cncf/artwork/projects/confidential-containers/icon/color/confidential-containers-icon.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 24
     cp "$HOME/dev/cncf/artwork/projects/confidential-containers/icon/color/confidential-containers-icon.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 25
     continue
   elif [ "$icon" = "oras" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/oras/horizontal/color/oras-horizontal-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 26
+    magick "$HOME/dev/cncf/artwork/projects/oras/horizontal/color/oras-horizontal-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 26
     cp "$HOME/dev/cncf/artwork/projects/oras/horizontal/color/oras-horizontal-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 27
     continue
   elif [ "$icon" = "fabedge" ]
   then
-    convert "$HOME/dev/cncf/artwork/archived/fabedge/icon/color/fabedge-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 22
+    magick "$HOME/dev/cncf/artwork/archived/fabedge/icon/color/fabedge-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 22
     cp "$HOME/dev/cncf/artwork/archived/fabedge/icon/color/fabedge-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 23
     continue
   elif [ "$icon" = "opencost" ]
   then
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/Opencost_Icon_Color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/Opencost_Icon_Color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/Opencost_Icon_Color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
     continue
   elif [ "$icon" = "curve" ]
   then
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/curve_icon_color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/curve_icon_color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/curve_icon_color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
     continue
   elif [ "$icon" = "externalsecretsoperator" ]
   then
-    convert "$HOME/dev/$iconorg/artwork/projects/external-secrets-operator/icon/$icontype/eso-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
+    magick "$HOME/dev/$iconorg/artwork/projects/external-secrets-operator/icon/$icontype/eso-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
     cp "$HOME/dev/$iconorg/artwork/projects/external-secrets-operator/icon/$icontype/eso-icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
     continue
   elif [ "$icon" = "hexa" ]
   then
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/${icon}${dash}$mid-$icontype.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/${icon}${dash}$mid-$icontype.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
     cp "$HOME/dev/$iconorg/artwork/$path/icon/${icon}${dash}$mid-$icontype.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
     continue
   elif [ "$icon" = "containerssh" ]
   then
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/containerssh-icon-light.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/containerssh-icon-light.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
     cp "$HOME/dev/$iconorg/artwork/$path/icon/containerssh-icon-light.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
     continue
   elif [ "$icon" = "kubewarden" ]
   then
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$proj.icon.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$proj.icon.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$proj.icon.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
     continue
   elif [ "$icon" = "zot" ]
   then
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/${icon}${dash}$icontype-$mid.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/${icon}${dash}$icontype-$mid.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/${icon}${dash}$icontype-$mid.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
     continue
   elif [ "$icon" = "pyrsia" ]
   then
-    convert "$HOME/dev/cdfoundation/artwork/former_projects/pyrsia/artwork/logo.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
+    magick "$HOME/dev/cdfoundation/artwork/former_projects/pyrsia/artwork/logo.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
     cp "$HOME/dev/cdfoundation/artwork/former_projects/pyrsia/artwork/logo.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
     continue
   elif [ "$icon" = "aerakimesh" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/aerakimesh-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 22
+    magick "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/aerakimesh-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 22
     cp "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/aerakimesh-icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 23
     continue
   elif [ "$icon" = "copacetic" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/copa/Icon/Color/copa-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 24
+    magick "$HOME/dev/cncf/artwork/projects/copa/Icon/Color/copa-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 24
     cp "$HOME/dev/cncf/artwork/projects/copa/Icon/Color/copa-icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 25
     continue
   elif [ "$icon" = "kubeflow" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/kubeflow-icon.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 26
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/kubeflow-icon.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png"
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/kubeflow-icon.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png"
     continue
   elif [ "$icon" = "kubean" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-${icontype}light.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 28
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-${icontype}light.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 29
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-${icontype}light.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 29
     continue
   elif [ "$icon" = "opengemini" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/openGemini/icon/color/openGemini_icon_color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 30
+    magick "$HOME/dev/cncf/artwork/projects/openGemini/icon/color/openGemini_icon_color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 30
     cp "$HOME/dev/cncf/artwork/projects/openGemini/icon/color/openGemini_icon_color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 31
     continue
   elif [ "$icon" = "trestlegrc" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 32
+    magick "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 32
     cp "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 33
     continue
   elif [ "$icon" = "kmesh" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/KMESH$dash$mid-$icontype.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 36
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/KMESH$dash$mid-$icontype.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 37
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/KMESH$dash$mid-$icontype.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 37
     continue
   elif [ "$icon" = "vscodek8stools" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 38
+    magick "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 38
     cp "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 39
     continue
   elif [ "$icon" = "k0s" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/k0s/icon/color/k0s-logo-2025-icon.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 40
+    magick "$HOME/dev/cncf/artwork/projects/k0s/icon/color/k0s-logo-2025-icon.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 40
     cp "$HOME/dev/cncf/artwork/projects/k0s/icon/color/k0s-logo-2025-icon.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 41
     continue
   elif [ "$icon" = "modelpack" ]
   then
-    convert "$HOME/dev/cncf/artwork/projects/modelpack/icon/color/ModelPack_Logo_Icon_Color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 42
+    magick "$HOME/dev/cncf/artwork/projects/modelpack/icon/color/ModelPack_Logo_Icon_Color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 42
     cp "$HOME/dev/cncf/artwork/projects/modelpack/icon/color/ModelPack_Logo_Icon_Color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 43
+    continue
+  elif [ "$icon" = "kpt" ]
+  then
+    magick "$HOME/dev/cncf/artwork/projects/kpt/icon/color/kpt_icon_color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 44
+    cp "$HOME/dev/cncf/artwork/projects/kpt/icon/color/kpt_icon_color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 45
     continue
   fi
   # All others
   cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 26
   # Allow fail falling back to CNCF icon
-  convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png"
+  magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png"
   result=$?
   if [ ! "$result" = "0" ]
   then
     echo "WARNING: $HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg failed, falling back to CNCF"
-    convert "$HOME/dev/cncf/artwork/other/cncf/icon/color/cncf-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 27
+    magick "$HOME/dev/cncf/artwork/other/cncf/icon/color/cncf-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 27
   fi
 done
 
@@ -322,21 +327,21 @@ done
 # Special OCI case (not a CNCF project)
 if [[ $all = *"opencontainers"* ]]
 then
-  convert ./images/OCI.png -resize 80x80 /var/www/html/img/opencontainers-icon-color.png || exit 4
+  magick ./images/OCI.png -resize 80x80 /var/www/html/img/opencontainers-icon-color.png || exit 4
   cp ./images/OCI.svg /var/www/html/img/opencontainers-icon-color.svg || exit 5
 fi
 
 # Special Presto DB case (not a CNCF project)
 if [[ $all = *"prestodb"* ]]
 then
-  convert ./images/presto-logo-stacked.png -resize 80x80 /var/www/html/img/prestodb-icon-color.png || exit 6
+  magick ./images/presto-logo-stacked.png -resize 80x80 /var/www/html/img/prestodb-icon-color.png || exit 6
   cp ./images/presto-logo-stacked.svg /var/www/html/img/prestodb-icon-color.svg || exit 7
 fi
 
 # Special Godon Engine case (not a CNCF project)
 if [[ $all = *"godotengine"* ]]
 then
-  convert ./images/godotengine-logo-stacked.png -resize 80x80 /var/www/html/img/godotengine-icon-color.png || exit 8
+  magick ./images/godotengine-logo-stacked.png -resize 80x80 /var/www/html/img/godotengine-icon-color.png || exit 8
   cp ./images/godotengine-logo-stacked.svg /var/www/html/img/godotengine-icon-color.svg || exit 9
 fi
 

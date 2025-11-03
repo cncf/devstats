@@ -179,121 +179,121 @@ do
   if [ "$icon" = "servicemeshperformance" ]
   then
     cp "$HOME/dev/cncf/artwork/archived/servicemeshperformance/icon/smp-light.svg" "grafana/img/$suff.svg" || exit 2
-    convert "$HOME/dev/cncf/artwork/archived/servicemeshperformance/icon/smp-light.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
+    magick "$HOME/dev/cncf/artwork/archived/servicemeshperformance/icon/smp-light.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
     continue
   elif [ "$icon" = "meshery" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/meshery/icon/meshery-logo-light.svg" "grafana/img/$suff.svg" || exit 15
-    convert "$HOME/dev/cncf/artwork/projects/meshery/icon/meshery-logo-light.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 14
+    magick "$HOME/dev/cncf/artwork/projects/meshery/icon/meshery-logo-light.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 14
     continue
   elif [ "$icon" = "wasmcloud" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/wasmcloud/icon/color/wasmcloud.icon_green.svg" "grafana/img/$suff.svg" || exit 15
-    convert "$HOME/dev/cncf/artwork/projects/wasmcloud/icon/color/wasmcloud.icon_green.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 14
+    magick "$HOME/dev/cncf/artwork/projects/wasmcloud/icon/color/wasmcloud.icon_green.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 14
     continue
   elif [ "$icon" = "k8up" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/k8up/icon/k8up-icon-color.svg" "grafana/img/$suff.svg" || exit 17
-    convert "$HOME/dev/cncf/artwork/projects/k8up/icon/k8up-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 16
+    magick "$HOME/dev/cncf/artwork/projects/k8up/icon/k8up-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 16
     continue
   elif [ "$icon" = "openclustermanagement" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/open-cluster-management/icon/color/ocm-icon-color.svg" "grafana/img/$suff.svg" || exit 19
-    convert "$HOME/dev/cncf/artwork/projects/open-cluster-management/icon/color/ocm-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 18
+    magick "$HOME/dev/cncf/artwork/projects/open-cluster-management/icon/color/ocm-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 18
     continue
   elif [ "$icon" = "cilium" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/cilium/icon/color/cilium_icon-color.svg" "grafana/img/$suff.svg" || exit 21
-    convert "$HOME/dev/cncf/artwork/projects/cilium/icon/color/cilium_icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 20
+    magick "$HOME/dev/cncf/artwork/projects/cilium/icon/color/cilium_icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 20
     continue
   elif [ "$icon" = "confidentialcontainers" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/confidential-containers/icon/color/confidential-containers-icon.svg" "grafana/img/$suff.svg" || exit 23
-    convert "$HOME/dev/cncf/artwork/projects/confidential-containers/icon/color/confidential-containers-icon.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 22
+    magick "$HOME/dev/cncf/artwork/projects/confidential-containers/icon/color/confidential-containers-icon.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 22
     continue
   elif [ "$icon" = "oras" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/oras/horizontal/color/oras-horizontal-color.svg" "grafana/img/$suff.svg" || exit 25
-    convert "$HOME/dev/cncf/artwork/projects/oras/horizontal/color/oras-horizontal-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 24
+    magick "$HOME/dev/cncf/artwork/projects/oras/horizontal/color/oras-horizontal-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 24
     continue
   elif [ "$icon" = "fabedge" ]
   then
     cp "$HOME/dev/cncf/artwork/archived/fabedge/icon/color/fabedge-color.svg" "grafana/img/$suff.svg" || exit 21
-    convert "$HOME/dev/cncf/artwork/archived/fabedge/icon/color/fabedge-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 20
+    magick "$HOME/dev/cncf/artwork/archived/fabedge/icon/color/fabedge-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 20
     continue
   elif [ "$icon" = "opencost" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/Opencost_Icon_Color.svg" "grafana/img/$suff.svg" || exit 3
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/Opencost_Icon_Color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 2
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/Opencost_Icon_Color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 2
     continue
   elif [ "$icon" = "curve" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/curve_icon_color.svg" "grafana/img/$suff.svg" || exit 3
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/curve_icon_color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 2
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/curve_icon_color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 2
     continue
   elif [ "$icon" = "externalsecretsoperator" ]
   then
     cp "$HOME/dev/$iconorg/artwork/projects/external-secrets-operator/icon/$icontype/eso-icon-color.svg" "grafana/img/$suff.svg" || exit 3
-    convert "$HOME/dev/$iconorg/artwork/projects/external-secrets-operator/icon/$icontype/eso-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 2
+    magick "$HOME/dev/$iconorg/artwork/projects/external-secrets-operator/icon/$icontype/eso-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 2
     continue
   elif [ "$icon" = "hexa" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icon$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 2
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icon$dash$mid-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icon$dash$mid-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
     continue
   elif [ "$icon" = "containerssh" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/containerssh-icon-light.svg" "grafana/img/$suff.svg" || exit 2
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/containerssh-icon-light.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/containerssh-icon-light.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
     continue
   elif [ "$icon" = "kubewarden" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$proj.icon.svg" "grafana/img/$suff.svg" || exit 2
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$proj.icon.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$proj.icon.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
     continue
   elif [ "$icon" = "zot" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$icontype-$mid.svg" "grafana/img/$suff.svg" || exit 2
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$icontype-$mid.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$icontype-$mid.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
     continue
   elif [ "$icon" = "pyrsia" ]
   then
     cp "$HOME/dev/cdfoundation/artwork/former_projects/pyrsia/artwork/logo.svg" "grafana/img/$suff.svg" || exit 2
-    convert "$HOME/dev/cdfoundation/artwork/former_projects/pyrsia/artwork/logo.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
+    magick "$HOME/dev/cdfoundation/artwork/former_projects/pyrsia/artwork/logo.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
     continue
   elif [ "$icon" = "aerakimesh" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/aerakimesh-icon-color.svg" "grafana/img/$suff.svg" || exit 21
-    convert "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/aerakimesh-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 20
+    magick "$HOME/dev/cncf/artwork/projects/aerakimesh/icon/color/aerakimesh-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 20
     continue
   elif [ "$icon" = "copacetic" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/copa/Icon/Color/copa-icon-color.svg" "grafana/img/$suff.svg" || exit 23
-    convert "$HOME/dev/cncf/artwork/projects/copa/Icon/Color/copa-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 22
+    magick "$HOME/dev/cncf/artwork/projects/copa/Icon/Color/copa-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 22
     continue
   elif [ "$icon" = "kubeflow" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/kubeflow-icon.svg" "grafana/img/$suff.svg" || exit 25
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/kubeflow-icon.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 24
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/kubeflow-icon.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 24
     continue
   elif [ "$icon" = "kubean" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-${icontype}light.svg" "grafana/img/$suff.svg" || exit 27
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-${icontype}light.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 28
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-${icontype}light.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 28
     continue
   elif [ "$icon" = "opengemini" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/openGemini/icon/color/openGemini_icon_color.svg" "grafana/img/$suff.svg" || exit 29
-    convert "$HOME/dev/cncf/artwork/projects/openGemini/icon/color/openGemini_icon_color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 30
+    magick "$HOME/dev/cncf/artwork/projects/openGemini/icon/color/openGemini_icon_color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 30
     continue
   elif [ "$icon" = "trestlegrc" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.svg" "grafana/img/$suff.svg" || exit 31
-    convert "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 32
+    magick "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 32
     continue
   elif [ "$icon" = "atlantis" ]
   then
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 33
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 33
     icon="cncf"
     path="other/$icon"
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 34
@@ -301,27 +301,32 @@ do
   elif [ "$icon" = "kmesh" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/KMESH$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 37
-    convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/KMESH$dash$mid-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 38
+    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/KMESH$dash$mid-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 38
     continue
   elif [ "$icon" = "vscodek8stools" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.svg" "grafana/img/$suff.svg" || exit 39
-    convert "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 40
+    magick "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 40
     continue
   elif [ "$icon" = "k0s" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/k0s/icon/color/k0s-logo-2025-icon.svg" "grafana/img/$suff.svg" || exit 41
-    convert "$HOME/dev/cncf/artwork/projects/k0s/icon/color/k0s-logo-2025-icon.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 42
+    magick "$HOME/dev/cncf/artwork/projects/k0s/icon/color/k0s-logo-2025-icon.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 42
     continue
   elif [ "$icon" = "modelpack" ]
   then
     cp "$HOME/dev/cncf/artwork/projects/modelpack/icon/color/ModelPack_Logo_Icon_Color.svg" "grafana/img/$suff.svg" || exit 43
-    convert "$HOME/dev/cncf/artwork/projects/modelpack/icon/color/ModelPack_Logo_Icon_Color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 44
+    magick "$HOME/dev/cncf/artwork/projects/modelpack/icon/color/ModelPack_Logo_Icon_Color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 44
+    continue
+  elif [ "$icon" = "kpt" ]
+  then
+    cp "$HOME/dev/cncf/artwork/projects/kpt/icon/color/kpt_icon_color.svg" "grafana/img/$suff.svg" || exit 45
+    magick "$HOME/dev/cncf/artwork/projects/kpt/icon/color/kpt_icon_color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 46
     continue
   fi
   # echo "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg"
   cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 2
-  convert "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
+  magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 3
 done
 
 # Special cases
@@ -329,21 +334,21 @@ done
 if [[ $all = *"opencontainers"* ]]
 then
   cp images/OCI.svg grafana/img/opencontainers.svg || exit 4
-  convert images/OCI.png -resize 32x32 grafana/img/opencontainers32.png || exit 5
+  magick images/OCI.png -resize 32x32 grafana/img/opencontainers32.png || exit 5
 fi
 
 # Special Presto DB case (not a CNCF project)
 if [[ $all = *"prestodb"* ]]
 then
   cp images/presto-logo-stacked.svg grafana/img/prestodb.svg || exit 6
-  convert images/presto-logo-stacked.png -resize 32x32 grafana/img/prestodb32.png || exit 7
+  magick images/presto-logo-stacked.png -resize 32x32 grafana/img/prestodb32.png || exit 7
 fi
 
 # Special Godot Engine case (not a CNCF project)
 if [[ $all = *"godotengine"* ]]
 then
   cp images/godotengine-logo-stacked.svg grafana/img/godotengine.svg || exit 8
-  convert images/godotengine-logo-stacked.png -resize 32x32 grafana/img/godotengine32.png || exit 9
+  magick images/godotengine-logo-stacked.png -resize 32x32 grafana/img/godotengine32.png || exit 9
 fi
 
 echo 'OK'
