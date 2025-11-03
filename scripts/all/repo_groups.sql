@@ -2324,7 +2324,8 @@ update
 set
   repo_group = 'Interlink'
 where
-  name ~ '(?i)^interTwin-eu\/(.*interlink.*|vk-test-set)$'
+  org_login in ('interlink-hq')
+  or name ~ '(?i)^interTwin-eu\/(.*interlink.*|vk-test-set)$'
 ;
 
 -- CozyStack

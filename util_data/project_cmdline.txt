@@ -95,7 +95,7 @@ hyperlight,hyperlight-dev
 inclavarecontainers,inclavare-containers,alibaba/inclavare-containers
 ingraind,ingraind,foniod,redsift/ingraind
 inspektorgadget,inspektor-gadget,kinvolk/inspektor-gadget
-interlink,regexp:(?i)^interTwin-eu\/(.*interlink.*|vk-test-set)$
+interlink,regexp:(?i)^(interlink-hq\/.*|interTwin-eu\/(.*interlink.*|vk-test-set))$
 intoto,in-toto
 iovisor,iovisor
 istio,istio

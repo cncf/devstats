@@ -3075,12 +3075,12 @@ projects:
     name: Interlink
     status: Sandbox
     command_line:
-      - 'regexp:(?i)^interTwin-eu\/(.*interlink.*|vk-test-set)$'
+      - 'interlink-hq'
     start_date: 2023-07-05T00:00:00Z
     join_date: 2025-03-04T00:00:00Z
     psql_db: interlink
     shared_db: allprj
-    main_repo: interTwin-eu/interLink
+    main_repo: interlink-hq/interLink
     annotation_regexp: '^\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   cozystack:
@@ -3520,22 +3520,17 @@ projects:
          krkn-chaos,kubeclipper-labs,buildpacks-community,project-copacetic,kube-logging,bpfman,\
          kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,easegress-io,xregistry,\
          spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops,kubeslice,score-spec,\
-         connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass,\
+         connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass,interlink-hq,\
          loxilb-io,cartography-cncf,perses,ratify-project,Project-HAMi,shipwright-io,\
          flatcar,flatcar-linux,sermant-io,kmesh-net,ovn-org,ovn-kubernetes,prometheus-community,\
          tokenetes,spinframework,k0sproject,SlimPlanet,container2wasm,runmedev,cloudnative-pg,\
          Azure/Fleet-PRSE,Azure/fleet-networking,Azure/fleet,Azure/azure-rest-api-specs-fleet,\
          podman-desktop,containers/podman,containers/buildah,containers/skopeo,containers/netavark,\
          containers/aardvark-dns,containers/image,containers/storage,containers/common,\
-         containers/conmon,containers/podman-py,interTwin-eu/interLink,interTwin-eu/vk-test-set,\
-         interTwin-eu/interlink-jhub,interTwin-eu/interlink-slurm-plugin,cadence-workflow,\
-         interTwin-eu/interlink-docker-plugin,interTwin-eu/interlink-helm-chart,kagent-dev,\
-         interTwin-eu/interlink-monitoring-stack,interTwin-eu/interlink-htcondor-plugin,\
-         interTwin-eu/interlink-kueue-plugin,interTwin-eu/interlink-arc-plugin,urunc-dev,\
-         interTwin-eu/interlink-unicore-plugin,cozystack,kitops-ml,drasi-project,CloudNativeAI,\
-         hyperlight-dev,kgateway-dev,bootc-dev,composefs,kubefleet-dev,opentofu,modelpack,\
-         oxia-db,cedar-policy,project-dalec,robusta-dev/holmesgpt,robusta-dev/homebrew-holmesgpt,\
-         robusta-dev/holmesgpt-community-toolsets"
+         containers/conmon,containers/podman-py,cadence-workflow,kagent-dev,urunc-dev,cozystack,\
+         kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\
+         kubefleet-dev,opentofu,modelpack,oxia-db,cedar-policy,project-dalec,robusta-dev/holmesgpt,\
+         robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj

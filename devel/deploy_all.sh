@@ -777,7 +777,7 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=drasi               PROJDB=drasi          PROJREPO="drasi-project/drasi-platform"    ORGNAME='Drasi'           PORT=3299 ICON=drasi          GRAFSUFF=drasi          GA="-" ./devel/deploy_proj.sh               || exit 224
   elif [ "$proj" = "interlink" ]
   then
-    PROJ=interlink           PROJDB=interlink      PROJREPO="interTwin-eu/interLink"          ORGNAME='Interlink'       PORT=3300 ICON=interlink      GRAFSUFF=interlink      GA="-" ./devel/deploy_proj.sh               || exit 225
+    PROJ=interlink           PROJDB=interlink      PROJREPO="interlink-hq/interLink"          ORGNAME='Interlink'       PORT=3300 ICON=interlink      GRAFSUFF=interlink      GA="-" ./devel/deploy_proj.sh               || exit 225
   elif [ "$proj" = "cozystack" ]
   then
     PROJ=cozystack           PROJDB=cozystack      PROJREPO="cozystack/cozystack"             ORGNAME='CozyStack'       PORT=3301 ICON=cozystack      GRAFSUFF=cozystack      GA="-" ./devel/deploy_proj.sh               || exit 226
