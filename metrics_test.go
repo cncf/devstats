@@ -802,7 +802,7 @@ func addComment(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 		nil,        // position
 		nil,        // original_position
 		nil,        // path
-	nil,        // pull_request_review_id
+		nil,        // pull_request_review_id
 		nil,        // line
 		args[7],    // actor_id
 		args[8],    // actor_login
@@ -836,7 +836,7 @@ func addPayload(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 	}
 	newArgs := lib.AnyArray{
 		args[0], // event_id
-	nil,     // push_id, size, ref, head, before
+		nil,     // push_id, size, ref, head, before
 		nil,
 		nil,
 		nil,
@@ -903,7 +903,7 @@ func addPR(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 		args[11], // PR.MergedAt
 		"9c31bcbc683a491c3d4122adcfe4caaab6e2d0fc", // PR.MergeCommitSHA
 		args[12],   // PR.Merged
-	true,       // PR.mergeable
+		true,       // PR.mergeable
 		true,       // PR.Rebaseable
 		"clean",    // PR.MergeableState (nil, unknown, clean, unstable, dirty)
 		1,          // PR.Comments
