@@ -43,13 +43,13 @@ Uses GNU `Makefile`:
 All `*.go` files in project root directory are common library `gha2db` for all go executables.
 All `*_test.go` and `test/*.go` are Go test files, that are used only for testing.
 
-To run tools locally (without install) prefix them with `GHA2DB_LOCAl=1 `.
+To run tools locally (without install) prefix them with `GHA2DB_LOCAL=1 `.
 
 # Usage:
 
 Local:
 - `make`
-- `ENV_VARIABLES GHA2DB_LOCAl=1 gha2db YYYY-MM-DD HH YYYY-MM-DD HH [org [repo]]`.
+- `ENV_VARIABLES GHA2DB_LOCAL=1 gha2db YYYY-MM-DD HH YYYY-MM-DD HH [org [repo]]`.
 
 Installed:
 - `make`
@@ -101,7 +101,7 @@ You can tweak `devstats` tools by environment variables:
 - Set `GHA2DB_SKIPLOG` for any tool to skip logging output to `gha_logs` table in `devstats` database.
 - Set `GHA2DB_LOCAL` for `gha2db_sync` tool to make it prefix call to other tools with "./" (so it will use other tools binaries from the current working directory instead of `/usr/bin/`). Local mode uses "./metrics/{{project}}/" to search for metrics files. Otherwise "/etc/gha2db/metrics/{{project}}/" is used.
 - Set `GHA2DB_METRICS_YAML` for `gha2db_sync` tool, set name of metrics yaml file, default is "metrics/{{project}}/metrics.yaml".
-- Set `GHA2DB_GAPS_YAML` for `gha2db_sync` tool, set name of gaps yaml file, default is "metrics/{{project}}/gaps.yaml". Please use Grafana's "null as zero" instead of using manuall filling gaps. This simplifies metrics a lot.
+- Set `GHA2DB_GAPS_YAML` for `gha2db_sync` tool, set name of gaps yaml file, default is "metrics/{{project}}/gaps.yaml". Please use Grafana's "null as zero" instead of using manual filling of gaps. This simplifies metrics a lot.
 - Set `GHA2DB_GITHUB_OAUTH` for `annotations` tool, if not set reads from `/etc/github/oauths` (multiple comma separated tokens) or `/etc/github/oauth` (single token) file. Set to "-" to force public access. **annotations tool is not using GitHub API anymore, it uses `git_tags.sh` script instead.**
 - Set `GHA2DB_MAXLOGAGE` for `gha2db_sync` tool, maximum age of DB logs stored in `devstats`.`gha_logs` table, default "1 week" (logs are cleared in `gha2db_sync` job).
 - Set `GHA2DB_TRIALS` for tools that use Postgres DB, set retry periods when "too many connection open" psql error appears, default is "10,30,60,120,300,600" (so 30s, 1min, 2min, 5min, 10min).
@@ -156,13 +156,13 @@ Examples in this shell script (some commented out, some not):
 
 You can use [this](https://pgtune.leopard.in.ua/#/) website to generate tuned values for `postgresql.conf` file.
 
-# Informations
+# Information
 
 GitHub archives keep data as Gzipped JSONs for each hour (24 gzipped JSONs per day).
 Single JSON is not a real JSON file, but "\n" newline separated list of JSONs for each GitHub event in that hour.
 So this is a JSON array in reality.
 
-GihHub archive files can be found [here](http://www.gharchive.org).
+GitHub archive files can be found [here](http://www.gharchive.org).
 
 For example to fetch 2017-08-03 18:00 UTC can be fetched by:
 
@@ -223,7 +223,7 @@ Defaults are:
 - If you want to skip table creations set `GHA2DB_SKIPTABLE` environment variable (when `GHA2DB_INDEX` also set, it will create indexes on already existing table structure, possibly already populated)
 - If you want to skip creating DB tools (like views and functions), use `GHA2DB_SKIPTOOLS` environment variable.
 
-It is recommended to create structure without indexes first (the default), then get data from GHA and populate array, and finally add indexes. To do do:
+It is recommended to create structure without indexes first (the default), then get data from GHA and populate array, and finally add indexes. To do so:
 - `time PG_PASS=your_password structure`
 - `time PG_PASS=your_password ./scripts/gha2db.sh`
 - `time GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 PG_PASS=your_password structure` (will take some time to generate indexes on populated database)
@@ -339,7 +339,7 @@ For example June 2017:
 To process kubernetes all time just use `kubernetes/psql.sh` script. Like this:
 - `time PG_PASS=pwd ./kubernetes/psql.sh`.
 
-# Check erros
+# Check errors
 
 To see if there are any errors please use script: `PG_PASS=... ./devel/get_errors.sh`.
 
@@ -389,7 +389,7 @@ Example call:
 
 Sync tool uses [gaps.yaml](https://github.com/cncf/devstats/blob/master/metrics/kubernetes/gaps.yaml), to prefill some series with zeros.
 This is needed for metrics (like SIG mentions or PRs merged) that return multiple rows, depending on data range.
-Please use Grafana's "null as zero" instead of using manuall filling gaps. This simplifies metrics a lot.
+Please use Grafana's "null as zero" instead of using manual filling of gaps. This simplifies metrics a lot.
 Sync tool read project definition from [projects.yaml](https://github.com/cncf/devstats/blob/master/projects.yaml)
 
 You can also use `devstats` tool that calls `gha2db_sync` for all defined projects and also updates local copy of all git repos using `get_repos`.
