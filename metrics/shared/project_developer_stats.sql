@@ -1135,6 +1135,61 @@ where
   ) and sub.value > 0.2 * {{project_scale}} * sqrt({{range}}/1450.0)
 )
 -- limit amount of data
+
+-- Add company-level aggregation using distinct event counting to match companies table logic
+-- This prevents discrepancies between individual developer sums and direct company calculations
+union select 'hdev_contributions_company,All_All' as metric,
+  coalesce(aa.company_name, 'Independent') as name,
+  count(distinct e.id) as value
+from
+  gha_events e
+left join
+  gha_actors_affiliations aa
+on
+  aa.actor_id = e.actor_id
+  and aa.dt_from <= e.created_at
+  and aa.dt_to > e.created_at
+where
+  e.type in (
+    'PushEvent', 'PullRequestEvent', 'IssuesEvent', 'PullRequestReviewEvent',
+    'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent'
+  )
+  and {{period:e.created_at}}
+  and (lower(e.dup_actor_login) {{exclude_bots}})
+  and coalesce(aa.company_name, '') != ''
+group by
+  aa.company_name
+having
+  count(distinct e.id) >= 30
+
+union select 'hdev_contributions_company,' || r.repo_group || '_All' as metric,
+  coalesce(aa.company_name, 'Independent') as name,
+  count(distinct e.id) as value
+from
+  gha_events e,
+  gha_repo_groups r
+left join
+  gha_actors_affiliations aa
+on
+  aa.actor_id = e.actor_id
+  and aa.dt_from <= e.created_at
+  and aa.dt_to > e.created_at
+where
+  e.repo_id = r.id
+  and e.type in (
+    'PushEvent', 'PullRequestEvent', 'IssuesEvent', 'PullRequestReviewEvent',
+    'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent'
+  )
+  and {{period:e.created_at}}
+  and (lower(e.dup_actor_login) {{exclude_bots}})
+  and r.repo_group in (select repo_group_name from trepo_groups)
+  and coalesce(aa.company_name, '') != ''
+group by
+  r.repo_group,
+  aa.company_name
+having
+  count(distinct e.id) >= 30
+
 order by
   metric asc,
   value desc,
