@@ -276,9 +276,9 @@ from (
   ) sub
 -- limit amount of data
 where
-  (sub.metric = 'events' and sub.value >= 200)
+  (sub.metric = 'events' and sub.value >= 100)
   or (sub.metric = 'active_repos' and sub.value >= 3)
-  or (sub.metric = 'contributions' and sub.value >= 30)
+  or (sub.metric = 'contributions' and sub.value >= 5)
   or (sub.metric = 'commit_comments' and sub.value >= 10)
   or (sub.metric = 'comments' and sub.value >= 20)
   or (sub.metric = 'raw_reviews' and sub.value >= 15)
@@ -811,7 +811,7 @@ from (
 where
   (sub.metric = 'events' and sub.value >= 100)
   or (sub.metric = 'active_repos' and sub.value >= 3)
-  or (sub.metric = 'contributions' and sub.value >= 15)
+  or (sub.metric = 'contributions' and sub.value >= 5)
   or (sub.metric = 'commit_comments' and sub.value >= 5)
   or (sub.metric = 'comments' and sub.value >= 15)
   or (sub.metric = 'raw_reviews' and sub.value >= 10)
