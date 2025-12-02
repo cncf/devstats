@@ -3,6 +3,23 @@ with suffix_projects as (
   select
     'none' as project,
     'cncf' as suffix
+), version_parsing as (
+  -- Parse semantic versions from release tags
+  select
+    period as project,
+    title as release_tag,
+    time as release_date,
+    -- Extract major version (first number)
+    nullif(regexp_replace(title, '^[^0-9]*([0-9]+).*$', '\1'), title) as major_str,
+    -- Extract minor version (second number after dot)
+    nullif(regexp_replace(title, '^[^0-9]*[0-9]+\.([0-9]+).*$', '\1'), title) as minor_str,
+    -- Extract patch version (third number after second dot)
+    nullif(regexp_replace(title, '^[^0-9]*[0-9]+\.[0-9]+\.([0-9]+).*$', '\1'), title) as patch_str
+  from
+    sannotations_shared
+  where
+    title != 'CNCF join date'
+    and title ~ '^[^0-9]*[0-9]+'
 ), strip_projects as (
   -- projects from which we want to remove a suffix
   select
@@ -1009,24 +1026,8 @@ with suffix_projects as (
     repo_group is not null
 )
 select
-  'phealth,' || project || ',ltag' as name,
-  'Releases: Last release',
-  last_release_date,
-  0.0,
-  last_release_tag
-from
-  projects
-union select
-  'phealth,' || project || ',ldate' as name,
-  'Releases: Last release date',
-  last_release_date,
-  0.0,
-  to_char(last_release_date, 'MM/DD/YYYY')
-from
-  projects
-union select
   'phealth,' || project || ',ldesc' as name,
-  'Releases: Last release description',
+  'Release description',
   last_release_date,
   0.0,
   last_release_desc
@@ -1076,6 +1077,43 @@ from
   repo_groups rg
 where
   (select count(*) from gha_commits c, gha_repos r where c.dup_repo_id = r.id and r.repo_group = rg.repo_group) = 0
+union select
+  'phealth,' || project || ',semver' as name,
+  'Version (major.minor.patch)',
+  last_release_date,
+  0.0,
+  coalesce(
+    nullif(regexp_replace(last_release_tag, '^[^0-9]*([0-9]+).*$', '\\1'), last_release_tag),
+    '-'
+  ) || '.' ||
+  coalesce(
+    nullif(regexp_replace(last_release_tag, '^[^0-9]*[0-9]+\\.([0-9]+).*$', '\\1'), last_release_tag),
+    '0'
+  ) || '.' ||
+  coalesce(
+    nullif(regexp_replace(last_release_tag, '^[^0-9]*[0-9]+\\.[0-9]+\\.([0-9]+).*$', '\\1'), last_release_tag),
+    '0'
+  )
+from
+  projects
+where
+  last_release_tag is not null
+union select
+  'phealth,' || project || ',ldate' as name,
+  'Last release date',
+  last_release_date,
+  0.0,
+  to_char(last_release_date, 'YYYY-MM-DD')
+from
+  projects
+union select
+  'phealth,' || project || ',ltag' as name,
+  'Last release tag',
+  last_release_date,
+  0.0,
+  last_release_tag
+from
+  projects
 union select 'phealth,' || r.repo_group || ',lcommd' as name,
   'Commits: Days since last commit',
   max(c.dup_created_at),
