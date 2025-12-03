@@ -381,11 +381,19 @@ with suffix_projects as (
     count(distinct e.sha) as comm12,
     count(distinct e.sha) filter (where e.created_at >= now() - '6 months'::interval) as comm6,
     count(distinct e.sha) filter (where e.created_at >= now() - '3 months'::interval) as comm3,
+    count(distinct e.sha) filter (where e.created_at >= now() - '9 months'::interval) as comm9,
     count(distinct e.sha) filter (where e.created_at >= now() - '6 months'::interval and e.created_at < now() - '3 months'::interval) as commp3,
+    count(distinct e.sha) filter (where e.created_at >= now() - '12 months'::interval and e.created_at < now() - '6 months'::interval) as commp6,
+    count(distinct e.sha) filter (where e.created_at >= now() - '18 months'::interval and e.created_at < now() - '9 months'::interval) as commp9,
+    count(distinct e.sha) filter (where e.created_at >= now() - '24 months'::interval and e.created_at < now() - '12 months'::interval) as commp12,
     count(distinct e.actor_id) as acomm12,
     count(distinct e.actor_id) filter (where e.created_at >= now() - '6 months'::interval) as acomm6,
     count(distinct e.actor_id) filter (where e.created_at >= now() - '3 months'::interval) as acomm3,
-    count(distinct e.actor_id) filter (where e.created_at >= now() - '6 months'::interval and e.created_at < now() - '3 months'::interval) as acommp3
+    count(distinct e.actor_id) filter (where e.created_at >= now() - '9 months'::interval) as acomm9,
+    count(distinct e.actor_id) filter (where e.created_at >= now() - '6 months'::interval and e.created_at < now() - '3 months'::interval) as acommp3,
+    count(distinct e.actor_id) filter (where e.created_at >= now() - '12 months'::interval and e.created_at < now() - '6 months'::interval) as acommp6,
+    count(distinct e.actor_id) filter (where e.created_at >= now() - '18 months'::interval and e.created_at < now() - '9 months'::interval) as acommp9,
+    count(distinct e.actor_id) filter (where e.created_at >= now() - '24 months'::interval and e.created_at < now() - '12 months'::interval) as acommp12
   from (
       select dup_repo_id as repo_id,
         sha,
@@ -394,7 +402,7 @@ with suffix_projects as (
       from
         gha_commits
       where
-        dup_created_at >= now() - '1 year'::interval
+        dup_created_at >= now() - '2 years'::interval
         and (lower(dup_actor_login) {{exclude_bots}})
       union select dup_repo_id as repo_id,
         sha,
@@ -1248,6 +1256,22 @@ from
   repo_groups rg
 where
   (select count(*) from commits where repo_group = rg.repo_group) = 0
+union select 'phealth,' || repo_group || ',comm9' as name,
+  'Commits: Number of commits in the last 9 months',
+  now(),
+  0.0,
+  comm9::text
+from
+  commits
+union select 'phealth,' || rg.repo_group || ',comm9' as name,
+  'Commits: Number of commits in the last 9 months',
+  now(),
+  0.0,
+  '-'
+from
+  repo_groups rg
+where
+  (select count(*) from commits where repo_group = rg.repo_group) = 0
 union select 'phealth,' || repo_group || ',comm12' as name,
   'Commits: Number of commits in the last 12 months',
   now(),
@@ -1265,14 +1289,14 @@ from
 where
   (select count(*) from commits where repo_group = rg.repo_group) = 0
 union select 'phealth,' || repo_group || ',commp3' as name,
-  'Commits: Number of commits in the last 3 months (previous 3 months)',
+  'Commits: Number of commits in the previous 3 months',
   now(),
   0.0,
   commp3::text
 from
   commits
 union select 'phealth,' || rg.repo_group || ',commp3' as name,
-  'Commits: Number of commits in the last 3 months (previous 3 months)',
+  'Commits: Number of commits in the previous 3 months',
   now(),
   0.0,
   '-'
@@ -1280,6 +1304,46 @@ from
   repo_groups rg
 where
   (select count(*) from commits where repo_group = rg.repo_group) = 0
+union select 'phealth,' || repo_group || ',commp6' as name,
+  'Commits: Number of commits in the previous 6 months',
+  now(),
+  0.0,
+  commp6::text
+from
+  commits
+union select 'phealth,' || rg.repo_group || ',commp6' as name,
+  'Commits: Number of commits in the previous 6 months',
+  now(),
+  0.0,
+  '-'
+from
+  repo_groups rg
+where
+  (select count(*) from commits where repo_group = rg.repo_group) = 0
+union select 'phealth,' || repo_group || ',commp9' as name,
+  'Commits: Number of commits in the previous 9 months',
+  now(),
+  0.0,
+  commp9::text
+from
+  commits
+union select 'phealth,' || rg.repo_group || ',commp9' as name,
+  'Commits: Number of commits in the previous 9 months',
+  now(),
+  0.0,
+  '-'
+from
+  repo_groups rg
+where
+  (select count(*) from commits where repo_group = rg.repo_group) = 0
+union select 'phealth,' || repo_group || ',commp12' as name,
+  'Commits: Number of commits in the previous 12 months',
+  now(),
+  0.0,
+  commp12::text
+from
+  commits
+
 union select 'phealth,' || repo_group || ',comm' as name,
   'Commits: Number of commits in the last 3 months vs. previous 3 months',
   now(),
@@ -1289,6 +1353,54 @@ from
   commits
 union select 'phealth,' || rg.repo_group || ',comm' as name,
   'Commits: Number of commits in the last 3 months vs. previous 3 months',
+  now(),
+  0.0,
+  '-'
+from
+  repo_groups rg
+where
+  (select count(*) from commits where repo_group = rg.repo_group) = 0
+union select 'phealth,' || repo_group || ',comm6' as name,
+  'Commits: Number of commits in the last 6 months vs. previous 6 months',
+  now(),
+  0.0,
+  case comm6 > commp6 when true then 'Up' else case comm6 < commp6 when true then 'Down' else 'Flat' end end
+from
+  commits
+union select 'phealth,' || rg.repo_group || ',comm6' as name,
+  'Commits: Number of commits in the last 6 months vs. previous 6 months',
+  now(),
+  0.0,
+  '-'
+from
+  repo_groups rg
+where
+  (select count(*) from commits where repo_group = rg.repo_group) = 0
+union select 'phealth,' || repo_group || ',comm9' as name,
+  'Commits: Number of commits in the last 9 months vs. previous 9 months',
+  now(),
+  0.0,
+  case comm9 > commp9 when true then 'Up' else case comm9 < commp9 when true then 'Down' else 'Flat' end end
+from
+  commits
+union select 'phealth,' || rg.repo_group || ',comm9' as name,
+  'Commits: Number of commits in the last 9 months vs. previous 9 months',
+  now(),
+  0.0,
+  '-'
+from
+  repo_groups rg
+where
+  (select count(*) from commits where repo_group = rg.repo_group) = 0
+union select 'phealth,' || repo_group || ',comm12' as name,
+  'Commits: Number of commits in the last 12 months vs. previous 12 months',
+  now(),
+  0.0,
+  case comm12 > commp12 when true then 'Up' else case comm12 < commp12 when true then 'Down' else 'Flat' end end
+from
+  commits
+union select 'phealth,' || rg.repo_group || ',comm12' as name,
+  'Commits: Number of commits in the last 12 months vs. previous 12 months',
   now(),
   0.0,
   '-'
