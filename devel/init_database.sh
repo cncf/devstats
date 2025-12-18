@@ -69,6 +69,7 @@ then
   echo "creating postgres database devstats (logs)"
   ./devel/db.sh psql postgres -c "create database devstats" || exit 5
   ./devel/db.sh psql postgres -c "create user gha_admin with password '$PG_PASS'" || exit 6
+  ./devel/db.sh psql postgres -c "grant usage, create on schema public to gha_admin;" || exit 14
   ./devel/db.sh psql postgres -c "create user ro_user with password '$PG_PASS_RO'" || exit 7
   ./devel/db.sh psql postgres -c "create user devstats_team with password '$PG_PASS_TEAM'" || exit 8
   ./devel/db.sh psql postgres -c "grant all privileges on database \"devstats\" to gha_admin" || exit 9

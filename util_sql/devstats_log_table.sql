@@ -13,4 +13,4 @@ CREATE SEQUENCE gha_logs_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-ALTER TABLE gha_logs_id_seq OWNER TO gha_admin;
+ALTER SEQUENCE gha_logs_id_seq OWNER TO gha_admin;
