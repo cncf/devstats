@@ -46,6 +46,7 @@ then
     echo "creating postgres database $PROJDB"
     ./devel/db.sh psql postgres -c "create database $PROJDB" || exit 7
     ./devel/db.sh psql postgres -c "grant all privileges on database \"$PROJDB\" to gha_admin" || exit 8
+    ./devel/db.sh psql "$PROJDB" -c "grant usage, create on schema public to gha_admin" || exit 25
     ./devel/db.sh psql "$PROJDB" -c "create extension if not exists pgcrypto" || exit 23
     if [ ! -z "$GET" ]
     then
