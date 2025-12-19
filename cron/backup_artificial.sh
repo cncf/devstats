@@ -42,3 +42,4 @@ else
   xz -1 $db.tar || exit 16
 fi
 cp $db.tar.xz /var/www/html/ || echo 'Could not copy backup to /var/www/html/ (this is fine)'
+cp $db.tar.xz /root/ || echo 'Could not copy backup to /root/ (this is fine)'
