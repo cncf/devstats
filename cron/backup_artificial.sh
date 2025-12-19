@@ -31,6 +31,14 @@ db.sh psql $db -tAc "\copy (select * from gha_pull_requests_requested_reviewers 
 db.sh psql $db -tAc "\copy (select * from gha_issues_events_labels where event_id > 281474976710656) TO '/tmp/$db.issues_events_labels.tsv'" || exit 11
 db.sh psql $db -tAc "\copy (select * from gha_texts where event_id > 281474976710656) TO '/tmp/$db.texts.tsv'" || exit 12
 rm -f $db.tar* || exit 13
+echo "Creating backup archive $db.tar.xz"
 tar cf $db.tar $db.*.tsv || exit 14
-xz $db.tar || exit 15
-mv $db.tar.xz /var/www/html/ || exit 16
+if [ -z "${FASTXZ}" ]
+then
+  echo "xztting backup archive $db.tar.xz with default compression"
+  xz $db.tar || exit 15
+else
+  echo "xztting backup archive $db.tar.xz with fast compression"
+  xz -1 $db.tar || exit 16
+fi
+mv $db.tar.xz /var/www/html/ || exit 17
