@@ -41,4 +41,4 @@ else
   echo "xztting backup archive $db.tar.xz with fast compression"
   xz -1 $db.tar || exit 16
 fi
-mv $db.tar.xz /var/www/html/ || exit 17
+cp $db.tar.xz /var/www/html/ || echo 'Could not copy backup to /var/www/html/ (this is fine)'
