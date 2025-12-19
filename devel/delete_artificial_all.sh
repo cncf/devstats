@@ -7,6 +7,6 @@ fi
 . ./devel/all_dbs.sh || exit 2
 for db in $all
 do
- PG_DB=$db ./devel/delete_artificial.sh
+  PG_DB=$db ./devel/delete_artificial.sh
 done
 echo 'All artificial events deleted'
