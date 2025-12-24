@@ -287,6 +287,8 @@ metrics:
     hll: true
     merge_series: prjcntr
     drop: sprjcntr
+    env:
+      GHA2DB_NCPUS?: 2
   - name: New contributors table
     series_name_or_func: multi_row_single_column
     sql: new_contributors_data
