@@ -1,9 +1,86 @@
-update gha_commits c set dup_author_login = (select distinct a.login from gha_actors a, gha_actors_names an where a.id = an.actor_id and an.name = c.author_name) where c.dup_author_login = '' and c.author_name != '' and (select count(distinct a.login) from gha_actors a, gha_actors_names an where a.id = an.actor_id and an.name = c.author_name) = 1;
-update gha_commits c set author_id = (select a.id from gha_actors a where a.login = c.dup_author_login order by a.id desc limit 1) where c.dup_author_login != '' and c.author_id is null;
-update gha_commits c set author_email = (select ae.email from gha_actors_emails ae where ae.actor_id = c.author_id limit 1) where c.author_email = '' and c.author_id is not null and (select ae.email from gha_actors_emails ae where ae.actor_id = c.author_id limit 1) is not null;
-update gha_commits c set dup_author_login = (select a.login from gha_actors a where a.id = c.author_id) where c.dup_author_login = '' and c.author_id is not null;
-update gha_commits c set dup_committer_login = (select a.login from gha_actors a where a.id = c.committer_id) where c.dup_committer_login = '' and c.committer_id is not null;
+-- SET lock_timeout = '15minutes';
 
--- update gha_actors_emails set origin = 1 where email in (select committer_email from gha_commits union select author_email from gha_commits) and origin = 0;
--- update gha_actors_names set origin = 1 where name in (select committer_name from gha_commits union select author_name from gha_commits) and origin = 0;
-update gha_actors_names set origin = 1 where origin = 0 and name in (select author_name from gha_commits);
+BEGIN;
+
+-- Build reusable maps once
+CREATE TEMP TABLE tmp_name_to_login AS
+SELECT an.name, max(a.login) AS login
+FROM gha_actors_names an
+JOIN gha_actors a ON a.id = an.actor_id
+GROUP BY an.name
+HAVING count(DISTINCT a.login) = 1;
+
+CREATE TEMP TABLE tmp_login_to_id AS
+SELECT login, max(id) AS id          -- exact equivalent of ORDER BY id DESC LIMIT 1 per login
+FROM gha_actors
+GROUP BY login;
+
+CREATE TEMP TABLE tmp_id_to_login AS
+SELECT id, min(login) AS login       -- deterministic tie-break for duplicated ids
+FROM gha_actors
+GROUP BY id;
+
+CREATE TEMP TABLE tmp_actor_email AS
+SELECT DISTINCT ON (actor_id)
+       actor_id, email
+FROM gha_actors_emails
+ORDER BY actor_id, origin DESC, email;
+
+-- Helpful indexes on temp tables (optional; usually not needed but cheap)
+CREATE INDEX ON tmp_name_to_login(name);
+CREATE INDEX ON tmp_login_to_id(login);
+CREATE INDEX ON tmp_id_to_login(id);
+CREATE INDEX ON tmp_actor_email(actor_id);
+
+-- 1) Fill dup_author_login from author_name (unique name->login)
+UPDATE gha_commits c
+SET dup_author_login = n.login
+FROM tmp_name_to_login n
+WHERE c.author_name <> ''
+  AND c.author_name = n.name
+  AND c.dup_author_login IS DISTINCT FROM n.login;
+
+-- 2) Fill author_id from dup_author_login (highest id per login)
+UPDATE gha_commits c
+SET author_id = l.id
+FROM tmp_login_to_id l
+WHERE c.dup_author_login <> ''
+  AND c.author_id IS NULL
+  AND c.dup_author_login = l.login;
+
+-- 3) Fill author_email (prefer origin=1, then stable tie-break)
+UPDATE gha_commits c
+SET author_email = e.email
+FROM tmp_actor_email e
+WHERE c.author_email = ''
+  AND c.author_id IS NOT NULL
+  AND c.author_id = e.actor_id;
+
+-- 4) Backfill dup_author_login from author_id (dedup id->login)
+UPDATE gha_commits c
+SET dup_author_login = a.login
+FROM tmp_id_to_login a
+WHERE c.dup_author_login = ''
+  AND c.author_id IS NOT NULL
+  AND a.id = c.author_id;
+
+-- 5) Backfill dup_committer_login from committer_id (dedup id->login)
+UPDATE gha_commits c
+SET dup_committer_login = a.login
+FROM tmp_id_to_login a
+WHERE c.dup_committer_login = ''
+  AND c.committer_id IS NOT NULL
+  AND a.id = c.committer_id;
+
+-- 6) Mark actor names as used by commits as author_name
+UPDATE gha_actors_names an
+SET origin = 1
+WHERE an.origin = 0
+  AND EXISTS (
+    SELECT 1
+    FROM gha_commits c
+    WHERE c.author_name = an.name
+  );
+
+COMMIT;
+
