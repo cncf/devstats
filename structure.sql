@@ -2729,6 +2729,8 @@ CREATE INDEX comments_updated_at_idx ON public.gha_comments USING btree (updated
 
 CREATE INDEX comments_user_id_idx ON public.gha_comments USING btree (user_id);
 
+CREATE INDEX comments_repo_name_created_at_idx ON gha_comments (dup_repo_id, dup_repo_name, created_at);
+
 
 --
 -- Name: reviews_commit_id_idx; Type: INDEX; Schema: public; Owner: gha_admin
@@ -2986,6 +2988,8 @@ CREATE INDEX commits_loc_removed_idx ON public.gha_commits USING btree (loc_remo
 
 CREATE INDEX commits_sha_idx ON public.gha_commits USING btree (sha);
 
+CREATE INDEX commits_repo_name_created_at_idx ON gha_commits (dup_repo_id, dup_repo_name, dup_created_at);
+
 
 --
 -- Name: computed_dt_idx; Type: INDEX; Schema: public; Owner: gha_admin
@@ -3140,6 +3144,8 @@ CREATE INDEX events_repo_id_idx ON public.gha_events USING btree (repo_id);
 --
 
 CREATE INDEX events_type_idx ON public.gha_events USING btree (type);
+
+CREATE INDEX events_repo_name_created_at_idx ON gha_events (repo_id, dup_repo_name, created_at);
 
 
 --
@@ -3550,6 +3556,14 @@ CREATE INDEX issues_updated_at_idx ON public.gha_issues USING btree (updated_at)
 --
 
 CREATE INDEX issues_user_id_idx ON public.gha_issues USING btree (user_id);
+
+CREATE INDEX issues_repo_created_at_issues_idx
+ON gha_issues (dup_repo_id, dup_repo_name, created_at)
+WHERE is_pull_request = false;
+
+CREATE INDEX issues_repo_created_at_prs_idx
+ON gha_issues (dup_repo_id, dup_repo_name, created_at)
+WHERE is_pull_request = true;
 
 
 --
@@ -4029,6 +4043,11 @@ CREATE INDEX pull_requests_updated_at_idx ON public.gha_pull_requests USING btre
 --
 
 CREATE INDEX pull_requests_user_id_idx ON public.gha_pull_requests USING btree (user_id);
+
+
+CREATE INDEX pull_requests_repo_merged_at_idx
+ON gha_pull_requests (dup_repo_id, dup_repo_name, merged_at)
+WHERE merged_at IS NOT NULL;
 
 
 --
