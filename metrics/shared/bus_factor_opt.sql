@@ -1,9 +1,9 @@
--- Optimized "bus factor" (hbus) metric
--- Drop-in replacement: same output schema/logic, but uses {{rnd}} temp tables + indexes + analyze,
--- and avoids re-scanning huge base tables many times.
+-- Optimized hbus (bus factor) metric
+-- Drop-in replacement for the original CTE-based query.
+-- Uses {{rnd}} temp tables + indexes + analyze and preserves original semantics.
 
 -- -------------------------
--- 1) Repo groups lookup
+-- 0) Repo group mapping (matches original joins on id+name, keeping possible multi-group mappings)
 -- -------------------------
 create temp table hbus_repo_groups_{{rnd}} as
 select
@@ -13,14 +13,13 @@ select
 from
   gha_repo_groups
 ;
-create unique index on hbus_repo_groups_{{rnd}}(id, name);
+create index on hbus_repo_groups_{{rnd}}(id, name);
 create index on hbus_repo_groups_{{rnd}}(repo_group);
 analyze hbus_repo_groups_{{rnd}};
 
-
 -- -------------------------
--- 2) Commits: expand roles once, then attach affiliation once
---    (replaces 3 scans of gha_commits + 1 scan of gha_commits_roles with 1+1)
+-- 1) Commits: expand to roles once (actor/author/committer + co-authors)
+--    NOTE: commit user logins are lower() exactly as in the original.
 -- -------------------------
 create temp table hbus_commits_roles_{{rnd}} as
 select
@@ -79,30 +78,9 @@ create index on hbus_commits_roles_{{rnd}}(actor_login);
 create index on hbus_commits_roles_{{rnd}}(actor_id, created_at);
 analyze hbus_commits_roles_{{rnd}};
 
-create temp table hbus_commits_data_{{rnd}} as
-select distinct
-  cr.repo_group,
-  cr.sha,
-  cr.actor_login,
-  coalesce(aa.company_name, '') as company
-from
-  hbus_commits_roles_{{rnd}} cr
-left join
-  gha_actors_affiliations aa
-on
-  aa.actor_id = cr.actor_id
-  and aa.dt_from <= cr.created_at
-  and aa.dt_to > cr.created_at
-;
-
-create index on hbus_commits_data_{{rnd}}(repo_group, company);
-create index on hbus_commits_data_{{rnd}}(repo_group, actor_login);
-create index on hbus_commits_data_{{rnd}}(sha);
-analyze hbus_commits_data_{{rnd}};
-
-
 -- -------------------------
--- 3) Events: filter once to period/repos/bots, then attach org affiliation once
+-- 2) Events/comments/issues/merged PRs: build filtered bases once (period+repo_groups+bots)
+--    NOTE: user names for these are NOT lowercased, exactly like the original query.
 -- -------------------------
 create temp table hbus_events_base_{{rnd}} as
 select
@@ -112,7 +90,7 @@ select
   e.type,
   e.created_at,
   e.actor_id,
-  lower(e.dup_actor_login) as actor_login
+  e.dup_actor_login as actor_login
 from
   gha_events e
 join
@@ -124,45 +102,19 @@ where
   {{period:e.created_at}}
   and (lower(e.dup_actor_login) {{exclude_bots}})
 ;
-
--- key for affiliation join + grouping keys
 create index on hbus_events_base_{{rnd}}(actor_id, created_at);
 create index on hbus_events_base_{{rnd}}(repo_group, actor_login);
+create index on hbus_events_base_{{rnd}}(repo_id);
+create index on hbus_events_base_{{rnd}}(type);
 analyze hbus_events_base_{{rnd}};
 
-create temp table hbus_events_org_{{rnd}} as
-select
-  e.repo_group,
-  e.id,
-  e.repo_id,
-  e.type,
-  aa.company_name as company
-from
-  hbus_events_base_{{rnd}} e
-join
-  gha_actors_affiliations aa
-on
-  aa.actor_id = e.actor_id
-  and aa.dt_from <= e.created_at
-  and aa.dt_to > e.created_at
-where
-  aa.company_name not in ('', 'Independent', '(Robots)')
-;
-
-create index on hbus_events_org_{{rnd}}(repo_group, company);
-analyze hbus_events_org_{{rnd}};
-
-
--- -------------------------
--- 4) Comments: filter once, then attach org affiliation once
--- -------------------------
 create temp table hbus_comments_base_{{rnd}} as
 select
   rg.repo_group,
   c.id,
   c.created_at,
   c.user_id as actor_id,
-  lower(c.dup_user_login) as actor_login
+  c.dup_user_login as actor_login
 from
   gha_comments c
 join
@@ -174,42 +126,17 @@ where
   {{period:c.created_at}}
   and (lower(c.dup_user_login) {{exclude_bots}})
 ;
-
 create index on hbus_comments_base_{{rnd}}(actor_id, created_at);
 create index on hbus_comments_base_{{rnd}}(repo_group, actor_login);
 analyze hbus_comments_base_{{rnd}};
 
-create temp table hbus_comments_org_{{rnd}} as
-select
-  c.repo_group,
-  c.id,
-  aa.company_name as company
-from
-  hbus_comments_base_{{rnd}} c
-join
-  gha_actors_affiliations aa
-on
-  aa.actor_id = c.actor_id
-  and aa.dt_from <= c.created_at
-  and aa.dt_to > c.created_at
-where
-  aa.company_name not in ('', 'Independent', '(Robots)')
-;
-
-create index on hbus_comments_org_{{rnd}}(repo_group, company);
-analyze hbus_comments_org_{{rnd}};
-
-
--- -------------------------
--- 5) Issues (incl PRs): filter once, then attach org affiliation once
--- -------------------------
 create temp table hbus_issues_base_{{rnd}} as
 select
   rg.repo_group,
   i.id,
   i.created_at,
   i.user_id as actor_id,
-  lower(i.dup_user_login) as actor_login,
+  i.dup_user_login as actor_login,
   i.is_pull_request
 from
   gha_issues i
@@ -222,45 +149,18 @@ where
   {{period:i.created_at}}
   and (lower(i.dup_user_login) {{exclude_bots}})
 ;
-
 create index on hbus_issues_base_{{rnd}}(actor_id, created_at);
 create index on hbus_issues_base_{{rnd}}(repo_group, actor_login);
 create index on hbus_issues_base_{{rnd}}(is_pull_request);
 analyze hbus_issues_base_{{rnd}};
 
-create temp table hbus_issues_org_{{rnd}} as
-select
-  i.repo_group,
-  i.id,
-  i.is_pull_request,
-  aa.company_name as company
-from
-  hbus_issues_base_{{rnd}} i
-join
-  gha_actors_affiliations aa
-on
-  aa.actor_id = i.actor_id
-  and aa.dt_from <= i.created_at
-  and aa.dt_to > i.created_at
-where
-  aa.company_name not in ('', 'Independent', '(Robots)')
-;
-
-create index on hbus_issues_org_{{rnd}}(repo_group, company);
-create index on hbus_issues_org_{{rnd}}(is_pull_request);
-analyze hbus_issues_org_{{rnd}};
-
-
--- -------------------------
--- 6) Merged PRs: filter once, then attach org affiliation once
--- -------------------------
 create temp table hbus_merged_prs_base_{{rnd}} as
 select
   rg.repo_group,
   pr.id,
   pr.merged_at,
   pr.user_id as actor_id,
-  lower(pr.dup_user_login) as actor_login
+  pr.dup_user_login as actor_login
 from
   gha_pull_requests pr
 join
@@ -273,43 +173,156 @@ where
   and {{period:pr.merged_at}}
   and (lower(pr.dup_user_login) {{exclude_bots}})
 ;
-
 create index on hbus_merged_prs_base_{{rnd}}(actor_id, merged_at);
 create index on hbus_merged_prs_base_{{rnd}}(repo_group, actor_login);
 analyze hbus_merged_prs_base_{{rnd}};
+
+-- -------------------------
+-- 3) Prefilter affiliations to only relevant actor_ids (huge win if affiliations is large)
+--    Safe: original filters out ('', 'Independent', '(Robots)') everywhere org is used.
+--    For commits left join: replacing those with '' changes nothing because org-commit filters them out anyway.
+-- -------------------------
+create temp table hbus_actor_ids_{{rnd}} as
+select distinct actor_id
+from (
+  select actor_id
+  from hbus_commits_roles_{{rnd}}
+  where actor_id is not null and actor_id != 0
+  union
+  select actor_id from hbus_events_base_{{rnd}}
+  union
+  select actor_id from hbus_comments_base_{{rnd}}
+  union
+  select actor_id from hbus_issues_base_{{rnd}}
+  union
+  select actor_id from hbus_merged_prs_base_{{rnd}}
+) s
+;
+create unique index on hbus_actor_ids_{{rnd}}(actor_id);
+analyze hbus_actor_ids_{{rnd}};
+
+create temp table hbus_aff_{{rnd}} as
+select
+  actor_id,
+  company_name,
+  dt_from,
+  dt_to
+from
+  gha_actors_affiliations
+where
+  company_name not in ('', 'Independent', '(Robots)')
+  and actor_id in (select actor_id from hbus_actor_ids_{{rnd}})
+;
+create index on hbus_aff_{{rnd}}(actor_id, dt_from, dt_to);
+create index on hbus_aff_{{rnd}}(company_name);
+analyze hbus_aff_{{rnd}};
+
+-- -------------------------
+-- 4) Join affiliations once per base (org datasets) + build commits_data with left join (as original)
+-- -------------------------
+create temp table hbus_commits_data_{{rnd}} as
+select distinct
+  cr.repo_group,
+  cr.sha,
+  cr.actor_login,
+  coalesce(a.company_name, '') as company
+from
+  hbus_commits_roles_{{rnd}} cr
+left join
+  hbus_aff_{{rnd}} a
+on
+  a.actor_id = cr.actor_id
+  and a.dt_from <= cr.created_at
+  and a.dt_to > cr.created_at
+;
+create index on hbus_commits_data_{{rnd}}(repo_group, company);
+create index on hbus_commits_data_{{rnd}}(repo_group, actor_login);
+create index on hbus_commits_data_{{rnd}}(sha);
+analyze hbus_commits_data_{{rnd}};
+
+create temp table hbus_events_org_{{rnd}} as
+select
+  e.repo_group,
+  e.id,
+  e.repo_id,
+  e.type,
+  a.company_name as company
+from
+  hbus_events_base_{{rnd}} e
+join
+  hbus_aff_{{rnd}} a
+on
+  a.actor_id = e.actor_id
+  and a.dt_from <= e.created_at
+  and a.dt_to > e.created_at
+;
+create index on hbus_events_org_{{rnd}}(repo_group, company);
+create index on hbus_events_org_{{rnd}}(type);
+analyze hbus_events_org_{{rnd}};
+
+create temp table hbus_comments_org_{{rnd}} as
+select
+  c.repo_group,
+  c.id,
+  a.company_name as company
+from
+  hbus_comments_base_{{rnd}} c
+join
+  hbus_aff_{{rnd}} a
+on
+  a.actor_id = c.actor_id
+  and a.dt_from <= c.created_at
+  and a.dt_to > c.created_at
+;
+create index on hbus_comments_org_{{rnd}}(repo_group, company);
+analyze hbus_comments_org_{{rnd}};
+
+create temp table hbus_issues_org_{{rnd}} as
+select
+  i.repo_group,
+  i.id,
+  i.is_pull_request,
+  a.company_name as company
+from
+  hbus_issues_base_{{rnd}} i
+join
+  hbus_aff_{{rnd}} a
+on
+  a.actor_id = i.actor_id
+  and a.dt_from <= i.created_at
+  and a.dt_to > i.created_at
+;
+create index on hbus_issues_org_{{rnd}}(repo_group, company);
+create index on hbus_issues_org_{{rnd}}(is_pull_request);
+analyze hbus_issues_org_{{rnd}};
 
 create temp table hbus_merged_prs_org_{{rnd}} as
 select
   pr.repo_group,
   pr.id,
-  aa.company_name as company
+  a.company_name as company
 from
   hbus_merged_prs_base_{{rnd}} pr
 join
-  gha_actors_affiliations aa
+  hbus_aff_{{rnd}} a
 on
-  aa.actor_id = pr.actor_id
-  and aa.dt_from <= pr.merged_at
-  and aa.dt_to > pr.merged_at
-where
-  aa.company_name not in ('', 'Independent', '(Robots)')
+  a.actor_id = pr.actor_id
+  and a.dt_from <= pr.merged_at
+  and a.dt_to > pr.merged_at
 ;
-
 create index on hbus_merged_prs_org_{{rnd}}(repo_group, company);
 analyze hbus_merged_prs_org_{{rnd}};
 
-
 -- -------------------------
--- 7) Build a single long-format (repo_group,metric,tp,name,cnt) table
---    NOTE: For events & issues we compute multiple metrics in one aggregation pass
---          and then "unpivot" via LATERAL VALUES while filtering cnt>0 to preserve original logic.
+-- 5) Build one long-format counts table: (repo_group, metric, tp, name, cnt)
+--    Keep cnt as NUMERIC to preserve original text rendering in the final concatenated "name".
 -- -------------------------
 create temp table hbus_counts_{{rnd}} (
   repo_group text,
   metric text,
   tp text,
   name text,
-  cnt double precision
+  cnt numeric
 );
 
 -- commits (org)
@@ -327,7 +340,7 @@ where
 group by
   grouping sets ((repo_group, company), (company));
 
--- commits (usr)
+-- commits (usr)  (NOTE: lowercased logins by construction, same as original)
 insert into hbus_counts_{{rnd}}
 select
   case when grouping(repo_group)=1 then 'All' else repo_group end as repo_group,
@@ -340,7 +353,7 @@ from
 group by
   grouping sets ((repo_group, actor_login), (actor_login));
 
--- events-derived metrics (usr) in one pass
+-- events-derived metrics (usr) in one pass (NOTE: actor_login is NOT lowercased, same as original)
 with ev as (
   select
     case when grouping(repo_group)=1 then 'All' else repo_group end as repo_group,
@@ -543,9 +556,8 @@ group by
 create index on hbus_counts_{{rnd}}(repo_group, metric, tp);
 analyze hbus_counts_{{rnd}};
 
-
 -- -------------------------
--- 8) Rank + cumulative + bus factor + top 10 (same logic as your original)
+-- 6) Rank + cumulative + bus factor + top10 (same math/logic as original)
 -- -------------------------
 create temp table hbus_rg_{{rnd}} as
 select
@@ -564,7 +576,6 @@ where
   cnt is not null
   and cnt > 0
 ;
-
 create index on hbus_rg_{{rnd}}(repo_group, metric, tp, row_number);
 analyze hbus_rg_{{rnd}};
 
@@ -581,7 +592,6 @@ group by
   metric,
   tp
 ;
-
 create index on hbus_all_rg_{{rnd}}(repo_group, metric, tp);
 analyze hbus_all_rg_{{rnd}};
 
@@ -610,7 +620,6 @@ on
 order by
   r.repo_group, r.metric, r.tp, r.row_number
 ;
-
 create index on hbus_cum_rg_{{rnd}}(repo_group, metric, tp, row_number);
 analyze hbus_cum_rg_{{rnd}};
 
@@ -628,11 +637,8 @@ from
 where
   cumulative_percent > 50.0
 group by
-  repo_group,
-  metric,
-  tp
+  repo_group, metric, tp
 ;
-
 create index on hbus_bf_{{rnd}}(repo_group, metric, tp);
 analyze hbus_bf_{{rnd}};
 
@@ -658,7 +664,6 @@ select
 from
   hbus_bf_{{rnd}} b
 ;
-
 create index on hbus_bfa_{{rnd}}(repo_group, metric, tp);
 analyze hbus_bfa_{{rnd}};
 
@@ -692,18 +697,14 @@ from (
   where
     row_number <= 10
   group by
-    repo_group,
-    metric,
-    tp
+    repo_group, metric, tp
 ) t
 ;
-
 create index on hbus_topa_{{rnd}}(repo_group, metric, tp);
 analyze hbus_topa_{{rnd}};
 
-
 -- -------------------------
--- 9) Final output (same shape as original)
+-- 7) Final output (exact same shape as original)
 -- -------------------------
 select
   'hbus,' || b.tp || '_' || b.metric as type_metric,
