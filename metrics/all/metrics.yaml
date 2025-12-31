@@ -327,13 +327,15 @@ metrics:
     series_name_or_func: multi_row_single_column
     sql: company_contribution_counts
     merge_series: hcom_contrib
-#  - name: Bus factor in repository groups
-#    histogram: true
-#    annotations_ranges: true
-#    series_name_or_func: multi_row_single_column
-#    sql: bus_factor
-#    merge_series: hbf
-#    allow_fail: true
+  - name: Bus factor in repository groups
+    histogram: true
+    annotations_ranges: true
+    series_name_or_func: multi_row_single_column
+    sql: bus_factor
+    merge_series: hbf
+    allow_fail: true
+    env:
+      GHA2DB_NCPUS?: 1
   - name: Contributors and organizations
     series_name_or_func: single_row_multi_column
     sql: contributors_and_orgs_count

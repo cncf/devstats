@@ -106,6 +106,8 @@ metrics:
     sql: bus_factor
     merge_series: hbf
     allow_fail: true
+    env:
+      GHA2DB_NCPUS?: 1
   - name: Contributors and organizations
     series_name_or_func: single_row_multi_column
     sql: contributors_and_orgs_count
