@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "nguyenngoclong.terminal-keeper"
+        "nguyenngoclong.terminal-keeper",
+        "ms-vscode-remote.remote-containers"
     ]
 }
