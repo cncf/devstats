@@ -2343,6 +2343,12 @@ CREATE INDEX prs_number ON current_state.prs USING btree (number);
 
 CREATE INDEX actors_affiliations_actor_id_idx ON public.gha_actors_affiliations USING btree (actor_id);
 
+--
+-- Name: actors_affiliations_actor_from_to_idx; Type: INDEX; Schema: public; Owner: gha_admin
+--
+
+CREATE INDEX actors_affiliations_actor_from_to_idx ON public.gha_actors_affiliations USING btree (actor_id, dt_from, dt_to);
+
 
 --
 -- Name: actors_affiliations_company_name_idx; Type: INDEX; Schema: public; Owner: gha_admin
