@@ -42,6 +42,7 @@ then
       echo "$0: no data retrieved"
       exit 3
     fi
+    echo "all (test): ${all}"
   fi
   if [ $host = "${PROD_SERVER_NAME}" ]
   then
@@ -51,6 +52,7 @@ then
       echo "$0: no data retrieved"
       exit 4
     fi
+    echo "all (prod): ${all}"
   fi
   if [ -z "${all}" ]
   then
