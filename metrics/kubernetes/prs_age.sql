@@ -1,147 +1,175 @@
-with prs as (
-  select pr.id,
-    pr.dup_repo_id as repo_id,
-    pr.dup_repo_name as repo_name,
-    pr.created_at,
-    pr.merged_at,
-    pr.event_id
+with pr_ids as (
+  select distinct
+    pr.id
   from
     gha_pull_requests pr
   where
     pr.created_at >= '{{from}}'
     and pr.created_at < '{{to}}'
-    and pr.event_id = (
-      select s.event_id from gha_pull_requests s where s.id = pr.id order by s.updated_at desc limit 1
+), prs as (
+  select
+    x.id,
+    x.dup_repo_id as repo_id,
+    x.dup_repo_name as repo_name,
+    x.created_at,
+    x.merged_at,
+    x.event_id,
+    extract(epoch from coalesce(x.merged_at - x.created_at, now() - x.created_at)) / 3600.0 as age
+  from
+    pr_ids ids
+  join lateral (
+    select
+      pr.id,
+      pr.dup_repo_id,
+      pr.dup_repo_name,
+      pr.created_at,
+      pr.merged_at,
+      pr.event_id
+    from
+      gha_pull_requests pr
+    where
+      pr.id = ids.id
+    order by
+      pr.updated_at desc
+    limit 1
+  ) x on true
+  where
+    x.created_at >= '{{from}}'
+    and x.created_at < '{{to}}'
+), prs_event_repo_groups as (
+  select distinct
+    ecf.event_id,
+    ecf.repo_group
+  from
+    gha_events_commits_files ecf
+  join (
+    select distinct
+      event_id
+    from
+      prs
+  ) pe
+  on
+    pe.event_id = ecf.event_id
+), ipr as (
+  select distinct
+    issue_id,
+    pull_request_id,
+    repo_id,
+    repo_name
+  from
+    gha_issues_pull_requests
+  where
+    created_at >= '{{from}}'
+    and created_at < '{{to}}'
+), iel as (
+  select distinct
+    issue_id,
+    label_name
+  from
+    gha_issues_events_labels
+  where
+    label_name in (
+      'kind/api-change', 'kind/bug', 'kind/feature', 'kind/design',
+      'kind/cleanup', 'kind/documentation', 'kind/flake', 'kind/kep'
     )
+    and created_at >= '{{from}}'
+    and created_at < '{{to}}'
 ), prs_labels as (
-  select distinct pr.id,
+  select distinct
+    pr.id,
     pr.repo_id,
     pr.repo_name,
     iel.label_name,
     pr.created_at,
     pr.merged_at,
-    pr.event_id as pr_event_id
+    pr.event_id as pr_event_id,
+    pr.age
   from
-    prs pr,
-    gha_issues_pull_requests ipr,
-    gha_issues_events_labels iel
-  where
+    prs pr
+  join
+    ipr
+  on
     pr.id = ipr.pull_request_id
     and pr.repo_id = ipr.repo_id
     and pr.repo_name = ipr.repo_name
-    and ipr.issue_id = iel.issue_id
-    and iel.label_name in ('kind/api-change', 'kind/bug', 'kind/feature', 'kind/design', 'kind/cleanup', 'kind/documentation', 'kind/flake', 'kind/kep')
-    and iel.created_at >= '{{from}}'
-    and iel.created_at < '{{to}}'
-    and ipr.created_at >= '{{from}}'
-    and ipr.created_at < '{{to}}'
+  join
+    iel
+  on
+    iel.issue_id = ipr.issue_id
 ), prs_groups as (
-  select distinct sub.repo_group,
-    sub.id,
-    sub.created_at,
-    sub.merged_at
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      pr.id,
-      pr.created_at,
-      pr.merged_at
-    from
-      gha_repos r,
-      prs pr
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = pr.event_id
-    where
-      r.id = pr.repo_id
-      and r.name = pr.repo_name
-      and pr.created_at >= '{{from}}'
-      and pr.created_at < '{{to}}'
-    ) sub
+  select distinct
+    coalesce(ecf.repo_group, r.repo_group) as repo_group,
+    pr.id,
+    pr.age
+  from
+    prs pr
+  join
+    gha_repos r
+  on
+    r.id = pr.repo_id
+    and r.name = pr.repo_name
+  left join
+    prs_event_repo_groups ecf
+  on
+    ecf.event_id = pr.event_id
   where
-    sub.repo_group is not null
+    coalesce(ecf.repo_group, r.repo_group) is not null
 ), prs_groups_labels as (
-  select distinct sub.repo_group,
-    sub.label_name,
-    sub.id,
-    sub.created_at,
-    sub.merged_at
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      pr.id,
-      pr.label_name,
-      pr.created_at,
-      pr.merged_at
-    from
-      gha_repos r,
-      prs_labels pr
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = pr.pr_event_id
-    where
-      r.id = pr.repo_id
-      and r.name = pr.repo_name
-      and pr.created_at >= '{{from}}'
-      and pr.created_at < '{{to}}'
-    ) sub
+  select distinct
+    coalesce(ecf.repo_group, r.repo_group) as repo_group,
+    pl.label_name,
+    pl.id,
+    pl.age
+  from
+    prs_labels pl
+  join
+    gha_repos r
+  on
+    r.id = pl.repo_id
+    and r.name = pl.repo_name
+  left join
+    prs_event_repo_groups ecf
+  on
+    ecf.event_id = pl.pr_event_id
   where
-    sub.repo_group is not null
-), tdiffs as (
-  select id,
-    extract(epoch from coalesce(merged_at - created_at, now() - created_at)) / 3600 as age
-  from
-    prs
-), tdiffs_groups as (
-  select id,
-    repo_group,
-    extract(epoch from coalesce(merged_at - created_at, now() - created_at)) / 3600 as age
-  from
-    prs_groups
-), tdiffs_labels as (
-  select id,
-    substring(label_name from 6) as label,
-    extract(epoch from coalesce(merged_at - created_at, now() - created_at)) / 3600 as age
-  from
-    prs_labels
-), tdiffs_groups_labels as (
-  select id,
-    repo_group,
-    substring(label_name from 6) as label,
-    extract(epoch from coalesce(merged_at - created_at, now() - created_at)) / 3600 as age
-  from
-    prs_groups_labels
+    coalesce(ecf.repo_group, r.repo_group) is not null
 )
 select
   'prs_age;All,All;n,m' as name,
   round(count(distinct id) / {{n}}, 2) as num,
   percentile_disc(0.5) within group (order by age asc) as age_median
 from
-  tdiffs
-union select 'prs_age;' || repo_group || ',All;n,m' as name,
+  prs
+union
+select
+  'prs_age;' || repo_group || ',All;n,m' as name,
   round(count(distinct id) / {{n}}, 2) as num,
   percentile_disc(0.5) within group (order by age asc) as age_median
 from
-  tdiffs_groups
+  prs_groups
 group by
   repo_group
-union select
-  'prs_age;All,' || label || ';n,m' as name,
+union
+select
+  'prs_age;All,' || substring(label_name from 6) || ';n,m' as name,
   round(count(distinct id) / {{n}}, 2) as num,
   percentile_disc(0.5) within group (order by age asc) as age_median
 from
-  tdiffs_labels
+  prs_labels
 group by
-  label
-union select 'prs_age;' || repo_group || ',' || label || ';n,m' as name,
+  substring(label_name from 6)
+union
+select
+  'prs_age;' || repo_group || ',' || substring(label_name from 6) || ';n,m' as name,
   round(count(distinct id) / {{n}}, 2) as num,
   percentile_disc(0.5) within group (order by age asc) as age_median
 from
-  tdiffs_groups_labels
+  prs_groups_labels
 group by
-  label,
-  repo_group
+  repo_group,
+  substring(label_name from 6)
 order by
   num desc,
   name asc
 ;
+
