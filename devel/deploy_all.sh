@@ -819,7 +819,7 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=oxia                PROJDB=oxia           PROJREPO="oxia-db/oxia"                    ORGNAME=Oxia              PORT=3313 ICON=oxia           GRAFSUFF=oxia           GA="-" ./devel/deploy_proj.sh               || exit 238
   elif [ "$proj" = "holmesgpt" ]
   then
-    PROJ=holemsgpt           PROJDB=holmesgpt      PROJREPO="reobusta-dev/holmesgpt"          ORGNAME=HolmesGPT         PORT=3314 ICON=holmesgpt      GRAFSUFF=holmesgpt      GA="-" ./devel/deploy_proj.sh               || exit 239
+    PROJ=holemsgpt           PROJDB=holmesgpt      PROJREPO="HolmesGPT/holmesgpt"             ORGNAME=HolmesGPT         PORT=3314 ICON=holmesgpt      GRAFSUFF=holmesgpt      GA="-" ./devel/deploy_proj.sh               || exit 239
   elif [ "$proj" = "cedarpolicy" ]
   then
     PROJ=cedarpolicy         PROJDB=cedarpolicy    PROJREPO="cedar-policy/cedar"              ORGNAME="Cedar Policy"    PORT=3315 ICON=cedarpolicy    GRAFSUFF=cedarpolicy    GA="-" ./devel/deploy_proj.sh               || exit 240

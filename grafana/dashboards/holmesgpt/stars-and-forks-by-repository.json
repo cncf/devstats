@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": false,
-          "text": "robusta-dev/holmesgpt",
-          "value": "robusta-dev/holmesgpt"
+          "text": "HolmesGPT/holmesgpt",
+          "value": "HolmesGPT/holmesgpt"
         },
         "datasource": {
           "type": "postgres",
