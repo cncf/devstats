@@ -1771,6 +1771,7 @@ set
   repo_group = 'Kubeclipper'
 where
   org_login in ('kubeclipper', 'kubeclipper-labs')
+  or name in ('kubeclipper/kubeclipper')
 ;
 
 -- Kubeflow
@@ -2033,6 +2034,7 @@ set
   repo_group = 'openGemini'
 where
   org_login in ('openGemini')
+  or name in ('openGemini/GeminiTS', 'openGemini/GeminiTSA')
 ;
 
 -- Score
@@ -2080,6 +2082,7 @@ set
   repo_group = 'Perses'
 where
   org_login in ('perses')
+  or name in ('perses/gonoip', 'perses/torrent')
 ;
 
 -- Ratify
@@ -2463,7 +2466,8 @@ where
     'robusta-dev/holmesgpt',
     'robusta-dev/homebrew-holmesgpt',
     'robusta-dev/holmesgpt-community-toolsets'
- )
+  )
+  or lower(org_login) in ('holmesgpt')
 ;
 
 -- Cedar Policy
@@ -2545,6 +2549,9 @@ insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) sele
 
 -- copy from gha_repos
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, coalesce(repo_group, name), org_id, org_login from gha_repos on conflict do nothing;
+
+-- delete malformed entries
+delete from gha_repo_groups where repo_group ~ '^[0-9A-Za-z_.-]+/[0-9A-Za-z_.-]+$';
 
 -- create repo groups for github orgs
 -- insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, org_login, org_id, org_login from gha_repos where org_id is not null and org_login is not null and trim(org_login) != '' on conflict do nothing;

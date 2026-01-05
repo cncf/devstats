@@ -33,7 +33,7 @@ Project uses use GitHub archives and local copy of all git repositories. The pos
 - All projects repositories are cloned into local directory
 - All projects repositories are updated every hour using `git` (part of standard cron workflow).
 - For all commits retrieved from GitHub archives we are storing list of modified (modified, added, deleted) files and their size (at the commit time).
-- This allows file name analsysis, assigning given files from repositories to repository groups (file level granularity) and file size analysis (for example file size growth in time).
+- This allows file name analysis, assigning given files from repositories to repository groups (file level granularity) and file size analysis (for example, file size growth in time).
 - cncf/gitdm uses git to GitHub connection from git pushes to allow connecting committers with their GitHub accounts. This is used to determine committers company affiliations.
 
 # Architecture
@@ -87,10 +87,10 @@ We're getting all possible GitHub data for all objects, and all objects historic
 - It creates PID file `/tmp/devstats.pid` while it is running, so it is safe when instances overlap.
 - It is called by cron job on 1:10, 2:10, ... and so on - GitHub archive publishes new file every hour, so we're off by at most 1 hour.
 
-6) `get_repos`: it can update list of all projects repositories (clone and/or pull as needed), update each commits files list, display all repos and orgs data bneeded by `cncf/gitdm`.
+- `get_repos`: it can update list of all projects repositories (clone and/or pull as needed), update each commits files list, display all repos and orgs data needed by `cncf/gitdm`.
 - [get_repos](https://github.com/cncf/devstats/blob/master/cmd/get_repos/get_repos.go)
 - `get_repos` is used to clone or pull all repos used in all `devstats` project in a location from `GHA2DB_REPOS_DIR` environment variable, or by default in "~/devstats_repos/".
-- Those repos are used later to search for commit SHA's using `git log` to determine files modifed by particular commits and other objects.
+- Those repos are used later to search for commit SHA's using `git log` to determine files modified by particular commits and other objects.
 - It can also be used to return list of all distinct repos and their locations - this can be used by `cncf/gitdm` to create concatenated `git.log` from all repositories for affiliations analysis.
 - This tool is also used to create/update mapping between commits and list of files that given commit refers to, it also keep file sizes info at the commit time.
 
@@ -115,9 +115,9 @@ We're getting all possible GitHub data for all objects, and all objects historic
 - `tags` is used to add tags. Those tags are used to populate Grafana template drop-down values and names. This is used to auto-populate Repository groups drop down, so when somebody adds new repository group - it will automatically appear in the drop-down.
 - `tags` uses [tags.yaml](https://github.com/cncf/devstats/blob/master/metrics/kubernetes/tags.yaml) file to configure tags generation.
 - [columns](https://github.com/cncf/devstats/blob/master/cmd/columns/columns.go)
-- `columns` is used to specify which columns are mandatory on which time series tables (because missing column is an error in Postgres). You can define table9s) by regexp and then specify which columns are mandatory by specifying tags table and column.
+- `columns` is used to specify which columns are mandatory on which time series tables (because missing column is an error in Postgres). You can define tables by regexp and then specify which columns are mandatory by specifying tags table and column.
 - `columns` uses [columns.yaml](https://github.com/cncf/devstats/blob/master/metrics/kubernetes/columns.yaml) file to configure mandatory columns.
-- You can use all defined environments variables, but add `_SRC` suffic for source database and `_DST` suffix for destination database.
+- You can use all defined environments variables, but add `_SRC` suffix for source database and `_DST` suffix for destination database.
 - [webhook](https://github.com/cncf/devstats/blob/master/cmd/webhook/webhook.go)
 - `webhook` is used to react to Travis CI webhooks and trigger deploy if status, branch and type match defined values, more details [here](https://github.com/cncf/devstats/blob/master/CONTINUOUS_DEPLOYMENT.md).
 - Add `[no deploy]` to the commit message, to skip deploying.
@@ -126,7 +126,7 @@ We're getting all possible GitHub data for all objects, and all objects historic
 - There are few shell scripts for example: running sync every N seconds, setup time series data etc.
 - [merge_dbs](https://github.com/cncf/devstats/blob/master/cmd/merge_dbs/merge_dbs.go)
 - `merge_dbs` is used to generate Postgres database that contains data from other multiple databases.
-- You can use `merge_dbs` to add new projects to a existing database, but please consider running './devel/remove_db_dups.sh' then or use: './all/add_project.sh' script.
+- You can use `merge_dbs` to add new projects to an existing database, but please consider running './devel/remove_db_dups.sh' then or use: './all/add_project.sh' script.
 - [replacer](https://github.com/cncf/devstats/blob/master/cmd/replacer/replacer.go)
 - `replacer` is used to mass replace data in text files. It has regexp modes, string modes, terminate on no match etc.
 - Supports MODE, FROM, TO, NREPLACES, REPLACEFROM environment variables, see `devel/replace.sh` script for examples.

@@ -20,12 +20,12 @@ fi
 if [ "${kenv}" = "test" ]
 then
   export TEST_SERVER=1
-  export member=$(kubectl exec -itn devstats-${kenv2} devstats-postgres-0 -- patronictl list -f json | jq -rS '.[]  | select(.Role == "Leader") | .Member')
+  export member=$(kubectl exec -in devstats-${kenv2} devstats-postgres-0 -c devstats-postgres -- patronictl list -f json | jq -rS '.[]  | select(.Role == "Leader") | .Member')
   echo "R/W member on ${kenv} is ${member}"
 elif [ "${kenv}" = "prod" ]
 then
   export PROD_SERVER=1
-  export member=$(kubectl exec -itn devstats-${kenv2} devstats-postgres-0 -- patronictl list -f json | jq -rS '.[]  | select(.Role == "Leader") | .Member')
+  export member=$(kubectl exec -in devstats-${kenv2} devstats-postgres-0 -c devstats-postgres -- patronictl list -f json | jq -rS '.[]  | select(.Role == "Leader") | .Member')
   echo "R/W member on ${kenv} is ${member}"
 else
   echo "kenv must be test or prod, got: ${kenv}"
@@ -37,7 +37,7 @@ do
   for sql in $*
   do
     echo "Execute script '$sql' on '$db' database"
-    kubectl exec -in "devstats-${kenv2}" "${member}" -- psql "$db" < "$sql"
+    kubectl exec -in "devstats-${kenv2}" "${member}" -c devstats-postgres -- psql "$db" < "$sql"
   done
 done
 echo 'OK'

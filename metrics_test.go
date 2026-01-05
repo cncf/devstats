@@ -3,7 +3,6 @@ package devstats
 import (
 	"database/sql"
 	"fmt"
-	"io/ioutil"
 	"math/rand"
 	"os"
 	"reflect"
@@ -346,7 +345,7 @@ func dataForMetricTestCase(con *sql.DB, ctx *lib.Ctx, testMetric *metricTestCase
 // All metric data is defined in "testMetric" argument
 // Single metric test is dropping & creating database from scratch (to avoid junky database)
 // It also creates full DB structure - without indexes - they're not needed in
-// small databases - like the ones created by test covergae tools
+// small databases - like the ones created by test coverage tools
 func executeMetricTestCase(testMetric *metricTestCase, tests *metricTests, ctx *lib.Ctx) (result [][]interface{}, err error) {
 	// Drop database if exists
 	lib.DropDatabaseIfExists(ctx)
@@ -803,7 +802,7 @@ func addComment(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 		nil,        // position
 		nil,        // original_position
 		nil,        // path
-		nil,        // pull_request_review_ai
+		nil,        // pull_request_review_id
 		nil,        // line
 		args[7],    // actor_id
 		args[8],    // actor_login
@@ -837,7 +836,7 @@ func addPayload(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 	}
 	newArgs := lib.AnyArray{
 		args[0], // event_id
-		nil,     // push_id, size, ref, head, befor
+		nil,     // push_id, size, ref, head, before
 		nil,
 		nil,
 		nil,
@@ -904,7 +903,7 @@ func addPR(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 		args[11], // PR.MergedAt
 		"9c31bcbc683a491c3d4122adcfe4caaab6e2d0fc", // PR.MergeCommitSHA
 		args[12],   // PR.Merged
-		true,       // PR.mergable
+		true,       // PR.mergeable
 		true,       // PR.Rebaseable
 		"clean",    // PR.MergeableState (nil, unknown, clean, unstable, dirty)
 		1,          // PR.Comments
@@ -1052,7 +1051,7 @@ func addMilestone(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 func interfaceToYaml(fn string, i *[][]interface{}) (err error) {
 	yml, err := yaml.Marshal(i)
 	lib.FatalOnError(err)
-	lib.FatalOnError(ioutil.WriteFile(fn, yml, 0644))
+	lib.FatalOnError(os.WriteFile(fn, yml, 0644))
 	return
 }
 
