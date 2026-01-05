@@ -1,69 +1,80 @@
-with prs as (
-  select pr.id,
-    pr.created_at,
-    pr.merged_at
+with pr_ids as (
+  select distinct
+    pr.id
   from
     gha_pull_requests pr
   where
     pr.created_at >= '{{from}}'
     and pr.created_at < '{{to}}'
-    and pr.event_id = (
-      select i.event_id from gha_pull_requests i where i.id = pr.id order by i.updated_at desc limit 1
-    )
+), prs as (
+  select
+    x.id,
+    x.created_at,
+    x.merged_at,
+    x.closed_at,
+    x.dup_repo_id,
+    x.dup_repo_name,
+    extract(epoch from coalesce(x.merged_at - x.created_at, now() - x.created_at)) / 3600.0 as age
+  from
+    pr_ids ids
+  join lateral (
+    select
+      pr.id,
+      pr.created_at,
+      pr.merged_at,
+      pr.closed_at,
+      pr.dup_repo_id,
+      pr.dup_repo_name
+    from
+      gha_pull_requests pr
+    where
+      pr.id = ids.id
+    order by
+      pr.updated_at desc
+    limit 1
+  ) x on true
+  where
+    x.created_at >= '{{from}}'
+    and x.created_at < '{{to}}'
     and (
-      pr.closed_at is null
+      x.closed_at is null
       or (
-        pr.closed_at is not null
-        and pr.merged_at is not null
+        x.closed_at is not null
+        and x.merged_at is not null
       )
     )
 ), prs_groups as (
-  select r.repo_group,
-    pr.id,
-    pr.created_at,
-    pr.merged_at as merged_at
+  select
+    r.repo_group,
+    p.id,
+    p.age
   from
-    gha_pull_requests pr,
+    prs p
+  join
     gha_repo_groups r
+  on
+    r.id = p.dup_repo_id
+    and r.name = p.dup_repo_name
   where
-    r.id = pr.dup_repo_id
-    and r.name = pr.dup_repo_name
-    and r.repo_group is not null
-    and pr.created_at >= '{{from}}'
-    and pr.created_at < '{{to}}'
-    and pr.event_id = (
-      select i.event_id from gha_pull_requests i where i.id = pr.id order by i.updated_at desc limit 1
-    )
-    and (
-      pr.closed_at is null
-      or (
-        pr.closed_at is not null
-        and pr.merged_at is not null
-      )
-    )
-), tdiffs as (
-  select id, extract(epoch from coalesce(merged_at - created_at, now() - created_at)) / 3600 as age
-  from
-    prs
-), tdiffs_groups as (
-  select repo_group, id, extract(epoch from coalesce(merged_at - created_at, now() - created_at)) / 3600 as age
-  from
-    prs_groups
+    r.repo_group is not null
 )
 select
   'prs_age;All;n,m' as name,
   round((hll_cardinality(hll_add_agg(hll_hash_bigint(id))) / {{n}})::numeric, 2) as num,
   percentile_disc(0.5) within group (order by age asc) as age_median
 from
-  tdiffs
-union select 'prs_age;' || repo_group || ';n,m' as name,
+  prs
+union
+select
+  'prs_age;' || repo_group || ';n,m' as name,
   round((hll_cardinality(hll_add_agg(hll_hash_bigint(id))) / {{n}})::numeric, 2) as num,
   percentile_disc(0.5) within group (order by age asc) as age_median
 from
-  tdiffs_groups
+  prs_groups
 group by
   repo_group
 order by
   num desc,
   name asc
 ;
+
