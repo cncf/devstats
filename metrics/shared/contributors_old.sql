@@ -1,34 +1,3 @@
-create temp table repos_{{rnd}} as (
-  select
-    r.id,
-    r.name,
-    r.repo_group
-  from
-    gha_repos r
-  inner join
-    trepo_groups trg
-  on
-    trg.repo_group_name = r.repo_group
-  where
-    r.repo_group is not null
-);
-create index on repos_{{rnd}}(id, name);
-analyze repos_{{rnd}};
-
-create temp table actors_country_{{rnd}} as (
-  select
-    a.id,
-    a.login,
-    a.country_name
-  from
-    gha_actors a
-  where
-    a.country_name is not null
-    and a.country_name <> ''
-);
-create index on actors_country_{{rnd}}(id, login);
-analyze actors_country_{{rnd}};
-
 create temp table contributions_{{rnd}} as (
   with events as (
     select distinct on (id)
@@ -49,8 +18,6 @@ create temp table contributions_{{rnd}} as (
       and created_at >= '{{from}}'
       and created_at < '{{to}}'
       and (lower(dup_actor_login) {{exclude_bots}})
-    order by
-      id
   ), comments as (
     select distinct on (id)
       dup_repo_id as repo_id,
@@ -65,8 +32,6 @@ create temp table contributions_{{rnd}} as (
       created_at >= '{{from}}'
       and created_at < '{{to}}'
       and (lower(dup_user_login) {{exclude_bots}})
-    order by
-      id
   ), issues as (
     select distinct on (id)
       dup_repo_id as repo_id,
@@ -82,8 +47,6 @@ create temp table contributions_{{rnd}} as (
       and created_at < '{{to}}'
       and is_pull_request = false
       and (lower(dup_user_login) {{exclude_bots}})
-    order by
-      id
   ), prs as (
     select distinct on (id)
       dup_repo_id as repo_id,
@@ -99,8 +62,6 @@ create temp table contributions_{{rnd}} as (
       and created_at < '{{to}}'
       and is_pull_request = true
       and (lower(dup_user_login) {{exclude_bots}})
-    order by
-      id
   ), merged_prs as (
     select distinct on (id)
       dup_repo_id as repo_id,
@@ -115,112 +76,102 @@ create temp table contributions_{{rnd}} as (
       merged_at >= '{{from}}'
       and merged_at < '{{to}}'
       and (lower(dup_user_login) {{exclude_bots}})
-    order by
-      id
   )
   select
-    v.metric,
-    e.repo_id,
-    e.repo_name,
-    e.created_at,
-    e.actor_id,
-    e.author,
-    e.id
+    case type
+      when 'PushEvent' then 'pushes'
+      when 'PullRequestReviewCommentEvent' then 'review_comments'
+      when 'PullRequestReviewEvent' then 'reviews'
+      when 'IssueCommentEvent' then 'issue_comments'
+      when 'CommitCommentEvent' then 'commit_comments'
+    end as metric,
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
   from
-    events e
-  cross join lateral (
-    values
-      ('contributions'),
-      ('events'),
-      (case e.type
-        when 'PushEvent' then 'pushes'
-        when 'PullRequestReviewCommentEvent' then 'review_comments'
-        when 'PullRequestReviewEvent' then 'reviews'
-        when 'IssueCommentEvent' then 'issue_comments'
-        when 'CommitCommentEvent' then 'commit_comments'
-        else null
-      end)
-  ) v(metric)
+    events
   where
-    v.metric is not null
-  union all
-  select
+    type in (
+      'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
+      'IssueCommentEvent', 'CommitCommentEvent'
+    )
+  union select
+    'contributions' as metric,
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
+  from
+    events
+  union select
     'comments' as metric,
-    c.repo_id,
-    c.repo_name,
-    c.created_at,
-    c.actor_id,
-    c.author,
-    c.id
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
   from
-    comments c
-  union all
-  select
+    comments
+  union select
     'issues' as metric,
-    i.repo_id,
-    i.repo_name,
-    i.created_at,
-    i.actor_id,
-    i.author,
-    i.id
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
   from
-    issues i
-  union all
-  select
+    issues
+  union select
     'prs' as metric,
-    p.repo_id,
-    p.repo_name,
-    p.created_at,
-    p.actor_id,
-    p.author,
-    p.id
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
   from
-    prs p
-  union all
-  select
+    prs
+  union select
     'merged_prs' as metric,
-    mp.repo_id,
-    mp.repo_name,
-    mp.created_at,
-    mp.actor_id,
-    mp.author,
-    mp.id
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
   from
-    merged_prs mp
+    merged_prs
+  union select
+    'events' as metric,
+    repo_id,
+    repo_name,
+    created_at,
+    actor_id,
+    author,
+    id
+  from
+    events
 );
-create index on contributions_{{rnd}}(id);
-create index on contributions_{{rnd}}(repo_id, repo_name);
-create index on contributions_{{rnd}}(actor_id, author);
-create index on contributions_{{rnd}}(actor_id, created_at);
-create index on contributions_{{rnd}}(metric);
+create index on contributions_{{rnd}}(repo_id);
+create index on contributions_{{rnd}}(repo_name);
+create index on contributions_{{rnd}}(created_at);
+create index on contributions_{{rnd}}(actor_id);
+create index on contributions_{{rnd}}(author);
 analyze contributions_{{rnd}};
-
-create temp table ecf_repo_group_{{rnd}} as (
-  select distinct
-    ecf.event_id,
-    ecf.repo_group
-  from
-    gha_events_commits_files ecf
-  inner join (
-    select distinct
-      id
-    from
-      contributions_{{rnd}}
-  ) ids
-  on
-    ids.id = ecf.event_id
-  where
-    ecf.repo_group is not null
-);
-create index on ecf_repo_group_{{rnd}}(event_id, repo_group);
-analyze ecf_repo_group_{{rnd}};
 
 create temp table actors_affiliations_{{rnd}} as (
   select
-    aa.actor_id,
-    aa.company_name,
-    aa.dt_from,
-    aa.dt_to
+    actor_id,
+    company_name,
+    dt_from,
+    dt_to
   from
     gha_actors_affiliations aa
   inner join
@@ -230,9 +181,11 @@ create temp table actors_affiliations_{{rnd}} as (
   where
     aa.dt_from <= '{{to}}'
     and aa.dt_to >= '{{from}}'
+    and aa.company_name in (select companies_name from tcompanies)
 );
-create index on actors_affiliations_{{rnd}}(actor_id, dt_from, dt_to);
-create index on actors_affiliations_{{rnd}}(company_name);
+create index on actors_affiliations_{{rnd}}(actor_id);
+create index on actors_affiliations_{{rnd}}(dt_from);
+create index on actors_affiliations_{{rnd}}(dt_to);
 analyze actors_affiliations_{{rnd}};
 
 create temp table contributions_country_{{rnd}} as (
@@ -248,15 +201,25 @@ create temp table contributions_country_{{rnd}} as (
   from
     contributions_{{rnd}} c
   inner join
-    actors_country_{{rnd}} a
+    gha_actors a
   on
     c.actor_id = a.id
     and c.author = a.login
+    -- previous was using the line below with 'OR':
+    -- c.actor_id = a.id or c.author = a.login
+    -- can also be one of those:
+    -- c.author = a.login
+    -- c.actor_id = a.id
+  where
+    a.country_name is not null
+    and a.country_name != ''
 );
-create index on contributions_country_{{rnd}}(country);
-create index on contributions_country_{{rnd}}(actor_id, created_at);
-create index on contributions_country_{{rnd}}(repo_id, repo_name);
+create index on contributions_country_{{rnd}}(actor_id);
+create index on contributions_country_{{rnd}}(created_at);
+create index on contributions_country_{{rnd}}(repo_id);
+create index on contributions_country_{{rnd}}(repo_name);
 analyze contributions_country_{{rnd}};
+
 
 create temp table contributions_company_{{rnd}} as (
   select
@@ -277,10 +240,10 @@ create temp table contributions_company_{{rnd}} as (
     and aa.dt_from <= c.created_at
     and aa.dt_to > c.created_at
 );
-create index on contributions_company_{{rnd}}(company);
-create index on contributions_company_{{rnd}}(actor_id, created_at);
-create index on contributions_company_{{rnd}}(repo_id, repo_name);
+create index on contributions_company_{{rnd}}(repo_id);
+create index on contributions_company_{{rnd}}(repo_name);
 analyze contributions_company_{{rnd}};
+
 
 create temp table contributions_repo_group_country_{{rnd}} as (
   select
@@ -288,7 +251,7 @@ create temp table contributions_repo_group_country_{{rnd}} as (
     c.created_at,
     c.repo_id,
     c.repo_name,
-    coalesce(ecf.repo_group, r.repo_group) as repo_group,
+    rg.repo_group,
     c.country,
     c.author,
     c.actor_id,
@@ -296,19 +259,16 @@ create temp table contributions_repo_group_country_{{rnd}} as (
   from
     contributions_country_{{rnd}} c
   inner join
-    repos_{{rnd}} r
+    gha_repo_groups rg
   on
-    c.repo_id = r.id
-    and c.repo_name = r.name
-  left join
-    ecf_repo_group_{{rnd}} ecf
-  on
-    ecf.event_id = c.id
+    c.repo_id = rg.id
+    and c.repo_name = rg.name
   where
-    coalesce(ecf.repo_group, r.repo_group) is not null
+    rg.repo_group is not null
+    and rg.repo_group in (select repo_group_name from trepo_groups)
 );
-create index on contributions_repo_group_country_{{rnd}}(repo_group, country);
-create index on contributions_repo_group_country_{{rnd}}(actor_id, created_at);
+create index on contributions_repo_group_country_{{rnd}}(actor_id);
+create index on contributions_repo_group_country_{{rnd}}(created_at);
 analyze contributions_repo_group_country_{{rnd}};
 
 with contributions_repo_group as (
@@ -317,23 +277,20 @@ with contributions_repo_group as (
     c.created_at,
     c.repo_id,
     c.repo_name,
-    coalesce(ecf.repo_group, r.repo_group) as repo_group,
+    rg.repo_group,
     c.author,
     c.actor_id,
     c.id
   from
     contributions_{{rnd}} c
   inner join
-    repos_{{rnd}} r
+    gha_repo_groups rg
   on
-    c.repo_id = r.id
-    and c.repo_name = r.name
-  left join
-    ecf_repo_group_{{rnd}} ecf
-  on
-    ecf.event_id = c.id
+    c.repo_id = rg.id
+    and c.repo_name = rg.name
   where
-    coalesce(ecf.repo_group, r.repo_group) is not null
+    rg.repo_group is not null
+    and rg.repo_group in (select repo_group_name from trepo_groups)
 ), contributions_country_company as (
   select
     c.metric,
@@ -359,7 +316,7 @@ with contributions_repo_group as (
     c.created_at,
     c.repo_id,
     c.repo_name,
-    coalesce(ecf.repo_group, r.repo_group) as repo_group,
+    rg.repo_group,
     c.company,
     c.author,
     c.actor_id,
@@ -367,16 +324,13 @@ with contributions_repo_group as (
   from
     contributions_company_{{rnd}} c
   inner join
-    repos_{{rnd}} r
+    gha_repo_groups rg
   on
-    c.repo_id = r.id
-    and c.repo_name = r.name
-  left join
-    ecf_repo_group_{{rnd}} ecf
-  on
-    ecf.event_id = c.id
+    c.repo_id = rg.id
+    and c.repo_name = rg.name
   where
-    coalesce(ecf.repo_group, r.repo_group) is not null
+    rg.repo_group is not null
+    and rg.repo_group in (select repo_group_name from trepo_groups)
 ), contributions_repo_group_country_company as (
   select
     c.metric,
@@ -398,7 +352,7 @@ with contributions_repo_group as (
     and aa.dt_from <= c.created_at
     and aa.dt_to > c.created_at
 )
-select
+select 
   'cs;' || metric || '_All_All_All;evs,acts' as metric,
   round(count(distinct id) / {{n}}, 2) as evs,
   count(distinct author) as acts
@@ -406,9 +360,8 @@ from
   contributions_{{rnd}}
 group by
   metric
-union all
-select
-  'cs;' || metric || '_' || repo_group || '_All_All;evs,acts' as metric,
+union
+  select 'cs;' || metric || '_' || repo_group || '_All_All;evs,acts' as metric,
   round(count(distinct id) / {{n}}, 2) as evs,
   count(distinct author) as acts
 from
@@ -416,9 +369,7 @@ from
 group by
   metric,
   repo_group
-union all
-select
-  'cs;' || metric || '_All_' || country || '_All;evs,acts' as metric,
+union select 'cs;' || metric || '_All_' || country || '_All;evs,acts' as metric,
   round(count(distinct id) / {{n}}, 2) as evs,
   count(distinct author) as acts
 from
@@ -426,9 +377,7 @@ from
 group by
   metric,
   country
-union all
-select
-  'cs;' || metric || '_' || repo_group || '_' || country || '_All;evs,acts' as metric,
+union select 'cs;' || metric || '_'|| repo_group || '_' || country || '_All;evs,acts' as metric,
   round(count(distinct id) / {{n}}, 2) as evs,
   count(distinct author) as acts
 from
@@ -437,9 +386,7 @@ group by
   metric,
   repo_group,
   country
-union all
-select
-  'cs;' || metric || '_All_All_' || company || ';evs,acts' as metric,
+union select 'cs;' || metric || '_All_All_' || company || ';evs,acts' as metric,
   round(count(distinct id) / {{n}}, 2) as evs,
   count(distinct author) as acts
 from
@@ -447,9 +394,7 @@ from
 group by
   metric,
   company
-union all
-select
-  'cs;' || metric || '_' || repo_group || '_All_' || company || ';evs,acts' as metric,
+union select 'cs;' || metric || '_' || repo_group || '_All_' || company || ';evs,acts' as metric,
   round(count(distinct id) / {{n}}, 2) as evs,
   count(distinct author) as acts
 from
@@ -458,9 +403,7 @@ group by
   metric,
   repo_group,
   company
-union all
-select
-  'cs;' || metric || '_All_' || country || '_' || company || ';evs,acts' as metric,
+union select 'cs;' || metric || '_All_' || country || '_' || company || ';evs,acts' as metric,
   round(count(distinct id) / {{n}}, 2) as evs,
   count(distinct author) as acts
 from
@@ -469,9 +412,7 @@ group by
   metric,
   country,
   company
-union all
-select
-  'cs;' || metric || '_' || repo_group || '_' || country || '_' || company || ';evs,acts' as metric,
+union select 'cs;' || metric || '_' || repo_group || '_' || country || '_' || company || ';evs,acts' as metric,
   round(count(distinct id) / {{n}}, 2) as evs,
   count(distinct author) as acts
 from
@@ -482,4 +423,3 @@ group by
   country,
   company
 ;
-
