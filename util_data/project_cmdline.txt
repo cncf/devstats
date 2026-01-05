@@ -88,7 +88,7 @@ harbor,goharbor,vmware/harbor
 headlamp,headlamp-k8s,kinvolk/headlamp,kubernetes-purgatory/headlamp,kubernetes-sigs/headlamp
 helm,helm,kubernetes-helm,kubernetes-charts,kubernetes/helm,kubernetes/charts,kubernetes/deployment-manager,kubernetes/application-dm-templates
 hexapolicyorchestrator,hexa-org
-holmesgpt,robusta-dev/holmesgpt,robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets
+holmesgpt,HolmesGPT,robusta-dev/holmesgpt,robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets
 hwameistor,hwameistor
 hyperledger,hyperledger,hyperledger-labs,hyperledger-cicd
 hyperlight,hyperlight-dev

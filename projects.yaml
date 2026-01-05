@@ -3257,12 +3257,12 @@ projects:
     name: HolmesGPT
     status: Sandbox
     command_line:
-      - robusta-dev/holmesgpt,robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets
+      - HolmesGPT,robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets
     start_date: 2024-05-30T00:00:00Z
     join_date: 2025-10-08T00:00:00Z
     psql_db: holmesgpt
     shared_db: allprj
-    main_repo: robusta-dev/holmesgpt
+    main_repo: HolmesGPT/holmesgpt
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
   cedarpolicy:
@@ -3529,7 +3529,7 @@ projects:
          containers/aardvark-dns,containers/image,containers/storage,containers/common,\
          containers/conmon,containers/podman-py,cadence-workflow,kagent-dev,urunc-dev,cozystack,\
          kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\
-         kubefleet-dev,opentofu,modelpack,oxia-db,cedar-policy,project-dalec,robusta-dev/holmesgpt,\
+         kubefleet-dev,opentofu,modelpack,oxia-db,cedar-policy,project-dalec,HolmesGPT,\
          robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z

@@ -2466,7 +2466,8 @@ where
     'robusta-dev/holmesgpt',
     'robusta-dev/homebrew-holmesgpt',
     'robusta-dev/holmesgpt-community-toolsets'
- )
+  )
+  or lower(org_login) in ('holmesgpt')
 ;
 
 -- Cedar Policy
