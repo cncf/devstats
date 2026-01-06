@@ -29,10 +29,10 @@ analyze repos_in_groups_{{rnd}};
 create temp table events_in_groups_{{rnd}} as
 select
   e.id,
-  e.actor_id,
-  e.type,
-  a.country_name,
-  r.repo_group as base_repo_group
+  max(e.actor_id) as actor_id,
+  max(e.type) as type,
+  max(a.country_name) as country_name,
+  max(r.repo_group) as base_repo_group
 from
   gha_events e
 join
@@ -46,28 +46,13 @@ on
   and r.repo_name = e.dup_repo_name
 where
   e.created_at < '{{to}}'
+group by
+  e.id
 ;
 create index on events_in_groups_{{rnd}}(id);
-create index on events_in_groups_{{rnd}}(actor_id);
 analyze events_in_groups_{{rnd}};
 
-create temp table ecf_event_flags_{{rnd}} as
-select
-  ecf.event_id,
-  bool_or(ecf.repo_group is null) as has_null
-from
-  gha_events_commits_files ecf
-join
-  events_in_groups_{{rnd}} e
-on
-  e.id = ecf.event_id
-group by
-  ecf.event_id
-;
-create index on ecf_event_flags_{{rnd}}(event_id);
-analyze ecf_event_flags_{{rnd}};
-
-create temp table ecf_event_groups_{{rnd}} as
+create temp table ecf_dedup_{{rnd}} as
 select distinct
   ecf.event_id,
   ecf.repo_group
@@ -77,41 +62,9 @@ join
   events_in_groups_{{rnd}} e
 on
   e.id = ecf.event_id
-where
-  ecf.repo_group is not null
 ;
-create index on ecf_event_groups_{{rnd}}(event_id);
-create index on ecf_event_groups_{{rnd}}(repo_group);
-analyze ecf_event_groups_{{rnd}};
-
-create temp table event_repo_groups_{{rnd}} as
-select distinct
-  x.event_id,
-  x.repo_group
-from (
-  select
-    event_id,
-    repo_group
-  from
-    ecf_event_groups_{{rnd}}
-  union all
-  select
-    e.id as event_id,
-    e.base_repo_group as repo_group
-  from
-    events_in_groups_{{rnd}} e
-  left join
-    ecf_event_flags_{{rnd}} f
-  on
-    f.event_id = e.id
-  where
-    f.event_id is null
-    or f.has_null
-) x
-;
-create index on event_repo_groups_{{rnd}}(event_id);
-create index on event_repo_groups_{{rnd}}(repo_group);
-analyze event_repo_groups_{{rnd}};
+create index on ecf_dedup_{{rnd}}(event_id);
+analyze ecf_dedup_{{rnd}};
 
 select
   concat(
@@ -143,32 +96,32 @@ from (
     'all' as repo_group,
     count(distinct e.actor_id) filter (
       where e.type in (
-        'IssuesEvent', 'PullRequestEvent', 'PushEvent', 'CommitCommentEvent',
-        'IssueCommentEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent'
+        'IssuesEvent','PullRequestEvent','PushEvent','CommitCommentEvent',
+        'IssueCommentEvent','PullRequestReviewCommentEvent','PullRequestReviewEvent'
       )
     ) as contributors,
-    count(*) filter (
+    count(distinct e.id) filter (
       where e.type in (
-        'IssuesEvent', 'PullRequestEvent', 'PushEvent', 'CommitCommentEvent',
-        'IssueCommentEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent'
+        'IssuesEvent','PullRequestEvent','PushEvent','CommitCommentEvent',
+        'IssueCommentEvent','PullRequestReviewCommentEvent','PullRequestReviewEvent'
       )
     ) as contributions,
     count(distinct e.actor_id) as users,
-    count(*) as events,
+    count(distinct e.id) as events,
     count(distinct e.actor_id) filter (where e.type = 'PushEvent') as committers,
-    count(*) filter (where e.type = 'PushEvent') as commits,
+    count(distinct e.id) filter (where e.type = 'PushEvent') as commits,
     count(distinct e.actor_id) filter (where e.type = 'PullRequestEvent') as prcreators,
-    count(*) filter (where e.type = 'PullRequestEvent') as prs,
+    count(distinct e.id) filter (where e.type = 'PullRequestEvent') as prs,
     count(distinct e.actor_id) filter (where e.type = 'IssuesEvent') as issuecreators,
-    count(*) filter (where e.type = 'IssuesEvent') as issues,
-    count(distinct e.actor_id) filter (where e.type in ('CommitCommentEvent', 'IssueCommentEvent')) as commenters,
-    count(*) filter (where e.type in ('CommitCommentEvent', 'IssueCommentEvent')) as comments,
-    count(distinct e.actor_id) filter (where e.type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent')) as reviewers,
-    count(*) filter (where e.type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent')) as reviews,
+    count(distinct e.id) filter (where e.type = 'IssuesEvent') as issues,
+    count(distinct e.actor_id) filter (where e.type in ('CommitCommentEvent','IssueCommentEvent')) as commenters,
+    count(distinct e.id) filter (where e.type in ('CommitCommentEvent','IssueCommentEvent')) as comments,
+    count(distinct e.actor_id) filter (where e.type in ('PullRequestReviewCommentEvent','PullRequestReviewEvent')) as reviewers,
+    count(distinct e.id) filter (where e.type in ('PullRequestReviewCommentEvent','PullRequestReviewEvent')) as reviews,
     count(distinct e.actor_id) filter (where e.type = 'WatchEvent') as watchers,
-    count(*) filter (where e.type = 'WatchEvent') as watches,
+    count(distinct e.id) filter (where e.type = 'WatchEvent') as watches,
     count(distinct e.actor_id) filter (where e.type = 'ForkEvent') as forkers,
-    count(*) filter (where e.type = 'ForkEvent') as forks
+    count(distinct e.id) filter (where e.type = 'ForkEvent') as forks
   from
     gha_events e
   join
@@ -180,22 +133,22 @@ from (
   group by
     a.country_name
 
-  union
+  union all
 
   select
     'countriescum' as type,
     e.country_name,
-    g.repo_group as repo_group,
+    coalesce(d.repo_group, e.base_repo_group) as repo_group,
     count(distinct e.actor_id) filter (
       where e.type in (
-        'IssuesEvent', 'PullRequestEvent', 'PushEvent', 'CommitCommentEvent',
-        'IssueCommentEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent'
+        'IssuesEvent','PullRequestEvent','PushEvent','CommitCommentEvent',
+        'IssueCommentEvent','PullRequestReviewCommentEvent','PullRequestReviewEvent'
       )
     ) as contributors,
     count(*) filter (
       where e.type in (
-        'IssuesEvent', 'PullRequestEvent', 'PushEvent', 'CommitCommentEvent',
-        'IssueCommentEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent'
+        'IssuesEvent','PullRequestEvent','PushEvent','CommitCommentEvent',
+        'IssueCommentEvent','PullRequestReviewCommentEvent','PullRequestReviewEvent'
       )
     ) as contributions,
     count(distinct e.actor_id) as users,
@@ -206,23 +159,23 @@ from (
     count(*) filter (where e.type = 'PullRequestEvent') as prs,
     count(distinct e.actor_id) filter (where e.type = 'IssuesEvent') as issuecreators,
     count(*) filter (where e.type = 'IssuesEvent') as issues,
-    count(distinct e.actor_id) filter (where e.type in ('CommitCommentEvent', 'IssueCommentEvent')) as commenters,
-    count(*) filter (where e.type in ('CommitCommentEvent', 'IssueCommentEvent')) as comments,
-    count(distinct e.actor_id) filter (where e.type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent')) as reviewers,
-    count(*) filter (where e.type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent')) as reviews,
+    count(distinct e.actor_id) filter (where e.type in ('CommitCommentEvent','IssueCommentEvent')) as commenters,
+    count(*) filter (where e.type in ('CommitCommentEvent','IssueCommentEvent')) as comments,
+    count(distinct e.actor_id) filter (where e.type in ('PullRequestReviewCommentEvent','PullRequestReviewEvent')) as reviewers,
+    count(*) filter (where e.type in ('PullRequestReviewCommentEvent','PullRequestReviewEvent')) as reviews,
     count(distinct e.actor_id) filter (where e.type = 'WatchEvent') as watchers,
     count(*) filter (where e.type = 'WatchEvent') as watches,
     count(distinct e.actor_id) filter (where e.type = 'ForkEvent') as forkers,
     count(*) filter (where e.type = 'ForkEvent') as forks
   from
     events_in_groups_{{rnd}} e
-  join
-    event_repo_groups_{{rnd}} g
+  left join
+    ecf_dedup_{{rnd}} d
   on
-    g.event_id = e.id
+    d.event_id = e.id
   group by
     e.country_name,
-    g.repo_group
+    coalesce(d.repo_group, e.base_repo_group)
 ) inn
 where
   inn.repo_group is not null
