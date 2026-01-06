@@ -1,410 +1,371 @@
-with prs_latest as (
-  select sub.id,
-    sub.event_id,
-    sub.created_at,
-    sub.merged_at,
-    sub.dup_repo_id,
-    sub.dup_repo_name
-  from (
-    select id,
-      event_id,
-      created_at,
-      merged_at,
-      dup_repo_id,
-      dup_repo_name,
-      row_number() over (partition by id order by updated_at desc, event_id desc) as rank
-    from
-      gha_pull_requests
-    where
-      created_at >= '{{from}}'
-      and created_at < '{{to}}'
-      and merged_at is not null
-  ) sub
-  where
-    sub.rank = 1
-), prs as (
-  select ipr.issue_id,
+with const as (
+  select
+    'amedo2l,amedl2a,ameda2m,ap85o2l,ap85l2a,ap85a2m,ymedo2l,ymedl2a,ymeda2m,yp85o2l,yp85l2a,yp85a2m,nmedo2l,nmedl2a,nmeda2m,np85o2l,np85l2a,np85a2m'::text as s
+), prs_latest as materialized (
+  select distinct on (pr.id)
+    pr.id,
+    pr.event_id,
     pr.created_at,
     pr.merged_at,
-    case iel.label_name when 'kind/api-change' then 'yes' else 'no' end as api_change
+    pr.dup_repo_id,
+    pr.dup_repo_name
+  from
+    gha_pull_requests pr
+  where
+    pr.created_at >= '{{from}}'
+    and pr.created_at < '{{to}}'
+    and pr.merged_at is not null
+  order by
+    pr.id,
+    pr.updated_at desc,
+    pr.event_id desc
+), prs_ipr as materialized (
+  select
+    pr.id as pr_id,
+    pr.event_id,
+    pr.created_at,
+    pr.merged_at,
+    pr.dup_repo_id,
+    pr.dup_repo_name,
+    ipr.issue_id,
+    ipr.repo_id,
+    ipr.repo_name
   from
     prs_latest pr
   join
     gha_issues_pull_requests ipr
   on
-    pr.id = ipr.pull_request_id
-  left join
-    gha_issues_events_labels iel
-  on
-    ipr.issue_id = iel.issue_id
-    and iel.label_name = 'kind/api-change'
-), prs_groups as (
-  select sub.repo_group,
-    sub.issue_id,
-    sub.created_at,
-    sub.merged_at,
-    sub.api_change
-  from (
-    select coalesce(ecf.repo_group, r.repo_group) as repo_group,
-      ipr.issue_id,
-      pr.created_at,
-      pr.merged_at,
-      case iel.label_name when 'kind/api-change' then 'yes' else 'no' end as api_change
-    from
-      gha_repos r
-    join
-      prs_latest pr
-    on
-      r.id = pr.dup_repo_id
-      and r.name = pr.dup_repo_name
-    join
-      gha_issues_pull_requests ipr
-    on
-      r.id = ipr.repo_id
-      and r.name = ipr.repo_name
-      and pr.id = ipr.pull_request_id
-    left join
-      gha_events_commits_files ecf
-    on
-      ecf.event_id = pr.event_id
-    left join
-      gha_issues_events_labels iel
-    on
-      ipr.issue_id = iel.issue_id
-      and iel.label_name = 'kind/api-change'
-    ) sub
-  where
-    sub.repo_group is not null
-), pr_lgtm as (
-  select issue_id, min(created_at) as lgtm_at
-  from
-    gha_issues_events_labels
-  where
-    label_name = 'lgtm'
-    and issue_id in (select issue_id from prs)
-  group by
+    ipr.pull_request_id = pr.id
+), issues_set as materialized (
+  select distinct
     issue_id
-), pr_approve as (
-  select issue_id, min(created_at) as approve_at
   from
-    gha_issues_events_labels
+    prs_ipr
+), api_change_lbl as materialized (
+  select
+    l.issue_id
+  from
+    gha_issues_events_labels l
+  join
+    issues_set s
+  on
+    s.issue_id = l.issue_id
   where
-    label_name = 'approved'
-    and issue_id in (select issue_id from prs)
+    l.label_name = 'kind/api-change'
+), prs as materialized (
+  select
+    p.issue_id,
+    p.created_at,
+    p.merged_at,
+    case when ac.issue_id is null then 'no' else 'yes' end as api_change
+  from
+    prs_ipr p
+  left join
+    api_change_lbl ac
+  on
+    ac.issue_id = p.issue_id
+), prs_groups as materialized (
+  select
+    coalesce(ecf.repo_group, r.repo_group) as repo_group,
+    ipr.issue_id,
+    pr.created_at,
+    pr.merged_at,
+    case when ac.issue_id is null then 'no' else 'yes' end as api_change
+  from
+    prs_latest pr
+  join
+    gha_repos r
+  on
+    r.id = pr.dup_repo_id
+    and r.name = pr.dup_repo_name
+  join
+    gha_issues_pull_requests ipr
+  on
+    ipr.pull_request_id = pr.id
+    and ipr.repo_id = r.id
+    and ipr.repo_name = r.name
+  left join
+    gha_events_commits_files ecf
+  on
+    ecf.event_id = pr.event_id
+  left join
+    api_change_lbl ac
+  on
+    ac.issue_id = ipr.issue_id
+  where
+    coalesce(ecf.repo_group, r.repo_group) is not null
+), issue_times as materialized (
+  select
+    l.issue_id,
+    min(l.created_at) filter (where l.label_name = 'lgtm') as lgtm_at,
+    min(l.created_at) filter (where l.label_name = 'approved') as approve_at
+  from
+    gha_issues_events_labels l
+  join
+    issues_set s
+  on
+    s.issue_id = l.issue_id
+  where
+    l.label_name in ('lgtm', 'approved')
   group by
-    issue_id
-), ranges as (
-  select prs.issue_id,
-    prs.created_at as open,
-    lgtm.lgtm_at as lgtm,
-    approve.approve_at as approve,
-    prs.merged_at as merge,
-    prs.api_change as api_change
+    l.issue_id
+), tdiffs as materialized (
+  select
+    p.issue_id,
+    p.api_change,
+    extract(epoch from coalesce(t.lgtm_at - p.created_at, t.approve_at - p.created_at, p.merged_at - p.created_at)) / 3600 as open_to_lgtm,
+    extract(epoch from coalesce(t.approve_at - t.lgtm_at, p.merged_at - t.lgtm_at, interval '0')) / 3600 as lgtm_to_approve,
+    extract(epoch from coalesce(p.merged_at - t.approve_at, interval '0')) / 3600 as approve_to_merge
   from
-    prs
+    prs p
   left join
-    pr_lgtm lgtm
+    issue_times t
   on
-    prs.issue_id = lgtm.issue_id
+    t.issue_id = p.issue_id
+), tdiffs_groups as materialized (
+  select
+    p.issue_id,
+    p.repo_group,
+    p.api_change,
+    extract(epoch from coalesce(t.lgtm_at - p.created_at, t.approve_at - p.created_at, p.merged_at - p.created_at)) / 3600 as open_to_lgtm,
+    extract(epoch from coalesce(t.approve_at - t.lgtm_at, p.merged_at - t.lgtm_at, interval '0')) / 3600 as lgtm_to_approve,
+    extract(epoch from coalesce(p.merged_at - t.approve_at, interval '0')) / 3600 as approve_to_merge
+  from
+    prs_groups p
   left join
-    pr_approve approve
+    issue_times t
   on
-    prs.issue_id = approve.issue_id
-), ranges_groups as (
-  select prs_groups.issue_id,
-    prs_groups.repo_group as repo_group,
-    prs_groups.created_at as open,
-    lgtm.lgtm_at as lgtm,
-    approve.approve_at as approve,
-    prs_groups.merged_at as merge,
-    prs_groups.api_change as api_change
+    t.issue_id = p.issue_id
+), labels_all as materialized (
+  select distinct
+    l.issue_id,
+    l.label_name,
+    substring(l.label_name from 6) as label_sub_name
   from
-    prs_groups
-  left join
-    pr_lgtm lgtm on prs_groups.issue_id = lgtm.issue_id
-  left join
-    pr_approve approve on prs_groups.issue_id = approve.issue_id
-), tdiffs as (
-  select issue_id,
-    api_change,
-    extract(epoch from coalesce(lgtm - open, approve - open, merge - open)) / 3600 as open_to_lgtm,
-    extract(epoch from coalesce(approve - lgtm, merge - lgtm, '0'::interval)) / 3600 as lgtm_to_approve,
-    extract(epoch from coalesce(merge - approve, '0'::interval)) / 3600 as approve_to_merge
-  from
-    ranges
-), tdiffs_groups as (
-  select issue_id,
-    repo_group,
-    api_change,
-    extract(epoch from coalesce(lgtm - open, approve - open, merge - open)) / 3600 as open_to_lgtm,
-    extract(epoch from coalesce(approve - lgtm, merge - lgtm, '0'::interval)) / 3600 as lgtm_to_approve,
-    extract(epoch from coalesce(merge - approve, '0'::interval)) / 3600 as approve_to_merge
-  from
-    ranges_groups
-), labels as (
-  select distinct issue_id,
-    label_name,
-    substring(label_name from 6) as label_sub_name
-  from
-    gha_issues_events_labels
+    gha_issues_events_labels l
+  join
+    issues_set s
+  on
+    s.issue_id = l.issue_id
   where
-    issue_id in (select issue_id from prs)
-    and (
-      label_name in ('kind/bug', 'kind/feature', 'kind/design', 'kind/cleanup', 'kind/documentation', 'kind/flake', 'kind/kep')
-      or label_name like 'size/%'
+    l.label_name like 'size/%'
+    or l.label_name in (
+      'kind/bug', 'kind/feature', 'kind/design', 'kind/cleanup',
+      'kind/documentation', 'kind/flake', 'kind/kep'
     )
+), size_labels as materialized (
+  select
+    issue_id,
+    label_sub_name as size
+  from
+    labels_all
+  where
+    label_name like 'size/%'
+), kind_labels as materialized (
+  select
+    issue_id,
+    label_sub_name as kind
+  from
+    labels_all
+  where
+    label_name in (
+      'kind/bug', 'kind/feature', 'kind/design', 'kind/cleanup',
+      'kind/documentation', 'kind/flake', 'kind/kep'
+    )
+), fact as materialized (
+  select
+    0 as part,
+    null::text as repo_group,
+    null::text as size,
+    null::text as kind,
+    t.api_change,
+    t.open_to_lgtm,
+    t.lgtm_to_approve,
+    t.approve_to_merge
+  from
+    tdiffs t
+  union all
+  select
+    1 as part,
+    tg.repo_group,
+    null::text as size,
+    null::text as kind,
+    tg.api_change,
+    tg.open_to_lgtm,
+    tg.lgtm_to_approve,
+    tg.approve_to_merge
+  from
+    tdiffs_groups tg
+  union all
+  select
+    2 as part,
+    null::text as repo_group,
+    s.size,
+    null::text as kind,
+    t.api_change,
+    t.open_to_lgtm,
+    t.lgtm_to_approve,
+    t.approve_to_merge
+  from
+    tdiffs t
+  join
+    size_labels s
+  on
+    s.issue_id = t.issue_id
+  union all
+  select
+    3 as part,
+    tg.repo_group,
+    s.size,
+    null::text as kind,
+    tg.api_change,
+    tg.open_to_lgtm,
+    tg.lgtm_to_approve,
+    tg.approve_to_merge
+  from
+    tdiffs_groups tg
+  join
+    size_labels s
+  on
+    s.issue_id = tg.issue_id
+  union all
+  select
+    4 as part,
+    null::text as repo_group,
+    null::text as size,
+    k.kind,
+    t.api_change,
+    t.open_to_lgtm,
+    t.lgtm_to_approve,
+    t.approve_to_merge
+  from
+    tdiffs t
+  join
+    kind_labels k
+  on
+    k.issue_id = t.issue_id
+  union all
+  select
+    5 as part,
+    tg.repo_group,
+    null::text as size,
+    k.kind,
+    tg.api_change,
+    tg.open_to_lgtm,
+    tg.lgtm_to_approve,
+    tg.approve_to_merge
+  from
+    tdiffs_groups tg
+  join
+    kind_labels k
+  on
+    k.issue_id = tg.issue_id
+  union all
+  select
+    6 as part,
+    null::text as repo_group,
+    s.size,
+    k.kind,
+    t.api_change,
+    t.open_to_lgtm,
+    t.lgtm_to_approve,
+    t.approve_to_merge
+  from
+    tdiffs t
+  join
+    size_labels s
+  on
+    s.issue_id = t.issue_id
+  join
+    kind_labels k
+  on
+    k.issue_id = t.issue_id
+  union all
+  select
+    7 as part,
+    tg.repo_group,
+    s.size,
+    k.kind,
+    tg.api_change,
+    tg.open_to_lgtm,
+    tg.lgtm_to_approve,
+    tg.approve_to_merge
+  from
+    tdiffs_groups tg
+  join
+    size_labels s
+  on
+    s.issue_id = tg.issue_id
+  join
+    kind_labels k
+  on
+    k.issue_id = tg.issue_id
+), agg as (
+  select
+    f.part,
+    f.repo_group,
+    f.size,
+    f.kind,
+    greatest(percentile_disc(0.5) within group (order by f.open_to_lgtm asc), 0) as m_o2l_a,
+    greatest(percentile_disc(0.5) within group (order by f.lgtm_to_approve asc), 0) as m_l2a_a,
+    greatest(percentile_disc(0.5) within group (order by f.approve_to_merge asc), 0) as m_a2m_a,
+    greatest(percentile_disc(0.85) within group (order by f.open_to_lgtm asc), 0) as pc_o2l_a,
+    greatest(percentile_disc(0.85) within group (order by f.lgtm_to_approve asc), 0) as pc_l2a_a,
+    greatest(percentile_disc(0.85) within group (order by f.approve_to_merge asc), 0) as pc_a2m_a,
+    greatest(percentile_disc(0.5) within group (order by f.open_to_lgtm asc) filter (where f.api_change = 'yes'), 0) as m_o2l_y,
+    greatest(percentile_disc(0.5) within group (order by f.lgtm_to_approve asc) filter (where f.api_change = 'yes'), 0) as m_l2a_y,
+    greatest(percentile_disc(0.5) within group (order by f.approve_to_merge asc) filter (where f.api_change = 'yes'), 0) as m_a2m_y,
+    greatest(percentile_disc(0.85) within group (order by f.open_to_lgtm asc) filter (where f.api_change = 'yes'), 0) as pc_o2l_y,
+    greatest(percentile_disc(0.85) within group (order by f.lgtm_to_approve asc) filter (where f.api_change = 'yes'), 0) as pc_l2a_y,
+    greatest(percentile_disc(0.85) within group (order by f.approve_to_merge asc) filter (where f.api_change = 'yes'), 0) as pc_a2m_y,
+    greatest(percentile_disc(0.5) within group (order by f.open_to_lgtm asc) filter (where f.api_change = 'no'), 0) as m_o2l_n,
+    greatest(percentile_disc(0.5) within group (order by f.lgtm_to_approve asc) filter (where f.api_change = 'no'), 0) as m_l2a_n,
+    greatest(percentile_disc(0.5) within group (order by f.approve_to_merge asc) filter (where f.api_change = 'no'), 0) as m_a2m_n,
+    greatest(percentile_disc(0.85) within group (order by f.open_to_lgtm asc) filter (where f.api_change = 'no'), 0) as pc_o2l_n,
+    greatest(percentile_disc(0.85) within group (order by f.lgtm_to_approve asc) filter (where f.api_change = 'no'), 0) as pc_l2a_n,
+    greatest(percentile_disc(0.85) within group (order by f.approve_to_merge asc) filter (where f.api_change = 'no'), 0) as pc_a2m_n
+  from
+    fact f
+  group by
+    f.part,
+    f.repo_group,
+    f.size,
+    f.kind
 )
-select
-  'tmet;All_All_All;'
-  || 'amedo2l,amedl2a,ameda2m,ap85o2l,ap85l2a,ap85a2m,'
-  || 'ymedo2l,ymedl2a,ymeda2m,yp85o2l,yp85l2a,yp85a2m,'
-  || 'nmedo2l,nmedl2a,nmeda2m,np85o2l,np85l2a,np85a2m'
-  as name,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc), 0) as m_o2l_a,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc), 0) as m_l2a_a,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc), 0) as m_a2m_a,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc), 0) as pc_o2l_a,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc), 0) as pc_l2a_a,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc), 0) as pc_a2m_a,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as m_o2l_y,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as m_l2a_y,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as m_a2m_y,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as pc_o2l_y,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as pc_l2a_y,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as pc_a2m_y,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as m_o2l_n,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as m_l2a_n,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as m_a2m_n,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as pc_o2l_n,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as pc_l2a_n,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as pc_a2m_n
+select distinct
+  case a.part
+    when 0 then 'tmet;All_All_All;' || const.s
+    when 1 then 'tmet;' || a.repo_group || '_All_All;' || const.s
+    when 2 then 'tmet;All_' || a.size || '_All;' || const.s
+    when 3 then 'tmet;' || a.repo_group || '_' || a.size || '_All;' || const.s
+    when 4 then 'tmet;All_All_' || a.kind || ';' || const.s
+    when 5 then 'tmet;' || a.repo_group || '_All_' || a.kind || ';' || const.s
+    when 6 then 'tmet;All_' || a.size || '_' || a.kind || ';' || const.s
+    else 'tmet;' || a.repo_group || '_' || a.size || '_' || a.kind || ';' || const.s
+  end as name,
+  a.m_o2l_a,
+  a.m_l2a_a,
+  a.m_a2m_a,
+  a.pc_o2l_a,
+  a.pc_l2a_a,
+  a.pc_a2m_a,
+  a.m_o2l_y,
+  a.m_l2a_y,
+  a.m_a2m_y,
+  a.pc_o2l_y,
+  a.pc_l2a_y,
+  a.pc_a2m_y,
+  a.m_o2l_n,
+  a.m_l2a_n,
+  a.m_a2m_n,
+  a.pc_o2l_n,
+  a.pc_l2a_n,
+  a.pc_a2m_n
 from
-  tdiffs
-union select 'tmet;' || repo_group || '_All_All;'
-  || 'amedo2l,amedl2a,ameda2m,ap85o2l,ap85l2a,ap85a2m,'
-  || 'ymedo2l,ymedl2a,ymeda2m,yp85o2l,yp85l2a,yp85a2m,'
-  || 'nmedo2l,nmedl2a,nmeda2m,np85o2l,np85l2a,np85a2m'
-  as name,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc), 0) as m_o2l_a,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc), 0) as m_l2a_a,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc), 0) as m_a2m_a,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc), 0) as pc_o2l_a,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc), 0) as pc_l2a_a,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc), 0) as pc_a2m_a,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as m_o2l_y,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as m_l2a_y,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as m_a2m_y,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as pc_o2l_y,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as pc_l2a_y,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as pc_a2m_y,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as m_o2l_n,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as m_l2a_n,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as m_a2m_n,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as pc_o2l_n,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as pc_l2a_n,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as pc_a2m_n
-from
-  tdiffs_groups
-group by
-  repo_group
-union select 'tmet;All_' || iel.label_sub_name || '_All;'
-  || 'amedo2l,amedl2a,ameda2m,ap85o2l,ap85l2a,ap85a2m,'
-  || 'ymedo2l,ymedl2a,ymeda2m,yp85o2l,yp85l2a,yp85a2m,'
-  || 'nmedo2l,nmedl2a,nmeda2m,np85o2l,np85l2a,np85a2m'
-  as name,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc), 0) as m_o2l_a,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc), 0) as m_l2a_a,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc), 0) as m_a2m_a,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc), 0) as pc_o2l_a,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc), 0) as pc_l2a_a,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc), 0) as pc_a2m_a,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as m_o2l_y,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as m_l2a_y,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as m_a2m_y,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as pc_o2l_y,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as pc_l2a_y,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as pc_a2m_y,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as m_o2l_n,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as m_l2a_n,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as m_a2m_n,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as pc_o2l_n,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as pc_l2a_n,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as pc_a2m_n
-from
-  tdiffs t,
-  labels iel
-where
-  t.issue_id = iel.issue_id
-  and iel.label_name like 'size/%'
-group by
-  iel.label_sub_name
-union select 'tmet;' || repo_group || '_' || iel.label_sub_name || '_All;'
-  || 'amedo2l,amedl2a,ameda2m,ap85o2l,ap85l2a,ap85a2m,'
-  || 'ymedo2l,ymedl2a,ymeda2m,yp85o2l,yp85l2a,yp85a2m,'
-  || 'nmedo2l,nmedl2a,nmeda2m,np85o2l,np85l2a,np85a2m'
-  as name,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc), 0) as m_o2l_a,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc), 0) as m_l2a_a,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc), 0) as m_a2m_a,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc), 0) as pc_o2l_a,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc), 0) as pc_l2a_a,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc), 0) as pc_a2m_a,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as m_o2l_y,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as m_l2a_y,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as m_a2m_y,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as pc_o2l_y,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as pc_l2a_y,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as pc_a2m_y,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as m_o2l_n,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as m_l2a_n,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as m_a2m_n,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as pc_o2l_n,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as pc_l2a_n,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as pc_a2m_n
-from
-  tdiffs_groups t,
-  labels iel
-where
-  t.issue_id = iel.issue_id
-  and iel.label_name like 'size/%'
-group by
-  repo_group,
-  iel.label_sub_name
-union select
-  'tmet;All_All_' || ielk.label_sub_name || ';'
-  || 'amedo2l,amedl2a,ameda2m,ap85o2l,ap85l2a,ap85a2m,'
-  || 'ymedo2l,ymedl2a,ymeda2m,yp85o2l,yp85l2a,yp85a2m,'
-  || 'nmedo2l,nmedl2a,nmeda2m,np85o2l,np85l2a,np85a2m'
-  as name,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc), 0) as m_o2l_a,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc), 0) as m_l2a_a,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc), 0) as m_a2m_a,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc), 0) as pc_o2l_a,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc), 0) as pc_l2a_a,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc), 0) as pc_a2m_a,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as m_o2l_y,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as m_l2a_y,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as m_a2m_y,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as pc_o2l_y,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as pc_l2a_y,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as pc_a2m_y,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as m_o2l_n,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as m_l2a_n,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as m_a2m_n,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as pc_o2l_n,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as pc_l2a_n,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as pc_a2m_n
-from
-  tdiffs t,
-  labels ielk
-where
-  t.issue_id = ielk.issue_id
-  and ielk.label_name in ('kind/bug', 'kind/feature', 'kind/design', 'kind/cleanup', 'kind/documentation', 'kind/flake', 'kind/kep')
-group by
-  ielk.label_sub_name
-union select 'tmet;' || repo_group || '_All_' || ielk.label_sub_name || ';'
-  || 'amedo2l,amedl2a,ameda2m,ap85o2l,ap85l2a,ap85a2m,'
-  || 'ymedo2l,ymedl2a,ymeda2m,yp85o2l,yp85l2a,yp85a2m,'
-  || 'nmedo2l,nmedl2a,nmeda2m,np85o2l,np85l2a,np85a2m'
-  as name,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc), 0) as m_o2l_a,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc), 0) as m_l2a_a,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc), 0) as m_a2m_a,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc), 0) as pc_o2l_a,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc), 0) as pc_l2a_a,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc), 0) as pc_a2m_a,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as m_o2l_y,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as m_l2a_y,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as m_a2m_y,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as pc_o2l_y,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as pc_l2a_y,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as pc_a2m_y,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as m_o2l_n,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as m_l2a_n,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as m_a2m_n,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as pc_o2l_n,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as pc_l2a_n,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as pc_a2m_n
-from
-  tdiffs_groups t,
-  labels ielk
-where
-  t.issue_id = ielk.issue_id
-  and ielk.label_name in ('kind/bug', 'kind/feature', 'kind/design', 'kind/cleanup', 'kind/documentation', 'kind/flake', 'kind/kep')
-group by
-  repo_group,
-  ielk.label_sub_name
-union select 'tmet;All_' || iel.label_sub_name || '_' || ielk.label_sub_name || ';'
-  || 'amedo2l,amedl2a,ameda2m,ap85o2l,ap85l2a,ap85a2m,'
-  || 'ymedo2l,ymedl2a,ymeda2m,yp85o2l,yp85l2a,yp85a2m,'
-  || 'nmedo2l,nmedl2a,nmeda2m,np85o2l,np85l2a,np85a2m'
-  as name,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc), 0) as m_o2l_a,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc), 0) as m_l2a_a,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc), 0) as m_a2m_a,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc), 0) as pc_o2l_a,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc), 0) as pc_l2a_a,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc), 0) as pc_a2m_a,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as m_o2l_y,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as m_l2a_y,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as m_a2m_y,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as pc_o2l_y,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as pc_l2a_y,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as pc_a2m_y,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as m_o2l_n,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as m_l2a_n,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as m_a2m_n,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as pc_o2l_n,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as pc_l2a_n,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as pc_a2m_n
-from
-  tdiffs t,
-  labels iel,
-  labels ielk
-where
-  t.issue_id = iel.issue_id
-  and iel.label_name like 'size/%'
-  and t.issue_id = ielk.issue_id
-  and ielk.label_name in ('kind/bug', 'kind/feature', 'kind/design', 'kind/cleanup', 'kind/documentation', 'kind/flake', 'kind/kep') 
-group by
-  iel.label_sub_name,
-  ielk.label_sub_name
-union select 'tmet;' || repo_group || '_' || iel.label_sub_name || '_' || ielk.label_sub_name || ';'
-  || 'amedo2l,amedl2a,ameda2m,ap85o2l,ap85l2a,ap85a2m,'
-  || 'ymedo2l,ymedl2a,ymeda2m,yp85o2l,yp85l2a,yp85a2m,'
-  || 'nmedo2l,nmedl2a,nmeda2m,np85o2l,np85l2a,np85a2m'
-  as name,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc), 0) as m_o2l_a,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc), 0) as m_l2a_a,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc), 0) as m_a2m_a,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc), 0) as pc_o2l_a,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc), 0) as pc_l2a_a,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc), 0) as pc_a2m_a,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as m_o2l_y,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as m_l2a_y,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as m_a2m_y,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'yes'), 0) as pc_o2l_y,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'yes'), 0) as pc_l2a_y,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'yes'), 0) as pc_a2m_y,
-  greatest(percentile_disc(0.5) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as m_o2l_n,
-  greatest(percentile_disc(0.5) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as m_l2a_n,
-  greatest(percentile_disc(0.5) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as m_a2m_n,
-  greatest(percentile_disc(0.85) within group (order by open_to_lgtm asc) filter (where api_change = 'no'), 0) as pc_o2l_n,
-  greatest(percentile_disc(0.85) within group (order by lgtm_to_approve asc) filter (where api_change = 'no'), 0) as pc_l2a_n,
-  greatest(percentile_disc(0.85) within group (order by approve_to_merge asc) filter (where api_change = 'no'), 0) as pc_a2m_n
-from
-  tdiffs_groups t,
-  labels iel,
-  labels ielk
-where
-  t.issue_id = iel.issue_id
-  and iel.label_name like 'size/%'
-  and t.issue_id = ielk.issue_id
-  and ielk.label_name in ('kind/bug', 'kind/feature', 'kind/design', 'kind/cleanup', 'kind/documentation', 'kind/flake', 'kind/kep')
-group by
-  repo_group,
-  iel.label_sub_name,
-  ielk.label_sub_name
+  agg a
+cross join
+  const
 order by
   name asc
 ;
+
