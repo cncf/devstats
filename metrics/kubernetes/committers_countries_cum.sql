@@ -114,8 +114,10 @@ with commits_expanded as (
     'countriescum' as type,
     ac.country_name,
     case when grouping(ce.repo_group) = 1 then 'all' else ce.repo_group end as repo_group,
-    count(distinct ce.actor_id) as rcommitters,
-    count(distinct ce.sha) as rcommits
+    -- count(distinct ce.actor_id) as rcommitters,
+    -- count(distinct ce.sha) as rcommits
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(ce.actor_id)))) as rcommitters,
+    round(hll_cardinality(hll_add_agg(hll_hash_text(ce.sha)))) as rcommits
   from
     commits_expanded ce
   join
