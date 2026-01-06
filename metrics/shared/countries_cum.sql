@@ -1,5 +1,36 @@
+create temp table actors_country_{{rnd}} as
 select
-  concat(inn.type, ';', inn.country_name, '`', inn.repo_group, ';contributors,contributions,users,events,committers,commits,prcreators,prs,issuecreators,issues,commenters,comments,reviewers,reviews,watchers,watches,forkers,forks') as name,
+  id as actor_id,
+  country_name
+from
+  gha_actors
+where
+  country_name is not null
+  and country_name != ''
+  and (lower(login) {{exclude_bots}})
+;
+create index on actors_country_{{rnd}}(actor_id);
+analyze actors_country_{{rnd}};
+
+create temp table repo_groups_{{rnd}} as
+select
+  id as repo_id,
+  name as repo_name,
+  repo_group
+from
+  gha_repo_groups
+where
+  repo_group is not null
+  and repo_group in (select repo_group_name from trepo_groups)
+;
+create index on repo_groups_{{rnd}}(repo_id, repo_name);
+analyze repo_groups_{{rnd}};
+
+select
+  concat(
+    inn.type, ';', inn.country_name, '`', inn.repo_group, ';',
+    'contributors,contributions,users,events,committers,commits,prcreators,prs,issuecreators,issues,commenters,comments,reviewers,reviews,watchers,watches,forkers,forks'
+  ) as name,
   inn.contributors,
   inn.contributions,
   inn.users,
@@ -19,78 +50,103 @@ select
   inn.forkers,
   inn.forks
 from (
-  select 'countriescum' as type,
+  select
+    'countriescum' as type,
     a.country_name,
     'all' as repo_group,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type in ('IssuesEvent', 'PullRequestEvent', 'PushEvent', 'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent') when true then e.actor_id end)))) as contributors,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type in ('IssuesEvent', 'PullRequestEvent', 'PushEvent', 'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent') when true then e.id end)))) as contributions,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (
+      where e.type in (
+        'IssuesEvent', 'PullRequestEvent', 'PushEvent', 'CommitCommentEvent',
+        'IssueCommentEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent'
+      )
+    ))) as contributors,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (
+      where e.type in (
+        'IssuesEvent', 'PullRequestEvent', 'PushEvent', 'CommitCommentEvent',
+        'IssueCommentEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent'
+      )
+    ))) as contributions,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)))) as users,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as events,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'PushEvent' when true then e.actor_id end)))) as committers,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'PushEvent' when true then e.id end)))) as commits,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'PullRequestEvent' when true then e.actor_id end)))) as prcreators,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'PullRequestEvent' when true then e.id end)))) as prs,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'IssuesEvent' when true then e.actor_id end)))) as issuecreators,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'IssuesEvent' when true then e.id end)))) as issues,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type in ('CommitCommentEvent', 'IssueCommentEvent') when true then e.actor_id end)))) as commenters,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type in ('CommitCommentEvent', 'IssueCommentEvent') when true then e.id end)))) as comments,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent') when true then e.actor_id end)))) as reviewers,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent') when true then e.id end)))) as reviews,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'WatchEvent' when true then e.actor_id end)))) as watchers,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'WatchEvent' when true then e.id end)))) as watches,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'ForkEvent' when true then e.actor_id end)))) as forkers,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'ForkEvent' when true then e.id end)))) as forks
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type = 'PushEvent'))) as committers,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type = 'PushEvent'))) as commits,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type = 'PullRequestEvent'))) as prcreators,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type = 'PullRequestEvent'))) as prs,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type = 'IssuesEvent'))) as issuecreators,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type = 'IssuesEvent'))) as issues,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type in ('CommitCommentEvent', 'IssueCommentEvent')))) as commenters,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type in ('CommitCommentEvent', 'IssueCommentEvent')))) as comments,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent')))) as reviewers,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent')))) as reviews,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type = 'WatchEvent'))) as watchers,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type = 'WatchEvent'))) as watches,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type = 'ForkEvent'))) as forkers,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type = 'ForkEvent'))) as forks
   from
-    gha_events e,
-    gha_actors a
+    gha_events e
+  join
+    actors_country_{{rnd}} a
+  on
+    a.actor_id = e.actor_id
   where
-    (lower(a.login) {{exclude_bots}})
-    and a.id = e.actor_id
-    and a.country_name is not null
-    and a.country_name != ''
-    and e.created_at < '{{to}}'
+    e.created_at < '{{to}}'
   group by
     a.country_name
-  union select 'countriescum' as type,
+
+  union all
+
+  select
+    'countriescum' as type,
     a.country_name,
-    r.repo_group as repo_group,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type in ('IssuesEvent', 'PullRequestEvent', 'PushEvent', 'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent') when true then e.actor_id end)))) as contributors,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type in ('IssuesEvent', 'PullRequestEvent', 'PushEvent', 'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent') when true then e.id end)))) as contributions,
+    rg.repo_group as repo_group,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (
+      where e.type in (
+        'IssuesEvent', 'PullRequestEvent', 'PushEvent', 'CommitCommentEvent',
+        'IssueCommentEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent'
+      )
+    ))) as contributors,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (
+      where e.type in (
+        'IssuesEvent', 'PullRequestEvent', 'PushEvent', 'CommitCommentEvent',
+        'IssueCommentEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent'
+      )
+    ))) as contributions,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)))) as users,
     round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)))) as events,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'PushEvent' when true then e.actor_id end)))) as committers,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'PushEvent' when true then e.id end)))) as commits,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'PullRequestEvent' when true then e.actor_id end)))) as prcreators,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'PullRequestEvent' when true then e.id end)))) as prs,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'IssuesEvent' when true then e.actor_id end)))) as issuecreators,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'IssuesEvent' when true then e.id end)))) as issues,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type in ('CommitCommentEvent', 'IssueCommentEvent') when true then e.actor_id end)))) as commenters,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type in ('CommitCommentEvent', 'IssueCommentEvent') when true then e.id end)))) as comments,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent') when true then e.actor_id end)))) as reviewers,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent') when true then e.id end)))) as reviews,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'WatchEvent' when true then e.actor_id end)))) as watchers,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'WatchEvent' when true then e.id end)))) as watches,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'ForkEvent' when true then e.actor_id end)))) as forkers,
-    round(hll_cardinality(hll_add_agg(hll_hash_bigint(case e.type = 'ForkEvent' when true then e.id end)))) as forks
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type = 'PushEvent'))) as committers,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type = 'PushEvent'))) as commits,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type = 'PullRequestEvent'))) as prcreators,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type = 'PullRequestEvent'))) as prs,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type = 'IssuesEvent'))) as issuecreators,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type = 'IssuesEvent'))) as issues,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type in ('CommitCommentEvent', 'IssueCommentEvent')))) as commenters,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type in ('CommitCommentEvent', 'IssueCommentEvent')))) as comments,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent')))) as reviewers,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent')))) as reviews,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type = 'WatchEvent'))) as watchers,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type = 'WatchEvent'))) as watches,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.actor_id)) filter (where e.type = 'ForkEvent'))) as forkers,
+    round(hll_cardinality(hll_add_agg(hll_hash_bigint(e.id)) filter (where e.type = 'ForkEvent'))) as forks
   from
-    gha_repo_groups r,
-    gha_actors a,
+    repo_groups_{{rnd}} rg
+  join
     gha_events e
+  on
+    e.repo_id = rg.repo_id
+    and e.dup_repo_name = rg.repo_name
+  join
+    actors_country_{{rnd}} a
+  on
+    a.actor_id = e.actor_id
   where
-    r.id = e.repo_id
-    and r.name = e.dup_repo_name
-    and (lower(a.login) {{exclude_bots}})
-    and a.id = e.actor_id
-    and a.country_name is not null
-    and a.country_name != ''
-    and e.created_at < '{{to}}'
-    and r.repo_group in (select repo_group_name from trepo_groups)
+    e.created_at < '{{to}}'
   group by
     a.country_name,
-    r.repo_group
+    rg.repo_group
 ) inn
 where
-  inn.repo_group is not null 
+  inn.repo_group is not null
 order by
   name
 ;
+
