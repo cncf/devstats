@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
-# DevStats flags status report:
-# - provisioned: must exist in all stage DBs (report missing; DEBUG=1 prints dt + since for all, sorted by since desc)
+# DevStats flags + activity report:
+# - provisioned: must exist in all stage DBs (report missing; DEBUG=1 prints dt+since for all, sorted by since desc)
 # - devstats_running: report only DBs that have it (prints age, sorted by age desc; never list inactive DBs, even in DEBUG=1)
 # - devstats DB: report any gha_computed.metric like '%lock%' (prints locked_since, sorted by locked_since desc)
+# - activity checks (should return no rows):
+#     * deadlocks (pg_stat_database.deadlocks > 0) for stage DBs (+ devstats)
+#     * blocked sessions (cardinality(pg_blocking_pids(pid)) > 0)
+#     * blocking sessions (the blockers for the blocked sessions)
 
 set -u
 set -o pipefail
@@ -23,7 +27,7 @@ fi
 
 DEBUG="${DEBUG:-0}"
 
-# Per your request: assume kubectl (no 'k' alias usage)
+# Per requirement: assume kubectl
 KCMD="kubectl"
 
 NS="devstats-${STAGE}"
@@ -88,6 +92,42 @@ now_utc() {
   date -u +"%Y-%m-%d %H:%M:%S UTC"
 }
 
+sql_quote_literal() {
+  # SQL literal-quote a string: ' -> ''
+  local s="$1"
+  s="${s//\'/\'\'}"
+  printf "'%s'" "$s"
+}
+
+build_in_list() {
+  # Build: 'a','b','c'
+  # Args: array elements
+  local out=""
+  local item
+  for item in "$@"; do
+    out+=$(sql_quote_literal "$item")
+    out+=","
+  done
+  out="${out%,}"
+  printf "%s" "$out"
+}
+
+print_psql_table() {
+  # header: pipe-separated header line
+  # data: psql -At output (pipe-separated rows)
+  local header="$1"
+  local data="$2"
+  if [[ -z "$data" ]]; then
+    return 0
+  fi
+  if command -v column >/dev/null 2>&1; then
+    { echo "$header"; echo "$data"; } | column -t -s'|'
+  else
+    echo "$header"
+    echo "$data"
+  fi
+}
+
 echo "DevStats flags report"
 echo "  Stage:        $STAGE"
 echo "  Namespace:    $NS"
@@ -101,10 +141,10 @@ echo
 declare -a MISSING_PROVISIONED=()
 
 # Store sortable lines as: "<age_seconds>|<db>|<dt>|<interval>"
-# so we can reliably "order by age-like column desc" using numeric seconds.
 declare -a PROVISIONED_DEBUG_LINES=()   # includes ALL DBs in DEBUG=1; sorted by since desc
 declare -a RUNNING_LINES=()             # includes ONLY DBs with devstats_running; sorted by age desc
-declare -a QUERY_ERRORS=()              # debug-friendly
+declare -a QUERY_ERRORS=()              # errors from per-DB gha_computed queries
+declare -a ACTIVITY_ERRORS=()           # errors from pg_stat_* activity queries
 
 # One query per DB to fetch latest provisioned + latest devstats_running
 # Output columns: metric | dt | age_s | age_interval
@@ -155,7 +195,6 @@ for db in "${DBS[@]}"; do
   if [[ -z "$prov_dt" ]]; then
     MISSING_PROVISIONED+=("$db")
     if [[ "$DEBUG" == "1" ]]; then
-      # missing gets -1 seconds so it sorts last in desc ordering
       PROVISIONED_DEBUG_LINES+=("-1|$db|MISSING|")
     fi
   else
@@ -172,11 +211,9 @@ done
 
 echo "== Provisioned flag (metric='provisioned') =="
 if [[ "$DEBUG" == "1" ]]; then
-  # Print all DBs with dt or MISSING, plus "since", ordered by since desc
   printf "%-28s %-30s %s\n" "DB" "provisioned_dt" "since"
   printf "%-28s %-30s %s\n" "----------------------------" "------------------------------" "------------------------------"
 
-  # Sort by age_seconds desc (field 1)
   while IFS='|' read -r since_s db dt since; do
     printf "%-28s %-30s %s\n" "$db" "$dt" "$since"
   done < <(printf "%s\n" "${PROVISIONED_DEBUG_LINES[@]}" | sort -t'|' -k1,1nr)
@@ -217,7 +254,6 @@ fi
 echo
 
 echo "== devstats DB locks (gha_computed.metric like '%lock%') =="
-# Include numeric seconds for ordering, but don't print it.
 SQL_LOCKS=$'select metric,\n'\
 $'       dt,\n'\
 $'       extract(epoch from (now() - dt))::bigint as locked_since_s,\n'\
@@ -242,9 +278,129 @@ else
 fi
 echo
 
+# -------- Activity checks across stage DBs (+ devstats) --------
+
+# Build list of DBs to check for pg_stat_* queries: stage DBs + devstats
+declare -a CHECK_DBS=()
+declare -A CHECK_SEEN=()
+for db in "${DBS[@]}" "devstats"; do
+  if [[ -z "${CHECK_SEEN[$db]:-}" ]]; then
+    CHECK_DBS+=("$db")
+    CHECK_SEEN["$db"]=1
+  fi
+done
+
+CHECK_DBS_IN="$(build_in_list "${CHECK_DBS[@]}")"
+
+echo "== Deadlocks (pg_stat_database.deadlocks > 0) =="
+SQL_DEADLOCKS=$(cat <<SQL
+select datname, deadlocks, stats_reset
+from pg_stat_database
+where datname in (${CHECK_DBS_IN})
+  and deadlocks > 0
+order by deadlocks desc, datname;
+SQL
+)
+
+if psql_exec "devstats" "$SQL_DEADLOCKS"; then
+  if [[ -z "$PSQL_OUT" ]]; then
+    echo "No deadlocks reported (since stats_reset)."
+  else
+    print_psql_table "db|deadlocks|stats_reset" "$PSQL_OUT"
+  fi
+else
+  ACTIVITY_ERRORS+=("deadlocks query failed (rc=$PSQL_RC): ${PSQL_ERR//$'\n'/ }")
+  echo "ERROR: failed to query deadlocks (cannot verify)." >&2
+fi
+echo
+
+echo "== Blocked sessions (waiting on locks) =="
+# NOTE: should return 0 rows
+SQL_BLOCKED=$(cat <<SQL
+SELECT
+  datname,
+  pid,
+  usename,
+  application_name,
+  client_addr,
+  state,
+  now() - xact_start  AS xact_age,
+  now() - query_start AS runtime,
+  pg_blocking_pids(pid) AS blocking_pids,
+  left(regexp_replace(query, E'[\\r\\n\\t]+', ' ', 'g'), 200) AS query
+FROM pg_stat_activity
+WHERE datname in (${CHECK_DBS_IN})
+  AND cardinality(pg_blocking_pids(pid)) > 0
+ORDER BY xact_age DESC NULLS LAST, runtime DESC;
+SQL
+)
+
+if psql_exec "devstats" "$SQL_BLOCKED"; then
+  if [[ -z "$PSQL_OUT" ]]; then
+    echo "No blocked sessions found."
+  else
+    # Already ordered by xact_age DESC (age-like column)
+    print_psql_table "db|pid|usename|app|client_addr|state|xact_age|runtime|blocking_pids|query" "$PSQL_OUT"
+  fi
+else
+  ACTIVITY_ERRORS+=("blocked sessions query failed (rc=$PSQL_RC): ${PSQL_ERR//$'\n'/ }")
+  echo "ERROR: failed to query blocked sessions (cannot verify)." >&2
+fi
+echo
+
+echo "== Blocking sessions (blockers) =="
+# NOTE: should return 0 rows
+SQL_BLOCKERS=$(cat <<SQL
+WITH blocked AS (
+  SELECT
+    datname AS blocked_db,
+    unnest(pg_blocking_pids(pid)) AS blocking_pid
+  FROM pg_stat_activity
+  WHERE datname in (${CHECK_DBS_IN})
+    AND cardinality(pg_blocking_pids(pid)) > 0
+)
+SELECT
+  b.blocked_db,
+  a.pid,
+  a.usename,
+  a.application_name,
+  a.client_addr,
+  a.state,
+  now() - a.xact_start  AS xact_age,
+  now() - a.query_start AS runtime,
+  a.datname AS blocker_db,
+  left(regexp_replace(a.query, E'[\\r\\n\\t]+', ' ', 'g'), 200) AS query
+FROM pg_stat_activity a
+JOIN (SELECT DISTINCT blocked_db, blocking_pid FROM blocked) b
+  ON a.pid = b.blocking_pid
+ORDER BY xact_age DESC NULLS LAST, runtime DESC;
+SQL
+)
+
+if psql_exec "devstats" "$SQL_BLOCKERS"; then
+  if [[ -z "$PSQL_OUT" ]]; then
+    echo "No blocking sessions found."
+  else
+    # Already ordered by xact_age DESC (age-like column)
+    print_psql_table "blocked_db|pid|usename|app|client_addr|state|xact_age|runtime|blocker_db|query" "$PSQL_OUT"
+  fi
+else
+  ACTIVITY_ERRORS+=("blocking sessions query failed (rc=$PSQL_RC): ${PSQL_ERR//$'\n'/ }")
+  echo "ERROR: failed to query blocking sessions (cannot verify)." >&2
+fi
+echo
+
 if [[ "$DEBUG" == "1" && "${#QUERY_ERRORS[@]}" -gt 0 ]]; then
-  echo "== DEBUG: Query errors encountered =="
+  echo "== DEBUG: per-DB gha_computed query errors encountered =="
   for e in "${QUERY_ERRORS[@]}"; do
+    echo "  - $e"
+  done
+  echo
+fi
+
+if [[ "$DEBUG" == "1" && "${#ACTIVITY_ERRORS[@]}" -gt 0 ]]; then
+  echo "== DEBUG: activity query errors encountered =="
+  for e in "${ACTIVITY_ERRORS[@]}"; do
     echo "  - $e"
   done
   echo
