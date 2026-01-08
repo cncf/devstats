@@ -7,6 +7,9 @@
 #     * deadlocks (pg_stat_database.deadlocks > 0) for stage DBs (+ devstats)
 #     * blocked sessions (cardinality(pg_blocking_pids(pid)) > 0)
 #     * blocking sessions (the blockers for the blocked sessions)
+# - column-slot limit checks (per DB):
+#     * tables where total_attribute_slots > COLS_SLOTS_THRESHOLD (default 1400)
+#       output: db: table(total),table(total)...
 
 set -u
 set -o pipefail
@@ -17,6 +20,7 @@ usage() {
   echo "  DEBUG=1" >&2
   echo "  POD=devstats-postgres-0" >&2
   echo "  CONTAINER=devstats-postgres" >&2
+  echo "  COLS_SLOTS_THRESHOLD=1400   # warn if total_attribute_slots exceeds this" >&2
 }
 
 STAGE="${1:-}"
@@ -33,6 +37,12 @@ KCMD="kubectl"
 NS="devstats-${STAGE}"
 POD="${POD:-devstats-postgres-0}"
 CONTAINER="${CONTAINER:-devstats-postgres}"
+
+COLS_SLOTS_THRESHOLD="${COLS_SLOTS_THRESHOLD:-1400}"
+if ! [[ "$COLS_SLOTS_THRESHOLD" =~ ^[0-9]+$ ]]; then
+  echo "ERROR: COLS_SLOTS_THRESHOLD must be an integer, got: $COLS_SLOTS_THRESHOLD" >&2
+  exit 1
+fi
 
 DB_FILE="devel/all_${STAGE}_dbs.txt"
 if [[ ! -f "$DB_FILE" ]]; then
@@ -101,7 +111,6 @@ sql_quote_literal() {
 
 build_in_list() {
   # Build: 'a','b','c'
-  # Args: array elements
   local out=""
   local item
   for item in "$@"; do
@@ -143,8 +152,9 @@ declare -a MISSING_PROVISIONED=()
 # Store sortable lines as: "<age_seconds>|<db>|<dt>|<interval>"
 declare -a PROVISIONED_DEBUG_LINES=()   # includes ALL DBs in DEBUG=1; sorted by since desc
 declare -a RUNNING_LINES=()             # includes ONLY DBs with devstats_running; sorted by age desc
-declare -a QUERY_ERRORS=()              # errors from per-DB gha_computed queries
-declare -a ACTIVITY_ERRORS=()           # errors from pg_stat_* activity queries
+declare -a QUERY_ERRORS=()
+declare -a ACTIVITY_ERRORS=()
+declare -a COLSLOT_ERRORS=()
 
 # One query per DB to fetch latest provisioned + latest devstats_running
 # Output columns: metric | dt | age_s | age_interval
@@ -280,7 +290,7 @@ echo
 
 # -------- Activity checks across stage DBs (+ devstats) --------
 
-# Build list of DBs to check for pg_stat_* queries: stage DBs + devstats
+# Build list of DBs to check for cross-DB pg_stat_activity filters: stage DBs + devstats
 declare -a CHECK_DBS=()
 declare -A CHECK_SEEN=()
 for db in "${DBS[@]}" "devstats"; do
@@ -315,7 +325,7 @@ fi
 echo
 
 echo "== Blocked sessions (waiting on locks) =="
-# NOTE: should return 0 rows
+# Should return 0 rows
 SQL_BLOCKED=$(cat <<SQL
 SELECT
   datname,
@@ -327,7 +337,7 @@ SELECT
   now() - xact_start  AS xact_age,
   now() - query_start AS runtime,
   pg_blocking_pids(pid) AS blocking_pids,
-  left(regexp_replace(query, E'[\\r\\n\\t]+', ' ', 'g'), 200) AS query
+  left(query, 200) AS query
 FROM pg_stat_activity
 WHERE datname in (${CHECK_DBS_IN})
   AND cardinality(pg_blocking_pids(pid)) > 0
@@ -339,7 +349,6 @@ if psql_exec "devstats" "$SQL_BLOCKED"; then
   if [[ -z "$PSQL_OUT" ]]; then
     echo "No blocked sessions found."
   else
-    # Already ordered by xact_age DESC (age-like column)
     print_psql_table "db|pid|usename|app|client_addr|state|xact_age|runtime|blocking_pids|query" "$PSQL_OUT"
   fi
 else
@@ -349,7 +358,7 @@ fi
 echo
 
 echo "== Blocking sessions (blockers) =="
-# NOTE: should return 0 rows
+# Should return 0 rows
 SQL_BLOCKERS=$(cat <<SQL
 WITH blocked AS (
   SELECT
@@ -369,7 +378,7 @@ SELECT
   now() - a.xact_start  AS xact_age,
   now() - a.query_start AS runtime,
   a.datname AS blocker_db,
-  left(regexp_replace(a.query, E'[\\r\\n\\t]+', ' ', 'g'), 200) AS query
+  left(a.query, 200) AS query
 FROM pg_stat_activity a
 JOIN (SELECT DISTINCT blocked_db, blocking_pid FROM blocked) b
   ON a.pid = b.blocking_pid
@@ -381,12 +390,62 @@ if psql_exec "devstats" "$SQL_BLOCKERS"; then
   if [[ -z "$PSQL_OUT" ]]; then
     echo "No blocking sessions found."
   else
-    # Already ordered by xact_age DESC (age-like column)
     print_psql_table "blocked_db|pid|usename|app|client_addr|state|xact_age|runtime|blocker_db|query" "$PSQL_OUT"
   fi
 else
   ACTIVITY_ERRORS+=("blocking sessions query failed (rc=$PSQL_RC): ${PSQL_ERR//$'\n'/ }")
   echo "ERROR: failed to query blocking sessions (cannot verify)." >&2
+fi
+echo
+
+# -------- Per-DB: tables close to 1600 column-slot limit --------
+
+echo "== Tables close to 1600-column limit (total_attribute_slots > ${COLS_SLOTS_THRESHOLD}) =="
+SQL_COLSLOTS=$(cat <<SQL
+SELECT
+  n.nspname AS schema,
+  c.relname AS table,
+  count(*) AS total_attribute_slots,
+  count(*) FILTER (WHERE a.attisdropped) AS dropped_slots,
+  count(*) FILTER (WHERE a.attnum > 0 AND NOT a.attisdropped) AS live_columns
+FROM pg_attribute a
+JOIN pg_class c ON c.oid = a.attrelid
+JOIN pg_namespace n ON n.oid = c.relnamespace
+WHERE c.relkind IN ('r','p')
+  AND a.attnum > 0
+GROUP BY 1,2
+HAVING count(*) > ${COLS_SLOTS_THRESHOLD}
+ORDER BY total_attribute_slots DESC, dropped_slots DESC;
+SQL
+)
+
+found_cols_slots=0
+for db in "${CHECK_DBS[@]}"; do
+  if psql_exec "$db" "$SQL_COLSLOTS"; then
+    if [[ -n "$PSQL_OUT" ]]; then
+      found_cols_slots=1
+      # Build: table(total),table(total)...
+      cols_items=()
+      while IFS='|' read -r schema table total_slots dropped_slots live_cols; do
+        # Match your preferred style: omit "public." prefix, keep schema for non-public.
+        if [[ "$schema" == "public" ]]; then
+          name="$table"
+        else
+          name="${schema}.${table}"
+        fi
+        cols_items+=("${name}(${total_slots})")
+      done <<<"$PSQL_OUT"
+
+      cols_joined="$(IFS=,; echo "${cols_items[*]}")"
+      echo "${db}: ${cols_joined}"
+    fi
+  else
+    COLSLOT_ERRORS+=("$db: column-slot query failed (rc=$PSQL_RC): ${PSQL_ERR//$'\n'/ }")
+  fi
+done
+
+if [[ "$found_cols_slots" -eq 0 ]]; then
+  echo "None."
 fi
 echo
 
@@ -401,6 +460,14 @@ fi
 if [[ "$DEBUG" == "1" && "${#ACTIVITY_ERRORS[@]}" -gt 0 ]]; then
   echo "== DEBUG: activity query errors encountered =="
   for e in "${ACTIVITY_ERRORS[@]}"; do
+    echo "  - $e"
+  done
+  echo
+fi
+
+if [[ "$DEBUG" == "1" && "${#COLSLOT_ERRORS[@]}" -gt 0 ]]; then
+  echo "== DEBUG: column-slot query errors encountered =="
+  for e in "${COLSLOT_ERRORS[@]}"; do
     echo "  - $e"
   done
   echo
