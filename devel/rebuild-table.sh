@@ -33,7 +33,6 @@ fi
 TS="$(date +%Y%m%d_%H%M%S)"
 BASENAME="${DB}_${SCHEMA}_${TABLE}_rebuild_${TS}.dump"
 POD_DUMP_FILE="${POD_DUMP_DIR%/}/${BASENAME}"
-HOST_DUMP_FILE="${PWD}/${BASENAME}"
 
 # Helper to exec in pod
 kexec() {
@@ -44,14 +43,12 @@ cleanup() {
   # best-effort cleanup inside pod + host
   set +e
   kexec rm -f "$POD_DUMP_FILE" >/dev/null 2>&1
-  rm -f "$HOST_DUMP_FILE" >/dev/null 2>&1
 }
 trap cleanup EXIT
 
 echo "== Context =="
 echo "DB=$DB  TABLE=${SCHEMA}.${TABLE}"
 echo "Pod: ns=$NS pod=$POD container=$CONTAINER"
-echo "Dump: pod=$POD_DUMP_FILE host=$HOST_DUMP_FILE"
 echo
 
 echo "== Precheck: show live vs dropped slots (inside pod) =="
@@ -74,13 +71,6 @@ echo "== Step 1: pg_dump (custom format) inside pod =="
 # -t schema.table: only this table
 # -f: write to pod filesystem
 kexec pg_dump -d "$DB" -Fc -t "${SCHEMA}.${TABLE}" -f "$POD_DUMP_FILE"
-echo
-
-echo "== Optional: copy dump out of pod (for backup) =="
-# Note: kubectl cp syntax for container differs across versions; this form works in most setups.
-# If yours errors, tell me the exact error and I’ll adjust.
-"$KUBECTL" cp -n "$NS" -c "$CONTAINER" "${POD}:${POD_DUMP_FILE}" "$HOST_DUMP_FILE"
-echo "Copied to: $HOST_DUMP_FILE"
 echo
 
 echo "== Step 2: pg_restore (drop+recreate, atomic) inside pod =="
@@ -110,6 +100,3 @@ GROUP BY 1;
 echo
 
 echo "DONE."
-echo "Backup dump kept on host: $HOST_DUMP_FILE"
-echo "Pod dump will be removed automatically on exit."
-
