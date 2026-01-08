@@ -1,22 +1,61 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [ -z "$1" ] || [ -z "$2" ]
-then
-  echo "Usage: $0 <DATABASE_NAME> <SCHEMA.TABLE_NAME>"
-  echo "Example: $0 mydb mytable"
+if [ $# -lt 2 ]; then
+  echo "Usage: $0 <DATABASE_NAME> <TABLE|SCHEMA.TABLE>"
+  echo "Env overrides:"
+  echo "  NS=devstats-prod POD=devstats-postgres-0 CONTAINER=devstats-postgres"
+  echo "  KUBECTL='kubectl' (or 'k')"
+  echo "  POD_DUMP_DIR=/tmp (directory inside pod)"
   exit 1
 fi
 
-SCHEMA="public"
 DB="$1"
-TABLE="$2"
+TARGET="$2"
 
-# Where to store the backup dump (custom format)
-DUMP_FILE="${PWD}/${DB}_${SCHEMA}_${TABLE}_rebuild_$(date +%Y%m%d_%H%M%S).dump"
+# Defaults for your environment (override via env if needed)
+KUBECTL="${KUBECTL:-kubectl}"          # or set KUBECTL=k
+NS="${NS:-devstats-prod}"
+POD="${POD:-devstats-postgres-0}"
+CONTAINER="${CONTAINER:-devstats-postgres}"
+POD_DUMP_DIR="${POD_DUMP_DIR:-/tmp}"
 
-echo "== Precheck: show live vs dropped slots =="
-psql -d "$DB" -v ON_ERROR_STOP=1 -Atc "
+# Parse schema.table
+if [[ "$TARGET" == *.* ]]; then
+  SCHEMA="${TARGET%%.*}"
+  TABLE="${TARGET##*.}"
+else
+  SCHEMA="public"
+  TABLE="$TARGET"
+fi
+
+# Timestamped dump file names
+TS="$(date +%Y%m%d_%H%M%S)"
+BASENAME="${DB}_${SCHEMA}_${TABLE}_rebuild_${TS}.dump"
+POD_DUMP_FILE="${POD_DUMP_DIR%/}/${BASENAME}"
+HOST_DUMP_FILE="${PWD}/${BASENAME}"
+
+# Helper to exec in pod
+kexec() {
+  "$KUBECTL" exec -n "$NS" "$POD" -c "$CONTAINER" -- "$@"
+}
+
+cleanup() {
+  # best-effort cleanup inside pod + host
+  set +e
+  kexec rm -f "$POD_DUMP_FILE" >/dev/null 2>&1
+  rm -f "$HOST_DUMP_FILE" >/dev/null 2>&1
+}
+trap cleanup EXIT
+
+echo "== Context =="
+echo "DB=$DB  TABLE=${SCHEMA}.${TABLE}"
+echo "Pod: ns=$NS pod=$POD container=$CONTAINER"
+echo "Dump: pod=$POD_DUMP_FILE host=$HOST_DUMP_FILE"
+echo
+
+echo "== Precheck: show live vs dropped slots (inside pod) =="
+kexec psql -d "$DB" -v ON_ERROR_STOP=1 -Atc "
 SELECT
   n.nspname || '.' || c.relname,
   count(*) FILTER (WHERE a.attnum > 0 AND NOT a.attisdropped) AS live_cols,
@@ -25,25 +64,52 @@ SELECT
 FROM pg_class c
 JOIN pg_namespace n ON n.oid = c.relnamespace
 JOIN pg_attribute a ON a.attrelid = c.oid
-WHERE n.nspname = '$SCHEMA' AND c.relname = '$TABLE'
+WHERE n.nspname = '${SCHEMA}' AND c.relname = '${TABLE}'
 GROUP BY 1;
 "
+echo
 
-echo "== Step 1: Dump ONLY ${SCHEMA}.${TABLE} (schema + data + indexes/constraints) to: $DUMP_FILE =="
-pg_dump -d "$DB" -Fc -t "${SCHEMA}.${TABLE}" -f "$DUMP_FILE"
+echo "== Step 1: pg_dump (custom format) inside pod =="
+# -Fc: custom format
+# -t schema.table: only this table
+# -f: write to pod filesystem
+kexec pg_dump -d "$DB" -Fc -t "${SCHEMA}.${TABLE}" -f "$POD_DUMP_FILE"
+echo
 
-function finish {
-    rm -f "$DUMP_FILE"
-}
-trap finish EXIT
+echo "== Optional: copy dump out of pod (for backup) =="
+# Note: kubectl cp syntax for container differs across versions; this form works in most setups.
+# If yours errors, tell me the exact error and I’ll adjust.
+"$KUBECTL" cp -n "$NS" -c "$CONTAINER" "${POD}:${POD_DUMP_FILE}" "$HOST_DUMP_FILE"
+echo "Copied to: $HOST_DUMP_FILE"
+echo
 
-echo "== Step 2: Drop+recreate ONLY ${SCHEMA}.${TABLE} from the dump (atomic) =="
-# --clean --if-exists: drop the dumped objects first (table, indexes, sequences owned by it, etc.)
-# --single-transaction: all-or-nothing (if DROP fails due to dependencies, nothing changes)
-pg_restore -d "$DB" --clean --if-exists --single-transaction -t "${SCHEMA}.${TABLE}" "$DUMP_FILE"
+echo "== Step 2: pg_restore (drop+recreate, atomic) inside pod =="
+# --clean --if-exists: drop dumped objects first
+# --single-transaction: all-or-nothing
+# -t schema.table: restore only that table
+kexec pg_restore -d "$DB" --clean --if-exists --single-transaction -t "${SCHEMA}.${TABLE}" "$POD_DUMP_FILE"
+echo
 
-echo "== Step 3: Analyze =="
-psql -d "$DB" -v ON_ERROR_STOP=1 -c "ANALYZE ${SCHEMA}.\"${TABLE}\";"
+echo "== Step 3: ANALYZE (inside pod) =="
+kexec psql -d "$DB" -v ON_ERROR_STOP=1 -c "ANALYZE ${SCHEMA}.\"${TABLE}\";"
+echo
 
-echo "DONE. Backup dump kept at: $DUMP_FILE"
+echo "== Postcheck: show live vs dropped slots (inside pod) =="
+kexec psql -d "$DB" -v ON_ERROR_STOP=1 -Atc "
+SELECT
+  n.nspname || '.' || c.relname,
+  count(*) FILTER (WHERE a.attnum > 0 AND NOT a.attisdropped) AS live_cols,
+  count(*) FILTER (WHERE a.attnum > 0 AND a.attisdropped)     AS dropped_slots,
+  count(*) FILTER (WHERE a.attnum > 0)                        AS total_slots
+FROM pg_class c
+JOIN pg_namespace n ON n.oid = c.relnamespace
+JOIN pg_attribute a ON a.attrelid = c.oid
+WHERE n.nspname = '${SCHEMA}' AND c.relname = '${TABLE}'
+GROUP BY 1;
+"
+echo
+
+echo "DONE."
+echo "Backup dump kept on host: $HOST_DUMP_FILE"
+echo "Pod dump will be removed automatically on exit."
 
