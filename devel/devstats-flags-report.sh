@@ -302,8 +302,9 @@ done
 
 CHECK_DBS_IN="$(build_in_list "${CHECK_DBS[@]}")"
 
-echo "== Deadlocks (pg_stat_database.deadlocks > 0) =="
-SQL_DEADLOCKS=$(cat <<SQL
+if [[ "$DEBUG" == "1" ]]; then
+  echo "== Deadlocks (pg_stat_database.deadlocks > 0) =="
+  SQL_DEADLOCKS=$(cat <<SQL
 select datname, deadlocks, stats_reset
 from pg_stat_database
 where datname in (${CHECK_DBS_IN})
@@ -312,17 +313,18 @@ order by deadlocks desc, datname;
 SQL
 )
 
-if psql_exec "devstats" "$SQL_DEADLOCKS"; then
-  if [[ -z "$PSQL_OUT" ]]; then
-    echo "No deadlocks reported (since stats_reset)."
+  if psql_exec "devstats" "$SQL_DEADLOCKS"; then
+    if [[ -z "$PSQL_OUT" ]]; then
+      echo "No deadlocks reported (since stats_reset)."
+    else
+      print_psql_table "db|deadlocks|stats_reset" "$PSQL_OUT"
+    fi
   else
-    print_psql_table "db|deadlocks|stats_reset" "$PSQL_OUT"
+    ACTIVITY_ERRORS+=("deadlocks query failed (rc=$PSQL_RC): ${PSQL_ERR//$'\n'/ }")
+    echo "ERROR: failed to query deadlocks (cannot verify)." >&2
   fi
-else
-  ACTIVITY_ERRORS+=("deadlocks query failed (rc=$PSQL_RC): ${PSQL_ERR//$'\n'/ }")
-  echo "ERROR: failed to query deadlocks (cannot verify)." >&2
+  echo
 fi
-echo
 
 echo "== Blocked sessions (waiting on locks) =="
 # Should return 0 rows
@@ -401,6 +403,7 @@ echo
 # -------- Per-DB: tables close to 1600 column-slot limit --------
 
 echo "== Tables close to 1600-column limit (total_attribute_slots > ${COLS_SLOTS_THRESHOLD}) =="
+echo "Fix: devel/rebuild-table.sh db-name table_name"
 SQL_COLSLOTS=$(cat <<SQL
 SELECT
   n.nspname AS schema,
