@@ -116,8 +116,8 @@ join
 on
   aid.actor_id = aa.actor_id
 where
-  aa.dt_from <= '{{to}}'
-  and aa.dt_to > '{{from}}'
+  aa.dt_from <= {{to}}
+  and aa.dt_to > {{from}}
 ;
 create index on reviews_affiliations_{{rnd}}(actor_id);
 create index on reviews_affiliations_{{rnd}}(dt_from);
