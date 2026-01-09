@@ -729,6 +729,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Fluid",
+      "tooltip": "Opens Fluid projects dashboards",
+      "type": "link",
+      "url": "https://fluid.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -1023,16 +1033,6 @@
       "tooltip": "Opens Antrea projects dashboards",
       "type": "link",
       "url": "https://antrea.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Fluid",
-      "tooltip": "Opens Fluid projects dashboards",
-      "type": "link",
-      "url": "https://fluid.[[hostname]]"
     },
     {
       "icon": "dashboard",
