@@ -3229,7 +3229,7 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   oauth2proxy:
     order: 237
-    name: "Oauth2-Proxy"
+    name: "OAuth2-Proxy"
     status: Sandbox
     command_line:
       - oauth2-proxy

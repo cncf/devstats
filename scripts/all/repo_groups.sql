@@ -2436,11 +2436,11 @@ where
   or name in ('kubeflow/kfserving', 'kubeflow/kfserving-lts')
 ;
 
--- Oauth2-Proxy
+-- OAuth2-Proxy
 update
   gha_repos
 set
-  repo_group = 'Oauth2-Proxy'
+  repo_group = 'OAuth2-Proxy'
 where
   org_login in ('oauth2-proxy')
   or name in ('pusher/oauth2_proxy')
