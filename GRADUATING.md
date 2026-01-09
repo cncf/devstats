@@ -11,7 +11,7 @@ Those steps are generally needed to change project status (usually from `Incubat
 - Update files: `vim partials/projects.html partials/projects_health.html metrics/all/sync_vars.yaml apache/www/index_prod.html apache/www/index_test.html` (remember about `cncf-` classes/separators).
 - Look for `/\cdevstats projects:\|projects:\|graduated:\|incubating:\|sandbox:\|archived:` - update counts.
 - Update projects counts (graduated, incubating, sandbox, archived) in `apache/www/index_*.html`, `partials/projects_health.html` and `partials/projects.html` files.
-- For updating `partials/projects.html` or `apache/www/index_*.html`, copy the Graduated/Incubating/Sandbox section into some text file and then `KIND=Graduated SIZE=9 ./tsplit < graduated.txt > new_graduated.txt`.
+- For updating `partials/projects.html` or `apache/www/index_*.html`, copy the Graduated/Incubating/Sandbox section into some text file and then `KIND=Graduated SIZE=12 ./tsplit < graduated.txt > new_graduated.txt`.
 - You only need to move projects that changed state to that text file, and then it will take care of right/left/bottom separators and dividing into columns/rows.
 - Run to update partials: `PG_PASS=... ./devel/vars_all.sh`. Not needed with Helm installation.
 - Update test and production www index files: `apache/www/index_test.html apache/www/index_prod.html`. Possibly others too like for GraphQL.
