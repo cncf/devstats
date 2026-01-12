@@ -1034,15 +1034,16 @@ from
   projects
 union select 'phealth,' || r.repo_group || ',lcomm' as name,
   'Commits: Last commit date',
-  max(c.dup_created_at),
+  max(c.created_at),
   0.0,
-  to_char(max(c.dup_created_at), 'MM/DD/YYYY HH12:MI:SS pm')
+  to_char(max(c.created_at), 'MM/DD/YYYY HH12:MI:SS pm')
 from
-  gha_commits c,
+  gha_events c,
   gha_repos r
 where
-  c.dup_repo_id = r.id
+  c.repo_id = r.id
   and r.repo_group is not null
+  and c.type = 'PushEvent'
 group by
   r.repo_group
 union select 'phealth,' || rg.repo_group || ',lcomm' as name,
@@ -1053,18 +1054,19 @@ union select 'phealth,' || rg.repo_group || ',lcomm' as name,
 from
   repo_groups rg
 where
-  (select count(*) from gha_commits c, gha_repos r where c.dup_repo_id = r.id and r.repo_group = rg.repo_group) = 0
+  (select count(*) from gha_events c, gha_repos r where c.repo_id = r.id and r.repo_group = rg.repo_group and c.type = 'PushEvent') = 0
 union select 'phealth,' || r.repo_group || ',active' as name,
   'Activity status',
-  max(c.dup_created_at),
+  max(e.created_at),
   0.0,
-  CASE WHEN DATE_PART('day', now() - max(c.dup_created_at)) > 90 THEN 'Inactive' ELSE 'Active' END
+  CASE WHEN DATE_PART('day', now() - max(e.created_at)) > 90 THEN 'Inactive' ELSE 'Active' END
 from
-  gha_commits c,
+  gha_events e,
   gha_repos r
 where
-  c.dup_repo_id = r.id
+  e.repo_id = r.id
   and r.repo_group is not null
+  and e.type = 'PushEvent'
 group by
   r.repo_group
 union select 'phealth,' || rg.repo_group || ',active' as name,
@@ -1075,18 +1077,19 @@ union select 'phealth,' || rg.repo_group || ',active' as name,
 from
   repo_groups rg
 where
-  (select count(*) from gha_commits c, gha_repos r where c.dup_repo_id = r.id and r.repo_group = rg.repo_group) = 0
+  (select count(*) from gha_events c, gha_repos r where c.repo_id = r.id and r.repo_group = rg.repo_group and c.type = 'PushEvent') = 0
 union select 'phealth,' || r.repo_group || ',lcommd' as name,
   'Commits: Days since last commit',
-  max(c.dup_created_at),
+  max(c.created_at),
   0.0,
-  DATE_PART('day', now() - max(c.dup_created_at))::text || ' days'
+  DATE_PART('day', now() - max(c.created_at))::text || ' days'
 from
-  gha_commits c,
+  gha_events c,
   gha_repos r
 where
-  c.dup_repo_id = r.id
+  c.repo_id = r.id
   and r.repo_group is not null
+  and c.type = 'PushEvent'
 group by
   r.repo_group
 union select 'phealth,' || rg.repo_group || ',lcommd' as name,
@@ -1097,7 +1100,7 @@ union select 'phealth,' || rg.repo_group || ',lcommd' as name,
 from
   repo_groups rg
 where
-  (select count(*) from gha_commits c, gha_repos r where c.dup_repo_id = r.id and r.repo_group = rg.repo_group) = 0
+  (select count(*) from gha_events c, gha_repos r where c.repo_id = r.id and r.repo_group = rg.repo_group and c.type = 'PushEvent') = 0
 union select 'phealth,' || repo_group || ',acomm3' as name,
   'Committers: Number of committers in the last 3 months',
   now(),
