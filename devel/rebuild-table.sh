@@ -36,7 +36,15 @@ POD_DUMP_FILE="${POD_DUMP_DIR%/}/${BASENAME}"
 
 # Helper to exec in pod
 kexec() {
+  if [ ! -z "${DBG}" ]
+  then
+    echo -n "\"$KUBECTL\" exec -n \"$NS\" \"$POD\" -c \"$CONTAINER\" -- \"$@\" --> "
+  fi
   "$KUBECTL" exec -n "$NS" "$POD" -c "$CONTAINER" -- "$@"
+  if [ ! -z "${DBG}" ]
+  then
+    echo "$?"
+  fi
 }
 
 cleanup() {
