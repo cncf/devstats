@@ -29,7 +29,7 @@ where
 update gha_repos set repo_group = alias;
 
 update gha_repos
-set repo_group = 'Oauth2-Proxy', alias = 'Oauth2-Proxy'
+set repo_group = 'OAuth2-Proxy', alias = 'OAuth2-Proxy'
 where name in (
   'oauth2-proxy/oauth2-proxy',
   'pusher/oauth2_proxy'

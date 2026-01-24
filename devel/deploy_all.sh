@@ -813,7 +813,7 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=kserve              PROJDB=kserve         PROJREPO="kserve/kserve"                   ORGNAME=KServe            PORT=3311 ICON=kserve         GRAFSUFF=kserve         GA="-" ./devel/deploy_proj.sh               || exit 236
   elif [ "$proj" = "oauth2proxy" ]
   then
-    PROJ=oauth2proxy         PROJDB=oauth2proxy    PROJREPO="oauth2-proxy/oauth2-proxy"       ORGNAME="Oauth2-Proxy"    PORT=3312 ICON=oauth2proxy    GRAFSUFF=oauth2proxy    GA="-" ./devel/deploy_proj.sh               || exit 237
+    PROJ=oauth2proxy         PROJDB=oauth2proxy    PROJREPO="oauth2-proxy/oauth2-proxy"       ORGNAME="OAuth2-Proxy"    PORT=3312 ICON=oauth2proxy    GRAFSUFF=oauth2proxy    GA="-" ./devel/deploy_proj.sh               || exit 237
   elif [ "$proj" = "oxia" ]
   then
     PROJ=oxia                PROJDB=oxia           PROJREPO="oxia-db/oxia"                    ORGNAME=Oxia              PORT=3313 ICON=oxia           GRAFSUFF=oxia           GA="-" ./devel/deploy_proj.sh               || exit 238

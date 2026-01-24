@@ -31,5 +31,5 @@ vars:
                     # 'openmetrics' was merged into prometheus (1SM - SandboxMerge) in 11A
                     # it also has archived I: 'rkt', 'opentracing', 'keptn'
                     # archived S: 'brigade', 'smi', 'openservicemesh'/'osm', 'krator', 'ingraind/fonio', 'curiefense', 'krustlet', 'skooner/k8dash', 'curve', 'fabedge', 'kubedl', 'superedge', 'nocalhost', 'merbridge', 'devstream', 'teller', 'openelb', 'sealer', 'cni-genie', 'servicemeshperformance', 'xline', 'pravega' on test
-                    # brigade\|smi\|openservicemesh\|osm\|krator\|ingraind\|fonio\|curiefense\|krustlet\|skooner\|k8dash\|curve\|fabedge\|kubedl\|superedge\|nocalhost\|merbridge\|devstream\|teller\|openelb\|sealer\|cni-genie\|servicemeshperformance\|xline\|pravega\|openmetrics\|rkt\|opentracing\|keptn
+                    # brigade\|smi\|openservicemesh\|osm\|krator\|ingraind\|fonio\|curiefense\|krustlet\|skooner\|k8dash\|curve\|fabedge\|kubedl\|superedge\|nocalhost\|merbridge\|devstream\|teller\|openelb\|sealer\|cni-genie\|cnigenie\|servicemeshperformance\|xline\|pravega\|openmetrics\|rkt\|opentracing\|keptn
       - [1,0,76,1]  # number of metrics in projects health
