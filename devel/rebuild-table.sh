@@ -19,6 +19,7 @@ NS="${NS:-devstats-prod}"
 POD="${POD:-devstats-postgres-0}"
 CONTAINER="${CONTAINER:-devstats-postgres}"
 POD_DUMP_DIR="${POD_DUMP_DIR:-/tmp}"
+DBG="${DBG:''}"
 
 # Parse schema.table
 if [[ "$TARGET" == *.* ]]; then
@@ -85,7 +86,7 @@ echo "== Step 2: pg_restore (drop+recreate, atomic) inside pod =="
 # --clean --if-exists: drop dumped objects first
 # --single-transaction: all-or-nothing
 # -t schema.table: restore only that table
-kexec pg_restore -d "$DB" --clean --if-exists --single-transaction -t "${SCHEMA}.${TABLE}" "$POD_DUMP_FILE"
+kexec pg_restore -d "$DB" --clean --if-exists --single-transaction -n "$SCHEMA" -t "$TABLE" "$POD_DUMP_FILE"
 echo
 
 echo "== Step 3: ANALYZE (inside pod) =="
