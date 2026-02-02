@@ -1528,7 +1528,7 @@ update
 set
   repo_group = 'Istio'
 where
-  org_login in ('istio')
+  org_login in ('istio', 'istio-ecosystem')
 ;
 
 -- Merbridge

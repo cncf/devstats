@@ -98,7 +98,7 @@ inspektorgadget,inspektor-gadget,kinvolk/inspektor-gadget
 interlink,regexp:(?i)^(interlink-hq\/.*|interTwin-eu\/(.*interlink.*|vk-test-set))$
 intoto,in-toto
 iovisor,iovisor
-istio,istio
+istio,istio,istio-ecosystem
 jaeger,jaegertracing,uber/jaeger
 jenkins,jenkinsci,jenkins-infra
 jenkinsx,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins

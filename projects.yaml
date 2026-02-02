@@ -3492,7 +3492,7 @@ projects:
          kubernetes-graveyard,kubernetes-incubator-retired,kubernetes-sig-testing,\
          kubernetes-providers,kubernetes-addons,kubernetes-retired,kubernetes-sigs,\
          kubernetes-extensions,kubernetes-federation,kubernetes-security,crossplaneio,\
-         kubernetes-sidecars,kubernetes-tools,kubernetes-test,kubernetes-charts,\
+         kubernetes-sidecars,kubernetes-tools,kubernetes-test,kubernetes-charts,istio-ecosystem,\
          prometheus,opentracing,fluent,linkerd,grpc,coredns,containerd,notaryproject,\
          containernetworking,envoyproxy,jaegertracing,theupdateframework,crossplane-contrib,\
          rook,cncf,crosscloudci,vitessio,nats-io,open-policy-agent,spiffe,headlamp-k8s,\
