@@ -2044,7 +2044,7 @@ projects:
     name: Istio
     status: Graduated
     command_line:
-      - istio
+      - istio,istio-ecosystem
     start_date: 2016-12-01T00:00:00Z
     join_date: 2022-09-30T00:00:00Z
     graduated_date: 2023-07-12T00:00:00Z
