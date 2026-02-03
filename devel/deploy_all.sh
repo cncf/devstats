@@ -825,7 +825,16 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=cedarpolicy         PROJDB=cedarpolicy    PROJREPO="cedar-policy/cedar"              ORGNAME="Cedar Policy"    PORT=3315 ICON=cedarpolicy    GRAFSUFF=cedarpolicy    GA="-" ./devel/deploy_proj.sh               || exit 240
   elif [ "$proj" = "dalec" ]
   then
-    PROJ=dalec               PROJDB=dalec          PROJREPO="project-dalec/dalec"             ORGNAME=Dalce             PORT=3316 ICON=dalce          GRAFSUFF=dalec          GA="-" ./devel/deploy_proj.sh               || exit 241
+    PROJ=dalec               PROJDB=dalec          PROJREPO="project-dalec/dalec"             ORGNAME=Dalec             PORT=3316 ICON=dalec          GRAFSUFF=dalec          GA="-" ./devel/deploy_proj.sh               || exit 241
+  elif [ "$proj" = "openchoreo" ]
+  then
+    PROJ=openchoreo          PROJDB=openchoreo     PROJREPO="openchoreo/openchoreo"           ORGNAME=OpenChoreo        PORT=3317 ICON=openchoreo     GRAFSUFF=openchoreo     GA="-" ./devel/deploy_proj.sh               || exit 242
+  elif [ "$proj" = "cohdi" ]
+  then
+    PROJ=cohdi               PROJDB=cohdi          PROJREPO="CoHDI/composable-dra-driver"     ORGNAME=CoHDI             PORT=3318 ICON=cohdi          GRAFSUFF=cohdi          GA="-" ./devel/deploy_proj.sh               || exit 243
+  elif [ "$proj" = "kubeelasti" ]
+  then
+    PROJ=kubeelasti          PROJDB=kubeelasti     PROJREPO="truefoundry/KubeElasti"          ORGNAME=KubeElasti        PORT=3319 ICON=kubeelasti     GRAFSUFF=kubeelasti     GA="-" ./devel/deploy_proj.sh               || exit 244
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
