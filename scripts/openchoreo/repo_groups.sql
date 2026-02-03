@@ -29,10 +29,10 @@ where
 update gha_repos set repo_group = alias;
 
 update gha_repos
-set repo_group = 'Dalec', alias = 'Dalec'
+set repo_group = 'OpenChoreo', alias = 'OpenChoreo'
 where name in (
-  'Azure/dalec',
-  'project-dalec/dalec'
+  'openchoreo/openchoreo',
+  'choreo-idp/choreo'
 );
 
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, coalesce(repo_group, name), org_id, org_login from gha_repos on conflict do nothing;
