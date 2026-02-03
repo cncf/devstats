@@ -37,6 +37,7 @@ clusterpedia,clusterpedia-io
 cncf,cncf,crosscloudci,cdfoundation,cncf-tags
 cni,containernetworking,appc/cni
 cnigenie,cni-genie,Huawei-PaaS/CNI-Genie
+cohdi,CoHDI
 composefs,containers/composefs,giuseppe/composefs,composefs
 confidentialcontainers,confidential-containers
 connect,connectrpc,bufbuild/connect-go,bufbuild/rerpc,rerpc/rerpc
@@ -140,6 +141,7 @@ kubeburner,kube-burner,cloud-bulldozer/kube-burner,cloud-bulldozer/rosa-burner
 kubeclipper,kubeclipper,kubeclipper-labs
 kubedl,kubedl-io,alibaba/kubedl
 kubeedge,kubeedge
+kubeelasti,truefoundry/KubeElasti,truefoundry/elasti
 kubefleet,regexp:(?i)^(Azure\/.*fleet.*|kubefleet-dev\/.*)$
 kubeflow,kubeflow,google/kubeflow
 kubeovn,kubeovn,alauda/kube-ovn
@@ -181,6 +183,7 @@ oauth2proxy,oauth2-proxy,pusher/oauth2_proxy
 opa,open-policy-agent
 opcr,opcr-io
 openbmp,OpenBMP
+openchoreo,openchoreo,choreo-idp
 openclustermanagement,open-cluster-management-io
 opencontainers,opencontainers/image-tools,opencontainers/image-spec,opencontainers/runtime-tools,opencontainers/ocitools,opencontainers/runtime-spec,opencontainers/specs,opencontainers/runc
 opencost,opencost
