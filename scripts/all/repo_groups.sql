@@ -2507,13 +2507,13 @@ where
   lower(org_login) in ('cohdi')
 ;
 
--- KubeElastic
+-- KubeElasti
 update
   gha_repos
 set
-  repo_group = 'KubeElastic'
+  repo_group = 'KubeElasti'
 where
-  lower(name) in ('truefoundry/kubeelastic', 'truefoundry/elasti')
+  lower(name) in ('truefoundry/kubeelasti', 'truefoundry/elasti')
 ;
 
 -- CNCF
