@@ -2243,10 +2243,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "KubeElastic",
-      "tooltip": "Opens KubeElastic projects dashboards",
+      "title": "KubeElasti",
+      "tooltip": "Opens KubeElasti projects dashboards",
       "type": "link",
-      "url": "https://kubeelastic.[[hostname]]"
+      "url": "https://kubeelasti.[[hostname]]"
     },
     {
       "icon": "dashboard",
