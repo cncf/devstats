@@ -2223,6 +2223,36 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "OpenChoreo",
+      "tooltip": "Opens openChoreo projects dashboards",
+      "type": "link",
+      "url": "https://openchoreo.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "CoHDI",
+      "tooltip": "Opens CoHDI projects dashboards",
+      "type": "link",
+      "url": "https://cohdi.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KubeElastic",
+      "tooltip": "Opens KubeElastic projects dashboards",
+      "type": "link",
+      "url": "https://kubeelastic.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",

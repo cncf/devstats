@@ -2489,6 +2489,33 @@ where
   or name in ('Azure/dalec')
 ;
 
+-- OpenChoreo
+update
+  gha_repos
+set
+  repo_group = 'OpenChoreo'
+where
+  org_login in ('openchoreo', 'choreo-idp')
+;
+
+-- CoHDI
+update
+  gha_repos
+set
+  repo_group = 'CoHDI'
+where
+  lower(org_login) in ('cohdi')
+;
+
+-- KubeElastic
+update
+  gha_repos
+set
+  repo_group = 'KubeElastic'
+where
+  lower(name) in ('truefoundry/kubeelastic', 'truefoundry/elasti')
+;
+
 -- CNCF
 update
   gha_repos
