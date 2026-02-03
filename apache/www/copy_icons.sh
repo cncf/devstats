@@ -138,7 +138,7 @@ do
     icon="oauth2-proxy"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "oxia" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "cohdi" ] || [ "$icon" = "kubeelasti" ] || [ "$icon" = "oxia" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -153,7 +153,7 @@ do
     path="archived/$icon"
   elif [ "$proj" = "shipwright" ]
   then
-    path="former_projects/$icon"
+    path="former_project_logos/$icon"
   elif [ "$iconorg" = "cncf" ]
   then
     path="projects/$icon"
@@ -252,8 +252,13 @@ do
     continue
   elif [ "$icon" = "pyrsia" ]
   then
-    magick "$HOME/dev/cdfoundation/artwork/former_projects/pyrsia/artwork/logo.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
-    cp "$HOME/dev/cdfoundation/artwork/former_projects/pyrsia/artwork/logo.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
+    magick "$HOME/dev/cdfoundation/artwork/former_project_logos/pyrsia/artwork/logo.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
+    cp "$HOME/dev/cdfoundation/artwork/former_project_logos/pyrsia/artwork/logo.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
+    continue
+  elif [ "$icon" = "jenkinsx" ]
+  then
+    magick "$HOME/dev/cdfoundation/artwork/former_project_logos/jenkinsx/icon/color/jenkinsx-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 2
+    cp "$HOME/dev/cdfoundation/artwork/former_project_logos/jenkinsx/icon/color/jenkinsx-icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 3
     continue
   elif [ "$icon" = "aerakimesh" ]
   then
