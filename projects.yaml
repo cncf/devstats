@@ -3299,7 +3299,7 @@ projects:
     command_line:
       - openchoreo
     start_date: 2025-02-28T00:00:00Z
-    join_date: 2026-01-15T00:00:00Z
+    join_date: 2026-01-06T00:00:00Z
     psql_db: openchoreo
     shared_db: allprj
     main_repo: openchoreo/openchoreo
@@ -3312,7 +3312,7 @@ projects:
     command_line:
       - CoHDI
     start_date: 2025-06-20T00:00:00Z
-    join_date: 2026-01-27T00:00:00Z
+    join_date: 2025-12-19T00:00:00Z
     psql_db: cohdi
     shared_db: allprj
     main_repo: CoHDI/composable-dra-driver
@@ -3325,7 +3325,7 @@ projects:
     command_line:
       - truefoundry/KubeElasti
     start_date: 2024-12-31T00:00:00Z
-    join_date: 2026-01-30T00:00:00Z
+    join_date: 2026-01-03T00:00:00Z
     psql_db: kubeelasti
     shared_db: allprj
     main_repo: truefoundry/KubeElasti
