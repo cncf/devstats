@@ -28,7 +28,8 @@ with topu as (
         'cdk8s-automation', 'github-action-benchmark', 'goreleaserbot', 'facebook-github-whois-bot-0',
         'claassistant', 'containersshbuilder', 'wasmcloud-automation', 'fossabot', 'opentelemetrybot',
         'invalid-email-address', 'fluxcdbot', 'megaeasex', 'kuasar-io-dev', 'startxfr', 'atlantisbot',
-        'openebs-pro-sa', 'stateful-wombot', 'fermybot', 'opentofu-provider-sync-service-account'
+        'openebs-pro-sa', 'stateful-wombot', 'fermybot', 'opentofu-provider-sync-service-account',
+        'copilot', 'claude', 'codex'
     ])
     and aa.actor_id is null
 ), others as (

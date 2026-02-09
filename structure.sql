@@ -1243,6 +1243,9 @@ COPY public.gha_assets (id, event_id, name, label, uploader_id, content_type, st
 --
 
 COPY public.gha_bot_logins (pattern) FROM stdin;
+copilot
+claude
+codex
 openebs-pro-sa
 stateful-wombot
 fermybot
