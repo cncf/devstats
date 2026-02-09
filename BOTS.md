@@ -21,4 +21,4 @@ If you find a new bot include it in:
   - `json2hat.go`: `func updateBots`.
 
 - `cncf/velocity`:
-    - `BigQuery/velocity_*.sql`.
+    - `BigQuery/velocity_*.sql` (especially `BigQuery/velocity_standard_query.sql` and `*condition*.sql` files).
