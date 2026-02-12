@@ -70,3 +70,4 @@ sqlite/*.sql
 /grafana/runq
 /grafana/sqlitedb
 .idea
+src.txt*
