@@ -25,8 +25,10 @@ if [ -z "${HEAD}" ] || [ "${HEAD}" = "${ZERO}" ]; then
 fi
 
 if [ -z "${BEFOR}" ] || [ "${BEFOR}" = "${ZERO}" ]; then
+  git -C "${REPO}" cat-file -e "${HEAD}^{commit}" 2>/dev/null || exit 0
   git -C "${REPO}" rev-list --max-count="${LIMIT}" --skip="${SKIP}" "${HEAD}"
 else
+  git -C "${REPO}" cat-file -e "${HEAD}^{commit}" 2>/dev/null || exit 0
+  git -C "${REPO}" cat-file -e "${BEFOR}^{commit}" 2>/dev/null || exit 0
   git -C "${REPO}" rev-list --max-count="${LIMIT}" --skip="${SKIP}" "${BEFOR}..${HEAD}"
 fi
-
