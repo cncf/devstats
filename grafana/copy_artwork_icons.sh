@@ -52,10 +52,6 @@ do
   then
     icon="emissary-ingress"
   fi
-  if [ "$icon" = "distribution" ]
-  then
-    icon="cncf-distribution"
-  fi
   if [ "$icon" = "wasmedge" ]
   then
     icon="wasm-edge-runtime"
@@ -151,6 +147,30 @@ do
   if [ "$icon" = "skooner" ]
   then
     icon=Skooner
+  fi
+  if [ "$icon" = "distribution" ]
+  then
+    icon="cncf-distribution"
+  fi
+  if [ "$icon" = "opa" ]
+  then
+    path="projects/open-policy-agent"
+  fi
+  if [ "$icon" = "metal3" ]
+  then
+    path="projects/metal3-io"
+  fi
+  if [ "$icon" = "piraeus" ]
+  then
+    path="projects/piraeus-datastore"
+  fi
+  if [ "$icon" = "podman" ]
+  then
+    path="projects/podman-container-tools"
+  fi
+  if [ "$icon" = "runme" ]
+  then
+    path="projects/runme-notebooks"
   fi
   if [ "$path" = "projects/notary" ]
   then

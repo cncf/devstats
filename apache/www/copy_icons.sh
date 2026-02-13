@@ -47,10 +47,6 @@ do
   then
     icon="emissary-ingress"
   fi
-  if [ "$icon" = "distribution" ]
-  then
-    icon="cncf-distribution"
-  fi
   if [ "$icon" = "connect" ]
   then
     icon="connect-rpc"
@@ -158,6 +154,10 @@ do
   then
     path="projects/$icon"
   fi
+  if [ "$icon" = "distribution" ]
+  then
+    icon="cncf-distribution"
+  fi
   if [ "$icon" = "skooner" ]
   then
     icon=Skooner
@@ -169,6 +169,26 @@ do
   if [ "$path" = "projects/kserve" ]
   then
     icon="k-serve"
+  fi
+  if [ "$icon" = "opa" ]
+  then
+    path="projects/open-policy-agent"
+  fi
+  if [ "$icon" = "metal3" ]
+  then
+    path="projects/metal3-io"
+  fi
+  if [ "$icon" = "piraeus" ]
+  then
+    path="projects/piraeus-datastore"
+  fi
+  if [ "$icon" = "podman" ]
+  then
+    path="projects/podman-container-tools"
+  fi
+  if [ "$icon" = "runme" ]
+  then
+    path="projects/runme-notebooks"
   fi
   if [ "$icon" = "servicemeshperformance" ]
   then
@@ -297,8 +317,8 @@ do
     continue
   elif [ "$icon" = "vscodek8stools" ]
   then
-    magick "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 38
-    cp "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 39
+    magick "$HOME/dev/cncf/artwork/projects/vs-code-kubernetes-tools/icon/color/kefvsc-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 38
+    cp "$HOME/dev/cncf/artwork/projects/vs-code-kubernetes-tools/icon/color/kefvsc-icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 39
     continue
   elif [ "$icon" = "k0s" ]
   then

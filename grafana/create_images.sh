@@ -53,10 +53,6 @@ do
   then
     icon="emissary-ingress"
   fi
-  if [ "$icon" = "distribution" ]
-  then
-    icon="cncf-distribution"
-  fi
   if [ "$icon" = "wasmedge" ]
   then
     icon="wasm-edge-runtime"
@@ -164,9 +160,33 @@ do
   then
     path="projects/$icon"
   fi
+  if [ "$icon" = "distribution" ]
+  then
+    icon="cncf-distribution"
+  fi
   if [ "$icon" = "skooner" ]
   then
     icon=Skooner
+  fi
+  if [ "$icon" = "opa" ]
+  then
+    path="projects/open-policy-agent"
+  fi
+  if [ "$icon" = "metal3" ]
+  then
+    path="projects/metal3-io"
+  fi
+  if [ "$icon" = "piraeus" ]
+  then
+    path="projects/piraeus-datastore"
+  fi
+  if [ "$icon" = "podman" ]
+  then
+    path="projects/podman-container-tools"
+  fi
+  if [ "$icon" = "runme" ]
+  then
+    path="projects/runme-notebooks"
   fi
   if [ "$path" = "projects/notary" ]
   then
@@ -310,8 +330,8 @@ do
     continue
   elif [ "$icon" = "vscodek8stools" ]
   then
-    cp "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.svg" "grafana/img/$suff.svg" || exit 39
-    magick "$HOME/dev/cncf/artwork/projects/kubernetes-extension-for-vs-code/icon/color/kefvsc-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 40
+    cp "$HOME/dev/cncf/artwork/projects/vs-code-kubernetes-tools/icon/color/kefvsc-icon-color.svg" "grafana/img/$suff.svg" || exit 39
+    magick "$HOME/dev/cncf/artwork/projects/vs-code-kubernetes-tools/icon/color/kefvsc-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 40
     continue
   elif [ "$icon" = "k0s" ]
   then
