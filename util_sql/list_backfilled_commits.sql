@@ -1,0 +1,1 @@
+select dup_actor_id, dup_actor_login, author_id, dup_author_login, author_name, author_email, committer_id, dup_committer_login, committer_name, committer_email from gha_commits where dup_created_at > '2025-10-09';
