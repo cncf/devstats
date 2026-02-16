@@ -403,7 +403,7 @@ echo
 # -------- Per-DB: tables close to 1600 column-slot limit --------
 
 echo "== Tables close to 1600-column limit (total_attribute_slots > ${COLS_SLOTS_THRESHOLD}) =="
-echo "Fix: devel/rebuild-table.sh db-name table_name"
+echo "Fix: [NS=devstats-prod] devel/rebuild-table.sh db-name table_name"
 SQL_COLSLOTS=$(cat <<SQL
 SELECT
   n.nspname AS schema,
