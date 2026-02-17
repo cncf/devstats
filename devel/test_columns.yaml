@@ -1,2 +1,5 @@
 ---
 columns:
+  - table_regexp: '^scommits$'
+    tag: trepo_groups
+    column: repo_group_name
