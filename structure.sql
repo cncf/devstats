@@ -626,7 +626,8 @@ CREATE TABLE public.gha_commits (
     loc_added integer,
     loc_removed integer,
     files_changed integer,
-    origin smallint not null default 0
+    origin smallint NOT NULL DEFAULT 0,
+    inserted_at timestamp without time zone DEFAULT now()
 );
 
 
@@ -1366,7 +1367,7 @@ COPY public.gha_reviews (id, user_id, commit_id, submitted_at, author_associatio
 -- Data for Name: gha_commits; Type: TABLE DATA; Schema: public; Owner: gha_admin
 --
 
-COPY public.gha_commits (sha, event_id, author_name, message, is_distinct, dup_actor_id, dup_actor_login, dup_repo_id, dup_repo_name, dup_type, dup_created_at, encrypted_email, author_email, committer_name, committer_email, author_id, committer_id, dup_author_login, dup_committer_login, loc_added, loc_removed, files_changed, origin) FROM stdin;
+COPY public.gha_commits (sha, event_id, author_name, message, is_distinct, dup_actor_id, dup_actor_login, dup_repo_id, dup_repo_name, dup_type, dup_created_at, encrypted_email, author_email, committer_name, committer_email, author_id, committer_id, dup_author_login, dup_committer_login, loc_added, loc_removed, files_changed, origin, inserted_at) FROM stdin;
 \.
 
 
