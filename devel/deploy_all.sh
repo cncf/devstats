@@ -156,7 +156,7 @@ do
          PROJ=nats           PROJDB=nats           PROJREPO="nats-io/nats-server"             ORGNAME=NATS              PORT=3016 ICON=nats           GRAFSUFF=nats           GA="-" ./devel/deploy_proj.sh || exit 18
   elif [ "$proj" = "opa" ]
   then
-         PROJ=opa            PROJDB=opa            PROJREPO="open-policy-agent/opa"           ORGNAME=OPA               PORT=3017 ICON=opa            GRAFSUFF=opa            GA="-" ./devel/deploy_proj.sh || exit 19
+         PROJ=opa            PROJDB=opa            PROJREPO="open-policy-agent/opa"           ORGNAME="Open Policy Agent" PORT=3017 ICON=opa          GRAFSUFF=opa            GA="-" ./devel/deploy_proj.sh || exit 19
   elif [ "$proj" = "spiffe" ]
   then
          PROJ=spiffe         PROJDB=spiffe         PROJREPO="spiffe/spiffe"                   ORGNAME=SPIFFE            PORT=3018 ICON=spiffe         GRAFSUFF=spiffe         GA="-" ./devel/deploy_proj.sh || exit 20
@@ -306,7 +306,7 @@ do
     PROJ=tremor              PROJDB=tremor         PROJREPO="tremor-rs/tremor-runtime"        ORGNAME=tremor            PORT=3066 ICON=tremor         GRAFSUFF=tremor         GA="-" ./devel/deploy_proj.sh || exit 84
   elif [ "$proj" = "metal3" ]
   then
-    PROJ=metal3              PROJDB=metal3         PROJREPO="metal3-io/baremetal-operator"    ORGNAME="Metal³"          PORT=3067 ICON=metal3         GRAFSUFF=metal3         GA="-" ./devel/deploy_proj.sh || exit 85
+    PROJ=metal3              PROJDB=metal3         PROJREPO="metal3-io/baremetal-operator"    ORGNAME=metal3-io         PORT=3067 ICON=metal3         GRAFSUFF=metal3         GA="-" ./devel/deploy_proj.sh || exit 85
   elif [ "$proj" = "porter" ]
   then
     PROJ=porter              PROJDB=porter         PROJREPO="getporter/porter"                ORGNAME=Porter            PORT=3068 ICON=porter         GRAFSUFF=porter         GA="-" ./devel/deploy_proj.sh || exit 86
@@ -324,7 +324,7 @@ do
     PROJ=schemahero          PROJDB=schemahero     PROJREPO="schemahero/schemahero"           ORGNAME=SchemaHero        PORT=3072 ICON=schemahero     GRAFSUFF=schemahero     GA="-" ./devel/deploy_proj.sh || exit 91
   elif [ "$proj" = "cdk8s" ]
   then
-    PROJ=cdk8s               PROJDB=cdk8s          PROJREPO="cdk8s-team/cdk8s" ORGNAME="Cloud Development Kit for Kubernetes" PORT=3073 ICON=cdk8s     GRAFSUFF=cdk8s          GA="-" ./devel/deploy_proj.sh || exit 92
+    PROJ=cdk8s               PROJDB=cdk8s          PROJREPO="cdk8s-team/cdk8s"                ORGNAME=cdk8s             PORT=3073 ICON=cdk8s          GRAFSUFF=cdk8s          GA="-" ./devel/deploy_proj.sh || exit 92
   elif [ "$proj" = "certmanager" ]
   then
     PROJ=certmanager         PROJDB=certmanager    PROJREPO="cert-manager/cert-manager"       ORGNAME="cert-manager"    PORT=3074 ICON=certmanager    GRAFSUFF=certmanager    GA="-" ./devel/deploy_proj.sh || exit 93
@@ -510,7 +510,7 @@ do
     PROJ=devstream           PROJDB=devstream      PROJREPO="devstream-io/devstream"          ORGNAME=DevStream         PORT=3134 ICON=devstream      GRAFSUFF=devstream      GA="-" ./devel/deploy_proj.sh || exit 53
   elif [ "$proj" = "hexapolicyorchestrator" ]
   then
-    PROJ=hexapolicyorchestrator PROJDB=hexapolicyorchestrator PROJREPO="hexa-org/policy-orchestrator" ORGNAME="Hexa Policy Orchestrator" PORT=3135 ICON=hexapolicyorchestrator GRAFSUFF=hexapolicyorchestrator GA="-" ./devel/deploy_proj.sh || exit 54
+    PROJ=hexapolicyorchestrator PROJDB=hexapolicyorchestrator PROJREPO="hexa-org/policy-orchestrator" ORGNAME=Hexa      PORT=3135 ICON=hexapolicyorchestrator GRAFSUFF=hexapolicyorchestrator GA="-" ./devel/deploy_proj.sh || exit 54
   elif [ "$proj" = "konveyor" ]
   then
     PROJ=konveyor            PROJDB=konveyor       PROJREPO="konveyor/operator"               ORGNAME=Konveyor          PORT=3136 ICON=konveyor       GRAFSUFF=konveyor       GA="-" ./devel/deploy_proj.sh || exit 55
@@ -618,7 +618,7 @@ do
     PROJ=kubeflow            PROJDB=kubeflow       PROJREPO="kubeflow/kubeflow"               ORGNAME=Kubeflow          PORT=3246 ICON=kubeflow       GRAFSUFF=kubeflow       GA="-" ./devel/deploy_proj.sh || exit 171
   elif [ "$proj" = "copacetic" ]
   then
-    PROJ=copacetic           PROJDB=copacetic      PROJREPO="project-copacetic/copacetic"     ORGNAME=Copacetic         PORT=3247 ICON=copacetic      GRAFSUFF=copacetic      GA="-" ./devel/deploy_proj.sh || exit 172
+    PROJ=copacetic           PROJDB=copacetic      PROJREPO="project-copacetic/copacetic"     ORGNAME=Copa              PORT=3247 ICON=copacetic      GRAFSUFF=copacetic      GA="-" ./devel/deploy_proj.sh || exit 172
   elif [ "$proj" = "loggingoperator" ]
   then
     PROJ=loggingoperator     PROJDB=loggingoperator PROJREPO="kube-logging/logging-operator"  ORGNAME="Logging Operator" PORT=3248 ICON=loggingoperator GRAFSUFF=loggingoperator GA="-" ./devel/deploy_proj.sh || exit 173
@@ -639,7 +639,7 @@ do
     PROJ=kuasar              PROJDB=kuasar         PROJREPO="kuasar-io/kuasar"                ORGNAME=Kuasar            PORT=3253 ICON=kuasar         GRAFSUFF=kuasar         GA="-" ./devel/deploy_proj.sh || exit 178
   elif [ "$proj" = "krknchaos" ]
   then
-    PROJ=krknchaos           PROJDB=krknchaos      PROJREPO="krkn-chaos/krkn"                 ORGNAME=KrknChaos         PORT=3254 ICON=krknchaos      GRAFSUFF=krknchaos      GA="-" ./devel/deploy_proj.sh || exit 179
+    PROJ=krknchaos           PROJDB=krknchaos      PROJREPO="krkn-chaos/krkn"                 ORGNAME=krkn              PORT=3254 ICON=krknchaos      GRAFSUFF=krknchaos      GA="-" ./devel/deploy_proj.sh || exit 179
   elif [ "$proj" = "kubestellar" ]
   then
     PROJ=kubestellar         PROJDB=kubestellar    PROJREPO="kubestellar/kubestellar"         ORGNAME=Kubestellar       PORT=3255 ICON=kubestellar    GRAFSUFF=kubestellar    GA="-" ./devel/deploy_proj.sh || exit 180
@@ -657,7 +657,7 @@ do
     PROJ=kubeslice           PROJDB=kubeslice      PROJREPO="kubeslice/kubeslice"             ORGNAME=Kubeslice         PORT=3259 ICON=kubeslice      GRAFSUFF=kubeslice      GA="-" ./devel/deploy_proj.sh               || exit 184
   elif [ "$proj" = "connect" ]
   then
-    PROJ=connect             PROJDB=connect        PROJREPO="connectrpc/connect-go"           ORGNAME=Connect           PORT=3260 ICON=connect        GRAFSUFF=connect         GA="-" ./devel/deploy_proj.sh              || exit 185
+    PROJ=connect             PROJDB=connect        PROJREPO="connectrpc/connect-go"           ORGNAME="Connect RPC"     PORT=3260 ICON=connect        GRAFSUFF=connect         GA="-" ./devel/deploy_proj.sh              || exit 185
   elif [ "$proj" = "kairos" ]
   then
     PROJ=kairos              PROJDB=kairos         PROJREPO="kairos-io/kairos"                ORGNAME=Kairos            PORT=3261 ICON=kairos         GRAFSUFF=kairos         GA="-" ./devel/deploy_proj.sh               || exit 186
