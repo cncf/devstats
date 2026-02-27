@@ -15,7 +15,7 @@ with commits as (
     and r.repo_group in (
       'Buildpacks', 'CloudEvents', 'containerd', 'CoreDNS', 'Cortex', 'Dragonfly', 'Envoy',
       'etcd', 'Falco', 'Fluentd', 'gRPC', 'Harbor', 'Helm', 'Jaeger', 'Kubernetes', 'Linkerd',
-      'NATS', 'Notary', 'OPA', 'OpenMetrics', 'OpenTracing', 'Prometheus', 'rkt', 'Rook',
+      'NATS', 'Notary', 'Open Policy Agent', 'OpenMetrics', 'OpenTracing', 'Prometheus', 'rkt', 'Rook',
       'SPIFFE', 'SPIRE', 'Telepresence', 'TiKV', 'TUF', 'Virtual Kubelet', 'Vitess'
     )
     and r.repo_group not in ({{skip_repo_groups}})

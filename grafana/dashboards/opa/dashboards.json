@@ -1639,8 +1639,8 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Connect RPC",
-      "tooltip": "Opens Connect RPC projects dashboards",
+      "title": "Connect RPC RPC",
+      "tooltip": "Opens Connect RPC RPC projects dashboards",
       "type": "link",
       "url": "https://connect.[[hostname]]"
     },
@@ -2475,8 +2475,8 @@
       {
         "allValue": null,
         "current": {
-          "text": "<h1 id=\"-full_name-home-dashboard\">OPA Home dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Postgres <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/events.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>InfluxDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/opa/metrics.yaml\" target=\"_blank\">series definition</a> (search for <code>name: GitHub activity</code>).</li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/opa/dashboards.json\" target=\"_blank\">JSON</a>.</li>\n<li>Developer <a href=\"https://github.com/cncf/devstats/blob/master/docs/dashboards/dashboards_devel.md\" target=\"_blank\">documentation</a>.</li>\n<li>Direct <a href=\"https://opa.cncftest.io\" target=\"_blank\">link</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>First we&#39;re displaying links to all CNCF projects defined.</li>\n<li>Next we&#39;re showing current project&#39;s hourly activity - this is the number of all GitHub events that happened for OPA project hourly.</li>\n<li>This also includes bots activity (most other dashboards skip bot activity).</li>\n<li>Next we&#39;re showing HTML panel that shows all CNCF projects icons and links.</li>\n<li>Next there is a dashboard that shows a list of all dashboards defined for OPA project.</li>\n</ul>",
-          "value": "<h1 id=\"-full_name-home-dashboard\">OPA Home dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Postgres <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/events.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>InfluxDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/opa/metrics.yaml\" target=\"_blank\">series definition</a> (search for <code>name: GitHub activity</code>).</li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/opa/dashboards.json\" target=\"_blank\">JSON</a>.</li>\n<li>Developer <a href=\"https://github.com/cncf/devstats/blob/master/docs/dashboards/dashboards_devel.md\" target=\"_blank\">documentation</a>.</li>\n<li>Direct <a href=\"https://opa.cncftest.io\" target=\"_blank\">link</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>First we&#39;re displaying links to all CNCF projects defined.</li>\n<li>Next we&#39;re showing current project&#39;s hourly activity - this is the number of all GitHub events that happened for OPA project hourly.</li>\n<li>This also includes bots activity (most other dashboards skip bot activity).</li>\n<li>Next we&#39;re showing HTML panel that shows all CNCF projects icons and links.</li>\n<li>Next there is a dashboard that shows a list of all dashboards defined for OPA project.</li>\n</ul>"
+          "text": "<h1 id=\"-full_name-home-dashboard\">Open Policy Agent Home dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Postgres <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/events.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>InfluxDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/opa/metrics.yaml\" target=\"_blank\">series definition</a> (search for <code>name: GitHub activity</code>).</li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/opa/dashboards.json\" target=\"_blank\">JSON</a>.</li>\n<li>Developer <a href=\"https://github.com/cncf/devstats/blob/master/docs/dashboards/dashboards_devel.md\" target=\"_blank\">documentation</a>.</li>\n<li>Direct <a href=\"https://opa.cncftest.io\" target=\"_blank\">link</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>First we&#39;re displaying links to all CNCF projects defined.</li>\n<li>Next we&#39;re showing current project&#39;s hourly activity - this is the number of all GitHub events that happened for Open Policy Agent project hourly.</li>\n<li>This also includes bots activity (most other dashboards skip bot activity).</li>\n<li>Next we&#39;re showing HTML panel that shows all CNCF projects icons and links.</li>\n<li>Next there is a dashboard that shows a list of all dashboards defined for Open Policy Agent project.</li>\n</ul>",
+          "value": "<h1 id=\"-full_name-home-dashboard\">Open Policy Agent Home dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Postgres <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/events.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>InfluxDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/opa/metrics.yaml\" target=\"_blank\">series definition</a> (search for <code>name: GitHub activity</code>).</li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/opa/dashboards.json\" target=\"_blank\">JSON</a>.</li>\n<li>Developer <a href=\"https://github.com/cncf/devstats/blob/master/docs/dashboards/dashboards_devel.md\" target=\"_blank\">documentation</a>.</li>\n<li>Direct <a href=\"https://opa.cncftest.io\" target=\"_blank\">link</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>First we&#39;re displaying links to all CNCF projects defined.</li>\n<li>Next we&#39;re showing current project&#39;s hourly activity - this is the number of all GitHub events that happened for Open Policy Agent project hourly.</li>\n<li>This also includes bots activity (most other dashboards skip bot activity).</li>\n<li>Next we&#39;re showing HTML panel that shows all CNCF projects icons and links.</li>\n<li>Next there is a dashboard that shows a list of all dashboards defined for Open Policy Agent project.</li>\n</ul>"
         },
         "datasource": "psql",
         "hide": 2,
@@ -2499,8 +2499,8 @@
       {
         "allValue": null,
         "current": {
-          "text": "OPA",
-          "value": "OPA"
+          "text": "Open Policy Agent",
+          "value": "Open Policy Agent"
         },
         "datasource": "psql",
         "hide": 2,

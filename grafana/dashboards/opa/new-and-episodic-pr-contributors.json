@@ -261,8 +261,8 @@
       {
         "allValue": null,
         "current": {
-          "text": "OPA",
-          "value": "OPA"
+          "text": "Open Policy Agent",
+          "value": "Open Policy Agent"
         },
         "datasource": "psql",
         "hide": 2,
