@@ -366,6 +366,7 @@ metrics:
       # Direct mapping query:
       #    select distinct r.repo_group, s.period from gha_repos r join sannotations_shared s on r.name = s.repo and r.repo_group = 'non-normalized-from' (Human readable)
       #    select distinct r.repo_group, s.period from gha_repos r join sannotations_shared s on r.name = s.repo and s.period = 'to'
+      # All mappings data: util_sql/series_name_maps.sql
       piraeusdatastore: piraeus
       wasmedgeruntime: wasmedge
       vscodekubernetestools: vscodek8stools
