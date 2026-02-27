@@ -805,8 +805,8 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Metal³",
-      "tooltip": "Opens Metal³ projects dashboards",
+      "title": "metal3-io",
+      "tooltip": "Opens metal3-io projects dashboards",
       "type": "link",
       "url": "https://metal3.[[hostname]]"
     },
