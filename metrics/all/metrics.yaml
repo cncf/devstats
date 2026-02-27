@@ -358,10 +358,14 @@ metrics:
       # Note that project key must match partials/projects_health*.html phealth... (hardcoded value)
       # * can also be _cdf/_qql: partials/projects_health_gql.html, partials/projects_health_cdf.html
       # From can be checked:
-      #    select distinct repo_group from gha_repos where lower(repo_group) like '%word1%word2%';
-      #    select * from trepo_groups where repo_group_value = 'from';
+      #    select distinct repo_group from gha_repos where lower(repo_group) like '%word1%word2%'
+      #    select * from trepo_groups where repo_group_value = 'from'
       # To can be checked:
-      #    select distinct period from sannotations_shared where period = 'to';
+      #    select distinct period from sannotations_shared where period = 'to'
+      #    select distinct series from sprojects_health where series = 'to'
+      # Direct mapping query:
+      #    select distinct r.repo_group, s.period from gha_repos r join sannotations_shared s on r.name = s.repo and r.repo_group = 'non-normalized-from' (Human readable)
+      #    select distinct r.repo_group, s.period from gha_repos r join sannotations_shared s on r.name = s.repo and s.period = 'to'
       piraeusdatastore: piraeus
       wasmedgeruntime: wasmedge
       vscodekubernetestools: vscodek8stools

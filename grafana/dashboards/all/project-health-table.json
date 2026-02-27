@@ -25,7 +25,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 36,
-  "iteration": 1731936579725,
+  "iteration": 1772204149319,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -238,8 +238,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Dapr",
-          "value": "Dapr"
+          "text": "Kubernetes",
+          "value": "Kubernetes"
         },
         "datasource": {
           "type": "postgres",
@@ -265,21 +265,21 @@
       {
         "current": {
           "selected": false,
-          "text": "dapr",
-          "value": "dapr"
+          "text": "kubernetes",
+          "value": "kubernetes"
         },
         "datasource": {
           "type": "postgres",
           "uid": "P172949F98CB31475"
         },
-        "definition": "",
+        "definition": "with cand as (\n  select distinct s.period\n  from gha_repos r\n  join sannotations_shared s\n    on s.repo = r.name\n  where r.repo_group = '[[repogroup_name]]'\n    and nullif(btrim(s.period), '') is not null\n)\nselect period\nfrom cand\norder by\n  case\n    when (select count(*) from cand) > 1\n     and lower(period) = lower('[[repogroup_name]]')\n    then 0 else 1\n  end,\n  period\nlimit 1;",
         "hide": 2,
         "includeAll": false,
         "label": "",
         "multi": false,
         "name": "repogroup",
         "options": [],
-        "query": "select repo_group_value from trepo_groups where repo_group_name = '[[repogroup_name]]'",
+        "query": "with cand as (\n  select distinct s.period\n  from gha_repos r\n  join sannotations_shared s\n    on s.repo = r.name\n  where r.repo_group = '[[repogroup_name]]'\n    and nullif(btrim(s.period), '') is not null\n)\nselect period\nfrom cand\norder by\n  case\n    when (select count(*) from cand) > 1\n     and lower(period) = lower('[[repogroup_name]]')\n    then 0 else 1\n  end,\n  period\nlimit 1;",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": true,
@@ -350,6 +350,6 @@
   "timezone": "",
   "title": "Project Health Table",
   "uid": "54",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
