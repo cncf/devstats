@@ -1317,7 +1317,7 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Hexa Policy Orchestrator",
+      "title": "Hexa",
       "tooltip": "Opens Hexa Policy Orchestrator projects dashboards",
       "type": "link",
       "url": "https://hexapolicyorchestrator.[[hostname]]"
