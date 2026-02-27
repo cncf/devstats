@@ -239,8 +239,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Metal³",
-          "value": "Metal³"
+          "text": "metal3-io",
+          "value": "metal3-io"
         },
         "datasource": {
           "type": "postgres",

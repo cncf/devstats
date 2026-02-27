@@ -239,8 +239,8 @@
       {
         "current": {
           "selected": false,
-          "text": "OPA",
-          "value": "OPA"
+          "text": "Open Policy Agent",
+          "value": "Open Policy Agent"
         },
         "datasource": {
           "type": "postgres",

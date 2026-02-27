@@ -239,8 +239,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Cloud Development Kit for Kubernetes",
-          "value": "Cloud Development Kit for Kubernetes"
+          "text": "cdk8s",
+          "value": "cdk8s"
         },
         "datasource": {
           "type": "postgres",
