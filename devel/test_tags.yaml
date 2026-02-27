@@ -6,3 +6,9 @@ tags:
     name_tag: all_repo_group_name
     value_tag: all_repo_group_value
     limit: 500
+  - name: Repository groups without All
+    sql: repo_groups_tags
+    series_name: repo_groups
+    name_tag: repo_group_name
+    value_tag: repo_group_value
+    limit: 500
