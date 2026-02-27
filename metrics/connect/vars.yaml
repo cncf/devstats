@@ -5,7 +5,7 @@ vars:
     command: [hostname]
   - name: full_name
     type: s
-    value: Connect
+    value: Connect RPC
   - name: lower_name
     type: s
     value: connect

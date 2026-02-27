@@ -5,7 +5,7 @@ vars:
     command: [hostname]
   - name: full_name
     type: s
-    value: Copacetic
+    value: Copa
   - name: lower_name
     type: s
     value: copacetic

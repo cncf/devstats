@@ -5,7 +5,7 @@ vars:
     command: [hostname]
   - name: full_name
     type: s
-    value: 'Metal³'
+    value: 'metal3-io'
   - name: lower_name
     type: s
     value: metal3
