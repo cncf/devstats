@@ -185,8 +185,8 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "OPA",
-      "tooltip": "Opens OPA projects dashboards",
+      "title": "Open Policy Agent",
+      "tooltip": "Opens Open Policy Agent projects dashboards",
       "type": "link",
       "url": "https://opa.[[hostname]]"
     },
@@ -1396,7 +1396,7 @@
       "tags": [],
       "targetBlank": true,
       "title": "Hexa",
-      "tooltip": "Opens Hexa Policy Orchestrator projects dashboards",
+      "tooltip": "Opens Hexa projects dashboards",
       "type": "link",
       "url": "https://hexapolicyorchestrator.[[hostname]]"
     },
