@@ -2182,7 +2182,7 @@ where
   or name in ('openvswitch/ovn-kubernetes')
 ;
 
--- Tratteria -> Tokenetes
+-- Tokenetes
 update
   gha_repos
 set

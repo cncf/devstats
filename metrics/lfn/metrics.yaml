@@ -321,6 +321,3 @@ metrics:
     histogram: true
     custom_data: true
     periods: d
-    series_name_map:
-      graphqljavascript: graphqljs
-      graphqlide: graphiql

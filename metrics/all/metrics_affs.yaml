@@ -123,15 +123,26 @@ metrics:
     custom_data: true
     periods: d
     series_name_map:
-      graphqljavascript: graphqljs
-      graphqlide: graphiql
-      clouddevelopmentkitforkubernetes: cdk8s
+      # Mapping must be from normalized(repo group name)
+      #    repo group name is from some "All ..." project like scripts/all/repo_groups.sql, scripts/graphql/repo_groups.sql, scripts/allcdf/repo_groups.sql  
+      # To project key in projects.json (projectname: value).
+      #    if they are the same, then mapping is not needed
+      # Note that project key must match partials/projects_health*.html phealth... (hardcoded value)
+      # * can also be _cdf/_qql: partials/projects_health_gql.html, partials/projects_health_cdf.html
+      # From can be checked:
+      #    select distinct repo_group from gha_repos where lower(repo_group) like '%word1%word2%';
+      #    select * from tall_repo_groups where all_repo_group_value = 'from';
+      # To can be checked:
+      #    select distinct period from sannotations_shared where period = 'to';
       piraeusdatastore: piraeus
-      skooner: k8dash
-      foniod: ingraind
       wasmedgeruntime: wasmedge
       vscodekubernetestools: vscodek8stools
-      chubaofs: cubefs
-      gitopswg: opengitops
-      tratteria: tokenetes
-      # shipwright: shipwrightcncf
+      cubefs: chubaofs
+      opengitops: gitopswg
+      tokenetes: tratteria
+      openpolicyagent: opa
+      metal3io: metal3
+      connectrpc: connect
+      copa: copacetic
+      hexa: hexapolicyorchestrator
+      krkn: krknchaos

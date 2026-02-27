@@ -1909,7 +1909,7 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   hexapolicyorchestrator:
     order: 136
-    name: "Hexa"
+    name: Hexa
     status: Sandbox
     command_line:
       - 'hexa-org'
