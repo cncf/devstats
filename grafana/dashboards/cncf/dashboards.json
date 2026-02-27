@@ -1318,7 +1318,7 @@
       "tags": [],
       "targetBlank": true,
       "title": "Hexa",
-      "tooltip": "Opens Hexa Policy Orchestrator projects dashboards",
+      "tooltip": "Opens Hexa projects dashboards",
       "type": "link",
       "url": "https://hexapolicyorchestrator.[[hostname]]"
     },
