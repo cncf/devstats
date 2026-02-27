@@ -359,7 +359,7 @@ metrics:
       # * can also be _cdf/_qql: partials/projects_health_gql.html, partials/projects_health_cdf.html
       # From can be checked:
       #    select distinct repo_group from gha_repos where lower(repo_group) like '%word1%word2%';
-      #    select * from tall_repo_groups where all_repo_group_value = 'from';
+      #    select * from trepo_groups where repo_group_value = 'from';
       # To can be checked:
       #    select distinct period from sannotations_shared where period = 'to';
       piraeusdatastore: piraeus
