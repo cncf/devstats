@@ -1,2 +1,12 @@
 ---
 columns:
+  - table_regexp: '^si(open|clos)ed$'
+    tag: tall_repo_groups
+    column: all_repo_group_value
+  - table_regexp: '^spr_appr'
+    tag: tall_repo_groups
+    column: all_repo_group_value
+  - table_regexp: '^sprjcntr$'
+    tag: trepo_groups
+    column: repo_group_name
+    hll: true

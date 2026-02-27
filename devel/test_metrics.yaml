@@ -1,18 +1,2 @@
 ---
 metrics:
-  - name: Developer activity counts (repositories)
-    histogram: true
-    annotations_ranges: true
-    series_name_or_func: multi_row_single_column
-    allow_fail: true
-    wait_after_fail: 600
-    sqls:
-      [
-        hist_reviewers_repos,
-        hist_approvers_repos,
-        project_developer_stats_repos,
-      ]
-    merge_series: hdev_repos
-    env:
-      GHA2DB_NCPUS?: 4
-    project: kubernetes
