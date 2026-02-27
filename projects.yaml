@@ -268,7 +268,7 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opa:
     order: 18
-    name: OPA
+    name: Open Policy Agent
     status: Graduated
     command_line:
       - open-policy-agent
@@ -991,7 +991,7 @@ projects:
     files_skip_pattern: ''
   metal3:
     order: 68
-    name: Metal³
+    name: metal3-io
     status: Incubating
     command_line:
       - metal3-io
@@ -1072,7 +1072,7 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   cdk8s:
     order: 74
-    name: Cloud Development Kit for Kubernetes
+    name: cdk8s
     status: Sandbox
     command_line:
       - 'cdk8s-team'
@@ -1909,7 +1909,7 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   hexapolicyorchestrator:
     order: 136
-    name: 'Hexa Policy Orchestrator'
+    name: 'Hexa'
     status: Sandbox
     command_line:
       - 'hexa-org'
@@ -2384,7 +2384,7 @@ projects:
     files_skip_pattern: ''
   copacetic:
     order: 172
-    name: Copacetic
+    name: Copa
     status: Sandbox
     command_line:
       - 'project-copacetic'
@@ -2475,7 +2475,7 @@ projects:
     files_skip_pattern: ''
   krknchaos:
     order: 179
-    name: KrknChaos
+    name: krkn
     status: Sandbox
     command_line:
       - 'krkn-chaos'
@@ -2553,7 +2553,7 @@ projects:
     files_skip_pattern: ''
   connect:
     order: 185
-    name: Connect
+    name: Connect RPC
     status: Sandbox
     command_line:
       - connectrpc
