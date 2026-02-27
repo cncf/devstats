@@ -1,10 +1,18 @@
 ---
 metrics:
-  - name: Commits repo groups
+  - name: Developer activity counts (repositories)
+    histogram: true
+    annotations_ranges: true
     series_name_or_func: multi_row_single_column
-    sql: commits_repo_groups
-    periods: h,d,w,m,q,y
-    aggregate: 1,7,24
-    skip: h7,w7,m7,q7,y7,d24,w24,m24,q24,y24
-    multi_value: true
-    drop: scommits
+    allow_fail: true
+    wait_after_fail: 600
+    sqls:
+      [
+        hist_reviewers_repos,
+        hist_approvers_repos,
+        project_developer_stats_repos,
+      ]
+    merge_series: hdev_repos
+    env:
+      GHA2DB_NCPUS?: 4
+    project: kubernetes
