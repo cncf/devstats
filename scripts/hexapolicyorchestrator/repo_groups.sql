@@ -29,7 +29,7 @@ where
 update gha_repos set repo_group = alias;
 
 update gha_repos
-set repo_group = 'Hexa Policy Orchestrator', alias = 'Hexa Policy Orchestrator'
+set repo_group = 'Hexa', alias = 'Hexa'
 where name in (
   'hexa-org/policy-orchestrator'
 );

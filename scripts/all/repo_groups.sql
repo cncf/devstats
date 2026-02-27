@@ -194,11 +194,11 @@ where
   or name in ('apcera/gnatsd', 'gnatsd', 'apcera/nats', 'nats')
 ;
 
--- OPA
+-- Open Policy Agent
 update
   gha_repos
 set
-  repo_group = 'OPA'
+  repo_group = 'Open Policy Agent'
 where
   org_login = 'open-policy-agent'
   or name = 'open-policy-agent/opa'
@@ -756,11 +756,11 @@ where
   org_login in ('wayfair-tremor', 'tremor-rs')
 ;
 
--- Metal³
+-- metal3-io
 update
   gha_repos
 set
-  repo_group = 'Metal³'
+  repo_group = 'metal3-io'
 where
   org_login in ('metal3-io')
 ;
@@ -813,12 +813,12 @@ where
   org_login in ('schemahero')
 ;
 
--- Cloud Development Kit for Kubernetes
+-- cdk8s
 -- CDK8s
 update
   gha_repos
 set
-  repo_group = 'Cloud Development Kit for Kubernetes'
+  repo_group = 'cdk8s'
 where
   org_login in ('cdk8s-team')
   or name in ('awslabs/cdk8s')
@@ -1427,11 +1427,11 @@ where
   or name in ('merico-dev/stream', 'merico-dev/OpenStream')
 ;
 
--- Hexa Policy Orchestrator
+-- Hexa
 update
   gha_repos
 set
-  repo_group = 'Hexa Policy Orchestrator'
+  repo_group = 'Hexa'
 where
   org_login in ('hexa-org')
 ;
@@ -1784,11 +1784,11 @@ where
   or name in ('google/kubeflow')
 ;
 
--- Copacetic
+-- Copa
 update
   gha_repos
 set
-  repo_group = 'Copacetic'
+  repo_group = 'Copa'
 where
   org_login in ('project-copacetic')
 ;
@@ -1856,11 +1856,11 @@ where
   org_login in ('kuasar-io')
 ;
 
--- KrknChaos
+-- krkn
 update
   gha_repos
 set
-  repo_group = 'KrknChaos'
+  repo_group = 'krkn'
 where
   org_login in (
     'krkn-chaos',
@@ -1923,11 +1923,11 @@ where
   org_login in ('kubeslice')
 ;
 
--- Connect
+-- Connect RPC
 update
   gha_repos
 set
-  repo_group = 'Connect'
+  repo_group = 'Connect RPC'
 where
   org_login in ('connectrpc')
   or name in (

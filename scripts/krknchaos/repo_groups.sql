@@ -29,7 +29,7 @@ where
 update gha_repos set repo_group = alias;
 
 update gha_repos
-set repo_group = 'KrknChaos', alias = 'KrknChaos'
+set repo_group = 'krkn', alias = 'krkn'
 where name in (
   'krkn-chaos/krkn',
   'redhat-chaos/krknChaos',

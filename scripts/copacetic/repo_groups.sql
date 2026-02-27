@@ -29,7 +29,7 @@ where
 update gha_repos set repo_group = alias;
 
 update gha_repos
-set repo_group = 'Copacetic', alias = 'Copacetic'
+set repo_group = 'Copa', alias = 'Copa'
 where name in (
   'project-copacetic/copacetic'
 );
