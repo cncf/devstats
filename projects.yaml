@@ -268,7 +268,7 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opa:
     order: 18
-    name: Open Policy Agent
+    name: "Open Policy Agent"
     status: Graduated
     command_line:
       - open-policy-agent
@@ -1909,7 +1909,7 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   hexapolicyorchestrator:
     order: 136
-    name: 'Hexa'
+    name: "Hexa"
     status: Sandbox
     command_line:
       - 'hexa-org'
@@ -2553,7 +2553,7 @@ projects:
     files_skip_pattern: ''
   connect:
     order: 185
-    name: Connect RPC
+    name: "Connect RPC"
     status: Sandbox
     command_line:
       - connectrpc
