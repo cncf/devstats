@@ -11,22 +11,22 @@ then
   for f in `find ${GRAFANA_DATA} -type f -exec grep -l "'Grafana - '" "{}" \; | sort | uniq`
   do
     ls -l "$f"
-    sed -i "s|'Grafana - '|'OPA DevStats - '|g" "$f"
+    sed -i "s|'Grafana - '|'Open Policy Agent DevStats - '|g" "$f"
   done
   for f in `find ${GRAFANA_DATA} -type f -exec grep -l '"Grafana - "' "{}" \; | sort | uniq`
   do
     ls -l "$f"
-    sed -i 's|"Grafana - "|"OPA DevStats - "|g' "$f"
+    sed -i 's|"Grafana - "|"Open Policy Agent DevStats - "|g' "$f"
   done
   for f in `find ${GRAFANA_DATA} -type f -exec grep -l "' - Grafana'" "{}" \; | sort | uniq`
   do
     ls -l "$f"
-    sed -i "s|' - Grafana'|' - OPA DevStats'|g" "$f"
+    sed -i "s|' - Grafana'|' - Open Policy Agent DevStats'|g" "$f"
   done
   for f in `find ${GRAFANA_DATA} -type f -exec grep -l '" - Grafana"' "{}" \; | sort | uniq`
   do
     ls -l "$f"
-    sed -i 's|" - Grafana"|" - OPA DevStats"|g' "$f"
+    sed -i 's|" - Grafana"|" - Open Policy Agent DevStats"|g' "$f"
   done
 fi
 cp -n ${GRAFANA_DATA}/public/img/grafana_icon.svg ${GRAFANA_DATA}/public/img/grafana_icon.svg.bak
