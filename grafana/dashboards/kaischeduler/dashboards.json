@@ -2457,13 +2457,13 @@
         "showStarred": false,
         "tags": [
           "dashboard",
-          "cohdi"
+          "kaischeduler"
         ]
       },
       "pluginVersion": "8.5.27",
       "tags": [
         "dashboard",
-        "cohdi"
+        "kaischeduler"
       ],
       "title": "All [[full_name]] Dashboards",
       "type": "dashlist"
@@ -2496,7 +2496,7 @@
   "tags": [
     "home",
     "all",
-    "cohdi"
+    "kaischeduler"
   ],
   "templating": {
     "list": [
