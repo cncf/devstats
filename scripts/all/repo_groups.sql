@@ -2516,6 +2516,15 @@ where
   lower(name) in ('truefoundry/kubeelasti', 'truefoundry/elasti')
 ;
 
+-- KAI-Scheduler
+update
+  gha_repos
+set
+  repo_group = 'KAI-Scheduler'
+where
+  lower(name) in ('nvidia/kai-scheduler')
+;
+
 -- CNCF
 update
   gha_repos
