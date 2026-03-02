@@ -261,6 +261,7 @@ icontypes=(
   ["openchoreo"]="color"
   ["cohdi"]="color"
   ["kubeelasti"]="color"
+  ["kaischeduler"]="color"
   ["tekton"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
