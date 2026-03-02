@@ -2301,6 +2301,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "KAI-Scheduler",
+      "tooltip": "Opens KAI-Scheduler projects dashboards",
+      "type": "link",
+      "url": "https://kaischeduler.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
