@@ -98,6 +98,7 @@ tags:
     sql: reviewers_tags
     series_name: reviewers
     name_tag: reviewers_name
+    limit: 500
   - name: PR labels
     sql: pr_labels_tags
     series_name: pr_labels_tags
