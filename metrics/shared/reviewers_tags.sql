@@ -5,7 +5,7 @@ with lgtm_texts as (
   where
     substring(body from '(?i)(?:^|\n|\r)\s*/(?:lgtm)\s*(?:\n|\r|$)') is not null
     and (lower(actor_login) {{exclude_bots}})
-    and created_at > now() - '3 months'::interval
+    and created_at > now() - '6 months'::interval
 )
 select
   sub.dup_actor_login
@@ -16,7 +16,7 @@ from (
     gha_events
   where
     (lower(dup_actor_login) {{exclude_bots}})
-    and created_at > now() - '3 months'::interval
+    and created_at > now() - '6 months'::interval
     and (
       type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent')
       or id in (
@@ -25,7 +25,7 @@ from (
           gha_issues_events_labels
         where
           label_name = 'lgtm'
-          and created_at > now() - '3 months'::interval
+          and created_at > now() - '6 months'::interval
         group by
           issue_id
         union select event_id from lgtm_texts
