@@ -2263,6 +2263,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Agones",
+      "tooltip": "Opens Agones projects dashboards",
+      "type": "link",
+      "url": "https://agones.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
