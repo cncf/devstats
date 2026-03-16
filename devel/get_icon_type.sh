@@ -262,6 +262,7 @@ icontypes=(
   ["cohdi"]="color"
   ["kubeelasti"]="color"
   ["kaischeduler"]="color"
+  ["agones"]="color"
   ["tekton"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
