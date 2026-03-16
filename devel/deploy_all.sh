@@ -838,6 +838,9 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "kaischeduler" ]
   then
     PROJ=kaischeduler        PROJDB=kaischeduler   PROJREPO="NVIDIA/KAI-Scheduler"            ORGNAME=KAI-Scheduler     PORT=3320 ICON=kaischeduler   GRAFSUFF=kaischeduler   GA="-" ./devel/deploy_proj.sh               || exit 245
+  elif [ "$proj" = "agones" ]
+  then
+    PROJ=agones              PROJDB=agones         PROJREPO="agones-dev/agones"               ORGNAME=Agones            PORT=3321 ICON=agones         GRAFSUFF=agones         GA="-" ./devel/deploy_proj.sh               || exit 246
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
