@@ -2525,6 +2525,23 @@ where
   lower(name) in ('nvidia/kai-scheduler')
 ;
 
+-- Agones
+update
+  gha_repos
+set
+  repo_group = 'Agones'
+where
+  org_login in ('agones-dev')
+  or lower(name) in (
+    'GoogleCloudPlatform/agones',
+    'googleforgames/agones',
+    'googleforgames/agones-site',
+    'googleforgames/agones-community',
+    'googleforgames/space-agon',
+    'googleforgames/global-multiplayer-demo'
+  )
+;
+
 -- CNCF
 update
   gha_repos
