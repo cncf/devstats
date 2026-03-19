@@ -841,6 +841,9 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "agones" ]
   then
     PROJ=agones              PROJDB=agones         PROJREPO="agones-dev/agones"               ORGNAME=Agones            PORT=3321 ICON=agones         GRAFSUFF=agones         GA="-" ./devel/deploy_proj.sh               || exit 246
+  elif [ "$proj" = "velero" ]
+  then
+    PROJ=velero              PROJDB=velero         PROJREPO="vmware-tanzu/velero"             ORGNAME=Velero            PORT=3322 ICON=velero         GRAFSUFF=velero         GA="-" ./devel/deploy_proj.sh               || exit 247
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
