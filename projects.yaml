@@ -1142,12 +1142,13 @@ projects:
   kyverno:
     order: 79
     name: Kyverno
-    status: Incubating
+    status: Graduated
     command_line:
       - 'kyverno'
     start_date: 2019-05-23T00:00:00Z
     join_date: 2020-11-10T00:00:00Z
     incubating_date: 2022-07-13T00:00:00Z
+    graduated_date: 2026-03-17T00:00:00Z
     psql_db: kyverno
     shared_db: allprj
     main_repo: kyverno/kyverno
