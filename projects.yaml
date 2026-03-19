@@ -3358,6 +3358,19 @@ projects:
     main_repo: agones-dev/agones
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  velero:
+    order: 246
+    name: Velero
+    status: Sandbox
+    command_line:
+      - 'regexp:(?i)^(velero-io\/.*|vmware-tanzu\/.*velero.*)$'
+    start_date: 2017-08-03T00:00:00Z
+    join_date: 2026-03-17T00:00:00Z
+    psql_db: velero
+    shared_db: allprj
+    main_repo: vnmare-tanzu/velero
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opencontainers:
     order: 1200
     name: OCI
@@ -3599,7 +3612,10 @@ projects:
          kubefleet-dev,opentofu,modelpack,oxia-db,cedar-policy,project-dalec,HolmesGPT,\
          robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets,openchoreo,CoHDI,\
          truefoundry/KubeElasti,NVIDIA/KAI-Scheduler,agones-dev,googleforgames/space-agon,\
-         googleforgames/global-multiplayer-demo"
+         googleforgames/global-multiplayer-demo,velero-io,vmware-tanzu/velero,\
+         vmware-tanzu/velero-plugin-example,vmware-tanzu/velero-plugin-for-aws,\
+         vmware-tanzu/velero-plugin-for-gcp,vmware-tanzu/velero-plugin-for-microsoft-azure,\
+         vmware-tanzu/velero-plugin-for-vsphere,vmware-tanzu/velero-plugin-for-csi"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
