@@ -2542,6 +2542,16 @@ where
   )
 ;
 
+-- Velero
+update
+  gha_repos
+set
+  repo_group = 'Velero'
+where
+  org_login in ('velero-io')
+  or lower(name) ~ '(?i)^vmware-tanzu\/.*velero.*$'
+;
+
 -- CNCF
 update
   gha_repos
