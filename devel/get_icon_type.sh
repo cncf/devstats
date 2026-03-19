@@ -263,6 +263,7 @@ icontypes=(
   ["kubeelasti"]="color"
   ["kaischeduler"]="color"
   ["agones"]="color"
+  ["velero"]="color"
   ["tekton"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
