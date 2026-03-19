@@ -381,6 +381,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Kyverno",
+      "tooltip": "Opens Kyverno projects dashboards",
+      "type": "link",
+      "url": "https://kyverno.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -505,16 +515,6 @@
       "tooltip": "Opens LitmusChaos projects dashboards",
       "type": "link",
       "url": "https://litmuschaos.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Kyverno",
-      "tooltip": "Opens Kyverno projects dashboards",
-      "type": "link",
-      "url": "https://kyverno.[[hostname]]"
     },
     {
       "icon": "dashboard",
