@@ -270,7 +270,7 @@ trickster,tricksterproxy,trickstercache,Comcast/trickster
 tuf,theupdateframework
 tungstenfabric,tungstenfabric
 urunc,urunc-dev,nubificus/urunc
-velero,regexp:(?i)^(velero-io\/.*|vmware-tanzu\/.*velero.*)$
+velero,regexp:(?i)^(velero-io\/.*|vmware-tanzu\/.*velero.*|heptio\/(ark|.*velero.*))$
 vineyard,v6d-io,alibaba/v6d,alibaba/libvineyard
 virtualkubelet,virtual-kubelet,Virtual-Kubelet
 vitess,vitessio,youtube/vitess

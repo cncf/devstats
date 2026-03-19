@@ -2549,7 +2549,8 @@ set
   repo_group = 'Velero'
 where
   org_login in ('velero-io')
-  or lower(name) ~ '(?i)^vmware-tanzu\/.*velero.*$'
+  or lower(name) in ('heptio/ark')
+  or lower(name) ~ '(?i)^(vmware-tanzu\/.*velero.*|heptio\/.*velero.*)$'
 ;
 
 -- CNCF
