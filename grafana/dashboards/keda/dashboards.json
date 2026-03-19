@@ -2265,6 +2265,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Velero",
+      "tooltip": "Opens Velero projects dashboards",
+      "type": "link",
+      "url": "https://velero.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
