@@ -2522,7 +2522,8 @@ update
 set
   repo_group = 'KAI-Scheduler'
 where
-  lower(name) in ('nvidia/kai-scheduler')
+  lower(org_login) in ('kai-scheduler')
+  or lower(name) in ('nvidia/kai-scheduler')
 ;
 
 -- Agones
