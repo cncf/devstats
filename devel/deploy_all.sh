@@ -837,7 +837,7 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=kubeelasti          PROJDB=kubeelasti     PROJREPO="truefoundry/KubeElasti"          ORGNAME=KubeElasti        PORT=3319 ICON=kubeelasti     GRAFSUFF=kubeelasti     GA="-" ./devel/deploy_proj.sh               || exit 244
   elif [ "$proj" = "kaischeduler" ]
   then
-    PROJ=kaischeduler        PROJDB=kaischeduler   PROJREPO="NVIDIA/KAI-Scheduler"            ORGNAME=KAI-Scheduler     PORT=3320 ICON=kaischeduler   GRAFSUFF=kaischeduler   GA="-" ./devel/deploy_proj.sh               || exit 245
+    PROJ=kaischeduler        PROJDB=kaischeduler   PROJREPO="kai-scheduler/KAI-Scheduler"     ORGNAME=KAI-Scheduler     PORT=3320 ICON=kaischeduler   GRAFSUFF=kaischeduler   GA="-" ./devel/deploy_proj.sh               || exit 245
   elif [ "$proj" = "agones" ]
   then
     PROJ=agones              PROJDB=agones         PROJREPO="agones-dev/agones"               ORGNAME=Agones            PORT=3321 ICON=agones         GRAFSUFF=agones         GA="-" ./devel/deploy_proj.sh               || exit 246

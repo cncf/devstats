@@ -112,7 +112,7 @@ k8sgpt,k8sgpt-ai
 k8up,k8up-io,vshn/k8up
 kagent,kagent-dev
 kairos,kairos-io,c3os-io,mudler/c3os
-kaischeduler,NVIDIA/KAI-Scheduler
+kaischeduler,kai-scheduler,NVIDIA/KAI-Scheduler
 kaito,kaito-project,Azure/kaito
 kanister,kanisterio
 karmada,karmada-io

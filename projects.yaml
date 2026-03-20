@@ -3337,12 +3337,12 @@ projects:
     name: KAI-Scheduler
     status: Sandbox
     command_line:
-      - NVIDIA/KAI-Scheduler
+      - kai-scheduler
     start_date: 2025-03-20T00:00:00Z
     join_date: 2025-12-21T00:00:00Z
     psql_db: kaischeduler
     shared_db: allprj
-    main_repo: NVIDIA/KAI-Scheduler
+    main_repo: kai-scheduler/KAI-Scheduler
     annotation_regexp: '^v\d+\.\d+\.\d*0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   agones:
@@ -3611,7 +3611,7 @@ projects:
          kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\
          kubefleet-dev,opentofu,modelpack,oxia-db,cedar-policy,project-dalec,HolmesGPT,\
          robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets,openchoreo,CoHDI,\
-         truefoundry/KubeElasti,NVIDIA/KAI-Scheduler,agones-dev,googleforgames/space-agon,\
+         truefoundry/KubeElasti,kai-scheduler,agones-dev,googleforgames/space-agon,\
          googleforgames/global-multiplayer-demo,velero-io,vmware-tanzu/velero,\
          vmware-tanzu/velero-plugin-example,vmware-tanzu/velero-plugin-for-aws,\
          vmware-tanzu/velero-plugin-for-gcp,vmware-tanzu/velero-plugin-for-microsoft-azure,\
