@@ -28,6 +28,7 @@ This file describes how to add new project on the test and production servers.
 - Update `devel/generate_actors_nonlf.sh`, possibly other `devel/generate_actors_*.sh` files.
 - Copy setup scripts and then adjust them: `cp -R oldproject/ projectname/`, `vim projectname/*`. Most them can be shared for all projects in `./shared/`, usually only `psql.sh` is project specific.
 - Review `vim grafana/copy_artwork_icons.sh apache/www/copy_icons.sh grafana/create_images.sh grafana/change_title_and_icons_all.sh` - maybe you need to add special case. Icon related scripts are marked 'ARTWORK'.
+- Then run: `COMPRESS=1 PROD_SERVER=1 ./devel/icons_all.sh`.
 - Update automatic deploy script: `./devel/deploy_all.sh`.
 - Some projects should not be added to 'All CNCF' (like openconatiners, istio, spinnaker, knative, linux, zephyr, sam, azf, riff, fn, openwhisk, openfaas, nodejs, cii), update `devel/deploy_proj.sh` in such cases.
 - Copy `metrics/oldproject` to `metrics/projectname`. Update `./metrics/projectname/vars.yaml` file.
