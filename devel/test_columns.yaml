@@ -1,5 +1,2 @@
 ---
 columns:
-  - table_regexp: '^suser_reviews$'
-    tag: treviewers
-    column: reviewers_name
