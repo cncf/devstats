@@ -2283,6 +2283,26 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "OpenEverest",
+      "tooltip": "Opens OpenEverest projects dashboards",
+      "type": "link",
+      "url": "https://openeverest.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "NMstate",
+      "tooltip": "Opens NMstate projects dashboards",
+      "type": "link",
+      "url": "https://nmstate.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
