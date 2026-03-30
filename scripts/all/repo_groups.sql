@@ -2554,6 +2554,25 @@ where
   or lower(name) ~ '(?i)^(vmware-tanzu\/.*velero.*|heptio\/.*velero.*)$'
 ;
 
+-- OpenEverest
+update
+  gha_repos
+set
+  repo_group = 'OpenEverest'
+where
+  org_login in ('openeverest')
+  or lower(name) in ('percona/everest')
+;
+
+-- NMstate
+update
+  gha_repos
+set
+  repo_group = 'NMstate'
+where
+  org_login in ('nmstate')
+;
+
 -- CNCF
 update
   gha_repos
