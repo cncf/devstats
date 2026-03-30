@@ -844,6 +844,12 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "velero" ]
   then
     PROJ=velero              PROJDB=velero         PROJREPO="vmware-tanzu/velero"             ORGNAME=Velero            PORT=3322 ICON=velero         GRAFSUFF=velero         GA="-" ./devel/deploy_proj.sh               || exit 247
+  elif [ "$proj" = "openeverest" ]
+  then
+    PROJ=openeverest         PROJDB=openeverest    PROJREPO="openeverest/openeverest"         ORGNAME=OpenEverest       PORT=3323 ICON=openeverest    GRAFSUFF=openeverest    GA="-" ./devel/deploy_proj.sh               || exit 248
+  elif [ "$proj" = "nmstate" ]
+  then
+    PROJ=nmstate             PROJDB=nmstate        PROJREPO="nmstate/nmstate"                 ORGNAME=NMstate           PORT=3324 ICON=nmstate        GRAFSUFF=nmstate         GA="-" ./devel/deploy_proj.sh               || exit 249
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
