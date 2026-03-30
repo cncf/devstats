@@ -3371,6 +3371,32 @@ projects:
     main_repo: vmware-tanzu/velero
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+  openeverest:
+    order: 247
+    name: OpenEverest
+    status: Sandbox
+    command_line:
+      - openeverest
+    start_date: 2024-01-04T00:00:00Z
+    join_date: 2026-03-19T00:00:00Z
+    psql_db: openeverest
+    shared_db: allprj
+    main_repo: openeverest/openeverest
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: ''
+  nmstate:
+    order: 248
+    name: NMstate
+    status: Sandbox
+    command_line:
+      - nmstate
+    start_date: 2018-05-08T00:00:00Z
+    join_date: 2026-03-23T00:00:00Z
+    psql_db: nmstate
+    shared_db: allprj
+    main_repo: nmstate/nmstate
+    annotation_regexp: '^v\d+\.\d+\.\d*0$'
+    files_skip_pattern: ''
   opencontainers:
     order: 1200
     name: OCI
@@ -3616,7 +3642,7 @@ projects:
          vmware-tanzu/velero-plugin-example,vmware-tanzu/velero-plugin-for-aws,\
          vmware-tanzu/velero-plugin-for-gcp,vmware-tanzu/velero-plugin-for-microsoft-azure,\
          vmware-tanzu/velero-plugin-for-vsphere,vmware-tanzu/velero-plugin-for-csi,\
-         vmware-tanzu/velero-csi-plugin"
+         vmware-tanzu/velero-csi-plugin,openeverest,nmstate"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
