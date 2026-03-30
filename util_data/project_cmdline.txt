@@ -178,6 +178,7 @@ mininet,mininet
 modelpack,CloudNativeAI,modelpack
 nats,nats-io,apcera/nats,apcera/gnatsd
 networkservicemesh,networkservicemesh,NetworkServiceMesh,ligato/networkservicemesh
+nmstate,nmstate
 nocalhost,nocalhost
 nodejs,nodejs
 notary,notaryproject,theupdateframework/notary,docker/notary
@@ -191,6 +192,7 @@ opencontainers,opencontainers/image-tools,opencontainers/image-spec,opencontaine
 opencost,opencost
 openebs,openebs
 openelb,openelb,kubesphere/openelb,kubesphere/porterlb,kubesphere/porter
+openeverest,percona/everest,openeverest
 openfaas,openfaas,open-faas,stefanprodan/caddy-builder,alexellis/faas,alexellis/faas-cli,alexellis/java-afterburn,alexellis/faas-netes,alexellis/caddy-builder,alexellis/openfaas-workshop,alexellis/derek,alexellis/java-openfaas-fast-fork,alexellis/openfaas-cloud,alexellis/faas-nats,alexellis/serverless-faas,alexellis/faas-provider,alexellis/nodejs-afterburn
 openfeature,open-feature,openfeatureflags
 openfga,openfga
