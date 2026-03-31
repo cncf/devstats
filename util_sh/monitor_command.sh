@@ -34,7 +34,7 @@ then
 fi
 
 # Run command, store pid as $pid
-( $* ) & pid=$!
+( "$@" ) & pid=$!
 # Spawn watcher that waits TIMEOUT seconds and then kills command gracefully via kill -HUP, store watcher pid as $wather
 ( sleep $TIMEOUT && kill -HUP $pid ) 2>/dev/null & watcher=$!
 

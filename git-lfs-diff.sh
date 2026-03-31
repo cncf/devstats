@@ -19,10 +19,10 @@ object() {
         return
     fi
 
-    Oid=$(git show $Rev:$File 2> /dev/null | grep "sha256" | cut -d ":" -f 2)
+    Oid=$(git show "${Rev}:${File}" 2> /dev/null | grep "sha256" | cut -d ":" -f 2)
     if [ "$Oid" != "" ]; then
-        Oid12=$(echo $Oid | cut -b 1-2)
-        Oid34=$(echo $Oid | cut -b 3-4)
+        Oid12=$(echo "$Oid" | cut -b 1-2)
+        Oid34=$(echo "$Oid" | cut -b 3-4)
         Object=.git/lfs/objects/$Oid12/$Oid34/$Oid
         if [ ! -e "$Object" ]; then
             echo "Missing file $File at revision $Rev"
@@ -34,14 +34,14 @@ object() {
 }
 
 
-ObjectA=$(object $RevA $File)
+ObjectA=$(object "$RevA" "$File")
 EC="$?"
 if [ "$EC" != "0" ]; then
     echo "$ObjectA"
     exit "$EC"
 fi
 
-ObjectB=$(object $RevB $File)
+ObjectB=$(object "$RevB" "$File")
 EC="$?"
 if [ "$EC" != "0" ]; then
     echo "$ObjectB"

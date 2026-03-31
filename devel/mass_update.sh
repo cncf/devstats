@@ -10,7 +10,7 @@ then
   echo "You need to set TO, example FROM=abc TO=xyz $0 ./some_dir/*"
   exit 2
 fi
-for f in $*
+for f in "$@"
 do
   ls -l "$f"
   # vim --not-a-term -c "%s/${FROM}/${TO}/g" -c "wq!" "$f"
