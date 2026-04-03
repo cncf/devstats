@@ -3352,7 +3352,7 @@ projects:
     command_line:
       - agones-dev,googleforgames/space-agon,googleforgames/global-multiplayer-demo
     start_date: 2018-03-05T00:00:00Z
-    join_date: 2025-12-25T00:00:00Z
+    join_date: 2025-12-21T00:00:00Z
     psql_db: agones
     shared_db: allprj
     main_repo: agones-dev/agones
