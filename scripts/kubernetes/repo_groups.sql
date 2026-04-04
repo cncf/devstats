@@ -405,6 +405,7 @@ update gha_repos set repo_group = 'SIG UI' where lower(name) in (
   'kubernetes-graveyard/kube-ui',
   'kubernetes-retired/kube-ui',
   'kubernetes-sigs/dashboard-metrics-scraper',
+  'kubernetes-sigs/headlamp',
   'kubernetes/console',
   'kubernetes/dashboard',
   'kubernetes/kube-ui',
