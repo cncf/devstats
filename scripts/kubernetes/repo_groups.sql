@@ -207,7 +207,6 @@ update gha_repos set repo_group = 'SIG Contributor Experience' where lower(name)
   'kubernetes-sigs/slack-infra',
   'kubernetes-sigs/.github',
   'kubernetes/community',
-  'kubernetes/contributor-site',
   'kubernetes/k8s.io',
   'kubernetes/md-check',
   'kubernetes/md-format',
@@ -483,4 +482,3 @@ group by
 order by
   number_of_repos desc,
   repo_group asc;
-
