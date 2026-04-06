@@ -34,7 +34,7 @@ fi
 . ./devel/all_dbs.sh || exit 2
 for db in $all
 do
-  for sql in $*
+  for sql in "$@"
   do
     echo "Execute script '$sql' on '$db' database"
     kubectl exec -in "devstats-${kenv2}" "${member}" -c devstats-postgres -- psql "$db" < "$sql"
