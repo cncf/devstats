@@ -134,7 +134,7 @@ do
     icon="oauth2-proxy"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "openeverest" ] || [ "$icon" = "nmstate" ] || [ "$icon" = "velero" ] || [ "$icon" = "agones" ] || [ "$icon" = "kaischeduler" ] || [ "$icon" = "cohdi" ] || [ "$icon" = "kubeelasti" ] || [ "$icon" = "oxia" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "openeverest" ] || [ "$icon" = "velero" ] || [ "$icon" = "agones" ] || [ "$icon" = "kaischeduler" ] || [ "$icon" = "cohdi" ] || [ "$icon" = "kubeelasti" ] || [ "$icon" = "oxia" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -147,7 +147,7 @@ do
   elif ( [ "$icon" = "pravega" ] || [ "$icon" = "xline" ] || [ "$icon" = "servicemeshperformance" ] || [ "$icon" = "keptn" ] || [ "$icon" = "devstream" ] || [ "$icon" = "curve" ] || [ "$icon" = "nocalhost" ] || [ "$icon" = "superedge" ] || [ "$icon" = "kubedl" ] || [ "$icon" = "teller" ] || [ "$icon" = "merbridge" ] || [ "$icon" = "skooner" ] || [ "$icon" = "rkt" ] || [ "$icon" = "brigade" ] || [ "$icon" = "opentracing" ] || [ "$icon" = "openservicemesh" ] || [ "$icon" = "servicemeshinterface" ] || [ "$icon" = "curiefense" ] || [ "$icon" = "krator" ] || [ "$icon" = "fonio" ] || [ "$icon" = "krustlet" ] )
   then
     path="archived/$icon"
-  elif [ "$proj" = "shipwright" ]
+  elif ( [ "$proj" = "shipwright" ] || [ "$proj" = "tekton" ] )
   then
     path="former_project_logos/$icon"
   elif [ "$iconorg" = "cncf" ]
