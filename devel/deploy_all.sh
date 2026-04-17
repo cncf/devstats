@@ -850,6 +850,9 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "nmstate" ]
   then
     PROJ=nmstate             PROJDB=nmstate        PROJREPO="nmstate/nmstate"                 ORGNAME=NMstate           PORT=3324 ICON=nmstate        GRAFSUFF=nmstate         GA="-" ./devel/deploy_proj.sh               || exit 249
+  elif [ "$proj" = "higress" ]
+  then
+    PROJ=higress             PROJDB=higress        PROJREPO="alibaba/higress"                 ORGNAME=Higress           PORT=3325 ICON=higress        GRAFSUFF=higress         GA="-" ./devel/deploy_proj.sh               || exit 250
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
