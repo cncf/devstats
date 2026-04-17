@@ -266,6 +266,7 @@ icontypes=(
   ["velero"]="color"
   ["openeverest"]="color"
   ["nmstate"]="color"
+  ["higress"]="color"
   ["tekton"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
