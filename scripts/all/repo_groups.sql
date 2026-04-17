@@ -2573,6 +2573,16 @@ where
   org_login in ('nmstate')
 ;
 
+-- Higress
+update
+  gha_repos
+set
+  repo_group = 'Higress'
+where
+  org_login in ('higress-group')
+  or name in ('alibaba/higress')
+;
+
 -- CNCF
 update
   gha_repos
