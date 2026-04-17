@@ -3397,6 +3397,19 @@ projects:
     main_repo: nmstate/nmstate
     annotation_regexp: '^v\d+\.\d+\.\d*0$'
     files_skip_pattern: ''
+  higress:
+    order: 249
+    name: Higress
+    status: Sandbox
+    command_line:
+      - higress-group,alibaba/higress
+    start_date: 2022-10-25T00:00:00Z
+    join_date: 2026-03-15T00:00:00Z
+    psql_db: higress
+    shared_db: allprj
+    main_repo: alibaba/higress
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   opencontainers:
     order: 1200
     name: OCI
@@ -3642,7 +3655,7 @@ projects:
          vmware-tanzu/velero-plugin-example,vmware-tanzu/velero-plugin-for-aws,\
          vmware-tanzu/velero-plugin-for-gcp,vmware-tanzu/velero-plugin-for-microsoft-azure,\
          vmware-tanzu/velero-plugin-for-vsphere,vmware-tanzu/velero-plugin-for-csi,\
-         vmware-tanzu/velero-csi-plugin,openeverest,nmstate"
+         vmware-tanzu/velero-csi-plugin,openeverest,nmstate,higress-group,alibaba/higress"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
