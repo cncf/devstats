@@ -2301,6 +2301,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Higress",
+      "tooltip": "Opens Higress projects dashboards",
+      "type": "link",
+      "url": "https://higress.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
