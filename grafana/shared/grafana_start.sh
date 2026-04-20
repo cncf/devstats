@@ -163,7 +163,7 @@ then
     fi
     if [ -d "$f" ]
     then
-      rm -f $f/*
+      rm -f -- "$f"/*
     fi
   done
   for f in /grafana/dashboards/*
@@ -173,7 +173,7 @@ then
       echo "Skipping $f"
       continue
     fi
-    rm -rf $f
+    rm -rf -- "$f"
   done
 fi
 
