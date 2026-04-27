@@ -1122,8 +1122,8 @@ projects:
     join_date: 2020-11-10T00:00:00Z
     psql_db: tinkerbell
     shared_db: allprj
-    main_repo: tinkerbell/tink
-    annotation_regexp: ''
+    main_repo: tinkerbell/tinkerbell
+    annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   pravega:
     order: 78
