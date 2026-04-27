@@ -333,7 +333,7 @@ do
     PROJ=openkruise          PROJDB=openkruise     PROJREPO="openkruise/kruise"               ORGNAME=OpenKruise        PORT=3075 ICON=openkruise     GRAFSUFF=openkruise     GA="-" ./devel/deploy_proj.sh || exit 94
   elif [ "$proj" = "tinkerbell" ]
   then
-    PROJ=tinkerbell          PROJDB=tinkerbell     PROJREPO="tinkerbell/tink"                 ORGNAME=Tinkerbell        PORT=3076 ICON=tinkerbell     GRAFSUFF=tinkerbell     GA="-" ./devel/deploy_proj.sh || exit 95
+    PROJ=tinkerbell          PROJDB=tinkerbell     PROJREPO="tinkerbell/tinkerbell"           ORGNAME=Tinkerbell        PORT=3076 ICON=tinkerbell     GRAFSUFF=tinkerbell     GA="-" ./devel/deploy_proj.sh || exit 95
   elif [ "$proj" = "pravega" ]
   then
     PROJ=pravega             PROJDB=pravega        PROJREPO="pravega/pravega"                 ORGNAME=Pravega           PORT=3077 ICON=pravega        GRAFSUFF=pravega        GA="-" ./devel/deploy_proj.sh || exit 96
