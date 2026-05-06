@@ -62,6 +62,7 @@ metrics:
     series_name_or_func: multi_row_single_column
     sql: company_commits_data
     custom_data: true
+    custom_data_unique_time: true
     merge_series: company_commits_data
     periods: d
     drop: scompany_commits_data
