@@ -2352,7 +2352,7 @@ projects:
       - 'microcks'
     start_date: 2015-02-23T00:00:00Z
     join_date: 2023-06-22T00:00:00Z
-    incubating_date: 2016-05-03T00:00:00Z
+    incubating_date: 2026-05-03T00:00:00Z
     psql_db: 'microcks'
     shared_db: allprj
     main_repo: microcks/microcks
