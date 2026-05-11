@@ -167,6 +167,7 @@ lima,lima-vm,AkihiroSuda/lima
 linkerd,linkerd
 linux,torvalds/linux,linux
 litmuschaos,litmuschaos,openebs/test-storage,openebs/litmus
+llmd,llm-d
 loggingoperator,kube-logging,banzaicloud/logging-operator
 longhorn,longhorn,rancher/longhorn
 loxilb,loxilb-io
