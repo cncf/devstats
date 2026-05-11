@@ -2299,6 +2299,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "llm-d",
+      "tooltip": "Opens llm-d projects dashboards",
+      "type": "link",
+      "url": "https://llmd.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
