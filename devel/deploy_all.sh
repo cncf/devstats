@@ -849,10 +849,13 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=openeverest         PROJDB=openeverest    PROJREPO="openeverest/openeverest"         ORGNAME=OpenEverest       PORT=3323 ICON=openeverest    GRAFSUFF=openeverest    GA="-" ./devel/deploy_proj.sh               || exit 248
   elif [ "$proj" = "nmstate" ]
   then
-    PROJ=nmstate             PROJDB=nmstate        PROJREPO="nmstate/nmstate"                 ORGNAME=NMstate           PORT=3324 ICON=nmstate        GRAFSUFF=nmstate         GA="-" ./devel/deploy_proj.sh               || exit 249
+    PROJ=nmstate             PROJDB=nmstate        PROJREPO="nmstate/nmstate"                 ORGNAME=NMstate           PORT=3324 ICON=nmstate        GRAFSUFF=nmstate        GA="-" ./devel/deploy_proj.sh               || exit 249
   elif [ "$proj" = "higress" ]
   then
-    PROJ=higress             PROJDB=higress        PROJREPO="alibaba/higress"                 ORGNAME=Higress           PORT=3325 ICON=higress        GRAFSUFF=higress         GA="-" ./devel/deploy_proj.sh               || exit 250
+    PROJ=higress             PROJDB=higress        PROJREPO="higress-group/higress"           ORGNAME=Higress           PORT=3325 ICON=higress        GRAFSUFF=higress        GA="-" ./devel/deploy_proj.sh               || exit 250
+  elif [ "$proj" = "llmd" ]
+  then
+    PROJ=llmd                PROJDB=llmd           PROJREPO="llm-d/llm-d"                     ORGNAME=llm-d             PORT=3325 ICON=llmd           GRAFSUFF=llmd           GA="-" ./devel/deploy_proj.sh               || exit 251
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
