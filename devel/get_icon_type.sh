@@ -267,6 +267,7 @@ icontypes=(
   ["openeverest"]="color"
   ["nmstate"]="color"
   ["higress"]="color"
+  ["llmd"]="color"
   ["tekton"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
