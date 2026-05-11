@@ -3422,7 +3422,7 @@ projects:
     psql_db: llmd
     shared_db: allprj
     main_repo: llm-d/llm-d
-    annotation_regexp: '^v\d+\.\d+'
+    annotation_regexp: '^v\d+\.\d+$'
     files_skip_pattern: ''
   opencontainers:
     order: 1200
