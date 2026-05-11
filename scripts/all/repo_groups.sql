@@ -2583,6 +2583,15 @@ where
   or name in ('alibaba/higress')
 ;
 
+-- llm-d
+update
+  gha_repos
+set
+  repo_group = 'llm-d'
+where
+  org_login in ('llm-d')
+;
+
 -- CNCF
 update
   gha_repos
