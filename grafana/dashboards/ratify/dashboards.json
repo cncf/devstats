@@ -403,6 +403,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "OpenTelemetry",
+      "tooltip": "Opens OpenTelemetry projects dashboards",
+      "type": "link",
+      "url": "https://opentelemetry.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -497,16 +507,6 @@
       "tooltip": "Opens Emissary-ingress projects dashboards",
       "type": "link",
       "url": "https://emissaryingress.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OpenTelemetry",
-      "tooltip": "Opens OpenTelemetry projects dashboards",
-      "type": "link",
-      "url": "https://opentelemetry.[[hostname]]"
     },
     {
       "icon": "dashboard",
