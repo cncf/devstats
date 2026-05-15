@@ -564,12 +564,13 @@ projects:
   opentelemetry:
     order: 38
     name: OpenTelemetry
-    status: Incubating
+    status: Graduated
     command_line:
       - open-telemetry,opentracing
     start_date: 2019-04-29T00:00:00Z
     join_date: 2019-05-07T00:00:00Z
     incubating_date: 2021-08-26T00:00:00Z
+    graduated_date: 2026-05-11T00:00:00Z
     psql_db: opentelemetry
     shared_db: allprj
     main_repo: open-telemetry/opentelemetry-java
