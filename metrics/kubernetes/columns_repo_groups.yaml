@@ -1,0 +1,11 @@
+---
+columns:
+  - table_regexp: '^sgh_stats_rgrp$'
+    tag: trepo_groups
+    column: repo_group_name
+  - table_regexp: '^spr_appr'
+    tag: trepo_groups
+    column: repo_group_name
+  - table_regexp: '^sprblck'
+    tag: tall_repo_groups
+    column: all_repo_group_name
