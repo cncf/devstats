@@ -2527,13 +2527,13 @@
         "showStarred": false,
         "tags": [
           "dashboard",
-          "llmd"
+          "tekton"
         ]
       },
       "pluginVersion": "8.5.27",
       "tags": [
         "dashboard",
-        "llmd"
+        "tekton"
       ],
       "title": "All [[full_name]] Dashboards",
       "type": "dashlist"
@@ -2566,7 +2566,7 @@
   "tags": [
     "home",
     "all",
-    "llmd"
+    "tekton"
   ],
   "templating": {
     "list": [
