@@ -5,10 +5,10 @@ vars:
     command: [hostname]
   - name: full_name
     type: s
-    value: Tekton
+    value: 'Apicurio Registry'
   - name: lower_name
     type: s
-    value: tekton
+    value: apicurioregistry
   - name: projects_partial_html
     type: s
     command:
