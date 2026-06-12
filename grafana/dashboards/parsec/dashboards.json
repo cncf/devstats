@@ -749,6 +749,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Tekton",
+      "tooltip": "Opens Tekton projects dashboards",
+      "type": "link",
+      "url": "https://tekton.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -2303,6 +2313,16 @@
       "tooltip": "Opens llm-d projects dashboards",
       "type": "link",
       "url": "https://llmd.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Apicurio Registry",
+      "tooltip": "Opens Apicurio Registry projects dashboards",
+      "type": "link",
+      "url": "https://apicurioregistry.[[hostname]]"
     },
     {
       "icon": "dashboard",
