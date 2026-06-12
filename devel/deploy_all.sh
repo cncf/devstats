@@ -843,7 +843,7 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=agones              PROJDB=agones         PROJREPO="agones-dev/agones"               ORGNAME=Agones            PORT=3321 ICON=agones         GRAFSUFF=agones         GA="-" ./devel/deploy_proj.sh               || exit 246
   elif [ "$proj" = "velero" ]
   then
-    PROJ=velero              PROJDB=velero         PROJREPO="vmware-tanzu/velero"             ORGNAME=Velero            PORT=3322 ICON=velero         GRAFSUFF=velero         GA="-" ./devel/deploy_proj.sh               || exit 247
+    PROJ=velero              PROJDB=velero         PROJREPO="velero-io/velero"                ORGNAME=Velero            PORT=3322 ICON=velero         GRAFSUFF=velero         GA="-" ./devel/deploy_proj.sh               || exit 247
   elif [ "$proj" = "openeverest" ]
   then
     PROJ=openeverest         PROJDB=openeverest    PROJREPO="openeverest/openeverest"         ORGNAME=OpenEverest       PORT=3323 ICON=openeverest    GRAFSUFF=openeverest    GA="-" ./devel/deploy_proj.sh               || exit 248
