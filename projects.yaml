@@ -3425,6 +3425,32 @@ projects:
     main_repo: llm-d/llm-d
     annotation_regexp: '^v\d+\.\d+$'
     files_skip_pattern: ''
+  tekton:
+    order: 251
+    name: Tekton
+    status: Incubating
+    command_line:
+      - tektoncd,tektoncd-catalog
+    start_date: 2018-07-23T00:00:00Z
+    join_date: 2026-03-24T00:00:00Z
+    psql_db: tekton
+    main_repo: tektoncd/pipeline
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    shared_db: allprj
+  apicurioregistry:
+    order: 252
+    name: "Apicurio Registry"
+    status: Sandbox
+    command_line:
+      - 'regexp:(?i)^apicurio\/apicurio-registry.*$'
+    start_date: 2019-07-16T00:00:00Z
+    join_date: 2026-06-11T00:00:00Z
+    psql_db: apicurioregistry
+    main_repo: Apicurio/apicurio-registry
+    annotation_regexp: '^\d+\.\d+\.0$'
+    files_skip_pattern: ''
+    shared_db: allprj
   opencontainers:
     order: 1200
     name: OCI
@@ -3667,7 +3693,7 @@ projects:
          robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets,openchoreo,CoHDI,\
          truefoundry/KubeElasti,kai-scheduler,agones-dev,googleforgames/space-agon,\
          googleforgames/global-multiplayer-demo,velero-io,vmware-tanzu/velero-plugin-for-vsphere,\
-         llm-d,openeverest,nmstate,higress-group"
+         llm-d,openeverest,nmstate,higress-group,tektoncd,tektoncd-catalog,Apicurio/apicurio-registry"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
