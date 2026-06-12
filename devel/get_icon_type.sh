@@ -268,6 +268,7 @@ icontypes=(
   ["nmstate"]="color"
   ["higress"]="color"
   ["llmd"]="color"
+  ["apicurioregistry"]="color"
   ["tekton"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"

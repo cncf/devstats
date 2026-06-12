@@ -7,7 +7,6 @@ fi
 declare -A iconsrcs
 iconsrcs=(
   ["spinnaker"]="cdfoundation"
-  ["tekton"]="cdfoundation"
   ["jenkins"]="cdfoundation"
   ["jenkinsx"]="cdfoundation"
   ["cdevents"]="cdfoundation"
