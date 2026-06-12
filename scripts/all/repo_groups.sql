@@ -1074,7 +1074,7 @@ set
   repo_group = 'Meshery'
 where
   org_login in ('meshery', 'meshery-extensions')
-  or name ~ '(?i)layer5io\/.*meshery'
+  or name ~ '(?i)^layer5io\/.*meshery'
 ;
 
 -- Service Mesh Performance
@@ -1084,7 +1084,7 @@ set
   repo_group = 'Service Mesh Performance'
 where
   org_login in ('service-mesh-performance')
-  or name ~ '(?i)layer5io\/.*(service-mesh|performance|benchmark)'
+  or name ~ '(?i)^layer5io\/.*(service-mesh|performance|benchmark)'
 ;
 
 -- KubeVela
@@ -1094,7 +1094,7 @@ set
   repo_group = 'KubeVela'
 where
   org_login in ('kubevela')
-  or name ~ '(?i)oam-dev\/.*vela'
+  or name ~ '(?i)^oam-dev\/.*vela'
 ;
 
 -- kube-vip
@@ -2590,6 +2590,26 @@ set
   repo_group = 'llm-d'
 where
   org_login in ('llm-d')
+;
+
+-- Apicurio Registry
+update
+  gha_repos
+set
+  repo_group = 'Apicurio Registry'
+where
+  -- lower(org_login) in ('apicurio')
+  name ~ '(?i)^Apicurio\/apicurio-registry.*$'
+;
+
+-- Tekton
+update
+  gha_repos
+set
+  repo_group = 'Tekton'
+where
+  org_login in ('tektoncd', 'tektoncd-catalog')
+  or name in ('knative/build')
 ;
 
 -- CNCF
