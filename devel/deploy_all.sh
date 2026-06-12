@@ -855,7 +855,13 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=higress             PROJDB=higress        PROJREPO="higress-group/higress"           ORGNAME=Higress           PORT=3325 ICON=higress        GRAFSUFF=higress        GA="-" ./devel/deploy_proj.sh               || exit 250
   elif [ "$proj" = "llmd" ]
   then
-    PROJ=llmd                PROJDB=llmd           PROJREPO="llm-d/llm-d"                     ORGNAME=llm-d             PORT=3325 ICON=llmd           GRAFSUFF=llmd           GA="-" ./devel/deploy_proj.sh               || exit 251
+    PROJ=llmd                PROJDB=llmd           PROJREPO="llm-d/llm-d"                     ORGNAME="llm-d"           PORT=3325 ICON=llmd           GRAFSUFF=llmd           GA="-" ./devel/deploy_proj.sh               || exit 251
+  elif [ "$proj" = "apicurioregistry" ]
+  then
+    PROJ=apicurioregistry  PROJDB=apicurioregistry PROJREPO="Apicurio/apicurio-registry"      ORGNAME="Apicurio Registry" PORT=3326 ICON=apicurioregistry GRAFSUFF=apicurioregistry GA="-" ./devel/deploy_proj.sh || exit 252
+  elif [ "$proj" = "tekton" ]
+  then
+    PROJ=tekton              PROJDB=tekton         PROJREPO="tektoncd/pipeline"               ORGNAME=Tekton            PORT=3327 ICON=tekton         GRAFSUFF=tekton         GA="-" ./devel/deploy_proj.sh               || exit 253
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
