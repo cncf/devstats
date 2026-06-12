@@ -3367,7 +3367,7 @@ projects:
     command_line:
       - 'regexp:(?i)^(velero-io\/.*|vmware-tanzu\/.*velero.*)$'
     start_date: 2017-08-03T00:00:00Z
-    join_date: 2026-03-17T00:00:00Z
+    join_date: 2026-03-11T00:00:00Z
     psql_db: velero
     shared_db: allprj
     main_repo: velero-io/velero
