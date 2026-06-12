@@ -256,6 +256,7 @@ PGPASSWORD="${PG_PASS}" psql -h "${PG_HOST}" -U gha_admin -tA openeverest < ./ut
 PGPASSWORD="${PG_PASS}" psql -h "${PG_HOST}" -U gha_admin -tA nmstate < ./util_sql/actors.sql
 PGPASSWORD="${PG_PASS}" psql -h "${PG_HOST}" -U gha_admin -tA higress < ./util_sql/actors.sql
 PGPASSWORD="${PG_PASS}" psql -h "${PG_HOST}" -U gha_admin -tA llmd < ./util_sql/actors.sql
+PGPASSWORD="${PG_PASS}" psql -h "${PG_HOST}" -U gha_admin -tA apicurioregistry < ./util_sql/actors.sql
 PGPASSWORD="${PG_PASS}" psql -h "${PG_HOST}" -U gha_admin -tA cncf < ./util_sql/actors.sql
 PGPASSWORD="${PG_PASS}" psql -h "${PG_HOST}" -U gha_admin -tA allprj < ./util_sql/actors.sql
 PGPASSWORD="${PG_PASS}" psql -h "${PG_HOST}" -U gha_admin -tA spinnaker < ./util_sql/actors.sql
