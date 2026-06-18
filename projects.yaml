@@ -1912,11 +1912,12 @@ projects:
   hexapolicyorchestrator:
     order: 136
     name: Hexa
-    status: Sandbox
+    status: Archived
     command_line:
       - 'hexa-org'
     start_date: 2022-01-13T00:00:00Z
     join_date: 2022-07-26T00:00:00Z
+    archived_date: 2026-06-15T00:00:00Z
     psql_db: hexapolicyorchestrator
     shared_db: allprj
     main_repo: hexa-org/policy-orchestrator
@@ -3673,7 +3674,7 @@ projects:
          open-cluster-management-io,vscode-kubernetes-tools,kubearmor,cncf-tags,meshery,\
          meshery-extensions,knative,knative-sandbox,project-stacker,kserve,oauth2-proxy,\
          confidential-containers,cncf/tag-app-delivery,knative-extensions,OpenFunction,clusterpedia-io,\
-         Kuadrant,aeraki-mesh,open-feature,kubewarden,kubevela,openGemini,hexa-org,konveyor,\
+         Kuadrant,aeraki-mesh,open-feature,kubewarden,kubevela,openGemini,konveyor,\
          armadaproject,external-secrets,Serverless-Devs,devspace-sh,ContainerSSH,openfga,kubereboot,\
          lima-vm,istio,carvel-dev,opencost,devspace-cloud,project-zot,paralus,carina-io,ko-build,\
          opcr-io,werf,getsops,pipe-cd,slimtoolkit,projectcapsule,sustainable-computing-io,kptdev,\
