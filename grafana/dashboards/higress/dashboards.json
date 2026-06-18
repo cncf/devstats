@@ -1253,16 +1253,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Hexa",
-      "tooltip": "Opens Hexa projects dashboards",
-      "type": "link",
-      "url": "https://hexapolicyorchestrator.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Konveyor",
       "tooltip": "Opens Konveyor projects dashboards",
       "type": "link",
