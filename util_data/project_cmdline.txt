@@ -265,7 +265,7 @@ superedge,superedge
 tekton,knative/build,tektoncd,tektoncd-catalog
 telepresence,telepresenceio,datawire/telepresence
 teller,SpectralOps/teller,SpectralOps/helm-teller,SpectralOps/setup-teller-action,tellerops
-thanos,thanos-io,improbable-eng/promlts,improbable-eng/thanos
+thanos,thanos-io,thanos-community,improbable-eng/promlts,improbable-eng/thanos
 tikv,pingcap/tikv,tikv
 tinkerbell,tinkerbell,packethost/tinkerbell
 tratteria,tratteria,tokenetes

@@ -424,7 +424,7 @@ update
 set
   repo_group = 'Thanos'
 where
-  org_login in ('thanos-io')
+  org_login in ('thanos-io', 'thanos-community')
   or name in (
     'improbable-eng/promlts',
     'improbable-eng/thanos'
