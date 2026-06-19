@@ -3452,6 +3452,19 @@ projects:
     annotation_regexp: '^\d+\.\d+\.0$'
     files_skip_pattern: ''
     shared_db: allprj
+  kbind:
+    order: 253
+    name: kbind
+    status: Sandbox
+    command_line:
+      - kube-bind
+    start_date: 2022-10-06T00:00:00Z
+    join_date: 2026-06-17T00:00:00Z
+    psql_db: kbind
+    main_repo: kube-bind/kube-bind
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    shared_db: allprj
   opencontainers:
     order: 1200
     name: OCI
@@ -3694,7 +3707,7 @@ projects:
          robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets,openchoreo,CoHDI,\
          truefoundry/KubeElasti,kai-scheduler,agones-dev,googleforgames/space-agon,thanos-community,\
          googleforgames/global-multiplayer-demo,velero-io,vmware-tanzu/velero-plugin-for-vsphere,\
-         llm-d,openeverest,nmstate,higress-group,tektoncd,tektoncd-catalog,Apicurio/apicurio-registry"
+         llm-d,openeverest,nmstate,higress-group,tektoncd,tektoncd-catalog,Apicurio/apicurio-registry,kube-bind"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj

@@ -270,6 +270,7 @@ icontypes=(
   ["llmd"]="color"
   ["apicurioregistry"]="color"
   ["tekton"]="color"
+  ["kbind"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
   ["cdevents"]="color"

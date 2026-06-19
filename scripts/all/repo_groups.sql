@@ -2612,6 +2612,15 @@ where
   or name in ('knative/build')
 ;
 
+-- kbind
+update
+  gha_repos
+set
+  repo_group = 'kbind'
+where
+  org_login in ('kube-bind')
+;
+
 -- CNCF
 update
   gha_repos

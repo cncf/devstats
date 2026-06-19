@@ -118,6 +118,7 @@ kaischeduler,kai-scheduler,NVIDIA/KAI-Scheduler
 kaito,kaito-project,Azure/kaito
 kanister,kanisterio
 karmada,karmada-io
+kbind,kube-bind
 kcl,kcl-lang,KusionStack/kcl,KusionStack/KCLVM
 kcp,kcp-dev
 keda,kedacore,tomkerkhove/sample-dotnet-queue-worker,tomkerkhove/sample-dotnet-queue-worker-servicebus-queue,tomkerkhove/sample-dotnet-worker-servicebus-queue
