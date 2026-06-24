@@ -29,8 +29,6 @@ where
 
 update gha_repos set repo_group = alias;
 
-update gha_repos set alias = 'prometheus', repo_group = 'prometheus' where name like '%prometheus' or name = 'prometheus/';
-
 update gha_repos
 set repo_group = 'OpenMetrics', alias = 'OpenMetrics'
 where name in (
