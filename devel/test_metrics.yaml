@@ -30,6 +30,13 @@ metrics:
 #     merge_series: company_commits_data
 #     periods: d
 #     drop: scompany_commits_data
+  - name: Companies table
+    sql: project_company_stats
+    series_name_or_func: multi_row_single_column
+    histogram: true
+    annotations_ranges: true
+    merge_series: hcom
+    project: kubernetes
   - name: Developer activity counts
     histogram: true
     annotations_ranges: true
@@ -47,6 +54,7 @@ metrics:
     series_name_or_func: multi_row_single_column
     allow_fail: true
     wait_after_fail: 600
+    project: kubernetes
     sqls:
       [
         hist_reviewers_repos,
@@ -54,6 +62,5 @@ metrics:
         project_developer_stats_repos,
       ]
     merge_series: hdev_repos
-    project: kubernetes
     env:
       GHA2DB_NCPUS?: 2
