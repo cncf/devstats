@@ -559,6 +559,15 @@ metrics:
     periods: m
     merge_series: cntrs_and_orgs
     drop: 'scntrs_and_orgs'
+  - name: Feature Gates
+    series_name_or_func: multi_row_single_column
+    sql: feature_gates
+    periods: d,w,m,q,y
+    aggregate: 1,7
+    skip: w7,m7,q7,y7
+    multi_value: true
+    escape_value_name: true
+    annotations_ranges: true
   - name: Home dashboard (must be listed last)
     series_name_or_func: events_h
     sql: events
