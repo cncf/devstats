@@ -476,3 +476,4 @@ if [[ "$DEBUG" == "1" && "${#COLSLOT_ERRORS[@]}" -gt 0 ]]; then
   echo
 fi
 
+kubectl get po -A | grep -E '(rror|oop)'
