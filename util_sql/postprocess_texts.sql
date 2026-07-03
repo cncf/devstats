@@ -1,3 +1,8 @@
+-- Watermarks are keyed off the SAME event_id ranges the INSERT below gates
+-- (real: <2^48+1, artificial: [2^48+1, 329900000000000), sync: >=329900000000000),
+-- NOT off `type`. This prevents a row whose type does not match its id-range from
+-- poisoning a watermark - a '%Event'-typed id>=2^48 row can inflate the
+-- real-event watermark (opt=0) and silently skip ALL new real-event texts.
 with var as (
   select
     coalesce(max(event_id), -9223372036854775808) as max_event_id,
@@ -5,20 +10,20 @@ with var as (
   from
     gha_texts
   where
-    type like '%Event'
+    event_id < 281474976710657
   union select coalesce(max(event_id), 281474976710657) as max_event_id,
     1 as opt
   from
     gha_texts
   where
-    type not like '%Event'
-    and type != 'sync'
+    event_id >= 281474976710657
+    and event_id < 329900000000000
   union select coalesce(max(event_id), 329900000000000) as max_event_id,
     2 as opt
   from
     gha_texts
   where
-    type = 'sync'
+    event_id >= 329900000000000
 )
 insert into gha_texts(
   event_id, body, created_at, repo_id, repo_name, actor_id, actor_login, type
