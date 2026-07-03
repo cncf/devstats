@@ -773,6 +773,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "HAMi",
+      "tooltip": "Opens HAMi projects dashboards",
+      "type": "link",
+      "url": "https://hami.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -1817,16 +1827,6 @@
       "tooltip": "Opens Ratify projects dashboards",
       "type": "link",
       "url": "https://ratify.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "HAMi",
-      "tooltip": "Opens HAMi projects dashboards",
-      "type": "link",
-      "url": "https://hami.[[hostname]]"
     },
     {
       "icon": "dashboard",

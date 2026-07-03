@@ -2779,11 +2779,12 @@ projects:
   hami:
     order: 202
     name: HAMi
-    status: Sandbox
+    status: Incubating
     command_line:
       - Project-HAMi
     start_date: 2024-01-31T00:00:00Z
     join_date: 2024-08-21T00:00:00Z
+    incubating_date: 2026-07-02T00:00:00Z
     psql_db: hami
     shared_db: allprj
     main_repo: Project-HAMi/HAMi
