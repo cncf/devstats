@@ -54,6 +54,7 @@ import json
 import os
 import subprocess
 import sys
+import shlex
 import time
 import urllib.error
 import urllib.request
@@ -191,18 +192,38 @@ def scan_archive(raw: bytes, orgs: set[str], exclude: set[str], collect_stats: b
         raise ValueError(f"{json_errors} JSON decode error(s) in archive line(s)")
     return out, stats_by_hour
 
+def psql_cmd(db: str, sql: str, psql_prefix: str) -> list[str]:
+    """
+    Build the psql command.
 
-def db_ids_for_hour(db: str, h: dt.datetime) -> set[int]:
+    Default:
+      psql -v ON_ERROR_STOP=1 -tAq <db> -c <sql>
+
+    With --psql-prefix, for example:
+      kubectl --context prod exec -i -n devstats-prod devstats-postgres-0 -c devstats-postgres -- \
+        psql -v ON_ERROR_STOP=1 -tAq <db> -c <sql>
+    """
+    return shlex.split(psql_prefix) + ["psql", "-v", "ON_ERROR_STOP=1", "-tAq", db, "-c", sql]
+
+
+def run_psql(db: str, sql: str, psql_prefix: str) -> str:
+    res = subprocess.run(psql_cmd(db, sql, psql_prefix), capture_output=True, text=True)
+    if res.returncode != 0:
+        raise SystemExit(f"psql failed: {res.stderr.strip()}")
+    return res.stdout
+
+
+def db_ids_for_hour(db: str, h: dt.datetime, psql_prefix: str) -> set[int]:
     nxt = h + dt.timedelta(hours=1)
     sql = (
         "select id from gha_events "
         f"where created_at >= '{h:%Y-%m-%d %H:%M:%S}' and created_at < '{nxt:%Y-%m-%d %H:%M:%S}' "
         f"and id < {ARTIFICIAL_BASE}"
     )
-    res = subprocess.run(["psql", "-v", "ON_ERROR_STOP=1", "-tAq", db, "-c", sql], capture_output=True, text=True)
-    if res.returncode != 0:
-        raise SystemExit(f"psql failed for hour {h}: {res.stderr.strip()}")
-    return {int(tok) for tok in res.stdout.split() if tok.strip()}
+    try:
+        return {int(tok) for tok in run_psql(db, sql, psql_prefix).split() if tok.strip()}
+    except SystemExit as e:
+        raise SystemExit(f"psql failed for hour {h}: {e}") from e
 
 
 def main() -> int:
@@ -222,6 +243,10 @@ def main() -> int:
                     help="also print matching event-type counts and payload-presence (PushEvent->commits, PullRequestEvent->pull_request)")
     ap.add_argument("--allow-missing-archive-files", action="store_true",
                     help="treat 404 (unpublished) hours as OK instead of failing - use only for near-current hours")
+    ap.add_argument("--psql-prefix", default=os.getenv("GHA_VERIFY_PSQL_PREFIX", ""),
+                    help="optional command prefix before psql, for example: "
+                         "'kubectl --context prod exec -i -n devstats-prod devstats-postgres-0 "
+                         "-c devstats-postgres --'")
     args = ap.parse_args()
 
     frm, to = parse_dt(args.frm), parse_dt(args.to)
@@ -231,6 +256,14 @@ def main() -> int:
     exclude = {r.strip() for r in args.exclude_repos.split(",") if r.strip()}
     if args.diff_dir:
         os.makedirs(args.diff_dir, exist_ok=True)
+
+    # Fail fast before downloading tens of GB from GH Archive.
+    try:
+        got = run_psql(args.db, "select 1", args.psql_prefix).strip()
+    except SystemExit as e:
+        raise SystemExit(f"database preflight failed: {e}") from e
+    if got != "1":
+        raise SystemExit(f"database preflight failed: expected 1, got {got!r}")
 
     hours = [h for i, h in enumerate(hour_range(frm, to)) if i % max(1, args.sample_every) == 0]
     # Pad one hour each side so events near an hour boundary (written to an adjacent GH Archive file) are captured.
@@ -279,7 +312,7 @@ def main() -> int:
     miss_hours = 0
     for h in hours:
         arch = archive_by_hour.get(h, set())
-        dbids = db_ids_for_hour(args.db, h)
+        dbids = db_ids_for_hour(args.db, h, args.psql_prefix)
         missing = arch - dbids   # in GH Archive but not in DevStats DB (the important one)
         extra = dbids - arch     # in DB but not in the current GH Archive file
         tot_arch += len(arch); tot_db += len(dbids); tot_missing += len(missing); tot_extra += len(extra)
