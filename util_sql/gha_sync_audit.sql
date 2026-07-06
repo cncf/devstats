@@ -89,6 +89,7 @@ where c.created_at >= :from::timestamp and c.created_at < :to::timestamp
 \echo '== G. gha_texts composition by id-bucket (real / artificial / sync) =='
 select
   case when event_id < 281474976710657 then '0-real'
+       when event_id < 329900000000000 and type like '%Event' then '1-artificial-restored'
        when event_id < 329900000000000 then '1-artificial'
        else '2-sync' end as bucket,
   count(*) as rows, min(created_at) as min_dt, max(created_at) as max_dt

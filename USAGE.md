@@ -145,6 +145,13 @@ You can tweak `devstats` tools by environment variables:
 - Set `GHA2DB_JSONS_DIR`, `website_data` tool, JSONs output directory default `./jsons/`.
 - Set `GHA2DB_WEBSITEDATA`, `devstats` tool, run `website_data` just after sync is complete, default false.
 - Set `GHA2DB_SKIP_UPDATE_EVENTS`, ghapi2db tool, drop and recreate artificial events if their state differs, default false.
+- Set `GHA2DB_GHAPISKIPCOMMENTS`, ghapi2db tool, skip restoring IssueCommentEvent and PullRequestReviewCommentEvent, default false (restore enabled).
+- Set `GHA2DB_GHAPISKIPREVIEWS`, ghapi2db tool, skip restoring PullRequestReviewEvent, default false (restore enabled).
+- Set `GHA2DB_GHAPISKIPFORKS`, ghapi2db tool, skip restoring ForkEvent, default false (restore enabled).
+- Set `GHA2DB_GHAPISKIPRELEASES`, ghapi2db tool, skip restoring ReleaseEvent, default false (restore enabled).
+- Set `GHA2DB_GHAPISKIPSTARS`, ghapi2db tool, skip restoring WatchEvent, default false (restore enabled).
+- Set `GHA2DB_RESTORE_ORPHAN_COMMITS`, get_repos tool, restore commits present in git clones but missing from gha_commits, default false in the binary (prod enables it via `repos.sh`/helm `ghapiRestoreOrphanCommits`).
+- Set `GHA2DB_RECENT_RANGE`, ghapi2db and get_repos tools, time window for catch-up backfill of restored events (e.g. '9 months'), default empty (uses recent window).
 
 All environment context details are defined in [context.go](https://github.com/cncf/devstats/blob/master/context.go), please see that file for details (you can also see how it works in [context_test.go](https://github.com/cncf/devstats/blob/master/context_test.go)).
 
