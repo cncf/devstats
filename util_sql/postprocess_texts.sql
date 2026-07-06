@@ -11,6 +11,10 @@
 -- plain `structure` run still performs a FULL rebuild. Source rows whose event time is
 -- older than the window (deep ghapi2db backfills) are handled by
 -- postprocess_texts_range.sql via GHA2DB_POSTPROCESS_FROM/TO.
+-- Sync-range rows (event_id >= 329900000000000; a small static set, e.g. the 2018-07
+-- snapshot: 2,040 gha_issues + 412 gha_pull_requests rows with 2018 event times) are
+-- exempt from the window so they are never missed regardless of their age - the
+-- anti-join keeps re-processing them cheap.
 with cutoff as (
   select coalesce(max(created_at), '1900-01-01'::timestamp) - interval '7 days' as dt
   from
@@ -25,7 +29,10 @@ from
   gha_comments, cutoff
 where
   body != ''
-  and dup_created_at >= cutoff.dt
+  and (
+    dup_created_at >= cutoff.dt
+    or event_id >= 329900000000000
+  )
   and not exists (
     select 1 from gha_texts t where t.event_id = gha_comments.event_id
   )
@@ -35,7 +42,10 @@ from
   gha_commits, cutoff
 where
   message != ''
-  and dup_created_at >= cutoff.dt
+  and (
+    dup_created_at >= cutoff.dt
+    or event_id >= 329900000000000
+  )
   and not exists (
     select 1 from gha_texts t where t.event_id = gha_commits.event_id
   )
@@ -45,7 +55,10 @@ from
   gha_issues, cutoff
 where
   title != ''
-  and dup_created_at >= cutoff.dt
+  and (
+    dup_created_at >= cutoff.dt
+    or event_id >= 329900000000000
+  )
   and not exists (
     select 1 from gha_texts t where t.event_id = gha_issues.event_id
   )
@@ -55,7 +68,10 @@ from
   gha_issues, cutoff
 where
   body != ''
-  and dup_created_at >= cutoff.dt
+  and (
+    dup_created_at >= cutoff.dt
+    or event_id >= 329900000000000
+  )
   and not exists (
     select 1 from gha_texts t where t.event_id = gha_issues.event_id
   )
@@ -65,7 +81,10 @@ from
   gha_pull_requests, cutoff
 where
   title != ''
-  and dup_created_at >= cutoff.dt
+  and (
+    dup_created_at >= cutoff.dt
+    or event_id >= 329900000000000
+  )
   and not exists (
     select 1 from gha_texts t where t.event_id = gha_pull_requests.event_id
   )
@@ -75,7 +94,10 @@ from
   gha_pull_requests, cutoff
 where
   body != ''
-  and dup_created_at >= cutoff.dt
+  and (
+    dup_created_at >= cutoff.dt
+    or event_id >= 329900000000000
+  )
   and not exists (
     select 1 from gha_texts t where t.event_id = gha_pull_requests.event_id
   )
@@ -85,7 +107,10 @@ from
   gha_reviews, cutoff
 where
   body != ''
-  and dup_created_at >= cutoff.dt
+  and (
+    dup_created_at >= cutoff.dt
+    or event_id >= 329900000000000
+  )
   and not exists (
     select 1 from gha_texts t where t.event_id = gha_reviews.event_id
   )

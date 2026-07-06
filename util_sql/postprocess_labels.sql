@@ -11,6 +11,10 @@
 -- plain `structure` run still performs a FULL rebuild. Source rows whose event time is
 -- older than the window (deep ghapi2db backfills) are handled by
 -- postprocess_labels_range.sql via GHA2DB_POSTPROCESS_FROM/TO.
+-- Sync-range rows (event_id >= 329900000000000; a small static set, e.g. the 2018-07
+-- snapshot: 12,990 gha_issues_labels rows with 2018 event times) are exempt from the
+-- window so they are never missed regardless of their age - ON CONFLICT keeps
+-- re-processing them cheap.
 with cutoff as (
   select coalesce(max(created_at), '1900-01-01'::timestamp) - interval '7 days' as dt
   from
@@ -29,6 +33,9 @@ from
   cutoff
 where
   il.label_id = lb.id
-  and il.dup_created_at >= cutoff.dt
+  and (
+    il.dup_created_at >= cutoff.dt
+    or il.event_id >= 329900000000000
+  )
 on conflict do nothing
 ;
