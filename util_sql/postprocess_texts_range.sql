@@ -1,8 +1,9 @@
 -- Bounded, idempotent rebuild of gha_texts for a backfill window [from, to)  (PHASE 2).
 --
--- Companion to postprocess_texts.sql (the unchanged hourly max(event_id) script). Run THIS after a
--- historical backfill so gha_texts reflects rows that arrive after newer rows already exist (the hourly
--- watermark would skip them). The simplest correct alternative is a full "truncate gha_texts + run
+-- Companion to postprocess_texts.sql (the hourly incremental script: 7-day event-time window + anti-join
+-- on event_id; event-id watermarks were dropped after GitHub's 2025-10-08 id-sequence reset). Run THIS
+-- after a historical backfill so gha_texts reflects rows whose event time is older than the hourly
+-- window (the hourly script would skip them). The simplest correct alternative is a full "truncate gha_texts + run
 -- structure" rebuild (see runbook) - use that unless the table is too large to fully rebuild.
 --
 -- KEY: we rebuild by the SOURCE event-time, not by gha_texts.created_at. All event-derived branches -

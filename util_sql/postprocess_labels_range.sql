@@ -1,6 +1,8 @@
 -- Bounded rebuild of gha_issues_events_labels for a backfill window [from, to)  (PHASE 2).
 --
--- Companion to postprocess_labels.sql (unchanged hourly max(event_id) script). Delete-then-reinsert (NOT
+-- Companion to postprocess_labels.sql (the hourly incremental script: 7-day event-time window + ON CONFLICT
+-- DO NOTHING; event-id watermarks were dropped after GitHub's 2025-10-08 id-sequence reset). Use THIS for
+-- source rows whose event time is older than that window. Delete-then-reinsert (NOT
 -- insert-only): ghapi2db can delete and re-create artificial events, so stale/orphan generated rows must be
 -- cleared before re-inserting. For THIS table the target created_at is inserted from
 -- gha_issues_labels.dup_created_at (the event-time), so deleting by the target created_at range is both
