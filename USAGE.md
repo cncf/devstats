@@ -151,6 +151,7 @@ You can tweak `devstats` tools by environment variables:
 - Set `GHA2DB_GHAPISKIPRELEASES`, ghapi2db tool, skip restoring ReleaseEvent, default false (restore enabled).
 - Set `GHA2DB_GHAPISKIPSTARS`, ghapi2db tool, skip restoring WatchEvent, default false (restore enabled).
 - Set `GHA2DB_RESTORE_ORPHAN_COMMITS`, get_repos tool, restore commits present in git clones but missing from gha_commits, default false in the binary (prod enables it via `repos.sh`/helm `ghapiRestoreOrphanCommits`).
+- Set `GHA2DB_ORPHAN_COMMITS_RANGE`, get_repos tool, orphan commits restore window, default '8 hours' = sync interval (6h) + 2h overlap; keep equal to `GHA2DB_RECENT_RANGE` (`repos.sh` maps `GHA2DB_RECENT_RANGE` to it when unset).
 - Set `GHA2DB_RECENT_RANGE`, ghapi2db and get_repos tools, time window for catch-up backfill of restored events (e.g. '9 months'), default empty (uses recent window).
 
 All environment context details are defined in [context.go](https://github.com/cncf/devstats/blob/master/context.go), please see that file for details (you can also see how it works in [context_test.go](https://github.com/cncf/devstats/blob/master/context_test.go)).
