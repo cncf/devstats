@@ -26,6 +26,7 @@ where origin = 2;
 delete from gha_events ge
 using tmp_orphan_events e
 where ge.id = e.event_id
+  and ge.id < 0
   and ge.type = 'PushEvent';
 
 analyze gha_events;
