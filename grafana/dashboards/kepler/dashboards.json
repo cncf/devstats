@@ -783,6 +783,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Confidential Containers",
+      "tooltip": "Opens Confidential Containers projects dashboards",
+      "type": "link",
+      "url": "https://confidentialcontainers.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -1217,16 +1227,6 @@
       "tooltip": "Opens Devfile projects dashboards",
       "type": "link",
       "url": "https://devfile.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Confidential Containers",
-      "tooltip": "Opens Confidential Containers projects dashboards",
-      "type": "link",
-      "url": "https://confidentialcontainers.[[hostname]]"
     },
     {
       "icon": "dashboard",
