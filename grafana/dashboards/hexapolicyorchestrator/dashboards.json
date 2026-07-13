@@ -1043,16 +1043,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Vineyard",
-      "tooltip": "Opens Vineyard projects dashboards",
-      "type": "link",
-      "url": "https://vineyard.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Antrea",
       "tooltip": "Opens Antrea projects dashboards",
       "type": "link",
