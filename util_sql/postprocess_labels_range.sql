@@ -32,11 +32,13 @@ with pp as (
 )
 insert into gha_issues_events_labels(
   issue_id, event_id, label_id, label_name, created_at,
-  repo_id, repo_name, actor_id, actor_login, type, issue_number
+  -- repo_id, repo_name, actor_id, actor_login, type, issue_number
+  repo_id, repo_name, actor_id, actor_login, type
 )
 select
   il.issue_id, il.event_id, lb.id, lb.name, il.dup_created_at,
-  il.dup_repo_id, il.dup_repo_name, il.dup_actor_id, il.dup_actor_login, il.dup_type, il.dup_issue_number
+  -- il.dup_repo_id, il.dup_repo_name, il.dup_actor_id, il.dup_actor_login, il.dup_type, il.dup_issue_number
+  il.dup_repo_id, il.dup_repo_name, il.dup_actor_id, il.dup_actor_login, il.dup_type
 from
   gha_issues_labels il,
   gha_labels lb,

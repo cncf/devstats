@@ -161,12 +161,13 @@ CREATE TABLE public.gha_branches (
     event_id bigint NOT NULL,
     user_id bigint,
     repo_id bigint,
-    label character varying(200) NOT NULL,
-    ref character varying(200) NOT NULL,
-    dup_type character varying(40) NOT NULL,
-    dup_created_at timestamp without time zone NOT NULL,
-    dupn_forkee_name character varying(160),
-    dupn_user_login character varying(120)
+    -- label character varying(200) NOT NULL,
+    -- ref character varying(200) NOT NULL,
+    -- dup_type character varying(40) NOT NULL,
+    -- dup_created_at timestamp without time zone NOT NULL,
+    dup_created_at timestamp without time zone NOT NULL
+    -- dupn_forkee_name character varying(160),
+    -- dupn_user_login character varying(120)
 );
 
 
@@ -185,7 +186,7 @@ CREATE TABLE public.gha_comments (
     user_id bigint NOT NULL,
     commit_id character varying(40),
     original_commit_id character varying(40),
-    diff_hunk text,
+    -- diff_hunk text,
     "position" integer,
     original_position integer,
     path text,
@@ -219,7 +220,7 @@ CREATE TABLE public.gha_commits (
     dup_repo_name character varying(160) NOT NULL,
     dup_type character varying(40) NOT NULL,
     dup_created_at timestamp without time zone NOT NULL,
-    encrypted_email character varying(160) NOT NULL,
+    -- encrypted_email character varying(160) NOT NULL,
     author_email character varying(160) DEFAULT ''::character varying NOT NULL,
     committer_name character varying(160) DEFAULT ''::character varying NOT NULL,
     committer_email character varying(160) DEFAULT ''::character varying NOT NULL,
@@ -314,10 +315,10 @@ CREATE TABLE public.gha_events (
     type character varying(40) NOT NULL,
     actor_id bigint NOT NULL,
     repo_id bigint NOT NULL,
-    public boolean NOT NULL,
+    -- public boolean NOT NULL,
     created_at timestamp without time zone NOT NULL,
     org_id bigint,
-    forkee_id bigint,
+    -- forkee_id bigint,
     dup_actor_login character varying(120) NOT NULL,
     dup_repo_name character varying(160) NOT NULL
 );
@@ -338,8 +339,8 @@ CREATE TABLE public.gha_events_commits_files (
     repo_group character varying(80),
     dup_repo_id bigint NOT NULL,
     dup_repo_name character varying(160) NOT NULL,
-    dup_type character varying(40) NOT NULL,
-    dup_created_at timestamp without time zone NOT NULL,
+    -- dup_type character varying(40) NOT NULL,
+    -- dup_created_at timestamp without time zone NOT NULL,
     ext text DEFAULT ''::text NOT NULL
 );
 
@@ -356,33 +357,34 @@ CREATE TABLE public.gha_forkees (
     name character varying(80) NOT NULL,
     full_name character varying(200) NOT NULL,
     owner_id bigint NOT NULL,
-    description text,
-    fork boolean NOT NULL,
-    created_at timestamp without time zone NOT NULL,
+    -- description text,
+    -- fork boolean NOT NULL,
+    -- created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    pushed_at timestamp without time zone,
-    homepage text,
-    size integer NOT NULL,
+    -- pushed_at timestamp without time zone,
+    -- homepage text,
+    -- size integer NOT NULL,
     stargazers_count integer NOT NULL,
-    has_issues boolean NOT NULL,
-    has_projects boolean,
-    has_downloads boolean NOT NULL,
-    has_wiki boolean NOT NULL,
-    has_pages boolean,
+    -- has_issues boolean NOT NULL,
+    -- has_projects boolean,
+    -- has_downloads boolean NOT NULL,
+    -- has_wiki boolean NOT NULL,
+    -- has_pages boolean,
     forks integer NOT NULL,
     open_issues integer NOT NULL,
     watchers integer NOT NULL,
-    default_branch character varying(200) NOT NULL,
-    public boolean,
-    language character varying(80),
-    organization character varying(100),
+    -- default_branch character varying(200) NOT NULL,
+    -- public boolean,
+    -- language character varying(80),
+    -- organization character varying(100),
     dup_actor_id bigint NOT NULL,
-    dup_actor_login character varying(120) NOT NULL,
+    -- dup_actor_login character varying(120) NOT NULL,
     dup_repo_id bigint NOT NULL,
     dup_repo_name character varying(160) NOT NULL,
-    dup_type character varying(40) NOT NULL,
-    dup_created_at timestamp without time zone NOT NULL,
-    dup_owner_login character varying(120) NOT NULL
+    -- dup_type character varying(40) NOT NULL,
+    -- dup_created_at timestamp without time zone NOT NULL,
+    dup_created_at timestamp without time zone NOT NULL
+    -- dup_owner_login character varying(120) NOT NULL
 );
 
 
@@ -426,7 +428,7 @@ CREATE TABLE public.gha_issues (
     dup_repo_name character varying(160) NOT NULL,
     dup_type character varying(40) NOT NULL,
     dup_created_at timestamp without time zone NOT NULL,
-    dupn_assignee_login character varying(120),
+    -- dupn_assignee_login character varying(120),
     dup_user_login character varying(120) NOT NULL
 );
 
@@ -460,8 +462,9 @@ CREATE TABLE public.gha_issues_events_labels (
     actor_login character varying(120) NOT NULL,
     repo_id bigint NOT NULL,
     repo_name character varying(160) NOT NULL,
-    type character varying(40) NOT NULL,
-    issue_number integer NOT NULL
+    -- type character varying(40) NOT NULL,
+    type character varying(40) NOT NULL
+    -- issue_number integer NOT NULL
 );
 
 
@@ -659,15 +662,15 @@ CREATE TABLE public.gha_payloads (
     issue_id bigint,
     pull_request_id bigint,
     comment_id bigint,
-    ref_type character varying(20),
-    master_branch character varying(200),
-    description text,
+    -- ref_type character varying(20),
+    -- master_branch character varying(200),
+    -- description text,
     number integer,
     forkee_id bigint,
     release_id bigint,
     member_id bigint,
     commit character varying(40),
-    dup_actor_id bigint NOT NULL,
+    -- dup_actor_id bigint NOT NULL,
     dup_actor_login character varying(120) NOT NULL,
     dup_repo_id bigint NOT NULL,
     dup_repo_name character varying(160) NOT NULL,
@@ -731,7 +734,7 @@ CREATE TABLE public.gha_pull_requests (
     dup_type character varying(40) NOT NULL,
     dup_created_at timestamp without time zone NOT NULL,
     dup_user_login character varying(120) NOT NULL,
-    dupn_assignee_login character varying(120),
+    -- dupn_assignee_login character varying(120),
     dupn_merged_by_login character varying(120)
 );
 
@@ -9128,21 +9131,21 @@ CREATE INDEX branches_dup_created_at_idx ON public.gha_branches USING btree (dup
 -- Name: branches_dup_type_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX branches_dup_type_idx ON public.gha_branches USING btree (dup_type);
+-- CREATE INDEX branches_dup_type_idx ON public.gha_branches USING btree (dup_type);
 
 
 --
 -- Name: branches_dupn_forkee_name_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX branches_dupn_forkee_name_idx ON public.gha_branches USING btree (dupn_forkee_name);
+-- CREATE INDEX branches_dupn_forkee_name_idx ON public.gha_branches USING btree (dupn_forkee_name);
 
 
 --
 -- Name: branches_dupn_user_login_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX branches_dupn_user_login_idx ON public.gha_branches USING btree (dupn_user_login);
+-- CREATE INDEX branches_dupn_user_login_idx ON public.gha_branches USING btree (dupn_user_login);
 
 
 --
@@ -9387,7 +9390,7 @@ CREATE INDEX commits_dup_type_idx ON public.gha_commits USING btree (dup_type);
 -- Name: commits_encrypted_email_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX commits_encrypted_email_idx ON public.gha_commits USING btree (encrypted_email);
+-- CREATE INDEX commits_encrypted_email_idx ON public.gha_commits USING btree (encrypted_email);
 
 
 --
@@ -9597,7 +9600,7 @@ CREATE INDEX events_commits_files_dt_idx ON public.gha_events_commits_files USIN
 -- Name: events_commits_files_dup_created_at_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX events_commits_files_dup_created_at_idx ON public.gha_events_commits_files USING btree (dup_created_at);
+-- CREATE INDEX events_commits_files_dup_created_at_idx ON public.gha_events_commits_files USING btree (dup_created_at);
 
 
 --
@@ -9618,7 +9621,7 @@ CREATE INDEX events_commits_files_dup_repo_name_idx ON public.gha_events_commits
 -- Name: events_commits_files_dup_type_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX events_commits_files_dup_type_idx ON public.gha_events_commits_files USING btree (dup_type);
+-- CREATE INDEX events_commits_files_dup_type_idx ON public.gha_events_commits_files USING btree (dup_type);
 
 
 --
@@ -9688,7 +9691,7 @@ CREATE INDEX events_dup_repo_name_idx ON public.gha_events USING btree (dup_repo
 -- Name: events_forkee_id_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX events_forkee_id_idx ON public.gha_events USING btree (forkee_id);
+-- CREATE INDEX events_forkee_id_idx ON public.gha_events USING btree (forkee_id);
 
 
 --
@@ -9730,7 +9733,7 @@ CREATE INDEX events_type_idx ON public.gha_events USING btree (type);
 -- Name: forkees_created_at_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX forkees_created_at_idx ON public.gha_forkees USING btree (created_at);
+-- CREATE INDEX forkees_created_at_idx ON public.gha_forkees USING btree (created_at);
 
 
 --
@@ -9744,7 +9747,7 @@ CREATE INDEX forkees_dup_actor_id_idx ON public.gha_forkees USING btree (dup_act
 -- Name: forkees_dup_actor_login_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX forkees_dup_actor_login_idx ON public.gha_forkees USING btree (dup_actor_login);
+-- CREATE INDEX forkees_dup_actor_login_idx ON public.gha_forkees USING btree (dup_actor_login);
 
 
 --
@@ -9758,7 +9761,7 @@ CREATE INDEX forkees_dup_created_at_idx ON public.gha_forkees USING btree (dup_c
 -- Name: forkees_dup_owner_login_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX forkees_dup_owner_login_idx ON public.gha_forkees USING btree (dup_owner_login);
+-- CREATE INDEX forkees_dup_owner_login_idx ON public.gha_forkees USING btree (dup_owner_login);
 
 
 --
@@ -9779,7 +9782,7 @@ CREATE INDEX forkees_dup_repo_name_idx ON public.gha_forkees USING btree (dup_re
 -- Name: forkees_dup_type_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX forkees_dup_type_idx ON public.gha_forkees USING btree (dup_type);
+-- CREATE INDEX forkees_dup_type_idx ON public.gha_forkees USING btree (dup_type);
 
 
 --
@@ -9793,14 +9796,14 @@ CREATE INDEX forkees_event_id_idx ON public.gha_forkees USING btree (event_id);
 -- Name: forkees_language_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX forkees_language_idx ON public.gha_forkees USING btree (language);
+-- CREATE INDEX forkees_language_idx ON public.gha_forkees USING btree (language);
 
 
 --
 -- Name: forkees_organization_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX forkees_organization_idx ON public.gha_forkees USING btree (organization);
+-- CREATE INDEX forkees_organization_idx ON public.gha_forkees USING btree (organization);
 
 
 --
@@ -11823,7 +11826,7 @@ CREATE INDEX issues_dup_user_login_idx ON public.gha_issues USING btree (dup_use
 -- Name: issues_dupn_assignee_login_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX issues_dupn_assignee_login_idx ON public.gha_issues USING btree (dupn_assignee_login);
+-- CREATE INDEX issues_dupn_assignee_login_idx ON public.gha_issues USING btree (dupn_assignee_login);
 
 
 --
@@ -11872,7 +11875,7 @@ CREATE INDEX issues_events_labels_issue_id_idx ON public.gha_issues_events_label
 -- Name: issues_events_labels_issue_number_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX issues_events_labels_issue_number_idx ON public.gha_issues_events_labels USING btree (issue_number);
+-- CREATE INDEX issues_events_labels_issue_number_idx ON public.gha_issues_events_labels USING btree (issue_number);
 
 
 --
@@ -12460,7 +12463,7 @@ CREATE INDEX payloads_commit_idx ON public.gha_payloads USING btree (commit);
 -- Name: payloads_dup_actor_id_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX payloads_dup_actor_id_idx ON public.gha_payloads USING btree (dup_actor_id);
+-- CREATE INDEX payloads_dup_actor_id_idx ON public.gha_payloads USING btree (dup_actor_id);
 
 
 --
@@ -12537,7 +12540,7 @@ CREATE INDEX payloads_pull_request_id_idx ON public.gha_payloads USING btree (is
 -- Name: payloads_ref_type_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX payloads_ref_type_idx ON public.gha_payloads USING btree (ref_type);
+-- CREATE INDEX payloads_ref_type_idx ON public.gha_payloads USING btree (ref_type);
 
 
 --
@@ -12628,7 +12631,7 @@ CREATE INDEX pull_requests_dup_user_login_idx ON public.gha_pull_requests USING 
 -- Name: pull_requests_dupn_assignee_login_idx; Type: INDEX; Schema: public; Owner: gha_admin
 --
 
-CREATE INDEX pull_requests_dupn_assignee_login_idx ON public.gha_pull_requests USING btree (dupn_assignee_login);
+-- CREATE INDEX pull_requests_dupn_assignee_login_idx ON public.gha_pull_requests USING btree (dupn_assignee_login);
 
 
 --

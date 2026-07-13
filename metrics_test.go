@@ -525,13 +525,22 @@ func addEvent(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 		err = fmt.Errorf("addEvent: expects 9 variadic parameters, got %d %+v", len(args), args)
 		return
 	}
+	// _, err = lib.ExecSQL(
+	// con,
+	// ctx,
+	// "insert into gha_events("+
+	// "id, type, actor_id, repo_id, public, created_at, "+
+	// "dup_actor_login, dup_repo_name, org_id) "+lib.NValues(9),
+	// args...,
+	// )
+	newArgs := lib.AnyArray{args[0], args[1], args[2], args[3], args[5], args[6], args[7], args[8]}
 	_, err = lib.ExecSQL(
 		con,
 		ctx,
 		"insert into gha_events("+
-			"id, type, actor_id, repo_id, public, created_at, "+
-			"dup_actor_login, dup_repo_name, org_id) "+lib.NValues(9),
-		args...,
+			"id, type, actor_id, repo_id, created_at, "+
+			"dup_actor_login, dup_repo_name, org_id) "+lib.NValues(8),
+		newArgs...,
 	)
 	return
 }
@@ -561,50 +570,78 @@ func addForkee(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 		err = fmt.Errorf("addForkee: expects 17 variadic parameters, got %d %+v", len(args), args)
 		return
 	}
+	// newArgs := lib.AnyArray{
+	// args[0], // forkee_id
+	// args[1], // event_id
+	// args[2], // name
+	// args[3], // full_name
+	// args[4], // owner_id
+	// "description",
+	// false,      // fork
+	// args[5],    // created_at
+	// args[6],    // updated_at
+	// time.Now(), // pushed_at
+	// "www.homepage.com",
+	// 1,        // size
+	// "Golang", // language
+	// args[7],  // org
+	// args[8],  // stargazers
+	// true,     // has_issues
+	// nil,      // has_projects
+	// true,     // has_downloads
+	// true,     // has_wiki
+	// nil,      // has_pages
+	// args[9],  // forks
+	// "master", // default_branch
+	// args[10], // open_issues
+	// args[8],  // watchers
+	// false,    // private
+	// args[11], // dup_actor_id
+	// args[12], // dup_actor_login
+	// args[13], // dup_repo_id
+	// args[14], // dup_repo_name
+	// args[15], // dup_type
+	// args[5],  // dup_created_at
+	// args[16], // dup_owner_login
+	// }
+	// _, err = lib.ExecSQL(
+	// con,
+	// ctx,
+	// "insert into gha_forkees("+
+	// "id, event_id, name, full_name, owner_id, description, fork, "+
+	// "created_at, updated_at, pushed_at, homepage, size, language, organization, "+
+	// "stargazers_count, has_issues, has_projects, has_downloads, "+
+	// "has_wiki, has_pages, forks, default_branch, open_issues, watchers, public, "+
+	// "dup_actor_id, dup_actor_login, dup_repo_id, dup_repo_name, dup_type, dup_created_at, "+
+	// "dup_owner_login) "+lib.NValues(32),
+	// newArgs...,
+	// )
 	newArgs := lib.AnyArray{
-		args[0], // forkee_id
-		args[1], // event_id
-		args[2], // name
-		args[3], // full_name
-		args[4], // owner_id
-		"description",
-		false,      // fork
-		args[5],    // created_at
-		args[6],    // updated_at
-		time.Now(), // pushed_at
-		"www.homepage.com",
-		1,        // size
-		"Golang", // language
-		args[7],  // org
+		args[0],  // forkee_id
+		args[1],  // event_id
+		args[2],  // name
+		args[3],  // full_name
+		args[4],  // owner_id
+		args[6],  // updated_at
 		args[8],  // stargazers
-		true,     // has_issues
-		nil,      // has_projects
-		true,     // has_downloads
-		true,     // has_wiki
-		nil,      // has_pages
 		args[9],  // forks
-		"master", // default_branch
 		args[10], // open_issues
 		args[8],  // watchers
-		false,    // private
 		args[11], // dup_actor_id
-		args[12], // dup_actor_login
 		args[13], // dup_repo_id
 		args[14], // dup_repo_name
-		args[15], // dup_type
 		args[5],  // dup_created_at
-		args[16], // dup_owner_login
 	}
 	_, err = lib.ExecSQL(
 		con,
 		ctx,
 		"insert into gha_forkees("+
-			"id, event_id, name, full_name, owner_id, description, fork, "+
-			"created_at, updated_at, pushed_at, homepage, size, language, organization, "+
-			"stargazers_count, has_issues, has_projects, has_downloads, "+
-			"has_wiki, has_pages, forks, default_branch, open_issues, watchers, public, "+
-			"dup_actor_id, dup_actor_login, dup_repo_id, dup_repo_name, dup_type, dup_created_at, "+
-			"dup_owner_login) "+lib.NValues(32),
+			"id, event_id, name, full_name, owner_id, "+
+			"updated_at, "+
+			"stargazers_count, "+
+			"forks, open_issues, watchers, "+
+			"dup_actor_id, dup_repo_id, dup_repo_name, dup_created_at"+
+			") "+lib.NValues(14),
 		newArgs...,
 	)
 	return
@@ -665,14 +702,23 @@ func addIssueEventLabel(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err err
 		err = fmt.Errorf("addIssueEventLabel: expects 11 variadic parameters, got %d %+v", len(args), args)
 		return
 	}
+	// _, err = lib.ExecSQL(
+	// con,
+	// ctx,
+	// "insert into gha_issues_events_labels("+
+	// "issue_id, event_id, label_id, label_name, created_at, "+
+	// "repo_id, repo_name, actor_id, actor_login, type, issue_number"+
+	// ") "+lib.NValues(11),
+	// args...,
+	// )
 	_, err = lib.ExecSQL(
 		con,
 		ctx,
 		"insert into gha_issues_events_labels("+
 			"issue_id, event_id, label_id, label_name, created_at, "+
-			"repo_id, repo_name, actor_id, actor_login, type, issue_number"+
-			") "+lib.NValues(11),
-		args...,
+			"repo_id, repo_name, actor_id, actor_login, type"+
+			") "+lib.NValues(10),
+		args[:10]...,
 	)
 	return
 }
@@ -685,15 +731,25 @@ func addEventCommitFile(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err err
 		err = fmt.Errorf("addEventCommitFile: expects 10 variadic parameters, got %d %+v", len(args), args)
 		return
 	}
+	// _, err = lib.ExecSQL(
+	// con,
+	// ctx,
+	// "insert into gha_events_commits_files("+
+	// "sha, event_id, path, size, dt, repo_group, "+
+	// "dup_repo_id, dup_repo_name, dup_type, dup_created_at, ext"+
+	// ") values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, "+
+	// "regexp_replace(lower($3), '^.*\\.', ''))",
+	// args...,
+	// )
 	_, err = lib.ExecSQL(
 		con,
 		ctx,
 		"insert into gha_events_commits_files("+
 			"sha, event_id, path, size, dt, repo_group, "+
-			"dup_repo_id, dup_repo_name, dup_type, dup_created_at, ext"+
-			") values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, "+
+			"dup_repo_id, dup_repo_name, ext"+
+			") values($1, $2, $3, $4, $5, $6, $7, $8, "+
 			"regexp_replace(lower($3), '^.*\\.', ''))",
-		args...,
+		args[:8]...,
 	)
 	return
 }
@@ -750,10 +806,10 @@ func addCommit(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 
 	// New args
 	newArgs := lib.AnyArray{
-		args[0],  // sha
-		args[1],  // event_id
+		args[0], // sha
+		args[1], // event_id
+		// args[3],  // encrypted_email
 		args[2],  // author_name
-		args[3],  // encrypted_email
 		args[4],  // message
 		true,     // is_distinct
 		args[5],  // dup_actor_id
@@ -770,11 +826,13 @@ func addCommit(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 	_, err = lib.ExecSQL(
 		con,
 		ctx,
+		// "insert into gha_commits("+
+		// 	"sha, event_id, author_name, encrypted_email, message, is_distinct, "+
 		"insert into gha_commits("+
-			"sha, event_id, author_name, encrypted_email, message, is_distinct, "+
+			"sha, event_id, author_name, message, is_distinct, "+
 			"dup_actor_id, dup_actor_login, dup_repo_id, dup_repo_name, dup_type, dup_created_at, "+
 			"author_id, committer_id, dup_author_login, dup_committer_login"+
-			") "+lib.NValues(16),
+			") "+lib.NValues(15),
 		newArgs...,
 	)
 	return
@@ -798,29 +856,30 @@ func addComment(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 		args[4],    // user_id
 		nil,        // commit_id
 		nil,        // original_commit_id
-		nil,        // diff_hunk
-		nil,        // position
-		nil,        // original_position
-		nil,        // path
-		nil,        // pull_request_review_id
-		nil,        // line
-		args[7],    // actor_id
-		args[8],    // actor_login
-		args[5],    // repo_id
-		args[6],    // repo_name
-		args[9],    // type
-		args[3],    // dup_created_at
-		args[10],   // dup_user_login
+		// nil,        // diff_hunk
+		nil,      // position
+		nil,      // original_position
+		nil,      // path
+		nil,      // pull_request_review_id
+		nil,      // line
+		args[7],  // actor_id
+		args[8],  // actor_login
+		args[5],  // repo_id
+		args[6],  // repo_name
+		args[9],  // type
+		args[3],  // dup_created_at
+		args[10], // dup_user_login
 	}
 	_, err = lib.ExecSQL(
 		con,
 		ctx,
 		"insert into gha_comments("+
 			"id, event_id, body, created_at, updated_at, user_id, "+
-			"commit_id, original_commit_id, diff_hunk, position, "+
+			// "commit_id, original_commit_id, diff_hunk, position, "+
+			"commit_id, original_commit_id, position, "+
 			"original_position, path, pull_request_review_id, line, "+
 			"dup_actor_id, dup_actor_login, dup_repo_id, dup_repo_name, dup_type, dup_created_at, "+
-			"dup_user_login) "+lib.NValues(21),
+			"dup_user_login) "+lib.NValues(20),
 		newArgs...,
 	)
 	return
@@ -845,15 +904,15 @@ func addPayload(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 		args[1],   // issue_id
 		args[2],   // pull_request_id
 		args[3],   // comment_id
-		nil,       // ref_type, master_branch, commit
-		nil,
-		nil,
-		"desc",   // description
-		args[4],  // number
-		args[5],  // forkee_id
-		args[6],  // release_id
-		args[7],  // member_id
-		args[8],  // actor.ID
+		nil,       // commit
+		// nil,       // ref_type
+		// nil,       // master_branch
+		// "desc",   // description
+		args[4], // number
+		args[5], // forkee_id
+		args[6], // release_id
+		args[7], // member_id
+		// args[8],  // actor.ID
 		args[9],  // actor.Login
 		args[10], // repo.ID
 		args[11], // repo.Name
@@ -863,12 +922,18 @@ func addPayload(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 	_, err = lib.ExecSQL(
 		con,
 		ctx,
+		// "insert into gha_payloads("+
+		// 	"event_id, push_id, size, ref, head, befor, action, "+
+		// 	"issue_id, pull_request_id, comment_id, ref_type, master_branch, commit, "+
+		// 	"description, number, forkee_id, release_id, member_id, "+
+		// 	"dup_actor_id, dup_actor_login, dup_repo_id, dup_repo_name, dup_type, dup_created_at"+
+		// 	") "+lib.NValues(24),
 		"insert into gha_payloads("+
 			"event_id, push_id, size, ref, head, befor, action, "+
-			"issue_id, pull_request_id, comment_id, ref_type, master_branch, commit, "+
-			"description, number, forkee_id, release_id, member_id, "+
-			"dup_actor_id, dup_actor_login, dup_repo_id, dup_repo_name, dup_type, dup_created_at"+
-			") "+lib.NValues(24),
+			"issue_id, pull_request_id, comment_id, commit, "+
+			"number, forkee_id, release_id, member_id, "+
+			"dup_actor_login, dup_repo_id, dup_repo_name, dup_type, dup_created_at"+
+			") "+lib.NValues(20),
 		newArgs...,
 	)
 	return
@@ -920,8 +985,8 @@ func addPR(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 		"T",        // ev.Type
 		time.Now(), // ev.CreatedAt
 		args[16],   // PR.User.Login
-		nil,        // PR.Assignee.Login
-		nil,        // PR.MergedBy.Login
+		// nil,        // PR.Assignee.Login
+		nil, // PR.MergedBy.Login
 	}
 	_, err = lib.ExecSQL(
 		con,
@@ -932,7 +997,8 @@ func addPR(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 			"merge_commit_sha, merged, mergeable, rebaseable, mergeable_state, comments, "+
 			"review_comments, maintainer_can_modify, commits, additions, deletions, changed_files, "+
 			"dup_actor_id, dup_actor_login, dup_repo_id, dup_repo_name, dup_type, dup_created_at, "+
-			"dup_user_login, dupn_assignee_login, dupn_merged_by_login) "+lib.NValues(38),
+			// "dup_user_login, dupn_assignee_login, dupn_merged_by_login) "+lib.NValues(38),
+			"dup_user_login, dupn_merged_by_login) "+lib.NValues(37),
 		newArgs...,
 	)
 	return
@@ -987,7 +1053,7 @@ func addIssue(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 		args[15], // dup_type
 		args[18], // dup_created_at
 		args[12], // dup_user_login
-		"",       // dup_assignee_login
+		// "",       // dup_assignee_login
 		args[16], // is_pull_request
 	}
 	_, err = lib.ExecSQL(
@@ -997,7 +1063,8 @@ func addIssue(con *sql.DB, ctx *lib.Ctx, args ...interface{}) (err error) {
 			"id, event_id, assignee_id, body, closed_at, comments, created_at, "+
 			"locked, milestone_id, number, state, title, updated_at, user_id, "+
 			"dup_actor_id, dup_actor_login, dup_repo_id, dup_repo_name, dup_type, dup_created_at, "+
-			"dup_user_login, dupn_assignee_login, is_pull_request) "+lib.NValues(23),
+			// "dup_user_login, dupn_assignee_login, is_pull_request) "+lib.NValues(23),
+			"dup_user_login, is_pull_request) "+lib.NValues(22),
 		newArgs...,
 	)
 	return

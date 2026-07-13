@@ -6,9 +6,9 @@ insert into gha_events_commits_files(
   dt,
   size,
   dup_repo_id,
-  dup_repo_name,
-  dup_type,
-  dup_created_at
+  -- dup_type,
+  -- dup_created_at
+  dup_repo_name
 )
 select
   distinct sub.sha,
@@ -18,9 +18,9 @@ select
   sub.dt,
   sub.size,
   sub.dup_repo_id,
-  sub.dup_repo_name,
-  sub.dup_type,
-  sub.dup_created_at
+  -- sub.dup_type,
+  -- sub.dup_created_at
+  sub.dup_repo_name
 from (
   select cf.sha,
     c.event_id,
@@ -29,9 +29,9 @@ from (
     cf.dt,
     cf.size,
     c.dup_repo_id,
-    c.dup_repo_name,
-    c.dup_type,
-    c.dup_created_at
+    -- c.dup_type,
+    -- c.dup_created_at
+    c.dup_repo_name
   from
     gha_comments c,
     gha_commits_files cf
@@ -45,9 +45,9 @@ from (
     cf.dt,
     cf.size,
     r.dup_repo_id,
-    r.dup_repo_name,
-    r.dup_type,
-    r.dup_created_at
+    -- r.dup_type,
+    -- r.dup_created_at
+    r.dup_repo_name
   from
     gha_reviews r,
     gha_commits_files cf
@@ -60,9 +60,9 @@ from (
     cf.dt,
     cf.size,
     c.dup_repo_id,
-    c.dup_repo_name,
-    c.dup_type,
-    c.dup_created_at
+    -- c.dup_type,
+    -- c.dup_created_at
+    c.dup_repo_name
   from
     gha_commits c,
     gha_commits_files cf
@@ -75,9 +75,9 @@ from (
     cf.dt,
     cf.size,
     p.dup_repo_id,
-    p.dup_repo_name,
-    p.dup_type,
-    p.dup_created_at
+    -- p.dup_type,
+    -- p.dup_created_at
+    p.dup_repo_name
   from
     gha_pages p,
     gha_commits_files cf
@@ -90,9 +90,9 @@ from (
     cf.dt,
     cf.size,
     pl.dup_repo_id,
-    pl.dup_repo_name,
-    pl.dup_type,
-    pl.dup_created_at
+    -- pl.dup_type,
+    -- pl.dup_created_at
+    pl.dup_repo_name
   from
     gha_payloads pl,
     gha_commits_files cf
@@ -109,9 +109,9 @@ from (
     cf.dt,
     cf.size,
     pr.dup_repo_id,
-    pr.dup_repo_name,
-    pr.dup_type,
-    pr.dup_created_at
+    -- pr.dup_type,
+    -- pr.dup_created_at
+    pr.dup_repo_name
   from
     gha_pull_requests pr,
     gha_commits_files cf
