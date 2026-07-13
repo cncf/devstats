@@ -11,7 +11,8 @@ delete from gha_reviews where dup_created_at > '{{from}}' and dup_created_at < '
 delete from gha_commits where dup_created_at > '{{from}}' and dup_created_at < '{{to}}';
 delete from gha_commits_files where dt > '{{from}}' and dt < '{{to}}';
 delete from gha_computed where dt > '{{from}}' and dt < '{{to}}';
-delete from gha_events_commits_files where dup_created_at > '{{from}}' and dup_created_at < '{{to}}';
+-- delete from gha_events_commits_files where dup_created_at > '{{from}}' and dup_created_at < '{{to}}';
+delete from gha_events_commits_files where event_id in (select id from gha_events where created_at > '{{from}}' and created_at < '{{to}}');
 delete from gha_forkees where dup_created_at > '{{from}}' and dup_created_at < '{{to}}';
 delete from gha_issues where dup_created_at > '{{from}}' and dup_created_at < '{{to}}';
 delete from gha_issues_labels where dup_created_at > '{{from}}' and dup_created_at < '{{to}}';
