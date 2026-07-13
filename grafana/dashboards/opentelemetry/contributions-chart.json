@@ -267,7 +267,7 @@
             "value": "m"
           }
         ],
-        "query": "d7,w,m",
+        "query": "w,m",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
