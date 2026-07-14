@@ -38,7 +38,8 @@ jsons/*.yaml
 /img.tar
 actors.txt
 errors.txt
-run.log
+*.log
+*.err
 out
 .DS_Store
 temp.sql
