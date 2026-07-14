@@ -1,7 +1,3 @@
--- Drops gha_* columns that are not used by any metric SQL, dashboard, wired util_sql script or devstatscode tool.
--- Matches columns commented out in structure.go - new databases created by the structure tool will not have them.
--- Run on every project database. Dependent indexes are dropped automatically.
--- Reclaim space afterwards with vacuum full (or let the scheduled vacuum job do it).
 alter table if exists gha_events drop column if exists public, drop column if exists forkee_id;
 alter table if exists gha_payloads drop column if exists ref_type, drop column if exists master_branch, drop column if exists description, drop column if exists dup_actor_id;
 alter table if exists gha_comments drop column if exists diff_hunk;
@@ -12,3 +8,15 @@ alter table if exists gha_forkees drop column if exists description, drop column
 alter table if exists gha_branches drop column if exists label, drop column if exists ref, drop column if exists dup_type, drop column if exists dupn_forkee_name, drop column if exists dupn_user_login;
 alter table if exists gha_issues_events_labels drop column if exists issue_number;
 alter table if exists gha_events_commits_files drop column if exists dup_type, drop column if exists dup_created_at;
+
+vacuum full gha_events;
+vacuum full gha_payloads;
+vacuum full gha_comments;
+vacuum full gha_commits;
+vacuum full gha_issues;
+vacuum full gha_pull_requests;
+vacuum full gha_forkees;
+vacuum full gha_branches;
+vacuum full gha_issues_events_labels;
+vacuum full gha_events_commits_files;
+
