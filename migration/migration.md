@@ -330,49 +330,65 @@ It performs all of the following checks:
 - Exactly 11 project foreign tables use server `affiliations`.
 - Exactly four user mappings exist.
 - Project `count(*) from gha_actors` equals the count in the shared database.
-- Every `gha_events.actor_id` resolves in shared `gha_actors`.
+- Every retained pre-FDW `(id, login)` actor row exists in shared `gha_actors`.
+- Unresolved event actor rows/IDs are reported for information; they may predate the migration and are not required to be zero.
 - A direct foreign lookup and a local-events/foreign-actors join both produce `EXPLAIN VERBOSE` output containing `Foreign Scan` and `Remote SQL`.
 
 Equivalent exact commands:
 
 ```bash
 # Relation kind: expected "f".
-k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c \
+pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c \
   "select relkind from pg_class where oid = 'public.gha_actors'::regclass"
 
 # Expected: 11.
-k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c \
+pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c \
   "select count(*) from information_schema.foreign_tables where foreign_table_schema='public' and foreign_server_name='affiliations'"
 
 # Expected: 4.
-k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c \
+pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c \
   "select count(*) from pg_user_mappings where srvname='affiliations'"
 
 # These two counts must match.
-k psql -X -qAt -v ON_ERROR_STOP=1 affiliations -c \
+pgk psql -X -qAt -v ON_ERROR_STOP=1 affiliations -c \
   "select count(*) from gha_actors"
-k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c \
+pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c \
   "select count(*) from gha_actors"
 
-# Expected: 0.
-k psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
-  select count(*) as missing_actor_ids
+# Expected: 0. This proves that the migration preserved the old actor table.
+pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
+  select count(*) as retained_actor_rows_missing_shared
+  from gha_actors_pre_fdw old
+  where not exists (
+    select 1
+    from gha_actors shared
+    where shared.id = old.id
+      and shared.login = old.login
+  );
+"
+
+# Informational only. These counts can be nonzero when historical events already
+# had no matching actor row before the migration.
+pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
+  select
+    count(*) as unresolved_event_rows,
+    count(distinct e.actor_id) as unresolved_actor_ids
   from gha_events e
   where e.actor_id is not null
     and not exists (select 1 from gha_actors a where a.id = e.actor_id);
 "
 
 # Pick a real recent actor ID, then prove that a filtered foreign query is shipped remotely.
-ACTOR_ID="$(k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c \
+ACTOR_ID="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c \
   "select actor_id from gha_events where actor_id is not null order by created_at desc limit 1")"
 echo "ACTOR_ID=$ACTOR_ID"
-k psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
+pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
   explain (verbose, costs off)
   select id, login from gha_actors where id = $ACTOR_ID;
 "
 
 # Prove the real local-table/foreign-table join plans successfully.
-k psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
+pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
   explain (verbose, costs off)
   select count(*)
   from gha_events e
@@ -431,7 +447,7 @@ After it succeeds:
 ```bash
 show_project_logs "$PROJECT" "2 hours"
 
-k psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c \
+pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c \
   "select max(created_at) as newest_event from gha_events"
 ```
 
@@ -456,7 +472,7 @@ kubectl --context "$KUBE_CONTEXT" -n "$NS" logs "job/$AFFS_JOB" \
 Verify that the project job did not call `import_affs` and that metric/tag/column work was logged:
 
 ```bash
-k psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "
+pgk psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "
   select prog, count(*)
   from gha_logs
   where proj = '$PROJECT'
@@ -465,7 +481,7 @@ k psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "
   order by prog;
 "
 
-k psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "
+pgk psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "
   select count(*) as project_import_affs_calls
   from gha_logs
   where proj = '$PROJECT'
@@ -701,24 +717,25 @@ preamble devstats-prod devel/all_prod_dbs.txt
 
 For several days monitor project errors, FDW connections, daily central imports, backups, dashboard correctness, and sync durations.
 
-Spot check actor coverage:
+Spot check migration preservation and actor coverage:
 
 ```bash
-k psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
-  select count(*)
-  from gha_events e
-  where e.actor_id is not null
-    and not exists (select 1 from gha_actors a where a.id = e.actor_id);
-"
+sanity_db "$db"
 ```
 
-Expected: `0`.
+The required value is:
+
+```text
+retained local (id,login) actor rows missing from shared gha_actors: 0
+```
+
+The displayed unresolved event-row and actor-ID counts are informational and are not required to be zero.
 
 After rollback retention and restore checks are complete, remove the old local copies:
 
 ```bash
 for db in $(cat "$LIST"); do
-  k psql -X -v ON_ERROR_STOP=1 "$db" -c "
+  pgk psql -X -v ON_ERROR_STOP=1 "$db" -c "
     drop table if exists
       gha_actors_pre_fdw,
       gha_actors_emails_pre_fdw,

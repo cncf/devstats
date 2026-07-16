@@ -545,9 +545,10 @@ sanity_db() (
   "
 
   missing_actors="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
-    select count(*)
+    select count(distinct e.actor_id)
     from gha_events e
     where e.actor_id is not null
+      and exists (select 1 from gha_actors_pre_fdw old where old.id = e.actor_id)
       and not exists (select 1 from gha_actors a where a.id = e.actor_id)
   ")"
   echo "$db gha_events actor IDs missing from shared gha_actors: $missing_actors"
