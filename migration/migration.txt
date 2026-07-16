@@ -1,0 +1,266 @@
+# THE RUNBOOK — shared `affiliations` DB migration (final, signed-off version)
+
+Status: implementation complete and dirty in all 4 repos (devstats 301 modified + 12 new, devstatscode 5 modified,
+devstats-docker-images 2 modified + 1 new, devstats-helm 5 modified + 1 new). `go build ./...` and all `bash -n` pass.
+Legacy mode (GHA2DB_AFFILIATIONS_DB unset) is byte-identical behavior everywhere.
+
+The shared affs_lock: `gha_locks(name primary key, owner, dt)` in the `devstats` DB. `devel/lock_shared.sh <db> <name> <owner> [attempts]`
+acquires atomically (`INSERT ... ON CONFLICT DO NOTHING` + owner verification, 720x10s retries then fails visibly);
+`devel/unlock_shared.sh` releases only its own lock (`WHERE name AND owner`). There is NO automatic stale-lock stealing
+(affs TSDB regens may legitimately hold the lock for many hours - calc_metric allows 24h). If a holder pod is killed hard
+and the lock is abandoned, waiters fail after ~2h with the owner token printed; clear manually after verifying no affs
+job is running:
+  psql devstats -c "delete from gha_locks where name = 'affs_lock'"
+Used by affs.sh (shared-mode branch), import_affs_shared.sh, proj_affs_bootstrap.sh; legacy flag paths untouched.
+
+## Reusable blocks (referenced by name in the stages)
+
+PREAMBLE(NS, LIST) — run at the start of every stage step (Patroni can fail over anytime):
+```bash
+CTX="--context prod"
+NS=devstats-test            # or devstats-prod
+LIST=devel/all_test_dbs.txt # or devel/all_prod_dbs.txt
+PRIMARY=$(kubectl $CTX -n $NS get pods -l role=primary,type=postgres -o jsonpath='{.items[0].metadata.name}')
+K="kubectl $CTX exec -n $NS $PRIMARY -c devstats-postgres --"
+KI="kubectl $CTX exec -in $NS $PRIMARY -c devstats-postgres --"
+echo "$NS primary: $PRIMARY"
+```
+
+CREATE — create the shared DB + lock table (from the devstats repo dir):
+```bash
+$K psql -v ON_ERROR_STOP=1 -c "create database affiliations"
+$K psql -v ON_ERROR_STOP=1 -c 'grant all privileges on database "affiliations" to gha_admin'
+$K psql -v ON_ERROR_STOP=1 affiliations -c "grant usage, create on schema public to gha_admin"
+$KI psql -U gha_admin affiliations -v ON_ERROR_STOP=1 --single-transaction < util_sql/affiliations_tables.sql
+$KI psql -U gha_admin affiliations -v ON_ERROR_STOP=1 < util_sql/country_codes.sql
+$K psql affiliations -c "grant select on all tables in schema public to ro_user, devstats_team"
+$K psql -v ON_ERROR_STOP=1 devstats -c "grant usage, create on schema public to gha_admin"
+$KI psql -U gha_admin devstats -v ON_ERROR_STOP=1 < util_sql/devstats_locks_table.sql
+```
+
+SEED — consolidate from the namespace's project DBs (read-only on sources, fail-closed):
+```bash
+kubectl $CTX -n $NS cp $LIST $PRIMARY:/tmp/dbs.txt -c devstats-postgres
+kubectl $CTX exec -itn $NS $PRIMARY -c devstats-postgres -- bash
+set -euo pipefail
+psql -q -v ON_ERROR_STOP=1 -U gha_admin affiliations -c "create unlogged table staging_actors (like gha_actors); create unlogged table staging_emails (like gha_actors_emails); create unlogged table staging_names (like gha_actors_names)"
+for db in $(cat /tmp/dbs.txt); do
+  kind=$(psql -tAc "select coalesce((select relkind::text from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname='gha_actors'),'-')" "$db")
+  case "$kind" in
+    r) ;;
+    f) echo "SKIP $db (already shared)"; continue ;;
+    *) echo "ABORT: $db gha_actors relkind='$kind'"; exit 1 ;;
+  esac
+  echo "=== $db"
+  psql -q -v ON_ERROR_STOP=1 "$db" -c "\copy (select * from gha_actors) to stdout" | psql -q -v ON_ERROR_STOP=1 -U gha_admin affiliations -c "\copy staging_actors from stdin"
+  psql -q -v ON_ERROR_STOP=1 "$db" -c "\copy (select * from gha_actors_emails where origin = 1) to stdout" | psql -q -v ON_ERROR_STOP=1 -U gha_admin affiliations -c "\copy staging_emails from stdin"
+  psql -q -v ON_ERROR_STOP=1 "$db" -c "\copy (select * from gha_actors_names where origin = 1) to stdout" | psql -q -v ON_ERROR_STOP=1 -U gha_admin affiliations -c "\copy staging_names from stdin"
+done
+psql -v ON_ERROR_STOP=1 -U gha_admin affiliations <<'SQL'
+insert into gha_actors(id, login, name, country_id, sex, sex_prob, tz, tz_offset, country_name, age)
+select id, login, name, country_id, sex, sex_prob, tz, tz_offset, country_name, age
+from (
+  select s.*, row_number() over (
+    partition by id, login
+    order by ((name is not null and name <> '')::int + (country_id is not null and country_id <> '')::int
+      + (sex is not null)::int + (sex_prob is not null)::int + (tz is not null and tz <> '')::int
+      + (tz_offset is not null)::int + (country_name is not null)::int + (age is not null)::int) desc
+  ) rn from staging_actors s
+) x where rn = 1
+on conflict (id, login) do nothing;
+insert into gha_actors_emails(actor_id, email, origin)
+select actor_id, email, max(origin) from staging_emails group by actor_id, email
+on conflict (actor_id, email) do update set origin = greatest(gha_actors_emails.origin, excluded.origin);
+insert into gha_actors_names(actor_id, name, origin)
+select actor_id, name, max(origin) from staging_names group by actor_id, name
+on conflict (actor_id, name) do update set origin = greatest(gha_actors_names.origin, excluded.origin);
+drop table staging_actors, staging_emails, staging_names;
+analyze gha_actors, gha_actors_emails, gha_actors_names, gha_actors_affiliations, gha_companies, gha_countries, gha_imported_shas, gha_bot_logins;
+SQL
+exit
+```
+SEED is safe to re-run anytime (used again as the "delta"). It skips flipped DBs, preserves every (id,login) pair
+including negative IDs, and merges enrichment origins.
+
+RECONCILE — one central import/reconciliation job, must succeed (on `devstats-helm` repo):
+```bash
+JOB="affs-recon-$(date +%s)"
+kubectl $CTX -n "$NS" create job --from=cronjob/devstats-affiliations-import "$JOB"
+kubectl $CTX -n "$NS" get po | grep "$JOB"
+kubectl $CTX -n "$NS" logs -f "$JOB-xxxxx" # replace xxxxx with the above command's output
+kubectl $CTX -n "$NS" wait --for=condition=complete --timeout=90m "job/$JOB" || { echo ABORT; exit 1; }
+```
+
+MAPS — refresh identity maps (after any manual sweep):
+```bash
+$KI psql -U gha_admin affiliations -v ON_ERROR_STOP=1 < util_sql/shared_maps.sql
+```
+
+IMPORT-CJ — deploy the central daily import cronjob as a NEW dedicated release (matches the existing slice-release
+pattern; run only AFTER CREATE, so its first firing finds the affiliations DB):
+```bash
+EN=test|prod
+helm -n "$NS" get values devstats-$EN-backups -o yaml > /tmp/affs-import-values.yaml
+# edit /tmp/affs-import-values.yaml:
+#   remove: backupsProdServer, backupsTestServer
+#   add:    skipBackups: 1
+#           skipAffiliationsImport: ''
+#           affiliationsDB: affiliations
+#           prodServer: 1        (on devstats-test instead: testServer: 1 and prodServer: '')
+helm -n "$NS" install "${NS}-affs-import" ./devstats-helm -f /tmp/affs-import-values.yaml
+kubectl $CTX -n "$NS" get cronjob devstats-affiliations-import
+```
+
+FDW(db) — server + mappings for one DB (socket mode; on auth failure use the password variant once, then stick to it
+everywhere and set affsFdwUsePassword: '1' at cutover):
+```bash
+$KI psql "$db" -v ON_ERROR_STOP=1 <<'SQL'
+create extension if not exists postgres_fdw;
+drop server if exists affiliations cascade;
+create server affiliations foreign data wrapper postgres_fdw
+  options (host '/var/run/postgresql', port '5432', dbname 'affiliations', use_remote_estimate 'true', fetch_size '10000');
+create user mapping for postgres      server affiliations options (user 'postgres',      password_required 'false');
+create user mapping for gha_admin     server affiliations options (user 'gha_admin',     password_required 'false');
+create user mapping for ro_user       server affiliations options (user 'ro_user',       password_required 'false');
+create user mapping for devstats_team server affiliations options (user 'devstats_team', password_required 'false');
+SQL
+```
+Password variant: same block with host '127.0.0.1' and all four mappings as
+options (user 'gha_admin', password '<PG_PASS from pod env>'):
+```bash
+PG_PASS=[redacted]
+$KI psql "$db" -v ON_ERROR_STOP=1 <<'SQL'
+create extension if not exists postgres_fdw;
+drop server if exists affiliations cascade;
+create server affiliations foreign data wrapper postgres_fdw
+  options (host '127.0.0.1', port '5432', dbname 'affiliations', use_remote_estimate 'true', fetch_size '10000');
+create user mapping for postgres      server affiliations options (user 'postgres',      password '$PG_PASS');
+create user mapping for gha_admin     server affiliations options (user 'gha_admin',     password '$PG_PASS');
+create user mapping for ro_user       server affiliations options (user 'ro_user',       password '$PG_PASS');
+create user mapping for devstats_team server affiliations options (user 'devstats_team', password '$PG_PASS');
+SQL
+```
+
+FLIP(db):
+```bash
+kubectl $CTX -n $NS cp util_sql/migrate_project_to_shared.sql $PRIMARY:/tmp/migrate_project_to_shared.sql -c devstats-postgres
+kubectl $CTX -n $NS cp util_sql/shared_foreign_tables.sql $PRIMARY:/tmp/shared_foreign_tables.sql -c devstats-postgres
+kubectl $CTX -n $NS cp util_sql/rollback_project_from_shared.sql $PRIMARY:/tmp/rollback_project_from_shared.sql -c devstats-postgres
+$K psql "$db" --single-transaction -v ON_ERROR_STOP=1 -f /tmp/migrate_project_to_shared.sql
+```
+Rollback of one DB: `$K psql "$db" --single-transaction -v ON_ERROR_STOP=1 -f /tmp/rollback_project_from_shared.sql`
+
+SWITCHOVER — the full-namespace cutover:
+```bash
+# 1. suspend everything (incl. affiliations-import, excl. backups) and drain
+kubectl $CTX -n $NS get cronjobs -o name | grep -v backup | xargs -n1 -I{} kubectl $CTX -n $NS patch {} --type merge -p '{"spec":{"suspend":true}}'
+while true; do
+  act=$(kubectl $CTX -n $NS get jobs -o jsonpath='{range .items[?(@.status.active>0)]}{.metadata.name}{"\n"}{end}')
+  [ -z "$act" ] && break; echo "waiting: $act"; sleep 30
+done
+# 2. delta: rerun SEED   3. RECONCILE   4. rerun SEED (enrichment re-sweep) + MAPS
+# 5. re-copy + sha256-verify the 3 SQL files on the CURRENT primary (re-run PREAMBLE first)
+# 6. flip loop (fail-closed):
+set -euo pipefail
+for db in $(cat $LIST); do
+  kind=$($K psql -tAc "select coalesce((select relkind::text from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname='gha_actors'),'-')" "$db")
+  if [ "$kind" = "f" ]; then
+    n=$($K psql -tAc "select count(*) from information_schema.foreign_tables where foreign_table_schema='public' and foreign_server_name='affiliations'" "$db")
+    m=$($K psql -tAc "select count(*) from pg_user_mappings where srvname='affiliations'" "$db")
+    if [ "$n" = "11" ] && [ "$m" = "4" ]; then echo "OK (already migrated): $db"; continue; fi
+    echo "ABORT: $db partially migrated (ft=$n maps=$m)"; exit 1
+  elif [ "$kind" != "r" ]; then echo "ABORT: $db relkind='$kind'"; exit 1; fi
+  echo "=== $db"; # FDW(db); FLIP(db)
+done
+# 7. upgrade every CronJob-bearing project release with the new chart + cutover values,
+#    preserving each release's own values. Discover the owning releases via the CJ annotations
+#    (only type=cron / affiliations-cron CJs; excludes backups/velero/affs-import automatically):
+kubectl $CTX -n "$NS" get cronjobs -o json | jq -r '.items[]
+  | select((.metadata.labels.type == "cron") or (.metadata.labels.type == "affiliations-cron"))
+  | .metadata.annotations["meta.helm.sh/release-name"] // "<no-owner>"' | sort -u
+#    then upgrade each: explicit skipAffiliationsImport=1 so no ordinary release ever renders
+#    the central importer (do NOT use --reuse-values):
+for rel in <the releases from the list above>; do
+  helm -n "$NS" get values "$rel" -o yaml > "/tmp/vals-$rel.yaml"
+  helm -n "$NS" upgrade "$rel" ./devstats-helm -f "/tmp/vals-$rel.yaml" \
+    --set affiliationsDB=affiliations --set checkImportedSHA='' --set affiliationsGetAffsFiles='' \
+    --set skipAffiliationsImport=1
+done
+#    (add --set affsFdwUsePassword=1 only if the password FDW variant was chosen at the pilot)
+# 8. explicitly unsuspend ALL cronjobs - helm's three-way merge does NOT remove the
+#    kubectl-added spec.suspend, because none of the CJ templates ever rendered that field:
+kubectl $CTX -n "$NS" get cronjobs -o name | xargs -n1 -I{} kubectl $CTX -n "$NS" patch {} --type merge -p '{"spec":{"suspend":false}}'
+```
+
+## Stage 0 — code out the door
+
+1. In each repo: git add -N the new files, review, commit. Build & push images. helm template render-check.
+2. No helm action. DevStats runs many one-shot slice releases (projects-1..10, kubernetes, allprj, backups, ...);
+   nothing existing needs redeploying now. The freshly pushed images are picked up by the existing CronJobs on their
+   next run and are legacy-safe: every shared-mode path is gated on GHA2DB_AFFILIATIONS_DB, which no deployed object
+   sets yet. Three small intentional changes ARE live immediately with the new images (all benign, part of the
+   signed-off design):
+   - all_affs.sh skip-percent bugfix: SKIP_IMP_AFFS/SKIP_UPD_AFFS=P now skips exactly P% (previously P-1%).
+   - update_affs.sh sets GHA2DB_SKIPPDB=1: monthly affiliations TSDB regens no longer re-run the PDB sync
+     (gha2db/get_repos/ghapi2db/structure) first - they use data from the last hourly sync (<= 6h old).
+   - backups.sh automatically starts a daily pg_dump of the affiliations DB once that DB exists (no-op until then).
+   Verification (this IS Stage 0 point 2 - a check, not a deployment; expect imagePullPolicy Always,
+   GHA2DB_AFFILIATIONS_DB unset everywhere, and no devstats-affiliations-import CJ yet):
+   for NS in devstats-test devstats-prod; do
+     echo "===== $NS ====="
+     kubectl --context prod -n "$NS" get cronjobs -o json | jq -r '.items[]
+       | select((.metadata.labels.type == "cron") or (.metadata.labels.type == "affiliations-cron"))
+       | . as $cj | ($cj.spec.jobTemplate.spec.template.spec.containers[0]) as $c
+       | [$cj.metadata.name, ($cj.metadata.annotations["meta.helm.sh/release-name"] // "<no-owner>"),
+          $c.image, ($c.imagePullPolicy // "<unset>"),
+          ([$c.env[]? | select(.name == "GHA2DB_AFFILIATIONS_DB") | .value][0] // "<unset>")] | @tsv' | sort | column -t
+     kubectl --context prod -n "$NS" get cronjob devstats-affiliations-import --ignore-not-found
+   done
+   Also check gha_logs for one sync CJ and one affiliations CJ after their next scheduled runs.
+
+## Stage 1 — devstats-test
+
+1. PREAMBLE(devstats-test, devel/all_test_dbs.txt) → CREATE → SEED → IMPORT-CJ (dedicated release,
+   test variant) → RECONCILE. Verify: actor/affiliation/map/bot-login counts sane, SHAs recorded.
+2. Smallest-DB pilot — pick it live (while on `devstats`):
+   `$K psql -tAc "select datname from pg_database where datname = any(string_to_array('$(cat devel/all_test_dbs.txt)',' ')) order by pg_database_size(datname) limit 1"`
+   (likely fn or azf). Then: suspend its 2 CJs (`k edit cj -n devstats-test devstats-affiliations-sam devstats-sam`) → drain → SEED (delta) → RECONCILE → SEED + MAPS (re-sweep) → FDW(db)
+   including the `set role` auth test (this decides socket vs password for everything that follows) → FLIP(db) →
+   sanity (count(*), EXPLAIN with Remote SQL: `explain select * from gha_actors where login = 'xyz';`) 
+   → patch its sync CJ env GHA2DB_AFFILIATIONS_DB=affiliations `kubectl $CTX -n $NS edit cj devstats-$db` + affs CJ env `kubectl $CTX -n $NS edit cj devstats-affiliations-$db
+   (same + GHA2DB_CHECK_IMPORTED_SHA='', GET_AFFS_FILES='') → unsuspend → watch one sync run + one manual affs job →
+   dashboards.
+3. If good (a day is plenty on test): SWITCHOVER of devstats-test. Let it run ~a day; check several projects'
+   dashboards, gha_logs for errors, sync durations.
+
+## Stage 2 — devstats-prod
+
+1. PREAMBLE(devstats-prod, devel/all_prod_dbs.txt) → CREATE → SEED (~30–60 min, prod unaffected) → IMPORT-CJ
+   (dedicated release) → RECONCILE. Expect ~1.6–2M actors, ~200–320K affiliations.
+2. tuf pilot: suspend devstats-tuf + devstats-affiliations-tuf → drain → SEED (tuf delta) → RECONCILE → SEED + MAPS →
+   FDW(tuf) + auth test → FLIP(tuf) → sanity → env-patch tuf's 2 CJs (as in stage 1.2) → unsuspend sync → watch a full
+   sync (gha_logs where proj='tuf'), run `kubectl create job --from=cronjob/devstats-affiliations-tuf tuf-affs-test`
+   (must skip import, take the devstats gha_locks row, always regen TSDB), check tuf dashboards, optionally reinit.sh.
+   Soak 1–2 days.
+3. If good: SWITCHOVER of devstats-prod (flip loop ≈ 10–15 min for ~240 DBs; whole window ~1–2 h).
+
+## Stage 3 — soak (a few days) + total cleanup
+
+1. For ~3–5 days watch: gha_logs errors, pg_stat_activity in affiliations, dashboards across small/medium/large
+   projects, daily import CJ runs, backups pod producing affiliations.dump. Spot check per a few projects:
+   `select count(*) from gha_events e where e.actor_id > 0 and not exists (select 1 from gha_actors a where a.id = e.actor_id)` ≈ 0.
+2. Test-restore once: pg_restore -d affiliations_restore_test /root/affiliations.dump → count check → drop.
+3. Total cleanup (both namespaces):
+```bash
+for db in $(cat $LIST); do
+  $K psql -v ON_ERROR_STOP=1 "$db" -c "drop table if exists gha_actors_pre_fdw, gha_actors_emails_pre_fdw, gha_actors_names_pre_fdw, gha_companies_pre_fdw, gha_actors_affiliations_pre_fdw, gha_countries_pre_fdw, gha_imported_shas_pre_fdw, gha_bot_logins_pre_fdw"
+done
+```
+→ reclaims ~125 GB logical / ~750 GB across the 6 prod replicas.
+
+Steady state: one daily central CJ owns all affiliation data (marks commit-used names across projects before each
+SHA-change clean; no-clean reconciliation otherwise), 242 project CJs are forced TSDB-only under the atomic devstats
+lock (no auto stale-steal; abandoned locks cleared manually per the note at the top), ghapi2db enrichments are origin=1
+from birth, and new projects/clusters provision correctly through psql.sh/init_database.sh. Any NEW helm release created after the cutover (adding
+projects, re-provisioning) must include --set affiliationsDB=affiliations (and --set affsFdwUsePassword=1 if the
+password FDW variant was chosen). Start with Stage 0.
