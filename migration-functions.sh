@@ -516,6 +516,7 @@ flip_all_dbs() (
 
     echo "=== $db"
     fdw "$db" "$AFFS_FDW_MODE"
+    fdw_auth_test "$db"
     flip "$db"
   done < <(tr '[:space:]' '\n' < "$LIST" | sed '/^$/d')
 )
