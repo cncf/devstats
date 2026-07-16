@@ -96,7 +96,7 @@ affiliationsDB=affiliations
 checkImportedSHA=''
 affiliationsGetAffsFiles=''
 skipAffiliationsImport=1
-affsFdwUsePassword=1  # password mode only
+# affsFdwUsePassword=1  # password mode only
 ```
 - Do not include the dedicated affs-import release.
 - Verify CJ envs, restore previous suspend states, explicitly unsuspend `devstats-affiliations-import`.
