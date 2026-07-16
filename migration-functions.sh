@@ -685,3 +685,291 @@ show_project_logs() (
     order by id desc;
   "
 )
+
+update_cjs() (
+  set -euo pipefail
+  local env="${1:?usage: update_cjs test|prod}"
+  local ns list chart cj_owners releases_file no_owner import_release
+  local fdw_use_password overrides stamp values_dir rel values_file
+  local current_import_release unsuspended bad_sync bad_affs
+
+  case "$env" in
+    test)
+      KUBE_CONTEXT=test
+      ns=devstats-test
+      list=devel/all_test_dbs.txt
+      ;;
+    prod)
+      KUBE_CONTEXT=prod
+      ns=devstats-prod
+      list=devel/all_prod_dbs.txt
+      ;;
+    *)
+      echo "ABORT: usage: update_cjs test|prod" >&2
+      exit 1
+      ;;
+  esac
+  export KUBE_CONTEXT
+
+  preamble "$ns" "$list"
+  load_fdw_mode
+
+  chart="${CHART:-../devstats-helm/devstats-helm}"
+  [[ -f "$chart/Chart.yaml" ]] || {
+    echo "ABORT: Helm chart not found: $chart" >&2
+    exit 1
+  }
+
+  echo "Namespace: $NS"
+  echo "Chart: $chart"
+  echo "FDW mode: $AFFS_FDW_MODE"
+
+  cj_owners="/tmp/${NS}-project-cj-owners.tsv"
+  releases_file="/tmp/${NS}-project-cj-releases.txt"
+
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjobs -o json |
+  jq -r '
+    .items[]
+    | select(.metadata.name != "devstats-affiliations-import")
+    | select(
+        ((.metadata.labels.type // "") == "cron")
+        or
+        ((.metadata.labels.type // "") == "affiliations-cron")
+      )
+    | [
+        .metadata.name,
+        (.metadata.annotations["meta.helm.sh/release-name"] // "")
+      ]
+    | @tsv
+  ' |
+  sort > "$cj_owners"
+
+  echo "=== Project CronJob owners"
+  column -t "$cj_owners"
+
+  no_owner="$(awk -F '\t' '$2 == "" {n++} END {print n+0}' "$cj_owners")"
+  if [[ "$no_owner" -ne 0 ]]; then
+    echo "ABORT: $no_owner project CronJob(s) have no Helm owner:" >&2
+    awk -F '\t' '$2 == "" {print $1}' "$cj_owners" >&2
+    exit 1
+  fi
+
+  cut -f2 "$cj_owners" | sed '/^$/d' | sort -u > "$releases_file"
+  [[ -s "$releases_file" ]] || {
+    echo "ABORT: no project-CronJob-owning Helm releases found" >&2
+    exit 1
+  }
+
+  echo "=== Ordinary releases to upgrade"
+  cat "$releases_file"
+
+  import_release="$(
+    kubectl --context "$KUBE_CONTEXT" -n "$NS" \
+      get cronjob/devstats-affiliations-import \
+      -o jsonpath='{.metadata.annotations.meta\.helm\.sh/release-name}'
+  )"
+  [[ -n "$import_release" ]] || {
+    echo "ABORT: central importer has no Helm release owner" >&2
+    exit 1
+  }
+
+  echo "Central importer release, excluded from upgrade loop: $import_release"
+  if grep -Fxq "$import_release" "$releases_file"; then
+    echo "ABORT: central importer release unexpectedly appears in ordinary release list" >&2
+    exit 1
+  fi
+
+  fdw_use_password=""
+  if [[ "$AFFS_FDW_MODE" == "password" ]]; then
+    fdw_use_password="1"
+  fi
+
+  overrides="/tmp/affiliations-cutover-${NS}.yaml"
+  cat > "$overrides" <<EOF_OVERRIDES
+affiliationsDB: "$AFFS_DB"
+checkImportedSHA: ""
+affiliationsGetAffsFiles: ""
+skipAffiliationsImport: "1"
+affsFdwUsePassword: "$fdw_use_password"
+EOF_OVERRIDES
+
+  echo "=== Shared-mode overrides"
+  cat "$overrides"
+
+  stamp="$(date +%Y%m%d-%H%M%S)"
+  values_dir="/tmp/${NS}-affiliations-values-${stamp}"
+  mkdir -p "$values_dir"
+
+  echo "=== Saving existing release values"
+  while IFS= read -r rel; do
+    [[ -n "$rel" ]] || continue
+    values_file="$values_dir/$rel.yaml"
+    echo "$rel -> $values_file"
+
+    helm --kube-context "$KUBE_CONTEXT" -n "$NS" \
+      get values "$rel" -o yaml > "$values_file"
+
+    if [[ ! -s "$values_file" ]] ||
+       [[ "$(tr -d '[:space:]' < "$values_file")" == "null" ]]; then
+      printf '{}\n' > "$values_file"
+    fi
+  done < "$releases_file"
+
+  echo "Saved release values in: $values_dir"
+
+  echo "=== Helm dry-run validation"
+  while IFS= read -r rel; do
+    [[ -n "$rel" ]] || continue
+    echo "Dry-run: $rel"
+
+    helm --kube-context "$KUBE_CONTEXT" -n "$NS" \
+      upgrade "$rel" "$chart" \
+      -f "$values_dir/$rel.yaml" \
+      -f "$overrides" \
+      --dry-run > "/tmp/${NS}-${rel}-affiliations-dry-run.yaml"
+  done < "$releases_file"
+
+  echo "=== Applying Helm upgrades"
+  while IFS= read -r rel; do
+    [[ -n "$rel" ]] || continue
+    echo "Upgrading: $rel"
+
+    helm --kube-context "$KUBE_CONTEXT" -n "$NS" \
+      upgrade "$rel" "$chart" \
+      -f "$values_dir/$rel.yaml" \
+      -f "$overrides"
+  done < "$releases_file"
+
+  current_import_release="$(
+    kubectl --context "$KUBE_CONTEXT" -n "$NS" \
+      get cronjob/devstats-affiliations-import \
+      -o jsonpath='{.metadata.annotations.meta\.helm\.sh/release-name}'
+  )"
+  if [[ "$current_import_release" != "$import_release" ]]; then
+    echo "ABORT: central importer ownership changed:" >&2
+    echo "before=$import_release" >&2
+    echo "after=$current_import_release" >&2
+    exit 1
+  fi
+
+  echo "Central importer remains owned by: $current_import_release"
+
+  unsuspended="/tmp/${NS}-unexpectedly-unsuspended.txt"
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjobs -o json |
+  jq -r '
+    .items[]
+    | select((.spec.suspend // false) != true)
+    | .metadata.name
+  ' > "$unsuspended"
+
+  if [[ -s "$unsuspended" ]]; then
+    echo "These CronJobs became unsuspended; suspending them again:" >&2
+    cat "$unsuspended" >&2
+
+    while IFS= read -r cj; do
+      [[ -n "$cj" ]] || continue
+      kubectl --context "$KUBE_CONTEXT" -n "$NS" patch \
+        "cronjob/$cj" \
+        --type merge \
+        -p '{"spec":{"suspend":true}}'
+    done < "$unsuspended"
+
+    echo "ABORT: CronJobs were resuspended; inspect before continuing" >&2
+    exit 1
+  fi
+
+  echo "OK: all CronJobs remain suspended"
+
+  echo "=== Hourly CronJob shared-DB environment"
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" \
+    get cronjobs -l type=cron -o json |
+  jq -r '
+    def env($n):
+      ([
+        .spec.jobTemplate.spec.template.spec.containers[0].env[]?
+        | select(.name == $n)
+        | .value
+      ][0] // "<missing>");
+
+    .items[]
+    | [.metadata.name, env("GHA2DB_AFFILIATIONS_DB")]
+    | @tsv
+  ' |
+  sort |
+  column -t
+
+  bad_sync="$(
+    kubectl --context "$KUBE_CONTEXT" -n "$NS" \
+      get cronjobs -l type=cron -o json |
+    jq '
+      def env($n):
+        ([
+          .spec.jobTemplate.spec.template.spec.containers[0].env[]?
+          | select(.name == $n)
+          | .value
+        ][0] // "<missing>");
+
+      [.items[] | select(env("GHA2DB_AFFILIATIONS_DB") != "affiliations")]
+      | length
+    '
+  )"
+  if [[ "$bad_sync" -ne 0 ]]; then
+    echo "ABORT: $bad_sync hourly CronJob(s) lack the shared affiliations DB" >&2
+    exit 1
+  fi
+
+  echo "=== Project affiliation CronJob environment"
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" \
+    get cronjobs -l type=affiliations-cron -o json |
+  jq -r '
+    def env($n):
+      ([
+        .spec.jobTemplate.spec.template.spec.containers[0].env[]?
+        | select(.name == $n)
+        | .value
+      ][0] // "<missing>");
+
+    def shown($v): if $v == "" then "<empty>" else $v end;
+
+    .items[]
+    | [
+        .metadata.name,
+        shown(env("GHA2DB_AFFILIATIONS_DB")),
+        shown(env("GHA2DB_CHECK_IMPORTED_SHA")),
+        shown(env("GET_AFFS_FILES"))
+      ]
+    | @tsv
+  ' |
+  sort |
+  column -t
+
+  bad_affs="$(
+    kubectl --context "$KUBE_CONTEXT" -n "$NS" \
+      get cronjobs -l type=affiliations-cron -o json |
+    jq '
+      def env($n):
+        ([
+          .spec.jobTemplate.spec.template.spec.containers[0].env[]?
+          | select(.name == $n)
+          | .value
+        ][0] // "<missing>");
+
+      [
+        .items[]
+        | select(
+            env("GHA2DB_AFFILIATIONS_DB") != "affiliations"
+            or env("GHA2DB_CHECK_IMPORTED_SHA") != ""
+            or env("GET_AFFS_FILES") != ""
+          )
+      ]
+      | length
+    '
+  )"
+  if [[ "$bad_affs" -ne 0 ]]; then
+    echo "ABORT: $bad_affs project affiliation CronJob(s) have incorrect shared-mode env" >&2
+    exit 1
+  fi
+
+  echo "OK: all ordinary releases upgraded and verified"
+  echo "Saved original user values: $values_dir"
+)
