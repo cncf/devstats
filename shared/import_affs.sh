@@ -4,6 +4,11 @@ then
   echo "$0: you need to set GHA2DB_PROJECT, PG_DB, PG_PASS env variables to use this script"
   exit 1
 fi
+if ( [ ! -z "$GHA2DB_AFFILIATIONS_DB" ] && [ ! "$PG_DB" = "$GHA2DB_AFFILIATIONS_DB" ] )
+then
+  echo "$0: shared affiliations mode: import must run against the '$GHA2DB_AFFILIATIONS_DB' DB, not '$PG_DB'"
+  exit 2
+fi
 function finish {
     sync_unlock.sh
 }

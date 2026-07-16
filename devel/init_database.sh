@@ -76,11 +76,28 @@ then
   ./devel/db.sh psql postgres -c "alter user gha_admin createdb" || exit 10
   ./devel/db.sh psql devstats < ./util_sql/devstats_log_table.sql
   ./devel/db.sh psql devstats < ./util_sql/devstats_flags_table.sql
+  ./devel/db.sh psql devstats -c "grant usage, create on schema public to gha_admin" || exit 23
+  PG_USER="${user}" ./devel/db.sh psql devstats -v ON_ERROR_STOP=1 -f ./util_sql/devstats_locks_table.sql || exit 24
   PG_USER="${user}" ./devel/db.sh psql devstats < ./util_sql/devstats_log_table_as_owner.sql
   PG_USER="${user}" ./devel/ro_user_grants.sh devstats || exit 11
   PG_USER="${user}" ./devel/psql_user_grants.sh devstats_team devstats || exit 12
 else
   echo "postgres database devstats (logs) already exists"
+fi
+
+exists=`./devel/db.sh psql postgres -tAc "select 1 from pg_database WHERE datname = 'affiliations'"` || exit 15
+if [ ! "$exists" = "1" ]
+then
+  echo "creating postgres database affiliations (shared actors/affiliations data)"
+  ./devel/db.sh psql postgres -c "create database affiliations" || exit 16
+  ./devel/db.sh psql postgres -c "grant all privileges on database \"affiliations\" to gha_admin" || exit 17
+  ./devel/db.sh psql affiliations -c "grant usage, create on schema public to gha_admin" || exit 18
+  PG_USER="${user}" ./devel/db.sh psql affiliations --single-transaction -v ON_ERROR_STOP=1 -f ./util_sql/affiliations_tables.sql || exit 19
+  PG_USER="${user}" ./devel/db.sh psql affiliations -f ./util_sql/country_codes.sql || exit 20
+  PG_USER="${user}" ./devel/ro_user_grants.sh affiliations || exit 21
+  PG_USER="${user}" ./devel/psql_user_grants.sh devstats_team affiliations || exit 22
+else
+  echo "postgres database affiliations (shared actors/affiliations data) already exists"
 fi
 
 echo "$0 OK"

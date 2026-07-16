@@ -14,11 +14,12 @@ set -o pipefail
 GHA2DB_PROJECT=kubeslice PG_DB=kubeslice GHA2DB_LOCAL=1 structure 2>>errors.txt | tee -a run.log || exit 1
 ./devel/db.sh psql kubeslice -c "create extension if not exists pgcrypto" || exit 1
 ./devel/db.sh psql kubeslice -c "create extension if not exists hll" || exit 1
+./shared/setup_shared_fdw.sh kubeslice || exit 1
 ./devel/ro_user_grants.sh kubeslice || exit 2
 GHA2DB_PROJECT=kubeslice PG_DB=kubeslice GHA2DB_LOCAL=1 gha2db 2022-05-05 0 today now kubeslice 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=kubeslice PG_DB=kubeslice GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 structure 2>>errors.txt | tee -a run.log || exit 5
 GHA2DB_PROJECT=kubeslice PG_DB=kubeslice ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 6
 GHA2DB_PROJECT=kubeslice PG_DB=kubeslice ./shared/setup_scripts.sh 2>>errors.txt | tee -a run.log || exit 7
 GHA2DB_PROJECT=kubeslice PG_DB=kubeslice ./shared/get_repos.sh 2>>errors.txt | tee -a run.log || exit 8
-GHA2DB_PROJECT=kubeslice PG_DB=kubeslice ./shared/import_affs.sh 2>>errors.txt | tee -a run.log || exit 9
+GHA2DB_PROJECT=kubeslice PG_DB=kubeslice ./shared/proj_affs_bootstrap.sh 2>>errors.txt | tee -a run.log || exit 9
 GHA2DB_PROJECT=kubeslice PG_DB=kubeslice GHA2DB_LOCAL=1 vars || exit 10

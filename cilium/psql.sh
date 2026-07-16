@@ -14,10 +14,11 @@ fi
 GHA2DB_PROJECT=cilium PG_DB=cilium GHA2DB_LOCAL=1 structure 2>>errors.txt | tee -a run.log || exit 1
 ./devel/db.sh psql cilium -c "create extension if not exists pgcrypto" || exit 1
 ./devel/db.sh psql cilium -c "create extension if not exists hll" || exit 1
+./shared/setup_shared_fdw.sh cilium || exit 1
 GHA2DB_PROJECT=cilium PG_DB=cilium GHA2DB_LOCAL=1 gha2db 2016-08-15 0 today now 'cilium,noironetworks/cilium-net' 2>>errors.txt | tee -a run.log || exit 2
 GHA2DB_PROJECT=cilium PG_DB=cilium GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 structure 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=cilium PG_DB=cilium ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 4
-GHA2DB_PROJECT=cilium PG_DB=cilium ./shared/import_affs.sh 2>>errors.txt | tee -a run.log || exit 5
+GHA2DB_PROJECT=cilium PG_DB=cilium ./shared/proj_affs_bootstrap.sh 2>>errors.txt | tee -a run.log || exit 5
 GHA2DB_PROJECT=cilium PG_DB=cilium ./shared/setup_scripts.sh 2>>errors.txt | tee -a run.log || exit 6
 GHA2DB_PROJECT=cilium PG_DB=cilium ./shared/get_repos.sh 2>>errors.txt | tee -a run.log || exit 7
 GHA2DB_PROJECT=cilium PG_DB=cilium GHA2DB_LOCAL=1 vars || exit 8

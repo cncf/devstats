@@ -14,6 +14,7 @@ set -o pipefail
 GHA2DB_PROJECT=lfn PG_DB=lfn GHA2DB_LOCAL=1 structure 2>>errors.txt | tee -a run.log || exit 1
 ./devel/db.sh psql lfn -c "create extension if not exists pgcrypto" || exit 1
 ./devel/db.sh psql lfn -c "create extension if not exists hll" || exit 1
+./shared/setup_shared_fdw.sh lfn || exit 1
 ./devel/ro_user_grants.sh lfn || exit 2
 # GHA2DB_PROJECT=lfn PG_DB=lfn GHA2DB_LOCAL=1 gha2db 2018-12-01 0 today now 'iovisor,mininet,opennetworkinglab,opensecuritycontroller,open-switch,p4lang,OpenBMP,tungstenfabric,opencord' 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=lfn PG_DB=lfn GHA2DB_LOCAL=1 gha2db 2015-01-01 0 today now 'iovisor,mininet,opennetworkinglab,opensecuritycontroller,open-switch,p4lang,OpenBMP,tungstenfabric,opencord' 2>>errors.txt | tee -a run.log || exit 3
@@ -22,5 +23,5 @@ GHA2DB_PROJECT=lfn PG_DB=lfn GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GH
 GHA2DB_PROJECT=lfn PG_DB=lfn ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 6
 GHA2DB_PROJECT=lfn PG_DB=lfn ./shared/setup_scripts.sh 2>>errors.txt | tee -a run.log || exit 7
 GHA2DB_PROJECT=lfn PG_DB=lfn ./shared/get_repos.sh 2>>errors.txt | tee -a run.log || exit 8
-GHA2DB_PROJECT=lfn PG_DB=lfn ./shared/import_affs.sh 2>>errors.txt | tee -a run.log || exit 9
+GHA2DB_PROJECT=lfn PG_DB=lfn ./shared/proj_affs_bootstrap.sh 2>>errors.txt | tee -a run.log || exit 9
 GHA2DB_PROJECT=lfn PG_DB=lfn GHA2DB_LOCAL=1 GHA2DB_EXCLUDE_VARS="projects_health_partial_html" vars || exit 10

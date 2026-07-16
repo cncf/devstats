@@ -7,6 +7,11 @@ then
   echo "$0: you need to set GHA2DB_PROJECT, PG_DB, PG_PASS env variables to use this script"
   exit 1
 fi
+if [ ! -z "$GHA2DB_AFFILIATIONS_DB" ]
+then
+  export SKIP_IMP_AFFS=100
+  export SKIP_UPD_AFFS=0
+fi
 function finish {
     sync_unlock.sh
 }
@@ -37,12 +42,12 @@ fi
 if [ ! -z "$SKIP_IMP_AFFS" ]
 then
   rval=$(((RANDOM%100)+1))
-  if [ "$SKIP_IMP_AFFS" -gt "$rval" ]
+  if [ "$SKIP_IMP_AFFS" -ge "$rval" ]
   then
-    echo "Random value: $rval < $SKIP_IMP_AFFS, skipping importing affiliations"
+    echo "Random value: $rval <= $SKIP_IMP_AFFS, skipping importing affiliations"
     export SKIP_IMP_AFFS=1
   else
-    echo "Random value: $rval >= $SKIP_IMP_AFFS, importing"
+    echo "Random value: $rval > $SKIP_IMP_AFFS, importing"
     export SKIP_IMP_AFFS=''
   fi
 fi
@@ -58,12 +63,12 @@ fi
 if [ ! -z "$SKIP_UPD_AFFS" ]
 then
   rval=$(((RANDOM%100)+1))
-  if [ "$SKIP_UPD_AFFS" -gt "$rval" ]
+  if [ "$SKIP_UPD_AFFS" -ge "$rval" ]
   then
-    echo "Random value: $rval < $SKIP_UPD_AFFS, skipping TSDB regenerate (company related)"
+    echo "Random value: $rval <= $SKIP_UPD_AFFS, skipping TSDB regenerate (company related)"
     export SKIP_UPD_AFFS=1
   else
-    echo "Random value: $rval >= $SKIP_UPD_AFFS, performing TSDB regenerate (company related)"
+    echo "Random value: $rval > $SKIP_UPD_AFFS, performing TSDB regenerate (company related)"
     export SKIP_UPD_AFFS=''
   fi
 fi
