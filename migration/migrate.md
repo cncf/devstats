@@ -97,6 +97,7 @@ maps
 # Per remaining DB: fdw -> fdw_auth_test -> transactional flip/validation.
 preamble devstats-test devel/all_test_dbs.txt
 flip_all_dbs
+update_cjs.sh
 ```
 - While all CJs remain suspended, upgrade every release owning `type=cron`/`affiliations-cron` CJs, preserving its values, with:
 ```
