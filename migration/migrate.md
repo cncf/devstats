@@ -73,21 +73,78 @@ show_project_logs $db "24 hours"
 
 3) Full switchover for all remaining `devstats-test` projects.
 
-[TODO]
+- Save current CJ suspend states, suspend all CJs, drain all active jobs.
+```
+export KUBE_CONTEXT=test
+source ./migration-functions.sh
+preamble devstats-test devel/all_test_dbs.txt
+load_fdw_mode
+
+seed
+reconcile "affs-recon-full-test-$(date +%s)"
+seed
+maps
+
+preamble devstats-test devel/all_test_dbs.txt
+load_fdw_mode
+copy_migration_sql
+flip_all_dbs
+```
+- Upgrade every release owning `type=cron`/`affiliations-cron` CJs, preserving its values, with:
+```
+affiliationsDB=affiliations
+checkImportedSHA=''
+affiliationsGetAffsFiles=''
+skipAffiliationsImport=1
+affsFdwUsePassword=1  # password mode only
+```
+- Do not include the dedicated affs-import release.
+- Verify CJ envs, restore previous suspend states, explicitly unsuspend `devstats-affiliations-import`.
+- Run `sanity_db` on pilots, `gha`, `allprj`, and several normal DBs; check logs/dashboards; soak for 1 day.
 
 4) Create shared objects on `devstats-prod`:
 
-[TODO]
+```
+export KUBE_CONTEXT=prod
+source ./migration-functions.sh
+preamble devstats-prod devel/all_prod_dbs.txt
+create_shared
+seed
+```
+- Repeat IMPORT-CJ setup from point 1 with:
+```
+EN=prod
+prodServer: 1
+testServer: ''
+```
+- Then:
+```
+reconcile "affs-recon-initial-prod-$(date +%s)"
+```
 
-5) Pilot on smallest DB on `devstats-prod` (find 2 smallest DBs first, exactly as in `devstats-test`).
+5) Pilot on smallest DBs on `devstats-prod`.
 
-[TODO]
+- Find two smallest:
+```
+pgk psql -tAc "select datname from pg_database where datname = any(string_to_array('$(cat devel/all_prod_dbs.txt)',' ')) order by pg_database_size(datname) limit 2"
+```
+- Repeat point 2 for the first DB.
+- Test socket mode first; save it when successful, otherwise rebuild/test/save password mode.
+- Repeat point 2 for the second DB using `load_fdw_mode`.
+- Let both run for 1 day; check `sanity_db`, `gha_logs`, jobs, and dashboards.
 
 6) Full switchover for all remaining `devstats-prod` projects.
 
-[TODO]
+- Repeat point 3 with:
+```
+export KUBE_CONTEXT=prod
+preamble devstats-prod devel/all_prod_dbs.txt
+```
+- Use production Helm releases and the production saved FDW mode.
+- After resuming: check pilots, `gha`, `allprj`, several medium DBs, `gha_logs`, jobs, locks, and dashboards.
 
-N) Other useful functions:
+
+7) Other useful functions:
 ```
 # flip_all_dbs
 run_cronjob_once <cronjob-name> [job-name]
