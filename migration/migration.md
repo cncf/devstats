@@ -43,7 +43,7 @@ PRIMARY  current Patroni primary pod
 It also provides:
 
 ```text
-k  <command...>    kubectl exec on the current primary
+pgk  <command...>  kubectl exec on the current primary
 ki <command...>    kubectl exec -i on the current primary
 ```
 
