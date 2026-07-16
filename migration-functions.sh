@@ -46,7 +46,7 @@ _require_preamble() {
   : "${LIST:?run: preamble <namespace> <db-list-file>}"
 }
 
-k() {
+pgk() {
   _require_preamble || return 1
   kubectl --context "$KUBE_CONTEXT" -n "$NS" exec "$PRIMARY" \
     -c devstats-postgres -- "$@"
@@ -62,21 +62,21 @@ create_shared() (
   set -euo pipefail
   _require_preamble
 
-  if [[ "$(k psql -X -qAt -v ON_ERROR_STOP=1 -c "select count(*) from pg_database where datname = '$AFFS_DB'")" != "0" ]]; then
+  if [[ "$(pgk psql -X -qAt -v ON_ERROR_STOP=1 -c "select count(*) from pg_database where datname = '$AFFS_DB'")" != "0" ]]; then
     echo "ABORT: database '$AFFS_DB' already exists; do not rerun create_shared" >&2
     exit 1
   fi
 
-  k psql -X -v ON_ERROR_STOP=1 -c "create database $AFFS_DB"
-  k psql -X -v ON_ERROR_STOP=1 -c "grant all privileges on database \"$AFFS_DB\" to gha_admin"
-  k psql -X -v ON_ERROR_STOP=1 "$AFFS_DB" -c "grant usage, create on schema public to gha_admin"
+  pgk psql -X -v ON_ERROR_STOP=1 -c "create database $AFFS_DB"
+  pgk psql -X -v ON_ERROR_STOP=1 -c "grant all privileges on database \"$AFFS_DB\" to gha_admin"
+  pgk psql -X -v ON_ERROR_STOP=1 "$AFFS_DB" -c "grant usage, create on schema public to gha_admin"
   ki psql -X -U gha_admin "$AFFS_DB" -v ON_ERROR_STOP=1 --single-transaction \
     < util_sql/affiliations_tables.sql
   ki psql -X -U gha_admin "$AFFS_DB" -v ON_ERROR_STOP=1 \
     < util_sql/country_codes.sql
-  k psql -X -v ON_ERROR_STOP=1 "$AFFS_DB" \
+  pgk psql -X -v ON_ERROR_STOP=1 "$AFFS_DB" \
     -c "grant select on all tables in schema public to ro_user, devstats_team"
-  k psql -X -v ON_ERROR_STOP=1 devstats \
+  pgk psql -X -v ON_ERROR_STOP=1 devstats \
     -c "grant usage, create on schema public to gha_admin"
   ki psql -X -U gha_admin devstats -v ON_ERROR_STOP=1 \
     < util_sql/devstats_locks_table.sql
@@ -264,7 +264,7 @@ fdw() (
     *) echo "ABORT: invalid FDW mode: $mode" >&2; exit 1 ;;
   esac
 
-  kind="$(k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
+  kind="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
     select coalesce((
       select relkind::text
       from pg_class c
@@ -305,7 +305,7 @@ create user mapping for devstats_team
 commit;
 SQL
   else
-    k bash -lc 'test -n "${PG_PASS:-}"' || {
+    pgk bash -lc 'test -n "${PG_PASS:-}"' || {
       echo "ABORT: PG_PASS is not present in the PostgreSQL pod environment" >&2
       exit 1
     }
@@ -425,7 +425,7 @@ copy_migration_sql() (
     kubectl --context "$KUBE_CONTEXT" -n "$NS" cp "$file" \
       "$PRIMARY:/tmp/$base" -c devstats-postgres
     local_sha="$(_sha256_file "$file")"
-    remote_sha="$(k sha256sum "/tmp/$base" | awk '{print $1}')"
+    remote_sha="$(pgk sha256sum "/tmp/$base" | awk '{print $1}')"
     [[ "$local_sha" == "$remote_sha" ]] || {
       echo "ABORT: checksum mismatch for $file" >&2
       exit 1
@@ -440,7 +440,7 @@ validate_migrated_db() (
   local db="${1:?usage: validate_migrated_db <db>}"
   local kind foreign_tables mappings
 
-  kind="$(k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
+  kind="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
     select coalesce((
       select relkind::text
       from pg_class c
@@ -448,13 +448,13 @@ validate_migrated_db() (
       where n.nspname = 'public' and c.relname = 'gha_actors'
     ), '-')
   ")"
-  foreign_tables="$(k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
+  foreign_tables="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
     select count(*)
     from information_schema.foreign_tables
     where foreign_table_schema = 'public'
       and foreign_server_name = 'affiliations'
   ")"
-  mappings="$(k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
+  mappings="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
     select count(*) from pg_user_mappings where srvname = 'affiliations'
   ")"
 
@@ -470,10 +470,10 @@ flip() (
   _require_preamble
   local db="${1:?usage: flip <db>}"
 
-  k test -r /tmp/migrate_project_to_shared.sql
-  k test -r /tmp/shared_foreign_tables.sql
-  k test -r /tmp/rollback_project_from_shared.sql
-  k psql -X "$db" --single-transaction -v ON_ERROR_STOP=1 \
+  pgk test -r /tmp/migrate_project_to_shared.sql
+  pgk test -r /tmp/shared_foreign_tables.sql
+  pgk test -r /tmp/rollback_project_from_shared.sql
+  pgk psql -X "$db" --single-transaction -v ON_ERROR_STOP=1 \
     -f /tmp/migrate_project_to_shared.sql
   validate_migrated_db "$db"
 )
@@ -482,7 +482,7 @@ rollback_db() (
   set -euo pipefail
   _require_preamble
   local db="${1:?usage: rollback_db <db>}"
-  k psql -X "$db" --single-transaction -v ON_ERROR_STOP=1 \
+  pgk psql -X "$db" --single-transaction -v ON_ERROR_STOP=1 \
     -f /tmp/rollback_project_from_shared.sql
 )
 
@@ -496,7 +496,7 @@ flip_all_dbs() (
 
   while IFS= read -r db; do
     [[ -n "$db" ]] || continue
-    kind="$(k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
+    kind="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
       select coalesce((
         select relkind::text
         from pg_class c
@@ -528,15 +528,15 @@ sanity_db() (
 
   validate_migrated_db "$db"
 
-  shared_actors="$(k psql -X -qAt -v ON_ERROR_STOP=1 "$AFFS_DB" -c 'select count(*) from gha_actors')"
-  project_actors="$(k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c 'select count(*) from gha_actors')"
+  shared_actors="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$AFFS_DB" -c 'select count(*) from gha_actors')"
+  project_actors="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c 'select count(*) from gha_actors')"
   echo "shared gha_actors=$shared_actors; $db gha_actors=$project_actors"
   [[ "$shared_actors" == "$project_actors" ]] || {
     echo "ABORT: project foreign-table count does not match shared table" >&2
     exit 1
   }
 
-  k psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
+  pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
     select foreign_table_name, foreign_server_name
     from information_schema.foreign_tables
     where foreign_table_schema = 'public'
@@ -544,7 +544,7 @@ sanity_db() (
     order by foreign_table_name;
   "
 
-  missing_actors="$(k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
+  missing_actors="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
     select count(*)
     from gha_events e
     where e.actor_id is not null
@@ -556,19 +556,19 @@ sanity_db() (
     exit 1
   }
 
-  actor_id="$(k psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
+  actor_id="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
     select actor_id from gha_events where actor_id is not null order by created_at desc limit 1
   ")"
   if [[ -n "$actor_id" ]]; then
     echo "--- Direct foreign lookup; expect a Foreign Scan and a Remote SQL line with id=$actor_id"
-    k psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
+    pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
       explain (verbose, costs off)
       select id, login from gha_actors where id = $actor_id;
     "
   fi
 
   echo "--- Local gha_events x foreign gha_actors join; expect at least one Foreign Scan/Remote SQL line"
-  k psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
+  pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
     explain (verbose, costs off)
     select count(*)
     from gha_events e
@@ -664,7 +664,7 @@ show_project_logs() (
   local project="${1:?usage: show_project_logs <project-key> [interval]}"
   local interval="${2:-2 hours}"
 
-  k psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "
+  pgk psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "
     select dt, prog, proj, run_dt, msg
     from gha_logs
     where proj = '$project'
@@ -674,7 +674,7 @@ show_project_logs() (
   "
 
   echo "--- Error-like messages"
-  k psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "
+  pgk psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "
     select dt, prog, proj, run_dt, msg
     from gha_logs
     where proj = '$project'
