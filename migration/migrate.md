@@ -26,6 +26,9 @@ reconcile
 2) Pilot on smallest DB - sam, openwhisk (on devstats-test):
 - Get smallest candidates: `pgk psql -tAc "select datname from pg_database where datname = any(string_to_array('$(cat devel/all_test_dbs.txt)',' ')) order by pg_database_size(datname) limit 2"` -> sam, openwhisk.
 ```
+export KUBE_CONTEXT=test
+source ./migration-functions.sh
+preamble devstats-test devel/all_test_dbs.txt
 PROJECT=openwhisk
 db=openwhisk
 SYNC_CJ="devstats-$PROJECT"
@@ -52,11 +55,13 @@ patch_project_cronjobs $PROJECT
 PILOT_START="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 devstats -c 'select clock_timestamp()::timestamp')"
 echo "$PILOT_START"
 SYNC_JOB="pilot-sync-${PROJECT}-$(date +%s)"
+echo "$SYNC_CJ $SYNC_JOB"
 run_cronjob_once "$SYNC_CJ" "$SYNC_JOB"
 sanity_db "$db"
 show_project_logs "$PROJECT" "2 hours"
 pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "select max(created_at) as newest_event from gha_events"
 AFFS_JOB="pilot-affs-${PROJECT}-$(date +%s)"
+echo "$AFFS_CJ $AFFS_JOB"
 run_cronjob_once "$AFFS_CJ" "$AFFS_JOB"
 pgk psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "select name, owner, dt from gha_locks where name = 'affs_lock'"
 ```
@@ -181,11 +186,13 @@ patch_project_cronjobs $PROJECT
 PILOT_START="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 devstats -c 'select clock_timestamp()::timestamp')"
 echo "$PILOT_START"
 SYNC_JOB="pilot-sync-${PROJECT}-$(date +%s)"
+echo "$SYNC_CJ $SYNC_JOB"
 run_cronjob_once "$SYNC_CJ" "$SYNC_JOB"
 sanity_db "$db"
 show_project_logs "$PROJECT" "2 hours"
 pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "select max(created_at) as newest_event from gha_events"
 AFFS_JOB="pilot-affs-${PROJECT}-$(date +%s)"
+echo "$SYNC_CJ $SYNC_JOB"
 run_cronjob_once "$AFFS_CJ" "$AFFS_JOB"
 pgk psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "select name, owner, dt from gha_locks where name = 'affs_lock'"
 kubectl --context "$KUBE_CONTEXT" -n "$NS" patch "cronjob/$SYNC_CJ" --type merge -p '{"spec":{"suspend":false}}'
@@ -247,9 +254,31 @@ kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjobs -o custom-columns='NAME:
 - After resuming: check pilots, `gha`, `allprj`, several medium DBs, `gha_logs`, jobs, locks, and dashboards.
 
 
-7) Other useful functions:
+7) Final cleanup and steady state.
+
+- Existing releases are updated by `update_k_cjs`. Future releases use the shared affiliations settings from `devstats-helm/values.yaml`; no extra affiliations Helm arguments are needed.
+- After the rollback window closes, suspend/drain CJs and finalize each environment:
+```
+# test
+export KUBE_CONTEXT=test
+source ./migration-functions.sh
+preamble devstats-test devel/all_test_dbs.txt
+confirm_all_migrations
+
+# prod
+export KUBE_CONTEXT=prod
+source ./migration-functions.sh
+preamble devstats-prod devel/all_prod_dbs.txt
+confirm_all_migrations
+```
+- This is irreversible: it drops all `*_pre_fdw` rollback tables and runs `VACUUM FULL ANALYZE`. Run during a maintenance window with sufficient temporary disk space.
+
+
+8) Other useful functions:
 ```
 # flip_all_dbs
 run_cronjob_once <cronjob-name> [job-name]
 show_project_logs <project-key> [interval]
+confirm_ok_migration <db>
+confirm_all_migrations
 ```

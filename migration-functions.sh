@@ -723,8 +723,8 @@ update_k_cjs() (
   set -euo pipefail
   _require_preamble
 
-  kubectl --context "$KUBE_CONTEXT" -n "$NS" set env cj --selector='type=cron' GHA2DB_AFFILIATIONS_DB=affiliations
-  kubectl --context "$KUBE_CONTEXT" -n "$NS" set env cj --selector='type=affiliations-cron' GHA2DB_AFFILIATIONS_DB=affiliations GHA2DB_CHECK_IMPORTED_SHA= GET_AFFS_FILES=
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" set env cj --selector='type=cron' GHA2DB_AFFILIATIONS_DB="$AFFS_DB" GHA2DB_CHECK_IMPORTED_SHA=
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" set env cj --selector='type=affiliations-cron' GHA2DB_AFFILIATIONS_DB="$AFFS_DB" GHA2DB_CHECK_IMPORTED_SHA= GET_AFFS_FILES=
 )
 
 update_h_cjs() (
