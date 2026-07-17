@@ -24,7 +24,7 @@ reconcile
 
 
 2) Pilot on smallest DB - sam, openwhisk (on devstats-test):
-- Get smallest candidates: `pgk psql -tAc "select datname from pg_database where datname = any(string_to_array('$(cat devel/all_test_dbs.txt)',' ')) order by pg_database_size(datname) limit 2"` -> sam, openwhisk.
+- Get smallest candidates: `pgk psql -tAc "select datname from pg_database where datname = any(string_to_array('$(cat devel/all_test_dbs.txt)',' ')) order by pg_database_size(datname) limit 20"` -> sam, openwhisk.
 ```
 export KUBE_CONTEXT=test
 source ./migration-functions.sh
@@ -63,6 +63,7 @@ pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "select max(created_at) as 
 AFFS_JOB="pilot-affs-${PROJECT}-$(date +%s)"
 echo "$AFFS_CJ $AFFS_JOB"
 run_cronjob_once "$AFFS_CJ" "$AFFS_JOB"
+show_project_logs "$PROJECT" "2 hours"
 pgk psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "select name, owner, dt from gha_locks where name = 'affs_lock'"
 ```
 - Unsuspend normal CJs:
@@ -157,7 +158,7 @@ tail -f reconcile.???
 
 - Find two smallest:
 ```
-pgk psql -tAc "select datname from pg_database where datname = any(string_to_array('$(cat devel/all_prod_dbs.txt)',' ')) order by pg_database_size(datname) limit 3" -> kubeelasti, cohdi, modelpack.
+pgk psql -tAc "select datname from pg_database where datname = any(string_to_array('$(cat devel/all_prod_dbs.txt)',' ')) order by pg_database_size(datname) limit 20" -> kubeelasti, cohdi, modelpack.
 PROJECT=kubeelasti
 db=kubeelasti
 SYNC_CJ="devstats-$PROJECT"
@@ -194,6 +195,7 @@ pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "select max(created_at) as 
 AFFS_JOB="pilot-affs-${PROJECT}-$(date +%s)"
 echo "$AFFS_CJ $AFFS_JOB"
 run_cronjob_once "$AFFS_CJ" "$AFFS_JOB"
+show_project_logs "$PROJECT" "2 hours"
 pgk psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "select name, owner, dt from gha_locks where name = 'affs_lock'"
 kubectl --context "$KUBE_CONTEXT" -n "$NS" patch "cronjob/$SYNC_CJ" --type merge -p '{"spec":{"suspend":false}}'
 kubectl --context "$KUBE_CONTEXT" -n "$NS" patch "cronjob/$AFFS_CJ" --type merge -p '{"spec":{"suspend":false}}'
