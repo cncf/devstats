@@ -24,7 +24,7 @@ reconcile
 
 
 2) Pilot on smallest DB - sam, openwhisk (on devstats-test):
-- Get smallest candidates: `pgk psql -tAc "select datname from pg_database where datname = any(string_to_array('$(cat devel/all_test_dbs.txt)',' ')) order by pg_database_size(datname) limit 3"`.
+- Get smallest candidates: `pgk psql -tAc "select datname from pg_database where datname = any(string_to_array('$(cat devel/all_test_dbs.txt)',' ')) order by pg_database_size(datname) limit 2"` -> sam, openwhisk.
 ```
 PROJECT=openwhisk
 db=openwhisk
@@ -153,12 +153,52 @@ tail -f reconcile.???
 
 - Find two smallest:
 ```
-pgk psql -tAc "select datname from pg_database where datname = any(string_to_array('$(cat devel/all_prod_dbs.txt)',' ')) order by pg_database_size(datname) limit 2"
+pgk psql -tAc "select datname from pg_database where datname = any(string_to_array('$(cat devel/all_prod_dbs.txt)',' ')) order by pg_database_size(datname) limit 3" -> kubeelasti, cohdi, modelpack.
+PROJECT=kubeelasti
+db=kubeelasti
+SYNC_CJ="devstats-$PROJECT"
+AFFS_CJ="devstats-affiliations-$PROJECT"
+kubectl --context "$KUBE_CONTEXT" -n "$NS" patch "cronjob/$SYNC_CJ" --type merge -p '{"spec":{"suspend":true}}'
+kubectl --context "$KUBE_CONTEXT" -n "$NS" patch "cronjob/$AFFS_CJ" --type merge -p '{"spec":{"suspend":true}}'
+wait_project_jobs_drained "$PROJECT"
+seed
+reconcile "affs-recon-pilot-prod-$(date +%s)" 1>reconcile.log 2>reconcile.err < /dev/null &
+kubectl get po -n "$NS" | grep affs-recon-pilot-prod
+tail -f reconcile.???
+seed
+maps
+load_fdw_mode
+fdw "$db" "$AFFS_FDW_MODE"
+fdw_auth_test "$db"
+save_fdw_mode "$AFFS_FDW_MODE"
+copy_migration_sql
+flip "$db"
+sanity_db "$db"
+patch_project_cronjobs $PROJECT
+# rollback_db $db
+PILOT_START="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 devstats -c 'select clock_timestamp()::timestamp')"
+echo "$PILOT_START"
+SYNC_JOB="pilot-sync-${PROJECT}-$(date +%s)"
+run_cronjob_once "$SYNC_CJ" "$SYNC_JOB"
+sanity_db "$db"
+show_project_logs "$PROJECT" "2 hours"
+pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "select max(created_at) as newest_event from gha_events"
+AFFS_JOB="pilot-affs-${PROJECT}-$(date +%s)"
+run_cronjob_once "$AFFS_CJ" "$AFFS_JOB"
+pgk psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "select name, owner, dt from gha_locks where name = 'affs_lock'"
+kubectl --context "$KUBE_CONTEXT" -n "$NS" patch "cronjob/$SYNC_CJ" --type merge -p '{"spec":{"suspend":false}}'
+kubectl --context "$KUBE_CONTEXT" -n "$NS" patch "cronjob/$AFFS_CJ" --type merge -p '{"spec":{"suspend":false}}'
+kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjob "$SYNC_CJ" "$AFFS_CJ" -o custom-columns='NAME:.metadata.name,SUSPEND:.spec.suspend,SCHEDULE:.spec.schedule'
 ```
-- Repeat point 2 for the first DB.
-- Test socket mode first; save it when successful, otherwise rebuild/test/save password mode.
-- Repeat point 2 for the second DB using `load_fdw_mode`.
-- Let both run for 1 day; check `sanity_db`, `gha_logs`, jobs, and dashboards.
+- Check after one day:
+```
+export KUBE_CONTEXT=prod
+source ./migration-functions.sh
+preamble devstats-prod devel/all_prod_dbs.txt
+db=kubeelasti
+sanity_db $db
+show_project_logs $db "24 hours"
+```
 
 
 6) Full switchover for all remaining `devstats-prod` projects.
