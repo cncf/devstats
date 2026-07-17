@@ -167,10 +167,13 @@ kubectl get po -n "$NS" | grep affs-recon-pilot-prod
 tail -f reconcile.???
 seed
 maps
-load_fdw_mode
-fdw "$db" "$AFFS_FDW_MODE"
+# load_fdw_mode
+# fdw "$db" "$AFFS_FDW_MODE"
+fdw $db
 fdw_auth_test "$db"
-save_fdw_mode "$AFFS_FDW_MODE"
+# save_fdw_mode "$AFFS_FDW_MODE"
+save_fdw_mode socket
+load_fdw_mode
 copy_migration_sql
 flip "$db"
 sanity_db "$db"
