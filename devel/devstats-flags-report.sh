@@ -2,7 +2,7 @@
 # DevStats flags + activity report:
 # - provisioned: must exist in all stage DBs (report missing; DEBUG=1 prints dt+since for all, sorted by since desc)
 # - devstats_running: report only DBs that have it (prints age, sorted by age desc; never list inactive DBs, even in DEBUG=1)
-# - devstats DB: report any gha_computed.metric like '%lock%' (prints locked_since, sorted by locked_since desc)
+# - devstats DB: report gha_computed lock metrics and gha_locks rows; orphan gha_locks owners are errors
 # - activity checks (should return no rows):
 #     * deadlocks (pg_stat_database.deadlocks > 0) for stage DBs (+ devstats)
 #     * blocked sessions (cardinality(pg_blocking_pids(pid)) > 0)
@@ -18,7 +18,7 @@ usage() {
   echo "Usage: $0 {prod|test}" >&2
   echo "Optional env vars:" >&2
   echo "  DEBUG=1" >&2
-  echo "  POD=devstats-postgres-0" >&2
+  echo "  POD=<primary pod>          # optional override" >&2
   echo "  CONTAINER=devstats-postgres" >&2
   echo "  COLS_SLOTS_THRESHOLD=1400   # warn if total_attribute_slots exceeds this" >&2
 }
@@ -31,11 +31,17 @@ fi
 
 DEBUG="${DEBUG:-0}"
 
-# Per requirement: assume kubectl
-KCMD="kubectl"
+# The first argument selects both Kubernetes context and namespace.
+KCMD="kubectl --context ${STAGE}"
 
 NS="devstats-${STAGE}"
-POD="${POD:-devstats-postgres-0}"
+if [[ -z "${POD:-}" ]]; then
+  POD="$($KCMD -n "$NS" get pods -l role=primary,type=postgres -o jsonpath='{.items[0].metadata.name}')"
+fi
+if [[ -z "$POD" ]]; then
+  echo "ERROR: could not resolve the Patroni primary pod in $NS" >&2
+  exit 4
+fi
 CONTAINER="${CONTAINER:-devstats-postgres}"
 
 COLS_SLOTS_THRESHOLD="${COLS_SLOTS_THRESHOLD:-1400}"
@@ -153,8 +159,14 @@ declare -a MISSING_PROVISIONED=()
 declare -a PROVISIONED_DEBUG_LINES=()   # includes ALL DBs in DEBUG=1; sorted by since desc
 declare -a RUNNING_LINES=()             # includes ONLY DBs with devstats_running; sorted by age desc
 declare -a QUERY_ERRORS=()
+declare -a LOCK_ERRORS=()
+declare -a ORPHAN_LOCKS=()
 declare -a ACTIVITY_ERRORS=()
 declare -a COLSLOT_ERRORS=()
+blocked_sessions=0
+blocking_sessions=0
+pod_issues=0
+pod_query_error=0
 
 # One query per DB to fetch latest provisioned + latest devstats_running
 # Output columns: metric | dt | age_s | age_interval
@@ -283,8 +295,49 @@ if psql_exec "devstats" "$SQL_LOCKS"; then
     done <<<"$PSQL_OUT"
   fi
 else
-  echo "ERROR: failed to query devstats DB for locks (rc=$PSQL_RC)." >&2
+  LOCK_ERRORS+=("gha_computed lock query failed (rc=$PSQL_RC): ${PSQL_ERR//$'\n'/ }")
+  echo "ERROR: failed to query devstats DB for lock metrics (rc=$PSQL_RC)." >&2
   echo "  $PSQL_ERR" >&2
+fi
+echo
+
+echo "== devstats DB owned locks (gha_locks) =="
+SQL_OWNED_LOCKS=$'select name,\n'\
+$'       owner,\n'\
+$'       dt,\n'\
+$'       extract(epoch from (now() - dt))::bigint as locked_since_s,\n'\
+$'       (now() - dt) as locked_since\n'\
+$'from gha_locks\n'\
+$'order by locked_since_s desc;\n'
+
+if psql_exec "devstats" "$SQL_OWNED_LOCKS"; then
+  if [[ -z "$PSQL_OUT" ]]; then
+    echo "No owned locks found."
+  else
+    printf "%-24s %-70s %-30s %s\n" "name" "owner" "dt" "locked_since"
+    printf "%-24s %-70s %-30s %s\n" "------------------------" "----------------------------------------------------------------------" "------------------------------" "------------------------------"
+    while IFS='|' read -r name owner dt locked_since_s locked_since; do
+      printf "%-24s %-70s %-30s %s\n" "$name" "$owner" "$dt" "$locked_since"
+
+      # lock owner format is: <pod-name>-<pid>-<random>
+      owner_pod="${owner%-*}"
+      owner_pod="${owner_pod%-*}"
+      owner_phase="$($KCMD -n "$NS" get pod "$owner_pod" -o jsonpath='{.status.phase}' 2>/dev/null || true)"
+      if [[ "$owner_phase" != "Running" ]]; then
+        ORPHAN_LOCKS+=("$name|$owner|$owner_pod|${owner_phase:-MISSING}|$dt|$locked_since")
+      fi
+    done <<<"$PSQL_OUT"
+  fi
+else
+  LOCK_ERRORS+=("gha_locks query failed (rc=$PSQL_RC): ${PSQL_ERR//$'\n'/ }")
+  echo "ERROR: failed to query devstats.gha_locks (rc=$PSQL_RC)." >&2
+  echo "  $PSQL_ERR" >&2
+fi
+
+if [[ "${#ORPHAN_LOCKS[@]}" -gt 0 ]]; then
+  echo
+  echo "Orphan owned locks (owner pod is missing or not Running):"
+  print_psql_table "name|owner|owner_pod|pod_phase|dt|locked_since" "$(printf '%s\n' "${ORPHAN_LOCKS[@]}")"
 fi
 echo
 
@@ -351,6 +404,7 @@ if psql_exec "devstats" "$SQL_BLOCKED"; then
   if [[ -z "$PSQL_OUT" ]]; then
     echo "No blocked sessions found."
   else
+    blocked_sessions="$(printf '%s\n' "$PSQL_OUT" | sed '/^$/d' | wc -l | tr -d ' ')"
     print_psql_table "db|pid|usename|app|client_addr|state|xact_age|runtime|blocking_pids|query" "$PSQL_OUT"
   fi
 else
@@ -392,6 +446,7 @@ if psql_exec "devstats" "$SQL_BLOCKERS"; then
   if [[ -z "$PSQL_OUT" ]]; then
     echo "No blocking sessions found."
   else
+    blocking_sessions="$(printf '%s\n' "$PSQL_OUT" | sed '/^$/d' | wc -l | tr -d ' ')"
     print_psql_table "blocked_db|pid|usename|app|client_addr|state|xact_age|runtime|blocker_db|query" "$PSQL_OUT"
   fi
 else
@@ -476,4 +531,44 @@ if [[ "$DEBUG" == "1" && "${#COLSLOT_ERRORS[@]}" -gt 0 ]]; then
   echo
 fi
 
-kubectl get po -A | grep -E '(rror|oop)'
+echo "== Pods with error/loop states =="
+PODS_OUT="$($KCMD -n "$NS" get pods --no-headers 2>&1)"
+PODS_RC=$?
+if [[ "$PODS_RC" -ne 0 ]]; then
+  pod_query_error=1
+  echo "ERROR: failed to list pods in $NS: $PODS_OUT" >&2
+else
+  POD_ISSUES="$(printf '%s\n' "$PODS_OUT" | grep -E '(Error|CrashLoopBackOff|ImagePullBackOff|ErrImagePull|CreateContainerConfigError|CreateContainerError)' || true)"
+  if [[ -z "$POD_ISSUES" ]]; then
+    echo "None."
+  else
+    pod_issues="$(printf '%s\n' "$POD_ISSUES" | sed '/^$/d' | wc -l | tr -d ' ')"
+    printf '%s\n' "$POD_ISSUES"
+  fi
+fi
+echo
+
+declare -a HEALTH_REASONS=()
+[[ "${#MISSING_PROVISIONED[@]}" -eq 0 ]] || HEALTH_REASONS+=("${#MISSING_PROVISIONED[@]} DB(s) missing provisioned")
+[[ "${#QUERY_ERRORS[@]}" -eq 0 ]] || HEALTH_REASONS+=("${#QUERY_ERRORS[@]} per-DB query error(s)")
+[[ "${#LOCK_ERRORS[@]}" -eq 0 ]] || HEALTH_REASONS+=("${#LOCK_ERRORS[@]} lock query error(s)")
+[[ "${#ORPHAN_LOCKS[@]}" -eq 0 ]] || HEALTH_REASONS+=("${#ORPHAN_LOCKS[@]} orphan gha_locks row(s)")
+[[ "$blocked_sessions" -eq 0 ]] || HEALTH_REASONS+=("$blocked_sessions blocked session(s)")
+[[ "$blocking_sessions" -eq 0 ]] || HEALTH_REASONS+=("$blocking_sessions blocking session(s)")
+[[ "${#ACTIVITY_ERRORS[@]}" -eq 0 ]] || HEALTH_REASONS+=("${#ACTIVITY_ERRORS[@]} activity query error(s)")
+[[ "$found_cols_slots" -eq 0 ]] || HEALTH_REASONS+=("table(s) above column-slot threshold")
+[[ "${#COLSLOT_ERRORS[@]}" -eq 0 ]] || HEALTH_REASONS+=("${#COLSLOT_ERRORS[@]} column-slot query error(s)")
+[[ "$pod_issues" -eq 0 ]] || HEALTH_REASONS+=("$pod_issues pod(s) in error/loop state")
+[[ "$pod_query_error" -eq 0 ]] || HEALTH_REASONS+=("pod status query failed")
+
+echo "== Environment status =="
+if [[ "${#HEALTH_REASONS[@]}" -eq 0 ]]; then
+  echo "OK: $STAGE"
+  exit 0
+fi
+
+echo "NOT OK: $STAGE"
+for reason in "${HEALTH_REASONS[@]}"; do
+  echo "  - $reason"
+done
+exit 10
