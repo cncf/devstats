@@ -102,7 +102,8 @@ maps
 # Per remaining DB: fdw -> fdw_auth_test -> transactional flip/validation.
 preamble devstats-test devel/all_test_dbs.txt
 flip_all_dbs
-update_cjs "$KUBE_CONTEXT"
+update_k_cjs
+# update_h_cjs "$KUBE_CONTEXT"
 ```
 - Run `sanity_db` on a few non-pilot DBs that were just switched over, for example `cii`, `linux`.
 - Restore CJs status:
@@ -226,7 +227,9 @@ maps
 
 flip_all_dbs 1>flip.log 2>flip.err < /dev/null &
 tail -f flip.???
-update_cjs "$KUBE_CONTEXT"
+update_k_cjs
+# kubectl -n devstats-prod set env cj --selector='type=cron' GHA2DB_AFFILIATIONS_DB=affiliations
+# kubectl -n devstats-prod set env cj --selector='type=affiliations-cron' GHA2DB_AFFILIATIONS_DB=affiliations GHA2DB_CHECK_IMPORTED_SHA= GET_AFFS_FILES=
 ```
 - Run `sanity_db` on a few non-pilot DBs that were just switched over, for example `gha`, `allprj`, `grpc`, `opentelemetry`, `cohdi`, `modelpack`.
 - Restore CJs status:

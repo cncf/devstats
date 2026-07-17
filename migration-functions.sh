@@ -719,9 +719,17 @@ show_project_logs() (
   "
 )
 
-update_cjs() (
+update_k_cjs() (
   set -euo pipefail
-  local env="${1:?usage: update_cjs test|prod}"
+  _require_preamble
+
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" set env cj --selector='type=cron' GHA2DB_AFFILIATIONS_DB=affiliations
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" set env cj --selector='type=affiliations-cron' GHA2DB_AFFILIATIONS_DB=affiliations GHA2DB_CHECK_IMPORTED_SHA= GET_AFFS_FILES=
+)
+
+update_h_cjs() (
+  set -euo pipefail
+  local env="${1:?usage: update_h_cjs test|prod}"
   local ns list chart cj_owners releases_file no_owner import_release
   local fdw_use_password overrides stamp values_dir rel values_file
   local current_import_release unsuspended bad_sync bad_affs
@@ -738,7 +746,7 @@ update_cjs() (
       list=devel/all_prod_dbs.txt
       ;;
     *)
-      echo "ABORT: usage: update_cjs test|prod" >&2
+      echo "ABORT: usage: update_h_cjs test|prod" >&2
       exit 1
       ;;
   esac
