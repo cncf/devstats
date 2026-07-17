@@ -722,9 +722,16 @@ show_project_logs() (
 update_k_cjs() (
   set -euo pipefail
   _require_preamble
+  local -a projects_override=()
 
-  kubectl --context "$KUBE_CONTEXT" -n "$NS" set env cj --selector='type=cron' GHA2DB_AFFILIATIONS_DB="$AFFS_DB" GHA2DB_CHECK_IMPORTED_SHA=
-  kubectl --context "$KUBE_CONTEXT" -n "$NS" set env cj --selector='type=affiliations-cron' GHA2DB_AFFILIATIONS_DB="$AFFS_DB" GHA2DB_CHECK_IMPORTED_SHA= GET_AFFS_FILES=
+  if [[ "$NS" == "devstats-test" ]]; then
+    projects_override=(
+      "GHA2DB_PROJECTS_OVERRIDE=+azf,+cii,+cncf,+fn,+godotengine,+linux,+opencontainers,+openfaas,+openwhisk,+riff,+sam,+zephyr"
+    )
+  fi
+
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" set env cj --selector='type=cron' GHA2DB_AFFILIATIONS_DB="$AFFS_DB" GHA2DB_CHECK_IMPORTED_SHA= "${projects_override[@]}"
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" set env cj --selector='type=affiliations-cron' GHA2DB_AFFILIATIONS_DB="$AFFS_DB" GHA2DB_CHECK_IMPORTED_SHA= GET_AFFS_FILES= "${projects_override[@]}"
 )
 
 update_h_cjs() (
@@ -833,6 +840,12 @@ affiliationsGetAffsFiles: ""
 skipAffiliationsImport: "1"
 affsFdwUsePassword: "$fdw_use_password"
 EOF_OVERRIDES
+
+  if [[ "$NS" == "devstats-test" ]]; then
+    cat >> "$overrides" <<'EOF_TEST_PROJECTS_OVERRIDE'
+projectsOverride: "+azf,+cii,+cncf,+fn,+godotengine,+linux,+opencontainers,+openfaas,+openwhisk,+riff,+sam,+zephyr"
+EOF_TEST_PROJECTS_OVERRIDE
+  fi
 
   echo "=== Shared-mode overrides"
   cat "$overrides"

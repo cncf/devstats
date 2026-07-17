@@ -192,7 +192,7 @@ sanity_db "$db"
 show_project_logs "$PROJECT" "2 hours"
 pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "select max(created_at) as newest_event from gha_events"
 AFFS_JOB="pilot-affs-${PROJECT}-$(date +%s)"
-echo "$SYNC_CJ $SYNC_JOB"
+echo "$AFFS_CJ $AFFS_JOB"
 run_cronjob_once "$AFFS_CJ" "$AFFS_JOB"
 pgk psql -X -v ON_ERROR_STOP=1 -P pager=off devstats -c "select name, owner, dt from gha_locks where name = 'affs_lock'"
 kubectl --context "$KUBE_CONTEXT" -n "$NS" patch "cronjob/$SYNC_CJ" --type merge -p '{"spec":{"suspend":false}}'
