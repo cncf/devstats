@@ -78,8 +78,6 @@ show_project_logs $db "24 hours"
 
 
 3) Full switchover for all remaining `devstats-test` projects.
-
-- Save current CJ states, suspend all CJs and drain all jobs:
 ```
 export KUBE_CONTEXT=test
 source ./migration-functions.sh
@@ -205,13 +203,44 @@ show_project_logs $db "24 hours"
 
 
 6) Full switchover for all remaining `devstats-prod` projects.
-
-- Repeat point 3 with:
 ```
 export KUBE_CONTEXT=prod
+source ./migration-functions.sh
 preamble devstats-prod devel/all_prod_dbs.txt
+load_fdw_mode
+
+SUSPEND_STATE="/tmp/${NS}-cronjob-suspend-state.tsv"
+kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjobs -o json | jq -r '.items[] | [.metadata.name, ((.spec.suspend // false) | tostring)] | @tsv' > "$SUSPEND_STATE"
+while IFS=$'\t' read -r cj old; do
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" patch "cronjob/$cj" --type merge -p '{"spec":{"suspend":true}}' || exit 1
+done < "$SUSPEND_STATE"
+while [ "$(kubectl --context "$KUBE_CONTEXT" -n "$NS" get jobs -o json | jq '[.items[] | select((.status.active // 0) > 0)] | length')" != "0" ]; do sleep 30; done
+
+# Namespace-wide final sweep: seed already loops over every still-local DB.
+seed
+reconcile "affs-recon-full-prod-$(date +%s)" 1>reconcile.log 2>reconcile.err < /dev/null &
+kubectl get po -n "$NS" | grep affs-recon-full-prod
+tail -f reconcile.???
+seed
+maps
+
+flip_all_dbs 1>flip.log 2>flip.err < /dev/null &
+tail -f flip.???
+update_cjs "$KUBE_CONTEXT"
 ```
-- Use production Helm releases and the production saved FDW mode.
+- Run `sanity_db` on a few non-pilot DBs that were just switched over, for example `gha`, `allprj`, `grpc`, `opentelemetry`, `cohdi`, `modelpack`.
+- Restore CJs status:
+```
+while IFS=$'\t' read -r cj old; do
+  [ -n "$cj" ] || continue
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" patch \
+    "cronjob/$cj" \
+    --type merge \
+    -p "{\"spec\":{\"suspend\":$old}}" || exit 1
+done < "$SUSPEND_STATE"
+kubectl --context "$KUBE_CONTEXT" -n "$NS" patch cronjob/devstats-affiliations-import --type merge -p '{"spec":{"suspend":false}}'
+kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjobs -o custom-columns='NAME:.metadata.name,SUSPEND:.spec.suspend,SCHEDULE:.spec.schedule' | sort
+```
 - After resuming: check pilots, `gha`, `allprj`, several medium DBs, `gha_logs`, jobs, locks, and dashboards.
 
 
