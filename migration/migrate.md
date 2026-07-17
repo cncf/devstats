@@ -67,6 +67,10 @@ kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjob "$SYNC_CJ" "$AFFS_CJ" -o 
 ```
 - Check after one day:
 ```
+export KUBE_CONTEXT=test
+source ./migration-functions.sh
+preamble devstats-test devel/all_test_dbs.txt
+db=openwhisk
 sanity_db $db
 show_project_logs $db "24 hours"
 ```
@@ -81,8 +85,7 @@ preamble devstats-test devel/all_test_dbs.txt
 load_fdw_mode
 
 SUSPEND_STATE="/tmp/${NS}-cronjob-suspend-state.tsv"
-kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjobs -o json |
-  jq -r '.items[] | [.metadata.name, ((.spec.suspend // false) | tostring)] | @tsv' > "$SUSPEND_STATE"
+kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjobs -o json | jq -r '.items[] | [.metadata.name, ((.spec.suspend // false) | tostring)] | @tsv' > "$SUSPEND_STATE"
 while IFS=$'\t' read -r cj old; do
   kubectl --context "$KUBE_CONTEXT" -n "$NS" patch "cronjob/$cj" --type merge -p '{"spec":{"suspend":true}}' || exit 1
 done < "$SUSPEND_STATE"
@@ -90,7 +93,9 @@ while [ "$(kubectl --context "$KUBE_CONTEXT" -n "$NS" get jobs -o json | jq '[.i
 
 # Namespace-wide final sweep: seed already loops over every still-local DB.
 seed
-reconcile "affs-recon-full-test-$(date +%s)"
+reconcile "affs-recon-full-test-$(date +%s)" 1>reconcile.log 2>reconcile.err < /dev/null &
+k get po -n devstats-test | grep affs-recon-full-test
+tail -f reconcile.???
 seed
 maps
 
@@ -99,15 +104,6 @@ preamble devstats-test devel/all_test_dbs.txt
 flip_all_dbs
 update_cjs "$KUBE_CONTEXT"
 ```
-- While all CJs remain suspended, upgrade every release owning `type=cron`/`affiliations-cron` CJs, preserving its values, with:
-```
-affiliationsDB=affiliations
-checkImportedSHA=''
-affiliationsGetAffsFiles=''
-skipAffiliationsImport=1
-# affsFdwUsePassword=1  # password mode only
-```
-- Do not include the dedicated affs-import release. Helm upgrades replace the per-project `patch_project_cronjobs` step persistently.
 - Verify CJ envs, then restore previous states and explicitly enable the importer:
 ```
 while IFS=$'\t' read -r cj old; do
@@ -116,6 +112,7 @@ done < "$SUSPEND_STATE"
 kubectl --context "$KUBE_CONTEXT" -n "$NS" patch cronjob/devstats-affiliations-import --type merge -p '{"spec":{"suspend":false}}'
 ```
 - Run `sanity_db` on pilots, `gha`, `allprj` and several normal DBs; check logs/dashboards and soak for 1 day.
+
 
 4) Create shared objects on `devstats-prod`:
 
