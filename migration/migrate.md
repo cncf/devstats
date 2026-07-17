@@ -5,11 +5,9 @@ source ./migration-functions.sh
 preamble devstats-test devel/all_test_dbs.txt
 create_shared
 seed
-```
-- Now we need IMPORT-CJ — deploy the central daily import cronjob as a new dedicated release:
-```
 EN=test
 helm -n "$NS" get values devstats-$EN-backups -o yaml > /tmp/affs-import-values.yaml
+vim /tmp/affs-import-values.yaml
 # edit /tmp/affs-import-values.yaml:
 #   remove: backupsProdServer, backupsTestServer
 #   add:    skipBackups: 1
@@ -17,10 +15,13 @@ helm -n "$NS" get values devstats-$EN-backups -o yaml > /tmp/affs-import-values.
 #           affiliationsDB: affiliations
 #           prodServer: ''
 #           testServer: 1
+cd ../devstats-helm/
 helm -n "$NS" install "${NS}-affs-import" ./devstats-helm -f /tmp/affs-import-values.yaml
+cd ../devstats/
 kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjob devstats-affiliations-import
+reconcile
 ```
-- Now run `reconcile`. This finishes the shared part.
+
 
 2) Pilot on smallest DB - sam, openwhisk (on devstats-test):
 - Get smallest candidates: `pgk psql -tAc "select datname from pg_database where datname = any(string_to_array('$(cat devel/all_test_dbs.txt)',' ')) order by pg_database_size(datname) limit 3"`.
@@ -75,6 +76,7 @@ sanity_db $db
 show_project_logs $db "24 hours"
 ```
 
+
 3) Full switchover for all remaining `devstats-test` projects.
 
 - Save current CJ states, suspend all CJs and drain all jobs:
@@ -94,7 +96,7 @@ while [ "$(kubectl --context "$KUBE_CONTEXT" -n "$NS" get jobs -o json | jq '[.i
 # Namespace-wide final sweep: seed already loops over every still-local DB.
 seed
 reconcile "affs-recon-full-test-$(date +%s)" 1>reconcile.log 2>reconcile.err < /dev/null &
-k get po -n devstats-test | grep affs-recon-full-test
+kubectl get po -n "$NS" | grep affs-recon-full-test
 tail -f reconcile.???
 seed
 maps
@@ -118,6 +120,7 @@ kubectl --context "$KUBE_CONTEXT" -n "$NS" patch cronjob/devstats-affiliations-i
 kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjobs -o custom-columns='NAME:.metadata.name,SUSPEND:.spec.suspend,SCHEDULE:.spec.schedule' | sort
 ```
 
+
 4) Create shared objects on `devstats-prod`:
 
 ```
@@ -126,17 +129,25 @@ source ./migration-functions.sh
 preamble devstats-prod devel/all_prod_dbs.txt
 create_shared
 seed
-```
-- Repeat IMPORT-CJ setup from point 1 with:
-```
 EN=prod
-prodServer: 1
-testServer: ''
+helm -n "$NS" get values devstats-$EN-backups -o yaml > /tmp/affs-import-values.yaml
+vim /tmp/affs-import-values.yaml
+# edit /tmp/affs-import-values.yaml:
+#   remove: backupsProdServer, backupsTestServer
+#   add:    skipBackups: 1
+#           skipAffiliationsImport: ''
+#           affiliationsDB: affiliations
+#           prodServer: 1
+#           testServer: ''
+cd ../devstats-helm/
+helm -n "$NS" install "${NS}-affs-import" ./devstats-helm -f /tmp/affs-import-values.yaml
+cd ../devstats/
+kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjob devstats-affiliations-import
+reconcile "affs-recon-initial-prod-$(date +%s)" 1>reconcile.log 2>reconcile.err < /dev/null &
+kubectl get po -n "$NS" | grep affs-recon-initial-prod
+tail -f reconcile.???
 ```
-- Then:
-```
-reconcile "affs-recon-initial-prod-$(date +%s)"
-```
+
 
 5) Pilot on smallest DBs on `devstats-prod`.
 
@@ -148,6 +159,7 @@ pgk psql -tAc "select datname from pg_database where datname = any(string_to_arr
 - Test socket mode first; save it when successful, otherwise rebuild/test/save password mode.
 - Repeat point 2 for the second DB using `load_fdw_mode`.
 - Let both run for 1 day; check `sanity_db`, `gha_logs`, jobs, and dashboards.
+
 
 6) Full switchover for all remaining `devstats-prod` projects.
 
