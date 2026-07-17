@@ -1006,3 +1006,130 @@ EOF_OVERRIDES
   echo "OK: all ordinary releases upgraded and verified"
   echo "Saved original user values: $values_dir"
 )
+
+confirm_ok_migration() (
+  set -euo pipefail
+  _require_preamble
+
+  local db="${1:?usage: confirm_ok_migration <db>}"
+  local rollback_tables missing_pairs remaining_tables
+  local lock_timeout="${CONFIRM_MIGRATION_LOCK_TIMEOUT:-15min}"
+
+  validate_migrated_db "$db"
+
+  rollback_tables="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
+    select count(*)
+    from pg_class c
+    join pg_namespace n on n.oid = c.relnamespace
+    where n.nspname = 'public'
+      and c.relkind = 'r'
+      and c.relname in (
+        'gha_actors_pre_fdw',
+        'gha_actors_emails_pre_fdw',
+        'gha_actors_names_pre_fdw',
+        'gha_companies_pre_fdw',
+        'gha_actors_affiliations_pre_fdw',
+        'gha_countries_pre_fdw',
+        'gha_imported_shas_pre_fdw',
+        'gha_bot_logins_pre_fdw'
+      );
+  ")"
+
+  if [[ "$rollback_tables" == "0" ]]; then
+    echo "SKIP: $db rollback tables were already removed"
+    exit 0
+  fi
+
+  [[ "$rollback_tables" == "8" ]] || {
+    echo "ABORT: $db has $rollback_tables of 8 expected *_pre_fdw tables" >&2
+    exit 1
+  }
+
+  missing_pairs="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
+    select count(*)
+    from public.gha_actors_pre_fdw old
+    where not exists (
+      select 1
+      from public.gha_actors shared
+      where shared.id = old.id
+        and shared.login = old.login
+    );
+  ")"
+
+  [[ "$missing_pairs" == "0" ]] || {
+    echo "ABORT: $db has $missing_pairs retained actor rows missing from shared gha_actors" >&2
+    exit 1
+  }
+
+  echo "=== $db: permanently dropping rollback tables"
+
+  pgk env \
+    PGOPTIONS="-c lock_timeout=$lock_timeout -c statement_timeout=0" \
+    psql -X -v ON_ERROR_STOP=1 --single-transaction "$db" -c "
+      drop table
+        public.gha_actors_pre_fdw,
+        public.gha_actors_emails_pre_fdw,
+        public.gha_actors_names_pre_fdw,
+        public.gha_companies_pre_fdw,
+        public.gha_actors_affiliations_pre_fdw,
+        public.gha_countries_pre_fdw,
+        public.gha_imported_shas_pre_fdw,
+        public.gha_bot_logins_pre_fdw;
+    "
+
+  remaining_tables="$(pgk psql -X -qAt -v ON_ERROR_STOP=1 "$db" -c "
+    select count(*)
+    from pg_class c
+    join pg_namespace n on n.oid = c.relnamespace
+    where n.nspname = 'public'
+      and c.relname ~ '_pre_fdw$';
+  ")"
+
+  [[ "$remaining_tables" == "0" ]] || {
+    echo "ABORT: $db still has $remaining_tables *_pre_fdw relations" >&2
+    exit 1
+  }
+
+  echo "=== $db: VACUUM FULL + ANALYZE of all remaining local tables/materialized views"
+
+  ki env DB="$db" LOCK_TIMEOUT="$lock_timeout" bash -s <<'REMOTE_BASH'
+set -euo pipefail
+
+export PGOPTIONS="-c lock_timeout=$LOCK_TIMEOUT -c statement_timeout=0"
+
+psql -X -qAt -v ON_ERROR_STOP=1 "$DB" -c "
+  select format(
+    'vacuum (full, analyze, verbose) %I.%I;',
+    n.nspname,
+    c.relname
+  )
+  from pg_class c
+  join pg_namespace n on n.oid = c.relnamespace
+  where c.relkind in ('r', 'm')
+    and n.nspname !~ '^pg_'
+    and n.nspname <> 'information_schema'
+  order by pg_total_relation_size(c.oid) desc;
+" | psql -X -v ON_ERROR_STOP=1 "$DB"
+REMOTE_BASH
+
+  pgk psql -X -v ON_ERROR_STOP=1 -P pager=off "$db" -c "
+    select
+      current_database() as database,
+      pg_size_pretty(pg_database_size(current_database())) as final_size;
+  "
+
+  echo "OK: $db migration finalized; rollback tables removed"
+)
+
+confirm_all_migrations() (
+  set -euo pipefail
+  _require_preamble
+
+  local db
+
+  while IFS= read -r db; do
+    [[ -n "$db" ]] || continue
+    confirm_ok_migration "$db"
+  done < <(tr '[:space:]' '\n' < "$LIST" | sed '/^$/d')
+)
+
