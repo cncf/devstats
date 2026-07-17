@@ -13,7 +13,8 @@ AFFS_DB="${AFFS_DB:-affiliations}"
 preamble() {
   local ns="${1:?usage: preamble <namespace> <db-list-file>}"
   local list="${2:?usage: preamble <namespace> <db-list-file>}"
-  local primary_lines primary_count
+  local primary_lines primary_count existing_dbs filtered_list db
+  local -a missing_dbs=()
 
   [[ -r "$list" ]] || {
     echo "ABORT: cannot read DB list: $list" >&2
@@ -34,10 +35,37 @@ preamble() {
   fi
 
   NS="$ns"
-  LIST="$list"
   PRIMARY="$(printf '%s\n' "$primary_lines" | sed '/^$/d')"
+  filtered_list="/tmp/${NS}-existing-dbs.txt"
+
+  existing_dbs="$(
+    kubectl --context "$KUBE_CONTEXT" -n "$NS" exec "$PRIMARY" \
+      -c devstats-postgres -- \
+      psql -X -qAt -v ON_ERROR_STOP=1 postgres \
+      -c 'select datname from pg_database'
+  )" || return 1
+
+  : > "$filtered_list" || return 1
+  while IFS= read -r db; do
+    [[ -n "$db" ]] || continue
+    if grep -Fxq -- "$db" <<<"$existing_dbs"; then
+      printf '%s\n' "$db" >> "$filtered_list" || return 1
+    else
+      missing_dbs+=("$db")
+    fi
+  done < <(tr '[:space:]' '\n' < "$list" | sed '/^$/d')
+
+  [[ -s "$filtered_list" ]] || {
+    echo "ABORT: no databases from $list exist in $NS" >&2
+    return 1
+  }
+
+  LIST="$filtered_list"
   export NS LIST PRIMARY KUBE_CONTEXT AFFS_DB
   echo "$NS primary: $PRIMARY; DB list: $LIST"
+  if (( ${#missing_dbs[@]} )); then
+    echo "SKIP missing DBs: ${missing_dbs[*]}"
+  fi
 }
 
 _require_preamble() {
@@ -189,6 +217,11 @@ reconcile() (
   set -euo pipefail
   _require_preamble
   local job="${1:-affs-recon-$(date +%s)-$RANDOM}"
+  local only
+
+  only="$(tr '\n' ' ' < "$LIST" | sed 's/[[:space:]]*$//')"
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" set env \
+    cronjob/devstats-affiliations-import ONLY="$only" >/dev/null
 
   kubectl --context "$KUBE_CONTEXT" -n "$NS" create job \
     --from=cronjob/devstats-affiliations-import "$job"
