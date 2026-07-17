@@ -104,15 +104,19 @@ preamble devstats-test devel/all_test_dbs.txt
 flip_all_dbs
 update_cjs "$KUBE_CONTEXT"
 ```
-- Verify CJ envs, then restore previous states and explicitly enable the importer:
+- Run `sanity_db` on a few non-pilot DBs that were just switched over, for example `cii`, `linux`.
+- Restore CJs status:
 ```
 while IFS=$'\t' read -r cj old; do
-  kubectl --context "$KUBE_CONTEXT" -n "$NS" patch "cronjob/$cj" --type merge -p "{\"spec\":{\"suspend\":$old}}" || exit 1
+  [ -n "$cj" ] || continue
+  kubectl --context "$KUBE_CONTEXT" -n "$NS" patch \
+    "cronjob/$cj" \
+    --type merge \
+    -p "{\"spec\":{\"suspend\":$old}}" || exit 1
 done < "$SUSPEND_STATE"
 kubectl --context "$KUBE_CONTEXT" -n "$NS" patch cronjob/devstats-affiliations-import --type merge -p '{"spec":{"suspend":false}}'
+kubectl --context "$KUBE_CONTEXT" -n "$NS" get cronjobs -o custom-columns='NAME:.metadata.name,SUSPEND:.spec.suspend,SCHEDULE:.spec.schedule' | sort
 ```
-- Run `sanity_db` on pilots, `gha`, `allprj` and several normal DBs; check logs/dashboards and soak for 1 day.
-
 
 4) Create shared objects on `devstats-prod`:
 
