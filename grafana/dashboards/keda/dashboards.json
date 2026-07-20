@@ -405,6 +405,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Buildpacks",
+      "tooltip": "Opens Buildpacks projects dashboards",
+      "type": "link",
+      "url": "https://buildpacks.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -479,16 +489,6 @@
       "tooltip": "Opens Thanos projects dashboards",
       "type": "link",
       "url": "https://thanos.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Buildpacks",
-      "tooltip": "Opens Buildpacks projects dashboards",
-      "type": "link",
-      "url": "https://buildpacks.[[hostname]]"
     },
     {
       "icon": "dashboard",
