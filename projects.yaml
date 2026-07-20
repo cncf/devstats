@@ -434,12 +434,13 @@ projects:
   buildpacks:
     order: 29
     name: Buildpacks
-    status: Incubating
+    status: Graduated
     command_line:
       - buildpacks,buildpacks-community
     start_date: 2018-06-01T00:00:00Z
     join_date: 2018-10-03T00:00:00Z
     incubating_date: 2020-11-18T00:00:00Z
+    graduated_date: 2026-07-17T00:00:00Z
     psql_db: buildpacks
     shared_db: allprj
     main_repo: buildpacks/pack
@@ -3330,12 +3331,12 @@ projects:
     name: KubeElasti
     status: Sandbox
     command_line:
-      - truefoundry/KubeElasti
+      - KubeElasti
     start_date: 2024-12-31T00:00:00Z
     join_date: 2026-01-03T00:00:00Z
     psql_db: kubeelasti
     shared_db: allprj
-    main_repo: truefoundry/KubeElasti
+    main_repo: KubeElasti/KubeElasti
     annotation_regexp: '^v\d+\.\d+\.\d*0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   kaischeduler:
@@ -3708,7 +3709,7 @@ projects:
          kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\
          kubefleet-dev,opentofu,modelpack,oxia-db,cedar-policy,project-dalec,HolmesGPT,\
          robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets,openchoreo,CoHDI,\
-         truefoundry/KubeElasti,kai-scheduler,agones-dev,googleforgames/space-agon,thanos-community,\
+         KubeElasti,kai-scheduler,agones-dev,googleforgames/space-agon,thanos-community,\
          googleforgames/global-multiplayer-demo,velero-io,vmware-tanzu/velero-plugin-for-vsphere,\
          llm-d,openeverest,nmstate,higress-group,tektoncd,tektoncd-catalog,Apicurio/apicurio-registry,kube-bind"
     start_date: 2014-01-01T00:00:00Z
