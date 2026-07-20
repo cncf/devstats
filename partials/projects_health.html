@@ -141,7 +141,8 @@ col:last-child {background: #000;}
         <td><a href="https://dragonfly.[[hostname]]" target="_blank">Dragonfly</a></td>
         <td><a href="https://crossplane.[[hostname]]" target="_blank">Crossplane</a></td>
         <td><a href="https://kyverno.[[hostname]]" target="_blank">Kyverno</a></td>
-        <td class="cncf-br"><a href="https://opentelemetry.[[hostname]]" target="_blank">OpenTelemetry</a></td>
+        <td><a href="https://opentelemetry.[[hostname]]" target="_blank">OpenTelemetry</a></td>
+        <td class="cncf-br"><a href="https://buildpacks.[[hostname]]" target="_blank">Buildpacks</a></td>
         <td class="cncf-bl"><a href="https://grpc.[[hostname]]" target="_blank">gRPC</a></td>
         testsrv=[[hostname]] <td><a style="font-size:x-small;" href="https://opentracing.[[hostname]]" target="_blank">OpenTracing (archived)</a></td> [[hostname]]=testsrv
         testsrv=[[hostname]] <td><a style="font-size:x-small;" href="https://rkt.[[hostname]]" target="_blank">rkt (archived)</a></td> [[hostname]]=testsrv
@@ -152,7 +153,6 @@ col:last-child {background: #000;}
         <td><a href="https://operatorframework.[[hostname]]" target="_blank">Operator Framework</a></td>
         <td><a href="https://cortex.[[hostname]]" target="_blank">Cortex</a></td>
         <td><a href="https://thanos.[[hostname]]" target="_blank">Thanos</a></td>
-        <td><a href="https://buildpacks.[[hostname]]" target="_blank">Buildpacks</a></td>
         <td><a href="https://emissaryingress.[[hostname]]" target="_blank">Emissary-ingress</a></td>
         <td><a href="https://longhorn.[[hostname]]" target="_blank">Longhorn</a></td>
         <td><a href="https://litmuschaos.[[hostname]]" target="_blank">LitmusChaos</a></td>
@@ -402,7 +402,8 @@ col:last-child {background: #000;}
         <td class="cncf-bb"><a href="https://dragonfly.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/dragonfly.svg" alt="Dragonfly" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://crossplane.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/crossplane.svg" alt="Crossplane" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://kyverno.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/kyverno.svg" alt="Kyverno" height="80" width="80" /></a></td>
-        <td class="cncf-bb cncf-br"><a href="https://opentelemetry.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/opentelemetry.svg" alt="OpenTelemetry" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://opentelemetry.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/opentelemetry.svg" alt="OpenTelemetry" height="80" width="80" /></a></td>
+        <td class="cncf-bb cncf-br"><a href="https://buildpacks.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/buildpacks.svg" alt="Buildpacks" height="80" width="80" /></a></td>
         <td class="cncf-bb cncf-bl"><a href="https://grpc.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/grpc.svg" alt="gRPC" height="80" width="80" /></a></td>
         testsrv=[[hostname]] <td class="cncf-bb"><a href="https://opentracing.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/opentracing.svg" alt="OpenTracing" height="80" width="80" /></a></td> [[hostname]]=testsrv
         testsrv=[[hostname]] <td class="cncf-bb"><a href="https://rkt.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/rkt.svg" alt="rkt" height="80" width="80" /></a></td> [[hostname]]=testsrv
@@ -413,7 +414,6 @@ col:last-child {background: #000;}
         <td class="cncf-bb"><a href="https://operatorframework.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/operatorframework.svg" alt="Operator Framework" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://cortex.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/cortex.svg" alt="Cortex" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://thanos.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/thanos.svg" alt="Thanos" height="80" width="80" /></a></td>
-        <td class="cncf-bb"><a href="https://buildpacks.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/buildpacks.svg" alt="Buildpacks" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://emissaryingress.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/emissaryingress.svg" alt="Emissary-ingress" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://longhorn.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/longhorn.svg" alt="Longhorn" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://litmuschaos.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/litmuschaos.svg" alt="LitmusChaos" height="80" width="80" /></a></td>
@@ -664,7 +664,8 @@ col:last-child {background: #000;}
         <td class="cncf-bb">metrics:series:phealthdragonfly:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthcrossplane:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthkyverno:loop:1:i:2</td>
-        <td class="cncf-bb cncf-br">metrics:series:phealthopentelemetry:loop:1:i:2</td>
+        <td class="cncf-bb">metrics:series:phealthopentelemetry:loop:1:i:2</td>
+        <td class="cncf-bb cncf-br">metrics:series:phealthbuildpacks:loop:1:i:2</td>
         <td class="cncf-bb cncf-bl">metrics:series:phealthgrpc:loop:1:i:2</td>
         testsrv=[[hostname]] <td class="cncf-bb">metrics:series:phealthopentracing:loop:1:i:2</td> [[hostname]]=testsrv
         testsrv=[[hostname]] <td class="cncf-bb">metrics:series:phealthrkt:loop:1:i:2</td> [[hostname]]=testsrv
@@ -675,7 +676,6 @@ col:last-child {background: #000;}
         <td class="cncf-bb">metrics:series:phealthoperatorframework:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthcortex:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealththanos:loop:1:i:2</td>
-        <td class="cncf-bb">metrics:series:phealthbuildpacks:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthemissaryingress:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthlonghorn:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthlitmuschaos:loop:1:i:2</td>
