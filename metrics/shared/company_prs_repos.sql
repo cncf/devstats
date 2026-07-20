@@ -1,44 +1,142 @@
+CREATE TEMP TABLE cprr_aff_{{rnd}} AS
+SELECT DISTINCT
+  p.pr_id,
+  p.actor_id,
+  p.repo,
+  aa.company_name AS company,
+  a.login AS github_id,
+  coalesce(a.country_name, '-') AS country
+FROM (
+  SELECT DISTINCT
+    pr.id AS pr_id,
+    pr.user_id AS actor_id,
+    pr.dup_user_login AS github_id,
+    pr.created_at,
+    pr.dup_repo_name AS repo
+  FROM
+    gha_pull_requests pr
+  WHERE
+    {{period:pr.created_at}}
+    AND (lower(pr.dup_user_login) {{exclude_bots}})
+    AND EXISTS (
+      SELECT 1
+      FROM trepos tr
+      WHERE tr.repo_name = pr.dup_repo_name
+    )
+) p
+JOIN
+  gha_actors a
+ON
+  a.id = p.actor_id
+  AND a.login = p.github_id
+JOIN
+  gha_actors_affiliations aa
+ON
+  aa.actor_id = p.actor_id
+  AND aa.dt_from <= p.created_at
+  AND aa.dt_to > p.created_at
+WHERE
+  aa.company_name <> ''
+  AND EXISTS (
+    SELECT 1
+    FROM tcompanies tc
+    WHERE tc.companies_name = aa.company_name
+  )
+;
+
+CREATE INDEX cprr_aff_group_{{rnd}}
+ON cprr_aff_{{rnd}}(repo, company, github_id, country, pr_id);
+
+CREATE INDEX cprr_aff_actor_{{rnd}}
+ON cprr_aff_{{rnd}}(actor_id, repo, company, github_id, country);
+
+ANALYZE cprr_aff_{{rnd}};
+
 select
-  sub.repo || '$$$' || sub.company || '$$$' || sub.github_id || '$$$' || sub.author_names || '$$$' || sub.author_emails || '$$$' || sub.country as data,
-  sub.PRs as value
-from (
-  select
-    pr.dup_repo_name as repo,
-    aa.company_name as company,
-    a.login as github_id,
-    coalesce(a.country_name, '-') as country,
-    coalesce(string_agg(distinct coalesce(an.name, '-'), ', '), '-') as author_names,
-    coalesce(string_agg(distinct coalesce(ae.email, '-'), ', '), '-') as author_emails,
-    count(distinct pr.id) as PRs
-  from
-    gha_pull_requests pr,
-    gha_actors_affiliations aa,
-    gha_actors a
-  left join
-    gha_actors_names an
-  on
-    an.actor_id = a.id
-  left join
-    gha_actors_emails ae
-  on
-    ae.actor_id = a.id
-  where
-    aa.actor_id = pr.user_id
-    and aa.actor_id = a.id
-    and aa.dt_from <= pr.created_at
-    and aa.dt_to > pr.created_at
-    and pr.dup_user_login = a.login
-    -- and pr.dup_type = 'PullRequestEvent'
-    -- and pr.state = 'open'
-    and aa.company_name != ''
-    and aa.company_name in (select companies_name from tcompanies)
-    and {{period:pr.created_at}}
-    and (lower(pr.dup_user_login) {{exclude_bots}})
-    and pr.dup_repo_name in (select repo_name from trepos)
-  group by
-    company,
+  g.repo || '$$$' ||
+  g.company || '$$$' ||
+  g.github_id || '$$$' ||
+  n.author_names || '$$$' ||
+  e.author_emails || '$$$' ||
+  g.country AS data,
+  g.prs AS value
+FROM (
+  SELECT
     repo,
+    company,
+    github_id,
+    country,
+    count(DISTINCT pr_id) AS prs
+  FROM
+    cprr_aff_{{rnd}}
+  GROUP BY
+    repo,
+    company,
     github_id,
     country
-  ) sub
+) g
+JOIN (
+  SELECT
+    ga.repo,
+    ga.company,
+    ga.github_id,
+    ga.country,
+    coalesce(
+      string_agg(DISTINCT coalesce(an.name, '-'), ', '),
+      '-'
+    ) AS author_names
+  FROM (
+    SELECT DISTINCT
+      repo,
+      company,
+      github_id,
+      country,
+      actor_id
+    FROM
+      cprr_aff_{{rnd}}
+  ) ga
+  LEFT JOIN
+    gha_actors_names an
+  ON
+    an.actor_id = ga.actor_id
+  GROUP BY
+    ga.repo,
+    ga.company,
+    ga.github_id,
+    ga.country
+) n
+USING
+  (repo, company, github_id, country)
+JOIN (
+  SELECT
+    ga.repo,
+    ga.company,
+    ga.github_id,
+    ga.country,
+    coalesce(
+      string_agg(DISTINCT coalesce(ae.email, '-'), ', '),
+      '-'
+    ) AS author_emails
+  FROM (
+    SELECT DISTINCT
+      repo,
+      company,
+      github_id,
+      country,
+      actor_id
+    FROM
+      cprr_aff_{{rnd}}
+  ) ga
+  LEFT JOIN
+    gha_actors_emails ae
+  ON
+    ae.actor_id = ga.actor_id
+  GROUP BY
+    ga.repo,
+    ga.company,
+    ga.github_id,
+    ga.country
+) e
+USING
+  (repo, company, github_id, country)
 ;
