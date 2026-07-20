@@ -16,7 +16,7 @@ GHA2DB_PROJECT=kubeelasti PG_DB=kubeelasti GHA2DB_LOCAL=1 structure 2>>errors.tx
 ./devel/db.sh psql kubeelasti -c "create extension if not exists hll" || exit 1
 ./shared/setup_shared_fdw.sh kubeelasti || exit 1
 ./devel/ro_user_grants.sh kubeelasti || exit 2
-GHA2DB_PROJECT=kubeelasti PG_DB=kubeelasti GHA2DB_LOCAL=1 gha2db 2024-12-31 0 today now 'truefoundry/KubeElasti,truefoundry/elasti,truefoundry/kubeelasti' 2>>errors.txt | tee -a run.log || exit 3
+GHA2DB_PROJECT=kubeelasti PG_DB=kubeelasti GHA2DB_LOCAL=1 gha2db 2024-12-31 0 today now 'KubeElasti,truefoundry/KubeElasti,truefoundry/elasti,truefoundry/kubeelasti' 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=kubeelasti PG_DB=kubeelasti GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 structure 2>>errors.txt | tee -a run.log || exit 5
 GHA2DB_PROJECT=kubeelasti PG_DB=kubeelasti ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 6
 GHA2DB_PROJECT=kubeelasti PG_DB=kubeelasti ./shared/setup_scripts.sh 2>>errors.txt | tee -a run.log || exit 7

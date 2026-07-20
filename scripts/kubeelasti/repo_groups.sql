@@ -32,7 +32,8 @@ update gha_repos
 set repo_group = 'KubeElasti', alias = 'KubeElasti'
 where name in (
   'truefoundry/KubeElasti',
-  'truefoundry/elasti'
+  'truefoundry/elasti',
+  'KubeElasti/KubeElasti'
 );
 
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, coalesce(repo_group, name), org_id, org_login from gha_repos on conflict do nothing;

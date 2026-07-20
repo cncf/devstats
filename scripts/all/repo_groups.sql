@@ -2513,7 +2513,8 @@ update
 set
   repo_group = 'KubeElasti'
 where
-  lower(name) in ('truefoundry/kubeelasti', 'truefoundry/elasti')
+  org_login in ('KubeElasti')
+  or lower(name) in ('truefoundry/kubeelasti', 'truefoundry/elasti')
 ;
 
 -- KAI-Scheduler

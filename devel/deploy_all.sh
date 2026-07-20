@@ -834,7 +834,7 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=cohdi               PROJDB=cohdi          PROJREPO="CoHDI/composable-dra-driver"     ORGNAME=CoHDI             PORT=3318 ICON=cohdi          GRAFSUFF=cohdi          GA="-" ./devel/deploy_proj.sh               || exit 243
   elif [ "$proj" = "kubeelasti" ]
   then
-    PROJ=kubeelasti          PROJDB=kubeelasti     PROJREPO="truefoundry/KubeElasti"          ORGNAME=KubeElasti        PORT=3319 ICON=kubeelasti     GRAFSUFF=kubeelasti     GA="-" ./devel/deploy_proj.sh               || exit 244
+    PROJ=kubeelasti          PROJDB=kubeelasti     PROJREPO="KubeElasti/KubeElasti"           ORGNAME=KubeElasti        PORT=3319 ICON=kubeelasti     GRAFSUFF=kubeelasti     GA="-" ./devel/deploy_proj.sh               || exit 244
   elif [ "$proj" = "kaischeduler" ]
   then
     PROJ=kaischeduler        PROJDB=kaischeduler   PROJREPO="kai-scheduler/KAI-Scheduler"     ORGNAME=KAI-Scheduler     PORT=3320 ICON=kaischeduler   GRAFSUFF=kaischeduler   GA="-" ./devel/deploy_proj.sh               || exit 245
