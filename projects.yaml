@@ -3437,7 +3437,7 @@ projects:
     command_line:
       - tektoncd,tektoncd-catalog
     start_date: 2018-07-23T00:00:00Z
-    join_date: 2026-03-24T00:00:00Z
+    join_date: 2026-03-13T00:00:00Z
     psql_db: tekton
     main_repo: tektoncd/pipeline
     annotation_regexp: '^v\d+\.\d+\.0$'
