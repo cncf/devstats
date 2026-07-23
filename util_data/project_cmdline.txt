@@ -56,6 +56,7 @@ crio,kubernetes-incubator/ocid,kubernetes-incubator/cri-o,kubernetes-sigs/cri-o,
 crossplane,crossplane,crossplaneio,crossplane-contrib
 curiefense,curiefense
 curve,opencurve
+curvine,CurvineIO
 dalec,project-dalec,Azure/dalec
 dapr,dapr
 devfile,devfile,che-incubator/devworkspace-api
