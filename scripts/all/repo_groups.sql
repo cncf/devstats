@@ -2622,6 +2622,15 @@ where
   org_login in ('kube-bind')
 ;
 
+-- Curvine
+update
+  gha_repos
+set
+  repo_group = 'Curvine'
+where
+  lower(org_login) in ('curvineio')
+;
+
 -- CNCF
 update
   gha_repos
