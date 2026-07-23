@@ -788,6 +788,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "K8GB",
+      "tooltip": "Opens K8GB projects dashboards",
+      "type": "link",
+      "url": "https://k8gb.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -1022,16 +1032,6 @@
       "tooltip": "Opens Kuberhealthy projects dashboards",
       "type": "link",
       "url": "https://kuberhealthy.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "K8GB",
-      "tooltip": "Opens K8GB projects dashboards",
-      "type": "link",
-      "url": "https://k8gb.[[hostname]]"
     },
     {
       "icon": "dashboard",
