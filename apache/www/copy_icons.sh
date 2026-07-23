@@ -141,8 +141,12 @@ do
   then
     icon="apicurio-registry"
   fi
+  if [ "$icon" = "confidentialcontainers" ]
+  then
+    icon="confidential-containers"
+  fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "llmd" ] || [ "$icon" = "openeverest" ] || [ "$icon" = "agones" ] || [ "$icon" = "oxia" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "curvine" ] || [ "$icon" = "llmd" ] || [ "$icon" = "openeverest" ] || [ "$icon" = "agones" ] || [ "$icon" = "oxia" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -227,11 +231,6 @@ do
   then
     magick "$HOME/dev/cncf/artwork/projects/cilium/icon/color/cilium_icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 22
     cp "$HOME/dev/cncf/artwork/projects/cilium/icon/color/cilium_icon-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 23
-    continue
-  elif [ "$icon" = "confidentialcontainers" ]
-  then
-    magick "$HOME/dev/cncf/artwork/projects/confidential-containers/icon/color/confidential-containers-icon.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 24
-    cp "$HOME/dev/cncf/artwork/projects/confidential-containers/icon/color/confidential-containers-icon.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 25
     continue
   elif [ "$icon" = "oras" ]
   then
