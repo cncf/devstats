@@ -2371,6 +2371,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Curvine",
+      "tooltip": "Opens Curvine projects dashboards",
+      "type": "link",
+      "url": "https://curvine.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
