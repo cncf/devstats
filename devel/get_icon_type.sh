@@ -271,6 +271,7 @@ icontypes=(
   ["apicurioregistry"]="color"
   ["tekton"]="color"
   ["kbind"]="color"
+  ["curvine"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
   ["cdevents"]="color"
