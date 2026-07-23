@@ -865,6 +865,9 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "kbind" ]
   then
     PROJ=kbind               PROJDB=kbind          PROJREPO="kube-bind/kube-bind"             ORGNAME=kbind             PORT=3328 ICON=kbind          GRAFSUFF=kbind          GA="-" ./devel/deploy_proj.sh               || exit 254
+  elif [ "$proj" = "curvine" ]
+  then
+    PROJ=curvine             PROJDB=curvine        PROJREPO="CurvineIO/curvine"               ORGNAME=Curvine           PORT=3329 ICON=curvine        GRAFSUFF=curvine        GA="-" ./devel/deploy_proj.sh               || exit 255
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
