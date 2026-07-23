@@ -1280,11 +1280,12 @@ projects:
   k8gb:
     order: 89
     name: K8GB
-    status: Sandbox
+    status: Incubating
     command_line:
       - 'k8gb-io'
     start_date: 2019-11-27T00:00:00Z
     join_date: 2021-03-30T00:00:00Z
+    incubating_date: 2026-07-20T00:00:00Z
     psql_db: k8gb
     shared_db: allprj
     main_repo: 'k8gb-io/k8gb'
