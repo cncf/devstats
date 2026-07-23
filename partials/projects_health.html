@@ -184,7 +184,8 @@ col:last-child {background: #000;}
         <td><a href="https://microcks.[[hostname]]" target="_blank">Microcks</a></td>
         <td><a href="https://tekton.[[hostname]]" target="_blank">Tekton</a></td>
         <td><a href="https://hami.[[hostname]]" target="_blank">HAMi</a></td>
-        <td class="cncf-br"><a style="font-size:0.5em;" href="https://confidentialcontainers.[[hostname]]" target="_blank">Confidential Containers</a></td>
+        <td><a style="font-size:0.5em;" href="https://confidentialcontainers.[[hostname]]" target="_blank">Confidential Containers</a></td>
+        <td class="cncf-br"><a href="https://k8gb.[[hostname]]" target="_blank">K8GB</a></td>
         <td class="cncf-bl"><a href="https://telepresence.[[hostname]]" target="_blank">Telepresence</a></td>
         <td><a href="https://virtualkubelet.[[hostname]]" target="_blank">Virtual Kubelet</a></td>
         testsrv=[[hostname]] <td><a href="https://brigade.[[hostname]]" target="_blank">Brigade (archived)</a></td> [[hostname]]=testsrv
@@ -216,7 +217,6 @@ col:last-child {background: #000;}
         <td><a href="https://distribution.[[hostname]]" target="_blank">Distribution</a></td>
         testsrv=[[hostname]] <td><a href="https://ingraind.[[hostname]]" target="_blank">Foniod (archived)</a></td> [[hostname]]=testsrv
         <td><a href="https://kuberhealthy.[[hostname]]" target="_blank">Kuberhealthy</a></td>
-        <td><a href="https://k8gb.[[hostname]]" target="_blank">K8GB</a></td>
         <td><a href="https://trickster.[[hostname]]" target="_blank">Trickster</a></td>
         <td><a href="https://wasmedge.[[hostname]]" target="_blank">WasmEdge Runtime</a></td>
         <td><a href="https://chaosblade.[[hostname]]" target="_blank">ChaosBlade</a></td>
@@ -445,7 +445,8 @@ col:last-child {background: #000;}
         <td class="cncf-bb"><a href="https://microcks.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/microcks.svg" alt="Microcks" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://tekton.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/tekton.svg" alt="Tekton" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://hami.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/hami.svg" alt="HAMi" height="80" width="80" /></a></td>
-        <td class="cncf-bb cncf-br"><a href="https://confidentialcontainers.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/confidentialcontainers.svg" alt="Confidential Containers" height="80" width="80" /></a></td>
+        <td class="cncf-bb"><a href="https://confidentialcontainers.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/confidentialcontainers.svg" alt="Confidential Containers" height="80" width="80" /></a></td>
+        <td class="cncf-bb cncf-br"><a href="https://k8gb.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/k8gb.svg" alt="K8GB" height="80" width="80" /></a></td>
         <td class="cncf-bb cncf-bl"><a href="https://telepresence.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/telepresence.svg" alt="Telepresence" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://virtualkubelet.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/virtualkubelet.svg" alt="Virtual Kubelet" height="80" width="80" /></a></td>
         testsrv=[[hostname]] <td class="cncf-bb"><a href="https://brigade.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/brigade.svg" alt="Brigade" height="80" width="80" /></a></td> [[hostname]]=testsrv
@@ -477,7 +478,6 @@ col:last-child {background: #000;}
         <td class="cncf-bb"><a href="https://distribution.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/distribution.svg" alt="Distribution" height="80" width="80" /></a></td>
         testsrv=[[hostname]] <td class="cncf-bb"><a href="https://ingraind.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/ingraind.svg" alt="Foniod" height="80" width="80" /></a></td> [[hostname]]=testsrv
         <td class="cncf-bb"><a href="https://kuberhealthy.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/kuberhealthy.svg" alt="Kuberhealthy" height="80" width="80" /></a></td>
-        <td class="cncf-bb"><a href="https://k8gb.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/k8gb.svg" alt="K8GB" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://trickster.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/trickster.svg" alt="Trickster" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://wasmedge.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/wasmedge.svg" alt="WasmEdge Runtime" height="80" width="80" /></a></td>
         <td class="cncf-bb"><a href="https://chaosblade.[[hostname]]" target="_blank"><img class="cncf-proj" src="public/img/projects/chaosblade.svg" alt="ChaosBlade" height="80" width="80" /></a></td>
@@ -707,7 +707,8 @@ col:last-child {background: #000;}
         <td class="cncf-bb">metrics:series:phealthmicrocks:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthtekton:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthhami:loop:1:i:2</td>
-        <td class="cncf-bb cncf-br">metrics:series:phealthconfidentialcontainers:loop:1:i:2</td>
+        <td class="cncf-bb">metrics:series:phealthconfidentialcontainers:loop:1:i:2</td>
+        <td class="cncf-bb cncf-br">metrics:series:phealthk8gb:loop:1:i:2</td>
         <td class="cncf-bb cncf-bl">metrics:series:phealthtelepresence:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthvirtualkubelet:loop:1:i:2</td>
         testsrv=[[hostname]] <td class="cncf-bb">metrics:series:phealthbrigade:loop:1:i:2</td> [[hostname]]=testsrv
@@ -739,7 +740,6 @@ col:last-child {background: #000;}
         <td class="cncf-bb">metrics:series:phealthdistribution:loop:1:i:2</td>
         testsrv=[[hostname]] <td class="cncf-bb">metrics:series:phealthingraind:loop:1:i:2</td> [[hostname]]=testsrv
         <td class="cncf-bb">metrics:series:phealthkuberhealthy:loop:1:i:2</td>
-        <td class="cncf-bb">metrics:series:phealthk8gb:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthtrickster:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthwasmedge:loop:1:i:2</td>
         <td class="cncf-bb">metrics:series:phealthchaosblade:loop:1:i:2</td>
