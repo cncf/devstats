@@ -3470,6 +3470,19 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     shared_db: allprj
+  curvine:
+    order: 254
+    name: Curvine
+    status: Sandbox
+    command_line:
+      - CurvineIO
+    start_date: 2025-05-27T00:00:00Z
+    join_date: 2026-07-17T00:00:00Z
+    psql_db: curvine
+    main_repo: CurvineIO/curvine
+    annotation_regexp: '^v\d+\.\d+\.\d+(-alpha)?$'
+    files_skip_pattern: ''
+    shared_db: allprj
   opencontainers:
     order: 1200
     name: OCI
