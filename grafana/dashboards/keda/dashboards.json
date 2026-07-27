@@ -415,6 +415,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Kubeflow",
+      "tooltip": "Opens Kubeflow projects dashboards",
+      "type": "link",
+      "url": "https://kubeflow.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -599,16 +609,6 @@
       "tooltip": "Opens Keycloak projects dashboards",
       "type": "link",
       "url": "https://keycloak.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Kubeflow",
-      "tooltip": "Opens Kubeflow projects dashboards",
-      "type": "link",
-      "url": "https://kubeflow.[[hostname]]"
     },
     {
       "icon": "dashboard",
