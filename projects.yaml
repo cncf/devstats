@@ -2380,11 +2380,12 @@ projects:
   kubeflow:
     order: 171
     name: Kubeflow
-    status: Incubating
+    status: Graduated
     command_line:
       - 'kubeflow'
     start_date: 2017-11-30T00:00:00Z
     join_date: 2023-07-25T00:00:00Z
+    graduated_date: 2026-07-24T00:00:00Z
     psql_db: kubeflow
     shared_db: allprj
     main_repo: kubeflow/kubeflow
