@@ -3463,11 +3463,11 @@ projects:
     name: kbind
     status: Sandbox
     command_line:
-      - kube-bind
+      - kbind-dev
     start_date: 2022-10-06T00:00:00Z
-    join_date: 2026-06-17T00:00:00Z
+    join_date: 2026-03-12T00:00:00Z
     psql_db: kbind
-    main_repo: kube-bind/kube-bind
+    main_repo: kbind-dev/kbind
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     shared_db: allprj
@@ -3724,7 +3724,7 @@ projects:
          kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\
          kubefleet-dev,opentofu,modelpack,oxia-db,cedar-policy,project-dalec,HolmesGPT,\
          robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets,openchoreo,CoHDI,\
-         KubeElasti,kai-scheduler,agones-dev,googleforgames/space-agon,thanos-community,kube-bind,\
+         KubeElasti,kai-scheduler,agones-dev,googleforgames/space-agon,thanos-community,kbind-dev,\
          googleforgames/global-multiplayer-demo,velero-io,vmware-tanzu/velero-plugin-for-vsphere,\
          llm-d,openeverest,nmstate,higress-group,tektoncd,tektoncd-catalog,Apicurio/apicurio-registry"
     start_date: 2014-01-01T00:00:00Z
