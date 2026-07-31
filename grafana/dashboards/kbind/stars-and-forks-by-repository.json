@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": true,
-          "text": "kube-bind/kube-bind",
-          "value": "kube-bind/kube-bind"
+          "text": "kbind-dev/kbind",
+          "value": "kbind-dev/kbind"
         },
         "datasource": {
           "type": "postgres",
