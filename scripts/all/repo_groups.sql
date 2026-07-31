@@ -2619,7 +2619,7 @@ update
 set
   repo_group = 'kbind'
 where
-  org_login in ('kube-bind')
+  org_login in ('kube-bind', 'kbind-dev')
 ;
 
 -- Curvine
