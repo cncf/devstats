@@ -359,6 +359,24 @@ create index on hdev_merged_prs_country_{{rnd}} (repo_group);
 create index on hdev_merged_prs_country_{{rnd}} (country);
 analyze hdev_merged_prs_country_{{rnd}};
 
+create temp table hdev_ok_logins_{{rnd}} as
+select login_lower from (
+  select distinct dup_actor_login_lower as login_lower from hdev_events_{{rnd}}
+  union
+  select distinct dup_user_login_lower from hdev_comments_{{rnd}}
+  union
+  select distinct dup_user_login_lower from hdev_issues_{{rnd}}
+  union
+  select distinct dup_user_login_lower from hdev_merged_prs_{{rnd}}
+  union
+  select distinct login_lower from hdev_actors_country_{{rnd}}
+) sub
+where
+  (login_lower {{exclude_bots}})
+;
+create index on hdev_ok_logins_{{rnd}} (login_lower);
+analyze hdev_ok_logins_{{rnd}};
+
 with
 events_type_all as (
   select
@@ -379,7 +397,7 @@ events_type_all as (
       'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
       'IssueCommentEvent', 'CommitCommentEvent'
     )
-    and (dup_actor_login_lower {{exclude_bots}})
+    and (dup_actor_login_lower in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     type,
     dup_actor_login_lower,
@@ -399,7 +417,7 @@ events_type_all as (
   from
     hdev_events_{{rnd}}
   where
-    (dup_actor_login_lower {{exclude_bots}})
+    (dup_actor_login_lower in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     dup_actor_login_lower,
     company_name
@@ -455,7 +473,7 @@ events_type_all as (
   from
     hdev_comments_{{rnd}}
   where
-    (dup_user_login_lower {{exclude_bots}})
+    (dup_user_login_lower in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     dup_user_login_lower,
     company_name
@@ -468,7 +486,7 @@ events_type_all as (
   from
     hdev_issues_{{rnd}}
   where
-    (dup_user_login_lower {{exclude_bots}})
+    (dup_user_login_lower in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     is_pull_request,
     dup_user_login_lower,
@@ -482,7 +500,7 @@ events_type_all as (
   from
     hdev_merged_prs_{{rnd}}
   where
-    (dup_user_login_lower {{exclude_bots}})
+    (dup_user_login_lower in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     dup_user_login_lower,
     company_name
@@ -525,7 +543,7 @@ events_type_all as (
       'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
       'IssueCommentEvent', 'CommitCommentEvent'
     )
-    and (dup_actor_login_lower {{exclude_bots}})
+    and (dup_actor_login_lower in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     type,
     repo_group,
@@ -548,7 +566,7 @@ events_type_all as (
     hdev_events_{{rnd}}
   where
     repo_group is not null
-    and (dup_actor_login_lower {{exclude_bots}})
+    and (dup_actor_login_lower in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     repo_group,
     dup_actor_login_lower,
@@ -615,7 +633,7 @@ events_type_all as (
     hdev_comments_{{rnd}}
   where
     repo_group is not null
-    and (dup_user_login_lower {{exclude_bots}})
+    and (dup_user_login_lower in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     repo_group,
     dup_user_login_lower,
@@ -631,7 +649,7 @@ events_type_all as (
     hdev_issues_{{rnd}}
   where
     repo_group is not null
-    and (dup_user_login_lower {{exclude_bots}})
+    and (dup_user_login_lower in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     repo_group,
     is_pull_request,
@@ -648,7 +666,7 @@ events_type_all as (
     hdev_merged_prs_{{rnd}}
   where
     repo_group is not null
-    and (dup_user_login_lower {{exclude_bots}})
+    and (dup_user_login_lower in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     repo_group,
     dup_user_login_lower,
@@ -692,7 +710,7 @@ events_type_all as (
       'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
       'IssueCommentEvent', 'CommitCommentEvent'
     )
-    and (author {{exclude_bots}})
+    and (author in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     type,
     country,
@@ -714,7 +732,7 @@ events_type_all as (
   from
     hdev_events_country_{{rnd}}
   where
-    (author {{exclude_bots}})
+    (author in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     country,
     author,
@@ -782,7 +800,7 @@ events_type_all as (
   from
     hdev_comments_country_{{rnd}}
   where
-    (author {{exclude_bots}})
+    (author in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     country,
     author,
@@ -797,7 +815,7 @@ events_type_all as (
   from
     hdev_issues_country_{{rnd}}
   where
-    (author {{exclude_bots}})
+    (author in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     is_pull_request,
     country,
@@ -813,7 +831,7 @@ events_type_all as (
   from
     hdev_merged_prs_country_{{rnd}}
   where
-    (author {{exclude_bots}})
+    (author in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     country,
     author,
@@ -860,7 +878,7 @@ events_type_all as (
       'PushEvent', 'PullRequestReviewCommentEvent', 'PullRequestReviewEvent',
       'IssueCommentEvent', 'CommitCommentEvent'
     )
-    and (author {{exclude_bots}})
+    and (author in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     type,
     repo_group,
@@ -885,7 +903,7 @@ events_type_all as (
   where
     repo_group is not null
     and country is not null
-    and (author {{exclude_bots}})
+    and (author in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     repo_group,
     country,
@@ -903,7 +921,7 @@ events_type_all as (
   where
     repo_group is not null
     and country is not null
-    and (src_login_lower {{exclude_bots}})
+    and (src_login_lower in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     repo_group,
     country,
@@ -983,7 +1001,7 @@ events_type_all as (
   where
     repo_group is not null
     and country is not null
-    and (author {{exclude_bots}})
+    and (author in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     repo_group,
     country,
@@ -1002,7 +1020,7 @@ events_type_all as (
   where
     repo_group is not null
     and country is not null
-    and (author {{exclude_bots}})
+    and (author in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     repo_group,
     is_pull_request,
@@ -1022,7 +1040,7 @@ events_type_all as (
   where
     repo_group is not null
     and country is not null
-    and (author {{exclude_bots}})
+    and (author in (select login_lower from hdev_ok_logins_{{rnd}}))
   group by
     repo_group,
     country,
