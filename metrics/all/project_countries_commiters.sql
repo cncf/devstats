@@ -1,42 +1,50 @@
+create temp table pcc_commits_{{rnd}} as
+select r.repo_group as repo_group,
+  c.sha,
+  c.dup_actor_id as actor_id,
+  c.author_id,
+  c.committer_id,
+  (lower(c.dup_actor_login) {{exclude_bots}}) as f_actor,
+  (lower(c.dup_author_login) {{exclude_bots}}) as f_author,
+  (lower(c.dup_committer_login) {{exclude_bots}}) as f_committer
+from
+  gha_repo_groups r,
+  gha_commits c
+where
+  c.dup_repo_id = r.id
+  and c.dup_repo_name = r.name
+  and c.dup_created_at >= '{{from}}'
+  and c.dup_created_at < '{{to}}'
+  and (
+    (lower(c.dup_actor_login) {{exclude_bots}})
+    or (c.author_id is not null and (lower(c.dup_author_login) {{exclude_bots}}))
+    or (c.committer_id is not null and (lower(c.dup_committer_login) {{exclude_bots}}))
+  );
+analyze pcc_commits_{{rnd}};
 with commits_data as (
-  select r.repo_group as repo_group,
-    c.sha,
-    c.dup_actor_id as actor_id
+  select repo_group,
+    sha,
+    actor_id
   from
-    gha_repo_groups r,
-    gha_commits c
+    pcc_commits_{{rnd}}
   where
-    c.dup_repo_id = r.id
-    and c.dup_repo_name = r.name
-    and c.dup_created_at >= '{{from}}'
-    and c.dup_created_at < '{{to}}'
-    and (lower(c.dup_actor_login) {{exclude_bots}})
-  union select r.repo_group as repo_group,
-    c.sha,
-    c.author_id as actor_id
+    f_actor
+  union select repo_group,
+    sha,
+    author_id as actor_id
   from
-    gha_repo_groups r,
-    gha_commits c
+    pcc_commits_{{rnd}}
   where
-    c.dup_repo_id = r.id
-    and c.dup_repo_name = r.name
-    and c.author_id is not null
-    and c.dup_created_at >= '{{from}}'
-    and c.dup_created_at < '{{to}}'
-    and (lower(c.dup_author_login) {{exclude_bots}})
-  union select r.repo_group as repo_group,
-    c.sha,
-    c.committer_id as actor_id
+    author_id is not null
+    and f_author
+  union select repo_group,
+    sha,
+    committer_id as actor_id
   from
-    gha_repo_groups r,
-    gha_commits c
+    pcc_commits_{{rnd}}
   where
-    c.dup_repo_id = r.id
-    and c.dup_repo_name = r.name
-    and c.committer_id is not null
-    and c.dup_created_at >= '{{from}}'
-    and c.dup_created_at < '{{to}}'
-    and (lower(c.dup_committer_login) {{exclude_bots}})
+    committer_id is not null
+    and f_committer
 ), data as (
   select 'prjcntr' as type,
     a.country_name,
@@ -66,3 +74,4 @@ where
 order by
   name
 ;
+drop table pcc_commits_{{rnd}};
