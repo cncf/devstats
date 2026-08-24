@@ -39,7 +39,7 @@ group by
   sub.author
 having
   count(distinct sub.id) >= 1
-union select 'hpr_auth,All' as repo_group,
+union all select 'hpr_auth,All' as repo_group,
   author,
   count(distinct id) as prs
 from

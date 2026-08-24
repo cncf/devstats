@@ -43,19 +43,19 @@ from (
     dch_company_{{rnd}}
   group by
     company
-  union select 'Documentation committers' as metric,
+  union all select 'Documentation committers' as metric,
     company,
     count(distinct author_id) as value
   from
     dch_company_{{rnd}}
   group by
     company
-  union select 'Documentation commits' as metric,
+  union all select 'Documentation commits' as metric,
     'All' as company,
     count(distinct sha) as value
   from
     dch_commits_{{rnd}}
-  union select 'Documentation committers' as metric,
+  union all select 'Documentation committers' as metric,
     'All' as company,
     count(distinct author_id) as value
   from

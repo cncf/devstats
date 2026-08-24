@@ -42,7 +42,7 @@ group by
 having
   count(distinct sub.id) >= 1
 
-union
+union all
 
 select
   'hpr_comps,All' as repo_group,

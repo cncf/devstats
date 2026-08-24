@@ -111,6 +111,7 @@ from
   repos c
 where
   r.name = c.repo
+on conflict do nothing
 ;
 
 -- To see missing repos
@@ -141,6 +142,7 @@ on
   r.name = rg.name
 where
   rg.name is null
+on conflict do nothing
 ;
 
 select

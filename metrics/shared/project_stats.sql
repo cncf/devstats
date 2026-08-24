@@ -98,7 +98,10 @@ select
   author_id,
   dup_author_login,
   committer_id,
-  dup_committer_login
+  dup_committer_login,
+  (lower(dup_actor_login) {{exclude_bots}}) as actor_ok,
+  (lower(dup_author_login) {{exclude_bots}}) as author_ok,
+  (lower(dup_committer_login) {{exclude_bots}}) as committer_ok
 from
   gha_commits
 where
@@ -121,13 +124,13 @@ on
   and c.dup_repo_name = rg.repo_name
 cross join lateral (
   values
-    ('dup', c.dup_actor_id, c.dup_actor_login),
-    ('author', c.author_id, c.dup_author_login),
-    ('committer', c.committer_id, c.dup_committer_login)
-) v(role, actor_id, actor_login)
+    ('dup', c.dup_actor_id, c.dup_actor_login, c.actor_ok),
+    ('author', c.author_id, c.dup_author_login, c.author_ok),
+    ('committer', c.committer_id, c.dup_committer_login, c.committer_ok)
+) v(role, actor_id, actor_login, ok)
 where
   (v.role = 'dup' or v.actor_id is not null)
-  and (lower(v.actor_login) {{exclude_bots}})
+  and v.ok
 ;
 create index on commits_data_{{rnd}}(repo_group);
 analyze commits_data_{{rnd}};
@@ -195,7 +198,7 @@ from
   commits_p_{{rnd}}
 where
   author_id is not null
-  and (lower(dup_author_login) {{exclude_bots}})
+  and author_ok
 union
 select distinct
   committer_id as actor_id
@@ -203,7 +206,7 @@ from
   commits_p_{{rnd}}
 where
   committer_id is not null
-  and (lower(dup_committer_login) {{exclude_bots}})
+  and committer_ok
 ;
 create index on country_actor_ids_{{rnd}}(actor_id);
 analyze country_actor_ids_{{rnd}};
@@ -248,7 +251,7 @@ from (
     a.actor_id = c.author_id
   where
     c.author_id is not null
-    and (lower(c.dup_author_login) {{exclude_bots}})
+    and c.author_ok
   union all
   select
     a.country_id
@@ -260,7 +263,7 @@ from (
     a.actor_id = c.committer_id
   where
     c.committer_id is not null
-    and (lower(c.dup_committer_login) {{exclude_bots}})
+    and c.committer_ok
 ) s
 ;
 analyze countries_all_agg_{{rnd}};
@@ -306,7 +309,7 @@ from (
     a.actor_id = c.author_id
   where
     c.author_id is not null
-    and (lower(c.dup_author_login) {{exclude_bots}})
+    and c.author_ok
   union all
   select
     rg.repo_group,
@@ -324,7 +327,7 @@ from (
     a.actor_id = c.committer_id
   where
     c.committer_id is not null
-    and (lower(c.dup_committer_login) {{exclude_bots}})
+    and c.committer_ok
 ) s
 group by
   repo_group

@@ -64,6 +64,7 @@ select
   e.created_at,
   e.actor_id,
   e.dup_actor_login,
+  (lower(e.dup_actor_login) {{exclude_bots}}) as ok,
   e.repo_id,
   e.dup_repo_name as repo_name
 from
@@ -130,6 +131,7 @@ select
   e.created_at,
   e.actor_id,
   e.dup_actor_login,
+  e.ok,
   e.repo_id,
   e.repo_name,
   coalesce(aa.company_name, '') as company
@@ -304,7 +306,7 @@ from (
     ec.event_id = rg.event_id
   where
     rg.repo_group is not null
-    and (lower(ec.dup_actor_login) {{exclude_bots}})
+    and ec.ok
   group by
     rg.repo_group,
     ec.dup_actor_login,
@@ -312,7 +314,7 @@ from (
   having
     count(distinct rg.event_id) >= 1
 
-  union
+  union all
 
   select
     'hdev_reviews,All_All' as metric,
@@ -321,14 +323,14 @@ from (
   from
     reviews_events_company_{{rnd}} ec
   where
-    (lower(ec.dup_actor_login) {{exclude_bots}})
+    ec.ok
   group by
     ec.dup_actor_login,
     ec.company
   having
     count(distinct ec.event_id) >= 1
 
-  union
+  union all
 
   select
     'hdev_reviews,' || rg.repo_group || '_' || c.country as metric,
@@ -355,7 +357,7 @@ from (
   having
     count(distinct rg.event_id) >= 1
 
-  union
+  union all
 
   select
     'hdev_reviews,All_' || c.country as metric,
