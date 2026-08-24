@@ -1,12 +1,22 @@
+create temp table rc_{{rnd}} as
+select
+  t.actor_login,
+  t.repo_id,
+  t.repo_name
+from
+  gha_texts t
+where
+  t.created_at >= '{{from}}'
+  and t.created_at < '{{to}}'
+  and (lower(t.actor_login) {{exclude_bots}})
+;
+analyze rc_{{rnd}};
+
 select
   'rcommenters,All' as repo_group,
-  round(count(distinct actor_login) / {{n}}, 2) as result
+  round(count(distinct t.actor_login) / {{n}}, 2) as result
 from
-  gha_texts
-where
-  created_at >= '{{from}}'
-  and created_at < '{{to}}'
-  and (lower(actor_login) {{exclude_bots}})
+  rc_{{rnd}} t
 union select sub.repo_group,
   round(count(distinct sub.actor_login) / {{n}}, 2) as result
 from (
@@ -14,13 +24,10 @@ from (
     t.actor_login
   from
     gha_repo_groups r,
-    gha_texts t
+    rc_{{rnd}} t
   where
     r.id = t.repo_id
     and r.name = t.repo_name
-    and t.created_at >= '{{from}}'
-    and t.created_at < '{{to}}'
-    and (lower(t.actor_login) {{exclude_bots}})
   ) sub
 where
   sub.repo_group is not null
@@ -30,3 +37,4 @@ order by
   result desc,
   repo_group asc
 ;
+drop table rc_{{rnd}};
