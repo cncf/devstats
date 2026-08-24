@@ -1,21 +1,31 @@
+create temp table hpa_{{rnd}} as
+select
+  pr.id,
+  pr.dup_user_login as author,
+  pr.dup_repo_id as repo_id,
+  pr.dup_repo_name as repo_name
+from
+  gha_pull_requests pr
+where
+  {{period:pr.created_at}}
+  and (lower(pr.dup_user_login) {{exclude_bots}})
+;
+analyze hpa_{{rnd}};
+
 select
   sub.repo_group,
   sub.author,
   count(distinct sub.id) as prs
 from (
   select 'hpr_auth,' || r.repo_group as repo_group,
-    pr.dup_user_login as author,
+    pr.author,
     pr.id
   from
     gha_repo_groups r,
-    gha_pull_requests pr
+    hpa_{{rnd}} pr
   where
-    {{period:pr.created_at}}
-    and pr.dup_repo_id = r.id
-    and pr.dup_repo_name = r.name
-    -- and pr.dup_type = 'PullRequestEvent'
-    -- and pr.state = 'open'
-    and (lower(pr.dup_user_login) {{exclude_bots}})
+    pr.repo_id = r.id
+    and pr.repo_name = r.name
   ) sub
 where
   sub.repo_group is not null
@@ -25,17 +35,12 @@ group by
 having
   count(distinct sub.id) >= 1
 union select 'hpr_auth,All' as repo_group,
-  dup_user_login as author,
+  author,
   count(distinct id) as prs
 from
-  gha_pull_requests
-where
-  {{period:created_at}}
-  -- and dup_type = 'PullRequestEvent'
-  -- and state = 'open'
-  and (lower(dup_user_login) {{exclude_bots}})
+  hpa_{{rnd}}
 group by
-  dup_user_login
+  author
 having
   count(distinct id) >= 1
 order by
@@ -43,3 +48,4 @@ order by
   repo_group asc,
   author asc
 ;
+drop table hpa_{{rnd}};

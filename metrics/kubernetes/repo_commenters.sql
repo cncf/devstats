@@ -1,12 +1,23 @@
+create temp table rck_{{rnd}} as
+select
+  t.event_id,
+  t.actor_login,
+  t.repo_id,
+  t.repo_name
+from
+  gha_texts t
+where
+  t.created_at >= '{{from}}'
+  and t.created_at < '{{to}}'
+  and (lower(t.actor_login) {{exclude_bots}})
+;
+analyze rck_{{rnd}};
+
 select
   'rcommenters,All' as repo_group,
-  round(count(distinct actor_login) / {{n}}, 2) as result
+  round(count(distinct t.actor_login) / {{n}}, 2) as result
 from
-  gha_texts
-where
-  created_at >= '{{from}}'
-  and created_at < '{{to}}'
-  and (lower(actor_login) {{exclude_bots}})
+  rck_{{rnd}} t
 union select sub.repo_group,
   round(count(distinct sub.actor_login) / {{n}}, 2) as result
 from (
@@ -14,7 +25,7 @@ from (
     t.actor_login
   from
     gha_repos r,
-    gha_texts t
+    rck_{{rnd}} t
   left join
     gha_events_commits_files ecf
   on
@@ -22,9 +33,6 @@ from (
   where
     r.id = t.repo_id
     and r.name = t.repo_name
-    and t.created_at >= '{{from}}'
-    and t.created_at < '{{to}}'
-    and (lower(t.actor_login) {{exclude_bots}})
   ) sub
 where
   sub.repo_group is not null
@@ -34,3 +42,4 @@ order by
   result desc,
   repo_group asc
 ;
+drop table rck_{{rnd}};
