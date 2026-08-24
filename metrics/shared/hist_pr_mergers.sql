@@ -1,5 +1,5 @@
 with bots as(
-  select login from gha_actors where not lower(login) {{exclude_bots}}
+  select login from gha_actors where login in (select distinct dupn_merged_by_login from gha_pull_requests where dupn_merged_by_login is not null) and not lower(login) {{exclude_bots}}
 )
 select
   sub.repo_group,

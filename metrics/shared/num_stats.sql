@@ -42,7 +42,6 @@ where
   and ev.type in (
     'PullRequestReviewCommentEvent', 'PushEvent', 'PullRequestEvent',
     'IssuesEvent', 'IssueCommentEvent', 'CommitCommentEvent', 'PullRequestReviewEvent'
-    'PushEvent'
   )
 group by
   r.repo_group

@@ -234,8 +234,8 @@
         "allValue": null,
         "current": {
           "tags": [],
-          "text": "28 Days MA",
-          "value": "d28"
+          "text": "Week",
+          "value": "w"
         },
         "hide": 0,
         "includeAll": false,
@@ -244,17 +244,7 @@
         "name": "period",
         "options": [
           {
-            "selected": false,
-            "text": "7 Days MA",
-            "value": "d7"
-          },
-          {
             "selected": true,
-            "text": "28 Days MA",
-            "value": "d28"
-          },
-          {
-            "selected": false,
             "text": "Week",
             "value": "w"
           },
@@ -269,7 +259,7 @@
             "value": "q"
           }
         ],
-        "query": "d7,d28,w,m,q",
+        "query": "w,m,q",
         "skipUrlSync": false,
         "type": "custom"
       },
