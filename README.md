@@ -26,7 +26,7 @@ Please see [Kubernetes dashboard](https://github.com/cncf/devstats-kubernetes-da
 
 Please see [bare metal example](https://github.com/cncf/devstats-example) to see an example of bare metal deployment.
 
-The rest of this document describes the current bare metal deployment on Oracle Cloud Infrastructure (OCI) used by CNCF projects.
+The rest of this document describes the current deployment on Akamai Cloud (Linode) dedicated servers used by CNCF projects.
 
 
 # Presentations
@@ -44,7 +44,7 @@ The rest of this document describes the current bare metal deployment on Oracle 
 
 # Architecture
 
-DevStats is deployed using [Helm](https://helm.sh) on [Kubernetes](https://kubernetes.io) running on bare metal servers provided by [Oracle Cloud Infrastructure](https://www.oracle.com/cloud/).
+DevStats is deployed using [Helm](https://helm.sh) on [Kubernetes](https://kubernetes.io) running on dedicated servers provided by [Akamai Cloud (Linode)](https://www.linode.com/).
 
 DevStats is written in [Go](https://go.dev), it uses [GitHub archives](https://www.gharchive.org), [GitHub API](https://docs.github.com/en/rest) and [git](https://git-scm.com) as its main data sources.
 
@@ -53,11 +53,10 @@ Under the hood, DevStats uses the following CNCF projects:
 - containerd (as a Kubernetes container runtime, CRI).
 - cert-manager (for HTTPS/SSL certificates).
 - OpenEBS (for local storage volumes support).
-- MetalLB (as a load balancer for bare metal servers).
 - CoreDNS (Kubernetes internal DNS).
 
 And other projects, including:
-- Oracle Cloud Infrastructure (OCI) (bare metal servers provider).
+- Akamai Cloud (Linode) (dedicated servers provider).
 - Ubuntu (containers base operating system).
 - kubeadm (for installing Kubernetes).
 - NFS (for shared write network volumes support).
@@ -171,7 +170,7 @@ Please see [exporting](https://github.com/cncf/devstats/blob/master/EXPORT.md).
 
 # Servers
 
-The servers to run `devstats` are generously provided by [Oracle Cloud Infrastructure](https://www.oracle.com/cloud/) bare metal hosting as part of CNCF's [Community Infrastructure Lab](https://github.com/cncf/cluster).
+The servers to run `devstats` are generously provided by [Akamai Cloud (Linode)](https://www.linode.com/).
 
 # One line run all projects
 
