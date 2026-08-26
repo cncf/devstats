@@ -11,3 +11,4 @@ create index texts_actor_login_idx on gha_texts(actor_login);
 create index texts_repo_id_idx on gha_texts(repo_id);
 create index texts_repo_name_idx on gha_texts(repo_name);
 create index texts_type_idx on gha_texts(type);
+create index texts_lower_actor_login_idx on gha_texts(lower(actor_login));
