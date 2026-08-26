@@ -1,0 +1,20 @@
+<p style="background-color:#4a3200;border:1px solid orange;color:#ffd;padding:8px;">&#9888;&#65039; <b>Data accuracy warning:</b> DevStats uses the public <a href="https://www.gharchive.org" target="_blank">GH Archive</a> dataset, which is missing a significant number of GitHub events (notably in recent months), so contributions data shown here is undercounted. Please do not treat those numbers as 100% accurate or complete, see <a href="https://github.com/cncf/devstats/issues/147" target="_blank">cncf/devstats#147</a> for details.</p>
+<h1 id="-full_name-home-dashboard">[[full_name]] Home dashboard</h1>
+<p>Links:</p>
+<ul>
+<li>Postgres <a href="https://github.com/cncf/devstats/blob/master/metrics/shared/events.sql" target="_blank">SQL file</a>, database <a href="https://[[hostname]]/backups" target="_blank">dumps</a>.</li>
+<li>TSDB <a href="https://github.com/cncf/devstats/blob/master/metrics/[[proj_name]]/metrics.yaml" target="_blank">series definition</a> (search for <code>name: GitHub activity</code>).</li>
+<li>Grafana dashboard <a href="https://github.com/cncf/devstats/blob/master/grafana/dashboards/[[proj_name]]/dashboards.json" target="_blank">JSON</a>.</li>
+<li>Developer <a href="https://github.com/cncf/devstats/blob/master/docs/dashboards/dashboards_devel.md" target="_blank">documentation</a>.</li>
+<li>Direct <a href="https://[[url_prefix]].[[hostname]]" target="_blank">link</a>.</li>
+</ul>
+<h1 id="description">Description</h1>
+<ul>
+<li>First we&#39;re displaying links to all CNCF projects defined.</li>
+<li>Next we&#39;re showing current project&#39;s hourly activity - this is the number of all GitHub events that happened for [[full_name]] project hourly.</li>
+<li>This also includes bots activity (most other dashboards skip bot activity).</li>
+<li>Next we&#39;re showing HTML panel that shows all CNCF projects icons and links.</li>
+<li>Next there is a dashboard that shows a list of all dashboards defined for [[full_name]] project.</li>
+<li>You can use &#39;Last updated&#39; dashboard too see when given SQL metric was calculated - each dashboard has a list of its SQL metrics</li>
+</ul>
+

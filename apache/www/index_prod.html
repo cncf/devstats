@@ -50,6 +50,14 @@
     td.cncf-bb {
       border-bottom: 1px solid white !important;
     }
+        div.cncf-warn {
+      background-color: #4a3200;
+      border: 1px solid orange;
+      color: #ffd;
+      padding: 8px;
+      margin: 5px;
+      text-align: center;
+    }
     </style>
     <link rel="icon" type="image/png" href="cncf-devstats.png"/>
   </head>
@@ -57,6 +65,7 @@
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5KXPQ53" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+  <div class="cncf-warn">&#9888;&#65039; <b>Data accuracy warning:</b> DevStats uses the public <a href="https://www.gharchive.org" target="_blank">GH Archive</a> dataset, which is missing a significant number of GitHub events (notably in recent months), so contributions data shown here is undercounted. Please do not treat those numbers as 100% accurate or complete, see <a href="https://github.com/cncf/devstats/issues/147" target="_blank">cncf/devstats#147</a> for details.</div>
     <table>
       <tr>
         <td><img src="cncf-devstats.svg" alt="CNCF" width="270" height="100" /></img></td>

@@ -13,7 +13,7 @@ vars:
     type: s
     command:
       - cat
-      - '{{datadir}}docs/dashboards/last_updated.md'
+      - '{{datadir}}docs/dashboards/kubernetes/last_updated.md'
     replaces:
       - [hostname, os_hostname]
       - [full_name, full_name]
@@ -23,7 +23,7 @@ vars:
     type: s
     command:
       - cat
-      - '{{datadir}}docs/dashboards/dashboards.md'
+      - '{{datadir}}docs/dashboards/kubernetes/dashboards.md'
     replaces:
       - [hostname, os_hostname]
       - [full_name, full_name]
@@ -315,7 +315,7 @@ vars:
     type: s
     command:
       - cat
-      - '{{datadir}}docs/dashboards/shared/company_prs.md'
+      - '{{datadir}}docs/dashboards/kubernetes/company_prs.md'
     replaces:
       - [full_name, full_name]
       - [lower_name, lower_name]
@@ -323,7 +323,7 @@ vars:
     type: s
     command:
       - cat
-      - '{{datadir}}docs/dashboards/shared/countries_stats.md'
+      - '{{datadir}}docs/dashboards/kubernetes/countries_stats.md'
     replaces:
       - [full_name, full_name]
       - [lower_name, lower_name]
@@ -331,7 +331,7 @@ vars:
     type: s
     command:
       - cat
-      - '{{datadir}}docs/dashboards/shared/licenses.md'
+      - '{{datadir}}docs/dashboards/kubernetes/licenses.md'
     replaces:
       - [full_name, full_name]
       - [lower_name, lower_name]
@@ -387,7 +387,7 @@ vars:
     type: s
     command:
       - cat
-      - '{{datadir}}docs/dashboards/shared/pr_mergers.md'
+      - '{{datadir}}docs/dashboards/kubernetes/pr_mergers.md'
     replaces:
       - [full_name, full_name]
       - [lower_name, lower_name]
