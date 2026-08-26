@@ -32,6 +32,7 @@ update gha_repos
 set repo_group = 'Serverless Workflow', alias = 'Serverless Workflow'
 where name in (
   'serverlessworkflow/specification',
+  'open-workflow-specification/specification',
   'cncf/wg-serverless-workflow'
 );
 

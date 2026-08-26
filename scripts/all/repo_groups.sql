@@ -723,7 +723,7 @@ update
 set
   repo_group = 'Serverless Workflow'
 where
-  org_login in ('serverlessworkflow')
+  org_login in ('serverlessworkflow', 'open-workflow-specification')
   or name in ('cncf/wg-serverless-workflow')
 ;
 
@@ -2288,7 +2288,9 @@ where
     'containers/podman', 'containers/buildah', 'containers/skopeo',
     'containers/netavark', 'containers/aardvark-dns', 'containers/image',
     'containers/storage', 'containers/common', 'containers/conmon',
-    'containers/podman-py', 'projectatomic/skopeo'
+    'containers/podman-py', 'projectatomic/skopeo',
+    'podman-container-tools/podman', 'podman-container-tools/buildah',
+    'podman-container-tools/skopeo'
   )
 ;
 

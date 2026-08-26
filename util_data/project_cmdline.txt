@@ -226,7 +226,7 @@ perses,perses
 pipecd,pipe-cd
 piraeus,piraeusdatastore
 pixie,regexp:(?i)^(pixie-labs\/(.*pixie.*|.*px.*|grafana-plugin)|pixie-io\/.*)$
-podmancontainertools,containers/podman,containers/buildah,containers/skopeo,containers/netavark,containers/aardvark-dns,containers/image,containers/storage,containers/common,containers/conmon,containers/podman-py,projectatomic/skopeo
+podmancontainertools,containers/podman,containers/buildah,containers/skopeo,containers/netavark,containers/aardvark-dns,containers/image,containers/storage,containers/common,containers/conmon,containers/podman-py,projectatomic/skopeo,podman-container-tools/podman,podman-container-tools/buildah,podman-container-tools/skopeo
 podmandesktop,regexp:(?i)^(podman-desktop\/.*|containers\/(desktop|.*podman-desktop.*))$
 porter,getporter
 pravega,pravega
@@ -246,7 +246,7 @@ screwdrivercd,screwdriver-cd
 sealer,sealerio,alibaba/sealer
 sermant,sermant-io,huaweicloud/Sermant,huaweicloud/java-mesh,huaweicloud/JavaMesh
 serverlessdevs,Serverless-Devs,ServerlessTool
-serverlessworkflow,serverlessworkflow,cncf/wg-serverless-workflow
+serverlessworkflow,serverlessworkflow,cncf/wg-serverless-workflow,open-workflow-specification
 servicemeshperformance,regexp:(?i)^(layer5io\/.*(service-mesh|performance|benchmark)|service-mesh-performance\/.*)
 shipwright,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator
 shipwrightcncf,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator

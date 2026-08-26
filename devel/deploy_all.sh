@@ -294,7 +294,7 @@ do
     PROJ=chaosmesh          PROJDB=chaosmesh       PROJREPO="chaos-mesh/chaos-mesh"           ORGNAME="Chaos Mesh"      PORT=3062 ICON=chaosmesh      GRAFSUFF=chaosmesh      GA="-" ./devel/deploy_proj.sh || exit 80
   elif [ "$proj" = "serverlessworkflow" ]
   then
-    PROJ=serverlessworkflow PROJDB=serverlessworkflow PROJREPO="serverlessworkflow/specification" ORGNAME="Serverless Workflow" PORT=3063 ICON=serverlessworkflow GRAFSUFF=serverlessworkflow GA="-" ./devel/deploy_proj.sh || exit 81
+    PROJ=serverlessworkflow PROJDB=serverlessworkflow PROJREPO="open-workflow-specification/specification" ORGNAME="Serverless Workflow" PORT=3063 ICON=serverlessworkflow GRAFSUFF=serverlessworkflow GA="-" ./devel/deploy_proj.sh || exit 81
   elif [ "$proj" = "k3s" ]
   then
     PROJ=k3s                 PROJDB=k3s            PROJREPO="k3s-io/k3s"                      ORGNAME=K3s               PORT=3064 ICON=k3s            GRAFSUFF=k3s            GA="-" ./devel/deploy_proj.sh || exit 82

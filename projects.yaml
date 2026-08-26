@@ -939,12 +939,12 @@ projects:
     name: Serverless Workflow
     status: Sandbox
     command_line:
-      - serverlessworkflow
+      - serverlessworkflow,open-workflow-specification
     start_date: 2020-05-15T00:00:00Z
     join_date: 2020-07-14T00:00:00Z
     psql_db: serverlessworkflow
     shared_db: allprj
-    main_repo: serverlessworkflow/specification
+    main_repo: open-workflow-specification/specification
     annotation_regexp: ''
     files_skip_pattern: ''
   k3s:
@@ -3034,12 +3034,12 @@ projects:
     name: "Podman Container Tools"
     status: Sandbox
     command_line:
-      - 'regexp:(?i)^containers\/(podman|buildah|skopeo|netavark|aardvark-dns|image|storage|common|conmon|podman-py)$'
+      - 'regexp:(?i)^(podman-container-tools\/(podman|buildah|skopeo)|containers\/(netavark|aardvark-dns|image|storage|common|conmon|podman-py))$'
     start_date: 2016-03-07T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: podmancontainertools
     shared_db: allprj
-    main_repo: containers/podman
+    main_repo: podman-container-tools/podman
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   bootc:
@@ -3695,7 +3695,8 @@ projects:
          longhorn,chubaofs,cubefs,kedacore,argoproj,volcano-sh,k8snetworkplumbingwg/kubemacpool,\
          k8snetworkplumbingwg/multi-networkpolicy-iptables,k8snetworkplumbingwg/sriov-network-operator,\
          kudobuilder,cloud-custodian,dexidp,litmuschaos,artifacthub,parallaxsecond,bfenetworks,\
-         crossplane,kumahq,projectcontour,operator-framework,chaos-mesh,serverlessworkflow,tremor-rs,\
+         crossplane,kumahq,projectcontour,operator-framework,chaos-mesh,serverlessworkflow,\
+         open-workflow-specification,tremor-rs,\
          metal3-io,keylime,KusionStack,kaito-project,Kong/kumacut,Kong/docker-kuma,getporter,\
          schemahero,openkruise,openyurtio,tinkerbell,kyverno,cert-manager,cdk8s-team,k8up-io,\
          kube-rs,devfile,k3s-io,gitops-working-group,piraeusdatastore,openebs,AthenZ,bank-vaults,\
@@ -3718,7 +3719,8 @@ projects:
          flatcar,flatcar-linux,sermant-io,kmesh-net,ovn-org,ovn-kubernetes,prometheus-community,\
          tokenetes,spinframework,k0sproject,SlimPlanet,container2wasm,runmedev,cloudnative-pg,\
          Azure/Fleet-PRSE,Azure/fleet-networking,Azure/fleet,Azure/azure-rest-api-specs-fleet,\
-         podman-desktop,containers/podman,containers/buildah,containers/skopeo,containers/netavark,\
+         podman-desktop,podman-container-tools/podman,podman-container-tools/buildah,\
+         podman-container-tools/skopeo,containers/netavark,\
          containers/aardvark-dns,containers/image,containers/storage,containers/common,\
          containers/conmon,containers/podman-py,cadence-workflow,kagent-dev,urunc-dev,cozystack,\
          kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\
