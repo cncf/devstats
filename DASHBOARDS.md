@@ -52,6 +52,7 @@ They are defined here: [repo_groups.sql](https://github.com/cncf/devstats/blob/m
 - Inactive PRs by SIG: [inactive-prs-by-sig.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/inactive-prs-by-sig.json), [view](https://k8s.devstats.cncf.io/d/72/inactive-prs-by-sig?orgId=1)
 - Inactive Issues by SIG: [inactive-issues-by-sig.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/inactive-issues-by-sig.json), [view](https://k8s.devstats.cncf.io/d/73/inactive-issues-by-sig?orgId=1)
 - Contributors chart: [contributions-chart.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/contributions-chart.json), [view](https://k8s.devstats.cncf.io/d/74/contributions-chart?orgId=1)
+- Feature Gates by SIG and State: [feature-gates-by-sig-and-state.json](https://github.com/cncf/devstats/blob/master/grafana/dashboards/kubernetes/feature-gates-by-sig-and-state.json), [view](https://k8s.devstats.cncf.io/d/fg-sig-state/feature-gates-by-sig-and-state?orgId=1)
 
 Metric SQL's are defined in [metrics.yaml](https://github.com/cncf/devstats/blob/master/metrics/kubernetes/metrics.yaml), search for dashboard name to find its SQL metric file.
 
