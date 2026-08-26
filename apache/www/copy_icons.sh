@@ -146,7 +146,7 @@ do
     icon="confidential-containers"
   fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "curvine" ] || [ "$icon" = "llmd" ] || [ "$icon" = "openeverest" ] || [ "$icon" = "agones" ] || [ "$icon" = "oxia" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "curvine" ] || [ "$icon" = "llmd" ] || [ "$icon" = "openeverest" ] || [ "$icon" = "oxia" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
