@@ -46,7 +46,7 @@
 #   RECOMPRESS_MAX_DAYS=35    max age of last btrfs-recompress run
 #   DBLOGS_HOURS=168          gha_logs error-class scan window (hours, default one week)
 #   IMPORT_AFFS_WARN=27       max age (hours) of last shared affiliations import log activity
-#   KNOWN_DOWN_HOSTS_RE=...   hosts matching this regex report as NOTE instead of WARN/CRIT in web/certs/dns
+#   KNOWN_DOWN_HOSTS_RE=...   optional: hosts matching this regex report as NOTE instead of WARN/CRIT in web/certs/dns (default: unset - all failures are real issues)
 #                             (default: graphql.org family awaiting DNS flip to Linode)
 #   ARCHIVED_DBS_RE=...       DB/project names matching this regex are skipped (archived/merged projects)
 #
@@ -98,10 +98,12 @@ PG_USER="${PG_USER:-gha_admin}"
 DBLOGS_HOURS="${DBLOGS_HOURS:-168}"
 IMPORT_AFFS_WARN="${IMPORT_AFFS_WARN:-27}"
 # hosts expected down (graphql.org family awaits DNS flip to Linode; Cloudflare TLS fails until then)
-KNOWN_DOWN_HOSTS_RE="${KNOWN_DOWN_HOSTS_RE:-(^|\.)devstats\.graphql\.org$}"
+KNOWN_DOWN_HOSTS_RE="${KNOWN_DOWN_HOSTS_RE:-}"
 # archived/merged projects (source: devstats:metrics/all/sync_vars.yaml) - skipped wherever they appear
 ARCHIVED_DBS_RE="${ARCHIVED_DBS_RE:-^(brigade|smi|openservicemesh|osm|krator|ingraind|fonio|curiefense|krustlet|skooner|k8dash|curve|fabedge|kubedl|superedge|nocalhost|merbridge|devstream|teller|openelb|sealer|cni-genie|cnigenie|servicemeshperformance|xline|pravega|openmetrics|rkt|opentracing|keptn|hexa|hexapolicyorchestrator|vineyard)$}"
-known_down() { grep -qE "$KNOWN_DOWN_HOSTS_RE" <<<"$1"; }
+known_down() { [ -n "$KNOWN_DOWN_HOSTS_RE" ] && grep -qE "$KNOWN_DOWN_HOSTS_RE" <<<"$1"; }
+# first DNS label of an ingress host == project url/db name for project hosts
+archived_host() { archived_db "${1%%.*}"; }
 archived_db() { grep -qE "$ARCHIVED_DBS_RE" <<<"$1"; }
 
 # ----------------------------------------------------------------------------------------------- output helpers ----
@@ -421,7 +423,7 @@ if run_section cjlogs && [ "$LOGS_MODE" != "off" ]; then
         # overlap-guard exit: 'There were sync errors' emitted by design when refusing to overlap - benign
         se="$(grep -cE 'There were sync errors' "$lf" || true)"
         crits=$(( crits - se )); [ "$crits" -lt 0 ] && crits=0
-        note "[$st] CJ $cj: overlap-guard exit (another sync already running) in last run"
+        ok "[$st] CJ $cj: overlap-guard exit (another sync already running) in last run"
       fi
       if [ "${crits:-0}" -gt 0 ]; then
         crit "[$st] CJ $cj: log has $crits critical error line(s); first: $(grep -m1 -E 'panic:|fatal error:|There were sync errors|Error updating git repos' "$lf" | head -c 220)"
@@ -430,7 +432,7 @@ if run_section cjlogs && [ "$LOGS_MODE" != "off" ]; then
       else
         ok "[$st] CJ $cj: log clean ($job)"
       fi
-      [ "${dice:-0}" -gt 0 ] && note "[$st] CJ $cj: sync_probabilty dice skip in last run ($(grep -m1 -E 'Skipping #[0-9]+' "$lf" | head -c 120))"
+      [ "${dice:-0}" -gt 0 ] && ok "[$st] CJ $cj: sync_probabilty dice skip in last run ($(grep -m1 -E 'Skipping #[0-9]+' "$lf" | head -c 120))"
     done < "$TMPD/logjobs-$st.txt"
   done
 fi
@@ -600,14 +602,16 @@ if run_section dblogs; then
       echo "      when (msg like '%hash id%' or msg like '%orphan event id%') and msg like '%conflict%' then 'data_conflict'"
       echo "      when msg like '%Error (non fatal)%' or msg like '%(ignored)%' or msg like '%non fatal, exiting 0%' then 'nonfatal_error'"
       echo "      when msg like '%Warning:%' or msg like '%warning:%' then 'go_warning'"
+      echo "      when msg like '%gitListCommits failed%' then 'git_noise'"
       echo "      when msg like '%exit status%' then 'exit_status'"
       echo "      when msg ilike '%error%' and msg not ilike '%0 errors%' and msg not ilike '%errors=0%' then 'generic_error'"
       echo "    end as class"
       echo "  from gha_logs where dt > now() - interval '${DBLOGS_HOURS} hours'"
       echo ")"
-      echo "select 'cnt', class, cnt, mx, sample from ("
+      echo "select 'cnt', class, cnt, mn, mx, sample from ("
       echo "  select class,"
       echo "    count(*) over (partition by class) as cnt,"
+      echo "    to_char(min(dt) over (partition by class), 'YYYY-MM-DD HH24:MI:SS') as mn,"
       echo "    to_char(max(dt) over (partition by class), 'YYYY-MM-DD HH24:MI:SS') as mx,"
       echo "    proj || ' @ ' || to_char(dt, 'YYYY-MM-DD HH24:MI:SS') || ': ' || left(replace(msg, E'\n', ' '), 180) as sample,"
       echo "    row_number() over (partition by class order by dt desc) as rn"
@@ -615,40 +619,42 @@ if run_section dblogs; then
       echo ") x where rn = 1;"
       echo "SQL"
     } | pg_script "$st" "$p" > "$f" || true
-    # counts per class -> severity (row: cnt|class|N|lastdt|sample)
-    while IFS='|' read -r tag class cntv lastdt smp; do
+    # counts per class -> severity (row: cnt|class|N|firstdt|lastdt|sample)
+    while IFS='|' read -r tag class cntv firstdt lastdt smp; do
       [ "$tag" = "cnt" ] || continue
+      span="between $firstdt and $lastdt"
       case "$class" in
-        panic)                    crit "[$st] gha_logs: $cntv panic/stacktrace/fatal-error line(s), last $lastdt; sample: $smp";;
-        sync_errors)              warn "[$st] gha_logs: $cntv 'There were sync errors' line(s), last $lastdt (overlap-guard exits also emit this); sample: $smp";;
-        git_repos_error)          warn "[$st] gha_logs: $cntv git-repos update error(s), last $lastdt; sample: $smp";;
-        ghapi2db_error)           warn "[$st] gha_logs: $cntv ghapi2db execution error(s), last $lastdt; sample: $smp";;
-        git_commits_error)        warn "[$st] gha_logs: $cntv git_commits.sh error(s), last $lastdt; sample: $smp";;
-        tx_commit_error)          warn "[$st] gha_logs: $cntv transaction commit error(s), last $lastdt; sample: $smp";;
-        sql_fail)                 warn "[$st] gha_logs: $cntv failed SQL/batch-insert/command line(s), last $lastdt; sample: $smp";;
-        pq_error)                 warn "[$st] gha_logs: $cntv PqError line(s), last $lastdt; sample: $smp";;
-        bad_connection)           warn "[$st] gha_logs: $cntv 'driver: bad connection' line(s), last $lastdt; sample: $smp";;
-        too_many_connections)     warn "[$st] gha_logs: $cntv 'too many connections' line(s), last $lastdt; sample: $smp";;
-        db_shutdown)              warn "[$st] gha_logs: $cntv DB-shutting-down line(s), last $lastdt; sample: $smp";;
-        addr_exhaustion)          warn "[$st] gha_logs: $cntv 'cannot assign requested address' line(s) (ephemeral port/conn exhaustion), last $lastdt; sample: $smp";;
-        deadlock)                 warn "[$st] gha_logs: $cntv deadlock(s) detected, last $lastdt; sample: $smp";;
-        connection_refused_reset) warn "[$st] gha_logs: $cntv connection refused/reset line(s), last $lastdt; sample: $smp";;
-        context_deadline)         warn "[$st] gha_logs: $cntv context-deadline-exceeded line(s), last $lastdt; sample: $smp";;
-        pg_fatal)                 warn "[$st] gha_logs: $cntv PG FATAL line(s), last $lastdt; sample: $smp";;
-        gh_api_abort)             warn "[$st] gha_logs: $cntv GitHub-API abort(s) (limit/abuse, gave up), last $lastdt; sample: $smp";;
-        gh_rate_limit)            note "[$st] gha_logs: $cntv GitHub abuse/rate-limit line(s) (self-healing waits), last $lastdt";;
-        timeout_kill)             warn "[$st] gha_logs: $cntv program-timeout kill(s) ('timeout signal after'), last $lastdt; sample: $smp";;
-        flag_clear_fail)          warn "[$st] gha_logs: $cntv running-flag clear failure(s), last $lastdt; sample: $smp";;
-        flag_missing)             warn "[$st] gha_logs: $cntv provisioned/running-flag problem line(s), last $lastdt; sample: $smp";;
-        overlap_guard)            note "[$st] gha_logs: $cntv overlap-guard exit(s) (benign: sync already running), last $lastdt";;
-        dice_skip)                note "[$st] gha_logs: $cntv sync_probabilty dice skip(s), last $lastdt";;
-        metric_no_data)           note "[$st] gha_logs: $cntv 'Metric returned no data' line(s) (usually benign), last $lastdt";;
-        http_json_error)          warn "[$st] gha_logs: $cntv HTTP-get/JSON-unmarshal error(s), last $lastdt; sample: $smp";;
-        data_conflict)            note "[$st] gha_logs: $cntv artificial/orphan event id conflict(s) (skipped rows), last $lastdt";;
-        nonfatal_error)           note "[$st] gha_logs: $cntv explicitly non-fatal/ignored error line(s), last $lastdt";;
-        go_warning)               note "[$st] gha_logs: $cntv 'Warning:' line(s) (mixed benign classes), last $lastdt";;
-        exit_status)              warn "[$st] gha_logs: $cntv 'exit status' line(s), last $lastdt; sample: $smp";;
-        generic_error)            note "[$st] gha_logs: $cntv other error-ish line(s), last $lastdt; sample: $smp";;
+        panic)                    crit "[$st] gha_logs: $cntv panic/stacktrace/fatal-error line(s), $span; sample: $smp";;
+        sync_errors)              warn "[$st] gha_logs: $cntv 'There were sync errors' line(s), $span (overlap-guard exits also emit this); sample: $smp";;
+        git_repos_error)          warn "[$st] gha_logs: $cntv git-repos update error(s), $span; sample: $smp";;
+        ghapi2db_error)           warn "[$st] gha_logs: $cntv ghapi2db execution error(s), $span; sample: $smp";;
+        git_commits_error)        warn "[$st] gha_logs: $cntv git_commits.sh error(s), $span; sample: $smp";;
+        tx_commit_error)          warn "[$st] gha_logs: $cntv transaction commit error(s), $span; sample: $smp";;
+        sql_fail)                 warn "[$st] gha_logs: $cntv failed SQL/batch-insert/command line(s), $span; sample: $smp";;
+        pq_error)                 warn "[$st] gha_logs: $cntv PqError line(s), $span; sample: $smp";;
+        bad_connection)           warn "[$st] gha_logs: $cntv 'driver: bad connection' line(s), $span; sample: $smp";;
+        too_many_connections)     warn "[$st] gha_logs: $cntv 'too many connections' line(s), $span; sample: $smp";;
+        db_shutdown)              warn "[$st] gha_logs: $cntv DB-shutting-down line(s), $span; sample: $smp";;
+        addr_exhaustion)          warn "[$st] gha_logs: $cntv 'cannot assign requested address' line(s) (ephemeral port/conn exhaustion), $span; sample: $smp";;
+        deadlock)                 warn "[$st] gha_logs: $cntv deadlock(s) detected, $span; sample: $smp";;
+        connection_refused_reset) warn "[$st] gha_logs: $cntv connection refused/reset line(s), $span; sample: $smp";;
+        context_deadline)         warn "[$st] gha_logs: $cntv context-deadline-exceeded line(s), $span; sample: $smp";;
+        pg_fatal)                 warn "[$st] gha_logs: $cntv PG FATAL line(s), $span; sample: $smp";;
+        gh_api_abort)             warn "[$st] gha_logs: $cntv GitHub-API abort(s) (tokens fully exhausted, gave up), $span; sample: $smp";;
+        gh_rate_limit)            ok "[$st] gha_logs: $cntv GitHub abuse/rate-limit line(s) (self-healing token switch/waits), $span";;
+        timeout_kill)             warn "[$st] gha_logs: $cntv program-timeout kill(s) ('timeout signal after'), $span; sample: $smp";;
+        flag_clear_fail)          warn "[$st] gha_logs: $cntv running-flag clear failure(s), $span; sample: $smp";;
+        flag_missing)             warn "[$st] gha_logs: $cntv provisioned/running-flag problem line(s), $span; sample: $smp";;
+        overlap_guard)            ok "[$st] gha_logs: $cntv overlap-guard exit(s) (benign: sync already running), $span";;
+        dice_skip)                ok "[$st] gha_logs: $cntv sync_probabilty dice skip(s), $span";;
+        metric_no_data)           ok "[$st] gha_logs: $cntv 'Metric returned no data' line(s) (usually benign), $span";;
+        http_json_error)          warn "[$st] gha_logs: $cntv HTTP-get/JSON-unmarshal error(s), $span; sample: $smp";;
+        data_conflict)            note "[$st] gha_logs: $cntv artificial/orphan event id conflict(s) (skipped rows), $span";;
+        nonfatal_error)           note "[$st] gha_logs: $cntv explicitly non-fatal/ignored error line(s), $span";;
+        go_warning)               note "[$st] gha_logs: $cntv 'Warning:' line(s) (mixed benign classes), $span";;
+        git_noise)                ok "[$st] gha_logs: $cntv gitListCommits-failed line(s) (normal git noise), $span";;
+        exit_status)              warn "[$st] gha_logs: $cntv 'exit status' line(s), $span; sample: $smp";;
+        generic_error)            note "[$st] gha_logs: $cntv other error-ish line(s), $span; sample: $smp";;
       esac
     done < <(grep '^cnt|' "$f" || true)
     grep -q '^cnt|' "$f" || ok "[$st] gha_logs: no error-class matches in last ${DBLOGS_HOURS}h"
@@ -1025,8 +1031,8 @@ if run_section web; then
     case "$code" in
       200|301|302|303|307|308|401) 
         [ "${ts:-0}" -ge 10 ] && note "https://$h slow: ${t}s (HTTP $code)" || ok "https://$h HTTP $code (${t}s)";;
-      000) if known_down "$h"; then note "https://$h unreachable (known-down: awaiting DNS flip / expected)"; else crit "https://$h UNREACHABLE (timeout/conn failure)"; fi;;
-      *) if known_down "$h"; then note "https://$h HTTP $code (known-down family)"; else warn "https://$h HTTP $code"; fi;;
+      000) if archived_host "$h"; then ok "https://$h unreachable (archived project - no instance expected)"; elif known_down "$h"; then note "https://$h unreachable (KNOWN_DOWN_HOSTS_RE match)"; else crit "https://$h UNREACHABLE (timeout/conn failure)"; fi;;
+      *) if archived_host "$h"; then ok "https://$h HTTP $code (archived project - no instance expected)"; elif known_down "$h"; then note "https://$h HTTP $code (KNOWN_DOWN_HOSTS_RE match)"; else warn "https://$h HTTP $code"; fi;;
     esac
   done < "$TMPD/webout.txt"
   # grafana deployments health per stage
@@ -1133,7 +1139,7 @@ if run_section certs; then
     [ -z "$name" ] && continue
     a=$(age_h "$(iso2epoch "$created")")
     if [ "$a" -ge 2 ]; then
-      if known_down "$host"; then note "stuck ACME challenge for known-down host $host ($(hfmt $a) old, expected until DNS flip)"; else warn "stuck ACME challenge: ingress $ns/$name for $host ($(hfmt $a) old) - cert order not completing"; fi
+      if archived_host "$host"; then ok "stuck ACME challenge for archived-project host $host ($(hfmt $a) old)"; elif known_down "$host"; then note "stuck ACME challenge for host $host ($(hfmt $a) old, KNOWN_DOWN_HOSTS_RE match)"; else warn "stuck ACME challenge: ingress $ns/$name for $host ($(hfmt $a) old) - cert order not completing"; fi
     else
       note "active ACME challenge for $host"
     fi
@@ -1151,12 +1157,12 @@ if run_section dns; then
   declare -A APEX=()
   for fam in devstats.cncf.io teststats.cncf.io devstats.cd.foundation devstats.graphql.org; do
     ip="$(resolve_a "$fam")"
-    if [ -n "$ip" ]; then APEX[$fam]="$ip"; ok "apex $fam -> $ip"; elif known_down "$fam"; then note "apex $fam does not resolve (known-down: awaiting DNS flip)"; else crit "apex $fam does not resolve"; fi
+    if [ -n "$ip" ]; then APEX[$fam]="$ip"; ok "apex $fam -> $ip"; elif known_down "$fam"; then note "apex $fam does not resolve (KNOWN_DOWN_HOSTS_RE match)"; else crit "apex $fam does not resolve"; fi
   done
   export -f resolve_a
   xargs -n1 -P "$PAR" -I{} bash -c 'echo "{}|$(resolve_a "{}")"' < "$HOSTS_FILE" > "$TMPD/dnsout.txt" 2>/dev/null
   while IFS='|' read -r h ip; do
-    if [ -z "$ip" ]; then if known_down "$h"; then note "host $h does not resolve (known-down)"; else crit "host $h does NOT resolve"; fi; continue; fi
+    if [ -z "$ip" ]; then if archived_host "$h"; then ok "host $h does not resolve (archived project)"; elif known_down "$h"; then note "host $h does not resolve (KNOWN_DOWN_HOSTS_RE match)"; else crit "host $h does NOT resolve"; fi; continue; fi
     fam=""
     case "$h" in
       *teststats.cncf.io) fam=teststats.cncf.io;;
