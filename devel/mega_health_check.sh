@@ -418,12 +418,13 @@ if run_section cjlogs && [ "$LOGS_MODE" != "off" ]; then
       crits="$(grep -cE 'panic:|fatal error:|There were sync errors|Error updating git repos' "$lf" || true)"
       warns="$(grep -cE 'FATAL:|driver: bad connection|command failed|exit status [1-9]' "$lf" || true)"
       dice="$(grep -cE '^([0-9: -]+/devstats: )?Skipping #[0-9]+ ' "$lf" || true)"
-      guard="$(grep -cE 'Running flag on .* set, exiting' "$lf" || true)"
+      guard="$(grep -cE 'Running flag on .* set, exiting|Not all databases provisioned, pending: [0-9]+, exiting' "$lf" || true)"
       if [ "${guard:-0}" -gt 0 ]; then
-        # overlap-guard exit: 'There were sync errors' emitted by design when refusing to overlap - benign
+        # overlap/provision-guard exit: 'There were sync errors' emitted by design when refusing to run
+        # (another sync holds the running flag, or an affs-import/provisioning window cleared 'provisioned')
         se="$(grep -cE 'There were sync errors' "$lf" || true)"
         crits=$(( crits - se )); [ "$crits" -lt 0 ] && crits=0
-        ok "[$st] CJ $cj: overlap-guard exit (another sync already running) in last run"
+        ok "[$st] CJ $cj: overlap/provision-guard exit (another sync or affs-import owns the DB) in last run"
       fi
       if [ "${crits:-0}" -gt 0 ]; then
         crit "[$st] CJ $cj: log has $crits critical error line(s); first: $(grep -m1 -E 'panic:|fatal error:|There were sync errors|Error updating git repos' "$lf" | head -c 220)"
@@ -594,7 +595,8 @@ if run_section dblogs; then
       echo "      when msg like '%API limit reached%' or msg like '%abuse detected%' or msg ilike '%rate limit%' or msg like '%GetRateLimit call failed%' then 'gh_rate_limit'"
       echo "      when msg like '%timeout signal after%' then 'timeout_kill'"
       echo "      when msg like '%Failed to clear running flag%' then 'flag_clear_fail'"
-      echo "      when msg like '%Missing provisioned flag%' or msg like '%cannot check running flag%' or msg like '%cannot set running flag%' then 'flag_missing'"
+      echo "      when msg like '%Missing provisioned flag%' or msg like '%Not all databases provisioned%' then 'provision_guard'"
+      echo "      when msg like '%cannot check running flag%' or msg like '%cannot set running flag%' then 'flag_missing'"
       echo "      when msg like '%Running flag on%set, exiting%' or msg like '%instance is running, PID file%' then 'overlap_guard'"
       echo "      when msg like '%Skipping #%' then 'dice_skip'"
       echo "      when msg like '%Metric returned no data%' then 'metric_no_data'"
@@ -625,7 +627,7 @@ if run_section dblogs; then
       span="between $firstdt and $lastdt"
       case "$class" in
         panic)                    crit "[$st] gha_logs: $cntv panic/stacktrace/fatal-error line(s), $span; sample: $smp";;
-        sync_errors)              warn "[$st] gha_logs: $cntv 'There were sync errors' line(s), $span (overlap-guard exits also emit this); sample: $smp";;
+        sync_errors)              warn "[$st] gha_logs: $cntv 'There were sync errors' line(s), $span (overlap/provision-guard exits also emit this); sample: $smp";;
         git_repos_error)          warn "[$st] gha_logs: $cntv git-repos update error(s), $span; sample: $smp";;
         ghapi2db_error)           warn "[$st] gha_logs: $cntv ghapi2db execution error(s), $span; sample: $smp";;
         git_commits_error)        warn "[$st] gha_logs: $cntv git_commits.sh error(s), $span; sample: $smp";;
@@ -644,7 +646,8 @@ if run_section dblogs; then
         gh_rate_limit)            ok "[$st] gha_logs: $cntv GitHub abuse/rate-limit line(s) (self-healing token switch/waits), $span";;
         timeout_kill)             warn "[$st] gha_logs: $cntv program-timeout kill(s) ('timeout signal after'), $span; sample: $smp";;
         flag_clear_fail)          warn "[$st] gha_logs: $cntv running-flag clear failure(s), $span; sample: $smp";;
-        flag_missing)             warn "[$st] gha_logs: $cntv provisioned/running-flag problem line(s), $span; sample: $smp";;
+        provision_guard)          ok "[$st] gha_logs: $cntv provision-guard line(s) (benign: affs-import/provisioning window; flags section checks current state), $span";;
+        flag_missing)             warn "[$st] gha_logs: $cntv running-flag check/set problem line(s), $span; sample: $smp";;
         overlap_guard)            ok "[$st] gha_logs: $cntv overlap-guard exit(s) (benign: sync already running), $span";;
         dice_skip)                ok "[$st] gha_logs: $cntv sync_probabilty dice skip(s), $span";;
         metric_no_data)           ok "[$st] gha_logs: $cntv 'Metric returned no data' line(s) (usually benign), $span";;
