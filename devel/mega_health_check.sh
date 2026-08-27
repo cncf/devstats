@@ -174,6 +174,26 @@ ctx() {
 kc() { local st="$1"; shift; kubectl $(ctx "$st") -n "devstats-$st" "$@"; }
 kca() { local st="$1"; shift; kubectl $(ctx "$st") "$@"; }
 
+# WAN-flakiness hardening: the API path from the workstation can drop http2 connections /
+# lose packets while the cluster itself is healthy - never let one failed call fake a result.
+retry3() {  # retry3 <cmd...> -> 0 if any of 3 attempts succeeds
+  local try
+  for try in 1 2 3; do "$@" >/dev/null 2>&1 && return 0; sleep 3; done
+  return 1
+}
+kjson() {  # kjson <outfile> <kubectl-args...> -> retried '-o json' list fetch validated with jq
+  local out="$1" try; shift
+  for try in 1 2 3; do
+    if kubectl "$@" -o json > "$out" 2>/dev/null && jq -e '.items' "$out" >/dev/null 2>&1; then
+      return 0
+    fi
+    dbg "kjson retry $try failed: kubectl $*"
+    sleep 3
+  done
+  echo '{"items":[]}' > "$out"
+  return 1
+}
+
 primary_pod() {  # patroni primary pod in stage
   kc "$1" get pods -l role=primary,type=postgres -o jsonpath='{.items[0].metadata.name}' 2>/dev/null
 }
@@ -209,24 +229,28 @@ declare -A PRIMARY=()
 if run_section preflight; then
   section preflight "kubernetes API + contexts + primary PG pods + metrics-server"
   for st in $STAGES; do
-    if kca "$st" get --raw /readyz >/dev/null 2>&1; then ok "[$st] apiserver /readyz"; else crit "[$st] apiserver /readyz failed"; fi
-    if kca "$st" get --raw /livez >/dev/null 2>&1; then ok "[$st] apiserver /livez"; else warn "[$st] apiserver /livez failed"; fi
+    if retry3 kca "$st" get --raw /readyz; then ok "[$st] apiserver /readyz"; else crit "[$st] apiserver /readyz failed (3 attempts)"; fi
+    if retry3 kca "$st" get --raw /livez; then ok "[$st] apiserver /livez"; else warn "[$st] apiserver /livez failed (3 attempts)"; fi
     p="$(primary_pod "$st")"
     if [ -n "$p" ]; then PRIMARY[$st]="$p"; ok "[$st] patroni primary pod: $p"; else crit "[$st] cannot resolve patroni primary pod (label role=primary,type=postgres)"; fi
   done
-  if kubectl top nodes >/dev/null 2>&1; then ok "metrics-server responds (kubectl top nodes)"; else warn "metrics-server not responding - node/pod usage checks degraded"; fi
+  if retry3 kubectl top nodes; then ok "metrics-server responds (kubectl top nodes)"; else warn "metrics-server not responding (3 attempts) - node/pod usage checks degraded"; fi
 fi
 
 # ------------------------------------------------------------------------------------------------------- nodes -----
 NODES_LIST="${NODES:-}"
 if [ -z "$NODES_LIST" ]; then
-  NODES_LIST="$(kubectl get nodes -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)"
+  for _try in 1 2 3; do
+    NODES_LIST="$(kubectl get nodes -o jsonpath='{.items[*].metadata.name}' 2>/dev/null)"
+    [ -n "$NODES_LIST" ] && break
+    sleep 3
+  done
 fi
 if run_section nodes; then
   section nodes "node readiness, conditions, versions, usage, pods-per-node"
-  kubectl get nodes -o json > "$TMPD/nodes.json" 2>/dev/null
+  kjson "$TMPD/nodes.json" get nodes
   nnodes="$(jq '.items|length' "$TMPD/nodes.json" 2>/dev/null || echo 0)"
-  [ "$nnodes" = "0" ] && crit "no nodes returned by kubectl get nodes"
+  [ "$nnodes" = "0" ] && crit "no nodes returned by kubectl get nodes (3 attempts)"
   while IFS='|' read -r name ready sched kubelet; do
     [ -z "$name" ] && continue
     if [ "$ready" = "True" ]; then ok "node $name Ready (kubelet $kubelet)"; else crit "node $name NOT Ready (Ready=$ready)"; fi
@@ -247,7 +271,7 @@ if run_section nodes; then
     if [ "${mpv:-0}" -ge "$MEM_WARN" ] 2>/dev/null; then warn "node $name MEM at $memp"; fi
   done < "$TMPD/topnodes.txt"
   # pods per node
-  kubectl get pods -A -o json > "$TMPD/allpods.json" 2>/dev/null
+  kjson "$TMPD/allpods.json" get pods -A
   while read -r cnt node; do
     [ -z "${node:-}" ] && continue
     if [ "$cnt" -gt "$PODS_MAX" ]; then warn "node $node runs $cnt pods (> $PODS_MAX)"
@@ -259,7 +283,7 @@ fi
 # -------------------------------------------------------------------------------------------------------- pods -----
 if run_section pods; then
   section pods "pod health, restarts, pending PVCs, completed pile-up, warning events"
-  [ -f "$TMPD/allpods.json" ] || kubectl get pods -A -o json > "$TMPD/allpods.json" 2>/dev/null
+  [ -f "$TMPD/allpods.json" ] || kjson "$TMPD/allpods.json" get pods -A
   # non-healthy pods
   bad=0
   while IFS='|' read -r ns name phase reason; do
@@ -284,7 +308,7 @@ if run_section pods; then
     if [ "$cnt" -gt 300 ]; then note "$ns has $cnt Completed pods (pile-up)"; else ok "$ns Completed pods: $cnt"; fi
   done < <(jq -r '.items[] | select(.status.phase=="Succeeded") | .metadata.namespace' "$TMPD/allpods.json" | sort | uniq -c | awk '{print $1" "$2}')
   # pending PVCs
-  kubectl get pvc -A -o json > "$TMPD/pvcs.json" 2>/dev/null
+  kjson "$TMPD/pvcs.json" get pvc -A
   pend=0
   while IFS='|' read -r ns name ph; do
     [ -z "$name" ] && continue
@@ -293,7 +317,7 @@ if run_section pods; then
   done < <(jq -r '.items[] | "\(.metadata.namespace)|\(.metadata.name)|\(.status.phase)"' "$TMPD/pvcs.json")
   [ "$pend" = "0" ] && ok "all PVCs Bound ($(jq '.items|length' "$TMPD/pvcs.json"))"
   # recent warning events (2h)
-  kubectl get events -A -o json > "$TMPD/events.json" 2>/dev/null
+  kjson "$TMPD/events.json" get events -A
   ev="$(jq -r --argjson now "$NOW_EPOCH" '[.items[] | select(.type=="Warning") | (.lastTimestamp // .eventTime // .metadata.creationTimestamp) as $t | select($t != null)] | length' "$TMPD/events.json" 2>/dev/null || echo 0)"
   recent="$(jq -r '[.items[] | select(.type=="Warning")] | group_by(.reason) | map({r: .[0].reason, c: length}) | sort_by(-.c) | .[0:8][] | "\(.r)=\(.c)"' "$TMPD/events.json" 2>/dev/null | tr '\n' ' ')"
   if [ "${ev:-0}" -gt 0 ]; then note "warning events present: $ev (reasons: $recent)"; else ok "no warning events"; fi
@@ -304,16 +328,8 @@ fi
 declare -A CJJSON=() JOBSJSON=()
 # json list fetch with retries - single http2 drops must not silently yield empty lists
 kcj() {  # kcj <stage> <outfile> <kubectl-get-args...> -> 0 on valid json with .items
-  local st="$1" out="$2" try; shift 2
-  for try in 1 2 3; do
-    if kc "$st" get "$@" -o json > "$out" 2>/dev/null && jq -e '.items' "$out" >/dev/null 2>&1; then
-      return 0
-    fi
-    dbg "kcj retry $try failed: $st get $*"
-    sleep 2
-  done
-  echo '{"items":[]}' > "$out"
-  return 1
+  local st="$1" out="$2"; shift 2
+  kjson "$out" $(ctx "$st") -n "devstats-$st" get "$@"
 }
 collect_cj() {
   local st="$1"
@@ -846,7 +862,7 @@ fi
 declare -A PV_BY_NODE=()
 if run_section storage; then
   section storage "PV/PVC health, placements per node, capacities, openebs"
-  kubectl get pv -o json > "$TMPD/pvs.json" 2>/dev/null
+  kjson "$TMPD/pvs.json" get pv
   npv="$(jq '.items|length' "$TMPD/pvs.json")"
   ok "$npv PVs total"
   while IFS='|' read -r name phase; do
@@ -874,9 +890,9 @@ if run_section clones; then
     awk '/^  [a-z0-9_-]+:$/{gsub(/[: ]/,""); p=$0} /^    main_repo: /{gsub(/'"'"'/,""); print p"|"$2}' projects.yaml > "$TMPD/mainrepos.txt"
     [ -f ../devstats-docker-images/devstats-helm/projects.yaml ] && \
       awk '/^  [a-z0-9_-]+:$/{gsub(/[: ]/,""); p=$0} /^    main_repo: /{gsub(/'"'"'/,""); print p"|"$2}' ../devstats-docker-images/devstats-helm/projects.yaml >> "$TMPD/mainrepos.txt"
-    kubectl get pv -o json > "$TMPD/pvs.json" 2>/dev/null
+    kjson "$TMPD/pvs.json" get pv
     for st in $STAGES; do
-      kc "$st" get pvc -o json > "$TMPD/pvc-$st.json" 2>/dev/null
+      kcj "$st" "$TMPD/pvc-$st.json" pvc
       : > "$TMPD/clonechk-$st.txt"   # node|path|proj|main_repo
       while IFS='|' read -r pvc vol; do
         case "$pvc" in devstats-pvc-*) proj="${pvc#devstats-pvc-}";; *) continue;; esac
@@ -1128,7 +1144,7 @@ fi
 # ------------------------------------------------------------------------------------------------------- certs -----
 if run_section certs; then
   section certs "TLS secret expiries, live endpoint certs, stuck ACME challenges"
-  kubectl get secret -A --field-selector type=kubernetes.io/tls -o json > "$TMPD/tls.json" 2>/dev/null
+  kjson "$TMPD/tls.json" get secret -A --field-selector type=kubernetes.io/tls
   nsec="$(jq '.items|length' "$TMPD/tls.json")"
   ok "$nsec TLS secrets found"
   while IFS='|' read -r ns name crt; do
