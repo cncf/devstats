@@ -25,7 +25,7 @@
 #   ONLY="patroni,web"        run only listed sections
 #   SKIP="cjlogs,clones"      skip listed sections
 # Sections:
-#   tools preflight nodes pods cronjobs cjlogs sync affs flags dblogs patroni storage clones nodesys web backups certs dns
+#   tools preflight nodes pods cronjobs cjlogs sync affs flags dblogs durations patroni storage clones nodesys web backups certs dns
 #
 # Tunables (env):
 #   PAR=16                    parallelism for curl/dns checks       LOGS_PAR=8       parallelism for log scans
@@ -44,7 +44,10 @@
 #   CONN_WARN_PCT=80          connections vs max_connections        SKEW_WARN=5      clock skew seconds
 #   RESTARTS_WARN=50          container restarts                    HTTP_TIMEOUT=15  per-request curl timeout
 #   RECOMPRESS_MAX_DAYS=35    max age of last btrfs-recompress run
-#   DBLOGS_HOURS=168          gha_logs error-class scan window (hours, default one week)
+#   DBLOGS_HOURS=all          gha_logs scan window for dblogs+durations sections: 'all' (default) = every retained
+#                             log row (gha_logs has its own DB-side retention), or a number of hours to narrow
+#   DUR_FLEET_MULT=5          durations: NOTE when a project's avg runtime for a prog exceeds this multiple of the
+#                             fleet median avg for the same prog (and is >= 10 minutes)
 #   IMPORT_AFFS_WARN=27       max age (hours) of last shared affiliations import log activity
 #   KNOWN_DOWN_HOSTS_RE=...   optional: hosts matching this regex report as NOTE instead of WARN/CRIT in web/certs/dns (default: unset - all failures are real issues)
 #                             (default: graphql.org family awaiting DNS flip to Linode)
@@ -95,7 +98,15 @@ HTTP_TIMEOUT="${HTTP_TIMEOUT:-15}"
 RECOMPRESS_MAX_DAYS="${RECOMPRESS_MAX_DAYS:-35}"
 PG_CONTAINER="${PG_CONTAINER:-devstats-postgres}"
 PG_USER="${PG_USER:-gha_admin}"
-DBLOGS_HOURS="${DBLOGS_HOURS:-168}"
+DBLOGS_HOURS="${DBLOGS_HOURS:-all}"
+if [ "$DBLOGS_HOURS" = "all" ] || [ "$DBLOGS_HOURS" = "0" ]; then
+  DBLOGS_PRED="true"           # gha_logs has its own retention - scan everything it still holds
+  DBLOGS_DESC="all retained logs"
+else
+  DBLOGS_PRED="dt > now() - interval '${DBLOGS_HOURS} hours'"
+  DBLOGS_DESC="last ${DBLOGS_HOURS}h"
+fi
+DUR_FLEET_MULT="${DUR_FLEET_MULT:-5}"
 IMPORT_AFFS_WARN="${IMPORT_AFFS_WARN:-27}"
 # hosts expected down (graphql.org family awaits DNS flip to Linode; Cloudflare TLS fails until then)
 KNOWN_DOWN_HOSTS_RE="${KNOWN_DOWN_HOSTS_RE:-}"
@@ -161,6 +172,12 @@ ngx2epoch() {
 }
 age_h() { echo $(( (NOW_EPOCH - $1) / 3600 )); }
 hfmt() { local h=$1; if [ "$h" -ge 48 ]; then echo "$((h/24))d$((h%24))h"; else echo "${h}h"; fi; }
+sfmt() {  # seconds -> human duration (12s / 34m56s / 5h21m)
+  local s=$1
+  if [ "$s" -ge 3600 ]; then echo "$((s/3600))h$(( (s%3600)/60 ))m"
+  elif [ "$s" -ge 60 ]; then echo "$((s/60))m$((s%60))s"
+  else echo "${s}s"; fi
+}
 
 # ctx <stage> -> kubectl context args (falls back to current context if named context is absent)
 ctx() {
@@ -598,7 +615,7 @@ fi
 # ------------------------------------------------------------------------------------------------------ dblogs -----
 # deep scan of gha_logs (devstats DB) for every error class observed so far + devstats/affiliations DB sanity
 if run_section dblogs; then
-  section dblogs "gha_logs error-class scan (${DBLOGS_HOURS}h) + devstats gha_computed/gha_locks + affiliations DB deep sanity"
+  section dblogs "gha_logs error-class scan ($DBLOGS_DESC) + devstats gha_computed/gha_locks + affiliations DB deep sanity"
   for st in $STAGES; do
     p="${PRIMARY[$st]:-$(primary_pod "$st")}"
     [ -z "$p" ] && { crit "[$st] no primary PG pod - dblogs skipped"; continue; }
@@ -641,7 +658,7 @@ if run_section dblogs; then
       echo "      when msg like '%exit status%' then 'exit_status'"
       echo "      when msg ilike '%error%' and msg not ilike '%0 errors%' and msg not ilike '%errors=0%' then 'generic_error'"
       echo "    end as class"
-      echo "  from gha_logs where dt > now() - interval '${DBLOGS_HOURS} hours'"
+      echo "  from gha_logs where ${DBLOGS_PRED}"
       echo ")"
       echo "select 'cnt', class, cnt, mn, mx, sample from ("
       echo "  select class,"
@@ -693,8 +710,8 @@ if run_section dblogs; then
         generic_error)            note "[$st] gha_logs: $cntv other error-ish line(s), $span; sample: $smp";;
       esac
     done < <(grep '^cnt|' "$f" || true)
-    grep -q '^cnt|' "$f" || ok "[$st] gha_logs: no error-class matches in last ${DBLOGS_HOURS}h"
-    ok "[$st] gha_logs error-class scan done (window ${DBLOGS_HOURS}h)"
+    grep -q '^cnt|' "$f" || ok "[$st] gha_logs: no error-class matches ($DBLOGS_DESC)"
+    ok "[$st] gha_logs error-class scan done ($DBLOGS_DESC)"
     # devstats DB gha_computed flags/locks ages
     f2="$TMPD/dblogs-computed-$st.txt"
     {
@@ -733,7 +750,7 @@ if run_section dblogs; then
     {
       echo "psql -U $PG_USER -d devstats -tA -F'|' <<'SQL'"
       echo "select coalesce(extract(epoch from now() - max(dt))::bigint, -1),"
-      echo "       count(*) filter (where msg ilike '%error%' and msg not ilike '%0 errors%' and dt > now() - interval '${DBLOGS_HOURS} hours')"
+      echo "       count(*) filter (where msg ilike '%error%' and msg not ilike '%0 errors%' and ${DBLOGS_PRED})"
       echo "from gha_logs where prog = 'import_affs';"
       echo "SQL"
     } | pg_script "$st" "$p" > "$f3" || true
@@ -743,7 +760,7 @@ if run_section dblogs; then
     else
       ih=$(( impage / 3600 ))
       [ "$ih" -gt "$IMPORT_AFFS_WARN" ] && warn "[$st] shared affiliations import: last gha_logs activity $(hfmt $ih) ago (> ${IMPORT_AFFS_WARN}h)" || ok "[$st] shared affiliations import active $(hfmt $ih) ago"
-      [ "${imperrs:-0}" -gt 0 ] && warn "[$st] shared affiliations import: $imperrs error line(s) in last ${DBLOGS_HOURS}h" || ok "[$st] shared affiliations import: no errors in last ${DBLOGS_HOURS}h"
+      [ "${imperrs:-0}" -gt 0 ] && warn "[$st] shared affiliations import: $imperrs error line(s) ($DBLOGS_DESC)" || ok "[$st] shared affiliations import: no errors ($DBLOGS_DESC)"
     fi
     # affiliations DB deep sanity: all 12 tables + referential/temporal/duplicate checks
     f4="$TMPD/dblogs-affdb-$st.txt"
@@ -788,6 +805,99 @@ if run_section dblogs; then
         esac
       done < "$f4"
     fi
+  done
+fi
+
+# --------------------------------------------------------------------------------------------------- durations -----
+# per-(proj, prog) run-duration statistics from gha_logs: every devstats tool logs all lines of one run with the
+# same run_dt (= program start), so duration = max(dt) - run_dt per (proj, prog, run_dt) group. We compute
+# min/avg/stddev/p95/max per (proj, prog) and flag anomalies three ways:
+#   1. absolute per-prog thresholds (note/warn/crit) - judged per tool class:
+#      - gha2db_sync/devstats are wrappers (full sync incl. child tools) - long is normal, only very long is bad
+#      - ghapi2db/gha2db/get_repos are API/backfill-bound - hours are plausible for giant projects
+#      - calc_metric runs once per metric - a single metric taking >30m is outstanding
+#   2. own-history outlier: max > avg + 3*stddev (n>=8 runs, and max also >= max(10m, note-threshold/4) so that
+#      statistically-significant-but-absolutely-tiny spikes of small projects don't spam the report)
+#   3. fleet outlier: project's avg > DUR_FLEET_MULT x fleet median avg for the same prog (avg >= 10m)
+# prog='api' is excluded (long-lived API server daemon, run_dt = server start, not a batch run).
+if run_section durations; then
+  section durations "per-project per-program run durations from gha_logs ($DBLOGS_DESC) - anomaly scan"
+  for st in $STAGES; do
+    p="${PRIMARY[$st]:-$(primary_pod "$st")}"
+    [ -z "$p" ] && { crit "[$st] no primary PG pod - durations skipped"; continue; }
+    f="$TMPD/durations-$st.txt"
+    {
+      echo "psql -U $PG_USER -d devstats -qtA -F'|' <<'SQL'"
+      echo "with runs as ("
+      echo "  select proj, prog, run_dt, extract(epoch from max(dt) - run_dt) as dur, max(dt) as last_dt"
+      echo "  from gha_logs"
+      echo "  where proj <> '' and prog <> '' and prog <> 'api' and ${DBLOGS_PRED}"
+      echo "  group by proj, prog, run_dt"
+      echo "), stats as ("
+      echo "  select proj, prog, count(*) as n,"
+      echo "    min(dur)::bigint as mn, avg(dur)::bigint as av, coalesce(stddev(dur), 0)::bigint as sd,"
+      echo "    percentile_cont(0.95) within group (order by dur)::bigint as p95, max(dur)::bigint as mx,"
+      echo "    (array_agg(to_char(run_dt, 'MM-DD HH24:MI') order by dur desc))[1] as mx_start,"
+      echo "    ((array_agg(run_dt order by run_dt desc))[1] = (array_agg(run_dt order by dur desc))[1]"
+      echo "     and (array_agg(last_dt order by run_dt desc))[1] > now() - interval '20 minutes') as maybe_running"
+      echo "  from runs group by proj, prog"
+      echo "), fleet as ("
+      echo "  select prog, percentile_cont(0.5) within group (order by av)::bigint as med_av,"
+      echo "    count(*) as nproj, max(mx)::bigint as fleet_mx"
+      echo "  from stats group by prog"
+      echo ")"
+      echo "select 'dur', s.proj, s.prog, s.n, s.mn, s.av, s.sd, s.p95, s.mx, s.mx_start,"
+      echo "  case when s.maybe_running then 'r' else '-' end, f.med_av,"
+      echo "  case when s.n >= 8 and s.sd > 0 and s.mx > s.av + 3 * s.sd and s.mx >= 300 then 'h' else '-' end"
+      echo "from stats s join fleet f using (prog)"
+      echo "union all"
+      echo "select 'fleet', prog, '', nproj, 0, med_av, 0, 0, fleet_mx, '', '', 0, ''"
+      echo "from fleet"
+      echo "order by 1, 9 desc, 2, 3;"
+      echo "SQL"
+    } | pg_script "$st" "$p" > "$f" || true
+    if ! grep -q '^dur|' "$f"; then
+      warn "[$st] durations: no per-run data extracted from gha_logs ($DBLOGS_DESC)"
+      continue
+    fi
+    ndur=0
+    while IFS='|' read -r tag proj prog n mn av sd p95 mx mxstart runningf medav histf; do
+      [ "$tag" = "dur" ] || continue
+      archived_db "$proj" && continue
+      ndur=$((ndur+1))
+      # absolute thresholds (seconds): note / warn / crit per tool class
+      case "$prog" in
+        gha2db_sync|devstats)          tn=21600; tw=43200; tc=64800;;   # wrappers: 6h/12h/18h
+        ghapi2db)                      tn=10800; tw=21600; tc=43200;;   # API-bound: 3h/6h/12h
+        gha2db)                        tn=7200;  tw=21600; tc=43200;;   # backfills: 2h/6h/12h
+        get_repos)                     tn=7200;  tw=14400; tc=43200;;   # clones+orphans: 2h/4h/12h
+        structure)                     tn=3600;  tw=10800; tc=21600;;   # 1h/3h/6h (allprj ~1.3h is known-heavy)
+        calc_metric)                   tn=1800;  tw=5400;  tc=14400;;   # single metric: 30m/1.5h/4h
+        import_affs|merge_dbs|sqlitedb) tn=21600; tw=86400; tc=172800;; # monthly/one-off giants: 6h/24h/48h
+        *)                             tn=1800;  tw=7200;  tc=21600;;   # columns/tags/annotations/vars/...: 30m/2h/6h
+      esac
+      run_note=""
+      [ "$runningf" = "r" ] && run_note=" (latest run may still be running)"
+      det="$n run(s), min $(sfmt $mn), avg $(sfmt $av) ±$(sfmt $sd), p95 $(sfmt $p95), max $(sfmt $mx) (started $mxstart)$run_note"
+      if [ "$mx" -ge "$tc" ]; then
+        crit "[$st] durations: $proj/$prog outstandingly long run: $det"
+      elif [ "$mx" -ge "$tw" ]; then
+        warn "[$st] durations: $proj/$prog very long run: $det"
+      elif [ "$mx" -ge "$tn" ]; then
+        note "[$st] durations: $proj/$prog long run: $det"
+      elif [ "$histf" = "h" ] && [ "$mx" -ge $((tn / 4)) ] && [ "$mx" -ge 600 ]; then
+        note "[$st] durations: $proj/$prog historical outlier (max >> avg+3σ): $det"
+      elif [ "${medav:-0}" -gt 0 ] && [ "$av" -ge $((medav * DUR_FLEET_MULT)) ] && [ "$av" -ge 600 ]; then
+        note "[$st] durations: $proj/$prog fleet outlier: avg $(sfmt $av) >= ${DUR_FLEET_MULT}x fleet median avg $(sfmt $medav) for $prog; $det"
+      else
+        ok "[$st] durations: $proj/$prog: $det"
+      fi
+    done < <(grep '^dur|' "$f")
+    while IFS='|' read -r tag prog _ nproj _ medav _ _ fleetmx _; do
+      [ "$tag" = "fleet" ] || continue
+      ok "[$st] durations fleet: $prog over $nproj project(s): median avg $(sfmt $medav), fleet max $(sfmt $fleetmx)"
+    done < <(grep '^fleet|' "$f")
+    ok "[$st] durations: analyzed $ndur (proj, prog) pair(s) ($DBLOGS_DESC)"
   done
 fi
 
