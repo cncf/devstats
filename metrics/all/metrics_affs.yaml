@@ -137,6 +137,7 @@ metrics:
       wasmedgeruntime: wasmedge
       vscodekubernetestools: vscodek8stools
       cubefs: chubaofs
+      openworkflowspecification: serverlessworkflow
       opengitops: gitopswg
       tokenetes: tratteria
       openpolicyagent: opa

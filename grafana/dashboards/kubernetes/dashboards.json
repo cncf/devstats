@@ -888,8 +888,8 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Serverless Workflow",
-      "tooltip": "Opens Serverless Workflow projects dashboards",
+      "title": "Open Workflow Specification",
+      "tooltip": "Opens Open Workflow Specification projects dashboards",
       "type": "link",
       "url": "https://serverlessworkflow.[[hostname]]"
     },

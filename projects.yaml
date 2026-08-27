@@ -936,7 +936,7 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   serverlessworkflow:
     order: 64
-    name: Serverless Workflow
+    name: Open Workflow Specification
     status: Sandbox
     command_line:
       - serverlessworkflow,open-workflow-specification

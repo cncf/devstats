@@ -141,7 +141,7 @@ select
   round(hll_cardinality(hll_union_agg(s."kube-rs"))) as "kube-rs",
   round(hll_cardinality(hll_union_agg(s."Virtual Kubelet"))) as "Virtual Kubelet",
   round(hll_cardinality(hll_union_agg(s."K8GB"))) as "K8GB",
-  round(hll_cardinality(hll_union_agg(s."Serverless Workflow"))) as "Serverless Workflow",
+  round(hll_cardinality(hll_union_agg(s."Open Workflow Specification"))) as "Open Workflow Specification",
   round(hll_cardinality(hll_union_agg(s."DevSpace"))) as "DevSpace",
   round(hll_cardinality(hll_union_agg(s."Nocalhost"))) as "Nocalhost",
   round(hll_cardinality(hll_union_agg(s."Logging Operator"))) as "Logging Operator",

@@ -717,11 +717,11 @@ where
   or name in ('pingcap/chaos-mesh')
 ;
 
--- Serverless Workflow
+-- Open Workflow Specification
 update
   gha_repos
 set
-  repo_group = 'Serverless Workflow'
+  repo_group = 'Open Workflow Specification'
 where
   org_login in ('serverlessworkflow', 'open-workflow-specification')
   or name in ('cncf/wg-serverless-workflow')
