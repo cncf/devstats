@@ -4,7 +4,8 @@
 -- row identity (event_id, body, created_at) so partial per-event rows heal; empty (truncated)
 -- table => full rebuild; re-runs insert nothing and stay cheap.
 -- Second statement: the tiny static sync-range (event_id >= 329900000000000), no time window.
--- Backfills older than the window: postprocess_texts_range.sql (GHA2DB_POSTPROCESS_FROM/TO).
+-- Backfills older than the window: postprocess_texts_range.sql (GHA2DB_POSTPROCESS_FROM/TO);
+-- automatic post-restore repairs use postprocess_texts_ids.sql (exact restored event id set).
 with cutoff as (
   select coalesce(max(created_at), '1900-01-01'::timestamp) - interval '1 month' as dt
   from
