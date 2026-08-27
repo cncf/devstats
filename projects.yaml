@@ -19,7 +19,7 @@ projects:
     main_repo: kubernetes/kubernetes
     annotation_regexp: '^v((0\.\d+)|(\d+\.\d+\.0))$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
-    sync_probabilty: 0.8
+    sync_probabilty: 0.99
     project_scale: 3.0
     env:
       GHA2DB_EXCLUDE_REPOS:
@@ -2060,7 +2060,7 @@ projects:
     main_repo: istio/istio
     annotation_regexp: '^v?\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
-    sync_probabilty: 0.7
+    sync_probabilty: 0.99
   merbridge:
     order: 147
     name: Merbridge
@@ -3735,7 +3735,7 @@ projects:
     main_repo: ''
     annotation_regexp: ''
     files_skip_pattern: ''
-    sync_probabilty: 0.6
+    sync_probabilty: 0.99
     project_scale: 5.0
     env:
       GHA2DB_EXCLUDE_REPOS:
