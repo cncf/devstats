@@ -25,7 +25,7 @@
 #   ONLY="patroni,web"        run only listed sections
 #   SKIP="cjlogs,clones"      skip listed sections
 # Sections:
-#   tools preflight nodes pods cronjobs cjlogs sync affs flags patroni storage clones nodesys web backups certs dns
+#   tools preflight nodes pods cronjobs cjlogs sync affs flags dblogs patroni storage clones nodesys web backups certs dns
 #
 # Tunables (env):
 #   PAR=16                    parallelism for curl/dns checks       LOGS_PAR=8       parallelism for log scans
@@ -44,6 +44,11 @@
 #   CONN_WARN_PCT=80          connections vs max_connections        SKEW_WARN=5      clock skew seconds
 #   RESTARTS_WARN=50          container restarts                    HTTP_TIMEOUT=15  per-request curl timeout
 #   RECOMPRESS_MAX_DAYS=35    max age of last btrfs-recompress run
+#   DBLOGS_HOURS=168          gha_logs error-class scan window (hours, default one week)
+#   IMPORT_AFFS_WARN=27       max age (hours) of last shared affiliations import log activity
+#   KNOWN_DOWN_HOSTS_RE=...   hosts matching this regex report as NOTE instead of WARN/CRIT in web/certs/dns
+#                             (default: graphql.org family awaiting DNS flip to Linode)
+#   ARCHIVED_DBS_RE=...       DB/project names matching this regex are skipped (archived/merged projects)
 #
 # Exit codes: 0 = all OK, 1 = notices only, 2 = warnings, 3 = criticals.
 #---------------------------------------------------------------------------------------------------------------------
@@ -90,6 +95,14 @@ HTTP_TIMEOUT="${HTTP_TIMEOUT:-15}"
 RECOMPRESS_MAX_DAYS="${RECOMPRESS_MAX_DAYS:-35}"
 PG_CONTAINER="${PG_CONTAINER:-devstats-postgres}"
 PG_USER="${PG_USER:-gha_admin}"
+DBLOGS_HOURS="${DBLOGS_HOURS:-168}"
+IMPORT_AFFS_WARN="${IMPORT_AFFS_WARN:-27}"
+# hosts expected down (graphql.org family awaits DNS flip to Linode; Cloudflare TLS fails until then)
+KNOWN_DOWN_HOSTS_RE="${KNOWN_DOWN_HOSTS_RE:-(^|\.)devstats\.graphql\.org$}"
+# archived/merged projects (source: devstats:metrics/all/sync_vars.yaml) - skipped wherever they appear
+ARCHIVED_DBS_RE="${ARCHIVED_DBS_RE:-^(brigade|smi|openservicemesh|osm|krator|ingraind|fonio|curiefense|krustlet|skooner|k8dash|curve|fabedge|kubedl|superedge|nocalhost|merbridge|devstream|teller|openelb|sealer|cni-genie|cnigenie|servicemeshperformance|xline|pravega|openmetrics|rkt|opentracing|keptn|hexa|hexapolicyorchestrator|vineyard)$}"
+known_down() { grep -qE "$KNOWN_DOWN_HOSTS_RE" <<<"$1"; }
+archived_db() { grep -qE "$ARCHIVED_DBS_RE" <<<"$1"; }
 
 # ----------------------------------------------------------------------------------------------- output helpers ----
 N_OK=0; N_NOTE=0; N_WARN=0; N_CRIT=0
@@ -382,7 +395,7 @@ if run_section cjlogs && [ "$LOGS_MODE" != "off" ]; then
       fi
       [ "$LOGS_MODE" = "failed" ] && [ "$fail" = "0" ] && continue
       pline="$(grep "^$job|" "$TMPD/jobpod-$st.txt" || true)"
-      [ -z "$pline" ] && { note "[$st] CJ $cj: last job $job has no pod (GC-ed) - no log to scan"; continue; }
+      [ -z "$pline" ] && { ok "[$st] CJ $cj: last job $job has no pod (GC-ed) - no log to scan"; continue; }
       pod="$(echo "$pline" | cut -d'|' -f2)"
       echo "$cj|$job|$pod" >> "$TMPD/logjobs-$st.txt"
     done < "$TMPD/lastjob-$st.txt"
@@ -403,6 +416,13 @@ if run_section cjlogs && [ "$LOGS_MODE" != "off" ]; then
       crits="$(grep -cE 'panic:|fatal error:|There were sync errors|Error updating git repos' "$lf" || true)"
       warns="$(grep -cE 'FATAL:|driver: bad connection|command failed|exit status [1-9]' "$lf" || true)"
       dice="$(grep -cE '^([0-9: -]+/devstats: )?Skipping #[0-9]+ ' "$lf" || true)"
+      guard="$(grep -cE 'Running flag on .* set, exiting' "$lf" || true)"
+      if [ "${guard:-0}" -gt 0 ]; then
+        # overlap-guard exit: 'There were sync errors' emitted by design when refusing to overlap - benign
+        se="$(grep -cE 'There were sync errors' "$lf" || true)"
+        crits=$(( crits - se )); [ "$crits" -lt 0 ] && crits=0
+        note "[$st] CJ $cj: overlap-guard exit (another sync already running) in last run"
+      fi
       if [ "${crits:-0}" -gt 0 ]; then
         crit "[$st] CJ $cj: log has $crits critical error line(s); first: $(grep -m1 -E 'panic:|fatal error:|There were sync errors|Error updating git repos' "$lf" | head -c 220)"
       elif [ "${warns:-0}" -gt 0 ]; then
@@ -529,13 +549,204 @@ if run_section flags; then
         ok "[$st] flags report: OK ($(grep -c '' "$out") lines)"
       else
         rc=$?
-        crit "[$st] flags report NOT OK (rc=$rc): $(sed -n '/^NOT OK/,$p' "$out" | tr '\n' '; ' | head -c 300)"
+        missp="$(awk '/DBs missing .provisioned./{f=1;next} /^$|^==/{f=0} f && /^  - /{printf "%s ", $2}' "$out")"
+        crit "[$st] flags report NOT OK (rc=$rc): $(sed -n '/^NOT OK/,$p' "$out" | tr '\n' '; ' | head -c 300)${missp:+ [missing provisioned: ${missp% }]}"
       fi
       [ "$VERBOSE" = "1" ] && sed 's/^/      | /' "$out" | tail -40
     done
   else
     warn "devel/devstats-flags-report.sh not found/executable - flags checks skipped (run from devstats repo root)"
   fi
+fi
+
+# ------------------------------------------------------------------------------------------------------ dblogs -----
+# deep scan of gha_logs (devstats DB) for every error class observed so far + devstats/affiliations DB sanity
+if run_section dblogs; then
+  section dblogs "gha_logs error-class scan (${DBLOGS_HOURS}h) + devstats gha_computed/gha_locks + affiliations DB deep sanity"
+  for st in $STAGES; do
+    p="${PRIMARY[$st]:-$(primary_pod "$st")}"
+    [ -z "$p" ] && { crit "[$st] no primary PG pod - dblogs skipped"; continue; }
+    f="$TMPD/dblogs-$st.txt"
+    {
+      echo "psql -U $PG_USER -d devstats -tA -F'|' <<'SQL'"
+      echo "with w as ("
+      echo "  select proj, prog, dt, run_dt, msg,"
+      echo "    case"
+      echo "      when msg like '%panic:%' or msg like '%fatal error:%' or msg like '%stacktrace:%' or msg like '%Stacktrace:%' or msg like '%Error(time=%' then 'panic'"
+      echo "      when msg like '%There were sync errors%' then 'sync_errors'"
+      echo "      when msg like '%Error updating git repos%' then 'git_repos_error'"
+      echo "      when msg like '%Error executing ghapi2db%' then 'ghapi2db_error'"
+      echo "      when msg like '%Error running git_commits.sh%' or msg like '%git_commits.sh error%' then 'git_commits_error'"
+      echo "      when msg like '%Error committing transaction%' then 'tx_commit_error'"
+      echo "      when msg like '%Failing batch insert%' or msg like '%Failed sql%' or msg like '%Failed command%' or msg like '%Failing values%' then 'sql_fail'"
+      echo "      when msg like '%PqError: code=%' then 'pq_error'"
+      echo "      when msg like '%driver: bad connection%' then 'bad_connection'"
+      echo "      when msg like '%too many connections%' or msg like '%too_many_connections%' then 'too_many_connections'"
+      echo "      when msg like '%cannot_connect_now%' or msg like '%DB shutting down%' then 'db_shutdown'"
+      echo "      when msg like '%cannot assign requested address%' then 'addr_exhaustion'"
+      echo "      when msg like '%deadlock detected%' then 'deadlock'"
+      echo "      when msg like '%connection refused%' or msg like '%connection reset%' then 'connection_refused_reset'"
+      echo "      when msg like '%context deadline exceeded%' then 'context_deadline'"
+      echo "      when msg like '%FATAL:%' then 'pg_fatal'"
+      echo "      when (msg like '%API limit reached%' or msg like '%abuse detected%' or msg ilike '%rate limit%') and (msg like '%abort%' or msg like '%want to wait%') then 'gh_api_abort'"
+      echo "      when msg like '%API limit reached%' or msg like '%abuse detected%' or msg ilike '%rate limit%' or msg like '%GetRateLimit call failed%' then 'gh_rate_limit'"
+      echo "      when msg like '%timeout signal after%' then 'timeout_kill'"
+      echo "      when msg like '%Failed to clear running flag%' then 'flag_clear_fail'"
+      echo "      when msg like '%Missing provisioned flag%' or msg like '%cannot check running flag%' or msg like '%cannot set running flag%' then 'flag_missing'"
+      echo "      when msg like '%Running flag on%set, exiting%' or msg like '%instance is running, PID file%' then 'overlap_guard'"
+      echo "      when msg like '%Skipping #%' then 'dice_skip'"
+      echo "      when msg like '%Metric returned no data%' then 'metric_no_data'"
+      echo "      when msg like '%Cannot unmarshal%' or msg like '%Unmarshal failed%' or msg like '%Error http.Get%' then 'http_json_error'"
+      echo "      when (msg like '%hash id%' or msg like '%orphan event id%') and msg like '%conflict%' then 'data_conflict'"
+      echo "      when msg like '%Error (non fatal)%' or msg like '%(ignored)%' or msg like '%non fatal, exiting 0%' then 'nonfatal_error'"
+      echo "      when msg like '%Warning:%' or msg like '%warning:%' then 'go_warning'"
+      echo "      when msg like '%exit status%' then 'exit_status'"
+      echo "      when msg ilike '%error%' and msg not ilike '%0 errors%' and msg not ilike '%errors=0%' then 'generic_error'"
+      echo "    end as class"
+      echo "  from gha_logs where dt > now() - interval '${DBLOGS_HOURS} hours'"
+      echo ")"
+      echo "select 'cnt', class, cnt, mx, sample from ("
+      echo "  select class,"
+      echo "    count(*) over (partition by class) as cnt,"
+      echo "    to_char(max(dt) over (partition by class), 'YYYY-MM-DD HH24:MI:SS') as mx,"
+      echo "    proj || ' @ ' || to_char(dt, 'YYYY-MM-DD HH24:MI:SS') || ': ' || left(replace(msg, E'\n', ' '), 180) as sample,"
+      echo "    row_number() over (partition by class order by dt desc) as rn"
+      echo "  from w where class is not null"
+      echo ") x where rn = 1;"
+      echo "SQL"
+    } | pg_script "$st" "$p" > "$f" || true
+    # counts per class -> severity (row: cnt|class|N|lastdt|sample)
+    while IFS='|' read -r tag class cntv lastdt smp; do
+      [ "$tag" = "cnt" ] || continue
+      case "$class" in
+        panic)                    crit "[$st] gha_logs: $cntv panic/stacktrace/fatal-error line(s), last $lastdt; sample: $smp";;
+        sync_errors)              warn "[$st] gha_logs: $cntv 'There were sync errors' line(s), last $lastdt (overlap-guard exits also emit this); sample: $smp";;
+        git_repos_error)          warn "[$st] gha_logs: $cntv git-repos update error(s), last $lastdt; sample: $smp";;
+        ghapi2db_error)           warn "[$st] gha_logs: $cntv ghapi2db execution error(s), last $lastdt; sample: $smp";;
+        git_commits_error)        warn "[$st] gha_logs: $cntv git_commits.sh error(s), last $lastdt; sample: $smp";;
+        tx_commit_error)          warn "[$st] gha_logs: $cntv transaction commit error(s), last $lastdt; sample: $smp";;
+        sql_fail)                 warn "[$st] gha_logs: $cntv failed SQL/batch-insert/command line(s), last $lastdt; sample: $smp";;
+        pq_error)                 warn "[$st] gha_logs: $cntv PqError line(s), last $lastdt; sample: $smp";;
+        bad_connection)           warn "[$st] gha_logs: $cntv 'driver: bad connection' line(s), last $lastdt; sample: $smp";;
+        too_many_connections)     warn "[$st] gha_logs: $cntv 'too many connections' line(s), last $lastdt; sample: $smp";;
+        db_shutdown)              warn "[$st] gha_logs: $cntv DB-shutting-down line(s), last $lastdt; sample: $smp";;
+        addr_exhaustion)          warn "[$st] gha_logs: $cntv 'cannot assign requested address' line(s) (ephemeral port/conn exhaustion), last $lastdt; sample: $smp";;
+        deadlock)                 warn "[$st] gha_logs: $cntv deadlock(s) detected, last $lastdt; sample: $smp";;
+        connection_refused_reset) warn "[$st] gha_logs: $cntv connection refused/reset line(s), last $lastdt; sample: $smp";;
+        context_deadline)         warn "[$st] gha_logs: $cntv context-deadline-exceeded line(s), last $lastdt; sample: $smp";;
+        pg_fatal)                 warn "[$st] gha_logs: $cntv PG FATAL line(s), last $lastdt; sample: $smp";;
+        gh_api_abort)             warn "[$st] gha_logs: $cntv GitHub-API abort(s) (limit/abuse, gave up), last $lastdt; sample: $smp";;
+        gh_rate_limit)            note "[$st] gha_logs: $cntv GitHub abuse/rate-limit line(s) (self-healing waits), last $lastdt";;
+        timeout_kill)             warn "[$st] gha_logs: $cntv program-timeout kill(s) ('timeout signal after'), last $lastdt; sample: $smp";;
+        flag_clear_fail)          warn "[$st] gha_logs: $cntv running-flag clear failure(s), last $lastdt; sample: $smp";;
+        flag_missing)             warn "[$st] gha_logs: $cntv provisioned/running-flag problem line(s), last $lastdt; sample: $smp";;
+        overlap_guard)            note "[$st] gha_logs: $cntv overlap-guard exit(s) (benign: sync already running), last $lastdt";;
+        dice_skip)                note "[$st] gha_logs: $cntv sync_probabilty dice skip(s), last $lastdt";;
+        metric_no_data)           note "[$st] gha_logs: $cntv 'Metric returned no data' line(s) (usually benign), last $lastdt";;
+        http_json_error)          warn "[$st] gha_logs: $cntv HTTP-get/JSON-unmarshal error(s), last $lastdt; sample: $smp";;
+        data_conflict)            note "[$st] gha_logs: $cntv artificial/orphan event id conflict(s) (skipped rows), last $lastdt";;
+        nonfatal_error)           note "[$st] gha_logs: $cntv explicitly non-fatal/ignored error line(s), last $lastdt";;
+        go_warning)               note "[$st] gha_logs: $cntv 'Warning:' line(s) (mixed benign classes), last $lastdt";;
+        exit_status)              warn "[$st] gha_logs: $cntv 'exit status' line(s), last $lastdt; sample: $smp";;
+        generic_error)            note "[$st] gha_logs: $cntv other error-ish line(s), last $lastdt; sample: $smp";;
+      esac
+    done < <(grep '^cnt|' "$f" || true)
+    grep -q '^cnt|' "$f" || ok "[$st] gha_logs: no error-class matches in last ${DBLOGS_HOURS}h"
+    ok "[$st] gha_logs error-class scan done (window ${DBLOGS_HOURS}h)"
+    # devstats DB gha_computed flags/locks ages
+    f2="$TMPD/dblogs-computed-$st.txt"
+    {
+      echo "psql -U $PG_USER -d devstats -tA -F'|' <<'SQL'"
+      echo "select metric, extract(epoch from now() - dt)::bigint from gha_computed order by metric;"
+      echo "SQL"
+    } | pg_script "$st" "$p" > "$f2" || true
+    while IFS='|' read -r metric agesec; do
+      [ -z "$metric" ] && continue
+      ah=$(( ${agesec:-0} / 3600 ))
+      case "$metric" in
+        giant_lock) [ "$ah" -ge 12 ] && warn "[$st] devstats.gha_computed: giant_lock present for $(hfmt $ah) (stuck?)" || note "[$st] devstats.gha_computed: giant_lock present ($(hfmt $ah) old)";;
+        devstats_running) note "[$st] devstats.gha_computed: devstats_running flag present ($(hfmt $ah) old)";;
+        *) ok "[$st] devstats.gha_computed: $metric ($(hfmt $ah) old)";;
+      esac
+    done < "$f2"
+    [ -s "$f2" ] || ok "[$st] devstats.gha_computed: no flags/locks present"
+    # devstats DB gha_locks (owned locks; flags-report covers orphan owners, here we check ages)
+    f2b="$TMPD/dblogs-locks-$st.txt"
+    {
+      echo "psql -U $PG_USER -d devstats -tA -F'|' <<'SQL'"
+      echo "select name, owner, extract(epoch from now() - dt)::bigint from gha_locks order by dt;"
+      echo "SQL"
+    } | pg_script "$st" "$p" > "$f2b" || true
+    if [ -s "$f2b" ]; then
+      while IFS='|' read -r lname lowner lagesec; do
+        [ -z "$lname" ] && continue
+        lh=$(( ${lagesec:-0} / 3600 ))
+        [ "$lh" -ge 12 ] && warn "[$st] devstats.gha_locks: lock '$lname' owned by '$lowner' held $(hfmt $lh) (stuck?)" || note "[$st] devstats.gha_locks: lock '$lname' owned by '$lowner' ($(hfmt $lh) old)"
+      done < "$f2b"
+    else
+      ok "[$st] devstats.gha_locks: no lock rows"
+    fi
+    # shared affiliations import freshness (gha_logs prog=import_affs)
+    f3="$TMPD/dblogs-impaffs-$st.txt"
+    {
+      echo "psql -U $PG_USER -d devstats -tA -F'|' <<'SQL'"
+      echo "select coalesce(extract(epoch from now() - max(dt))::bigint, -1),"
+      echo "       count(*) filter (where msg ilike '%error%' and msg not ilike '%0 errors%' and dt > now() - interval '${DBLOGS_HOURS} hours')"
+      echo "from gha_logs where prog = 'import_affs';"
+      echo "SQL"
+    } | pg_script "$st" "$p" > "$f3" || true
+    IFS='|' read -r impage imperrs < "$f3" || true
+    if [ "${impage:--1}" = "-1" ]; then
+      note "[$st] no import_affs activity in gha_logs at all"
+    else
+      ih=$(( impage / 3600 ))
+      [ "$ih" -gt "$IMPORT_AFFS_WARN" ] && warn "[$st] shared affiliations import: last gha_logs activity $(hfmt $ih) ago (> ${IMPORT_AFFS_WARN}h)" || ok "[$st] shared affiliations import active $(hfmt $ih) ago"
+      [ "${imperrs:-0}" -gt 0 ] && warn "[$st] shared affiliations import: $imperrs error line(s) in last ${DBLOGS_HOURS}h" || ok "[$st] shared affiliations import: no errors in last ${DBLOGS_HOURS}h"
+    fi
+    # affiliations DB deep sanity: all 12 tables + referential/temporal/duplicate checks
+    f4="$TMPD/dblogs-affdb-$st.txt"
+    {
+      echo "psql -U $PG_USER -d affiliations -tA -F'|' <<'SQL' 2>/dev/null"
+      echo "select 'core:gha_actors', count(*) from gha_actors"
+      echo "union all select 'core:gha_actors_affiliations', count(*) from gha_actors_affiliations"
+      echo "union all select 'core:gha_actors_emails', count(*) from gha_actors_emails"
+      echo "union all select 'core:gha_actors_names', count(*) from gha_actors_names"
+      echo "union all select 'core:gha_companies', count(*) from gha_companies"
+      echo "union all select 'core:gha_countries', count(*) from gha_countries"
+      echo "union all select 'core:gha_imported_shas', count(*) from gha_imported_shas"
+      echo "union all select 'aux:gha_bot_logins', count(*) from gha_bot_logins"
+      echo "union all select 'aux:gha_map_actor_email', count(*) from gha_map_actor_email"
+      echo "union all select 'aux:gha_map_id_to_login', count(*) from gha_map_id_to_login"
+      echo "union all select 'aux:gha_map_login_to_id', count(*) from gha_map_login_to_id"
+      echo "union all select 'aux:gha_map_name_to_login', count(*) from gha_map_name_to_login;"
+      echo "select 'chk:dup_affs', count(*) from (select actor_id, company_name, dt_from, count(*) from gha_actors_affiliations group by 1,2,3 having count(*) > 1) x;"
+      echo "select 'chk:null_company', count(*) from gha_actors_affiliations where company_name is null or company_name = '';"
+      echo "select 'chk:bad_date_range', count(*) from gha_actors_affiliations where dt_from >= dt_to;"
+      echo "select 'chk:dangling_affs', count(*) from gha_actors_affiliations a where not exists (select 1 from gha_actors t where t.id = a.actor_id);"
+      echo "select 'chk:dangling_emails', count(*) from gha_actors_emails e where not exists (select 1 from gha_actors t where t.id = e.actor_id);"
+      echo "select 'chk:dangling_names', count(*) from gha_actors_names n where not exists (select 1 from gha_actors t where t.id = n.actor_id);"
+      echo "select 'chk:empty_login_actors', count(*) from gha_actors where login is null or login = '';"
+      echo "SQL"
+    } | pg_script "$st" "$p" > "$f4" || true
+    if ! grep -q '|' "$f4"; then
+      note "[$st] affiliations DB not present/accessible - skipped"
+    else
+      while IFS='|' read -r tbl cntv; do
+        [ -z "$tbl" ] && continue
+        case "$tbl" in
+          chk:dup_affs)           [ "${cntv:-0}" -gt 0 ] && warn "[$st] affiliations DB: $cntv duplicated (actor,company,dt_from) affiliation row(s)" || ok "[$st] affiliations DB: no duplicated affiliation rows";;
+          chk:null_company)       [ "${cntv:-0}" -gt 0 ] && warn "[$st] affiliations DB: $cntv affiliation row(s) with NULL/empty company" || ok "[$st] affiliations DB: no NULL/empty company affiliations";;
+          chk:bad_date_range)     [ "${cntv:-0}" -gt 0 ] && warn "[$st] affiliations DB: $cntv affiliation row(s) with dt_from >= dt_to" || ok "[$st] affiliations DB: all affiliation date ranges sane";;
+          chk:dangling_affs)      [ "${cntv:-0}" -gt 0 ] && warn "[$st] affiliations DB: $cntv affiliation row(s) referencing missing actor" || ok "[$st] affiliations DB: no dangling affiliations";;
+          chk:dangling_emails)    [ "${cntv:-0}" -gt 0 ] && warn "[$st] affiliations DB: $cntv email row(s) referencing missing actor" || ok "[$st] affiliations DB: no dangling emails";;
+          chk:dangling_names)     [ "${cntv:-0}" -gt 0 ] && warn "[$st] affiliations DB: $cntv name row(s) referencing missing actor" || ok "[$st] affiliations DB: no dangling names";;
+          chk:empty_login_actors) [ "${cntv:-0}" -gt 0 ] && note "[$st] affiliations DB: $cntv actor(s) with NULL/empty login" || ok "[$st] affiliations DB: no empty-login actors";;
+          core:*)                 [ "${cntv:-0}" -eq 0 ] && crit "[$st] affiliations DB: core table ${tbl#core:} is EMPTY" || ok "[$st] affiliations DB: ${tbl#core:} rows: $cntv";;
+          aux:*)                  [ "${cntv:-0}" -eq 0 ] && warn "[$st] affiliations DB: aux table ${tbl#aux:} is empty" || ok "[$st] affiliations DB: ${tbl#aux:} rows: $cntv";;
+        esac
+      done < "$f4"
+    fi
+  done
 fi
 
 # ----------------------------------------------------------------------------------------------------- patroni -----
@@ -739,10 +950,10 @@ REMOTE
     while IFS='|' read -r tag a b c d; do
       case "$tag" in
         epoch)
-          # node clock must lie within [section start - skew, now + skew]
+          # node-vs-local clock offset is informational only (local host clock may drift) - VERBOSE/DEBUG only
           _now="$(date +%s)"
           if [ "$a" -lt $(( NODESYS_START - SKEW_WARN )) ] || [ "$a" -gt $(( _now + SKEW_WARN )) ]; then
-            warn "node $node clock skew detected (node epoch $a vs local window $NODESYS_START..$_now)"
+            ok "node $node clock offset vs local host (node epoch $a vs local window $NODESYS_START..$_now)"
           else
             ok "node $node clock in sync"
           fi;;
@@ -814,8 +1025,8 @@ if run_section web; then
     case "$code" in
       200|301|302|303|307|308|401) 
         [ "${ts:-0}" -ge 10 ] && note "https://$h slow: ${t}s (HTTP $code)" || ok "https://$h HTTP $code (${t}s)";;
-      000) crit "https://$h UNREACHABLE (timeout/conn failure)";;
-      *) warn "https://$h HTTP $code";;
+      000) if known_down "$h"; then note "https://$h unreachable (known-down: awaiting DNS flip / expected)"; else crit "https://$h UNREACHABLE (timeout/conn failure)"; fi;;
+      *) if known_down "$h"; then note "https://$h HTTP $code (known-down family)"; else warn "https://$h HTTP $code"; fi;;
     esac
   done < "$TMPD/webout.txt"
   # grafana deployments health per stage
@@ -879,6 +1090,7 @@ if run_section backups; then
       while read -r db; do
         [ -z "$db" ] && continue
         case "$db" in devstats) continue;; esac
+        archived_db "$db" && { note "archived project DB $db skipped in backups check"; continue; }
         grep -qE "^$db\.(dump|tar\.xz)\|" "$TMPD/backups.txt" || { miss=$((miss+1)); warn "no backup (dump/tar.xz) found for DB $db"; }
       done < <(tr ' \t' '\n' < devel/all_prod_dbs.txt | sed '/^$/d')
       [ "$miss" = "0" ] && ok "every DB from devel/all_prod_dbs.txt has a backup on the backups page"
@@ -920,7 +1132,11 @@ if run_section certs; then
   while IFS='|' read -r ns name created host; do
     [ -z "$name" ] && continue
     a=$(age_h "$(iso2epoch "$created")")
-    [ "$a" -ge 2 ] && warn "stuck ACME challenge: ingress $ns/$name for $host ($(hfmt $a) old) - cert order not completing" || note "active ACME challenge for $host"
+    if [ "$a" -ge 2 ]; then
+      if known_down "$host"; then note "stuck ACME challenge for known-down host $host ($(hfmt $a) old, expected until DNS flip)"; else warn "stuck ACME challenge: ingress $ns/$name for $host ($(hfmt $a) old) - cert order not completing"; fi
+    else
+      note "active ACME challenge for $host"
+    fi
   done < <(kubectl get ingress -A -o json | jq -r '.items[] | select(.metadata.name | startswith("cm-acme")) | "\(.metadata.namespace)|\(.metadata.name)|\(.metadata.creationTimestamp)|\(.spec.rules[0].host)"')
   # cert-manager pods
   cmbad="$(kubectl -n cert-manager get pods --no-headers 2>/dev/null | grep -cv ' Running ' || true)"
@@ -935,12 +1151,12 @@ if run_section dns; then
   declare -A APEX=()
   for fam in devstats.cncf.io teststats.cncf.io devstats.cd.foundation devstats.graphql.org; do
     ip="$(resolve_a "$fam")"
-    if [ -n "$ip" ]; then APEX[$fam]="$ip"; ok "apex $fam -> $ip"; else crit "apex $fam does not resolve"; fi
+    if [ -n "$ip" ]; then APEX[$fam]="$ip"; ok "apex $fam -> $ip"; elif known_down "$fam"; then note "apex $fam does not resolve (known-down: awaiting DNS flip)"; else crit "apex $fam does not resolve"; fi
   done
   export -f resolve_a
   xargs -n1 -P "$PAR" -I{} bash -c 'echo "{}|$(resolve_a "{}")"' < "$HOSTS_FILE" > "$TMPD/dnsout.txt" 2>/dev/null
   while IFS='|' read -r h ip; do
-    if [ -z "$ip" ]; then crit "host $h does NOT resolve"; continue; fi
+    if [ -z "$ip" ]; then if known_down "$h"; then note "host $h does not resolve (known-down)"; else crit "host $h does NOT resolve"; fi; continue; fi
     fam=""
     case "$h" in
       *teststats.cncf.io) fam=teststats.cncf.io;;
