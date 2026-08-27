@@ -302,11 +302,24 @@ fi
 # ---------------------------------------------------------------------------------------------------- cronjobs -----
 # collects per-stage: cj list json, latest job per cj, schedules; used also by sync/affs/cjlogs sections
 declare -A CJJSON=() JOBSJSON=()
+# json list fetch with retries - single http2 drops must not silently yield empty lists
+kcj() {  # kcj <stage> <outfile> <kubectl-get-args...> -> 0 on valid json with .items
+  local st="$1" out="$2" try; shift 2
+  for try in 1 2 3; do
+    if kc "$st" get "$@" -o json > "$out" 2>/dev/null && jq -e '.items' "$out" >/dev/null 2>&1; then
+      return 0
+    fi
+    dbg "kcj retry $try failed: $st get $*"
+    sleep 2
+  done
+  echo '{"items":[]}' > "$out"
+  return 1
+}
 collect_cj() {
   local st="$1"
   [ -n "${CJJSON[$st]:-}" ] && return
-  kc "$st" get cj -o json > "$TMPD/cj-$st.json" 2>/dev/null
-  kc "$st" get jobs -o json > "$TMPD/jobs-$st.json" 2>/dev/null
+  kcj "$st" "$TMPD/cj-$st.json" cj || warn "[$st] listing CronJobs failed after 3 attempts (flaky API?) - dependent checks incomplete"
+  kcj "$st" "$TMPD/jobs-$st.json" jobs || warn "[$st] listing Jobs failed after 3 attempts (flaky API?) - dependent checks incomplete"
   CJJSON[$st]="$TMPD/cj-$st.json"; JOBSJSON[$st]="$TMPD/jobs-$st.json"
   # latest job per owning CJ: cj|job|active|succeeded|failed|start|completion
   jq -r '.items[] | select((.metadata.ownerReferences // []) | length > 0) |
@@ -378,7 +391,11 @@ if run_section cjlogs && [ "$LOGS_MODE" != "off" ]; then
   section cjlogs "last-job log analysis of every CronJob (patterns: panics, sync errors, fatals, dice skips)"
   for st in $STAGES; do
     collect_cj "$st"
-    kc "$st" get pods -o json > "$TMPD/pods-$st.json" 2>/dev/null
+    if [ ! -s "$TMPD/lastjob-$st.txt" ]; then
+      warn "[$st] cjlogs: collected 0 jobs (API hiccup or empty namespace) - nothing scanned for $st"
+      continue
+    fi
+    kcj "$st" "$TMPD/pods-$st.json" pods || warn "[$st] cjlogs: listing pods failed after 3 attempts - job->pod log mapping incomplete"
     # map job -> newest pod name + phase
     jq -r '.items[] | select(.metadata.labels["job-name"] != null) | "\(.metadata.labels["job-name"])|\(.metadata.name)|\(.status.phase)|\(.metadata.creationTimestamp)"' \
       "$TMPD/pods-$st.json" | sort -t'|' -k1,1 -k4,4 | awk -F'|' '{last[$1]=$2"|"$3} END{for (k in last) print k"|"last[k]}' > "$TMPD/jobpod-$st.txt"
