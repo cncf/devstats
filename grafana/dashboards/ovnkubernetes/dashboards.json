@@ -2381,6 +2381,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "SDC",
+      "tooltip": "Opens SDC projects dashboards",
+      "type": "link",
+      "url": "https://sdc.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
