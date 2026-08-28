@@ -10,7 +10,8 @@
 # stats over ssh (disk/inodes/mem/PSI pressures/OOM/failed units/NTP/clock skew/network bandwidth/btrfs device
 # errors + recompress cron freshness/load), all ingress hosts HTTPS liveness (grafanas/statics/API/backups page),
 # DevStats API Health endpoint, backups presence+freshness (nginx backups page), TLS cert expiries + stuck ACME
-# challenges, DNS resolution invariants.
+# challenges, DNS resolution invariants, ingress traffic assessment (overall/bots/non-bots rates from
+# ingress-nginx access logs; info/note oriented, warns only on genuinely disturbing levels).
 #
 # READ ONLY: this script never creates/patches/deletes anything, anywhere. kubectl is only used with
 # get/logs/exec(read-only commands: psql SELECT, patronictl list, cat); ssh only runs read-only commands.
@@ -25,7 +26,7 @@
 #   ONLY="patroni,web"        run only listed sections
 #   SKIP="cjlogs,clones"      skip listed sections
 # Sections:
-#   tools preflight nodes pods cronjobs cjlogs sync affs flags dblogs durations patroni storage clones nodesys web backups certs dns
+#   tools preflight nodes pods cronjobs cjlogs sync affs flags dblogs durations patroni storage clones nodesys web backups certs dns traffic
 #
 # Tunables (env):
 #   PAR=16                    parallelism for curl/dns checks       LOGS_PAR=8       parallelism for log scans
@@ -49,6 +50,18 @@
 #   DUR_FLEET_MULT=5          durations: NOTE when a project's avg runtime for a prog exceeds this multiple of the
 #                             fleet median avg for the same prog (and is >= 10 minutes)
 #   IMPORT_AFFS_WARN=27       max age (hours) of last shared affiliations import log activity
+#   TRAFFIC_WINDOW_MIN=60     ingress traffic: access-log window (minutes) taken from ingress-nginx controller pods
+#   TRAFFIC_CLASSES=...       which traffic classes to report: any of "overall bots nonbots" (default all three)
+#   TRAFFIC_BOT_RE=...        case-insensitive ERE deciding bot/automation User-Agents (empty UA counts as bot)
+#   TRAFFIC_RPS_NOTE=20 TRAFFIC_RPS_WARN=150   avg overall requests/s: NOTE when above, WARN only when really
+#                             disturbing to the cluster (sustained WARN level over the whole window)
+#   TRAFFIC_BOT_RPS_WARN=75   avg bot-only requests/s that alone counts as disturbing -> WARN
+#   TRAFFIC_BOT_PCT_NOTE=85   NOTE when bots exceed this % of all requests
+#   TRAFFIC_5XX_NOTE=1 TRAFFIC_5XX_WARN=5      % of 5xx responses (min 200 requests): NOTE/WARN (cluster distress)
+#   TRAFFIC_P95_NOTE=5        NOTE when p95 request latency (s) exceeds this
+#   TRAFFIC_TOPIP_PCT_NOTE=40 NOTE when a single client IP produces more than this % of requests (only when real
+#                             client IPs are visible - with a cloud LB all traffic may appear as one internal IP)
+#   TRAFFIC_CTL_ERR_NOTE=1000 NOTE when ingress controller emits more than this many warning/error log lines in window
 #   KNOWN_DOWN_HOSTS_RE=...   optional: hosts matching this regex report as NOTE instead of WARN/CRIT in web/certs/dns (default: unset - all failures are real issues)
 #                             (default: graphql.org family awaiting DNS flip to Linode)
 #   ARCHIVED_DBS_RE=...       DB/project names matching this regex are skipped (archived/merged projects)
@@ -108,6 +121,19 @@ else
 fi
 DUR_FLEET_MULT="${DUR_FLEET_MULT:-5}"
 IMPORT_AFFS_WARN="${IMPORT_AFFS_WARN:-27}"
+TRAFFIC_WINDOW_MIN="${TRAFFIC_WINDOW_MIN:-60}"
+TRAFFIC_CLASSES="${TRAFFIC_CLASSES:-overall bots nonbots}"
+# broad automation/crawler UA detector: classic crawlers, SEO bots, AI crawlers, http libraries, scanners
+TRAFFIC_BOT_RE="${TRAFFIC_BOT_RE:-bot|crawl|spider|slurp|scrap|curl|wget|python|go-http|java/|okhttp|httpclient|libwww|headless|phantom|lighthouse|pingdom|uptime|monitor|semrush|ahrefs|mj12|petal|yandex|baidu|bingpreview|gpt|claude|openai|oai-search|perplexity|anthropic|amazonbot|bytespider|facebookexternal|meta-external|applebot|duckduck|censys|shodan|zgrab|masscan|nuclei|dataprovider}"
+TRAFFIC_RPS_NOTE="${TRAFFIC_RPS_NOTE:-20}"
+TRAFFIC_RPS_WARN="${TRAFFIC_RPS_WARN:-150}"
+TRAFFIC_BOT_RPS_WARN="${TRAFFIC_BOT_RPS_WARN:-75}"
+TRAFFIC_BOT_PCT_NOTE="${TRAFFIC_BOT_PCT_NOTE:-85}"
+TRAFFIC_5XX_NOTE="${TRAFFIC_5XX_NOTE:-1}"
+TRAFFIC_5XX_WARN="${TRAFFIC_5XX_WARN:-5}"
+TRAFFIC_P95_NOTE="${TRAFFIC_P95_NOTE:-5}"
+TRAFFIC_TOPIP_PCT_NOTE="${TRAFFIC_TOPIP_PCT_NOTE:-40}"
+TRAFFIC_CTL_ERR_NOTE="${TRAFFIC_CTL_ERR_NOTE:-1000}"
 # hosts expected down (graphql.org family awaits DNS flip to Linode; Cloudflare TLS fails until then)
 KNOWN_DOWN_HOSTS_RE="${KNOWN_DOWN_HOSTS_RE:-}"
 # archived/merged projects (source: devstats:metrics/all/sync_vars.yaml) - skipped wherever they appear
@@ -128,9 +154,9 @@ if [ -t 1 ]; then
 fi
 section() { CUR_SECTION="$1"; echo; echo "${c_blu}===== [$1] $2 =====${c_off}"; }
 ok()   { N_OK=$((N_OK+1));   [ "$VERBOSE" = "1" ] && echo "${c_grn}OK${c_off}    [$CUR_SECTION] $*"; return 0; }
-note() { N_NOTE=$((N_NOTE+1)); echo "${c_blu}NOTE${c_off}  [$CUR_SECTION] $*"; ISSUES+=("NOTE  [$CUR_SECTION] $*"); }
-warn() { N_WARN=$((N_WARN+1)); echo "${c_yel}WARN${c_off}  [$CUR_SECTION] $*"; ISSUES+=("WARN  [$CUR_SECTION] $*"); }
-crit() { N_CRIT=$((N_CRIT+1)); echo "${c_red}CRIT${c_off}  [$CUR_SECTION] $*"; ISSUES+=("CRIT  [$CUR_SECTION] $*"); }
+note() { N_NOTE=$((N_NOTE+1)); echo "${c_blu}NOTE${c_off}  [$CUR_SECTION] $*"; ISSUES+=("${c_blu}NOTE${c_off}  [$CUR_SECTION] $*"); }
+warn() { N_WARN=$((N_WARN+1)); echo "${c_yel}WARN${c_off}  [$CUR_SECTION] $*"; ISSUES+=("${c_yel}WARN${c_off}  [$CUR_SECTION] $*"); }
+crit() { N_CRIT=$((N_CRIT+1)); echo "${c_red}CRIT${c_off}  [$CUR_SECTION] $*"; ISSUES+=("${c_red}CRIT${c_off}  [$CUR_SECTION] $*"); }
 dbg()  { [ "$DEBUG" = "1" ] && echo "DEBUG [$CUR_SECTION] $*" >&2; return 0; }
 
 run_section() {  # run_section <name> -> 0 if section enabled
@@ -1322,6 +1348,134 @@ if run_section dns; then
       ok "$h -> $ip"
     fi
   done < "$TMPD/dnsout.txt"
+fi
+
+# ----------------------------------------------------------------------------------------------------- traffic -----
+# Ingress traffic assessment from ingress-nginx controller access logs (READ ONLY - kubectl logs).
+# Reports overall / bots / non-bots classes separately (TRAFFIC_CLASSES): request counts, avg rps, status mix,
+# latency percentiles, top agents/projects/IPs. Info is printed plainly; NOTE for anomalies; WARN only when the
+# traffic level is genuinely disturbing to the cluster (sustained high rps, high 5xx share, heavy bot pressure).
+if run_section traffic; then
+  section traffic "ingress traffic overall/bots/non-bots (last ${TRAFFIC_WINDOW_MIN}m of controller access logs)"
+  TRAFFIC_WINDOW_S=$((TRAFFIC_WINDOW_MIN*60))
+  for st in $STAGES; do
+    ns="devstats-$st"
+    pods="$(kubectl --context "$st" -n "$ns" get pods --no-headers -o custom-columns=:metadata.name 2>/dev/null | grep -E 'ingress-nginx-controller' || true)"
+    if [ -z "$pods" ]; then warn "[$st] no ingress-nginx controller pods found in $ns"; continue; fi
+    raw="$TMPD/traffic-$st.raw"; : > "$raw"
+    for p in $pods; do
+      kubectl --context "$st" -n "$ns" logs "$p" --since="${TRAFFIC_WINDOW_MIN}m" >> "$raw" 2>/dev/null || true
+    done
+    acc="$TMPD/traffic-$st.acc"
+    grep -E '^[0-9a-fA-F.:]+ - ' "$raw" > "$acc" || true
+    total="$(wc -l < "$acc" | tr -d '[:space:]')"
+    # controller warning/error lines (klog W.../E... prefixes) - not requests, but cheap cluster-health signal
+    ctlerr="$(grep -cE '^[WE][0-9]{4}' "$raw" || true)"
+    if [ "$total" -eq 0 ]; then
+      note "[$st] no access-log lines in the last ${TRAFFIC_WINDOW_MIN}m (no traffic or logging disabled)"
+      continue
+    fi
+    # one awk pass -> class<TAB>statusclass<TAB>reqtime<TAB>agent<TAB>project<TAB>ip records (overall + bots|nonbots)
+    per="$TMPD/traffic-$st.per"
+    awk -F'"' -v botre="$TRAFFIC_BOT_RE" -v stg="$st" '
+      NF < 7 { next }
+      {
+        ip = $1; sub(/ .*/, "", ip)
+        n = split($3, s3, " "); status = (n >= 1 ? s3[1] : "0")
+        sc = substr(status, 1, 1) "xx"
+        n = split($7, s7, " "); rt = (n >= 2 ? s7[2] : "0")
+        proj = (n >= 3 ? s7[3] : "[]"); gsub(/[][]/, "", proj)
+        sub("^devstats-" stg "-", "", proj); sub(/^devstats-service-/, "", proj)
+        sub(/^devstats-/, "", proj); sub(/-[0-9]+$/, "", proj)
+        if (proj == "") proj = "(unrouted)"
+        ua = tolower($6)
+        if (ua == "-" || ua == "" || ua ~ botre) {
+          cls = "bots"
+          if (match(ua, botre)) agent = substr(ua, RSTART, RLENGTH); else agent = "(empty-ua)"
+        } else {
+          cls = "nonbots"
+          if (ua ~ /firefox/) agent = "firefox"; else if (ua ~ /edg/) agent = "edge"
+          else if (ua ~ /chrome/) agent = "chrome"; else if (ua ~ /safari/) agent = "safari"
+          else { agent = $6; sub(/ .*/, "", agent); sub(/\/.*/, "", agent); agent = tolower(agent) }
+        }
+        print "overall\t" sc "\t" rt "\t" agent "\t" proj "\t" ip
+        print cls "\t" sc "\t" rt "\t" agent "\t" proj "\t" ip
+      }' "$acc" > "$per"
+    # per-class aggregates
+    declare -A T_CNT=()
+    for cls in overall bots nonbots; do
+      stats="$(awk -F'\t' -v c="$cls" -v w="$TRAFFIC_WINDOW_S" '
+        $1 != c { next }
+        { n++; sc[$2]++ }
+        END {
+          if (!n) { print "0 0 0 0 0 0 0"; exit }
+          printf "%d %.2f %.1f %.1f %.1f %.1f\n", n, n/w, 100*sc["2xx"]/n, 100*sc["3xx"]/n, 100*sc["4xx"]/n, 100*sc["5xx"]/n
+        }' "$per")"
+      read -r cnt rps p2 p3 p4 p5 <<<"$stats"
+      T_CNT[$cls]="$cnt"
+      case " $TRAFFIC_CLASSES " in *" $cls "*) ;; *) continue;; esac
+      if [ "$cnt" -eq 0 ]; then echo "  [$st] $cls: 0 requests"; continue; fi
+      # latency percentiles for this class
+      lat="$(awk -F'\t' -v c="$cls" '$1==c{print $3}' "$per" | sort -n | awk '
+        { v[NR] = $1 }
+        END { if (NR) printf "%.2f/%.2f/%.2f", v[int(NR*0.50)+ (NR*0.50==int(NR*0.50)?0:1)], v[int(NR*0.95)+(NR*0.95==int(NR*0.95)?0:1)], v[NR] }')"
+      share=""
+      if [ "$cls" != "overall" ] && [ "${T_CNT[overall]}" -gt 0 ]; then
+        share=", $(awk -v a="$cnt" -v b="${T_CNT[overall]}" 'BEGIN{printf "%.1f", 100*a/b}')% of traffic"
+      fi
+      echo "  [$st] $cls: $cnt req (avg $rps rps$share), status 2xx ${p2}% 3xx ${p3}% 4xx ${p4}% 5xx ${p5}%, lat p50/p95/max ${lat}s"
+      topa="$(awk -F'\t' -v c="$cls" '$1==c{print $4}' "$per" | sort | uniq -c | sort -rn | head -3 | awk '{printf "%s%s %d", (NR>1?", ":""), $2, $1}')"
+      topp="$(awk -F'\t' -v c="$cls" '$1==c{print $5}' "$per" | sort | uniq -c | sort -rn | head -3 | awk '{printf "%s%s %d", (NR>1?", ":""), $2, $1}')"
+      echo "  [$st] $cls top agents: $topa; top projects: $topp"
+      ok "[$st] traffic class $cls assessed ($cnt requests)"
+      # class thresholds
+      p95="$(cut -d/ -f2 <<<"$lat")"
+      if [ "$cls" = "overall" ]; then
+        if awk -v a="$rps" -v b="$TRAFFIC_RPS_WARN" 'BEGIN{exit !(a>=b)}'; then
+          warn "[$st] overall traffic $rps rps sustained over ${TRAFFIC_WINDOW_MIN}m (>= $TRAFFIC_RPS_WARN) - disturbing to cluster"
+        elif awk -v a="$rps" -v b="$TRAFFIC_RPS_NOTE" 'BEGIN{exit !(a>=b)}'; then
+          note "[$st] overall traffic elevated: $rps rps (>= $TRAFFIC_RPS_NOTE)"
+        fi
+        if [ "$cnt" -ge 200 ]; then
+          if awk -v a="$p5" -v b="$TRAFFIC_5XX_WARN" 'BEGIN{exit !(a>=b)}'; then
+            warn "[$st] 5xx responses ${p5}% of $cnt requests (>= ${TRAFFIC_5XX_WARN}%) - backends distressed"
+          elif awk -v a="$p5" -v b="$TRAFFIC_5XX_NOTE" 'BEGIN{exit !(a>=b)}'; then
+            note "[$st] 5xx responses ${p5}% of $cnt requests (>= ${TRAFFIC_5XX_NOTE}%)"
+          fi
+        fi
+        awk -v a="$p95" -v b="$TRAFFIC_P95_NOTE" 'BEGIN{exit !(a>=b)}' \
+          && note "[$st] p95 request latency ${p95}s (>= ${TRAFFIC_P95_NOTE}s)"
+      elif [ "$cls" = "bots" ]; then
+        if awk -v a="$rps" -v b="$TRAFFIC_BOT_RPS_WARN" 'BEGIN{exit !(a>=b)}'; then
+          warn "[$st] bot traffic alone $rps rps (>= $TRAFFIC_BOT_RPS_WARN) - disturbing to cluster (top: $topa)"
+        elif [ "${T_CNT[overall]}" -ge 200 ] && awk -v a="$cnt" -v b="${T_CNT[overall]}" -v p="$TRAFFIC_BOT_PCT_NOTE" 'BEGIN{exit !(100*a/b>=p)}'; then
+          note "[$st] bots are $(awk -v a="$cnt" -v b="${T_CNT[overall]}" 'BEGIN{printf "%.1f", 100*a/b}')% of all traffic (>= ${TRAFFIC_BOT_PCT_NOTE}%; top: $topa)"
+        fi
+      fi
+    done
+    # client IP concentration (only meaningful when real client IPs reach nginx; behind a cloud LB
+    # without proxy-protocol/real-ip all requests appear as few internal LB addresses)
+    distinct_ips="$(awk -F'\t' '$1=="overall"{print $6}' "$per" | sort -u | wc -l | tr -d '[:space:]')"
+    if [ "$distinct_ips" -le 3 ]; then
+      echo "  [$st] client IPs not assessable: only $distinct_ips distinct source IP(s) visible (LB hides real clients)"
+    else
+      topip="$(awk -F'\t' '$1=="overall"{print $6}' "$per" | sort | uniq -c | sort -rn | head -1)"
+      tipc="$(awk '{print $1}' <<<"$topip")"; tip="$(awk '{print $2}' <<<"$topip")"
+      if awk -v a="$tipc" -v b="$total" -v p="$TRAFFIC_TOPIP_PCT_NOTE" 'BEGIN{exit !(100*a/b>=p)}'; then
+        note "[$st] single client $tip produced $tipc/$total requests ($(awk -v a="$tipc" -v b="$total" 'BEGIN{printf "%.1f", 100*a/b}')% >= ${TRAFFIC_TOPIP_PCT_NOTE}%)"
+      else
+        ok "[$st] top client IP $tip within limits ($tipc/$total requests)"
+      fi
+    fi
+    # controller log noise
+    if [ "${ctlerr:-0}" -gt "$TRAFFIC_CTL_ERR_NOTE" ]; then
+      topmsg="$(grep -E '^[WE][0-9]{4}' "$raw" | awk '{$1="";$2="";$3="";print}' | sort | uniq -c | sort -rn | head -1 | sed 's/^ *//')"
+      note "[$st] ingress controller logged $ctlerr warning/error lines in ${TRAFFIC_WINDOW_MIN}m (> $TRAFFIC_CTL_ERR_NOTE); top: $topmsg"
+    else
+      ok "[$st] ingress controller warning/error lines in window: ${ctlerr:-0}"
+    fi
+    unset T_CNT
+  done
 fi
 
 # ----------------------------------------------------------------------------------------------------- summary -----
