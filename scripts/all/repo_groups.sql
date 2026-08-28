@@ -2633,6 +2633,15 @@ where
   lower(org_login) in ('curvineio')
 ;
 
+-- SDC
+update
+  gha_repos
+set
+  repo_group = 'SDC'
+where
+  lower(org_login) in ('sdcio', 'iptecharch')
+;
+
 -- CNCF
 update
   gha_repos

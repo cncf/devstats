@@ -243,6 +243,7 @@ sam,awslabs/aws-sam-cli,awslabs/serverless-application-model,awslabs/aws-sam-loc
 schemahero,schemahero
 score,score-spec
 screwdrivercd,screwdriver-cd
+sdc,sdcio,iptecharch
 sealer,sealerio,alibaba/sealer
 sermant,sermant-io,huaweicloud/Sermant,huaweicloud/java-mesh,huaweicloud/JavaMesh
 serverlessdevs,Serverless-Devs,ServerlessTool

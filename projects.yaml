@@ -3484,6 +3484,19 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.\d+(-alpha)?$'
     files_skip_pattern: ''
     shared_db: allprj
+  sdc:
+    order: 255
+    name: SDC
+    status: Sandbox
+    command_line:
+      - sdcio
+    start_date: 2023-11-27T00:00:00Z
+    join_date: 2026-08-28T00:00:00Z
+    psql_db: sdc
+    main_repo: sdcio/data-server
+    annotation_regexp: '^v\d+\.\d+\.\d+$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    shared_db: allprj
   opencontainers:
     order: 1200
     name: OCI
@@ -3720,7 +3733,7 @@ projects:
          tokenetes,spinframework,k0sproject,SlimPlanet,container2wasm,runmedev,cloudnative-pg,\
          Azure/Fleet-PRSE,Azure/fleet-networking,Azure/fleet,Azure/azure-rest-api-specs-fleet,\
          podman-desktop,podman-container-tools/podman,podman-container-tools/buildah,\
-         podman-container-tools/skopeo,containers/netavark,\
+         podman-container-tools/skopeo,containers/netavark,sdcio,\
          containers/aardvark-dns,containers/image,containers/storage,containers/common,\
          containers/conmon,containers/podman-py,cadence-workflow,kagent-dev,urunc-dev,cozystack,\
          kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\

@@ -272,6 +272,7 @@ icontypes=(
   ["tekton"]="color"
   ["kbind"]="color"
   ["curvine"]="color"
+  ["sdc"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
   ["cdevents"]="color"
