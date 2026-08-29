@@ -45,7 +45,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 27,
-  "iteration": 1730741177919,
+  "iteration": 1787986166605,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -307,20 +307,22 @@
         "current": {
           "selected": true,
           "text": [
-            "\"ishaansehgal99\"",
-            "\"Fei-Guo\"",
-            "\"bangqipropel\"",
-            "\"zhuangqh\"",
-            "\"helayoty\"",
-            "\"qfai\""
+            "\"alexandernorth\"",
+            "\"steiler\"",
+            "\"henderiw\"",
+            "\"severindellsperger\"",
+            "\"faebr\"",
+            "\"CsatariGergely\"",
+            "\"shrey-gang\""
           ],
           "value": [
-            "\"ishaansehgal99\"",
-            "\"Fei-Guo\"",
-            "\"bangqipropel\"",
-            "\"zhuangqh\"",
-            "\"helayoty\"",
-            "\"qfai\""
+            "\"alexandernorth\"",
+            "\"steiler\"",
+            "\"henderiw\"",
+            "\"severindellsperger\"",
+            "\"faebr\"",
+            "\"CsatariGergely\"",
+            "\"shrey-gang\""
           ]
         },
         "datasource": {
