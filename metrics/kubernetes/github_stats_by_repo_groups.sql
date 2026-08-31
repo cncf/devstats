@@ -1,42 +1,141 @@
-with matching as (
-  select distinct event_id
-  from
-    gha_texts
-  where
-    created_at >= '{{from}}'
-    and created_at < '{{to}}'
-    and substring(body from '(?i)(?:^|\n|\r)\s*/(?:lgtm|approve)\s*(?:\n|\r|$)') is not null
-), reviews as (
-  select id as event_id
-  from
-    gha_events
-  where
-    created_at >= '{{from}}'
-    and created_at < '{{to}}'
-    and type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent')
-)
-select
-  sub.repo_group,
-  round(count(distinct sub.sha) / {{n}}, 2) as metric
-from (
-  select 'gstat_rgrp_commits,' || coalesce(ecf.repo_group, r.repo_group) as repo_group,
-    c.sha
-  from
-    gha_repos r,
-    gha_commits c
-  left join
-    gha_events_commits_files ecf
-  on
-    ecf.event_id = c.event_id
-  where
-    r.name = c.dup_repo_name
-    and r.id = c.dup_repo_id
-    and c.dup_created_at >= '{{from}}'
-    and c.dup_created_at < '{{to}}'
-    and (lower(c.dup_actor_login) {{exclude_bots}})
-  ) sub
+-- temp_buffers must be set before the session touches any temp table,
+-- calc_metric reuses sessions across ranges, so ignore the error then
+do $$ begin
+  begin
+    set temp_buffers = '1GB';
+  exception when others then
+    null;
+  end;
+end $$;
+
+create temp table gsr_matching_{{rnd}} as
+select distinct event_id
+from
+  gha_texts
 where
-  sub.repo_group is not null
+  created_at >= '{{from}}'
+  and created_at < '{{to}}'
+  and (body ilike '%/lgtm%' or body ilike '%/approve%')
+  and substring(body from '(?i)(?:^|\n|\r)\s*/(?:lgtm|approve)\s*(?:\n|\r|$)') is not null
+;
+analyze gsr_matching_{{rnd}};
+
+create temp table gsr_reviews_{{rnd}} as
+select id as event_id
+from
+  gha_events
+where
+  created_at >= '{{from}}'
+  and created_at < '{{to}}'
+  and type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent')
+;
+analyze gsr_reviews_{{rnd}};
+
+create temp table gsr_rev_ids_{{rnd}} as
+select distinct event_id
+from (
+  select min(event_id) as event_id
+  from
+    gha_issues_events_labels
+  where
+    created_at >= '{{from}}'
+    and created_at < '{{to}}'
+    and label_name in ('lgtm', 'approved')
+  group by
+    issue_id
+  union all select event_id from gsr_matching_{{rnd}}
+  union all select event_id from gsr_reviews_{{rnd}}
+) u
+where
+  event_id is not null
+;
+create index on gsr_rev_ids_{{rnd}}(event_id);
+analyze gsr_rev_ids_{{rnd}};
+
+create temp table gsr_ic_{{rnd}} as
+select
+  i.event_id,
+  i.dup_actor_id,
+  lower(i.dup_actor_login) as actor_login,
+  i.is_pull_request,
+  r.repo_group
+from
+  gha_issues i,
+  gha_repos r
+where
+  i.dup_repo_id = r.id
+  and i.dup_repo_name = r.name
+  and r.repo_group is not null
+  and i.dup_created_at >= '{{from}}'
+  and i.dup_created_at < '{{to}}'
+  and i.dup_type = 'IssueCommentEvent'
+;
+analyze gsr_ic_{{rnd}};
+
+create temp table gsr_commits_{{rnd}} as
+select distinct
+  coalesce(ecf.repo_group, r.repo_group) as repo_group,
+  c.sha,
+  lower(c.dup_actor_login) as actor_login
+from
+  gha_repos r,
+  gha_commits c
+left join
+  gha_events_commits_files ecf
+on
+  ecf.event_id = c.event_id
+where
+  r.name = c.dup_repo_name
+  and r.id = c.dup_repo_id
+  and c.dup_created_at >= '{{from}}'
+  and c.dup_created_at < '{{to}}'
+  and coalesce(ecf.repo_group, r.repo_group) is not null
+;
+analyze gsr_commits_{{rnd}};
+
+create temp table gsr_rev_{{rnd}} as
+select distinct
+  coalesce(ecf.repo_group, r.repo_group) as repo_group,
+  e.dup_actor_login as actor,
+  lower(e.dup_actor_login) as actor_login
+from
+  gha_repos r,
+  gha_events e
+left join
+  gha_events_commits_files ecf
+on
+  ecf.event_id = e.id
+where
+  e.repo_id = r.id
+  and e.dup_repo_name = r.name
+  and coalesce(ecf.repo_group, r.repo_group) is not null
+  and e.id in (select event_id from gsr_rev_ids_{{rnd}})
+;
+analyze gsr_rev_{{rnd}};
+
+-- evaluate the ~100 like patterns of exclude_bots once per distinct login,
+-- consumers below use a cheap hashed semi-join instead of the per-row patterns
+create temp table gsr_ok_logins_{{rnd}} as
+select login
+from (
+  select distinct actor_login as login from gsr_ic_{{rnd}}
+  union select distinct actor_login from gsr_commits_{{rnd}}
+  union select distinct actor_login from gsr_rev_{{rnd}}
+) sub
+where
+  login is not null
+  and (login {{exclude_bots}})
+;
+create index on gsr_ok_logins_{{rnd}}(login);
+analyze gsr_ok_logins_{{rnd}};
+
+select
+  'gstat_rgrp_commits,' || sub.repo_group as repo_group,
+  round(count(distinct sub.sha) / {{n}}, 2) as metric
+from
+  gsr_commits_{{rnd}} sub
+where
+  sub.actor_login in (select login from gsr_ok_logins_{{rnd}})
 group by
   sub.repo_group
 union select 'gstat_rgrp_iclosed,' || r.repo_group as repo_group,
@@ -133,102 +232,48 @@ where
   sub.repo_group is not null
 group by
   sub.repo_group
-union select 'gstat_rgrp_prcomments,' || r.repo_group as repo_group,
+union select 'gstat_rgrp_prcomments,' || i.repo_group as repo_group,
   round(count(distinct i.event_id) / {{n}}, 2) as metric
 from
-  gha_issues i,
-  gha_repos r
+  gsr_ic_{{rnd}} i
 where
-  i.dup_repo_id = r.id
-  and i.dup_repo_name = r.name
-  and r.repo_group is not null
-  and i.dup_created_at >= '{{from}}'
-  and i.dup_created_at < '{{to}}'
-  and i.dup_type = 'IssueCommentEvent'
-  and i.is_pull_request = false
-  and (lower(i.dup_actor_login) {{exclude_bots}})
+  i.is_pull_request = false
+  and i.actor_login in (select login from gsr_ok_logins_{{rnd}})
 group by
-  r.repo_group
-union select 'gstat_rgrp_prcommenters,' || r.repo_group as repo_group,
+  i.repo_group
+union select 'gstat_rgrp_prcommenters,' || i.repo_group as repo_group,
   count(distinct i.dup_actor_id) as metric
 from
-  gha_issues i,
-  gha_repos r
+  gsr_ic_{{rnd}} i
 where
-  i.dup_repo_id = r.id
-  and i.dup_repo_name = r.name
-  and r.repo_group is not null
-  and i.dup_created_at >= '{{from}}'
-  and i.dup_created_at < '{{to}}'
-  and i.dup_type = 'IssueCommentEvent'
-  and i.is_pull_request = false
-  and (lower(i.dup_actor_login) {{exclude_bots}})
+  i.is_pull_request = false
+  and i.actor_login in (select login from gsr_ok_logins_{{rnd}})
 group by
-  r.repo_group
-union select 'gstat_rgrp_icomments,' || r.repo_group as repo_group,
+  i.repo_group
+union select 'gstat_rgrp_icomments,' || i.repo_group as repo_group,
   round(count(distinct i.event_id) / {{n}}, 2) as metric
 from
-  gha_issues i,
-  gha_repos r
+  gsr_ic_{{rnd}} i
 where
-  i.dup_repo_id = r.id
-  and i.dup_repo_name = r.name
-  and r.repo_group is not null
-  and i.dup_created_at >= '{{from}}'
-  and i.dup_created_at < '{{to}}'
-  and i.dup_type = 'IssueCommentEvent'
-  and i.is_pull_request = true
-  and (lower(i.dup_actor_login) {{exclude_bots}})
+  i.is_pull_request = true
+  and i.actor_login in (select login from gsr_ok_logins_{{rnd}})
 group by
-  r.repo_group
-union select 'gstat_rgrp_icommenters,' || r.repo_group as repo_group,
+  i.repo_group
+union select 'gstat_rgrp_icommenters,' || i.repo_group as repo_group,
   count(distinct i.dup_actor_id) as metric
 from
-  gha_issues i,
-  gha_repos r
+  gsr_ic_{{rnd}} i
 where
-  i.dup_repo_id = r.id
-  and i.dup_repo_name = r.name
-  and r.repo_group is not null
-  and i.dup_created_at >= '{{from}}'
-  and i.dup_created_at < '{{to}}'
-  and i.dup_type = 'IssueCommentEvent'
-  and i.is_pull_request = true
-  and (lower(i.dup_actor_login) {{exclude_bots}})
+  i.is_pull_request = true
+  and i.actor_login in (select login from gsr_ok_logins_{{rnd}})
 group by
-  r.repo_group
-union select sub.repo_group,
+  i.repo_group
+union select 'gstat_rgrp_reviewers,' || sub.repo_group as repo_group,
   count(distinct sub.actor) as metric
-from (
-  select 'gstat_rgrp_reviewers,' || coalesce(ecf.repo_group, r.repo_group) as repo_group,
-    e.dup_actor_login as actor
-  from
-    gha_repos r,
-    gha_events e
-  left join
-    gha_events_commits_files ecf
-  on
-    ecf.event_id = e.id
-  where
-    e.repo_id = r.id
-    and e.dup_repo_name = r.name
-    and (lower(e.dup_actor_login) {{exclude_bots}})
-    and e.id in (
-      select min(event_id)
-      from
-        gha_issues_events_labels
-      where
-        created_at >= '{{from}}'
-        and created_at < '{{to}}'
-        and label_name in ('lgtm', 'approved')
-      group by
-        issue_id
-      union select event_id from matching
-      union select event_id from reviews
-    )
-  ) sub
+from
+  gsr_rev_{{rnd}} sub
 where
-  sub.repo_group is not null
+  sub.actor_login in (select login from gsr_ok_logins_{{rnd}})
 group by
   sub.repo_group
 order by
