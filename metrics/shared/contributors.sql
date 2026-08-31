@@ -1,3 +1,33 @@
+-- temp_buffers must be set before the session touches any temp table,
+-- calc_metric reuses sessions across ranges, so ignore the error then
+do $$ begin
+  begin
+    set temp_buffers = '1GB';
+  exception when others then
+    null;
+  end;
+end $$;
+
+-- evaluate the ~100 like patterns of exclude_bots once per distinct login,
+-- consumers below use a cheap hashed semi-join instead of the per-row patterns
+create temp table ctr_logins_{{rnd}} as
+select login from (
+  select distinct lower(e.dup_actor_login) as login from gha_events e where e.created_at >= '{{from}}' and e.created_at < '{{to}}'
+  union
+  select distinct lower(c.dup_user_login) from gha_comments c where c.created_at >= '{{from}}' and c.created_at < '{{to}}'
+  union
+  select distinct lower(i.dup_user_login) from gha_issues i where i.created_at >= '{{from}}' and i.created_at < '{{to}}'
+  union
+  select distinct lower(pr.dup_user_login) from gha_pull_requests pr where pr.merged_at >= '{{from}}' and pr.merged_at < '{{to}}'
+) sub
+;
+create temp table ctr_ok_logins_{{rnd}} as
+select login from ctr_logins_{{rnd}}
+where
+  (login {{exclude_bots}})
+;
+analyze ctr_ok_logins_{{rnd}};
+
 create temp table repo_groups_{{rnd}} as
 select
   rg.id,
@@ -76,7 +106,7 @@ from (
     )
     and created_at >= '{{from}}'
     and created_at < '{{to}}'
-    and (lower(dup_actor_login) {{exclude_bots}})
+    and lower(dup_actor_login) in (select login from ctr_ok_logins_{{rnd}})
   order by
     id
 ) e
@@ -116,7 +146,7 @@ from (
   where
     created_at >= '{{from}}'
     and created_at < '{{to}}'
-    and (lower(dup_user_login) {{exclude_bots}})
+    and lower(dup_user_login) in (select login from ctr_ok_logins_{{rnd}})
   order by
     id
 ) c
@@ -143,7 +173,7 @@ from (
     created_at >= '{{from}}'
     and created_at < '{{to}}'
     and is_pull_request = false
-    and (lower(dup_user_login) {{exclude_bots}})
+    and lower(dup_user_login) in (select login from ctr_ok_logins_{{rnd}})
   order by
     id
 ) i
@@ -170,7 +200,7 @@ from (
     created_at >= '{{from}}'
     and created_at < '{{to}}'
     and is_pull_request = true
-    and (lower(dup_user_login) {{exclude_bots}})
+    and lower(dup_user_login) in (select login from ctr_ok_logins_{{rnd}})
   order by
     id
 ) p
@@ -196,7 +226,7 @@ from (
   where
     merged_at >= '{{from}}'
     and merged_at < '{{to}}'
-    and (lower(dup_user_login) {{exclude_bots}})
+    and lower(dup_user_login) in (select login from ctr_ok_logins_{{rnd}})
   order by
     id
 ) mp
@@ -352,4 +382,11 @@ from
 where
   metric like 'cs;contributions\_%' escape '\'
 ;
+-- calc_metric reuses sessions across ranges, free the temp space right away
+drop table contributions_{{rnd}};
+drop table actors_affiliations_{{rnd}};
+drop table actors_country_{{rnd}};
+drop table repo_groups_{{rnd}};
+drop table ctr_ok_logins_{{rnd}};
+drop table ctr_logins_{{rnd}};
 

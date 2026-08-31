@@ -2,7 +2,8 @@ create temp table dch_commits_{{rnd}} as
 select
   c.sha,
   c.author_id,
-  c.dup_created_at
+  c.dup_created_at,
+  lower(c.dup_author_login) as author_lower
 from
   gha_events_commits_files ecf,
   gha_commits c
@@ -10,7 +11,18 @@ where
   c.sha = ecf.sha
   and (ecf.path like '%.md' or ecf.path like '%.MD')
   and {{period:c.dup_created_at}}
-  and (lower(c.dup_author_login) {{exclude_bots}})
+;
+-- filter bots once per distinct login instead of once per scanned row,
+-- the temp table barrier keeps the ~100 like patterns off the base scans
+create temp table dch_logins_{{rnd}} as
+select distinct author_lower as login from dch_commits_{{rnd}}
+;
+delete from dch_commits_{{rnd}}
+where
+  author_lower is null
+  or author_lower in (
+    select login from dch_logins_{{rnd}} where not (login {{exclude_bots}})
+  )
 ;
 analyze dch_commits_{{rnd}};
 
@@ -68,3 +80,6 @@ order by
   value desc,
   name asc
 ;
+drop table dch_company_{{rnd}};
+drop table dch_commits_{{rnd}};
+drop table dch_logins_{{rnd}};

@@ -1,3 +1,39 @@
+-- temp_buffers must be set before the session touches any temp table,
+-- calc_metric reuses sessions across ranges, so ignore the error then
+do $$ begin
+  begin
+    set temp_buffers = '1GB';
+  exception when others then
+    null;
+  end;
+end $$;
+
+-- evaluate the ~100 like patterns of exclude_bots once per distinct login,
+-- consumers below use a cheap hashed semi-join instead of the per-row patterns
+create temp table ps_all_logins_{{rnd}} as
+select login from (
+  select distinct lower(e.dup_actor_login) as login from gha_events e where {{period:e.created_at}}
+  union
+  select distinct lower(c.dup_user_login) from gha_comments c where {{period:c.created_at}}
+  union
+  select distinct lower(r.dup_user_login) from gha_reviews r where {{period:r.submitted_at}}
+  union
+  select distinct lower(i.dup_user_login) from gha_issues i where {{period:i.created_at}}
+  union
+  select distinct lower(c.dup_actor_login) from gha_commits c where {{period:c.dup_created_at}}
+  union
+  select distinct lower(c.dup_author_login) from gha_commits c where {{period:c.dup_created_at}}
+  union
+  select distinct lower(c.dup_committer_login) from gha_commits c where {{period:c.dup_created_at}}
+) sub
+;
+create temp table ps_ok_logins_{{rnd}} as
+select login from ps_all_logins_{{rnd}}
+where
+  (login {{exclude_bots}})
+;
+analyze ps_ok_logins_{{rnd}};
+
 create temp table repo_groups_all_{{rnd}} as
 select
   id as repo_id,
@@ -35,7 +71,7 @@ from
   gha_events
 where
   {{period:created_at}}
-  and (lower(dup_actor_login) {{exclude_bots}})
+  and lower(dup_actor_login) in (select login from ps_ok_logins_{{rnd}})
 ;
 create index on events_nb_{{rnd}}(repo_id, dup_repo_name);
 create index on events_nb_{{rnd}}(type);
@@ -99,9 +135,9 @@ select
   dup_author_login,
   committer_id,
   dup_committer_login,
-  (lower(dup_actor_login) {{exclude_bots}}) as actor_ok,
-  (lower(dup_author_login) {{exclude_bots}}) as author_ok,
-  (lower(dup_committer_login) {{exclude_bots}}) as committer_ok
+  (lower(dup_actor_login) in (select login from ps_ok_logins_{{rnd}})) as actor_ok,
+  (lower(dup_author_login) in (select login from ps_ok_logins_{{rnd}})) as author_ok,
+  (lower(dup_committer_login) in (select login from ps_ok_logins_{{rnd}})) as committer_ok
 from
   gha_commits
 where
@@ -145,7 +181,7 @@ from
   gha_comments
 where
   {{period:created_at}}
-  and (lower(dup_user_login) {{exclude_bots}})
+  and lower(dup_user_login) in (select login from ps_ok_logins_{{rnd}})
 ;
 create index on comments_nb_{{rnd}}(dup_repo_id, dup_repo_name);
 analyze comments_nb_{{rnd}};
@@ -161,7 +197,7 @@ from
   gha_issues
 where
   {{period:created_at}}
-  and (lower(dup_user_login) {{exclude_bots}})
+  and lower(dup_user_login) in (select login from ps_ok_logins_{{rnd}})
 ;
 create index on issues_nb_{{rnd}}(dup_repo_id, dup_repo_name);
 analyze issues_nb_{{rnd}};
@@ -175,7 +211,7 @@ from
   gha_reviews
 where
   {{period:submitted_at}}
-  and (lower(dup_user_login) {{exclude_bots}})
+  and lower(dup_user_login) in (select login from ps_ok_logins_{{rnd}})
 ;
 create index on pr_reviews_nb_{{rnd}}(dup_repo_id, dup_repo_name);
 analyze pr_reviews_nb_{{rnd}};
@@ -852,4 +888,34 @@ order by
   value desc,
   repo_group asc
 ;
+drop table issues_rg_agg_{{rnd}};
+drop table issues_all_agg_{{rnd}};
+drop table prreviews_rg_agg_{{rnd}};
+drop table prreviews_all_agg_{{rnd}};
+drop table comments_rg_agg_{{rnd}};
+drop table comments_all_agg_{{rnd}};
+drop table commits_agg_{{rnd}};
+drop table repos_rg_agg_{{rnd}};
+drop table repos_all_agg_{{rnd}};
+drop table evtype_rg_agg_{{rnd}};
+drop table evtype_all_agg_{{rnd}};
+drop table events_rg_agg_{{rnd}};
+drop table events_all_agg_{{rnd}};
+drop table countries_rg_agg_{{rnd}};
+drop table countries_all_agg_{{rnd}};
+drop table actors_country_{{rnd}};
+drop table country_actor_ids_{{rnd}};
+drop table pr_reviews_nb_{{rnd}};
+drop table issues_nb_{{rnd}};
+drop table comments_nb_{{rnd}};
+drop table commits_data_{{rnd}};
+drop table commits_p_{{rnd}};
+drop table events_all_rg_{{rnd}};
+drop table events_all_{{rnd}};
+drop table events_nb_rg_{{rnd}};
+drop table events_nb_{{rnd}};
+drop table repo_groups_nonnull_{{rnd}};
+drop table repo_groups_all_{{rnd}};
+drop table ps_ok_logins_{{rnd}};
+drop table ps_all_logins_{{rnd}};
 

@@ -1,3 +1,13 @@
+-- temp_buffers must be set before the session touches any temp table,
+-- calc_metric reuses sessions across ranges, so ignore the error then
+do $$ begin
+  begin
+    set temp_buffers = '1GB';
+  exception when others then
+    null;
+  end;
+end $$;
+
 create temp table hdev_repo_groups_{{rnd}} as
 select
   id,
@@ -40,7 +50,6 @@ on
 where
   {{period:c.dup_created_at}}
   and (v.role = 'actor' or v.actor_id is not null)
-  and (lower(v.actor_login) {{exclude_bots}})
 union all
 select
   r.repo_group,
@@ -66,7 +75,18 @@ where
   and cr.actor_id <> 0
   and cr.role = 'Co-authored-by'
   and {{period:cr.dup_created_at}}
-  and (lower(cr.actor_login) {{exclude_bots}})
+;
+-- filter bots once per distinct login instead of once per row,
+-- the temp table barrier prevents pushing the ~100 like patterns down to row level
+create temp table hdev_commits_logins_{{rnd}} as
+select distinct actor_login as login from hdev_commits_data_{{rnd}}
+;
+delete from hdev_commits_data_{{rnd}}
+where
+  actor_login is null
+  or actor_login in (
+    select login from hdev_commits_logins_{{rnd}} where not (login {{exclude_bots}})
+  )
 ;
 create index on hdev_commits_data_{{rnd}} (repo_group);
 create index on hdev_commits_data_{{rnd}} (actor_id);
@@ -359,7 +379,10 @@ create index on hdev_merged_prs_country_{{rnd}} (repo_group);
 create index on hdev_merged_prs_country_{{rnd}} (country);
 analyze hdev_merged_prs_country_{{rnd}};
 
-create temp table hdev_ok_logins_{{rnd}} as
+-- materialize distinct logins first: without the temp table barrier the planner
+-- pushes the ~100 like patterns of exclude_bots below the distincts and
+-- evaluates them per source row (tens of millions) instead of per login
+create temp table hdev_all_logins_{{rnd}} as
 select login_lower from (
   select distinct dup_actor_login_lower as login_lower from hdev_events_{{rnd}}
   union
@@ -371,6 +394,9 @@ select login_lower from (
   union
   select distinct login_lower from hdev_actors_country_{{rnd}}
 ) sub
+;
+create temp table hdev_ok_logins_{{rnd}} as
+select login_lower from hdev_all_logins_{{rnd}}
 where
   (login_lower {{exclude_bots}})
 ;
@@ -1098,4 +1124,18 @@ order by
   value desc,
   name asc
 ;
+drop table hdev_ok_logins_{{rnd}};
+drop table hdev_all_logins_{{rnd}};
+drop table hdev_merged_prs_country_{{rnd}};
+drop table hdev_issues_country_{{rnd}};
+drop table hdev_comments_country_{{rnd}};
+drop table hdev_events_country_{{rnd}};
+drop table hdev_actors_country_{{rnd}};
+drop table hdev_merged_prs_{{rnd}};
+drop table hdev_issues_{{rnd}};
+drop table hdev_comments_{{rnd}};
+drop table hdev_events_{{rnd}};
+drop table hdev_commits_logins_{{rnd}};
+drop table hdev_commits_data_{{rnd}};
+drop table hdev_repo_groups_{{rnd}};
 
