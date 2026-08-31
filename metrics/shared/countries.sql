@@ -1,13 +1,3 @@
--- temp_buffers must be set before the session touches any temp table,
--- calc_metric reuses sessions across ranges, so ignore the error then
-do $$ begin
-  begin
-    set temp_buffers = '1GB';
-  exception when others then
-    null;
-  end;
-end $$;
-
 create temp table actors_country_{{rnd}} as
 select
   id as actor_id,
@@ -159,8 +149,4 @@ where
 order by
   name
 ;
--- calc_metric reuses sessions across ranges, free the temp space right away
-drop table base_events_{{rnd}};
-drop table repo_groups_{{rnd}};
-drop table actors_country_{{rnd}};
 

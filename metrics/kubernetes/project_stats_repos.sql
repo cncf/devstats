@@ -8,42 +8,6 @@
 --
 -- Semantics: matches your original query output/rows (including when per-repo rows should/shouldn't exist).
 
--- temp_buffers must be set before the session touches any temp table,
--- calc_metric reuses sessions across ranges, so ignore the error then
-do $$ begin
-  begin
-    set temp_buffers = '1GB';
-  exception when others then
-    null;
-  end;
-end $$;
-
--- evaluate the ~100 like patterns of {{exclude_bots}} once per distinct login,
--- consumers below use a cheap hashed semi-join instead of the per-row patterns
-create temp table ps_all_logins_{{rnd}} as
-select login from (
-  select distinct lower(e.dup_actor_login) as login from gha_events e where {{period:e.created_at}}
-  union
-  select distinct lower(c.dup_user_login) from gha_comments c where {{period:c.created_at}}
-  union
-  select distinct lower(r.dup_user_login) from gha_reviews r where {{period:r.submitted_at}}
-  union
-  select distinct lower(i.dup_user_login) from gha_issues i where {{period:i.created_at}}
-  union
-  select distinct lower(c.dup_actor_login) from gha_commits c where {{period:c.dup_created_at}}
-  union
-  select distinct lower(c.dup_author_login) from gha_commits c where {{period:c.dup_created_at}}
-  union
-  select distinct lower(c.dup_committer_login) from gha_commits c where {{period:c.dup_created_at}}
-) sub
-;
-create temp table ps_ok_logins_{{rnd}} as
-select login from ps_all_logins_{{rnd}}
-where
-  (login {{exclude_bots}})
-;
-analyze ps_ok_logins_{{rnd}};
-
 -- 0) trepos distinct
 create temp table trepos_{{rnd}} as (
   select distinct
@@ -79,7 +43,7 @@ create temp table events_nb_{{rnd}} as (
   from
     events_p_{{rnd}}
   where
-    lower(dup_actor_login) in (select login from ps_ok_logins_{{rnd}})
+    (lower(dup_actor_login) {{exclude_bots}})
 );
 create index on events_nb_{{rnd}}(repo_name);
 create index on events_nb_{{rnd}}(type);
@@ -290,7 +254,7 @@ create temp table commits_data_{{rnd}} as (
   ) v(actor_id, actor_login, include_row)
   where
     v.include_row
-    and lower(v.actor_login) in (select login from ps_ok_logins_{{rnd}})
+    and (lower(v.actor_login) {{exclude_bots}})
 );
 create index on commits_data_{{rnd}}(repo_name);
 analyze commits_data_{{rnd}};
@@ -331,7 +295,7 @@ create temp table comments_nb_all_{{rnd}} as (
     gha_comments c
   where
     {{period:c.created_at}}
-    and lower(c.dup_user_login) in (select login from ps_ok_logins_{{rnd}})
+    and (lower(c.dup_user_login) {{exclude_bots}})
 );
 create index on comments_nb_all_{{rnd}}(repo_name);
 analyze comments_nb_all_{{rnd}};
@@ -380,7 +344,7 @@ create temp table reviews_nb_all_{{rnd}} as (
     gha_reviews r
   where
     {{period:r.submitted_at}}
-    and lower(r.dup_user_login) in (select login from ps_ok_logins_{{rnd}})
+    and (lower(r.dup_user_login) {{exclude_bots}})
 );
 create index on reviews_nb_all_{{rnd}}(repo_name);
 analyze reviews_nb_all_{{rnd}};
@@ -428,7 +392,7 @@ create temp table issues_nb_all_{{rnd}} as (
     gha_issues i
   where
     {{period:i.created_at}}
-    and lower(i.dup_user_login) in (select login from ps_ok_logins_{{rnd}})
+    and (lower(i.dup_user_login) {{exclude_bots}})
 );
 create index on issues_nb_all_{{rnd}}(repo_name);
 create index on issues_nb_all_{{rnd}}(is_pull_request);
@@ -757,38 +721,4 @@ order by
   value desc,
   repo asc
 ;
--- calc_metric reuses sessions across ranges, free the temp space right away
-drop table issues_all_agg_{{rnd}};
-drop table issues_repo_agg_{{rnd}};
-drop table issues_nb_trepos_{{rnd}};
-drop table issues_nb_all_{{rnd}};
-drop table reviews_all_agg_{{rnd}};
-drop table reviews_repo_agg_{{rnd}};
-drop table reviews_nb_trepos_{{rnd}};
-drop table reviews_nb_all_{{rnd}};
-drop table comments_all_agg_{{rnd}};
-drop table comments_repo_agg_{{rnd}};
-drop table comments_nb_trepos_{{rnd}};
-drop table comments_nb_all_{{rnd}};
-drop table commits_all_agg_{{rnd}};
-drop table commits_repo_agg_{{rnd}};
-drop table commits_data_{{rnd}};
-drop table commits_p_{{rnd}};
-drop table repos_all_agg_{{rnd}};
-drop table repos_repo_agg_{{rnd}};
-drop table evtype_all_agg_{{rnd}};
-drop table evtype_repo_agg_{{rnd}};
-drop table events_all_agg_{{rnd}};
-drop table events_repo_agg_{{rnd}};
-drop table contrib_all_agg_{{rnd}};
-drop table contrib_repo_agg_{{rnd}};
-drop table events_contrib_nb_trepos_{{rnd}};
-drop table events_contrib_nb_all_{{rnd}};
-drop table events_nb_trepos_{{rnd}};
-drop table events_p_trepos_{{rnd}};
-drop table events_nb_{{rnd}};
-drop table events_p_{{rnd}};
-drop table trepos_{{rnd}};
-drop table ps_ok_logins_{{rnd}};
-drop table ps_all_logins_{{rnd}};
 

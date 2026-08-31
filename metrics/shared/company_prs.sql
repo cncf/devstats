@@ -1,23 +1,3 @@
--- evaluate the ~100 like patterns of {{exclude_bots}} once per distinct login,
--- the temp table barrier keeps them off the per-row gha_pull_requests scan
-CREATE TEMP TABLE cpr_logins_{{rnd}} AS
-SELECT DISTINCT
-  lower(pr.dup_user_login) AS login
-FROM
-  gha_pull_requests pr
-WHERE
-  {{period:pr.created_at}}
-;
-
-CREATE TEMP TABLE cpr_ok_logins_{{rnd}} AS
-SELECT
-  login
-FROM
-  cpr_logins_{{rnd}}
-WHERE
-  (login {{exclude_bots}})
-;
-
 CREATE TEMP TABLE cpr_aff_{{rnd}} AS
 SELECT DISTINCT
   p.pr_id,
@@ -43,7 +23,7 @@ FROM (
   WHERE
     r.repo_group IS NOT NULL
     AND {{period:pr.created_at}}
-    AND lower(pr.dup_user_login) IN (SELECT login FROM cpr_ok_logins_{{rnd}})
+    AND (lower(pr.dup_user_login) {{exclude_bots}})
 ) p
 JOIN
   gha_actors a
@@ -161,6 +141,3 @@ JOIN (
 USING
   (repo, company, github_id, country)
 ;
-DROP TABLE cpr_aff_{{rnd}};
-DROP TABLE cpr_ok_logins_{{rnd}};
-DROP TABLE cpr_logins_{{rnd}};

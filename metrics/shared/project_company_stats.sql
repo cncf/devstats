@@ -1,17 +1,4 @@
--- temp_buffers must be set before the session touches any temp table,
--- calc_metric reuses sessions across ranges, so ignore the error then
-do $$ begin
-  begin
-    set temp_buffers = '1GB';
-  exception when others then
-    null;
-  end;
-end $$;
-
--- materialize distinct logins first: without the temp table barrier the planner
--- pushes the ~100 like patterns of {{exclude_bots}} below the distincts and
--- evaluates them per source row (millions) instead of per login
-create temp table pcs_all_logins_{{rnd}} as
+create temp table pcs_ok_logins_{{rnd}} as
 select login from (
   select distinct lower(e.dup_actor_login) as login from gha_events e where {{period:e.created_at}}
   union
@@ -27,9 +14,6 @@ select login from (
   union
   select distinct lower(c.dup_committer_login) from gha_commits c where {{period:c.dup_created_at}}
 ) sub
-;
-create temp table pcs_ok_logins_{{rnd}} as
-select login from pcs_all_logins_{{rnd}}
 where
   (login {{exclude_bots}})
 ;
@@ -435,15 +419,3 @@ order by
   value desc,
   name asc
 ;
-drop table pcs_commits_company_{{rnd}};
-drop table pcs_issues_company_{{rnd}};
-drop table pcs_reviews_company_{{rnd}};
-drop table pcs_comments_company_{{rnd}};
-drop table pcs_events_company_{{rnd}};
-drop table pcs_commits_ok_{{rnd}};
-drop table pcs_issues_ok_{{rnd}};
-drop table pcs_reviews_ok_{{rnd}};
-drop table pcs_comments_ok_{{rnd}};
-drop table pcs_events_ok_{{rnd}};
-drop table pcs_ok_logins_{{rnd}};
-drop table pcs_all_logins_{{rnd}};

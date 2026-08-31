@@ -1,21 +1,4 @@
--- pr_logins/ok_logins evaluate the ~100 like patterns of {{exclude_bots}} once
--- per distinct login, the materialized CTEs stop the planner from pushing the
--- patterns down to per-row level on the gha_pull_requests scan
-with pr_logins as materialized (
-  select distinct
-    lower(pr.dup_user_login) as login
-  from
-    gha_pull_requests pr
-  where
-    {{period:pr.created_at}}
-), ok_logins as materialized (
-  select
-    login
-  from
-    pr_logins
-  where
-    (login {{exclude_bots}})
-), pr_affiliations as materialized (
+with pr_affiliations as materialized (
   select
     pr.id,
     pr.dup_repo_id,
@@ -31,7 +14,7 @@ with pr_logins as materialized (
     and a.dt_to > pr.created_at
   where
     {{period:pr.created_at}}
-    and lower(pr.dup_user_login) in (select login from ok_logins)
+    and (lower(pr.dup_user_login) {{exclude_bots}})
     and a.company_name != ''
 )
 select

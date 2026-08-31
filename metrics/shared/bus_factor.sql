@@ -2,47 +2,6 @@
 -- Drop-in replacement for the original CTE-based query.
 -- Uses {{rnd}} temp tables + indexes + analyze and preserves original semantics.
 
--- temp_buffers must be set before the session touches any temp table,
--- calc_metric reuses sessions across ranges, so ignore the error then
-do $$ begin
-  begin
-    set temp_buffers = '1GB';
-  exception when others then
-    null;
-  end;
-end $$;
-
--- -------------------------
--- 0a) Non-bot logins: evaluate the ~100 like patterns of {{exclude_bots}} once
---     per distinct login, the temp table barrier keeps them off per-row scans;
---     the bases below use a cheap hashed semi-join instead
--- -------------------------
-create temp table hbus_all_logins_{{rnd}} as
-select login from (
-  select distinct lower(e.dup_actor_login) as login from gha_events e where {{period:e.created_at}}
-  union
-  select distinct lower(c.dup_user_login) from gha_comments c where {{period:c.created_at}}
-  union
-  select distinct lower(i.dup_user_login) from gha_issues i where {{period:i.created_at}}
-  union
-  select distinct lower(pr.dup_user_login) from gha_pull_requests pr where pr.merged_at is not null and {{period:pr.merged_at}}
-  union
-  select distinct lower(c.dup_actor_login) from gha_commits c where {{period:c.dup_created_at}}
-  union
-  select distinct lower(c.dup_author_login) from gha_commits c where {{period:c.dup_created_at}}
-  union
-  select distinct lower(c.dup_committer_login) from gha_commits c where {{period:c.dup_created_at}}
-  union
-  select distinct lower(cr.actor_login) from gha_commits_roles cr where cr.role = 'Co-authored-by' and {{period:cr.dup_created_at}}
-) sub
-;
-create temp table hbus_ok_logins_{{rnd}} as
-select login from hbus_all_logins_{{rnd}}
-where
-  (login {{exclude_bots}})
-;
-analyze hbus_ok_logins_{{rnd}};
-
 -- -------------------------
 -- 0) Repo group mapping (matches original joins on id+name, keeping possible multi-group mappings)
 -- -------------------------
@@ -84,7 +43,7 @@ cross join lateral (
 ) as v(role, actor_id, actor_login)
 where
   {{period:c.dup_created_at}}
-  and lower(v.actor_login) in (select login from hbus_ok_logins_{{rnd}})
+  and (lower(v.actor_login) {{exclude_bots}})
   and (
     v.role = 'actor'
     or v.actor_id is not null
@@ -110,7 +69,7 @@ where
   and cr.actor_id != 0
   and cr.role = 'Co-authored-by'
   and {{period:cr.dup_created_at}}
-  and lower(cr.actor_login) in (select login from hbus_ok_logins_{{rnd}})
+  and (lower(cr.actor_login) {{exclude_bots}})
 ;
 
 create index on hbus_commits_roles_{{rnd}}(repo_group);
@@ -141,7 +100,7 @@ on
   and rg.name = e.dup_repo_name
 where
   {{period:e.created_at}}
-  and lower(e.dup_actor_login) in (select login from hbus_ok_logins_{{rnd}})
+  and (lower(e.dup_actor_login) {{exclude_bots}})
 ;
 create index on hbus_events_base_{{rnd}}(actor_id, created_at);
 create index on hbus_events_base_{{rnd}}(repo_group, actor_login);
@@ -165,7 +124,7 @@ on
   and rg.name = c.dup_repo_name
 where
   {{period:c.created_at}}
-  and lower(c.dup_user_login) in (select login from hbus_ok_logins_{{rnd}})
+  and (lower(c.dup_user_login) {{exclude_bots}})
 ;
 create index on hbus_comments_base_{{rnd}}(actor_id, created_at);
 create index on hbus_comments_base_{{rnd}}(repo_group, actor_login);
@@ -188,7 +147,7 @@ on
   and rg.name = i.dup_repo_name
 where
   {{period:i.created_at}}
-  and lower(i.dup_user_login) in (select login from hbus_ok_logins_{{rnd}})
+  and (lower(i.dup_user_login) {{exclude_bots}})
 ;
 create index on hbus_issues_base_{{rnd}}(actor_id, created_at);
 create index on hbus_issues_base_{{rnd}}(repo_group, actor_login);
@@ -212,7 +171,7 @@ on
 where
   pr.merged_at is not null
   and {{period:pr.merged_at}}
-  and lower(pr.dup_user_login) in (select login from hbus_ok_logins_{{rnd}})
+  and (lower(pr.dup_user_login) {{exclude_bots}})
 ;
 create index on hbus_merged_prs_base_{{rnd}}(actor_id, merged_at);
 create index on hbus_merged_prs_base_{{rnd}}(repo_group, actor_login);
@@ -769,26 +728,4 @@ on
   and b.metric = t.metric
   and b.tp = t.tp
 ;
-drop table hbus_topa_{{rnd}};
-drop table hbus_bfa_{{rnd}};
-drop table hbus_bf_{{rnd}};
-drop table hbus_cum_rg_{{rnd}};
-drop table hbus_all_rg_{{rnd}};
-drop table hbus_rg_{{rnd}};
-drop table hbus_counts_{{rnd}};
-drop table hbus_merged_prs_org_{{rnd}};
-drop table hbus_issues_org_{{rnd}};
-drop table hbus_comments_org_{{rnd}};
-drop table hbus_events_org_{{rnd}};
-drop table hbus_commits_data_{{rnd}};
-drop table hbus_aff_{{rnd}};
-drop table hbus_actor_ids_{{rnd}};
-drop table hbus_merged_prs_base_{{rnd}};
-drop table hbus_issues_base_{{rnd}};
-drop table hbus_comments_base_{{rnd}};
-drop table hbus_events_base_{{rnd}};
-drop table hbus_commits_roles_{{rnd}};
-drop table hbus_repo_groups_{{rnd}};
-drop table hbus_ok_logins_{{rnd}};
-drop table hbus_all_logins_{{rnd}};
 

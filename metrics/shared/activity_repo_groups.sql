@@ -1,22 +1,3 @@
--- ev_logins/ok_logins evaluate the ~100 like patterns of {{exclude_bots}} once
--- per distinct login, the materialized CTEs stop the planner from pushing the
--- patterns down to per-row level on the gha_events scan
-with ev_logins as materialized (
-  select distinct
-    lower(ev.dup_actor_login) as login
-  from
-    gha_events ev
-  where
-    ev.created_at >= '{{from}}'
-    and ev.created_at < '{{to}}'
-), ok_logins as materialized (
-  select
-    login
-  from
-    ev_logins
-  where
-    (login {{exclude_bots}})
-)
 select
   sub.repo_group,
   round(count(distinct sub.id) / {{n}}, 2) as activity
@@ -32,7 +13,7 @@ from (
     and r.name in (select repo_name from trepos)
     and ev.created_at >= '{{from}}'
     and ev.created_at < '{{to}}'
-    and lower(ev.dup_actor_login) in (select login from ok_logins)
+    and (lower(ev.dup_actor_login) {{exclude_bots}})
   ) sub
 where
   sub.repo_group is not null
