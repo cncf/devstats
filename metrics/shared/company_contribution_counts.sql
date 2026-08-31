@@ -1,4 +1,32 @@
-with companies as (
+-- all_logins/ok_logins evaluate the ~100 like patterns of {{exclude_bots}} once
+-- per distinct login, the materialized CTEs stop the planner from pushing the
+-- patterns down to per-row level on the base table scans
+with all_logins as materialized (
+  select login from (
+    select distinct lower(e.dup_actor_login) as login from gha_events e where {{period:e.created_at}}
+    union
+    select distinct lower(c.dup_user_login) from gha_comments c where {{period:c.created_at}}
+    union
+    select distinct lower(i.dup_user_login) from gha_issues i where {{period:i.created_at}}
+    union
+    select distinct lower(pr.dup_user_login) from gha_pull_requests pr where pr.merged_at is not null and {{period:pr.merged_at}}
+    union
+    select distinct lower(c.dup_actor_login) from gha_commits c where {{period:c.dup_created_at}}
+    union
+    select distinct lower(c.dup_author_login) from gha_commits c where {{period:c.dup_created_at}}
+    union
+    select distinct lower(c.dup_committer_login) from gha_commits c where {{period:c.dup_created_at}}
+    union
+    select distinct lower(cr.actor_login) from gha_commits_roles cr where cr.role = 'Co-authored-by' and {{period:cr.dup_created_at}}
+  ) sub
+), ok_logins as materialized (
+  select
+    login
+  from
+    all_logins
+  where
+    (login {{exclude_bots}})
+), companies as (
   select
     companies_name as company
   from
@@ -43,7 +71,7 @@ with companies as (
     and a.dt_to > c.dup_created_at
   where
     {{period:c.dup_created_at}}
-    and (u.actor_login {{exclude_bots}})
+    and u.actor_login in (select login from ok_logins)
   union all
   select
     rg.repo_group,
@@ -67,7 +95,7 @@ with companies as (
     and cr.actor_id is not null
     and cr.actor_id != 0
     and {{period:cr.dup_created_at}}
-    and (lower(cr.actor_login) {{exclude_bots}})
+    and lower(cr.actor_login) in (select login from ok_logins)
 ), events_base as (
   select
     a.company_name as company,
@@ -90,7 +118,7 @@ with companies as (
     and a.dt_to > e.created_at
   where
     {{period:e.created_at}}
-    and (lower(e.dup_actor_login) {{exclude_bots}})
+    and lower(e.dup_actor_login) in (select login from ok_logins)
 ), comments_base as (
   select
     a.company_name as company,
@@ -111,7 +139,7 @@ with companies as (
     and a.dt_to > c.created_at
   where
     {{period:c.created_at}}
-    and (lower(c.dup_user_login) {{exclude_bots}})
+    and lower(c.dup_user_login) in (select login from ok_logins)
 ), issues_base as (
   select
     a.company_name as company,
@@ -133,7 +161,7 @@ with companies as (
   where
     {{period:i.created_at}}
     and i.is_pull_request = false
-    and (lower(i.dup_user_login) {{exclude_bots}})
+    and lower(i.dup_user_login) in (select login from ok_logins)
 ), prs_base as (
   select
     a.company_name as company,
@@ -155,7 +183,7 @@ with companies as (
   where
     {{period:i.created_at}}
     and i.is_pull_request = true
-    and (lower(i.dup_user_login) {{exclude_bots}})
+    and lower(i.dup_user_login) in (select login from ok_logins)
 ), merged_prs_base as (
   select
     a.company_name as company,
@@ -177,7 +205,7 @@ with companies as (
   where
     pr.merged_at is not null
     and {{period:pr.merged_at}}
-    and (lower(pr.dup_user_login) {{exclude_bots}})
+    and lower(pr.dup_user_login) in (select login from ok_logins)
 ), data as (
   select
     company,

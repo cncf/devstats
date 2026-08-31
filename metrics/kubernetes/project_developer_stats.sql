@@ -1,3 +1,45 @@
+-- temp_buffers must be set before the session touches any temp table,
+-- calc_metric reuses sessions across ranges, so ignore the error then
+do $$ begin
+  begin
+    set temp_buffers = '1GB';
+  exception when others then
+    null;
+  end;
+end $$;
+
+-- evaluate the ~100 like patterns of {{exclude_bots}} once per distinct login,
+-- the ok columns and filters below use a cheap hashed semi-join instead of
+-- the per-row patterns, the union covers every login source used in this file
+create temp table hdev_all_logins_{{rnd}} as
+select login from (
+  select distinct lower(e.dup_actor_login) as login from gha_events e where {{period:e.created_at}}
+  union
+  select distinct lower(c.dup_user_login) from gha_comments c where {{period:c.created_at}}
+  union
+  select distinct lower(i.dup_user_login) from gha_issues i where {{period:i.created_at}}
+  union
+  select distinct lower(pr.dup_user_login) from gha_pull_requests pr where pr.merged_at is not null and {{period:pr.merged_at}}
+  union
+  select distinct lower(c.dup_actor_login) from gha_commits c where {{period:c.dup_created_at}}
+  union
+  select distinct lower(c.dup_author_login) from gha_commits c where {{period:c.dup_created_at}}
+  union
+  select distinct lower(c.dup_committer_login) from gha_commits c where {{period:c.dup_created_at}}
+  union
+  select distinct lower(cr.actor_login) from gha_commits_roles cr where cr.role = 'Co-authored-by' and {{period:cr.dup_created_at}}
+  union
+  select distinct lower(a.login) from gha_actors a where a.country_name is not null
+) sub
+;
+create temp table hdev_ok_logins_{{rnd}} as
+select login from hdev_all_logins_{{rnd}}
+where
+  (login {{exclude_bots}})
+;
+create index on hdev_ok_logins_{{rnd}} (login);
+analyze hdev_ok_logins_{{rnd}};
+
 create temp table hdev_repos_{{rnd}} as
 select
   id,
@@ -134,7 +176,7 @@ from (
   where
     {{period:c.dup_created_at}}
     and (v.role = 'actor' or v.actor_id is not null)
-    and (lower(v.actor_login) {{exclude_bots}})
+    and lower(v.actor_login) in (select login from hdev_ok_logins_{{rnd}})
   union all
   select
     r.repo_group as repo_group,
@@ -160,7 +202,7 @@ from (
     and cr.actor_id <> 0
     and cr.role = 'Co-authored-by'
     and {{period:cr.dup_created_at}}
-    and (lower(cr.actor_login) {{exclude_bots}})
+    and lower(cr.actor_login) in (select login from hdev_ok_logins_{{rnd}})
 ) x
 group by
   x.repo_group,
@@ -183,7 +225,7 @@ select
   e.actor_id,
   e.dup_actor_login,
   lower(e.dup_actor_login) as dup_actor_login_lower,
-  (lower(e.dup_actor_login) {{exclude_bots}}) as ok,
+  (lower(e.dup_actor_login) in (select login from hdev_ok_logins_{{rnd}})) as ok,
   coalesce(aa.company_name, '') as company
 from
   gha_events e
@@ -239,7 +281,7 @@ select
   c.user_id,
   c.dup_user_login,
   lower(c.dup_user_login) as dup_user_login_lower,
-  (lower(c.dup_user_login) {{exclude_bots}}) as ok,
+  (lower(c.dup_user_login) in (select login from hdev_ok_logins_{{rnd}})) as ok,
   coalesce(aa.company_name, '') as company
 from
   gha_comments c
@@ -293,7 +335,7 @@ select
   i.user_id,
   i.dup_user_login,
   lower(i.dup_user_login) as dup_user_login_lower,
-  (lower(i.dup_user_login) {{exclude_bots}}) as ok,
+  (lower(i.dup_user_login) in (select login from hdev_ok_logins_{{rnd}})) as ok,
   i.is_pull_request,
   coalesce(aa.company_name, '') as company
 from
@@ -350,7 +392,7 @@ select
   pr.user_id,
   pr.dup_user_login,
   lower(pr.dup_user_login) as dup_user_login_lower,
-  (lower(pr.dup_user_login) {{exclude_bots}}) as ok,
+  (lower(pr.dup_user_login) in (select login from hdev_ok_logins_{{rnd}})) as ok,
   coalesce(aa.company_name, '') as company
 from
   gha_pull_requests pr
@@ -401,7 +443,7 @@ select
   id,
   login,
   lower(login) as login_lower,
-  (lower(login) {{exclude_bots}}) as ok,
+  (lower(login) in (select login from hdev_ok_logins_{{rnd}})) as ok,
   country_name
 from
   gha_actors
@@ -1376,4 +1418,28 @@ order by
   value desc,
   name asc
 ;
+-- calc_metric reuses sessions across ranges, free the temp space right away
+drop table hdev_merged_prs_rg_country_{{rnd}};
+drop table hdev_issues_rg_country_{{rnd}};
+drop table hdev_comments_rg_country_{{rnd}};
+drop table hdev_events_rg_country_{{rnd}};
+drop table hdev_merged_prs_country_{{rnd}};
+drop table hdev_issues_country_{{rnd}};
+drop table hdev_comments_country_{{rnd}};
+drop table hdev_events_country_{{rnd}};
+drop table hdev_actors_country_{{rnd}};
+drop table hdev_merged_prs_rg_{{rnd}};
+drop table hdev_merged_prs_base_{{rnd}};
+drop table hdev_issues_rg_{{rnd}};
+drop table hdev_issues_base_{{rnd}};
+drop table hdev_comments_rg_{{rnd}};
+drop table hdev_comments_base_{{rnd}};
+drop table hdev_events_rg_{{rnd}};
+drop table hdev_events_base_{{rnd}};
+drop table hdev_commits_data_{{rnd}};
+drop table hdev_ecf_rg_{{rnd}};
+drop table hdev_event_ids_{{rnd}};
+drop table hdev_repos_{{rnd}};
+drop table hdev_ok_logins_{{rnd}};
+drop table hdev_all_logins_{{rnd}};
 

@@ -1,3 +1,13 @@
+-- temp_buffers must be set before the session touches any temp table,
+-- calc_metric reuses sessions across ranges, so ignore the error then
+do $$ begin
+  begin
+    set temp_buffers = '1GB';
+  exception when others then
+    null;
+  end;
+end $$;
+
 create temp table repo_groups_{{rnd}} as
 select
   id as repo_id,
@@ -26,6 +36,24 @@ where
 create index on actors_country_{{rnd}}(actor_id);
 analyze actors_country_{{rnd}};
 
+-- evaluate the ~100 like patterns of {{exclude_bots}} once per distinct login,
+-- the temp table barrier keeps them off the per-row commit-role rows below
+create temp table cc_logins_{{rnd}} as
+select login from (
+  select distinct lower(c.dup_actor_login) as login from gha_commits c where c.dup_created_at >= '{{from}}' and c.dup_created_at < '{{to}}'
+  union
+  select distinct lower(c.dup_author_login) from gha_commits c where c.dup_created_at >= '{{from}}' and c.dup_created_at < '{{to}}'
+  union
+  select distinct lower(c.dup_committer_login) from gha_commits c where c.dup_created_at >= '{{from}}' and c.dup_created_at < '{{to}}'
+) sub
+;
+create temp table cc_ok_logins_{{rnd}} as
+select login from cc_logins_{{rnd}}
+where
+  (login {{exclude_bots}})
+;
+analyze cc_ok_logins_{{rnd}};
+
 create temp table commits_data_{{rnd}} as
 select
   rg.repo_group,
@@ -53,7 +81,7 @@ where
   c.dup_created_at >= '{{from}}'
   and c.dup_created_at < '{{to}}'
   and v.actor_id is not null
-  and (lower(v.actor_login) {{exclude_bots}})
+  and lower(v.actor_login) in (select login from cc_ok_logins_{{rnd}})
 ;
 analyze commits_data_{{rnd}};
 
@@ -80,4 +108,10 @@ where
 order by
   name
 ;
+-- calc_metric reuses sessions across ranges, free the temp space right away
+drop table commits_data_{{rnd}};
+drop table cc_ok_logins_{{rnd}};
+drop table cc_logins_{{rnd}};
+drop table actors_country_{{rnd}};
+drop table repo_groups_{{rnd}};
 
