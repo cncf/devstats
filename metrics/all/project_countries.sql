@@ -1,3 +1,29 @@
+-- temp_buffers must be set before the session touches any temp table,
+-- calc_metric reuses sessions across ranges, so ignore the error then
+do $$ begin
+  begin
+    set temp_buffers = '1GB';
+  exception when others then
+    null;
+  end;
+end $$;
+
+-- evaluate the ~100 like patterns of exclude_bots once per actor with a known
+-- country instead of once per joined event row, then hash-join events to it
+create temp table pc_actors_{{rnd}} as
+select
+  id as actor_id,
+  country_name
+from
+  gha_actors
+where
+  country_name is not null
+  and country_name != ''
+  and (lower(login) {{exclude_bots}})
+;
+create index on pc_actors_{{rnd}}(actor_id);
+analyze pc_actors_{{rnd}};
+
 with data as (
   select 'prjcntr' as type,
     a.country_name,
@@ -22,15 +48,12 @@ with data as (
     hll_add_agg(hll_hash_bigint(case e.type = 'ForkEvent' when true then e.id end)) as forks
   from
     gha_repo_groups r,
-    gha_actors a,
+    pc_actors_{{rnd}} a,
     gha_events e
   where
     r.id = e.repo_id
     and r.name = e.dup_repo_name
-    and (lower(a.login) {{exclude_bots}})
-    and a.id = e.actor_id
-    and a.country_name is not null
-    and a.country_name != ''
+    and a.actor_id = e.actor_id
     and e.created_at >= '{{from}}'
     and e.created_at < '{{to}}'
   group by
@@ -62,3 +85,4 @@ from
 where
   inn.repo_group is not null 
 ;
+drop table pc_actors_{{rnd}};
