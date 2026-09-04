@@ -196,10 +196,10 @@ ngx2epoch() {
   date -u -j -f "%d-%b-%Y %H:%M" "$t" +%s 2>/dev/null && return
   echo 0
 }
-age_h() { echo $(( (NOW_EPOCH - $1) / 3600 )); }
-hfmt() { local h=$1; if [ "$h" -ge 48 ]; then echo "$((h/24))d$((h%24))h"; else echo "${h}h"; fi; }
+age_h() { echo $(( (NOW_EPOCH - ${1:-0}) / 3600 )); }
+hfmt() { local h=${1:-0}; if [ "$h" -ge 48 ]; then echo "$((h/24))d$((h%24))h"; else echo "${h}h"; fi; }
 sfmt() {  # seconds -> human duration (12s / 34m56s / 5h21m)
-  local s=$1
+  local s=${1:-0}
   if [ "$s" -ge 3600 ]; then echo "$((s/3600))h$(( (s%3600)/60 ))m"
   elif [ "$s" -ge 60 ]; then echo "$((s/60))m$((s%60))s"
   else echo "${s}s"; fi
@@ -857,7 +857,7 @@ if run_section durations; then
       echo "with runs as ("
       echo "  select proj, prog, run_dt, extract(epoch from max(dt) - run_dt) as dur, max(dt) as last_dt"
       echo "  from gha_logs"
-      echo "  where proj <> '' and prog <> '' and prog <> 'api' and ${DBLOGS_PRED}"
+      echo "  where proj <> '' and prog <> '' and prog <> 'api' and run_dt is not null and ${DBLOGS_PRED}"
       echo "  group by proj, prog, run_dt"
       echo "), stats as ("
       echo "  select proj, prog, count(*) as n,"
@@ -890,6 +890,13 @@ if run_section durations; then
     while IFS='|' read -r tag proj prog n mn av sd p95 mx mxstart runningf medav histf; do
       [ "$tag" = "dur" ] || continue
       archived_db "$proj" && continue
+      # guard against truncated/malformed rows (e.g. kubectl exec stream hiccup cutting a line short):
+      # all numeric fields must be integers, else skip the row instead of tripping set -u / [ -ge ]
+      if ! [[ "${n:-}" =~ ^-?[0-9]+$ && "${mn:-}" =~ ^-?[0-9]+$ && "${av:-}" =~ ^-?[0-9]+$ && "${sd:-}" =~ ^-?[0-9]+$ && "${p95:-}" =~ ^-?[0-9]+$ && "${mx:-}" =~ ^-?[0-9]+$ ]]; then
+        warn "[$st] durations: skipped malformed stats row for '$proj/$prog' (truncated psql output?): n='${n:-}' mn='${mn:-}' av='${av:-}' sd='${sd:-}' p95='${p95:-}' mx='${mx:-}'"
+        continue
+      fi
+      [[ "${medav:-}" =~ ^-?[0-9]+$ ]] || medav=0
       ndur=$((ndur+1))
       # absolute thresholds (seconds): note / warn / crit per tool class
       case "$prog" in
@@ -1286,14 +1293,20 @@ if run_section certs; then
   while IFS='|' read -r ns name crt; do
     [ -z "$crt" ] && continue
     end="$(echo "$crt" | openssl base64 -d -A 2>/dev/null | openssl x509 -noout -enddate 2>/dev/null | cut -d= -f2)"
-    if echo "$crt" | openssl base64 -d -A 2>/dev/null | openssl x509 -noout -checkend $((CERT_CRIT_DAYS*86400)) >/dev/null 2>&1; then
-      if echo "$crt" | openssl base64 -d -A 2>/dev/null | openssl x509 -noout -checkend $((CERT_WARN_DAYS*86400)) >/dev/null 2>&1; then
-        ok "tls secret $ns/$name valid past ${CERT_WARN_DAYS}d (until $end)"
-      else
-        warn "tls secret $ns/$name expires within ${CERT_WARN_DAYS}d: $end"
-      fi
-    else
+    if [ -z "$end" ]; then
+      warn "tls secret $ns/$name: cannot parse certificate (truncated kubectl snapshot?)"
+      continue
+    fi
+    # single decode + epoch math (repeated decode pipelines proved flaky under WAN hiccups)
+    end_epoch="$(iso2epoch "$end")"
+    if [ "$end_epoch" -le 0 ]; then
+      warn "tls secret $ns/$name: cannot parse expiry date '$end'"
+    elif [ "$end_epoch" -le $((NOW_EPOCH + CERT_CRIT_DAYS*86400)) ]; then
       crit "tls secret $ns/$name expires within ${CERT_CRIT_DAYS}d: $end"
+    elif [ "$end_epoch" -le $((NOW_EPOCH + CERT_WARN_DAYS*86400)) ]; then
+      warn "tls secret $ns/$name expires within ${CERT_WARN_DAYS}d: $end"
+    else
+      ok "tls secret $ns/$name valid past ${CERT_WARN_DAYS}d (until $end)"
     fi
   done < <(jq -r '.items[] | "\(.metadata.namespace)|\(.metadata.name)|\(.data["tls.crt"] // "")"' "$TMPD/tls.json")
   # live endpoint certs for apex hosts
