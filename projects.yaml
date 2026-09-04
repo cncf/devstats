@@ -1562,12 +1562,13 @@ projects:
   karmada:
     order: 110
     name: Karmada
-    status: Incubating
+    status: Graduated
     command_line:
     - 'karmada-io'
     start_date: 2021-04-23T00:00:00Z
     join_date: 2021-09-14T00:00:00Z
     incubating_date: 2023-12-12T00:00:00Z
+    graduated_date: 2026-09-03T00:00:00Z
     psql_db: karmada
     shared_db: allprj
     main_repo: 'karmada-io/karmada'

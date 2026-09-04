@@ -635,6 +635,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Karmada",
+      "tooltip": "Opens Karmada projects dashboards",
+      "type": "link",
+      "url": "https://karmada.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -1149,16 +1159,6 @@
       "tooltip": "Opens MetalLB projects dashboards",
       "type": "link",
       "url": "https://metallb.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Karmada",
-      "tooltip": "Opens Karmada projects dashboards",
-      "type": "link",
-      "url": "https://karmada.[[hostname]]"
     },
     {
       "icon": "dashboard",

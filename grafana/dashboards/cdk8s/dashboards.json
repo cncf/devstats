@@ -421,6 +421,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Karmada",
+      "tooltip": "Opens Karmada projects dashboards",
+      "type": "link",
+      "url": "https://karmada.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -605,16 +615,6 @@
       "tooltip": "Opens Keycloak projects dashboards",
       "type": "link",
       "url": "https://keycloak.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Karmada",
-      "tooltip": "Opens Karmada projects dashboards",
-      "type": "link",
-      "url": "https://karmada.[[hostname]]"
     },
     {
       "icon": "dashboard",
