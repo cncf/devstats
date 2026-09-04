@@ -846,6 +846,13 @@ fi
 #      statistically-significant-but-absolutely-tiny spikes of small projects don't spam the report)
 #   3. fleet outlier: project's avg > DUR_FLEET_MULT x fleet median avg for the same prog (avg >= 10m)
 # prog='api' is excluded (long-lived API server daemon, run_dt = server start, not a batch run).
+# calc_metric additionally gets a per-(proj, metric SQL file) breakdown: each calc_metric run computes a single
+# metric whose SQL file + period appear in its log lines ('Start(<type> € ./metrics/<dir>/<file>.sql €'
+# '<from> € <to> € <period> € <flags>)'). Runs of one metric differ legitimately by period (d, d7, w, m, q, y,
+# y10, annotation ranges a_*/c_* - y10 runs much longer than d7), so per (proj, SQL) only the longest-running
+# period cohort is selected (highest max duration, then avg) and analyzed against the calc_metric absolute
+# thresholds; outstanding items are reported individually as 'proj/calc_metric [sql @ period]', plus one
+# summary line with analyzed/flagged pair counts.
 if run_section durations; then
   section durations "per-project per-program run durations from gha_logs ($DBLOGS_DESC) - anomaly scan"
   for st in $STAGES; do
@@ -867,6 +874,25 @@ if run_section durations; then
       echo "    ((array_agg(run_dt order by run_dt desc))[1] = (array_agg(run_dt order by dur desc))[1]"
       echo "     and (array_agg(last_dt order by run_dt desc))[1] > now() - interval '20 minutes') as maybe_running"
       echo "  from runs group by proj, prog"
+      echo "), mruns as ("
+      echo "  select proj, run_dt, extract(epoch from max(dt) - run_dt) as dur, max(dt) as last_dt,"
+      echo "    coalesce(max(substring(msg from 'metrics/[^ ,)]+[.]sql')), '?') as sqlf,"
+      echo "    coalesce(max(split_part(msg, ' € ', 5)) filter (where (msg like 'Start(%' or msg like 'Time(%')"
+      echo "      and msg like '%.sql%' and split_part(msg, ' € ', 5) <> ''), '?') as per"
+      echo "  from gha_logs"
+      echo "  where proj <> '' and prog = 'calc_metric' and run_dt is not null and ${DBLOGS_PRED}"
+      echo "  group by proj, run_dt"
+      echo "), msqlstats as ("
+      echo "  select proj, sqlf, per, count(*) as n,"
+      echo "    min(dur)::bigint as mn, avg(dur)::bigint as av, coalesce(stddev(dur), 0)::bigint as sd,"
+      echo "    percentile_cont(0.95) within group (order by dur)::bigint as p95, max(dur)::bigint as mx,"
+      echo "    (array_agg(to_char(run_dt, 'MM-DD HH24:MI') order by dur desc))[1] as mx_start,"
+      echo "    ((array_agg(run_dt order by run_dt desc))[1] = (array_agg(run_dt order by dur desc))[1]"
+      echo "     and (array_agg(last_dt order by run_dt desc))[1] > now() - interval '20 minutes') as maybe_running"
+      echo "  from mruns group by proj, sqlf, per"
+      echo "), msqlbest as ("
+      echo "  select distinct on (proj, sqlf) *"
+      echo "  from msqlstats order by proj, sqlf, mx desc, av desc"
       echo "), fleet as ("
       echo "  select prog, percentile_cont(0.5) within group (order by av)::bigint as med_av,"
       echo "    count(*) as nproj, max(mx)::bigint as fleet_mx"
@@ -879,6 +905,13 @@ if run_section durations; then
       echo "union all"
       echo "select 'fleet', prog, '', nproj, 0, med_av, 0, 0, fleet_mx, '', '', 0, ''"
       echo "from fleet"
+      echo "union all"
+      echo "select 'dsql', proj, sqlf, n, mn, av, sd, p95, mx, mx_start,"
+      echo "  case when maybe_running then 'r' else '-' end, 0, per"
+      echo "from msqlbest where mx >= 1800"  # only candidates cross the wire - keep in sync with cm_tn below
+      echo "union all"
+      echo "select 'dsqln', '', '', count(*), 0, 0, 0, 0, 0, '', '', 0, ''"
+      echo "from msqlbest"
       echo "order by 1, 9 desc, 2, 3;"
       echo "SQL"
     } | pg_script "$st" "$p" > "$f" || true
@@ -926,6 +959,36 @@ if run_section durations; then
         ok "[$st] durations: $proj/$prog: $det"
       fi
     done < <(grep '^dur|' "$f")
+    # calc_metric per-(proj, SQL) breakdown: per pair only the longest-running period cohort is shipped
+    # (pre-filtered in SQL to mx >= cm_tn candidates + one 'dsqln' row carrying the analyzed-pairs count);
+    # thresholds must stay in sync with the calc_metric entry in the per-prog case above
+    cm_tn=1800; cm_tw=5400; cm_tc=14400
+    ndsql="$(grep '^dsqln|' "$f" | head -n 1 | cut -d'|' -f4)"
+    [[ "${ndsql:-}" =~ ^[0-9]+$ ]] || ndsql=0
+    ndsqlflag=0
+    while IFS='|' read -r tag proj sqlf n mn av sd p95 mx mxstart runningf _ per; do
+      [ "$tag" = "dsql" ] || continue
+      archived_db "$proj" && continue
+      if ! [[ "${n:-}" =~ ^-?[0-9]+$ && "${mn:-}" =~ ^-?[0-9]+$ && "${av:-}" =~ ^-?[0-9]+$ && "${sd:-}" =~ ^-?[0-9]+$ && "${p95:-}" =~ ^-?[0-9]+$ && "${mx:-}" =~ ^-?[0-9]+$ ]]; then
+        warn "[$st] durations: skipped malformed calc_metric per-SQL row for '$proj/${sqlf:-?}' (truncated psql output?): n='${n:-}' mn='${mn:-}' av='${av:-}' sd='${sd:-}' p95='${p95:-}' mx='${mx:-}'"
+        continue
+      fi
+      [ "$mx" -ge "$cm_tn" ] || continue
+      ndsqlflag=$((ndsqlflag+1))
+      run_note=""
+      [ "$runningf" = "r" ] && run_note=" (latest run may still be running)"
+      det="$n run(s), min $(sfmt $mn), avg $(sfmt $av) ±$(sfmt $sd), p95 $(sfmt $p95), max $(sfmt $mx) (started $mxstart)$run_note"
+      if [ "$mx" -ge "$cm_tc" ]; then
+        crit "[$st] durations: $proj/calc_metric [${sqlf} @ ${per:-?}] outstandingly long run: $det"
+      elif [ "$mx" -ge "$cm_tw" ]; then
+        warn "[$st] durations: $proj/calc_metric [${sqlf} @ ${per:-?}] very long run: $det"
+      else
+        note "[$st] durations: $proj/calc_metric [${sqlf} @ ${per:-?}] long run: $det"
+      fi
+    done < <(grep '^dsql|' "$f")
+    if [ "$ndsql" -gt 0 ]; then
+      ok "[$st] durations: calc_metric per-SQL breakdown: analyzed $ndsql (proj, sql) pair(s) (longest period each), flagged $ndsqlflag"
+    fi
     while IFS='|' read -r tag prog _ nproj _ medav _ _ fleetmx _; do
       [ "$tag" = "fleet" ] || continue
       ok "[$st] durations fleet: $prog over $nproj project(s): median avg $(sfmt $medav), fleet max $(sfmt $fleetmx)"
