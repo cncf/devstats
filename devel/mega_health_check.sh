@@ -146,6 +146,7 @@ archived_db() { grep -qE "$ARCHIVED_DBS_RE" <<<"$1"; }
 # ----------------------------------------------------------------------------------------------- output helpers ----
 N_OK=0; N_NOTE=0; N_WARN=0; N_CRIT=0
 ISSUES=()
+ISSUES_SEV=()  # parallel to ISSUES: 1=CRIT, 2=WARN, 3=NOTE - recap prints severity groups in that order
 CUR_SECTION=""
 c_red=""; c_yel=""; c_blu=""; c_grn=""; c_off=""
 if [ -t 1 ]; then
@@ -154,9 +155,9 @@ if [ -t 1 ]; then
 fi
 section() { CUR_SECTION="$1"; echo; echo "${c_blu}===== [$1] $2 =====${c_off}"; }
 ok()   { N_OK=$((N_OK+1));   [ "$VERBOSE" = "1" ] && echo "${c_grn}OK${c_off}    [$CUR_SECTION] $*"; return 0; }
-note() { N_NOTE=$((N_NOTE+1)); echo "${c_blu}NOTE${c_off}  [$CUR_SECTION] $*"; ISSUES+=("${c_blu}NOTE${c_off}  [$CUR_SECTION] $*"); }
-warn() { N_WARN=$((N_WARN+1)); echo "${c_yel}WARN${c_off}  [$CUR_SECTION] $*"; ISSUES+=("${c_yel}WARN${c_off}  [$CUR_SECTION] $*"); }
-crit() { N_CRIT=$((N_CRIT+1)); echo "${c_red}CRIT${c_off}  [$CUR_SECTION] $*"; ISSUES+=("${c_red}CRIT${c_off}  [$CUR_SECTION] $*"); }
+note() { N_NOTE=$((N_NOTE+1)); echo "${c_blu}NOTE${c_off}  [$CUR_SECTION] $*"; ISSUES+=("${c_blu}NOTE${c_off}  [$CUR_SECTION] $*"); ISSUES_SEV+=(3); }
+warn() { N_WARN=$((N_WARN+1)); echo "${c_yel}WARN${c_off}  [$CUR_SECTION] $*"; ISSUES+=("${c_yel}WARN${c_off}  [$CUR_SECTION] $*"); ISSUES_SEV+=(2); }
+crit() { N_CRIT=$((N_CRIT+1)); echo "${c_red}CRIT${c_off}  [$CUR_SECTION] $*"; ISSUES+=("${c_red}CRIT${c_off}  [$CUR_SECTION] $*"); ISSUES_SEV+=(1); }
 dbg()  { [ "$DEBUG" = "1" ] && echo "DEBUG [$CUR_SECTION] $*" >&2; return 0; }
 
 run_section() {  # run_section <name> -> 0 if section enabled
@@ -1560,8 +1561,12 @@ echo "${c_blu}================================= SUMMARY ========================
 echo "probes OK: $N_OK   notices: $N_NOTE   warnings: $N_WARN   criticals: $N_CRIT"
 if [ "${#ISSUES[@]}" -gt 0 ]; then
   echo
-  echo "All detected issues:"
-  for i in "${ISSUES[@]}"; do echo "  $i"; done
+  echo "All detected issues (CRITs first, then WARNs, then NOTEs - insertion order within each):"
+  for sev in 1 2 3; do
+    for idx in "${!ISSUES[@]}"; do
+      [ "${ISSUES_SEV[$idx]}" = "$sev" ] && echo "  ${ISSUES[$idx]}"
+    done
+  done
 fi
 echo
 if [ "$N_CRIT" -gt 0 ]; then echo "${c_red}VERDICT: CRITICAL issues present${c_off}"; exit 3
