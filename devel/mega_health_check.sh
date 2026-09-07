@@ -183,11 +183,13 @@ trap cleanup EXIT
 NOW_EPOCH="$(date +%s)"
 
 # iso2epoch: portable ISO8601 (2026-08-27T07:00:00Z) -> epoch; GNU date then BSD date fallback.
+# Also accepts openssl x509 -enddate format (Nov 26 08:38:25 2026 GMT) - used by the certs section.
 iso2epoch() {
   local t="$1"
   [ -z "$t" ] && { echo 0; return; }
   date -d "$t" +%s 2>/dev/null && return
   date -u -j -f "%Y-%m-%dT%H:%M:%SZ" "$t" +%s 2>/dev/null && return
+  date -u -j -f "%b %e %H:%M:%S %Y %Z" "$t" +%s 2>/dev/null && return
   echo 0
 }
 # nginx autoindex date (25-Aug-2026 13:00) -> epoch
