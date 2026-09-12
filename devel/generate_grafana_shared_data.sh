@@ -1,2 +1,3 @@
 #!/bin/bash
-cp ../devstatscode/sqlitedb ../devstatscode/runq ../devstatscode/replacer grafana/ && tar cf devstats-grafana.tar grafana/runq grafana/sqlitedb grafana/replacer grafana/shared grafana/img/*.svg grafana/img/*.png grafana/*/change_title_and_icons.sh grafana/*/custom_sqlite.sql grafana/dashboards/*/*.json
+# Older name of devel/create_grafana_shared_data.sh (which also builds the Rust binaries shipped in the tar).
+exec "$(dirname "$0")/create_grafana_shared_data.sh" "$@"

@@ -73,7 +73,8 @@ This file describes how to add new project on the test and production servers.
 
 ## Update shared Grafana data
 
-- Create Grafana data for new project(s): `./devel/create_grafana_shared_data.sh`.
+- Create Grafana data for new project(s): `./devel/create_grafana_shared_data.sh`. Besides the dashboards, shared scripts and images the tar ships the DevStats binaries the grafana pods run at start (`replacer`, `sqlitedb`, `runq`): those are the Rust port (`devstatscode/rust`) built as static Linux executables by `../devstats-docker-images/images/build_rust_bins.sh` (needs Docker), the same binaries as in the `-rust` images. `RUST_BINS=/dir` uses already built binaries, `GO=1` the Go ones from `../devstatscode`.
+- When only those binaries changed (not dashboards, images or shared scripts) it is enough to update the shared data as below - no need to recreate grafanas, they pick the binaries up on their next restart.
 - Note that if you added new projects links then you need to copy `grafana/dashboards/*/*.json` for all Grafana instances, not just the new ones - so the old Grafanas will have new links.
 - SFTP it to devstats node: `sftp root@devstats-compute-03`, `mput devstats-grafana.tar`. SSH into that node: `ssh root@devstats-compute-03`, get static pod name: `k get po -n devstats-prod | grep static-prod`, `k get po -n devstats-test | grep static-test`.
 - Copy new grafana data to that pod: `k cp devstats-grafana.tar -n devstats-prod devstats-static-prod-5779c5dd5d-2prpr:/devstats-grafana.tar`, shell into that pod: `k exec -itn devstats-prod devstats-static-prod-5779c5dd5d-2prpr -- bash`.
