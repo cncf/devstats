@@ -134,6 +134,8 @@ You can tweak `devstats` tools by environment variables:
 - Set `GHA2DB_RECENT_RANGE`, `ghapi2db` tool, default '8 hours' (6h sync cadence + 2h overlap). Recent period to check open issues/PRs (labels/milestones) and the window of the GH API restore passes; set to e.g. '9 months' for a one-time catch-up backfill.
 - Set `GHA2DB_MIN_GHAPI_POINTS`, `ghapi2db` tool, minimum GitHub API points, before waiting for reset. Default 1 (API point).
 - Set `GHA2DB_MAX_GHAPI_WAIT`, `ghapi2db` tool, maximum wait time for GitHub API points reset (in seconds). Default 1s.
+- Set `GHA2DB_MAX_GHAPI_RETRY`, `ghapi2db` tool, maximum number of retries when waiting for GitHub API points/abuse or transient errors. Default 6.
+- Set `GHA2DB_GHAPI_RATE_LIMITS_CACHE`, `ghapi2db`/`sync_issues` tools, for how many seconds the GitHub API rate limits (one `/rate_limit` call per configured token, polled concurrently) are cached between API calls; cached points are decreased by one per served call and the cache is never used when it says the best token has `GHA2DB_MIN_GHAPI_POINTS` or fewer points left (GitHub is polled again then) or after a rate limit/abuse error. `0` disables the cache (poll before every API call, the pre-2026 behaviour). Default 5.
 - Set `GHA2DB_GHAPISKIP`, ghapi2db tool, if set then tool is not creating artificial events using GitHub API.
 - Set `GHA2DB_GETREPOSSKIP`, get_repos tool, if set then tool does nothing.
 - Set `GHA2DB_COMPUTE_ALL`, all tools, this forces computing all possible periods (weekly, daily, yearly, since last release to now, since CNCF join date to now etc.) instead of making decision based on current time.
