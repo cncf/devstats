@@ -3356,7 +3356,7 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.\d*0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   agones:
-    order: 245
+    order: 246
     name: Agones
     status: Sandbox
     command_line:
@@ -3369,7 +3369,7 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   velero:
-    order: 246
+    order: 247
     name: Velero
     status: Sandbox
     command_line:
@@ -3382,7 +3382,7 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   openeverest:
-    order: 247
+    order: 248
     name: OpenEverest
     status: Sandbox
     command_line:
@@ -3395,7 +3395,7 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
   nmstate:
-    order: 248
+    order: 249
     name: NMstate
     status: Sandbox
     command_line:
@@ -3408,7 +3408,7 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.\d*0$'
     files_skip_pattern: ''
   higress:
-    order: 249
+    order: 250
     name: Higress
     status: Sandbox
     command_line:
@@ -3421,7 +3421,7 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   llmd:
-    order: 250
+    order: 251
     name: llm-d
     status: Sandbox
     command_line:
@@ -3434,7 +3434,7 @@ projects:
     annotation_regexp: '^v\d+\.\d+$'
     files_skip_pattern: ''
   tekton:
-    order: 251
+    order: 252
     name: Tekton
     status: Incubating
     command_line:
@@ -3447,7 +3447,7 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     shared_db: allprj
   apicurioregistry:
-    order: 252
+    order: 253
     name: "Apicurio Registry"
     status: Sandbox
     command_line:
@@ -3460,7 +3460,7 @@ projects:
     files_skip_pattern: ''
     shared_db: allprj
   kbind:
-    order: 253
+    order: 254
     name: kbind
     status: Sandbox
     command_line:
@@ -3473,7 +3473,7 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     shared_db: allprj
   curvine:
-    order: 254
+    order: 255
     name: Curvine
     status: Sandbox
     command_line:
@@ -3486,7 +3486,7 @@ projects:
     files_skip_pattern: ''
     shared_db: allprj
   sdc:
-    order: 255
+    order: 256
     name: SDC
     status: Sandbox
     command_line:
