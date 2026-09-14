@@ -152,6 +152,9 @@ You can tweak `devstats` tools by environment variables:
 - Set `GHA2DB_GHAPISKIPFORKS`, ghapi2db tool, skip restoring ForkEvent, default false (restore enabled).
 - Set `GHA2DB_GHAPISKIPRELEASES`, ghapi2db tool, skip restoring ReleaseEvent, default false (restore enabled).
 - Set `GHA2DB_GHAPISKIPSTARS`, ghapi2db tool, skip restoring WatchEvent, default false (restore enabled).
+- Set `GHA2DB_GHAPISKIPREPOSTATS`, ghapi2db tool, skip the repository counters snapshots (one `gha_forkees` row per tracked repository per run: stars, forks, open issues, taken from the GraphQL heartbeat, or from `GET /repos/{owner}/{repo}` when there is no heartbeat), default false (snapshots enabled).
+- Set `GHA2DB_GHAPISKIPREPOEVENTS`, ghapi2db tool, skip the repository events feed pass (`GET /repos/{owner}/{repo}/events`, up to 3 pages of 100 per repository with heartbeat activity, written with the gha2db writer under the events' native ids - fills the events GH Archive missed), default false (feed pass enabled).
+- Set `GHA2DB_GHAPI_RECENT_REPOS_ONLY`, ghapi2db tool, legacy scope: only process repositories with `gha_events` rows in `GHA2DB_RECENT_REPOS_RANGE` and skip the GraphQL heartbeat, default false (every `gha_repos` repository is in scope, one current name per id, each pass gated by the heartbeat).
 - Set `GHA2DB_RESTORE_ORPHAN_COMMITS`, get_repos tool, restore commits present in git clones but missing from gha_commits, default false in the binary (prod enables it via `repos.sh`/helm `ghapiRestoreOrphanCommits`).
 - Set `GHA2DB_ORPHAN_COMMITS_RANGE`, get_repos tool, orphan commits restore window, default '8 hours' = sync interval (6h) + 2h overlap; keep equal to `GHA2DB_RECENT_RANGE` (`repos.sh` maps `GHA2DB_RECENT_RANGE` to it when unset).
 
