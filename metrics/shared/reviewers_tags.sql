@@ -5,6 +5,7 @@ with lgtm_texts as (
   where
     substring(body from '(?i)(?:^|\n|\r)\s*/(?:lgtm)\s*(?:\n|\r|$)') is not null
     and (lower(actor_login) {{exclude_bots}})
+    and actor_login != ''
     and created_at > now() - '6 months'::interval
 )
 select
@@ -16,6 +17,7 @@ from (
     gha_events
   where
     (lower(dup_actor_login) {{exclude_bots}})
+    and dup_actor_login != ''
     and created_at > now() - '6 months'::interval
     and (
       type in ('PullRequestReviewCommentEvent', 'PullRequestReviewEvent')
