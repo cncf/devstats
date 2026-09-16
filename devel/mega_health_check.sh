@@ -632,7 +632,23 @@ if run_section flags; then
       else
         rc=$?
         missp="$(awk '/DBs missing .provisioned./{f=1;next} /^$|^==/{f=0} f && /^  - /{printf "%s ", $2}' "$out")"
-        crit "[$st] flags report NOT OK (rc=$rc): $(sed -n '/^NOT OK/,$p' "$out" | tr '\n' '; ' | head -c 300)${missp:+ [missing provisioned: ${missp% }]}"
+        # a monthly affiliations import (devel/affiliations flow) sets affs_lock_<db> on the devstats DB, clears the
+        # project's 'provisioned' flag for the duration of the import and re-sets it at the end -> a DB without
+        # 'provisioned' whose affs_lock_<db> is currently held is a transient, expected state, not a CRIT
+        affs_dbs=""; explained=""; unexplained=""
+        if [ -n "$missp" ]; then
+          p="${PRIMARY[$st]:-$(primary_pod "$st")}"
+          [ -n "$p" ] && affs_dbs="$(printf 'psql -U %s -d devstats -tA -c "select substr(metric, 11) from gha_computed where metric like %s"\n' "$PG_USER" "'affs_lock_%'" | pg_script "$st" "$p" | tr '\n' ' ')"
+          for mdb in $missp; do
+            case " $affs_dbs " in *" $mdb "*) explained="$explained$mdb ";; *) unexplained="$unexplained$mdb ";; esac
+          done
+        fi
+        nreasons="$(sed -n '/^NOT OK/,$p' "$out" | grep -cE '^ *- ' || true)"
+        if [ -n "$explained" ] && [ -z "$unexplained" ] && [ "${nreasons:-0}" -eq 1 ]; then
+          note "[$st] flags report: $(echo $explained | wc -w | tr -d ' ') DB(s) without 'provisioned' while their affiliations import holds affs_lock_<db> (transient, re-set at the end of the import): ${explained% }"
+        else
+          crit "[$st] flags report NOT OK (rc=$rc): $(sed -n '/^NOT OK/,$p' "$out" | tr '\n' '; ' | head -c 300)${unexplained:+ [missing provisioned: ${unexplained% }]}${explained:+ [missing provisioned but affiliations import in progress: ${explained% }]}"
+        fi
       fi
       [ "$VERBOSE" = "1" ] && sed 's/^/      | /' "$out" | tail -40
     done
