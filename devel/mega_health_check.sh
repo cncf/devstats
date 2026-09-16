@@ -1182,8 +1182,20 @@ if [ -f /var/log/btrfs-recompress.log ]; then
   echo "recomp_mtime|$(stat -c %Y /var/log/btrfs-recompress.log 2>/dev/null || echo 0)"
   # inspect only the LAST v4 run block (from last '=== START' to EOF)
   if grep -q '^=== START' /var/log/btrfs-recompress.log 2>/dev/null; then
+    # failure lines carry a time of day only ('... done rc=123 05:44:22'): stamp them with the block's
+    # START date (the next day when the time is earlier than the START time) and pass the run start along
     awk 'BEGIN{n=0} /^=== START/{n=NR} {l[NR]=$0} END{for(i=n;i<=NR;i++) print l[i]}' /var/log/btrfs-recompress.log 2>/dev/null \
-      | grep -E 'rc=[1-9]' | tail -2 | sed 's/^/recomp_bad|/'
+      | awk '
+          NR==1 && $1=="===" && $2=="START" {sd=$3; st=$4; next}
+          /rc=[1-9]/ {
+            line=$0
+            if (sd!="" && match(line, /[0-9][0-9]:[0-9][0-9]:[0-9][0-9]$/)) {
+              t=substr(line, RSTART); d=sd
+              if (t < st) { cmd="date -u -d \"" sd " +1 day\" +%F"; cmd | getline d; close(cmd) }
+              line=substr(line, 1, RSTART-1) d " " t " UTC"
+            }
+            print "recomp_bad|" (sd!="" ? "run started " sd " " st " UTC" : "run start unknown") "|" line
+          }' | tail -2
     echo "recomp_v4|yes"
   else
     echo "recomp_v4|no"
@@ -1237,7 +1249,7 @@ REMOTE
         recomp_mtime)
           agd=$(( (NOW_EPOCH - ${a:-0}) / 86400 ))
           [ "$agd" -gt "$RECOMPRESS_MAX_DAYS" ] && warn "node $node btrfs-recompress last activity ${agd}d ago (> ${RECOMPRESS_MAX_DAYS}d)" || ok "node $node btrfs-recompress log active ${agd}d ago";;
-        recomp_bad) warn "node $node btrfs-recompress last run failure: $(echo "$a" | head -c 160)";;
+        recomp_bad) warn "node $node btrfs-recompress last run failure ($a): $(echo "$b${c:+|$c}${d:+|$d}" | head -c 160)";;
         recomp_v4) [ "$a" = "yes" ] && ok "node $node recompress log has v4 run blocks" || note "node $node recompress: no v4 run yet (scheduled monthly; old-format log only)";;
         recomp_cron) [ "$a" = "present" ] && ok "node $node recompress cron present" || warn "node $node /etc/cron.d/btrfs-recompress MISSING";;
       esac
