@@ -10,6 +10,13 @@ projects:
          kubernetes-providers,kubernetes-addons,kubernetes-retired,\
          kubernetes-extensions,kubernetes-federation,kubernetes-security,\
          kubernetes-sidecars,kubernetes-tools,kubernetes-test,kubernetes-sigs"
+    hist_command_line:
+      - "kubernetes,kubernetes-client,kubernetes-incubator,kubernetes-csi,\
+         kubernetes-graveyard,kubernetes-incubator-retired,kubernetes-sig-testing,\
+         kubernetes-providers,kubernetes-addons,kubernetes-retired,\
+         kubernetes-extensions,kubernetes-federation,kubernetes-security,\
+         kubernetes-sidecars,kubernetes-tools,kubernetes-test,kubernetes-sigs,\
+         GoogleCloudPlatform/kubernetes"
     start_date: 2014-06-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     incubating_date: 2016-03-11T00:00:00Z
@@ -39,6 +46,9 @@ projects:
     status: Graduated
     command_line:
       - 'prometheus,OpenObservability,OpenMetrics,openmetrics,prometheus-community'
+    hist_command_line:
+      - "prometheus,OpenObservability,OpenMetrics,openmetrics,\
+         prometheus-community,RichiH/OpenMetrics,prometheus/prometheus"
     start_date: 2014-01-06T00:00:00Z
     join_date: 2016-05-09T00:00:00Z
     graduated_date: 2018-08-09T00:00:00Z
@@ -83,6 +93,8 @@ projects:
     status: Graduated
     command_line:
       - linkerd
+    hist_command_line:
+      - 'linkerd,BuoyantIO/linkerd'
     start_date: 2016-01-13T00:00:00Z
     join_date: 2017-01-23T00:00:00Z
     incubating_date: 2018-04-06T00:00:00Z
@@ -112,6 +124,8 @@ projects:
     status: Graduated
     command_line:
       - coredns
+    hist_command_line:
+      - 'coredns,miekg/coredns'
     start_date: 2016-03-18T00:00:00Z
     join_date: 2017-02-27T00:00:00Z
     incubating_date: 2018-02-26T00:00:00Z
@@ -127,6 +141,8 @@ projects:
     status: Graduated
     command_line:
       - containerd
+    hist_command_line:
+      - 'containerd,docker/containerd'
     start_date: 2015-12-17T00:00:00Z
     join_date: 2017-03-29T00:00:00Z
     graduated_date: 2019-02-28T00:00:00Z
@@ -141,6 +157,8 @@ projects:
     status: Archived
     command_line:
       - rkt
+    hist_command_line:
+      - 'rkt,coreos/rkt,coreos/rocket,rktproject/rkt'
     start_date: 2014-11-27T00:00:00Z
     join_date: 2017-03-29T00:00:00Z
     archived_date: 2019-08-16T00:00:00Z
@@ -156,6 +174,8 @@ projects:
     status: Incubating
     command_line:
       - containernetworking
+    hist_command_line:
+      - 'containernetworking,appc/cni'
     start_date: 2015-04-05T00:00:00Z
     join_date: 2017-05-23T00:00:00Z
     psql_db: cni
@@ -170,6 +190,8 @@ projects:
     status: Graduated
     command_line:
       - envoyproxy
+    hist_command_line:
+      - 'envoyproxy,lyft/envoy'
     start_date: 2016-09-14T00:00:00Z
     join_date: 2017-09-13T00:00:00Z
     graduated_date: 2018-11-28T00:00:00Z
@@ -185,6 +207,8 @@ projects:
     status: Graduated
     command_line:
       - jaegertracing
+    hist_command_line:
+      - 'jaegertracing,uber/jaeger'
     start_date: 2016-11-01T00:00:00Z
     join_date: 2017-09-13T00:00:00Z
     graduated_date: 2019-10-31T00:00:00Z
@@ -199,6 +223,8 @@ projects:
     status: Incubating
     command_line:
       - 'notaryproject'
+    hist_command_line:
+      - 'notaryproject,theupdateframework/notary,docker/notary'
     start_date: 2015-06-22T00:00:00Z
     join_date: 2017-10-24T00:00:00Z
     psql_db: notary
@@ -245,6 +271,8 @@ projects:
     status: Graduated
     command_line:
       - vitessio
+    hist_command_line:
+      - 'vitessio,youtube/vitess'
     start_date: 2014-01-02T00:00:00Z
     join_date: 2018-02-05T00:00:00Z
     graduated_date: 2019-11-05T00:00:00Z
@@ -259,6 +287,8 @@ projects:
     status: Incubating
     command_line:
       - nats-io
+    hist_command_line:
+      - 'nats-io,apcera/nats,apcera/gnatsd'
     start_date: 2014-01-02T00:00:00Z
     join_date: 2018-03-15T00:00:00Z
     psql_db: nats
@@ -320,6 +350,8 @@ projects:
     status: Graduated
     command_line:
       - cloudevents
+    hist_command_line:
+      - 'cloudevents,openeventing'
     start_date: 2017-12-09T00:00:00Z
     join_date: 2018-05-15T00:00:00Z
     incubating_date: 2019-10-24T00:00:00Z
@@ -335,6 +367,8 @@ projects:
     status: Sandbox
     command_line:
       - telepresenceio
+    hist_command_line:
+      - 'telepresenceio,datawire/telepresence'
     start_date: 2017-03-02T00:00:00Z
     join_date: 2018-05-15T00:00:00Z
     psql_db: telepresence
@@ -364,6 +398,8 @@ projects:
     status: Archived # Merged into Prometheus
     command_line:
       - "OpenObservability,OpenMetrics,openmetrics"
+    hist_command_line:
+      - 'OpenObservability,OpenMetrics,openmetrics,RichiH/OpenMetrics'
     start_date: 2017-06-22T00:00:00Z
     join_date: 2018-08-10T00:00:00Z
     incubating_date: 2022-02-03T00:00:00Z
@@ -380,6 +416,8 @@ projects:
     status: Graduated
     command_line:
       - goharbor
+    hist_command_line:
+      - 'goharbor,vmware/harbor'
     start_date: 2016-03-02T00:00:00Z
     join_date: 2018-07-31T00:00:00Z
     incubating_date: 2018-11-14T00:00:00Z
@@ -395,6 +433,8 @@ projects:
     status: Graduated
     command_line:
       - etcd-io
+    hist_command_line:
+      - 'etcd-io,coreos/etcd,etcd'
     start_date: 2014-01-02T00:00:00Z
     join_date: 2018-12-11T00:00:00Z
     graduated_date: 2020-11-24T00:00:00Z
@@ -409,6 +449,8 @@ projects:
     status: Graduated
     command_line:
       - tikv
+    hist_command_line:
+      - 'tikv,pingcap/tikv'
     start_date: 2016-04-01T00:00:00Z
     join_date: 2018-08-28T00:00:00Z
     graduated_date: 2020-09-02T00:00:00Z
@@ -423,6 +465,9 @@ projects:
     status: Incubating
     command_line:
       - cortexproject
+    hist_command_line:
+      - "cortexproject,weaveworks/cortex,weaveworks/prism,\
+         weaveworks/frankenstein"
     start_date: 2016-09-09T00:00:00Z
     join_date: 2018-09-20T00:00:00Z
     incubating_date: 2020-08-20T00:00:00Z
@@ -437,6 +482,8 @@ projects:
     status: Graduated
     command_line:
       - buildpacks,buildpacks-community
+    hist_command_line:
+      - 'buildpacks,buildpacks-community,buildpack'
     start_date: 2018-06-01T00:00:00Z
     join_date: 2018-10-03T00:00:00Z
     incubating_date: 2020-11-18T00:00:00Z
@@ -453,6 +500,8 @@ projects:
     status: Graduated
     command_line:
       - falcosecurity
+    hist_command_line:
+      - 'falcosecurity,draios/falco'
     start_date: 2016-05-17T00:00:00Z
     join_date: 2018-10-10T00:00:00Z
     incubating_date: 2020-01-08T00:00:00Z
@@ -468,6 +517,8 @@ projects:
     status: Graduated
     command_line:
       - dragonflyoss
+    hist_command_line:
+      - 'dragonflyoss,alibaba/Dragonfly'
     start_date: 2017-11-19T00:00:00Z
     join_date: 2018-11-13T00:00:00Z
     incubating_date: 2020-04-09T00:00:00Z
@@ -483,6 +534,8 @@ projects:
     status: Sandbox
     command_line:
       - 'virtual-kubelet'
+    hist_command_line:
+      - 'virtual-kubelet,Virtual-Kubelet'
     start_date: 2017-12-04T00:00:00Z
     join_date: 2018-12-04T00:00:00Z
     psql_db: virtualkubelet
@@ -512,6 +565,8 @@ projects:
     status: Archived
     command_line:
       - 'brigadecore'
+    hist_command_line:
+      - 'brigadecore,Azure/brigade'
     start_date: 2017-10-24T00:00:00Z
     join_date: 2019-03-18T00:00:00Z
     archived_date: 2022-10-19T00:00:00Z
@@ -528,6 +583,9 @@ projects:
     status: Graduated
     command_line:
       - cri-o
+    hist_command_line:
+      - "cri-o,kubernetes-incubator/ocid,kubernetes-incubator/cri-o,\
+         kubernetes-sigs/cri-o"
     start_date: 2016-09-09T00:00:00Z
     join_date: 2019-04-08T00:00:00Z
     graduated_date: 2023-07-19T00:00:00Z
@@ -542,6 +600,8 @@ projects:
     status: Sandbox
     command_line:
       - networkservicemesh
+    hist_command_line:
+      - 'networkservicemesh,NetworkServiceMesh,ligato/networkservicemesh'
     start_date: 2018-04-03T00:00:00Z
     join_date: 2019-04-11T00:00:00Z
     psql_db: networkservicemesh
@@ -583,6 +643,9 @@ projects:
     status: Incubating
     command_line:
       - thanos-io,thanos-community
+    hist_command_line:
+      - "thanos-io,thanos-community,improbable-eng/promlts,\
+         improbable-eng/thanos"
     start_date: 2017-11-01T00:00:00Z
     join_date: 2019-07-14T00:00:00Z
     incubating_date: 2020-08-19T00:00:00Z
@@ -597,6 +660,8 @@ projects:
     status: Graduated
     command_line:
       - fluxcd
+    hist_command_line:
+      - 'fluxcd,weaveworks/flux'
     start_date: 2016-11-02T00:00:00Z
     join_date: 2019-07-15T00:00:00Z
     incubating_date: 2021-03-12T00:00:00Z
@@ -631,6 +696,8 @@ projects:
     status: Incubating
     command_line:
       - strimzi
+    hist_command_line:
+      - 'strimzi,EnMasseProject/barnabas,ppatierno/barnabas,ppatierno/kaas'
     start_date: 2016-05-06T00:00:00Z
     join_date: 2019-08-28T00:00:00Z
     incubating_date: 2024-02-08T00:00:00Z
@@ -659,6 +726,8 @@ projects:
     status: Incubating
     command_line:
       - longhorn
+    hist_command_line:
+      - 'longhorn,rancher/longhorn'
     start_date: 2017-04-14T00:00:00Z
     join_date: 2019-10-11T00:00:00Z
     incubating_date: 2021-11-04T00:00:00Z
@@ -674,6 +743,9 @@ projects:
     status: Graduated
     command_line:
       - chubaofs,cubefs
+    hist_command_line:
+      - "chubaofs,cubefs,cubeFS,containerfs/containerfs.github.io,\
+         containerfilesystem/cfs,containerfilesystem/doc-zh"
     start_date: 2018-09-29T00:00:00Z
     join_date: 2019-12-16T00:00:00Z
     incubating_date: 2022-07-03T00:00:00Z
@@ -706,6 +778,9 @@ projects:
     status: Archived
     command_line:
       - servicemeshinterface
+    hist_command_line:
+      - "servicemeshinterface,deislabs/smi-spec,deislabs/smi-sdk-go,\
+         deislabs/smi-metrics,deislabs/smi-adapter-istio,deislabs/smi-spec.io"
     start_date: 2019-05-21T00:00:00Z
     join_date: 2020-03-19T00:00:00Z
     archived_date: 2023-10-09T00:00:00Z
@@ -749,6 +824,8 @@ projects:
     status: Archived
     command_line:
       - cni-genie
+    hist_command_line:
+      - 'cni-genie,Huawei-PaaS/CNI-Genie'
     start_date: 2017-03-25T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
     archived_date: 2025-05-22T00:00:00Z
@@ -778,6 +855,9 @@ projects:
     status: Sandbox
     command_line:
       - kudobuilder
+    hist_command_line:
+      - "kudobuilder,patras-sdk/kubebuilder-maestro,patras-sdk/maestro,\
+         maestrosdk/maestro,maestrosdk/frameworks"
     start_date: 2018-12-09T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
     psql_db: kudo
@@ -791,6 +871,8 @@ projects:
     status: Incubating
     command_line:
       - cloud-custodian
+    hist_command_line:
+      - 'cloud-custodian,capitalone/cloud-custodian'
     start_date: 2016-04-18T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
     incubating_date: 2022-09-14T00:00:00Z
@@ -805,6 +887,8 @@ projects:
     status: Sandbox
     command_line:
       - dexidp
+    hist_command_line:
+      - 'dexidp,coreos/dex'
     start_date: 2015-09-13T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
     psql_db: dex
@@ -818,6 +902,8 @@ projects:
     status: Incubating
     command_line:
       - litmuschaos
+    hist_command_line:
+      - 'litmuschaos,openebs/test-storage,openebs/litmus'
     start_date: 2017-03-15T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
     incubating_date: 2022-01-11T00:00:00Z
@@ -832,6 +918,8 @@ projects:
     status: Incubating
     command_line:
       - artifacthub
+    hist_command_line:
+      - 'artifacthub,cncf/hub'
     start_date: 2020-03-10T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
     incubating_date: 2024-05-30T00:00:00Z
@@ -846,6 +934,9 @@ projects:
     status: Sandbox
     command_line:
       - 'kumahq,Kong/kumacut,Kong/docker-kuma'
+    hist_command_line:
+      - "kumahq,Kong/kumacut,Kong/docker-kuma,Kong/kuma,Kong/kuma-website,\
+         Kong/kuma-demo,Kong/kuma-gui"
     start_date: 2019-09-09T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
     psql_db: kuma
@@ -859,6 +950,8 @@ projects:
     status: Sandbox
     command_line:
       - parallaxsecond
+    hist_command_line:
+      - 'parallaxsecond,docker/pasl'
     start_date: 2019-04-25T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
     psql_db: parsec
@@ -872,6 +965,8 @@ projects:
     status: Sandbox
     command_line:
       - bfenetworks
+    hist_command_line:
+      - 'bfenetworks,baidu/bfe'
     start_date: 2019-07-31T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
     psql_db: bfe
@@ -900,6 +995,8 @@ projects:
     status: Incubating
     command_line:
       - projectcontour
+    hist_command_line:
+      - 'projectcontour,heptio/contour'
     start_date: 2017-10-31T00:00:00Z
     join_date: 2020-07-07T00:00:00Z
     psql_db: contour
@@ -926,6 +1023,8 @@ projects:
     status: Incubating
     command_line:
       - chaos-mesh
+    hist_command_line:
+      - 'chaos-mesh,pingcap/chaos-mesh'
     start_date: 2019-12-26T00:00:00Z
     join_date: 2020-07-14T00:00:00Z
     incubating_date: 2022-02-16T00:00:00Z
@@ -940,6 +1039,9 @@ projects:
     status: Sandbox
     command_line:
       - serverlessworkflow,open-workflow-specification
+    hist_command_line:
+      - "serverlessworkflow,open-workflow-specification,\
+         cncf/wg-serverless-workflow"
     start_date: 2020-05-15T00:00:00Z
     join_date: 2020-07-14T00:00:00Z
     psql_db: serverlessworkflow
@@ -953,6 +1055,9 @@ projects:
     status: Sandbox
     command_line:
       - k3s-io
+    hist_command_line:
+      - "regexp:^(?:k3s-io)$|(?:(?i)^((ibuildthecloud|rancher)/.*k3(s|d).*|\
+         k3s-io/.*)$)"
     start_date: 2018-05-31T00:00:00Z
     join_date: 2020-08-19T00:00:00Z
     psql_db: k3s
@@ -970,6 +1075,8 @@ projects:
     status: Incubating
     command_line:
       - 'backstage'
+    hist_command_line:
+      - 'backstage,spotify/backstage'
     start_date: 2020-03-16T00:00:00Z
     join_date: 2020-09-08T00:00:00Z
     incubating_date: 2022-03-15T00:00:00Z
@@ -984,6 +1091,8 @@ projects:
     status: Sandbox
     command_line:
       - tremor-rs
+    hist_command_line:
+      - 'tremor-rs,wayfair-tremor'
     start_date: 2020-01-28T00:00:00Z
     join_date: 2020-09-08T00:00:00Z
     psql_db: tremor
@@ -1011,6 +1120,8 @@ projects:
     status: Sandbox
     command_line:
       - 'getporter'
+    hist_command_line:
+      - 'getporter,deislabs/porter'
     start_date: 2018-12-10T00:00:00Z
     join_date: 2020-09-08T00:00:00Z
     psql_db: porter
@@ -1024,6 +1135,8 @@ projects:
     status: Incubating
     command_line:
       - 'openyurtio'
+    hist_command_line:
+      - 'openyurtio,alibaba/openyurt'
     start_date: 2020-05-21T00:00:00Z
     join_date: 2020-09-08T00:00:00Z
     incubating_date: 2025-01-10T00:00:00Z
@@ -1052,6 +1165,8 @@ projects:
     status: Sandbox
     command_line:
       - 'keylime'
+    hist_command_line:
+      - 'keylime,mit-ll/python-keylime,mit-ll/keylime'
     start_date: 2016-10-19T00:00:00Z
     join_date: 2020-09-22T00:00:00Z
     psql_db: keylime
@@ -1078,6 +1193,8 @@ projects:
     status: Sandbox
     command_line:
       - 'cdk8s-team'
+    hist_command_line:
+      - 'cdk8s-team,awslabs/cdk8s'
     start_date: 2020-03-02T00:00:00Z
     join_date: 2020-11-10T00:00:00Z
     psql_db: cdk8s
@@ -1091,6 +1208,8 @@ projects:
     status: Graduated
     command_line:
       - 'cert-manager'
+    hist_command_line:
+      - 'cert-manager,jetstack/cert-manager,jetstack-experimental/cert-manager'
     start_date: 2017-08-07T00:00:00Z
     join_date: 2020-11-10T00:00:00Z
     incubating_date: 2022-09-19T00:00:00Z
@@ -1106,6 +1225,8 @@ projects:
     status: Incubating
     command_line:
       - 'openkruise'
+    hist_command_line:
+      - 'openkruise,kruiseio'
     start_date: 2019-05-28T00:00:00Z
     join_date: 2020-11-10T00:00:00Z
     incubating_date: 2023-03-02T00:00:00Z
@@ -1120,6 +1241,8 @@ projects:
     status: Sandbox
     command_line:
       - 'tinkerbell'
+    hist_command_line:
+      - 'tinkerbell,packethost/tinkerbell'
     start_date: 2020-03-17T00:00:00Z
     join_date: 2020-11-10T00:00:00Z
     psql_db: tinkerbell
@@ -1147,6 +1270,8 @@ projects:
     status: Graduated
     command_line:
       - 'kyverno'
+    hist_command_line:
+      - 'kyverno,nirmata/kyverno'
     start_date: 2019-05-23T00:00:00Z
     join_date: 2020-11-10T00:00:00Z
     incubating_date: 2022-07-13T00:00:00Z
@@ -1162,6 +1287,9 @@ projects:
     status: Sandbox
     command_line:
       - 'open-gitops,gitops-working-group,cncf/tag-app-delivery'
+    hist_command_line:
+      - "open-gitops,gitops-working-group,cncf/tag-app-delivery,\
+         fluxcd/gitops-working-group,cncf/sig-app-delivery"
     start_date: 2019-06-07T00:00:00Z
     # join_date: 2020-12-17T00:00:00Z
     join_date: 2021-01-26T00:00:00Z
@@ -1189,6 +1317,9 @@ projects:
     status: Archived
     command_line:
       - 'skooner-k8s'
+    hist_command_line:
+      - "skooner-k8s,indeedeng/k8dash,indeedeng/k8dash-website,\
+         herbrandson/k8dash"
     start_date: 2019-03-05T00:00:00Z
     join_date: 2021-01-26T00:00:00Z
     archived_date: 2024-10-24T00:00:00Z
@@ -1203,6 +1334,8 @@ projects:
     status: Sandbox
     command_line:
       - 'AthenZ'
+    hist_command_line:
+      - 'regexp:^(?:AthenZ)$|(?:(?i)^(AthenZ/.*|yahoo/.*athenz.*)$)'
     start_date: 2017-01-13T00:00:00Z
     join_date: 2021-01-26T00:00:00Z
     psql_db: athenz
@@ -1216,6 +1349,8 @@ projects:
     status: Sandbox
     command_line:
       - 'kubeovn'
+    hist_command_line:
+      - 'kubeovn,alauda/kube-ovn'
     start_date: 2019-03-22T00:00:00Z
     join_date: 2021-01-26T00:00:00Z
     psql_db: kubeovn
@@ -1243,6 +1378,8 @@ projects:
     status: Sandbox
     command_line:
       - 'distribution'
+    hist_command_line:
+      - 'distribution,docker/distribution'
     start_date: 2015-01-01T00:00:00Z
     join_date: 2021-01-26T00:00:00Z
     psql_db: distribution
@@ -1256,6 +1393,8 @@ projects:
     status: Archived
     command_line:
       - 'foniod'
+    hist_command_line:
+      - 'foniod,ingraind,redsift/ingraind'
     start_date: 2018-09-25T00:00:00Z
     join_date: 2021-03-30T00:00:00Z
     archived_date: 2024-01-31T00:00:00Z
@@ -1270,6 +1409,8 @@ projects:
     status: Sandbox
     command_line:
       - 'kuberhealthy'
+    hist_command_line:
+      - 'kuberhealthy,Comcast/kuberhealthy'
     start_date: 2018-07-18T00:00:00Z
     join_date: 2021-03-30T00:00:00Z
     psql_db: kuberhealthy
@@ -1283,6 +1424,8 @@ projects:
     status: Incubating
     command_line:
       - 'k8gb-io'
+    hist_command_line:
+      - 'k8gb-io,AbsaOSS/k8gb,AbsaOSS/ohmyglb'
     start_date: 2019-11-27T00:00:00Z
     join_date: 2021-03-30T00:00:00Z
     incubating_date: 2026-07-18T00:00:00Z
@@ -1297,6 +1440,8 @@ projects:
     status: Sandbox
     command_line:
       - 'trickstercache'
+    hist_command_line:
+      - 'trickstercache,tricksterproxy,Comcast/trickster'
     start_date: 2018-03-29T00:00:00Z
     join_date: 2021-03-30T00:00:00Z
     psql_db: trickster
@@ -1310,6 +1455,8 @@ projects:
     status: Incubating
     command_line:
       - 'emissary-ingress'
+    hist_command_line:
+      - 'emissary-ingress,datawire/ambassador'
     start_date: 2017-04-10T00:00:00Z
     join_date: 2021-04-13T00:00:00Z
     psql_db: emissaryingress
@@ -1323,6 +1470,8 @@ projects:
     status: Sandbox
     command_line:
       - 'WasmEdge'
+    hist_command_line:
+      - 'WasmEdge,second-state/SSVM'
     start_date: 2019-11-29T00:00:00Z
     join_date: 2021-04-28T00:00:00Z
     psql_db: wasmedge
@@ -1349,6 +1498,8 @@ projects:
     status: Archived
     command_line:
       - 'v6d-io'
+    hist_command_line:
+      - 'v6d-io,alibaba/v6d,alibaba/libvineyard'
     start_date: 2020-10-23T00:00:00Z
     join_date: 2021-04-28T00:00:00Z
     archived_date: 2026-07-10T00:00:00Z
@@ -1363,6 +1514,8 @@ projects:
     status: Sandbox
     command_line:
       - 'antrea-io'
+    hist_command_line:
+      - 'antrea-io,vmware-tanzu/antrea'
     start_date: 2019-11-18T00:00:00Z
     join_date: 2021-04-28T00:00:00Z
     psql_db: antrea
@@ -1376,6 +1529,8 @@ projects:
     status: Incubating
     command_line:
       - 'fluid-cloudnative'
+    hist_command_line:
+      - 'fluid-cloudnative,cheyang/fluid'
     start_date: 2020-07-22T00:00:00Z
     join_date: 2021-04-28T00:00:00Z
     incubating_date: 2026-01-08T00:00:00Z
@@ -1390,6 +1545,8 @@ projects:
     status: Sandbox
     command_line:
       - 'submariner-io'
+    hist_command_line:
+      - 'submariner-io,rancher/submariner'
     start_date: 2019-03-11T00:00:00Z
     join_date: 2021-04-28T00:00:00Z
     psql_db: submariner
@@ -1403,6 +1560,9 @@ projects:
     status: Sandbox
     command_line:
     - 'pixie-io'
+    hist_command_line:
+    - "regexp:^(?:pixie-io)$|(?:(?i)^(pixie-labs/(.*pixie.*|.*px.*|\
+       grafana-plugin)|pixie-io/.*)$)"
     start_date: 2020-04-07T00:00:00Z
     join_date: 2021-06-22T00:00:00Z
     psql_db: pixie
@@ -1443,6 +1603,8 @@ projects:
     status: Incubating
     command_line:
     - 'kubevela'
+    hist_command_line:
+    - 'regexp:^(?:kubevela)$|(?:(?i)^(oam-dev/.*vela|kubevela/.*))'
     start_date: 2020-09-03T00:00:00Z
     join_date: 2021-06-22T00:00:00Z
     incubating_date: 2023-02-27T00:00:00Z
@@ -1457,6 +1619,8 @@ projects:
     status: Sandbox
     command_line:
     - 'kube-vip'
+    hist_command_line:
+    - 'kube-vip,plunder-app/kube-vip'
     start_date: 2020-02-02T00:00:00Z
     join_date: 2021-06-26T00:00:00Z
     psql_db: kubevip
@@ -1470,6 +1634,8 @@ projects:
     status: Archived
     command_line:
     - 'kubedl-io'
+    hist_command_line:
+    - 'kubedl-io,alibaba/kubedl'
     start_date: 2020-02-01T00:00:00Z
     join_date: 2021-06-22T00:00:00Z
     archived_date: 2025-03-25T00:00:00Z
@@ -1484,6 +1650,8 @@ projects:
     status: Archived
     command_line:
     - 'krustlet'
+    hist_command_line:
+    - 'krustlet,deislabs/krustlet'
     start_date: 2019-12-09T00:00:00Z
     join_date: 2021-07-13T00:00:00Z
     archived_date: 2024-09-30T00:00:00Z
@@ -1512,6 +1680,8 @@ projects:
     status: Sandbox
     command_line:
     - 'oras-project'
+    hist_command_line:
+    - 'oras-project,deislabs/oras,shizhMSFT/oras'
     start_date: 2018-12-24T00:00:00Z
     join_date: 2021-07-13T00:00:00Z
     psql_db: oras
@@ -1525,6 +1695,8 @@ projects:
     status: Incubating
     command_line:
     - 'wasmCloud'
+    hist_command_line:
+    - 'wasmCloud,wascc,wascaruntime,waxosuit'
     start_date: 2019-06-20T00:00:00Z
     join_date: 2021-07-13T00:00:00Z
     incubating_date: 2024-11-08T00:00:00Z
@@ -1539,6 +1711,8 @@ projects:
     status: Sandbox
     command_line:
     - 'project-akri'
+    hist_command_line:
+    - 'project-akri,deislabs/akri'
     start_date: 2020-10-19T00:00:00Z
     join_date: 2021-09-14T00:00:00Z
     psql_db: akri
@@ -1552,6 +1726,8 @@ projects:
     status: Sandbox
     command_line:
     - 'metallb'
+    hist_command_line:
+    - 'metallb,danderson/metallb,google/metallb'
     start_date: 2017-11-08T00:00:00Z
     join_date: 2021-09-14T00:00:00Z
     psql_db: metallb
@@ -1580,6 +1756,8 @@ projects:
     status: Sandbox
     command_line:
     - 'inclavare-containers'
+    hist_command_line:
+    - 'inclavare-containers,alibaba/inclavare-containers'
     start_date: 2020-05-12T00:00:00Z
     join_date: 2021-09-14T00:00:00Z
     psql_db: inclavarecontainers
@@ -1607,6 +1785,8 @@ projects:
     status: Graduated
     command_line:
     - 'cilium'
+    hist_command_line:
+    - 'cilium,noironetworks/cilium-net'
     start_date: 2016-08-15T00:00:00Z
     join_date: 2021-10-13T00:00:00Z
     graduated_date: 2023-10-11T00:00:00Z
@@ -1635,6 +1815,8 @@ projects:
     status: Archived
     command_line:
     - 'openelb'
+    hist_command_line:
+    - 'openelb,kubesphere/openelb,kubesphere/porterlb,kubesphere/porter'
     start_date: 2019-02-01T00:00:00Z
     join_date: 2021-11-09T00:00:00Z
     archived_date: 2025-05-22T00:00:00Z
@@ -1662,6 +1844,8 @@ projects:
     status: Sandbox
     command_line:
     - 'vscode-kubernetes-tools'
+    hist_command_line:
+    - 'vscode-kubernetes-tools,Azure/vscode-kubernetes-tools'
     start_date: 2017-08-03T00:00:00Z
     join_date: 2021-11-09T00:00:00Z
     psql_db: vscodek8stools
@@ -1689,6 +1873,8 @@ projects:
     status: Sandbox
     command_line:
     - 'kubearmor'
+    hist_command_line:
+    - 'kubearmor,accuknox/KubeArmor'
     start_date: 2020-11-26T00:00:00Z
     join_date: 2021-11-16T00:00:00Z
     psql_db: kubearmor
@@ -1702,6 +1888,8 @@ projects:
     status: Sandbox
     command_line:
     - 'k8up-io'
+    hist_command_line:
+    - 'k8up-io,vshn/k8up'
     start_date: 2019-02-01T00:00:00Z
     join_date: 2021-11-16T00:00:00Z
     psql_db: k8up
@@ -1715,6 +1903,8 @@ projects:
     status: Sandbox
     command_line:
     - 'kube-rs'
+    hist_command_line:
+    - 'kube-rs,clux/kube-rs,clux/kubernetes-rust'
     start_date: 2018-11-12T00:00:00Z
     join_date: 2021-11-16T00:00:00Z
     psql_db: kubers
@@ -1728,6 +1918,8 @@ projects:
     status: Sandbox
     command_line:
     - 'devfile'
+    hist_command_line:
+    - 'devfile,che-incubator/devworkspace-api'
     start_date: 2019-12-05T00:00:00Z
     join_date: 2022-01-11T00:00:00Z
     psql_db: devfile
@@ -1796,6 +1988,9 @@ projects:
     status: Archived
     command_line:
       - 'tellerops,SpectralOps/setup-teller-action'
+    hist_command_line:
+      - "tellerops,SpectralOps/setup-teller-action,SpectralOps/teller,\
+         SpectralOps/helm-teller"
     start_date: 2021-03-24T00:00:00Z
     join_date: 2022-04-26T00:00:00Z
     archived_date: 2025-05-22T00:00:00Z
@@ -1810,6 +2005,8 @@ projects:
     status: Archived
     command_line:
       - 'sealerio'
+    hist_command_line:
+      - 'sealerio,alibaba/sealer'
     start_date: 2021-04-29T00:00:00Z
     join_date: 2022-04-26T00:00:00Z
     archived_date: 2025-05-22T00:00:00Z
@@ -1852,6 +2049,8 @@ projects:
     status: Sandbox
     command_line:
       - 'aeraki-mesh'
+    hist_command_line:
+      - 'aeraki-mesh,aeraki-framework'
     start_date: 2020-11-05T00:00:00Z
     join_date: 2022-06-17T00:00:00Z
     psql_db: aerakimesh
@@ -1879,6 +2078,8 @@ projects:
     status: Incubating
     command_line:
       - 'open-feature'
+    hist_command_line:
+      - 'open-feature,openfeatureflags'
     start_date: 2022-02-11T00:00:00Z
     join_date: 2022-06-17T00:00:00Z
     incubating_date: 2023-11-21T00:00:00Z
@@ -1893,6 +2094,8 @@ projects:
     status: Sandbox
     command_line:
       - 'kubewarden'
+    hist_command_line:
+      - 'kubewarden,chimera-kube'
     start_date: 2020-11-24T00:00:00Z
     join_date: 2022-06-17T00:00:00Z
     psql_db: kubewarden
@@ -1906,6 +2109,8 @@ projects:
     status: Archived
     command_line:
       - 'devstream-io'
+    hist_command_line:
+      - 'devstream-io,merico-dev/stream,merico-dev/OpenStream'
     start_date: 2021-10-09T00:00:00Z
     join_date: 2022-06-17T00:00:00Z
     archived_date: 2025-05-22T00:00:00Z
@@ -1934,6 +2139,8 @@ projects:
     status: Sandbox
     command_line:
       - 'konveyor'
+    hist_command_line:
+      - 'konveyor,fusor/mig-operator'
     start_date: 2019-06-28T00:00:00Z
     join_date: 2022-07-26T00:00:00Z
     psql_db: konveyor
@@ -1947,6 +2154,8 @@ projects:
     status: Sandbox
     command_line:
       - 'armadaproject'
+    hist_command_line:
+      - 'armadaproject,G-Research/armada'
     start_date: 2019-10-22T00:00:00Z
     join_date: 2022-07-25T00:00:00Z
     psql_db: armada
@@ -1973,6 +2182,8 @@ projects:
     status: Sandbox
     command_line:
       - 'Serverless-Devs'
+    hist_command_line:
+      - 'Serverless-Devs,ServerlessTool'
     start_date: 2020-09-16T00:00:00Z
     join_date: 2022-09-14T00:00:00Z
     psql_db: serverlessdevs
@@ -1986,6 +2197,8 @@ projects:
     status: Sandbox
     command_line:
       - 'ContainerSSH'
+    hist_command_line:
+      - 'ContainerSSH,janoszen/ContainerSSH,janoszen/containerssh'
     start_date: 2020-06-03T00:00:00Z
     join_date: 2022-09-14T00:00:00Z
     psql_db: containerssh
@@ -2013,6 +2226,8 @@ projects:
     status: Sandbox
     command_line:
       - 'kubereboot'
+    hist_command_line:
+      - 'kubereboot,weaveworks/kured'
     start_date: 2017-06-13T00:00:00Z
     join_date: 2022-09-14T00:00:00Z
     psql_db: kured
@@ -2026,6 +2241,9 @@ projects:
     status: Sandbox
     command_line:
       - 'carvel-dev'
+    hist_command_line:
+      - "regexp:^(?:carvel-dev)$|(?:(?i)^(vmware-tanzu/.*carvel.*|k14s/.*|\
+         carvel-dev/.*)$)"
     start_date: 2019-03-15T00:00:00Z
     join_date: 2022-09-14T00:00:00Z
     psql_db: carvel
@@ -2039,6 +2257,8 @@ projects:
     status: Incubating
     command_line:
       - 'lima-vm'
+    hist_command_line:
+      - 'lima-vm,AkihiroSuda/lima'
     start_date: 2021-08-02T00:00:00Z
     join_date: 2022-09-14T00:00:00Z
     incubating_date: 2025-10-14T00:00:00Z
@@ -2068,6 +2288,8 @@ projects:
     status: Archived
     command_line:
       - merbridge
+    hist_command_line:
+      - 'merbridge,kebe7jun/mepf,kebe7jun/mebpf'
     start_date: 2022-01-12T00:00:00Z
     join_date: 2022-12-14T00:00:00Z
     archived_date: 2025-05-22T00:00:00Z
@@ -2082,6 +2304,8 @@ projects:
     status: Sandbox
     command_line:
       - 'devspace-cloud,devspace-sh'
+    hist_command_line:
+      - 'devspace-cloud,devspace-sh,covexo,loft-sh/devspace'
     start_date: 2017-10-13T00:00:00Z
     join_date: 2022-12-13T00:00:00Z
     psql_db: 'devspace'
@@ -2095,6 +2319,8 @@ projects:
     status: Sandbox
     command_line:
       - 'projectcapsule'
+    hist_command_line:
+      - 'regexp:^(?:projectcapsule)$|(?:(?i)^clastix/.*capsule.*$)'
     start_date: 2020-06-29T00:00:00Z
     join_date: 2022-12-13T00:00:00Z
     psql_db: 'capsule'
@@ -2108,6 +2334,8 @@ projects:
     status: Sandbox
     command_line:
       - project-zot
+    hist_command_line:
+      - 'project-zot,anuvu/zot'
     start_date: 2019-06-21T00:00:00Z
     join_date: 2022-12-13T00:00:00Z
     psql_db: 'zot'
@@ -2147,6 +2375,8 @@ projects:
     status: Sandbox
     command_line:
       - ko-build
+    hist_command_line:
+      - 'ko-build,google/ko'
     start_date: 2019-03-21T00:00:00Z
     join_date: 2022-12-14T00:00:00Z
     psql_db: 'ko'
@@ -2173,6 +2403,8 @@ projects:
     status: Sandbox
     command_line:
       - werf
+    hist_command_line:
+      - 'werf,flant/werf,flant/dapp,flant/dapper'
     start_date: 2016-01-25T00:00:00Z
     join_date: 2022-12-13T00:00:00Z
     psql_db: 'werf'
@@ -2186,6 +2418,8 @@ projects:
     status: Incubating
     command_line:
       - kubescape
+    hist_command_line:
+      - 'kubescape,armosec/kubescape'
     start_date: 2021-08-12T00:00:00Z
     join_date: 2022-12-13T00:00:00Z
     incubating_date: 2025-01-13T00:00:00Z
@@ -2200,6 +2434,8 @@ projects:
     status: Sandbox
     command_line:
       - inspektor-gadget
+    hist_command_line:
+      - 'inspektor-gadget,kinvolk/inspektor-gadget'
     start_date: 2019-05-18T00:00:00Z
     join_date: 2023-03-07T00:00:00Z
     psql_db: 'inspektorgadget'
@@ -2226,6 +2462,8 @@ projects:
     status: Incubating
     command_line:
       - keycloak
+    hist_command_line:
+      - 'keycloak,keycloak/keycloak'
     start_date: 2014-01-01T00:00:00Z
     join_date: 2023-04-10T00:00:00Z
     psql_db: keycloak
@@ -2239,6 +2477,8 @@ projects:
     status: Sandbox
     command_line:
       - 'getsops'
+    hist_command_line:
+      - 'getsops,mozilla/sops,mozilla/sotp,mozilla-services/sops'
     start_date: 2015-08-13T00:00:00Z
     join_date: 2023-05-17T00:00:00Z
     psql_db: 'sops'
@@ -2252,6 +2492,9 @@ projects:
     status: Sandbox
     command_line:
       - 'headlamp-k8s,kubernetes-sigs/headlamp'
+    hist_command_line:
+      - "headlamp-k8s,kubernetes-sigs/headlamp,kinvolk/headlamp,\
+         kubernetes-purgatory/headlamp"
     start_date: 2020-04-01T00:00:00Z
     join_date: 2023-05-17T00:00:00Z
     psql_db: 'headlamp'
@@ -2265,6 +2508,8 @@ projects:
     status: Sandbox
     command_line:
       - 'slimtoolkit'
+    hist_command_line:
+      - 'slimtoolkit,docker-slim,cloudimmunity/docker-slim'
     start_date: 2015-09-09T00:00:00Z
     join_date: 2023-05-17T00:00:00Z
     psql_db: 'slimtoolkit'
@@ -2304,6 +2549,8 @@ projects:
     status: Sandbox
     command_line:
       - 'eraser-dev'
+    hist_command_line:
+      - 'regexp:^(?:eraser-dev)$|(?:(?i)^(Azure/.*eraser.*|eraser-dev/.*)$)'
     start_date: 2021-05-28T00:00:00Z
     join_date: 2023-06-30T00:00:00Z
     psql_db: 'eraser'
@@ -2317,6 +2564,8 @@ projects:
     status: Archived
     command_line:
       - 'xline-kv'
+    hist_command_line:
+      - 'xline-kv,datenlord/Xline'
     start_date: 2022-05-05T00:00:00Z
     join_date: 2023-06-30T00:00:00Z
     archived_date: 2025-09-19T00:00:00Z
@@ -2344,6 +2593,8 @@ projects:
     status: Sandbox
     command_line:
       - 'kptdev'
+    hist_command_line:
+      - 'regexp:^(?:kptdev)$|(?:(?i)^(kptdev/.*|GoogleContainerTools/.*kpt.*)$)'
     start_date: 2020-02-03T00:00:00Z
     join_date: 2023-06-30T00:00:00Z
     psql_db: 'kpt'
@@ -2384,6 +2635,8 @@ projects:
     status: Graduated
     command_line:
       - 'kubeflow'
+    hist_command_line:
+      - 'kubeflow,google/kubeflow'
     start_date: 2017-11-30T00:00:00Z
     join_date: 2023-07-25T00:00:00Z
     graduated_date: 2026-07-24T00:00:00Z
@@ -2411,6 +2664,8 @@ projects:
     status: Sandbox
     command_line:
       - 'kube-logging'
+    hist_command_line:
+      - 'kube-logging,banzaicloud/logging-operator'
     start_date: 2018-08-02T00:00:00Z
     join_date: 2023-09-19T00:00:00Z
     psql_db: 'loggingoperator'
@@ -2450,6 +2705,8 @@ projects:
     status: Sandbox
     command_line:
       - 'kcl-lang'
+    hist_command_line:
+      - 'kcl-lang,KusionStack/kcl,KusionStack/KCLVM'
     start_date: 2022-05-13T00:00:00Z
     join_date: 2023-09-20T00:00:00Z
     psql_db: 'kcl'
@@ -2463,6 +2720,8 @@ projects:
     status: Sandbox
     command_line:
       - 'kube-burner'
+    hist_command_line:
+      - 'kube-burner,cloud-bulldozer/kube-burner,cloud-bulldozer/rosa-burner'
     start_date: 2020-09-02T00:00:00Z
     join_date: 2023-12-18T00:00:00Z
     psql_db: 'kubeburner'
@@ -2489,6 +2748,9 @@ projects:
     status: Sandbox
     command_line:
       - 'krkn-chaos'
+    hist_command_line:
+      - "krkn-chaos,redhat-chaos,chaos-kubox,cloud-bulldozer/krkn,\
+         cloud-bulldozer/kraken,openshift-scale/kraken"
     start_date: 2020-04-19T00:00:00Z
     join_date: 2023-12-19T00:00:00Z
     psql_db: 'krknchaos'
@@ -2502,6 +2764,8 @@ projects:
     status: Sandbox
     command_line:
       - 'kubestellar'
+    hist_command_line:
+      - 'kubestellar,KubeStellar,kcp-dev/edge-mc'
     start_date: 2022-11-03T00:00:00Z
     join_date: 2023-12-19T00:00:00Z
     psql_db: 'kubestellar'
@@ -2515,6 +2779,8 @@ projects:
     status: Sandbox
     command_line:
       - easegress-io
+    hist_command_line:
+      - 'easegress-io,megaease'
     start_date: 2017-06-07T00:00:00Z
     join_date: 2023-12-19T00:00:00Z
     psql_db: 'easegress'
@@ -2567,6 +2833,8 @@ projects:
     status: Sandbox
     command_line:
       - connectrpc
+    hist_command_line:
+      - 'connectrpc,bufbuild/connect-go,bufbuild/rerpc,rerpc/rerpc'
     start_date: 2021-11-01T00:00:00Z
     join_date: 2024-04-13T00:00:00Z
     psql_db: connect
@@ -2580,6 +2848,8 @@ projects:
     status: Sandbox
     command_line:
       - kairos-io
+    hist_command_line:
+      - 'kairos-io,c3os-io,mudler/c3os'
     start_date: 2021-07-30T00:00:00Z
     join_date: 2024-04-13T00:00:00Z
     psql_db: kairos
@@ -2632,6 +2902,8 @@ projects:
     status: Sandbox
     command_line:
       - bank-vaults
+    hist_command_line:
+      - 'bank-vaults,banzaicloud/bank-vaults,banzaicloud/vault-dogsbody'
     start_date: 2018-03-07T00:00:00Z
     join_date: 2024-06-18T00:00:00Z
     psql_db: bankvaults
@@ -2645,6 +2917,8 @@ projects:
     status: Sandbox
     command_line:
       - runatlantis
+    hist_command_line:
+      - 'runatlantis,atlantisnorth/atlantis'
     start_date: 2018-02-06T00:00:00Z
     join_date: 2024-06-18T00:00:00Z
     psql_db: atlantis
@@ -2658,6 +2932,8 @@ projects:
     status: Sandbox
     command_line:
       - project-stacker
+    hist_command_line:
+      - 'project-stacker,anuvu/stacker'
     start_date: 2017-11-30T00:00:00Z
     join_date: 2024-06-19T00:00:00Z
     psql_db: stacker
@@ -2671,6 +2947,8 @@ projects:
     status: Sandbox
     command_line:
       - oscal-compass
+    hist_command_line:
+      - 'oscal-compass,IBM/compliance-trestle'
     start_date: 2020-08-30T00:00:00Z
     join_date: 2024-06-21T00:00:00Z
     psql_db: trestlegrc
@@ -2684,6 +2962,8 @@ projects:
     status: Sandbox
     command_line:
       - Kuadrant
+    hist_command_line:
+      - 'Kuadrant,3scale-labs/authorino'
     start_date: 2020-12-22T00:00:00Z
     join_date: 2024-06-19T00:00:00Z
     psql_db: kuadrant
@@ -2723,6 +3003,8 @@ projects:
     status: Sandbox
     command_line:
       - bpfman
+    hist_command_line:
+      - 'bpfman,bpfd-dev,redhat-et/bpfd'
     start_date: 2022-01-14T00:00:00Z
     join_date: 2024-06-19T00:00:00Z
     psql_db: bpfman
@@ -2749,6 +3031,8 @@ projects:
     status: Sandbox
     command_line:
       - cartography-cncf
+    hist_command_line:
+      - 'cartography-cncf,lyft/cartography'
     start_date: 2019-03-01T00:00:00Z
     join_date: 2024-08-23T00:00:00Z
     psql_db: cartography
@@ -2775,6 +3059,9 @@ projects:
     status: Sandbox
     command_line:
       - ratify-project
+    hist_command_line:
+      - "ratify-project,deislabs/ratify,deislabs/ratify-web,\
+         deislabs/ratify-action"
     start_date: 2021-11-15T00:00:00Z
     join_date: 2024-08-30T00:00:00Z
     psql_db: ratify
@@ -2802,6 +3089,9 @@ projects:
     status: Sandbox
     command_line:
       - shipwright-io
+    hist_command_line:
+      - "shipwright-io,redhat-developer/build,redhat-developer/buildv2,\
+         redhat-developer/buildv2-operator"
     start_date: 2020-02-06T00:00:00Z
     join_date: 2024-08-19T00:00:00Z
     psql_db: shipwrightcncf
@@ -2815,6 +3105,9 @@ projects:
     status: Incubating
     command_line:
       - flatcar,flatcar-linux
+    hist_command_line:
+      - "flatcar,flatcar-linux,kinvolk/Flatcar,kinvolk/flatcar-scripts,\
+         kinvolk/mantle"
     start_date: 2018-03-05T00:00:00Z
     join_date: 2024-08-02T00:00:00Z
     psql_db: flatcar
@@ -2841,6 +3134,8 @@ projects:
     status: Sandbox
     command_line:
       - youki-dev
+    hist_command_line:
+      - 'youki-dev,containers/youki'
     start_date: 2021-06-04T00:00:00Z
     join_date: 2024-10-17T00:00:00Z
     psql_db: youki
@@ -2854,6 +3149,8 @@ projects:
     status: Sandbox
     command_line:
       - kaito-project
+    hist_command_line:
+      - 'kaito-project,Azure/kaito'
     start_date: 2023-11-15T00:00:00Z
     join_date: 2024-10-17T00:00:00Z
     psql_db: kaito
@@ -2867,6 +3164,9 @@ projects:
     status: Sandbox
     command_line:
       - sermant-io
+    hist_command_line:
+      - "sermant-io,huaweicloud/Sermant,huaweicloud/java-mesh,\
+         huaweicloud/JavaMesh"
     start_date: 2021-09-07T00:00:00Z
     join_date: 2024-10-09T00:00:00Z
     psql_db: sermant
@@ -2893,6 +3193,8 @@ projects:
     status: Sandbox
     command_line:
       - ovn-org,ovn-kubernetes
+    hist_command_line:
+      - 'ovn-org,ovn-kubernetes,openvswitch/ovn-kubernetes'
     start_date: 2016-08-11T00:00:00Z
     join_date: 2024-10-17T00:00:00Z
     psql_db: ovnkubernetes
@@ -2906,6 +3208,8 @@ projects:
     status: Sandbox
     command_line:
       - tokenetes
+    hist_command_line:
+      - 'tokenetes,tratteria'
     start_date: 2024-05-20T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: tratteria
@@ -2919,6 +3223,9 @@ projects:
     status: Sandbox
     command_line:
       - spinframework
+    hist_command_line:
+      - "regexp:^(?:spinframework)$|(?:(?i)^(fermyon/(.*spin.*|\
+         platform-plugin)|spinframework/.*)$)"
     start_date: 2022-03-18T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: spin
@@ -2932,6 +3239,8 @@ projects:
     status: Sandbox
     command_line:
       - spinframework
+    hist_command_line:
+      - 'spinframework,spinkube'
     start_date: 2024-03-08T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: spinkube
@@ -2945,6 +3254,8 @@ projects:
     status: Sandbox
     command_line:
       - SlimPlanet
+    hist_command_line:
+      - 'SlimPlanet,AxaFrance/SlimFaaS'
     start_date: 2023-06-21T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: slimfaas
@@ -2958,6 +3269,8 @@ projects:
     status: Sandbox
     command_line:
       - container2wasm
+    hist_command_line:
+      - 'container2wasm,ktock/container2wasm'
     start_date: 2023-02-28T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: container2wasm
@@ -2984,6 +3297,8 @@ projects:
     status: Sandbox
     command_line:
       - runmedev
+    hist_command_line:
+      - 'regexp:^(?:runmedev)$|(?:(?i)^(stateful/.*runme.*|runmedev/.*)$)'
     start_date: 2022-10-14T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: runmenotebooks
@@ -3023,6 +3338,9 @@ projects:
     status: Sandbox
     command_line:
       - podman-desktop
+    hist_command_line:
+      - "regexp:^(?:podman-desktop)$|(?:(?i)^(podman-desktop/.*|\
+         containers/(desktop|.*podman-desktop.*))$)"
     start_date: 2022-03-03T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: podmandesktop
@@ -3036,6 +3354,10 @@ projects:
     status: Sandbox
     command_line:
       - 'regexp:(?i)^(podman-container-tools\/(podman|buildah|skopeo)|containers\/(netavark|aardvark-dns|image|storage|common|conmon|podman-py))$'
+    hist_command_line:
+      - "regexp:(?:(?i)^(podman-container-tools/(podman|buildah|skopeo)|containers/(netavark|aardvark-dns|image|storage|common|conmon|\
+         podman-py))$)|(?:(?i)^(containers/(podman|buildah|skopeo|netavark|aardvark-dns|image|storage|common|conmon|podman-py)|\
+         projectatomic/skopeo|podman-container-tools/(podman|buildah|skopeo))$)"
     start_date: 2016-03-07T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: podmancontainertools
@@ -3049,6 +3371,8 @@ projects:
     status: Sandbox
     command_line:
       - bootc-dev
+    hist_command_line:
+      - 'bootc-dev,containers/bootc'
     start_date: 2022-12-01T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: bootc
@@ -3062,6 +3386,8 @@ projects:
     status: Sandbox
     command_line:
       - composefs
+    hist_command_line:
+      - 'composefs,containers/composefs,giuseppe/composefs'
     start_date: 2021-10-30T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: composefs
@@ -3088,6 +3414,9 @@ projects:
     status: Sandbox
     command_line:
       - 'interlink-hq'
+    hist_command_line:
+      - "regexp:^(?:interlink-hq)$|(?:(?i)^(interlink-hq/.*|\
+         interTwin-eu/(.*interlink.*|vk-test-set))$)"
     start_date: 2023-07-05T00:00:00Z
     join_date: 2025-03-04T00:00:00Z
     psql_db: interlink
@@ -3114,6 +3443,8 @@ projects:
     status: Sandbox
     command_line:
       - 'kgateway-dev'
+    hist_command_line:
+      - 'kgateway-dev,k8sgateway,solo-io/gloo'
     start_date: 2018-03-05T00:00:00Z
     join_date: 2025-03-04T00:00:00Z
     psql_db: kgateway
@@ -3127,6 +3458,9 @@ projects:
     status: Sandbox
     command_line:
       - 'kitops-ml'
+    hist_command_line:
+      - "regexp:^(?:kitops-ml)$|(?:(?i)^(jozu-ai/(.*kitops.*|gh-kit-setup|\
+         daggerverse)|kitops-ml/.*)$)"
     start_date: 2024-03-07T00:00:00Z
     join_date: 2025-03-04T00:00:00Z
     psql_db: kitops
@@ -3153,6 +3487,8 @@ projects:
     status: Sandbox
     command_line:
       - opentofu
+    hist_command_line:
+      - 'opentofu,opentffoundation,openterraform'
     start_date: 2023-08-12T00:00:00Z
     join_date: 2025-04-23T00:00:00Z
     psql_db: opentofu
@@ -3166,6 +3502,8 @@ projects:
     status: Sandbox
     command_line:
       - cadence-workflow
+    hist_command_line:
+      - 'cadence-workflow,uber/cadence'
     start_date: 2017-06-06T00:00:00Z
     join_date: 2025-05-22T00:00:00Z
     psql_db: cadence
@@ -3192,6 +3530,8 @@ projects:
     status: Sandbox
     command_line:
       - urunc-dev
+    hist_command_line:
+      - 'urunc-dev,nubificus/urunc'
     start_date: 2023-09-14T00:00:00Z
     join_date: 2025-05-22T00:00:00Z
     psql_db: urunc
@@ -3231,6 +3571,8 @@ projects:
     status: Incubating
     command_line:
       - kserve
+    hist_command_line:
+      - 'kserve,kubeflow/kfserving,kubeflow/kfserving-lts'
     start_date: 2019-03-27T00:00:00Z
     join_date: 2025-09-29T00:00:00Z
     psql_db: kserve
@@ -3244,6 +3586,8 @@ projects:
     status: Sandbox
     command_line:
       - oauth2-proxy
+    hist_command_line:
+      - 'oauth2-proxy,pusher/oauth2_proxy'
     start_date: 2017-09-29T00:00:00Z
     join_date: 2025-10-02T00:00:00Z
     psql_db: oauth2proxy
@@ -3257,6 +3601,8 @@ projects:
     status: Sandbox
     command_line:
       - oxia-db
+    hist_command_line:
+      - 'oxia-db,streamnative/oxia'
     start_date: 2023-04-26T00:00:00Z
     join_date: 2025-10-06T00:00:00Z
     psql_db: oxia
@@ -3270,6 +3616,9 @@ projects:
     status: Sandbox
     command_line:
       - HolmesGPT,robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets
+    hist_command_line:
+      - "HolmesGPT,robusta-dev/homebrew-holmesgpt,\
+         robusta-dev/holmesgpt-community-toolsets,robusta-dev/holmesgpt"
     start_date: 2024-05-30T00:00:00Z
     join_date: 2025-10-08T00:00:00Z
     psql_db: holmesgpt
@@ -3296,6 +3645,8 @@ projects:
     status: Sandbox
     command_line:
       - project-dalec
+    hist_command_line:
+      - 'project-dalec,Azure/dalec'
     start_date: 2024-01-18T00:00:00Z
     join_date: 2025-10-08T00:00:00Z
     psql_db: dalec
@@ -3309,6 +3660,8 @@ projects:
     status: Sandbox
     command_line:
       - openchoreo
+    hist_command_line:
+      - 'openchoreo,choreo-idp'
     start_date: 2025-02-28T00:00:00Z
     join_date: 2026-01-06T00:00:00Z
     psql_db: openchoreo
@@ -3322,6 +3675,8 @@ projects:
     status: Sandbox
     command_line:
       - CoHDI
+    hist_command_line:
+      - 'CoHDI,cohdi'
     start_date: 2025-06-20T00:00:00Z
     join_date: 2025-12-19T00:00:00Z
     psql_db: cohdi
@@ -3335,6 +3690,9 @@ projects:
     status: Sandbox
     command_line:
       - KubeElasti
+    hist_command_line:
+      - "KubeElasti,truefoundry/KubeElasti,truefoundry/elasti,\
+         truefoundry/kubeelasti"
     start_date: 2024-12-31T00:00:00Z
     join_date: 2026-01-03T00:00:00Z
     psql_db: kubeelasti
@@ -3348,6 +3706,8 @@ projects:
     status: Sandbox
     command_line:
       - kai-scheduler
+    hist_command_line:
+      - 'kai-scheduler,NVIDIA/KAI-Scheduler'
     start_date: 2025-03-20T00:00:00Z
     join_date: 2025-12-21T00:00:00Z
     psql_db: kaischeduler
@@ -3361,6 +3721,11 @@ projects:
     status: Sandbox
     command_line:
       - agones-dev,googleforgames/space-agon,googleforgames/global-multiplayer-demo
+    hist_command_line:
+      - "agones-dev,googleforgames/space-agon,\
+         googleforgames/global-multiplayer-demo,googleforgames/agones,\
+         googleforgames/agones-site,googleforgames/agones-community,\
+         GoogleCloudPlatform/agones"
     start_date: 2018-03-05T00:00:00Z
     join_date: 2025-12-21T00:00:00Z
     psql_db: agones
@@ -3374,6 +3739,10 @@ projects:
     status: Sandbox
     command_line:
       - 'regexp:(?i)^(velero-io\/.*|vmware-tanzu\/.*velero.*)$'
+    hist_command_line:
+      - "regexp:(?:(?i)^(velero-io/.*|vmware-tanzu/.*velero.*)$)|\
+         (?:(?i)^(velero-io/.*|vmware-tanzu/.*velero.*|heptio/(ark|\
+         .*velero.*))$)"
     start_date: 2017-08-03T00:00:00Z
     join_date: 2026-03-11T00:00:00Z
     psql_db: velero
@@ -3387,6 +3756,8 @@ projects:
     status: Sandbox
     command_line:
       - openeverest
+    hist_command_line:
+      - 'openeverest,percona/everest'
     start_date: 2024-01-04T00:00:00Z
     join_date: 2026-03-15T00:00:00Z
     psql_db: openeverest
@@ -3413,6 +3784,8 @@ projects:
     status: Sandbox
     command_line:
       - higress-group
+    hist_command_line:
+      - 'higress-group,alibaba/higress'
     start_date: 2022-10-25T00:00:00Z
     join_date: 2026-03-15T00:00:00Z
     psql_db: higress
@@ -3439,6 +3812,8 @@ projects:
     status: Incubating
     command_line:
       - tektoncd,tektoncd-catalog
+    hist_command_line:
+      - 'tektoncd,tektoncd-catalog,knative/build'
     start_date: 2018-07-23T00:00:00Z
     join_date: 2026-03-13T00:00:00Z
     psql_db: tekton
@@ -3465,6 +3840,8 @@ projects:
     status: Sandbox
     command_line:
       - kbind-dev
+    hist_command_line:
+      - 'kbind-dev,kube-bind'
     start_date: 2022-10-06T00:00:00Z
     join_date: 2026-03-12T00:00:00Z
     psql_db: kbind
@@ -3491,6 +3868,8 @@ projects:
     status: Sandbox
     command_line:
       - sdcio
+    hist_command_line:
+      - 'sdcio,iptecharch'
     start_date: 2023-11-27T00:00:00Z
     join_date: 2026-08-28T00:00:00Z
     psql_db: sdc
@@ -3505,6 +3884,9 @@ projects:
     command_line:
       - opencontainers
       - 'image-tools,image-spec,runtime-tools,runtime-spec,runc'
+    hist_command_line:
+      - 'opencontainers'
+      - 'image-tools,image-spec,runtime-tools,runtime-spec,runc,ocitools,specs'
     start_date: 2015-06-22T00:00:00Z
     join_date: null
     psql_db: opencontainers
@@ -3519,6 +3901,9 @@ projects:
     status: "-"
     command_line:
       - 'awslabs/aws-sam-cli,awslabs/serverless-application-model'
+    hist_command_line:
+      - "awslabs/aws-sam-cli,awslabs/serverless-application-model,\
+         awslabs/aws-sam-local"
     start_date: 2016-11-17T00:00:00Z
     join_date: null
     psql_db: sam
@@ -3536,6 +3921,13 @@ projects:
          Azure/azure-functions-durable-js,Azure/azure-functions-core-tools,Azure/azure-functions-nodejs-worker,Azure/azure-functions-java-worker,\
          Azure/azure-functions-python-worker,Azure/azure-functions-ux,Azure/azure-functions-templates,Azure/azure-webjobs-sdk-script-samples,\
          Azure/azure-functions-vs-build-sdk,Azure/Azure-Functions"
+    hist_command_line:
+      - "Azure/azure-functions-host,Azure/azure-webjobs-sdk,Azure/azure-webjobs-sdk-extensions,Azure/azure-functions-durable-extension,\
+         Azure/azure-functions-durable-js,Azure/azure-functions-core-tools,Azure/azure-functions-nodejs-worker,Azure/azure-functions-java-worker,\
+         Azure/azure-functions-python-worker,Azure/azure-functions-ux,Azure/azure-functions-templates,Azure/azure-webjobs-sdk-script-samples,\
+         Azure/azure-functions-vs-build-sdk,Azure/Azure-Functions,Azure/azure-webjobs-sdk-script,Azure/azure-webjobs-sdk-templates,\
+         Azure/azure-functions-cli,projectkudu/AzureFunctions,projectkudu/WebJobsPortal,projectkudu/AzureFunctionsPortal,\
+         projectkudu/azure-functions-ux"
     start_date: 2015-04-27T00:00:00Z
     join_date: null
     psql_db: azf
@@ -3550,6 +3942,11 @@ projects:
     status: "-"
     command_line:
       - 'projectriff'
+    hist_command_line:
+      - "projectriff,markfisher/sk8s,jldec/projectriff.io,\
+         pivotal-cf/pfs-system-test,ericbottard/sk8s-go,ericbottard/sk8s-types,\
+         ericbottard/kubernetes-model,ericbottard/sk8s-http-gateway,\
+         ericbottard/function-sidecar,ericbottard/sk8s-topic-controller"
     start_date: 2017-07-28T00:00:00Z
     join_date: null
     psql_db: riff
@@ -3564,6 +3961,9 @@ projects:
     status: "-"
     command_line:
       - 'fnproject'
+    hist_command_line:
+      - "fnproject,fnhub/katacoda-scenarios,treeder/fn-plugin-example,\
+         treeder/fn-ext-dns,treeder/fn-ext-example,treeder/fn-ext-auth"
     start_date: 2017-07-25T00:00:00Z
     join_date: null
     psql_db: fn
@@ -3578,6 +3978,8 @@ projects:
     status: "-"
     command_line:
       - 'apache/openwhisk'
+    hist_command_line:
+      - 'apache/openwhisk,apache/incubator-openwhisk'
     start_date: 2017-05-12T00:00:00Z
     join_date: null
     psql_db: openwhisk
@@ -3592,6 +3994,13 @@ projects:
     status: "-"
     command_line:
       - 'openfaas'
+    hist_command_line:
+      - "openfaas,open-faas,stefanprodan/caddy-builder,alexellis/faas,\
+         alexellis/faas-cli,alexellis/java-afterburn,alexellis/faas-netes,\
+         alexellis/caddy-builder,alexellis/openfaas-workshop,alexellis/derek,\
+         alexellis/java-openfaas-fast-fork,alexellis/openfaas-cloud,\
+         alexellis/faas-nats,alexellis/serverless-faas,alexellis/faas-provider,\
+         alexellis/nodejs-afterburn"
     start_date: 2016-12-22T00:00:00Z
     join_date: null
     psql_db: openfaas
@@ -3743,6 +4152,152 @@ projects:
          KubeElasti,kai-scheduler,agones-dev,googleforgames/space-agon,thanos-community,kbind-dev,\
          googleforgames/global-multiplayer-demo,velero-io,vmware-tanzu/velero-plugin-for-vsphere,\
          llm-d,openeverest,nmstate,higress-group,tektoncd,tektoncd-catalog,Apicurio/apicurio-registry"
+    hist_command_line:
+      - "kubernetes,kubernetes-client,kubernetes-incubator,kubernetes-helm,eraser-dev,\
+         kubernetes-graveyard,kubernetes-incubator-retired,kubernetes-sig-testing,kubernetes-providers,\
+         kubernetes-addons,kubernetes-retired,kubernetes-sigs,kubernetes-extensions,\
+         kubernetes-federation,kubernetes-security,crossplaneio,kubernetes-sidecars,kubernetes-tools,\
+         kubernetes-test,kubernetes-charts,istio-ecosystem,prometheus,opentracing,fluent,linkerd,grpc,\
+         coredns,containerd,notaryproject,containernetworking,envoyproxy,jaegertracing,\
+         theupdateframework,crossplane-contrib,rook,cncf,crosscloudci,vitessio,nats-io,\
+         open-policy-agent,spiffe,headlamp-k8s,cloudevents,telepresenceio,helm,kubernetes-csi,goharbor,\
+         tikv,etcd-io,hwameistor,OpenObservability,cortexproject,buildpacks,falcosecurity,dragonflyoss,\
+         microcks,virtual-kubelet,kubeedge,cri-o,networkservicemesh,kubeclipper,\
+         nmstate/kubernetes-nmstate,open-telemetry,thanos-io,fluxcd,in-toto,strimzi,kubevirt,\
+         cdfoundation,kubeflow,longhorn,chubaofs,cubefs,kedacore,argoproj,volcano-sh,\
+         k8snetworkplumbingwg/kubemacpool,k8snetworkplumbingwg/multi-networkpolicy-iptables,\
+         k8snetworkplumbingwg/sriov-network-operator,kudobuilder,cloud-custodian,dexidp,litmuschaos,\
+         artifacthub,parallaxsecond,bfenetworks,crossplane,kumahq,projectcontour,operator-framework,\
+         chaos-mesh,serverlessworkflow,open-workflow-specification,tremor-rs,metal3-io,keylime,\
+         KusionStack,kaito-project,Kong/kumacut,Kong/docker-kuma,getporter,schemahero,openkruise,\
+         openyurtio,tinkerbell,kyverno,cert-manager,cdk8s-team,k8up-io,kube-rs,devfile,k3s-io,\
+         gitops-working-group,piraeusdatastore,openebs,AthenZ,bank-vaults,distribution,kubeovn,k8gb-io,\
+         trickstercache,emissary-ingress,runatlantis,backstage,kuberhealthy,WasmEdge,chaosblade-io,\
+         antrea-io,pixie-io,fluid-cloudnative,submariner-io,argoproj-labs,kube-vip,keycloak,\
+         oras-project,wasmCloud,project-akri,metallb,karmada-io,clusternet,youki-dev,\
+         inclavare-containers,cilium,dapr,kubescape,inspektor-gadget,open-cluster-management-io,\
+         vscode-kubernetes-tools,kubearmor,cncf-tags,meshery,meshery-extensions,knative,\
+         knative-sandbox,project-stacker,kserve,oauth2-proxy,confidential-containers,\
+         cncf/tag-app-delivery,knative-extensions,OpenFunction,clusterpedia-io,Kuadrant,aeraki-mesh,\
+         open-feature,kubewarden,kubevela,openGemini,konveyor,CurvineIO,armadaproject,external-secrets,\
+         Serverless-Devs,devspace-sh,ContainerSSH,openfga,kubereboot,lima-vm,istio,carvel-dev,opencost,\
+         devspace-cloud,project-zot,paralus,carina-io,ko-build,opcr-io,werf,getsops,pipe-cd,\
+         slimtoolkit,projectcapsule,sustainable-computing-io,kptdev,krkn-chaos,kubeclipper-labs,\
+         buildpacks-community,project-copacetic,kube-logging,bpfman,kanisterio,kcp-dev,kcl-lang,\
+         kube-burner,kuasar-io,kubestellar,easegress-io,xregistry,spidernet-io,k8sgpt-ai,OpenMetrics,\
+         openmetrics,open-gitops,kubeslice,score-spec,connectrpc,kairos-io,kubean-io,koordinator-sh,\
+         radius-project,oscal-compass,interlink-hq,loxilb-io,cartography-cncf,perses,ratify-project,\
+         Project-HAMi,shipwright-io,flatcar,flatcar-linux,sermant-io,kmesh-net,ovn-org,ovn-kubernetes,\
+         prometheus-community,tokenetes,spinframework,k0sproject,SlimPlanet,container2wasm,runmedev,\
+         cloudnative-pg,Azure/Fleet-PRSE,Azure/fleet-networking,Azure/fleet,\
+         Azure/azure-rest-api-specs-fleet,podman-desktop,podman-container-tools/podman,\
+         podman-container-tools/buildah,podman-container-tools/skopeo,containers/netavark,sdcio,\
+         containers/aardvark-dns,containers/image,containers/storage,containers/common,\
+         containers/conmon,containers/podman-py,cadence-workflow,kagent-dev,urunc-dev,cozystack,\
+         kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\
+         kubefleet-dev,opentofu,modelpack,oxia-db,cedar-policy,project-dalec,HolmesGPT,\
+         robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets,openchoreo,CoHDI,\
+         KubeElasti,kai-scheduler,agones-dev,googleforgames/space-agon,thanos-community,kbind-dev,\
+         googleforgames/global-multiplayer-demo,velero-io,vmware-tanzu/velero-plugin-for-vsphere,llm-d,\
+         openeverest,nmstate,higress-group,tektoncd,tektoncd-catalog,Apicurio/apicurio-registry,\
+         GoogleCloudPlatform/kubernetes,BuoyantIO/linkerd,miekg/coredns,docker/containerd,appc/cni,\
+         lyft/envoy,uber/jaeger,docker/notary,youtube/vitess,apcera/nats,apcera/gnatsd,openeventing,\
+         datawire/telepresence,kubernetes/helm,kubernetes/charts,kubernetes/deployment-manager,\
+         kubernetes/application-dm-templates,RichiH/OpenMetrics,vmware/harbor,coreos/etcd,etcd,\
+         pingcap/tikv,tellerops,weaveworks/cortex,weaveworks/prism,weaveworks/frankenstein,buildpack,\
+         draios/falco,alibaba/Dragonfly,Virtual-Kubelet,brigadecore,Azure/brigade,\
+         kubernetes-incubator/ocid,kubernetes-incubator/cri-o,kubernetes-sigs/cri-o,NetworkServiceMesh,\
+         ligato/networkservicemesh,improbable-eng/promlts,improbable-eng/thanos,weaveworks/flux,\
+         EnMasseProject/barnabas,ppatierno/barnabas,ppatierno/kaas,cubeFS,\
+         containerfs/containerfs.github.io,containerfilesystem/cfs,containerfilesystem/doc-zh,\
+         tomkerkhove/sample-dotnet-queue-worker,\
+         tomkerkhove/sample-dotnet-queue-worker-servicebus-queue,\
+         tomkerkhove/sample-dotnet-worker-servicebus-queue,rancher/longhorn,deislabs/smi-spec,\
+         deislabs/smi-sdk-go,deislabs/smi-metrics,deislabs/smi-adapter-istio,deislabs/smi-spec.io,\
+         servicemeshinterface,cni-genie,keptn,Huawei-PaaS/CNI-Genie,patras-sdk/kubebuilder-maestro,\
+         patras-sdk/maestro,maestrosdk/maestro,maestrosdk/frameworks,capitalone/cloud-custodian,\
+         coreos/dex,Kong/kuma,Kong/kuma-website,Kong/kuma-demo,Kong/kuma-gui,docker/pasl,baidu/bfe,\
+         spotify/backstage,wayfair-tremor,deislabs/porter,alibaba/openyurt,awslabs/cdk8s,\
+         jetstack/cert-manager,jetstack-experimental/cert-manager,packethost/tinkerbell,\
+         openservicemesh,kruiseio,pravega,indeedeng/k8dash,indeedeng/k8dash-website,yahoo/athenz,\
+         alauda/kube-ovn,Comcast/kuberhealthy,AbsaOSS/k8gb,AbsaOSS/ohmyglb,tricksterproxy,\
+         Comcast/trickster,datawire/ambassador,second-state/SSVM,alibaba/v6d,alibaba/libvineyard,\
+         vmware-tanzu/antrea,v6d-io,kubernetes-purgatory/headlamp,pusher/oauth2_proxy,cheyang/fluid,\
+         rancher/submariner,alibaba/kubedl,pixie-labs/pixie,pixie-labs/px-dev-website,\
+         pixie-labs/pxapi.go,pixie-labs/pixie-docs,pixie-labs/pixie-demos,pixie-labs/px.dev,\
+         pixie-labs/pixie-blog,pixie-labs/grafana-plugin,oam-dev/kubevela,oam-dev/kubevela.io,\
+         oam-dev/kubevela-core-api,oam-dev/velacp,oam-dev/kubevela-tutorials,layer5io/meshery,\
+         layer5io/service-mesh-benchmark-spec,layer5io/meshery-istio,layer5io/meshery-linkerd,\
+         layer5io/meshery-octarine,layer5io/meshery-consul,layer5io/meshery-nsm,\
+         layer5io/istio-service-mesh-workshop,layer5io/meshery-app-mesh,layer5io/meshery-maesh,\
+         layer5io/meshery-kuma,layer5io/meshery-cpx,layer5io/meshery-nsx-sm,\
+         layer5io/meshery-adapter-template,layer5io/meshery.io,layer5io/meshery-tmp,\
+         layer5io/service-mesh-performance-specification,layer5io/meshery-tanzu-sm,\
+         layer5io/meshery-operator,layer5io/meshery-osm,layer5io/meshery-adapter-kit,\
+         layer5io/service-mesh-performance,layer5io/meshery-nginx-sm,\
+         layer5io/advanced-istio-service-mesh-workshop,layer5io/meshery-adapter-library,\
+         layer5io/linkerd-service-mesh-workshop,layer5io/service-mesh-labs,\
+         layer5io/meshery-traefik-mesh,layer5io/mesheryctl-smi-conformance-action,\
+         plounder-app/kube-vip,service-mesh-performance,deislabs/krustlet,deislabs/oras,shizhMSFT/oras,\
+         wascc,wascaruntime,waxosuit,deislabs/akri,danderson/metallb,google/metallb,\
+         alibaba/inclavare-containers,superedge,noironetworks/cilium-net,heptio/contour,\
+         pingcap/chaos-mesh,cncf/wg-serverless-workflow,skooner-k8s,kubesphere/openelb,\
+         kubesphere/porterlb,kubesphere/porter,Azure/vscode-kubernetes-tools,nocalhost,\
+         accuknox/KubeArmor,vshn/k8up,clux/kube-rs,kubedl-io,clux/kubernetes-rust,\
+         che-incubator/devworkspace-api,FabEdge,SpectralOps/teller,SpectralOps/helm-teller,\
+         SpectralOps/setup-teller-action,sealerio,alibaba/sealer,aeraki-framework,opencurve,\
+         openfeatureflags,chimera-kube,devstream-io,merico-dev/stream,merico-dev/OpenStream,hexa-org,\
+         fusor/mig-operator,G-Research/armada,krustlet,ServerlessTool,janoszen/ContainerSSH,\
+         janoszen/containerssh,weaveworks/kured,AkihiroSuda/lima,vmware-tanzu/carvel,\
+         vmware-tanzu/carvel-kapp-controller,vmware-tanzu/carvel-kapp,vmware-tanzu/carvel-ytt,\
+         vmware-tanzu/carvel-imgpkg,vmware-tanzu/carvel-kbld,vmware-tanzu/carvel-vendir,\
+         vmware-tanzu/carvel-kwt,vmware-tanzu/carvel-secretgen-controller,merbridge,kebe7jun/mepf,\
+         kebe7jun/mebpf,covexo,anuvu/zot,google/ko,flant/werf,flant/dapp,flant,dapper,\
+         armosec/kubescape,openelb,kinvolk/inspektor-gadget,clastix/capsule,clastix/capsule-proxy,\
+         clastix/capsule-addon-rancher,clastix/capsule-community,clastix/capsule-addon-cloudcasa,\
+         clastix/capsule-k8s-charm,clastix/clastix/capsule-lens-extension,clastix/capsule-helm-chart,\
+         clastix/flux2-capsule-multi-tenancy,clastix/capsule-ns-filter,clastix/Capsule,\
+         clastix/ckd-capsule-app,cncf/sig-app-delivery,mozilla/sops,mozilla/sotp,mozilla-services/sops,\
+         kinvolk/headlamp,docker-slim,cloudimmunity/docker-slim,Azure/eraser,xline-kv,datenlord/Xline,\
+         GoogleContainerTools/kpt,google/kubeflow,banzaicloud/logging-operator,redhat-chaos,megaease,\
+         cloud-bulldozer/kube-burner,cloud-bulldozer/rosa-burner,chaos-kubox,cloud-bulldozer/krkn,\
+         cloud-bulldozer/kraken,openshift-scale/kraken,KubeStellar,kcp-dev/edge-mc,loft-sh/devspace,\
+         bufbuild/connect-go,bufbuild/rerpc,c3os-io,mudler/c3os,banzaicloud/bank-vaults,\
+         banzaicloud/vault-dogsbody,atlantisnorth/atlantis,anuvu/stacker,IBM/compliance-trestle,\
+         3scale-labs/authorino,bpfd-dev,redhat-et/bpfd,lyft/cartography,deislabs/ratify,\
+         deislabs/ratify-web,deislabs/ratify-action,redhat-developer/build,redhat-developer/buildv2,\
+         redhat-developer/buildv2-operator,kinvolk/Flatcar,kinvolk/flatcar-scripts,kinvolk/mantle,\
+         containers/youki,utam0k/youki,Azure/kaito,huaweicloud/Sermant,huaweicloud/java-mesh,\
+         huaweicloud/JavaMesh,openvswitch/ovn-kubernetes,uber/cadence,nubificus/urunc,tratteria,\
+         fermyon/spin,fermyon/spin-python-sdk,fermyon/spin-js-sdk,spinkube,fermyon/spin-rust-sdk,\
+         fermyon/spin-dotnet-sdk,fermyon/spin-nim-sdk,fermyon/spin-plugins,fermyon/spin-test,\
+         fermyon/platform-plugin,AxaFrance/SlimFaas,fermyon/spin-trigger-command,\
+         fermyon/spin-trigger-sqs,fermyon/spin-trigger-cron,ktock/container2wasm,stateful/runme,\
+         stateful/runme.dev,stateful/runmejs,stateful/runme-web-extension,stateful/runme-action,\
+         stateful/docs.runme.dev,stateful/runme-action-examples,stateful/mkdocs-runme-plugin,\
+         stateful/Runme-CDEs,stateful/runme-terramate-aws,stateful/terramate-runme-example,\
+         stateful/runme-terramate-example,stateful/runme-foyle-ai,containers/podman,containers/buildah,\
+         containers/skopeo,containers/bootc,containers/composefs,interTwin-eu/interLink,\
+         interTwin-eu/vk-test-set,interTwin-eu/interlink-jhub,interTwin-eu/interlink-slurm-plugin,\
+         interTwin-eu/interlink-docker-plugin,interTwin-eu/interlink-helm-chart,\
+         interTwin-eu/interlink-monitoring-stack,interTwin-eu/interlink-htcondor-plugin,\
+         interTwin-eu/interlink-kueue-plugin,interTwin-eu/interlink-arc-plugin,\
+         interTwin-eu/interlink-unicore-plugin,aenix-io/etcd-operator,aenix-io/talm,\
+         aenix-io/talos-bootstrap,aenix-io/cozystack,aenix-io/kubernetes-in-kubernetes,\
+         aenix-io/kubefarm,aenix-io/cozystack-website,aenix-io/cozy-proxy,\
+         aenix-io/cozystack-telemetry-server,jozu-ai/kitops,aenix-io/cozystack-gitops-example,\
+         jozu-ai/gh-kit-setup,jozu-ai/daggerverse,jozu-ai/pykitops,k8sgateway,solo-io/gloo,\
+         opentffoundation,openterraform,streamnative/oxia,Azure/dalec,robusta-dev/holmesgpt,\
+         truefoundry/KubeElasti,choreo-idp,truefoundry/elasti,NVIDIA/KAI-Scheduler,\
+         googleforgames/agones-site,googleforgames/agones-community,googleforgames/agones,\
+         GoogleCloudPlatform/agones,vmware-tanzu/velero,vmware-tanzu/velero-plugin-example,\
+         vmware-tanzu/velero-plugin-for-aws,vmware-tanzu/velero-plugin-for-gcp,\
+         vmware-tanzu/velero-plugin-for-microsoft-azure,vmware-tanzu/velero-plugin-for-csi,\
+         vmware-tanzu/velero-csi-plugin,heptio/ark,heptio/velero,percona/everest,alibaba/higress,\
+         kube-bind,iptecharch,prometheus/prometheus,mit-ll/python-keylime,mit-ll/keylime,\
+         nirmata/kyverno,herbrandson/k8dash,curiefense,docker/distribution,foniod,ingraind,\
+         redsift/ingraind,plunder-app/kube-vip,krator-rs,rerpc/rerpc,AxaFrance/SlimFaaS,\
+         giuseppe/composefs,cohdi,truefoundry/kubeelasti"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
@@ -3783,6 +4338,8 @@ projects:
     command_line:
       - torvalds
       - linux
+    hist_command_line:
+      - 'torvalds/linux,linux'
     start_date: 2012-07-01T00:00:00Z
     join_date: null
     psql_db: linux

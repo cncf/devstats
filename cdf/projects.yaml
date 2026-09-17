@@ -32,6 +32,8 @@ projects:
     status: "-"
     command_line:
       - 'jenkinsci,jenkins-infra,jenkins-zh,stapler'
+    hist_command_line:
+      - 'jenkinsci,jenkins-infra,jenkins-zh,stapler,jenkinsci/jenkins'
     start_date: 2012-07-01T00:00:00Z
     join_date: null
     psql_db: jenkins
@@ -45,6 +47,9 @@ projects:
     status: "-"
     command_line:
       - jenkins-x
+    hist_command_line:
+      - "jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,\
+         jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins"
     start_date: 2018-02-01T00:00:00Z
     join_date: null
     psql_db: jenkinsx
@@ -113,6 +118,9 @@ projects:
     status: "-"
     command_line:
       - shipwright-io
+    hist_command_line:
+      - "shipwright-io,redhat-developer/build,redhat-developer/buildv2,\
+         redhat-developer/buildv2-operator"
     start_date: 2020-02-06T00:00:00Z
     join_date: null
     psql_db: shipwright 
@@ -132,6 +140,15 @@ projects:
          ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,\
          ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,\
          ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach"
+    hist_command_line:
+      - "spinnaker,tektoncd,tektoncd-catalog,knative/build,jenkinsci,jenkins-infra,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,\
+         jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins,cdevents,pyrsia,screwdriver-cd,shipwright-io,ortelius/azure-infra,\
+         ortelius/backstage,ortelius/cli,ortelius/dev-env-setup,ortelius/keptn-config,ortelius/keptn-ortelius-service,ortelius/la-sbom-ledger,\
+         ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,ortelius/ms-scorecard,\
+         ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,ortelius/ortelius-docs,\
+         ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,ortelius/ortelius-toc,ortelius/ortelius.io,\
+         ortelius/outreach,ortelius,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator,jenkinsci/jenkins,jenkins-zh,\
+         stapler"
     start_date: 2012-07-01T00:00:00Z
     join_date: 2019-03-04T00:00:00Z
     psql_db: allcdf
