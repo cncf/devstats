@@ -34,7 +34,7 @@ Some additional events not included in GitHub events (like (un)labelled, (de)mil
 
 Uses GNU `Makefile`:
 - `make check` - to apply gofmt, goimports, golint, errcheck, usedexports, go vet and possibly other tools.
-- `make` to compile static binaries: `structure`, `runq`, `gha2db`, `calc_metric`, `gha2db_sync`, `import_affs`, `annotations`, `tags`, `columns`, `webhook`, `devstats`, `get_repos`, `merge_dbs`, `vars`, `replacer`, `ghapi2db`.
+- `make` to compile static binaries: `structure`, `runq`, `gha2db`, `calc_metric`, `gha2db_sync`, `import_affs`, `annotations`, `tags`, `columns`, `webhook`, `devstats`, `get_repos`, `merge_dbs`, `reconcile_dbs`, `vars`, `replacer`, `ghapi2db`.
 - `make install` - to install binaries, this is needed for cron job.
 - `make clean` - to clean binaries
 - `make test` - to execute non-DB tests
@@ -129,6 +129,12 @@ You can tweak `devstats` tools by environment variables:
 - Set `GHA2DB_EXCLUDE_REPOS`, `gha2db` tool, default "" - comma separated list of repos to exclude, example: "theupdateframework/notary,theupdateframework/other".
 - Set `GHA2DB_INPUT_DBS`, `merge_dbs` tool - list of input databases to merge, order matters - first one will insert on a clean DB, next will do insert ignore (to avoid constraints failure due to common data).
 - Set `GHA2DB_OUTPUT_DB`, `merge_dbs` tool - output database to merge into.
+- Set `GHA2DB_RECONCILE_DBS`, `reconcile_dbs` tool - comma separated list of source databases to pull missing events from (explicit mode, no `projects.yaml` needed). Without it the tool uses `projects.yaml`: a project database pulls from its `shared_db` (project mode), a shared database (like `allprj`) pulls from every enabled project's `psql_db` that shares it (shared mode).
+- Set `GHA2DB_RECONCILE_RANGE`, `reconcile_dbs` tool - PostgreSQL interval, how far back events are compared, default '90 days'.
+- Set `GHA2DB_RECONCILE_ARTIFICIAL`, `reconcile_dbs` tool - also copy artificial (GitHub API restored, id >= 2^48) events, by default only native GH Archive events and orphan commit pushes are copied (each database regenerates artificial events itself).
+- Set `GHA2DB_RECONCILE_DRY_RUN`, `reconcile_dbs` tool - compute and report everything without writing.
+- Set `GHA2DB_RECONCILE_SKIP_DBS`, `reconcile_dbs` tool - comma separated list of source databases to skip.
+- Set `GHA2DB_RECONCILESKIP`, `gha2db_sync` tool, if set then `reconcile_dbs` is not called between `ghapi2db` and `structure`.
 - Set `GHA2DB_TMOFFSET`, `gha2db_sync` tool - uses time offset to decide when to calculate various metrics, default offset is 0 which means UTC, good offset for USA is -6, and for Poland is 1 or 2
 - Set `GHA2DB_VARS_YAML`, `GHA2DB_VARS_FN_YAML`, `vars` tool - to set nonstandard `vars.yaml` file, either full path or just a final file name.
 - Set `GHA2DB_RECENT_RANGE`, `ghapi2db` tool, default '8 hours' (6h sync cadence + 2h overlap). Recent period to check open issues/PRs (labels/milestones) and the window of the GH API restore passes; set to e.g. '9 months' for a one-time catch-up backfill.

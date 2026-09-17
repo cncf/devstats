@@ -674,6 +674,7 @@ if run_section dblogs; then
       echo "      when msg like '%There were sync errors%' then 'sync_errors'"
       echo "      when msg like '%Error updating git repos%' then 'git_repos_error'"
       echo "      when msg like '%Error executing ghapi2db%' then 'ghapi2db_error'"
+      echo "      when msg like '%Error executing reconcile_dbs%' then 'reconcile_dbs_error'"
       echo "      when msg like '%Error running git_commits.sh%' or msg like '%git_commits.sh error%' then 'git_commits_error'"
       echo "      when msg like '%Error committing transaction%' then 'tx_commit_error'"
       echo "      when msg like '%Failing batch insert%' or msg like '%Failed sql%' or msg like '%Failed command%' or msg like '%Failing values%' then 'sql_fail'"
@@ -725,6 +726,7 @@ if run_section dblogs; then
         sync_errors)              warn "[$st] gha_logs: $cntv 'There were sync errors' line(s), $span (overlap/provision-guard exits also emit this); sample: $smp";;
         git_repos_error)          warn "[$st] gha_logs: $cntv git-repos update error(s), $span; sample: $smp";;
         ghapi2db_error)           warn "[$st] gha_logs: $cntv ghapi2db execution error(s), $span; sample: $smp";;
+        reconcile_dbs_error)      warn "[$st] gha_logs: $cntv reconcile_dbs execution error(s), $span; sample: $smp";;
         git_commits_error)        warn "[$st] gha_logs: $cntv git_commits.sh error(s), $span; sample: $smp";;
         tx_commit_error)          warn "[$st] gha_logs: $cntv transaction commit error(s), $span; sample: $smp";;
         sql_fail)                 warn "[$st] gha_logs: $cntv failed SQL/batch-insert/command line(s), $span; sample: $smp";;
@@ -956,6 +958,7 @@ if run_section durations; then
         ghapi2db)                      tn=10800; tw=21600; tc=43200;;   # API-bound: 3h/6h/12h
         gha2db)                        tn=7200;  tw=21600; tc=43200;;   # backfills: 2h/6h/12h
         get_repos)                     tn=7200;  tw=14400; tc=43200;;   # clones+orphans: 2h/4h/12h
+        reconcile_dbs)                 tn=7200;  tw=14400; tc=43200;;   # allprj pulls from ~250 project DBs: 2h/4h/12h
         structure)                     tn=3600;  tw=10800; tc=21600;;   # 1h/3h/6h (allprj ~1.3h is known-heavy)
         calc_metric)                   tn=1800;  tw=5400;  tc=14400;;   # single metric: 30m/1.5h/4h
         import_affs|merge_dbs|sqlitedb) tn=21600; tw=86400; tc=172800;; # monthly/one-off giants: 6h/24h/48h

@@ -73,6 +73,7 @@ We're getting all possible GitHub data for all objects, and all objects historic
 - It will add data to Postgres database (since the last run)
 - It will update summary tables and/or (materialized) views on Postgres DB.
 - It will update new commits files list using `get_repos` program.
+- After `ghapi2db` and before the `structure` postprocess it calls `reconcile_dbs` (see below) to pull the events its peer database(s) have and this database lacks, so they get their repo groups and derived tables in the same sync (skip with `GHA2DB_RECONCILESKIP`).
 - Then it will call `calc_metric` for all defined SQL metrics and update time series data database as well.
 - You need to set `GHA2DB_PROJECT=project_name` currently it can be either kubernetes, prometheus or opentracing. Projects are defined in `projects.yaml` file.
 - It reads a list of metrics from YAML file: `metrics/{{project}}/metrics.yaml`, some metrics require to fill gaps in their data. Those metrics are defined in another YAML file `metrics/{{project}}/gaps.yaml`. Please try to use Grafana's "nulls as zero" instead of using gaps filling.
@@ -127,6 +128,11 @@ We're getting all possible GitHub data for all objects, and all objects historic
 - [merge_dbs](https://github.com/cncf/devstats/blob/master/cmd/merge_dbs/merge_dbs.go)
 - `merge_dbs` is used to generate Postgres database that contains data from other multiple databases.
 - You can use `merge_dbs` to add new projects to an existing database, but please consider running './devel/remove_db_dups.sh' then or use: './all/add_project.sh' script.
+- [reconcile_dbs](https://github.com/cncf/devstats/blob/master/cmd/reconcile_dbs/reconcile_dbs.go)
+- `reconcile_dbs` pulls the GitHub events (and their dependent rows: payloads, commits, issues, PRs, comments, labels, ...) that the peer DevStats database(s) have for the repositories this database tracks but this database lacks. Every project database and its `shared_db` (`allprj`) are fed from the same GH Archive files, but the GitHub API restores differ per database, so each side ends up with events the other one misses.
+- A database is only written by its own sync (pull only): a project database pulls from its `shared_db`, the shared database pulls from every project database sharing it, `GHA2DB_RECONCILE_DBS` lists explicit sources. Repository scope: repos present in both `gha_repos`; time window: `GHA2DB_RECONCILE_RANGE` (default '90 days').
+- It is stateless and idempotent: per (repo, day) digests are compared on both sides and only the differing days are diffed by event id, so a second run copies nothing. Copied rows get their repo groups and derived tables (`gha_texts`, `gha_issues_events_labels`, `gha_issues_pull_requests`) from the targeted postprocess and the `structure` run that follows in `gha2db_sync`.
+- `GHA2DB_RECONCILE_DRY_RUN=1` only reports, `GHA2DB_RECONCILE_SKIP_DBS` skips sources, `GHA2DB_RECONCILESKIP` makes `gha2db_sync` skip the tool.
 - [replacer](https://github.com/cncf/devstats/blob/master/cmd/replacer/replacer.go)
 - `replacer` is used to mass replace data in text files. It has regexp modes, string modes, terminate on no match etc.
 - Supports MODE, FROM, TO, NREPLACES, REPLACEFROM environment variables, see `devel/replace.sh` script for examples.
