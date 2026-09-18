@@ -658,6 +658,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Flatcar",
+      "tooltip": "Opens Flatcar projects dashboards",
+      "type": "link",
+      "url": "https://flatcar.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "OpenCost",
       "tooltip": "Opens OpenCost projects dashboards",
       "type": "link",
@@ -1828,16 +1838,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Flatcar",
-      "tooltip": "Opens Flatcar projects dashboards",
-      "type": "link",
-      "url": "https://flatcar.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "KusionStack",
       "tooltip": "Opens KusionStack projects dashboards",
       "type": "link",
@@ -2188,10 +2188,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Ceder Policy",
-      "tooltip": "Opens Ceder Policy projects dashboards",
+      "title": "Cedar Policy",
+      "tooltip": "Opens Cedar Policy projects dashboards",
       "type": "link",
-      "url": "https://cederpolicy.[[hostname]]"
+      "url": "https://cedarpolicy.[[hostname]]"
     },
     {
       "icon": "dashboard",

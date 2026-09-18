@@ -661,6 +661,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Flatcar",
+      "tooltip": "Opens Flatcar projects dashboards",
+      "type": "link",
+      "url": "https://flatcar.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "OpenCost",
       "tooltip": "Opens OpenCost projects dashboards",
       "type": "link",
@@ -675,6 +685,136 @@
       "tooltip": "Opens wasmCloud projects dashboards",
       "type": "link",
       "url": "https://wasmcloud.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "OpenYurt",
+      "tooltip": "Opens OpenYurt projects dashboards",
+      "type": "link",
+      "url": "https://openyurt.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kubescape",
+      "tooltip": "Opens Kubescape projects dashboards",
+      "type": "link",
+      "url": "https://kubescape.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "metal3-io",
+      "tooltip": "Opens metal3-io projects dashboards",
+      "type": "link",
+      "url": "https://metal3.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "KServe",
+      "tooltip": "Opens KServe projects dashboards",
+      "type": "link",
+      "url": "https://kserve.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Lima",
+      "tooltip": "Opens Lima projects dashboards",
+      "type": "link",
+      "url": "https://lima.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "OpenFGA",
+      "tooltip": "Opens OpenFGA projects dashboards",
+      "type": "link",
+      "url": "https://openfga.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Fluid",
+      "tooltip": "Opens Fluid projects dashboards",
+      "type": "link",
+      "url": "https://fluid.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Microcks",
+      "tooltip": "Opens Microcks projects dashboards",
+      "type": "link",
+      "url": "https://microcks.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Tekton",
+      "tooltip": "Opens Tekton projects dashboards",
+      "type": "link",
+      "url": "https://tekton.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "HAMi",
+      "tooltip": "Opens HAMi projects dashboards",
+      "type": "link",
+      "url": "https://hami.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Confidential Containers",
+      "tooltip": "Opens Confidential Containers projects dashboards",
+      "type": "link",
+      "url": "https://confidentialcontainers.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "K8GB",
+      "tooltip": "Opens K8GB projects dashboards",
+      "type": "link",
+      "url": "https://k8gb.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Meshery",
+      "tooltip": "Opens Meshery projects dashboards",
+      "type": "link",
+      "url": "https://meshery.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -715,16 +855,6 @@
       "tooltip": "Opens Network Service Mesh projects dashboards",
       "type": "link",
       "url": "https://networkservicemesh.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "CNI-Genie",
-      "tooltip": "Opens CNI-Genie projects dashboards",
-      "type": "link",
-      "url": "https://cnigenie.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -811,30 +941,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "metal3-io",
-      "tooltip": "Opens metal3-io projects dashboards",
-      "type": "link",
-      "url": "https://metal3.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Porter",
       "tooltip": "Opens Porter projects dashboards",
       "type": "link",
       "url": "https://porter.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OpenYurt",
-      "tooltip": "Opens OpenYurt projects dashboards",
-      "type": "link",
-      "url": "https://openyurt.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -951,16 +1061,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "K8GB",
-      "tooltip": "Opens K8GB projects dashboards",
-      "type": "link",
-      "url": "https://k8gb.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Trickster",
       "tooltip": "Opens Trickster projects dashboards",
       "type": "link",
@@ -1001,16 +1101,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Fluid",
-      "tooltip": "Opens Fluid projects dashboards",
-      "type": "link",
-      "url": "https://fluid.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Submariner",
       "tooltip": "Opens Submariner projects dashboards",
       "type": "link",
@@ -1025,16 +1115,6 @@
       "tooltip": "Opens Pixie projects dashboards",
       "type": "link",
       "url": "https://pixie.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Meshery",
-      "tooltip": "Opens Meshery projects dashboards",
-      "type": "link",
-      "url": "https://meshery.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1085,16 +1165,6 @@
       "tooltip": "Opens Inclavare Containers projects dashboards",
       "type": "link",
       "url": "https://inclavarecontainers.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OpenELB",
-      "tooltip": "Opens OpenELB projects dashboards",
-      "type": "link",
-      "url": "https://openelb.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1161,40 +1231,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Confidential Containers",
-      "tooltip": "Opens Confidential Containers projects dashboards",
-      "type": "link",
-      "url": "https://confidentialcontainers.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "OpenFunction",
       "tooltip": "Opens OpenFunction projects dashboards",
       "type": "link",
       "url": "https://openfunction.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Teller",
-      "tooltip": "Opens Teller projects dashboards",
-      "type": "link",
-      "url": "https://teller.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "sealer",
-      "tooltip": "Opens sealer projects dashboards",
-      "type": "link",
-      "url": "https://sealer.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1225,26 +1265,6 @@
       "tooltip": "Opens kubewarden projects dashboards",
       "type": "link",
       "url": "https://kubewarden.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "DevStream",
-      "tooltip": "Opens DevStream projects dashboards",
-      "type": "link",
-      "url": "https://devstream.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Hexa",
-      "tooltip": "Opens Hexa projects dashboards",
-      "type": "link",
-      "url": "https://hexapolicyorchestrator.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1301,16 +1321,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "OpenFGA",
-      "tooltip": "Opens OpenFGA projects dashboards",
-      "type": "link",
-      "url": "https://openfga.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Kured",
       "tooltip": "Opens Kured projects dashboards",
       "type": "link",
@@ -1325,26 +1335,6 @@
       "tooltip": "Opens Carvel projects dashboards",
       "type": "link",
       "url": "https://carvel.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Lima",
-      "tooltip": "Opens Lima projects dashboards",
-      "type": "link",
-      "url": "https://lima.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Merbridge",
-      "tooltip": "Opens Merbridge projects dashboards",
-      "type": "link",
-      "url": "https://merbridge.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1421,20 +1411,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "ovnkubernetes",
+      "title": "werf",
       "tooltip": "Opens werf projects dashboards",
       "type": "link",
       "url": "https://werf.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Kubescape",
-      "tooltip": "Opens Kubescape projects dashboards",
-      "type": "link",
-      "url": "https://kubescape.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1535,16 +1515,6 @@
       "tooltip": "Opens kpt projects dashboards",
       "type": "link",
       "url": "https://kpt.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Microcks",
-      "tooltip": "Opens Microcks projects dashboards",
-      "type": "link",
-      "url": "https://microcks.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1861,30 +1831,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "HAMi",
-      "tooltip": "Opens HAMi projects dashboards",
-      "type": "link",
-      "url": "https://hami.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Shipwright",
       "tooltip": "Opens Shipwright projects dashboards",
       "type": "link",
       "url": "https://shipwrightcncf.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Flatcar",
-      "tooltip": "Opens Flatcar projects dashboards",
-      "type": "link",
-      "url": "https://flatcar.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -2241,10 +2191,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Ceder Policy",
-      "tooltip": "Opens Ceder Policy projects dashboards",
+      "title": "Cedar Policy",
+      "tooltip": "Opens Cedar Policy projects dashboards",
       "type": "link",
-      "url": "https://cederpolicy.[[hostname]]"
+      "url": "https://cedarpolicy.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -2355,6 +2305,16 @@
       "tooltip": "Opens llm-d projects dashboards",
       "type": "link",
       "url": "https://llmd.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Apicurio Registry",
+      "tooltip": "Opens Apicurio Registry projects dashboards",
+      "type": "link",
+      "url": "https://apicurioregistry.[[hostname]]"
     },
     {
       "icon": "dashboard",

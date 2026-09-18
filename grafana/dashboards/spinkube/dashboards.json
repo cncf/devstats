@@ -353,6 +353,96 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "in-toto",
+      "tooltip": "Opens intoto projects dashboards",
+      "type": "link",
+      "url": "https://intoto.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Knative",
+      "tooltip": "Opens Knative projects dashboards",
+      "type": "link",
+      "url": "https://knative.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Dragonfly",
+      "tooltip": "Opens Dragonfly projects dashboards",
+      "type": "link",
+      "url": "https://dragonfly.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Crossplane",
+      "tooltip": "Opens Crossplane projects dashboards",
+      "type": "link",
+      "url": "https://crossplane.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kyverno",
+      "tooltip": "Opens Kyverno projects dashboards",
+      "type": "link",
+      "url": "https://kyverno.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "OpenTelemetry",
+      "tooltip": "Opens OpenTelemetry projects dashboards",
+      "type": "link",
+      "url": "https://opentelemetry.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Buildpacks",
+      "tooltip": "Opens Buildpacks projects dashboards",
+      "type": "link",
+      "url": "https://buildpacks.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kubeflow",
+      "tooltip": "Opens Kubeflow projects dashboards",
+      "type": "link",
+      "url": "https://kubeflow.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Karmada",
+      "tooltip": "Opens Karmada projects dashboards",
+      "type": "link",
+      "url": "https://karmada.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -387,16 +477,6 @@
       "tooltip": "Opens NATS dashboards",
       "type": "link",
       "url": "https://nats.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Dragonfly",
-      "tooltip": "Opens Dragonfly projects dashboards",
-      "type": "link",
-      "url": "https://dragonfly.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -443,40 +523,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Buildpacks",
-      "tooltip": "Opens Buildpacks projects dashboards",
-      "type": "link",
-      "url": "https://buildpacks.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Emissary-ingress",
       "tooltip": "Opens Emissary-ingress projects dashboards",
       "type": "link",
       "url": "https://emissaryingress.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OpenTelemetry",
-      "tooltip": "Opens OpenTelemetry projects dashboards",
-      "type": "link",
-      "url": "https://opentelemetry.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Crossplane",
-      "tooltip": "Opens Crossplane projects dashboards",
-      "type": "link",
-      "url": "https://crossplane.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -497,26 +547,6 @@
       "tooltip": "Opens LitmusChaos projects dashboards",
       "type": "link",
       "url": "https://litmuschaos.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Knative",
-      "tooltip": "Opens Knative projects dashboards",
-      "type": "link",
-      "url": "https://knative.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Kyverno",
-      "tooltip": "Opens Kyverno projects dashboards",
-      "type": "link",
-      "url": "https://kyverno.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -547,16 +577,6 @@
       "tooltip": "Opens KubeVela projects dashboards",
       "type": "link",
       "url": "https://kubevela.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "in-toto",
-      "tooltip": "Opens intoto projects dashboards",
-      "type": "link",
-      "url": "https://intoto.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -613,26 +633,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Kubeflow",
-      "tooltip": "Opens Kubeflow projects dashboards",
-      "type": "link",
-      "url": "https://kubeflow.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Karmada",
-      "tooltip": "Opens Karmada projects dashboards",
-      "type": "link",
-      "url": "https://karmada.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "OpenFeature",
       "tooltip": "Opens OpenFeature projects dashboards",
       "type": "link",
@@ -657,6 +657,16 @@
       "tooltip": "Opens Artifact Hub projects dashboards",
       "type": "link",
       "url": "https://artifacthub.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Flatcar",
+      "tooltip": "Opens Flatcar projects dashboards",
+      "type": "link",
+      "url": "https://flatcar.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1833,16 +1843,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Flatcar",
-      "tooltip": "Opens Flatcar projects dashboards",
-      "type": "link",
-      "url": "https://flatcar.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "KusionStack",
       "tooltip": "Opens KusionStack projects dashboards",
       "type": "link",
@@ -2193,10 +2193,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Ceder Policy",
-      "tooltip": "Opens Ceder Policy projects dashboards",
+      "title": "Cedar Policy",
+      "tooltip": "Opens Cedar Policy projects dashboards",
       "type": "link",
-      "url": "https://cederpolicy.[[hostname]]"
+      "url": "https://cedarpolicy.[[hostname]]"
     },
     {
       "icon": "dashboard",

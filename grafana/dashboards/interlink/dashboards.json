@@ -663,6 +663,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Flatcar",
+      "tooltip": "Opens Flatcar projects dashboards",
+      "type": "link",
+      "url": "https://flatcar.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "OpenCost",
       "tooltip": "Opens OpenCost projects dashboards",
       "type": "link",
@@ -757,6 +767,56 @@
       "tooltip": "Opens Microcks projects dashboards",
       "type": "link",
       "url": "https://microcks.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Tekton",
+      "tooltip": "Opens Tekton projects dashboards",
+      "type": "link",
+      "url": "https://tekton.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "HAMi",
+      "tooltip": "Opens HAMi projects dashboards",
+      "type": "link",
+      "url": "https://hami.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Confidential Containers",
+      "tooltip": "Opens Confidential Containers projects dashboards",
+      "type": "link",
+      "url": "https://confidentialcontainers.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "K8GB",
+      "tooltip": "Opens K8GB projects dashboards",
+      "type": "link",
+      "url": "https://k8gb.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Meshery",
+      "tooltip": "Opens Meshery projects dashboards",
+      "type": "link",
+      "url": "https://meshery.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1003,16 +1063,6 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "K8GB",
-      "tooltip": "Opens K8GB projects dashboards",
-      "type": "link",
-      "url": "https://k8gb.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Trickster",
       "tooltip": "Opens Trickster projects dashboards",
       "type": "link",
@@ -1067,16 +1117,6 @@
       "tooltip": "Opens Pixie projects dashboards",
       "type": "link",
       "url": "https://pixie.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Meshery",
-      "tooltip": "Opens Meshery projects dashboards",
-      "type": "link",
-      "url": "https://meshery.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1187,16 +1227,6 @@
       "tooltip": "Opens Devfile projects dashboards",
       "type": "link",
       "url": "https://devfile.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Confidential Containers",
-      "tooltip": "Opens Confidential Containers projects dashboards",
-      "type": "link",
-      "url": "https://confidentialcontainers.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1803,30 +1833,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "HAMi",
-      "tooltip": "Opens HAMi projects dashboards",
-      "type": "link",
-      "url": "https://hami.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
       "title": "Shipwright",
       "tooltip": "Opens Shipwright projects dashboards",
       "type": "link",
       "url": "https://shipwrightcncf.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Flatcar",
-      "tooltip": "Opens Flatcar projects dashboards",
-      "type": "link",
-      "url": "https://flatcar.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1943,7 +1953,7 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "interlink",
+      "title": "container2wasm",
       "tooltip": "Opens container2wasm projects dashboards",
       "type": "link",
       "url": "https://container2wasm.[[hostname]]"
@@ -2183,10 +2193,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "Ceder Policy",
-      "tooltip": "Opens Ceder Policy projects dashboards",
+      "title": "Cedar Policy",
+      "tooltip": "Opens Cedar Policy projects dashboards",
       "type": "link",
-      "url": "https://cederpolicy.[[hostname]]"
+      "url": "https://cedarpolicy.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -2297,6 +2307,16 @@
       "tooltip": "Opens llm-d projects dashboards",
       "type": "link",
       "url": "https://llmd.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Apicurio Registry",
+      "tooltip": "Opens Apicurio Registry projects dashboards",
+      "type": "link",
+      "url": "https://apicurioregistry.[[hostname]]"
     },
     {
       "icon": "dashboard",
