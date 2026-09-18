@@ -6,7 +6,7 @@ with repo_latest as (
   from (
     select repo_id,
       dup_repo_name as repo_name,
-      row_number() over (partition by repo_id order by created_at desc, id desc) as row_num
+      row_number() over (partition by repo_id order by (id > 0 and id < 281474976710656) desc, created_at desc, id desc) as row_num
     from
       gha_events
   ) sub
