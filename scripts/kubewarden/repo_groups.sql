@@ -31,6 +31,8 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'kubewarden', alias = 'kubewarden'
 where name in (
+  'kubewarden/adm-controller',
+  'kubewarden/adm-controller',
   'kubewarden/kubewarden-controller',
   'kubewarden/chimera-controller',
   'chimera-kube/chimera-controller'

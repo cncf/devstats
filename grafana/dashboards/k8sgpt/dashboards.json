@@ -803,6 +803,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Meshery",
+      "tooltip": "Opens Meshery projects dashboards",
+      "type": "link",
+      "url": "https://meshery.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "Telepresence",
       "tooltip": "Opens Telepresence projects dashboards",
       "type": "link",
@@ -1097,16 +1107,6 @@
       "tooltip": "Opens Pixie projects dashboards",
       "type": "link",
       "url": "https://pixie.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Meshery",
-      "tooltip": "Opens Meshery projects dashboards",
-      "type": "link",
-      "url": "https://meshery.[[hostname]]"
     },
     {
       "icon": "dashboard",

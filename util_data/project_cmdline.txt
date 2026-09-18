@@ -156,7 +156,7 @@ kubernetes,kubernetes,kubernetes-client,kubernetes-incubator,kubernetes-csi,kube
 kubers,kube-rs,clux/kube-rs,clux/kubernetes-rust
 kubescape,kubescape,armosec/kubescape
 kubeslice,kubeslice
-kubestellar,kubestellar,KubeStellar,kcp-dev/edge-mc
+kubestellar,kubestellar,hivecommons,KubeStellar,kcp-dev/edge-mc
 kubevela,regexp:(?i)^(oam-dev\/.*vela|kubevela\/.*)
 kubevip,kube-vip,plunder-app/kube-vip
 kubevirt,kubevirt,k8snetworkplumbingwg/kubemacpool,k8snetworkplumbingwg/multi-networkpolicy-iptables,k8snetworkplumbingwg/sriov-network-operator,nmstate/kubernetes-nmstate
@@ -204,7 +204,7 @@ openfga,openfga
 openfunction,OpenFunction
 opengemini,openGemini
 openkruise,openkruise,kruiseio
-openmetrics,OpenObservability,OpenMetrics,openmetrics,RichiH/OpenMetrics
+openmetrics,OpenObservability,OpenMetrics,openmetrics,prometheus/OpenMetrics,RichiH/OpenMetrics
 opennetworkinglab,opennetworkinglab
 opensecuritycontroller,opensecuritycontroller
 openservicemesh,openservicemesh
@@ -234,7 +234,7 @@ prestodb,prestodb
 prometheus,prometheus,OpenMetrics,openmetrics,RichiH/OpenMetrics,OpenObservability,prometheus-community
 pyrsia,pyrsia
 radius,radius-project
-ratify,ratify-project,deislabs/ratify,deislabs/ratify-web,deislabs/ratify-action
+ratify,ratify-project,notaryproject/ratify,notaryproject/ratify-web,notaryproject/ratify-containerd,notaryproject/ratify-go,notaryproject/ratify-verifier-go,deislabs/ratify,deislabs/ratify-web,deislabs/ratify-action
 riff,projectriff,markfisher/sk8s,jldec/projectriff.io,pivotal-cf/pfs-system-test,ericbottard/sk8s-go,ericbottard/sk8s-types,ericbottard/kubernetes-model,ericbottard/sk8s-http-gateway,ericbottard/function-sidecar,ericbottard/sk8s-topic-controller
 rkt,rkt
 rook,rook

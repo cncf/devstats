@@ -1881,7 +1881,8 @@ set
 where
   org_login in (
     'kubestellar',
-    'KubeStellar'
+    'KubeStellar',
+    'hivecommons'
   ) or name in (
     'kcp-dev/edge-mc'
   )
@@ -2092,7 +2093,11 @@ set
   repo_group = 'Ratify'
 where
   org_login in ('ratify-project')
-  or name in ('deislabs/ratify', 'deislabs/ratify-web', 'deislabs/ratify-action')
+  or name in (
+    'notaryproject/ratify', 'notaryproject/ratify-web', 'notaryproject/ratify-containerd',
+    'notaryproject/ratify-go', 'notaryproject/ratify-verifier-go',
+    'deislabs/ratify', 'deislabs/ratify-web', 'deislabs/ratify-action'
+  )
 ;
 
 -- HAMi

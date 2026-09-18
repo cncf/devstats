@@ -174,7 +174,7 @@ do
          PROJ=helm           PROJDB=helm           PROJREPO="helm/helm"                       ORGNAME=Helm              PORT=3022 ICON=helm           GRAFSUFF=helm           GA="-" ./devel/deploy_proj.sh || exit 24
   elif [ "$proj" = "openmetrics" ]
   then
-         PROJ=openmetrics    PROJDB=openmetrics    PROJREPO="OpenObservability/OpenMetrics"   ORGNAME=OpenMetrics       PORT=3023 ICON=openmetrics    GRAFSUFF=openmetrics    GA="-" ./devel/deploy_proj.sh || exit 25
+         PROJ=openmetrics    PROJDB=openmetrics    PROJREPO="prometheus/OpenMetrics"          ORGNAME=OpenMetrics       PORT=3023 ICON=openmetrics    GRAFSUFF=openmetrics    GA="-" ./devel/deploy_proj.sh || exit 25
   elif [ "$proj" = "harbor" ]
   then
          PROJ=harbor         PROJDB=harbor         PROJREPO="goharbor/harbor"                 ORGNAME=Harbor            PORT=3024 ICON=harbor         GRAFSUFF=harbor         GA="-" ./devel/deploy_proj.sh || exit 26
@@ -504,7 +504,7 @@ do
     PROJ=openfeature         PROJDB=openfeature    PROJREPO="open-feature/spec"               ORGNAME=OpenFeature       PORT=3132 ICON=openfeature    GRAFSUFF=openfeature    GA="-" ./devel/deploy_proj.sh || exit 51
   elif [ "$proj" = "kubewarden" ]
   then
-    PROJ=kubewarden          PROJDB=kubewarden     PROJREPO="kubewarden/kubewarden-controller" ORGNAME=kubewarden       PORT=3133 ICON=kubewarden     GRAFSUFF=kubewarden     GA="-" ./devel/deploy_proj.sh || exit 52
+    PROJ=kubewarden          PROJDB=kubewarden     PROJREPO="kubewarden/adm-controller"        ORGNAME=kubewarden       PORT=3133 ICON=kubewarden     GRAFSUFF=kubewarden     GA="-" ./devel/deploy_proj.sh || exit 52
   elif [ "$proj" = "devstream" ]
   then
     PROJ=devstream           PROJDB=devstream      PROJREPO="devstream-io/devstream"          ORGNAME=DevStream         PORT=3134 ICON=devstream      GRAFSUFF=devstream      GA="-" ./devel/deploy_proj.sh || exit 53
@@ -705,7 +705,7 @@ do
     PROJ=perses              PROJDB=perses         PROJREPO="perses/perses"                   ORGNAME=Perses            PORT=3275 ICON=perses         GRAFSUFF=perses         GA="-" ./devel/deploy_proj.sh               || exit 200
   elif [ "$proj" = "ratify" ]
   then
-    PROJ=ratify              PROJDB=ratify         PROJREPO="ratify-project/ratify"           ORGNAME=ratify            PORT=3276 ICON=ratify         GRAFSUFF=ratify         GA="-" ./devel/deploy_proj.sh               || exit 201
+    PROJ=ratify              PROJDB=ratify         PROJREPO="notaryproject/ratify"            ORGNAME=ratify            PORT=3276 ICON=ratify         GRAFSUFF=ratify         GA="-" ./devel/deploy_proj.sh               || exit 201
   elif [ "$proj" = "hami" ]
   then
     PROJ=hami                PROJDB=hami           PROJREPO="Project-HAMi/HAMi"               ORGNAME=HAMi              PORT=3277 ICON=hami           GRAFSUFF=hami           GA="-" ./devel/deploy_proj.sh               || exit 202

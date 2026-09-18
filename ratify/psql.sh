@@ -16,7 +16,7 @@ GHA2DB_PROJECT=ratify PG_DB=ratify GHA2DB_LOCAL=1 structure 2>>errors.txt | tee 
 ./devel/db.sh psql ratify -c "create extension if not exists hll" || exit 1
 ./shared/setup_shared_fdw.sh ratify || exit 1
 ./devel/ro_user_grants.sh ratify || exit 2
-GHA2DB_PROJECT=ratify PG_DB=ratify GHA2DB_LOCAL=1 gha2db 2021-11-15 0 today now 'ratify-project,deislabs/ratify,deislabs/ratify-web,deislabs/ratify-action' 2>>errors.txt | tee -a run.log || exit 3
+GHA2DB_PROJECT=ratify PG_DB=ratify GHA2DB_LOCAL=1 gha2db 2021-11-15 0 today now 'ratify-project,notaryproject/ratify,notaryproject/ratify-web,notaryproject/ratify-containerd,notaryproject/ratify-go,notaryproject/ratify-verifier-go,deislabs/ratify,deislabs/ratify-web,deislabs/ratify-action' 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=ratify PG_DB=ratify GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 structure 2>>errors.txt | tee -a run.log || exit 5
 GHA2DB_PROJECT=ratify PG_DB=ratify ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 6
 GHA2DB_PROJECT=ratify PG_DB=ratify ./shared/setup_scripts.sh 2>>errors.txt | tee -a run.log || exit 7

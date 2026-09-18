@@ -397,16 +397,16 @@ projects:
     name: OpenMetrics
     status: Archived # Merged into Prometheus
     command_line:
-      - "OpenObservability,OpenMetrics,openmetrics"
+      - "OpenObservability,OpenMetrics,openmetrics,prometheus/OpenMetrics"
     hist_command_line:
-      - 'OpenObservability,OpenMetrics,openmetrics,RichiH/OpenMetrics'
+      - 'OpenObservability,OpenMetrics,openmetrics,prometheus/OpenMetrics,RichiH/OpenMetrics'
     start_date: 2017-06-22T00:00:00Z
     join_date: 2018-08-10T00:00:00Z
     incubating_date: 2022-02-03T00:00:00Z
     archived_date: 2024-07-08T00:00:00Z
     psql_db: openmetrics
     shared_db: allprj
-    main_repo: OpenObservability/OpenMetrics
+    main_repo: prometheus/OpenMetrics
     annotation_regexp: ''
     files_skip_pattern: ''
     project_scale: 0.3
@@ -1573,11 +1573,12 @@ projects:
   meshery:
     order: 99
     name: Meshery
-    status: Sandbox
+    status: Incubating
     command_line:
     - 'regexp:(?i)^(layer5io\/.*meshery|meshery\/.*|meshery-extensions\/.*)'
     start_date: 2018-11-14T00:00:00Z
     join_date: 2021-06-22T00:00:00Z
+    incubating_date: 2026-09-14T00:00:00Z
     psql_db: meshery
     shared_db: allprj
     main_repo: 'meshery/meshery'
@@ -2100,7 +2101,7 @@ projects:
     join_date: 2022-06-17T00:00:00Z
     psql_db: kubewarden
     shared_db: allprj
-    main_repo: kubewarden/kubewarden-controller
+    main_repo: kubewarden/adm-controller
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   devstream:
@@ -2763,9 +2764,9 @@ projects:
     name: Kubestellar
     status: Sandbox
     command_line:
-      - 'kubestellar'
+      - 'kubestellar,hivecommons'
     hist_command_line:
-      - 'kubestellar,KubeStellar,kcp-dev/edge-mc'
+      - 'kubestellar,hivecommons,KubeStellar,kcp-dev/edge-mc'
     start_date: 2022-11-03T00:00:00Z
     join_date: 2023-12-19T00:00:00Z
     psql_db: 'kubestellar'
@@ -3058,15 +3059,17 @@ projects:
     name: Ratify
     status: Sandbox
     command_line:
-      - ratify-project
+      - "ratify-project,notaryproject/ratify,notaryproject/ratify-web,\
+         notaryproject/ratify-containerd,notaryproject/ratify-go,notaryproject/ratify-verifier-go"
     hist_command_line:
-      - "ratify-project,deislabs/ratify,deislabs/ratify-web,\
-         deislabs/ratify-action"
+      - "ratify-project,notaryproject/ratify,notaryproject/ratify-web,\
+         notaryproject/ratify-containerd,notaryproject/ratify-go,notaryproject/ratify-verifier-go,\
+         deislabs/ratify,deislabs/ratify-web,deislabs/ratify-action"
     start_date: 2021-11-15T00:00:00Z
     join_date: 2024-08-30T00:00:00Z
     psql_db: ratify
     shared_db: allprj
-    main_repo: ratify-project/ratify
+    main_repo: notaryproject/ratify
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
   hami:
@@ -4135,7 +4138,7 @@ projects:
          lima-vm,istio,carvel-dev,opencost,devspace-cloud,project-zot,paralus,carina-io,ko-build,\
          opcr-io,werf,getsops,pipe-cd,slimtoolkit,projectcapsule,sustainable-computing-io,kptdev,\
          krkn-chaos,kubeclipper-labs,buildpacks-community,project-copacetic,kube-logging,bpfman,\
-         kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,easegress-io,xregistry,\
+         kanisterio,kcp-dev,kcl-lang,kube-burner,kuasar-io,kubestellar,hivecommons,easegress-io,xregistry,\
          spidernet-io,k8sgpt-ai,OpenMetrics,openmetrics,open-gitops,kubeslice,score-spec,\
          connectrpc,kairos-io,kubean-io,koordinator-sh,radius-project,oscal-compass,interlink-hq,\
          loxilb-io,cartography-cncf,perses,ratify-project,Project-HAMi,shipwright-io,\
@@ -4184,7 +4187,7 @@ projects:
          devspace-cloud,project-zot,paralus,carina-io,ko-build,opcr-io,werf,getsops,pipe-cd,\
          slimtoolkit,projectcapsule,sustainable-computing-io,kptdev,krkn-chaos,kubeclipper-labs,\
          buildpacks-community,project-copacetic,kube-logging,bpfman,kanisterio,kcp-dev,kcl-lang,\
-         kube-burner,kuasar-io,kubestellar,easegress-io,xregistry,spidernet-io,k8sgpt-ai,OpenMetrics,\
+         kube-burner,kuasar-io,kubestellar,hivecommons,easegress-io,xregistry,spidernet-io,k8sgpt-ai,OpenMetrics,\
          openmetrics,open-gitops,kubeslice,score-spec,connectrpc,kairos-io,kubean-io,koordinator-sh,\
          radius-project,oscal-compass,interlink-hq,loxilb-io,cartography-cncf,perses,ratify-project,\
          Project-HAMi,shipwright-io,flatcar,flatcar-linux,sermant-io,kmesh-net,ovn-org,ovn-kubernetes,\

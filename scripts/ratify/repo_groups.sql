@@ -31,6 +31,8 @@ update gha_repos set repo_group = alias;
 update gha_repos
 set repo_group = 'ratify', alias = 'ratify'
 where name in (
+  'notaryproject/ratify',
+  'notaryproject/ratify',
   'ratify-project/ratify',
   'deislabs/ratify'
 );

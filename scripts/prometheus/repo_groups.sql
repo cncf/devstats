@@ -34,6 +34,8 @@ set repo_group = 'OpenMetrics', alias = 'OpenMetrics'
 where name in (
   'RichiH/OpenMetrics',
   'OpenObservability/OpenMetrics',
+  'prometheus/OpenMetrics',
+  'prometheus/OpenMetrics',
   'OpenMetrics/OpenMetrics',
   'openmetrics/openmetrics'
 );
