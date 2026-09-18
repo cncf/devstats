@@ -26,7 +26,7 @@
 #   ONLY="patroni,web"        run only listed sections
 #   SKIP="cjlogs,clones"      skip listed sections
 # Sections:
-#   tools preflight nodes pods cronjobs cjlogs sync affs flags dblogs durations patroni storage clones nodesys web backups certs dns traffic
+#   tools preflight nodes pods cronjobs cjlogs sync affs flags dblogs eventids durations patroni storage clones nodesys web backups certs dns traffic
 #
 # Tunables (env):
 #   PAR=16                    parallelism for curl/dns checks       LOGS_PAR=8       parallelism for log scans
@@ -50,6 +50,9 @@
 #   DUR_FLEET_MULT=5          durations: NOTE when a project's avg runtime for a prog exceeds this multiple of the
 #                             fleet median avg for the same prog (and is >= 10 minutes)
 #   IMPORT_AFFS_WARN=27       max age (hours) of last shared affiliations import log activity
+#   EVENT_ID_BAND_EPOCH=...   eventids: first epoch of the native event id bands (UTC), MUST equal the newest
+#                             NativeIDBandRules row of devstatscode (eventid.go / rust eventid.rs); default 2026-10-01
+#   EVENT_ID_DAYS=7           eventids: how many days of gha_events (created_at) each project DB is probed for
 #   TRAFFIC_WINDOW_MIN=60     ingress traffic: access-log window (minutes) taken from ingress-nginx controller pods
 #   TRAFFIC_CLASSES=...       which traffic classes to report: any of "overall bots nonbots" (default all three)
 #   TRAFFIC_BOT_RE=...        case-insensitive ERE deciding bot/automation User-Agents (empty UA counts as bot)
@@ -121,6 +124,8 @@ else
 fi
 DUR_FLEET_MULT="${DUR_FLEET_MULT:-5}"
 IMPORT_AFFS_WARN="${IMPORT_AFFS_WARN:-27}"
+EVENT_ID_BAND_EPOCH="${EVENT_ID_BAND_EPOCH:-2026-10-01 00:00:00}"
+EVENT_ID_DAYS="${EVENT_ID_DAYS:-7}"
 TRAFFIC_WINDOW_MIN="${TRAFFIC_WINDOW_MIN:-60}"
 TRAFFIC_CLASSES="${TRAFFIC_CLASSES:-overall bots nonbots}"
 # broad automation/crawler UA detector: classic crawlers, SEO bots, AI crawlers, http libraries, scanners
@@ -852,6 +857,91 @@ if run_section dblogs; then
         esac
       done < "$f4"
     fi
+  done
+fi
+
+# ---------------------------------------------------------------------------------------------------- eventids -----
+# Native event id bands (devstatscode eventid.go / rust eventid.rs): since EVENT_ID_BAND_EPOCH every native event
+# (gha2db archives + ghapi2db repo events feed) is stored as `GitHub id + band*10^12` (band 1: issues/PRs/comments/...,
+# band 2: PushEvent/CreateEvent/DeleteEvent), so GitHub's restarted/parallel id sequences cannot collide with 2011-2025
+# ids. Probes (per project DB, last EVENT_ID_DAYS days of created_at, only rows at/after the epoch):
+#   raw_after  - natives (0 < id < 10^12) created at/after the epoch: an image without the rule still writes (straggler
+#                -> the same event may exist twice: raw here, banded elsewhere) -> CRIT
+#   mismatch   - banded rows whose band disagrees with the type rule (Go/Rust rule drift) -> CRIT
+#   banded     - banded natives in the window (informational; 0 after the epoch = no new events at all -> NOTE)
+# and in devstats.gha_logs: `event id collision` lines between two banded ids of different types or of the same
+# type/repo with different time stamps mean GitHub changed its sequences again -> WARN (add a NativeIDBandRules row).
+if run_section eventids; then
+  section eventids "native event id bands: post-epoch raw ids / band-rule drift per project DB + banded collisions in gha_logs (epoch $EVENT_ID_BAND_EPOCH UTC, last ${EVENT_ID_DAYS}d)"
+  for st in $STAGES; do
+    collect_cj "$st"
+    p="${PRIMARY[$st]:-$(primary_pod "$st")}"
+    [ -z "$p" ] && { crit "[$st] no primary PG pod - eventids skipped"; continue; }
+    : > "$TMPD/eidlist-$st.txt"
+    while IFS='|' read -r name sched susp lastsched lastok created; do
+      case "$name" in
+        devstats-affiliations-*|devstats-backups|devstats-affiliations) continue;;
+        devstats-*) proj="${name#devstats-}";;
+        *) continue;;
+      esac
+      db="$proj"
+      [ "$proj" = "kubernetes" ] && db="gha"
+      [ "$proj" = "all" ] && db="allprj"
+      archived_db "$db" && continue
+      echo "$db" >> "$TMPD/eidlist-$st.txt"
+    done < "$TMPD/cjsched-$st.txt"
+    ne="$(wc -l < "$TMPD/eidlist-$st.txt" | tr -d ' ')"
+    ok "[$st] probing native event id bands in $ne project DBs (single in-pod pass)"
+    {
+      echo 'while read -r db; do'
+      echo "  v=\$(psql -U $PG_USER -d \"\$db\" -tA -F'|' -c \"select count(*) filter (where id < 1000000000000), count(*) filter (where id >= 1000000000000 and ((type in ('PushEvent','CreateEvent','DeleteEvent')) <> (id / 1000000000000 = 2))), count(*) filter (where id >= 1000000000000) from gha_events where id > 0 and id < 281474976710656 and created_at >= greatest('$EVENT_ID_BAND_EPOCH'::timestamp, now() - interval '$EVENT_ID_DAYS days')\" 2>/dev/null </dev/null)"
+      echo '  echo "$db|${v:-err}"'
+      echo 'done <<EOF_LIST'
+      cat "$TMPD/eidlist-$st.txt"
+      echo 'EOF_LIST'
+    } > "$TMPD/eidscript-$st.sh"
+    pg_script "$st" "$p" < "$TMPD/eidscript-$st.sh" > "$TMPD/eidout-$st.txt"
+    epoch_reached=0
+    [ "$(date -u +%s)" -ge "$(date -u -d "$EVENT_ID_BAND_EPOCH" +%s 2>/dev/null || echo 0)" ] && epoch_reached=1
+    while IFS='|' read -r db rawc misc bandc; do
+      [ -z "$db" ] && continue
+      case "$rawc" in ''|err|*[!0-9]*) warn "[$st] $db: cannot probe gha_events native id bands"; continue;; esac
+      [ "${rawc:-0}" -gt 0 ] && crit "[$st] $db: $rawc native event(s) created at/after the band epoch stored with a RAW id (< 10^12): an image without NativeIDBandRules still writes - fix the image, then UPDATE the rows (id + band*10^12) or delete the raw twins"
+      [ "${misc:-0}" -gt 0 ] && crit "[$st] $db: $misc banded event(s) whose band disagrees with the type rule (Go/Rust NativeIDBandRules drift?)"
+      if [ "${rawc:-0}" -eq 0 ] && [ "${misc:-0}" -eq 0 ]; then
+        if [ "$epoch_reached" = "1" ] && [ "${bandc:-0}" -eq 0 ]; then note "[$st] $db: no banded native events in the last ${EVENT_ID_DAYS}d (no new events at all since the epoch?)"
+        else ok "[$st] $db: native id bands consistent ($bandc banded, 0 raw post-epoch, 0 mismatches)"; fi
+      fi
+    done < "$TMPD/eidout-$st.txt"
+    # banded-id collisions logged by the writer (devstats DB gha_logs) = GitHub changed its sequences again
+    fc="$TMPD/eidcoll-$st.txt"
+    {
+      echo "psql -U $PG_USER -d devstats -tA -F'|' <<'SQL'"
+      echo "with x as ("
+      echo "  select proj, dt, msg,"
+      echo "    substring(msg from 'collision: id ([0-9]+) ')::bigint as id,"
+      echo "    substring(msg from 'already exists as \(([A-Za-z]+), ') as et,"
+      echo "    substring(msg from 'already exists as \([A-Za-z]+, ([^,]+), ') as er,"
+      echo "    substring(msg from 'already exists as \([A-Za-z]+, [^,]+, ([0-9-]{10} [0-9:]{8})') as ed,"
+      echo "    substring(msg from 'new event \(([A-Za-z]+), ') as nt,"
+      echo "    substring(msg from 'new event \([A-Za-z]+, ([^,]+), ') as nr,"
+      echo "    substring(msg from 'new event \([A-Za-z]+, [^,]+, ([0-9-]{10} [0-9:]{8})') as nd"
+      echo "  from gha_logs where msg like 'event id collision: id %' and dt > now() - interval '$EVENT_ID_DAYS days'"
+      echo ")"
+      echo "select 'all', count(*), count(distinct id), '' from x"
+      echo "union all select 'banded_seq_change', count(*), count(distinct id), coalesce(max(proj || ' @ ' || to_char(dt, 'YYYY-MM-DD HH24:MI:SS') || ': ' || left(msg, 200)), '')"
+      echo "  from x where id >= 1000000000000 and (et <> nt or (et = nt and er = nr and ed <> nd))"
+      echo "union all select 'banded_renamed_repo', count(*), count(distinct id), '' from x where id >= 1000000000000 and et = nt and er <> nr;"
+      echo "SQL"
+    } | pg_script "$st" "$p" > "$fc" || true
+    while IFS='|' read -r k cntv dist smp; do
+      case "$k" in
+        all)                 ok "[$st] gha_logs: $cntv 'event id collision' line(s) ($dist distinct ids) in the last ${EVENT_ID_DAYS}d (pre-epoch/raw collisions are the known GitHub id reuse, skipped by the writer)";;
+        banded_seq_change)   [ "${cntv:-0}" -gt 0 ] && warn "[$st] gha_logs: $cntv banded-id collision line(s) ($dist ids) between different types or the same event stamped differently: GitHub changed its event id sequences - add a NativeIDBandRules row (eventid.go + eventid.rs); sample: $smp" || ok "[$st] gha_logs: no banded-id collisions that would mean another GitHub sequence change";;
+        banded_renamed_repo) [ "${cntv:-0}" -gt 0 ] && ok "[$st] gha_logs: $cntv banded-id collision line(s) ($dist ids) of the same event under a renamed repository (correct dedup)";;
+      esac
+    done < <(grep -E '^(all|banded_seq_change|banded_renamed_repo)\|' "$fc" || true)
+    grep -q '^all|' "$fc" || warn "[$st] gha_logs: cannot scan for event id collisions"
   done
 fi
 

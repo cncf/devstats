@@ -18,7 +18,7 @@
 
 # Columns
 
-- `id`: GitHub event ID.
+- `id`: GitHub event ID. Since the native event id band epoch (`NativeIDBandRules` in devstatscode `eventid.go` / `rust/devstatscode/src/eventid.rs`) events are stored as `GitHub id + band * 10^12`: band 1 for the issue/PR/comment/review/fork/star/release/... sequence, band 2 for the parallel `PushEvent`/`CreateEvent`/`DeleteEvent` sequence (GitHub restarted its id sequence on 2025-10-09, so raw ids would collide with 2016-2025 events), `id / 10^12` is the band and `id % 10^12` the GitHub id; earlier events keep the raw id. All bands are below `2^48`; ids `>= 2^48` are artificial (ghapi2db, restores, sync) and negative ids are old-format (pre-2015) hashes or restored orphan commits.
 - `type`: GitHub event type, can be: PullRequestReviewEvent, PullRequestReviewCommentEvent, MemberEvent, PushEvent, ReleaseEvent, CreateEvent, GollumEvent, TeamAddEvent, DeleteEvent, PublicEvent, ForkEvent, PullRequestEvent, IssuesEvent, WatchEvent, IssueCommentEvent, CommitCommentEvent.
 - `actor_id`: GitHub actor ID (actor who created this event).
 - `repo_id`: GitHub repository ID.
