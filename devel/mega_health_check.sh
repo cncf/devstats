@@ -51,7 +51,7 @@
 #                             fleet median avg for the same prog (and is >= 10 minutes)
 #   IMPORT_AFFS_WARN=27       max age (hours) of last shared affiliations import log activity
 #   EVENT_ID_BAND_EPOCH=...   eventids: first epoch of the native event id bands (UTC), MUST equal the newest
-#                             NativeIDBandRules row of devstatscode (eventid.go / rust eventid.rs); default 2026-10-01
+#                             NativeIDBandRules row of devstatscode (eventid.go / rust eventid.rs); default 2026-09-20
 #   EVENT_ID_DAYS=7           eventids: how many days of gha_events (created_at) each project DB is probed for
 #   TRAFFIC_WINDOW_MIN=60     ingress traffic: access-log window (minutes) taken from ingress-nginx controller pods
 #   TRAFFIC_CLASSES=...       which traffic classes to report: any of "overall bots nonbots" (default all three)
@@ -124,7 +124,7 @@ else
 fi
 DUR_FLEET_MULT="${DUR_FLEET_MULT:-5}"
 IMPORT_AFFS_WARN="${IMPORT_AFFS_WARN:-27}"
-EVENT_ID_BAND_EPOCH="${EVENT_ID_BAND_EPOCH:-2026-10-01 00:00:00}"
+EVENT_ID_BAND_EPOCH="${EVENT_ID_BAND_EPOCH:-2026-09-20 00:00:00}"
 EVENT_ID_DAYS="${EVENT_ID_DAYS:-7}"
 TRAFFIC_WINDOW_MIN="${TRAFFIC_WINDOW_MIN:-60}"
 TRAFFIC_CLASSES="${TRAFFIC_CLASSES:-overall bots nonbots}"
