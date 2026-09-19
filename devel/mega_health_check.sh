@@ -901,8 +901,11 @@ if run_section eventids; then
       echo 'EOF_LIST'
     } > "$TMPD/eidscript-$st.sh"
     pg_script "$st" "$p" < "$TMPD/eidscript-$st.sh" > "$TMPD/eidout-$st.txt"
+    # portable (GNU + BSD date) epoch parse via iso2epoch; an unparsable epoch is reported instead of failing open
     epoch_reached=0
-    [ "$(date -u +%s)" -ge "$(date -u -d "$EVENT_ID_BAND_EPOCH" +%s 2>/dev/null || echo 0)" ] && epoch_reached=1
+    ep_epoch="$(iso2epoch "$(echo "$EVENT_ID_BAND_EPOCH" | sed 's/ /T/')Z")"
+    if [ "$ep_epoch" = "0" ]; then warn "[$st] EVENT_ID_BAND_EPOCH '$EVENT_ID_BAND_EPOCH' is not parsable (expected 'YYYY-MM-DD HH:MM:SS' UTC)"
+    elif [ "$NOW_EPOCH" -ge "$ep_epoch" ]; then epoch_reached=1; fi
     while IFS='|' read -r db rawc misc bandc; do
       [ -z "$db" ] && continue
       case "$rawc" in ''|err|*[!0-9]*) warn "[$st] $db: cannot probe gha_events native id bands"; continue;; esac
