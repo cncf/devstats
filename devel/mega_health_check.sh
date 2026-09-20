@@ -868,7 +868,8 @@ fi
 #   raw_after  - natives (0 < id < 10^12) created at/after the epoch: an image without the rule still writes (straggler
 #                -> the same event may exist twice: raw here, banded elsewhere) -> CRIT
 #   mismatch   - banded rows whose band disagrees with the type rule (Go/Rust rule drift) -> CRIT
-#   banded     - banded natives in the window (informational; 0 after the epoch = no new events at all -> NOTE)
+#   banded     - banded natives since the epoch; 0 = no new events at all: counted in one OK line, or a NOTE when the
+#                DB's own pre-epoch rate inside the window predicts >= 10 events (epoch >= 24h old; fades with the window)
 # and in devstats.gha_logs: `event id collision` lines between two banded ids of different types or of the same
 # type/repo with different time stamps mean GitHub changed its sequences again -> WARN (add a NativeIDBandRules row).
 if run_section eventids; then
@@ -894,7 +895,7 @@ if run_section eventids; then
     ok "[$st] probing native event id bands in $ne project DBs (single in-pod pass)"
     {
       echo 'while read -r db; do'
-      echo "  v=\$(psql -U $PG_USER -d \"\$db\" -tA -F'|' -c \"select count(*) filter (where id < 1000000000000), count(*) filter (where id >= 1000000000000 and ((type in ('PushEvent','CreateEvent','DeleteEvent')) <> (id / 1000000000000 = 2))), count(*) filter (where id >= 1000000000000) from gha_events where id > 0 and id < 281474976710656 and created_at >= greatest('$EVENT_ID_BAND_EPOCH'::timestamp, now() - interval '$EVENT_ID_DAYS days')\" 2>/dev/null </dev/null)"
+      echo "  v=\$(psql -U $PG_USER -d \"\$db\" -tA -F'|' -c \"select count(*) filter (where id < 1000000000000 and created_at >= '$EVENT_ID_BAND_EPOCH'::timestamp), count(*) filter (where id >= 1000000000000 and ((type in ('PushEvent','CreateEvent','DeleteEvent')) <> (id / 1000000000000 = 2))), count(*) filter (where id >= 1000000000000 and created_at >= '$EVENT_ID_BAND_EPOCH'::timestamp), count(*) filter (where created_at < '$EVENT_ID_BAND_EPOCH'::timestamp) from gha_events where id > 0 and id < 281474976710656 and created_at >= now() - interval '$EVENT_ID_DAYS days' and (created_at >= '$EVENT_ID_BAND_EPOCH'::timestamp or id < 1000000000000)\" 2>/dev/null </dev/null)"
       echo '  echo "$db|${v:-err}"'
       echo 'done <<EOF_LIST'
       cat "$TMPD/eidlist-$st.txt"
@@ -906,16 +907,22 @@ if run_section eventids; then
     ep_epoch="$(iso2epoch "$(echo "$EVENT_ID_BAND_EPOCH" | sed 's/ /T/')Z")"
     if [ "$ep_epoch" = "0" ]; then warn "[$st] EVENT_ID_BAND_EPOCH '$EVENT_ID_BAND_EPOCH' is not parsable (expected 'YYYY-MM-DD HH:MM:SS' UTC)"
     elif [ "$NOW_EPOCH" -ge "$ep_epoch" ]; then epoch_reached=1; fi
-    while IFS='|' read -r db rawc misc bandc; do
+    # "0 banded since the epoch" is a NOTE only when the DB's own pre-epoch rate (inside the window) predicts >= 10
+    # events since the epoch and the epoch is >= 24h old; it fades out by itself once the window no longer spans the epoch
+    age=$((NOW_EPOCH - ep_epoch)); pre=$((EVENT_ID_DAYS * 86400 - age)); quiet=0
+    while IFS='|' read -r db rawc misc bandc prec; do
       [ -z "$db" ] && continue
       case "$rawc" in ''|err|*[!0-9]*) warn "[$st] $db: cannot probe gha_events native id bands"; continue;; esac
       [ "${rawc:-0}" -gt 0 ] && crit "[$st] $db: $rawc native event(s) created at/after the band epoch stored with a RAW id (< 10^12): an image without NativeIDBandRules still writes - fix the image, then UPDATE the rows (id + band*10^12) or delete the raw twins"
       [ "${misc:-0}" -gt 0 ] && crit "[$st] $db: $misc banded event(s) whose band disagrees with the type rule (Go/Rust NativeIDBandRules drift?)"
       if [ "${rawc:-0}" -eq 0 ] && [ "${misc:-0}" -eq 0 ]; then
-        if [ "$epoch_reached" = "1" ] && [ "${bandc:-0}" -eq 0 ]; then note "[$st] $db: no banded native events in the last ${EVENT_ID_DAYS}d (no new events at all since the epoch?)"
+        if [ "$epoch_reached" = "1" ] && [ "${bandc:-0}" -eq 0 ]; then
+          if [ "$age" -ge 86400 ] && [ "$pre" -gt 0 ] && [ $((${prec:-0} * age)) -gt $((10 * pre)) ]; then note "[$st] $db: 0 events since the band epoch ($((age / 3600))h ago) although $prec native event(s) arrived in the $((pre / 3600))h before it (sync not running since the epoch?)"
+          else quiet=$((quiet + 1)); fi
         else ok "[$st] $db: native id bands consistent ($bandc banded, 0 raw post-epoch, 0 mismatches)"; fi
       fi
     done < "$TMPD/eidout-$st.txt"
+    [ "$quiet" -gt 0 ] && ok "[$st] $quiet project DB(s) have no events since the band epoch yet (nothing to verify there; 0 raw natives)"
     # banded-id collisions logged by the writer (devstats DB gha_logs) = GitHub changed its sequences again
     fc="$TMPD/eidcoll-$st.txt"
     {
