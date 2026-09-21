@@ -1302,10 +1302,15 @@ if [ -f /var/log/btrfs-recompress.log ]; then
   # inspect only the LAST v4 run block (from last '=== START' to EOF)
   if grep -q '^=== START' /var/log/btrfs-recompress.log 2>/dev/null; then
     # failure lines carry a time of day only ('... done rc=123 05:44:22'): stamp them with the block's
-    # START date (the next day when the time is earlier than the START time) and pass the run start along
+    # START date (the next day when the time is earlier than the START time) and pass the run start along;
+    # rc=123 (xargs) whose only errors are 'cannot access ...: No such file or directory' = files that vanished
+    # mid-run (PG temp relations) -> recomp_enoent (informational), a block without '=== END' -> recomp_noend
     awk 'BEGIN{n=0} /^=== START/{n=NR} {l[NR]=$0} END{for(i=n;i<=NR;i++) print l[i]}' /var/log/btrfs-recompress.log 2>/dev/null \
       | awk '
           NR==1 && $1=="===" && $2=="START" {sd=$3; st=$4; next}
+          /^=== END/ {ended=1}
+          /^ERROR: cannot access .*: No such file or directory$/ {enoent++; next}
+          /^ERROR/ {other++}
           /rc=[1-9]/ {
             line=$0
             if (sd!="" && match(line, /[0-9][0-9]:[0-9][0-9]:[0-9][0-9]$/)) {
@@ -1313,8 +1318,14 @@ if [ -f /var/log/btrfs-recompress.log ]; then
               if (t < st) { cmd="date -u -d \"" sd " +1 day\" +%F"; cmd | getline d; close(cmd) }
               line=substr(line, 1, RSTART-1) d " " t " UTC"
             }
-            print "recomp_bad|" (sd!="" ? "run started " sd " " st " UTC" : "run start unknown") "|" line
-          }' | tail -2
+            bad[++nb]=line
+          }
+          END {
+            s=(sd!="" ? "run started " sd " " st " UTC" : "run start unknown")
+            for (i=(nb>2?nb-1:1); i<=nb; i++)
+              print ((other==0 && enoent>0 && bad[i] ~ /rc=123/) ? "recomp_enoent|" s "|" bad[i] "|" enoent : "recomp_bad|" s "|" bad[i])
+            if (!ended && sd!="") print "recomp_noend|" s
+          }'
     echo "recomp_v4|yes"
   else
     echo "recomp_v4|no"
@@ -1369,6 +1380,8 @@ REMOTE
           agd=$(( (NOW_EPOCH - ${a:-0}) / 86400 ))
           [ "$agd" -gt "$RECOMPRESS_MAX_DAYS" ] && warn "node $node btrfs-recompress last activity ${agd}d ago (> ${RECOMPRESS_MAX_DAYS}d)" || ok "node $node btrfs-recompress log active ${agd}d ago";;
         recomp_bad) warn "node $node btrfs-recompress last run failure ($a): $(echo "$b${c:+|$c}${d:+|$d}" | head -c 160)";;
+        recomp_enoent) note "node $node btrfs-recompress last run ($a) ended rc=123 only because $c file(s) vanished mid-run (PG temp relations; tolerated by the hardened script): $(echo "$b" | head -c 120)";;
+        recomp_noend) note "node $node btrfs-recompress last run ($a) has no '=== END' line (aborted/killed?)";;
         recomp_v4) [ "$a" = "yes" ] && ok "node $node recompress log has v4 run blocks" || note "node $node recompress: no v4 run yet (scheduled monthly; old-format log only)";;
         recomp_cron) [ "$a" = "present" ] && ok "node $node recompress cron present" || warn "node $node /etc/cron.d/btrfs-recompress MISSING";;
       esac
