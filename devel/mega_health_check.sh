@@ -1664,13 +1664,17 @@ if run_section traffic; then
       fi
     done
     # client IP concentration (only meaningful when real client IPs reach nginx; behind a cloud LB
-    # without proxy-protocol/real-ip all requests appear as few internal LB addresses)
+    # without proxy-protocol/real-ip all requests appear as few internal LB addresses - a private top IP means
+    # exactly that, even when a few scanners hit the node public IPs directly and add stray source IPs)
     distinct_ips="$(awk -F'\t' '$1=="overall"{print $6}' "$per" | sort -u | wc -l | tr -d '[:space:]')"
+    topip="$(awk -F'\t' '$1=="overall"{print $6}' "$per" | sort | uniq -c | sort -rn | head -1)"
+    tipc="$(awk '{print $1}' <<<"$topip")"; tip="$(awk '{print $2}' <<<"$topip")"
+    case "$tip" in 10.*|192.168.*|172.1[6-9].*|172.2[0-9].*|172.3[01].*) lbhop=1;; *) lbhop=0;; esac
     if [ "$distinct_ips" -le 3 ]; then
       echo "  [$st] client IPs not assessable: only $distinct_ips distinct source IP(s) visible (LB hides real clients)"
+    elif [ "$lbhop" = "1" ]; then
+      echo "  [$st] client IPs not assessable: $tipc/$total requests arrive via the internal LB address $tip; the other $((distinct_ips - 1)) source IP(s) hit the nodes directly"
     else
-      topip="$(awk -F'\t' '$1=="overall"{print $6}' "$per" | sort | uniq -c | sort -rn | head -1)"
-      tipc="$(awk '{print $1}' <<<"$topip")"; tip="$(awk '{print $2}' <<<"$topip")"
       if awk -v a="$tipc" -v b="$total" -v p="$TRAFFIC_TOPIP_PCT_NOTE" 'BEGIN{exit !(100*a/b>=p)}'; then
         note "[$st] single client $tip produced $tipc/$total requests ($(awk -v a="$tipc" -v b="$total" 'BEGIN{printf "%.1f", 100*a/b}')% >= ${TRAFFIC_TOPIP_PCT_NOTE}%)"
       else
