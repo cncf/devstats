@@ -26,7 +26,7 @@
 #   ONLY="patroni,web"        run only listed sections
 #   SKIP="cjlogs,clones"      skip listed sections
 # Sections:
-#   tools preflight nodes pods cronjobs cjlogs sync affs flags dblogs eventids durations patroni storage clones nodesys web backups certs dns traffic
+#   tools preflight nodes pods cronjobs cjlogs sync periods affs flags dblogs eventids durations patroni storage clones nodesys web backups certs dns traffic
 #
 # Tunables (env):
 #   PAR=16                    parallelism for curl/dns checks       LOGS_PAR=8       parallelism for log scans
@@ -427,7 +427,9 @@ if run_section cronjobs; then
         fi
       else
         cage=$(age_h "$(iso2epoch "$created")")
-        if [ "$cage" -gt $((iv+2)) ]; then
+        # DOM-restricted (monthly) schedules fire the first time up to 31d + time-of-day after creation
+        slack=2; [ "$iv" -ge 744 ] && slack=72
+        if [ "$cage" -gt $((iv+slack)) ]; then
           warn "[$st] CronJob $name NEVER scheduled although $(hfmt $cage) old (interval ${iv}h, schedule '$sched')"
         else
           ok "[$st] CronJob $name not due yet (CJ $(hfmt $cage) old, interval ${iv}h)"
@@ -582,6 +584,65 @@ if run_section sync; then
         else ok "[$st] $db dashboards data (sevents_h) current to $(hfmt $h) ago"; fi
       done < "$TMPD/sevents-$st.txt"
     fi
+  done
+fi
+
+# ----------------------------------------------------------------------------------------------------- periods -----
+# Deterministic TSDB periods: calc_metric writes a success marker into gha_computed ('<proj>/<file>.sql <series> <period>',
+# dt = sync hour) for every metric/period it finishes; gha2db_sync recomputes d/w/m/q/y on the first sync after the calendar
+# boundary and whenever the marker of the current period is missing. Invariant probed here per DB and period class:
+# markers existed before the current period started AND the DB was synced after that start => a marker of that class exists.
+if run_section periods; then
+  section periods "deterministic TSDB periods: gha_computed success markers per period class since the last boundary"
+  for st in $STAGES; do
+    collect_cj "$st"
+    p="${PRIMARY[$st]:-$(primary_pod "$st")}"
+    [ -z "$p" ] && { crit "[$st] no primary PG pod - skipping periods"; continue; }
+    : > "$TMPD/perlist-$st.txt"
+    while IFS='|' read -r name sched susp lastsched lastok created; do
+      case "$name" in
+        devstats-affiliations-*|devstats-backups|devstats-affiliations) continue;;
+        devstats-*) proj="${name#devstats-}";;
+        *) continue;;
+      esac
+      db="$proj"
+      [ "$proj" = "kubernetes" ] && db="gha"
+      [ "$proj" = "all" ] && db="allprj"
+      archived_db "$db" && continue
+      echo "$db" >> "$TMPD/perlist-$st.txt"
+    done < "$TMPD/cjsched-$st.txt"
+    q="with m as (select split_part(metric, ' ', 3) p, dt from gha_computed where metric like '% % %') select coalesce(to_char(max(dt), 'YYYY-MM-DD HH24:MI'), '-') || '|' || count(*)"
+    for c in d w m q y; do
+      case "$c" in d) tr_=day;; w) tr_=week;; m) tr_=month;; q) tr_=quarter;; y) tr_=year;; esac
+      q="$q || '|' || coalesce(bool_or(dt < date_trunc('$tr_', now() at time zone 'UTC')) and max(dt) >= date_trunc('$tr_', now() at time zone 'UTC'), false)::int || coalesce(bool_or(p like '$c%' and dt >= date_trunc('$tr_', now() at time zone 'UTC')), false)::int"
+    done
+    q="$q from m"
+    {
+      echo 'while read -r db; do'
+      echo "  v=\$(psql -U $PG_USER -d \"\$db\" -tAc \"$q\" 2>/dev/null </dev/null)"
+      echo '  echo "$db|${v:-err}"'
+      echo 'done <<EOF_LIST'
+      cat "$TMPD/perlist-$st.txt"
+      echo 'EOF_LIST'
+    } > "$TMPD/perscript-$st.sh"
+    pg_script "$st" "$p" < "$TMPD/perscript-$st.sh" > "$TMPD/perout-$st.txt"
+    good=0; nomark=0; nomark_dbs=""
+    while IFS='|' read -r db last total fd fw fm fq fy; do
+      [ -z "$db" ] && continue
+      case "$total" in ''|err|*[!0-9]*) warn "[$st] $db: cannot read gha_computed period markers"; continue;; esac
+      [ "$total" = "0" ] && { nomark=$((nomark+1)); nomark_dbs="$nomark_dbs $db"; continue; }
+      bad=""; done_=""
+      for pair in "d:$fd" "w:$fw" "m:$fm" "q:$fq" "y:$fy"; do
+        case "${pair#*:}" in
+          10) bad="$bad ${pair%%:*}";;
+          ?1) done_="$done_ ${pair%%:*}";;
+        esac
+      done
+      if [ -n "$bad" ]; then warn "[$st] $db: period class(es)$bad due since the last boundary (DB synced after it) but no success marker - calc_metric failed or the period was skipped"
+      else good=$((good+1)); ok "[$st] $db: period markers consistent (last $last, $total rows, computed in the current period:${done_:- none yet})"; fi
+    done < "$TMPD/perout-$st.txt"
+    [ "$nomark" -gt 0 ] && note "[$st] $nomark DBs without period markers in gha_computed yet (image without deterministic periods, or not synced since):$(echo "$nomark_dbs" | tr ' ' '\n' | sed '/^$/d' | head -8 | paste -sd' ' -)$([ "$nomark" -gt 8 ] && echo ' ...')"
+    ok "[$st] $good DBs with consistent period markers, $nomark without markers yet"
   done
 fi
 
@@ -1473,11 +1534,16 @@ if run_section backups; then
     ndumps="$(wc -l < "$TMPD/backups.txt" | tr -d ' ')"
     [ "$ndumps" = "0" ] && crit "backups page lists no dump/tar.xz files" || ok "backups page lists $ndumps backup files"
     stale=0
+    : > "$TMPD/proddbs.txt"
+    [ -f devel/all_prod_dbs.txt ] && tr ' \t' '\n' < devel/all_prod_dbs.txt | sed '/^$/d' > "$TMPD/proddbs.txt"
     while IFS='|' read -r fn dt sz; do
       ep="$(ngx2epoch "$dt")"
       [ "$ep" = "0" ] && { note "backup $fn: unparsable date '$dt'"; continue; }
       ad=$(( (NOW_EPOCH - ep) / 86400 ))
-      if [ "$ad" -gt "$BACKUP_WARN_DAYS" ]; then stale=$((stale+1)); warn "backup $fn is ${ad}d old (> ${BACKUP_WARN_DAYS}d)"; else ok "backup $fn ${ad}d old ($sz bytes)"; fi
+      if [ "$ad" -gt "$BACKUP_WARN_DAYS" ]; then
+        if [ -s "$TMPD/proddbs.txt" ] && ! grep -qx "${fn%%.*}" "$TMPD/proddbs.txt"; then note "orphaned backup $fn (no such DB in devel/all_prod_dbs.txt) is ${ad}d old"
+        else stale=$((stale+1)); warn "backup $fn is ${ad}d old (> ${BACKUP_WARN_DAYS}d)"; fi
+      else ok "backup $fn ${ad}d old ($sz bytes)"; fi
     done < "$TMPD/backups.txt"
     # DBs missing a dump entirely
     if [ -f devel/all_prod_dbs.txt ]; then
