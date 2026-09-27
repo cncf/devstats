@@ -1,6 +1,7 @@
 #!/bin/bash
 # AFFS_FDW_USE_PASSWORD=1 (use TCP 127.0.0.1 + gha_admin/PG_PASS mappings instead of the default local socket + password_required=false)
 # AFFS_FDW_SOCKET_DIR=dir (socket directory for the default variant, default /var/run/postgresql)
+# options '-c idle_in_transaction_session_timeout=0': the remote fdw session sits idle-in-transaction while a long local metric runs, so exempt it from the server-wide 30min timeout (the local session's own timeout still applies)
 if [ -z "$GHA2DB_AFFILIATIONS_DB" ]
 then
   exit 0
@@ -24,13 +25,13 @@ PG_USER="$au" ./devel/db.sh psql "$db" -c "drop server if exists affiliations ca
 if [ -z "$AFFS_FDW_USE_PASSWORD" ]
 then
   sdir="${AFFS_FDW_SOCKET_DIR:-/var/run/postgresql}"
-  PG_USER="$au" ./devel/db.sh psql "$db" -c "create server affiliations foreign data wrapper postgres_fdw options (host '$sdir', port '$port', dbname '$adb', use_remote_estimate 'true', fetch_size '10000')" || exit 5
+  PG_USER="$au" ./devel/db.sh psql "$db" -c "create server affiliations foreign data wrapper postgres_fdw options (host '$sdir', port '$port', dbname '$adb', use_remote_estimate 'true', fetch_size '10000', options '-c idle_in_transaction_session_timeout=0')" || exit 5
   PG_USER="$au" ./devel/db.sh psql "$db" -c "create user mapping for postgres server affiliations options (user 'postgres', password_required 'false')" || exit 6
   PG_USER="$au" ./devel/db.sh psql "$db" -c "create user mapping for gha_admin server affiliations options (user 'gha_admin', password_required 'false')" || exit 7
   PG_USER="$au" ./devel/db.sh psql "$db" -c "create user mapping for ro_user server affiliations options (user 'ro_user', password_required 'false')" || exit 8
   PG_USER="$au" ./devel/db.sh psql "$db" -c "create user mapping for devstats_team server affiliations options (user 'devstats_team', password_required 'false')" || exit 9
 else
-  PG_USER="$au" ./devel/db.sh psql "$db" -c "create server affiliations foreign data wrapper postgres_fdw options (host '127.0.0.1', port '$port', dbname '$adb', use_remote_estimate 'true', fetch_size '10000')" || exit 10
+  PG_USER="$au" ./devel/db.sh psql "$db" -c "create server affiliations foreign data wrapper postgres_fdw options (host '127.0.0.1', port '$port', dbname '$adb', use_remote_estimate 'true', fetch_size '10000', options '-c idle_in_transaction_session_timeout=0')" || exit 10
   PG_USER="$au" ./devel/db.sh psql "$db" -c "create user mapping for postgres server affiliations options (user 'gha_admin', password '$PG_PASS')" || exit 11
   PG_USER="$au" ./devel/db.sh psql "$db" -c "create user mapping for gha_admin server affiliations options (user 'gha_admin', password '$PG_PASS')" || exit 12
   PG_USER="$au" ./devel/db.sh psql "$db" -c "create user mapping for ro_user server affiliations options (user 'gha_admin', password '$PG_PASS')" || exit 13

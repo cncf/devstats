@@ -325,7 +325,8 @@ create server affiliations foreign data wrapper postgres_fdw
     port '5432',
     dbname 'affiliations',
     use_remote_estimate 'true',
-    fetch_size '10000'
+    fetch_size '10000',
+    options '-c idle_in_transaction_session_timeout=0'
   );
 create user mapping for postgres
   server affiliations options (user 'postgres', password_required 'false');
@@ -353,7 +354,8 @@ create server affiliations foreign data wrapper postgres_fdw
     port '5432',
     dbname 'affiliations',
     use_remote_estimate 'true',
-    fetch_size '10000'
+    fetch_size '10000',
+    options '-c idle_in_transaction_session_timeout=0'
   );
 create user mapping for postgres
   server affiliations options (user 'gha_admin', password :'affs_password');
