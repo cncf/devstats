@@ -2647,6 +2647,15 @@ where
   lower(org_login) in ('sdcio', 'iptecharch')
 ;
 
+-- KubeRay
+update
+  gha_repos
+set
+  repo_group = 'KubeRay'
+where
+  lower(org_login) in ('ray-project')
+;
+
 -- CNCF
 update
   gha_repos

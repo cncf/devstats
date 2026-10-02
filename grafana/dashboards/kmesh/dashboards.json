@@ -2353,6 +2353,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "KubeRay",
+      "tooltip": "Opens KubeRay projects dashboards",
+      "type": "link",
+      "url": "https://kuberay.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",

@@ -3880,6 +3880,21 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     shared_db: allprj
+  kuberay:
+    order: 257
+    name: KubeRay
+    status: Sandbox
+    command_line:
+      - ray-project
+    hist_command_line:
+      - 'ray-project'
+    start_date: 2016-09-11T00:00:00Z
+    join_date: 2026-09-29T00:00:00Z
+    psql_db: kuberay
+    main_repo: ray-project/kuberay
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    shared_db: allprj
   opencontainers:
     order: 1200
     name: OCI
@@ -4146,7 +4161,7 @@ projects:
          tokenetes,spinframework,k0sproject,SlimPlanet,container2wasm,runmedev,cloudnative-pg,\
          Azure/Fleet-PRSE,Azure/fleet-networking,Azure/fleet,Azure/azure-rest-api-specs-fleet,\
          podman-desktop,podman-container-tools/podman,podman-container-tools/buildah,\
-         podman-container-tools/skopeo,containers/netavark,sdcio,\
+         podman-container-tools/skopeo,containers/netavark,sdcio,ray-project,\
          containers/aardvark-dns,containers/image,containers/storage,containers/common,\
          containers/conmon,containers/podman-py,cadence-workflow,kagent-dev,urunc-dev,cozystack,\
          kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\
@@ -4194,7 +4209,7 @@ projects:
          prometheus-community,tokenetes,spinframework,k0sproject,SlimPlanet,container2wasm,runmedev,\
          cloudnative-pg,Azure/Fleet-PRSE,Azure/fleet-networking,Azure/fleet,\
          Azure/azure-rest-api-specs-fleet,podman-desktop,podman-container-tools/podman,\
-         podman-container-tools/buildah,podman-container-tools/skopeo,containers/netavark,sdcio,\
+         podman-container-tools/buildah,podman-container-tools/skopeo,containers/netavark,sdcio,ray-project,\
          containers/aardvark-dns,containers/image,containers/storage,containers/common,\
          containers/conmon,containers/podman-py,cadence-workflow,kagent-dev,urunc-dev,cozystack,\
          kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\

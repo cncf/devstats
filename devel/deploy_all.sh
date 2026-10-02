@@ -871,6 +871,9 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "sdc" ]
   then
     PROJ=sdc                 PROJDB=sdc            PROJREPO="sdcio/data-server"               ORGNAME=SDC               PORT=3330 ICON=sdc            GRAFSUFF=sdc            GA="-" ./devel/deploy_proj.sh               || exit 35
+  elif [ "$proj" = "kuberay" ]
+  then
+    PROJ=kuberay             PROJDB=kuberay        PROJREPO="ray-project/kuberay"             ORGNAME=KubeRay           PORT=3331 ICON=kuberay        GRAFSUFF=kuberay        GA="-" ./devel/deploy_proj.sh               || exit 36
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32

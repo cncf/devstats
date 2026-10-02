@@ -273,6 +273,7 @@ icontypes=(
   ["kbind"]="color"
   ["curvine"]="color"
   ["sdc"]="color"
+  ["kuberay"]="color"
   ["jenkins"]="color"
   ["jenkinsx"]="color"
   ["cdevents"]="color"
