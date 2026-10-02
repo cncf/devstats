@@ -155,8 +155,28 @@ do
   then
     icon="open-workflow-specification"
   fi
+  if [ "$icon" = "sdc" ]
+  then
+    icon="schema-driven-configuration"
+  fi
+  if [ "$icon" = "llmd" ]
+  then
+    icon="llm-d"
+  fi
+  if [ "$icon" = "cedarpolicy" ]
+  then
+    icon="cedar"
+  fi
+  if [ "$icon" = "podmandesktop" ]
+  then
+    icon="podman-desktop"
+  fi
+  if [ "$icon" = "podmancontainertools" ]
+  then
+    icon="podman"
+  fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "sdc" ] || [ "$icon" = "curvine" ] || [ "$icon" = "llmd" ] || [ "$icon" = "openeverest" ] || [ "$icon" = "oxia" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "curvine" ] || [ "$icon" = "oxia" ] || [ "$icon" = "composefs" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -327,13 +347,6 @@ do
     cp "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.svg" "grafana/img/$suff.svg" || exit 31
     magick "$HOME/dev/cncf/artwork/projects/oscal-compass/icon/color/oscal-compass-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 32
     continue
-  elif [ "$icon" = "atlantis" ]
-  then
-    magick "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 33
-    icon="cncf"
-    path="other/$icon"
-    cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 34
-    continue
   elif [ "$icon" = "kmesh" ]
   then
     cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/KMESH$dash$mid-$icontype.svg" "grafana/img/$suff.svg" || exit 37
@@ -358,6 +371,26 @@ do
   then
     cp "$HOME/dev/cncf/artwork/projects/kpt/icon/color/kpt_icon_color.svg" "grafana/img/$suff.svg" || exit 45
     magick "$HOME/dev/cncf/artwork/projects/kpt/icon/color/kpt_icon_color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 46
+    continue
+  elif [ "$icon" = "openeverest" ]
+  then
+    cp "$HOME/dev/cncf/artwork/projects/openeverest/icon/light/openeverest-icon-light.svg" "grafana/img/$suff.svg" || exit 47
+    magick "$HOME/dev/cncf/artwork/projects/openeverest/icon/light/openeverest-icon-light.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 48
+    continue
+  elif [ "$icon" = "cartography" ]
+  then
+    cp "$HOME/dev/cncf/artwork/projects/cartography/stacked/color/cartography-stacked-color.svg" "grafana/img/$suff.svg" || exit 49
+    magick "$HOME/dev/cncf/artwork/projects/cartography/icon/color/cartography-icon-color.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 50
+    continue
+  elif ( [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] )
+  then
+    cp "$HOME/dev/$iconorg/artwork/$path/stacked/$icontype/$icon-stacked-$icontype.svg" "grafana/img/$suff.svg" || exit 51
+    magick "$HOME/dev/$iconorg/artwork/$path/stacked/$icontype/$icon-stacked-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 52
+    continue
+  elif [ "$icon" = "lima" ]
+  then
+    cp "$HOME/dev/$iconorg/artwork/$path/horizontal/$icontype/$icon-horizontal-$icontype.svg" "grafana/img/$suff.svg" || exit 53
+    magick "$HOME/dev/$iconorg/artwork/$path/horizontal/$icontype/$icon-horizontal-$icontype.png" -resize 32x32 "grafana/img/${suff}32.png" || exit 54
     continue
   fi
   # echo "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg"

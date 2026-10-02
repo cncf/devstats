@@ -4,7 +4,7 @@
 . ./devel/all_projs.sh || exit 2
 for proj in $all
 do
-  if ( [ "$proj" = "opencontainers" ] || [ "$proj" = "cdf" ] || [ "$proj" = "prestodb" ] || [ "$proj" = "godotengine" ] || [ "$proj" = "linux" ] || [ "$proj" = "zephyr" ] || [ "$proj" = "graphql" ] || [ "$proj" = "graphqljs" ] || [ "$proj" = "graphiql" ] || [ "$proj" = "expressgraphql" ] || [ "$proj" = "graphqlspec" ] )
+  if ( [ "$proj" = "opencontainers" ] || [ "$proj" = "cdf" ] || [ "$proj" = "pyrsia" ] || [ "$proj" = "prestodb" ] || [ "$proj" = "godotengine" ] || [ "$proj" = "linux" ] || [ "$proj" = "zephyr" ] || [ "$proj" = "graphql" ] || [ "$proj" = "graphqljs" ] || [ "$proj" = "graphiql" ] || [ "$proj" = "expressgraphql" ] || [ "$proj" = "graphqlspec" ] )
   then
     continue
   fi
@@ -80,6 +80,10 @@ do
   then
     icon="serverless-devs"
   fi
+  if [ "$icon" = "screwdrivercd" ]
+  then
+    icon="screwdriver"
+  fi
   if [ "$icon" = "inspektorgadget" ]
   then
     icon="inspektor-gadget"
@@ -95,6 +99,10 @@ do
   if [ "$icon" = "krknchaos" ]
   then
     icon="krkn"
+  fi
+  if [ "$icon" = "cdevents" ]
+  then
+    dash="_"
   fi
   if [ "$icon" = "connect" ]
   then
@@ -142,8 +150,28 @@ do
   then
     icon="open-workflow-specification"
   fi
+  if [ "$icon" = "sdc" ]
+  then
+    icon="schema-driven-configuration"
+  fi
+  if [ "$icon" = "llmd" ]
+  then
+    icon="llm-d"
+  fi
+  if [ "$icon" = "cedarpolicy" ]
+  then
+    icon="cedar"
+  fi
+  if [ "$icon" = "podmandesktop" ]
+  then
+    icon="podman-desktop"
+  fi
+  if [ "$icon" = "podmancontainertools" ]
+  then
+    icon="podman"
+  fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "sdc" ] || [ "$icon" = "curvine" ] || [ "$icon" = "llmd" ] || [ "$icon" = "openeverest" ] || [ "$icon" = "oxia" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "trestlegrc" ] || [ "$icon" = "opengemini" ] || [ "$icon" = "containerssh" ] || [ "$icon" = "lima" ] || [ "$icon" = "hexapolicyorchestrator" ] || [ "$icon" = "externalsecretsoperator" ] || [ "$icon" = "devstream" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "curvine" ] || [ "$icon" = "openeverest" ] || [ "$icon" = "oxia" ] || [ "$icon" = "composefs" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "trestlegrc" ] || [ "$icon" = "opengemini" ] || [ "$icon" = "containerssh" ] || [ "$icon" = "lima" ] || [ "$icon" = "hexapolicyorchestrator" ] || [ "$icon" = "externalsecretsoperator" ] || [ "$icon" = "devstream" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "cilium" ] || [ "$icon" = "copacetic" ] || [ "$icon" = "k0s" ] || [ "$icon" = "k8up" ] || [ "$icon" = "kmesh" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubean" ] || [ "$icon" = "kubeflow" ] || [ "$icon" = "kubewarden" ] || [ "$icon" = "meshery" ] || [ "$icon" = "modelpack" ] || [ "$icon" = "openclustermanagement" ] || [ "$icon" = "opencost" ] || [ "$icon" = "oras" ] || [ "$icon" = "wasmcloud" ] || [ "$icon" = "zot" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -156,7 +184,7 @@ do
   elif ( [ "$icon" = "hexa" ] || [ "$icon" = "pravega" ] || [ "$icon" = "xline" ] || [ "$icon" = "servicemeshperformance" ] || [ "$icon" = "keptn" ] || [ "$icon" = "devstream" ] || [ "$icon" = "curve" ] || [ "$icon" = "nocalhost" ] || [ "$icon" = "superedge" ] || [ "$icon" = "kubedl" ] || [ "$icon" = "teller" ] || [ "$icon" = "merbridge" ] || [ "$icon" = "skooner" ] || [ "$icon" = "rkt" ] || [ "$icon" = "brigade" ] || [ "$icon" = "opentracing" ] || [ "$icon" = "openservicemesh" ] || [ "$icon" = "servicemeshinterface" ] || [ "$icon" = "curiefense" ] || [ "$icon" = "krator" ] || [ "$icon" = "fonio" ] || [ "$icon" = "krustlet" ] )
   then
     path="archived/$icon"
-  elif [ "$proj" = "shipwright" ]
+  elif ( [ "$proj" = "shipwright" ] || [ "$proj" = "jenkinsx" ] )
   then
     path="former_project_logos/$icon"
   elif [ "$iconorg" = "cncf" ]
@@ -204,26 +232,14 @@ do
   cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "/usr/share/grafana.$suff/public/img/grafana_com_auth_icon.svg" || exit 3
   cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "/usr/share/grafana.$suff/public/img/grafana_net_logo.svg" || exit 4
   cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "/usr/share/grafana.$suff/public/img/grafana_mask_icon.svg" || exit 5
-  if [ "$icon" = "kubernetes" ]
-  then
-    icon="k8s"
-  fi
-  if [ "$icon" = "in-toto" ]
-  then
-    icon="intoto"
-  fi
-  if [ "$icon" = "servicemeshinterface" ]
-  then
-    icon="smi"
-  fi
   cp -n "/usr/share/grafana.$suff/public/img/fav32.png" "/usr/share/grafana.$suff/public/img/fav32.png.bak" || exit 6
-  cp "grafana/img/${icon}32.png" "/usr/share/grafana.$suff/public/img/fav32.png" || exit 7
+  cp "grafana/img/${suff}32.png" "/usr/share/grafana.$suff/public/img/fav32.png" || exit 7
   cp -n "/usr/share/grafana.$suff/public/img/fav16.png" "/usr/share/grafana.$suff/public/img/fav16.png.bak" || exit 8
-  cp "grafana/img/${icon}32.png" "/usr/share/grafana.$suff/public/img/fav16.png" || exit 9
+  cp "grafana/img/${suff}32.png" "/usr/share/grafana.$suff/public/img/fav16.png" || exit 9
   cp -n "/usr/share/grafana.$suff/public/img/fav_dark_16.png" "/usr/share/grafana.$suff/public/img/fav_dark_16.png.bak" || exit 10
-  cp "grafana/img/${icon}32.png" "/usr/share/grafana.$suff/public/img/fav_dark_16.png" || exit 11
+  cp "grafana/img/${suff}32.png" "/usr/share/grafana.$suff/public/img/fav_dark_16.png" || exit 11
   cp -n "/usr/share/grafana.$suff/public/img/fav_dark_32.png" "/usr/share/grafana.$suff/public/img/fav_dark_32.png.bak" || exit 12
-  cp "grafana/img/${icon}32.png" "/usr/share/grafana.$suff/public/img/fav_dark_32.png" || exit 13
+  cp "grafana/img/${suff}32.png" "/usr/share/grafana.$suff/public/img/fav_dark_32.png" || exit 13
 
   mkdir "/usr/share/grafana.$suff/public/img/projects" 2>/dev/null
   # Copy all other projects images
@@ -257,6 +273,15 @@ then
   cp ./images/godotengine-logo-stacked.svg /usr/share/grafana.godotengine/public/img/grafana_com_auth_icon.svg || exit 24
   cp ./images/godotengine-logo-stacked.svg /usr/share/grafana.godotengine/public/img/grafana_net_logo.svg || exit 25
   cp ./images/godotengine-logo-stacked.svg /usr/share/grafana.godotengine/public/img/grafana_mask_icon.svg || exit 26
+fi
+
+# Special Pyrsia case (archived CDF project without icon artwork)
+if [[ $all = *"pyrsia"* ]]
+then
+  cp "$HOME/dev/cdfoundation/artwork/former_project_logos/pyrsia/artwork/logo.svg" /usr/share/grafana.pyrsia/public/img/grafana_icon.svg || exit 27
+  cp "$HOME/dev/cdfoundation/artwork/former_project_logos/pyrsia/artwork/logo.svg" /usr/share/grafana.pyrsia/public/img/grafana_com_auth_icon.svg || exit 28
+  cp "$HOME/dev/cdfoundation/artwork/former_project_logos/pyrsia/artwork/logo.svg" /usr/share/grafana.pyrsia/public/img/grafana_net_logo.svg || exit 29
+  cp "$HOME/dev/cdfoundation/artwork/former_project_logos/pyrsia/artwork/logo.svg" /usr/share/grafana.pyrsia/public/img/grafana_mask_icon.svg || exit 30
 fi
 
 echo 'OK'

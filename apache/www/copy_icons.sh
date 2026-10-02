@@ -149,8 +149,28 @@ do
   then
     icon="open-workflow-specification"
   fi
+  if [ "$icon" = "sdc" ]
+  then
+    icon="schema-driven-configuration"
+  fi
+  if [ "$icon" = "llmd" ]
+  then
+    icon="llm-d"
+  fi
+  if [ "$icon" = "cedarpolicy" ]
+  then
+    icon="cedar"
+  fi
+  if [ "$icon" = "podmandesktop" ]
+  then
+    icon="podman-desktop"
+  fi
+  if [ "$icon" = "podmancontainertools" ]
+  then
+    icon="podman"
+  fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "sdc" ] || [ "$icon" = "curvine" ] || [ "$icon" = "llmd" ] || [ "$icon" = "openeverest" ] || [ "$icon" = "oxia" ] || [ "$icon" = "cedarpolicy" ] || [ "$icon" = "xregistry" ] || [ "$icon" = "cadence" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "podmandesktop" ] || [ "$icon" = "podmancontainertools" ] || [ "$icon" = "bootc" ] || [ "$icon" = "composefs" ] || [ "$icon" = "atlantis" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "lima" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "curvine" ] || [ "$icon" = "oxia" ] || [ "$icon" = "composefs" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -345,6 +365,26 @@ do
   then
     magick "$HOME/dev/cncf/artwork/projects/kpt/icon/color/kpt_icon_color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 44
     cp "$HOME/dev/cncf/artwork/projects/kpt/icon/color/kpt_icon_color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 45
+    continue
+  elif [ "$icon" = "openeverest" ]
+  then
+    magick "$HOME/dev/cncf/artwork/projects/openeverest/icon/light/openeverest-icon-light.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 46
+    cp "$HOME/dev/cncf/artwork/projects/openeverest/icon/light/openeverest-icon-light.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 47
+    continue
+  elif [ "$icon" = "cartography" ]
+  then
+    magick "$HOME/dev/cncf/artwork/projects/cartography/icon/color/cartography-icon-color.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 48
+    cp "$HOME/dev/cncf/artwork/projects/cartography/stacked/color/cartography-stacked-color.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 49
+    continue
+  elif ( [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] )
+  then
+    magick "$HOME/dev/$iconorg/artwork/$path/stacked/$icontype/$icon-stacked-$icontype.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 50
+    cp "$HOME/dev/$iconorg/artwork/$path/stacked/$icontype/$icon-stacked-$icontype.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 51
+    continue
+  elif [ "$icon" = "lima" ]
+  then
+    magick "$HOME/dev/$iconorg/artwork/$path/horizontal/$icontype/$icon-horizontal-$icontype.png" -resize 80x80 "/var/www/html/img/$proj-icon-color.png" || exit 52
+    cp "$HOME/dev/$iconorg/artwork/$path/horizontal/$icontype/$icon-horizontal-$icontype.svg" "/var/www/html/img/$proj-icon-color.svg" || exit 53
     continue
   fi
   # All others
