@@ -26,7 +26,7 @@
 #   ONLY="patroni,web"        run only listed sections
 #   SKIP="cjlogs,clones"      skip listed sections
 # Sections:
-#   tools preflight nodes pods cronjobs cjlogs sync periods affs flags dblogs eventids durations patroni storage clones nodesys web backups certs dns traffic
+#   tools preflight provisioning nodes pods cronjobs cjlogs sync periods affs flags dblogs eventids durations patroni storage clones nodesys web backups certs dns traffic
 #
 # Tunables (env):
 #   PAR=16                    parallelism for curl/dns checks       LOGS_PAR=8       parallelism for log scans
@@ -68,6 +68,9 @@
 #   KNOWN_DOWN_HOSTS_RE=...   optional: hosts matching this regex report as NOTE instead of WARN/CRIT in web/certs/dns (default: unset - all failures are real issues)
 #                             (default: graphql.org family awaiting DNS flip to Linode)
 #   ARCHIVED_DBS_RE=...       DB/project names matching this regex are skipped (archived/merged projects)
+#   PROVISIONING_RE=...       optional: DB/project names matching this regex are treated as "being provisioned/merged"
+#                             (NOTE instead of WARN/CRIT for the expected side effects) even without a detectable
+#                             provision/bootstrap pod; by default that state is auto-detected from pods (see provisioning section)
 #
 # Exit codes: 0 = all OK, 1 = notices only, 2 = warnings, 3 = criticals.
 #---------------------------------------------------------------------------------------------------------------------
@@ -147,6 +150,8 @@ known_down() { [ -n "$KNOWN_DOWN_HOSTS_RE" ] && grep -qE "$KNOWN_DOWN_HOSTS_RE" 
 # first DNS label of an ingress host == project url/db name for project hosts
 archived_host() { archived_db "${1%%.*}"; }
 archived_db() { grep -qE "$ARCHIVED_DBS_RE" <<<"$1"; }
+# projects being provisioned / All CNCF being merged or re-initialized (auto-detected from pods below; forced via regex)
+PROVISIONING_RE="${PROVISIONING_RE:-}"
 
 # ----------------------------------------------------------------------------------------------- output helpers ----
 N_OK=0; N_NOTE=0; N_WARN=0; N_CRIT=0
@@ -288,6 +293,79 @@ if run_section preflight; then
   if retry3 kubectl top nodes; then ok "metrics-server responds (kubectl top nodes)"; else warn "metrics-server not responding (3 attempts) - node/pod usage checks degraded"; fi
 fi
 
+# ------------------------------------------------------------------------------------------------ provisioning -----
+# A project being provisioned (pod devstats-provision-<proj>, label type=provision; runs for days) or All CNCF being
+# merged/re-initialized (bootstrap/debug pod, label type=boot; devstats-provision-all) is a normal recurring state
+# (devstats-helm ADDING_NEW_PROJECTS.md). Its expected side effects - no 'provisioned' flag, empty/stale
+# gha_last_computed, no clones/backup yet, retried gha2db HTTP errors, crons suspended during a merge - are reported
+# as NOTE while the pod is healthy and escalate only when the pod itself failed (then every check keeps its normal
+# severity). Detection always runs (cheap, one pod list per stage); the section only reports.
+declare -A PROVISIONING=()     # stage -> "proj db ..." names currently being provisioned/merged
+declare -A PROVISIONED_RECENT=()  # stage -> names whose provision pod already Succeeded (pod not deleted yet)
+declare -A PROVPODS=()         # stage -> lines: pod|kind|proj|db|state|phase|reason|exit|restarts|node|started
+proj2db() { case "$1" in kubernetes) echo gha;; all) echo allprj;; *) echo "$1";; esac; }
+provisioning_db() {  # provisioning_db <stage> <db-or-proj> -> 0 when being provisioned/merged (or forced by PROVISIONING_RE)
+  [ -n "$PROVISIONING_RE" ] && grep -qE "$PROVISIONING_RE" <<<"$2" && return 0
+  case " ${PROVISIONING[$1]:-} " in *" $2 "*) return 0;; esac
+  return 1
+}
+provisioning_active() { [ -n "${PROVISIONING[$1]:-}" ] || [ -n "$PROVISIONING_RE" ]; }
+recently_provisioned_db() { case " ${PROVISIONED_RECENT[$1]:-} " in *" $2 "*) return 0;; esac; return 1; }
+all_provisioning() {  # all_provisioning <stage> <names...> -> 0 when the list is non-empty and every name is provisioning
+  local st="$1" n; shift
+  [ $# -gt 0 ] || return 1
+  for n in "$@"; do provisioning_db "$st" "$n" || return 1; done
+  return 0
+}
+for st in $STAGES; do
+  kjson "$TMPD/provpods-$st.json" $(ctx "$st") -n "devstats-$st" get pods -l 'type in (provision,boot)' || true
+  : > "$TMPD/provpods-$st.txt"
+  while IFS='|' read -r pod kind proj phase reason node started restarts cstate creason cexit; do
+    [ -z "$pod" ] && continue
+    if [ "$kind" = "boot" ]; then proj="all"; else [ -z "$proj" ] && proj="${pod#devstats-provision-}"; fi
+    db="$(proj2db "$proj")"
+    names="$proj "; [ "$db" != "$proj" ] && names="$proj $db "
+    state=running
+    case "$phase" in
+      Succeeded) state=done;;
+      Failed|Unknown) state=failed;;
+      Pending) state=pending;;
+    esac
+    case "$creason" in CrashLoopBackOff|Error|ImagePullBackOff|ErrImagePull|CreateContainerConfigError|CreateContainerError|OOMKilled) state=failed;; esac
+    [ -n "$cexit" ] && [ "$cexit" != "0" ] && [ "$cstate" = "terminated" ] && state=failed
+    case "$state" in
+      running|pending) PROVISIONING[$st]="${PROVISIONING[$st]:-}$names";;
+      done) PROVISIONED_RECENT[$st]="${PROVISIONED_RECENT[$st]:-}$names";;
+    esac
+    echo "$pod|$kind|$proj|$db|$state|$phase|${reason:-${creason:-}}|${cexit:-}|${restarts:-0}|${node:-}|${started:-}" >> "$TMPD/provpods-$st.txt"
+  done < <(jq -r '.items[] | "\(.metadata.name)|\(.metadata.labels.type // "")|\(.metadata.labels.proj // "")|\(.status.phase // "")|\(.status.reason // "")|\(.spec.nodeName // "")|\(.status.startTime // .metadata.creationTimestamp)|\((.status.containerStatuses // [])[0].restartCount // 0)|\(((.status.containerStatuses // [])[0].state // {}) | keys[0] // "")|\((.status.containerStatuses // [])[0].state.waiting.reason // (.status.containerStatuses // [])[0].state.terminated.reason // "")|\((.status.containerStatuses // [])[0].state.terminated.exitCode // "")"' "$TMPD/provpods-$st.json" 2>/dev/null)
+  PROVPODS[$st]="$TMPD/provpods-$st.txt"
+done
+if run_section provisioning; then
+  section provisioning "projects being provisioned / All CNCF merge or reinit in progress (provision + bootstrap pods)"
+  for st in $STAGES; do
+    [ -n "$PROVISIONING_RE" ] && note "[$st] PROVISIONING_RE='$PROVISIONING_RE' forces matching DBs into the provisioning state"
+    [ -s "${PROVPODS[$st]}" ] || { ok "[$st] no provision/bootstrap pods"; continue; }
+    while IFS='|' read -r pod kind proj db state phase reason cexit restarts node started; do
+      [ -z "$pod" ] && continue
+      age="$(sfmt $(( NOW_EPOCH - $(iso2epoch "$started") )))"
+      what="provisioning of $proj"; [ "$kind" = "boot" ] && what="bootstrap/debug pod (All CNCF merge/reinit assumed)"
+      case "$state" in
+        running)
+          kc "$st" logs "$pod" --tail=200 > "$TMPD/provlog-$st-$pod.txt" 2>/dev/null </dev/null || true
+          last="$(tail -n 1 "$TMPD/provlog-$st-$pod.txt" 2>/dev/null | head -c 160)"
+          bad="$(grep -E 'panic:|fatal error:|FATAL:|exit status [1-9]|Error updating git repos' "$TMPD/provlog-$st-$pod.txt" 2>/dev/null | tail -n 1 | head -c 160)"
+          note "[$st] $what in progress: pod $pod Running on $node for $age (restarts $restarts)${last:+; last log: $last}"
+          [ -n "$bad" ] && warn "[$st] $what: pod $pod log tail shows an error although still running: $bad"
+          ;;
+        pending) note "[$st] $what: pod $pod Pending${reason:+ ($reason)} for $age";;
+        done) note "[$st] $what finished: pod $pod Succeeded $age after start - follow-up steps per devstats-helm/ADDING_NEW_PROJECTS.md (env cleanup, merge into All CNCF, delete the pod)";;
+        *) crit "[$st] $what FAILED: pod $pod phase=$phase${reason:+ reason=$reason}${cexit:+ exit=$cexit} restarts=$restarts on $node ($age after start) - inspect its log, delete and recreate per devstats-helm/ADDING_NEW_PROJECTS.md";;
+      esac
+    done < "${PROVPODS[$st]}"
+  done
+fi
+
 # ------------------------------------------------------------------------------------------------------- nodes -----
 NODES_LIST="${NODES:-}"
 if [ -z "$NODES_LIST" ]; then
@@ -416,7 +494,9 @@ if run_section cronjobs; then
     ok "[$st] $ncj CronJobs inventoried"
     while IFS='|' read -r name sched susp lastsched lastok created; do
       [ -z "$name" ] && continue
-      [ "$susp" = "true" ] && warn "[$st] CronJob $name is SUSPENDED"
+      if [ "$susp" = "true" ]; then
+        if provisioning_active "$st"; then note "[$st] CronJob $name is SUSPENDED (provisioning/merge in progress: $(echo ${PROVISIONING[$st]:-$PROVISIONING_RE}))"; else warn "[$st] CronJob $name is SUSPENDED"; fi
+      fi
       iv="$(sched_interval_h "$sched")"
       if [ -n "$lastsched" ]; then
         a=$(age_h "$(iso2epoch "$lastsched")")
@@ -560,12 +640,13 @@ if run_section sync; then
     while IFS='|' read -r db iv secs; do
       [ -z "$db" ] && continue
       case "$secs" in ''|err|*[!0-9-]*) warn "[$st] $db: cannot read gha_last_computed"; continue;; esac
-      [ "$secs" = "-1" ] && { warn "[$st] $db: gha_last_computed is empty"; continue; }
+      [ "$secs" = "-1" ] && { if provisioning_db "$st" "$db"; then note "[$st] $db: gha_last_computed is empty (provisioning in progress)"; else warn "[$st] $db: gha_last_computed is empty"; fi; continue; }
       h=$((secs/3600))
       if [ "$iv" -le 6 ]; then w=$FRESH_6H_WARN; c=$FRESH_6H_CRIT
       elif [ "$iv" -le 24 ]; then w=$FRESH_DAILY_WARN; c=$FRESH_DAILY_CRIT
       else w=$FRESH_MONTHLY_WARN; c=$((FRESH_MONTHLY_WARN*2)); fi
-      if [ "$h" -ge "$c" ]; then crit "[$st] $db sync STALE: last computed $(hfmt $h) ago (cadence ${iv}h)"
+      if [ "$h" -ge "$w" ] && provisioning_db "$st" "$db"; then note "[$st] $db sync stale: last computed $(hfmt $h) ago (cadence ${iv}h) - provisioning/merge in progress"
+      elif [ "$h" -ge "$c" ]; then crit "[$st] $db sync STALE: last computed $(hfmt $h) ago (cadence ${iv}h)"
       elif [ "$h" -ge "$w" ]; then warn "[$st] $db sync stale: last computed $(hfmt $h) ago (cadence ${iv}h)"
       else ok "[$st] $db fresh: $(hfmt $h) ago (cadence ${iv}h)"; fi
     done < "$TMPD/freshout-$st.txt"
@@ -580,7 +661,8 @@ if run_section sync; then
       while IFS='|' read -r db secs; do
         case "$secs" in ''|err|*[!0-9-]*) note "[$st] $db: no sevents_h readable"; continue;; esac
         h=$((secs/3600))
-        if [ "$h" -ge "$SEVENTS_WARN" ]; then warn "[$st] $db dashboards data (sevents_h) ends $(hfmt $h) ago"
+        if [ "$h" -ge "$SEVENTS_WARN" ] && provisioning_db "$st" "$db"; then note "[$st] $db dashboards data (sevents_h) ends $(hfmt $h) ago - merge/reinit in progress"
+        elif [ "$h" -ge "$SEVENTS_WARN" ]; then warn "[$st] $db dashboards data (sevents_h) ends $(hfmt $h) ago"
         else ok "[$st] $db dashboards data (sevents_h) current to $(hfmt $h) ago"; fi
       done < "$TMPD/sevents-$st.txt"
     fi
@@ -701,19 +783,21 @@ if run_section flags; then
         # a monthly affiliations import (devel/affiliations flow) sets affs_lock_<db> on the devstats DB, clears the
         # project's 'provisioned' flag for the duration of the import and re-sets it at the end -> a DB without
         # 'provisioned' whose affs_lock_<db> is currently held is a transient, expected state, not a CRIT
-        affs_dbs=""; explained=""; unexplained=""
+        affs_dbs=""; explained=""; provd=""; unexplained=""
         if [ -n "$missp" ]; then
           p="${PRIMARY[$st]:-$(primary_pod "$st")}"
           [ -n "$p" ] && affs_dbs="$(printf 'psql -U %s -d devstats -tA -c "select substr(metric, 11) from gha_computed where metric like %s"\n' "$PG_USER" "'affs_lock_%'" | pg_script "$st" "$p" | tr '\n' ' ')"
           for mdb in $missp; do
+            if provisioning_db "$st" "$mdb"; then provd="$provd$mdb "; continue; fi
             case " $affs_dbs " in *" $mdb "*) explained="$explained$mdb ";; *) unexplained="$unexplained$mdb ";; esac
           done
         fi
         nreasons="$(sed -n '/^NOT OK/,$p' "$out" | grep -cE '^ *- ' || true)"
-        if [ -n "$explained" ] && [ -z "$unexplained" ] && [ "${nreasons:-0}" -eq 1 ]; then
-          note "[$st] flags report: $(echo $explained | wc -w | tr -d ' ') DB(s) without 'provisioned' while their affiliations import holds affs_lock_<db> (transient, re-set at the end of the import): ${explained% }"
+        if [ -n "$explained$provd" ] && [ -z "$unexplained" ] && [ "${nreasons:-0}" -eq 1 ]; then
+          [ -n "$explained" ] && note "[$st] flags report: $(echo $explained | wc -w | tr -d ' ') DB(s) without 'provisioned' while their affiliations import holds affs_lock_<db> (transient, re-set at the end of the import): ${explained% }"
+          [ -n "$provd" ] && note "[$st] flags report: $(echo $provd | wc -w | tr -d ' ') DB(s) without 'provisioned' while being provisioned/merged (healthy provision/bootstrap pod - see provisioning section): ${provd% }"
         else
-          crit "[$st] flags report NOT OK (rc=$rc): $(sed -n '/^NOT OK/,$p' "$out" | tr '\n' '; ' | head -c 300)${unexplained:+ [missing provisioned: ${unexplained% }]}${explained:+ [missing provisioned but affiliations import in progress: ${explained% }]}"
+          crit "[$st] flags report NOT OK (rc=$rc): $(sed -n '/^NOT OK/,$p' "$out" | tr '\n' '; ' | head -c 300)${unexplained:+ [missing provisioned: ${unexplained% }]}${explained:+ [missing provisioned but affiliations import in progress: ${explained% }]}${provd:+ [missing provisioned but provisioning/merge in progress: ${provd% }]}"
         fi
       fi
       [ "$VERBOSE" = "1" ] && sed 's/^/      | /' "$out" | tail -40
@@ -734,6 +818,7 @@ if run_section dblogs; then
     {
       echo "psql -U $PG_USER -d devstats -tA -F'|' <<'SQL'"
       echo "with w as ("
+      echo "  select * from ("
       echo "  select proj, prog, dt, run_dt, msg,"
       echo "    case"
       echo "      when msg like '%panic:%' or msg like '%fatal error:%' or msg like '%stacktrace:%' or msg like '%Stacktrace:%' or msg like '%Error(time=%' then 'panic'"
@@ -771,8 +856,9 @@ if run_section dblogs; then
       echo "      when msg ilike '%error%' and msg not ilike '%0 errors%' and msg not ilike '%errors=0%' then 'generic_error'"
       echo "    end as class"
       echo "  from gha_logs where ${DBLOGS_PRED}"
+      echo "  ) w0 where class is not null"
       echo ")"
-      echo "select 'cnt', class, cnt, mn, mx, sample from ("
+      echo "select 'cnt', class, cnt, mn, mx, projs, sample from ("
       echo "  select class,"
       echo "    count(*) over (partition by class) as cnt,"
       echo "    to_char(min(dt) over (partition by class), 'YYYY-MM-DD HH24:MI:SS') as mn,"
@@ -780,11 +866,11 @@ if run_section dblogs; then
       echo "    proj || ' @ ' || to_char(dt, 'YYYY-MM-DD HH24:MI:SS') || ': ' || left(replace(msg, E'\n', ' '), 180) as sample,"
       echo "    row_number() over (partition by class order by dt desc) as rn"
       echo "  from w where class is not null"
-      echo ") x where rn = 1;"
+      echo ") x join (select class, string_agg(distinct proj, ' ') as projs from w group by class) y using (class) where rn = 1;"
       echo "SQL"
     } | pg_script "$st" "$p" > "$f" || true
-    # counts per class -> severity (row: cnt|class|N|firstdt|lastdt|sample)
-    while IFS='|' read -r tag class cntv firstdt lastdt smp; do
+    # counts per class -> severity (row: cnt|class|N|firstdt|lastdt|projs|sample)
+    while IFS='|' read -r tag class cntv firstdt lastdt projs smp; do
       [ "$tag" = "cnt" ] || continue
       span="between $firstdt and $lastdt"
       case "$class" in
@@ -814,7 +900,9 @@ if run_section dblogs; then
         overlap_guard)            ok "[$st] gha_logs: $cntv overlap-guard exit(s) (benign: sync already running), $span";;
         dice_skip)                ok "[$st] gha_logs: $cntv sync_probabilty dice skip(s), $span";;
         metric_no_data)           ok "[$st] gha_logs: $cntv 'Metric returned no data' line(s) (usually benign), $span";;
-        http_json_error)          warn "[$st] gha_logs: $cntv HTTP-get/JSON-unmarshal error(s), $span; sample: $smp";;
+        http_json_error)
+          if all_provisioning "$st" $projs; then note "[$st] gha_logs: $cntv HTTP-get/JSON-unmarshal error(s) only from project(s) being provisioned ($projs; gha2db retries them, an exhausted retry chain shows up as panic), $span"
+          else warn "[$st] gha_logs: $cntv HTTP-get/JSON-unmarshal error(s), $span; sample: $smp"; fi;;
         data_conflict)            note "[$st] gha_logs: $cntv artificial/orphan event id conflict(s) (skipped rows), $span";;
         nonfatal_error)           note "[$st] gha_logs: $cntv explicitly non-fatal/ignored error line(s), $span";;
         go_warning)               note "[$st] gha_logs: $cntv 'Warning:' line(s) (mixed benign classes), $span";;
@@ -1311,6 +1399,7 @@ if run_section clones; then
           echo 'EOF_LIST'
         } | ssh $SSH_OPTS "$SSH_USER@$node" bash -s > "$TMPD/cloneout-$st-$node.txt" 2>/dev/null
         while IFS='|' read -r proj status extra extra2; do
+          if [ -n "$proj" ] && [ "$status" != "ok" ] && provisioning_db "$st" "$proj"; then note "[$st] $proj: clones not present yet ($status) in PVC on $node - provisioning in progress"; continue; fi
           case "$status" in
             ok) ok "[$st] $proj clones present on $node (${extra:-?} org dirs sampled)";;
             nomain) warn "[$st] $proj: main repo clone MISSING ($extra) in PVC on $node";;
@@ -1503,11 +1592,13 @@ fi
 if run_section backups; then
   section backups "backups CJ, nginx backups page presence + per-DB dump freshness"
   collect_cj prod
+  BK_LASTOK_EPOCH=0
   line="$(grep '^devstats-backups|' "$TMPD/cjsched-prod.txt" || true)"
   if [ -n "$line" ]; then
     lastok="$(echo "$line" | cut -d'|' -f5)"
     created="$(echo "$line" | cut -d'|' -f6)"
     if [ -n "$lastok" ]; then
+      BK_LASTOK_EPOCH="$(iso2epoch "$lastok")"
       a=$(age_h "$(iso2epoch "$lastok")")
       [ "$a" -gt $((BACKUP_WARN_DAYS*24)) ] && warn "backups CJ last success $(hfmt $a) ago" || ok "backups CJ last success $(hfmt $a) ago (schedule $(echo "$line" | cut -d'|' -f2))"
     elif [ "$(age_h "$(iso2epoch "$created")")" -gt $((BACKUP_WARN_DAYS*24)) ]; then
@@ -1545,14 +1636,24 @@ if run_section backups; then
         else stale=$((stale+1)); warn "backup $fn is ${ad}d old (> ${BACKUP_WARN_DAYS}d)"; fi
       else ok "backup $fn ${ad}d old ($sz bytes)"; fi
     done < "$TMPD/backups.txt"
-    # DBs missing a dump entirely
+    # DBs missing a dump entirely (a DB provisioned after the last backups run is only covered by the next run -> NOTE)
     if [ -f devel/all_prod_dbs.txt ]; then
       miss=0
       while read -r db; do
         [ -z "$db" ] && continue
         case "$db" in devstats) continue;; esac
         archived_db "$db" && { note "archived project DB $db skipped in backups check"; continue; }
-        grep -qE "^$db\.(dump|tar\.xz)\|" "$TMPD/backups.txt" || { miss=$((miss+1)); warn "no backup (dump/tar.xz) found for DB $db"; }
+        grep -qE "^$db\.(dump|tar\.xz)\|" "$TMPD/backups.txt" && continue
+        if provisioning_db prod "$db" || recently_provisioned_db prod "$db"; then
+          note "no backup yet for DB $db (provisioning in progress/just finished; the next backups CJ run covers it)"; continue
+        fi
+        pinfo="$(printf 'psql -U %s -d %s -tAc "select extract(epoch from max(dt))::bigint || %s || to_char(max(dt), %s) from gha_computed where metric = %s"\n' "$PG_USER" "$db" "'|'" "'YYYY-MM-DD HH24:MI'" "'provisioned'" | pg_script prod "${PRIMARY[prod]:-$(primary_pod prod)}" | tr -d '\n')"
+        pep="${pinfo%%|*}"; case "$pep" in ''|*[!0-9]*) pep=0;; esac
+        if [ "$pep" -gt "$BK_LASTOK_EPOCH" ] && [ "$pep" -gt 0 ]; then
+          note "no backup yet for DB $db ('provisioned' set ${pinfo#*|} UTC, after the last backups run; covered by the next run)"
+        else
+          miss=$((miss+1)); warn "no backup (dump/tar.xz) found for DB $db"
+        fi
       done < <(tr ' \t' '\n' < devel/all_prod_dbs.txt | sed '/^$/d')
       [ "$miss" = "0" ] && ok "every DB from devel/all_prod_dbs.txt has a backup on the backups page"
     fi
