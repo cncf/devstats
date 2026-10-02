@@ -35,5 +35,5 @@ do
     echo "$1: could not acquire '$2' lock after $attempts attempts, current owner: '$got'"
     exit 3
   fi
-  sleep 10
+  sleep 30
 done
