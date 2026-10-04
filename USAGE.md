@@ -150,7 +150,6 @@ You can tweak `devstats` tools by environment variables:
 - Set `GHA2DB_ACTORS_ALLOW`, `gha2db` tool, process JSON if actor matches this regexp, default "" which means skip this check.
 - Set `GHA2DB_ACTORS_FORBID`, `gha2db` tool, process JSON if actor doesn't match this regexp, default "" which means skip this check.
 - Set `GHA2DB_ONLY_METRICS`, `gha2db_sync` tool, default "" - comma separated list of metrics to process, as fiven my "sql: name" in the "metrics.yaml" file. Only those metrics will be calculated.
-- Set `GHA2DB_ALLOW_BROKEN_JSON`, `gha2db` tool, default false. If set then gha2db skips broken jsons and saves them as `jsons/error_YYYY-MM-DD-h-n-m.json` (n is the JSON number (1-m) of m JSONS array).
 - Set `GHA2DB_JSONS_DIR`, `website_data` tool, JSONs output directory default `./jsons/`.
 - Set `GHA2DB_WEBSITEDATA`, `devstats` tool, run `website_data` just after sync is complete, default false.
 - Set `GHA2DB_SKIP_UPDATE_EVENTS`, ghapi2db tool, drop and recreate artificial events if their state differs, default false.
