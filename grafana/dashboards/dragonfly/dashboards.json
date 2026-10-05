@@ -2349,6 +2349,36 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "K2s",
+      "tooltip": "Opens K2s projects dashboards",
+      "type": "link",
+      "url": "https://k2s.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "OpenShell",
+      "tooltip": "Opens OpenShell projects dashboards",
+      "type": "link",
+      "url": "https://openshell.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Hive Commons",
+      "tooltip": "Opens Hive Commons projects dashboards",
+      "type": "link",
+      "url": "https://hivecommons.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",

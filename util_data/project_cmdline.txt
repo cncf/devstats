@@ -93,6 +93,7 @@ headlamp,headlamp-k8s,kinvolk/headlamp,kubernetes-purgatory/headlamp,kubernetes-
 helm,helm,kubernetes-helm,kubernetes-charts,kubernetes/helm,kubernetes/charts,kubernetes/deployment-manager,kubernetes/application-dm-templates
 hexapolicyorchestrator,hexa-org
 higress,higress-group,alibaba/higress
+hivecommons,hivecommons,kubestellar/hive,kubestellar/supervised-agent
 holmesgpt,HolmesGPT,robusta-dev/holmesgpt,robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets
 hwameistor,hwameistor
 hyperledger,hyperledger,hyperledger-labs,hyperledger-cicd
@@ -108,6 +109,7 @@ jaeger,jaegertracing,uber/jaeger
 jenkins,jenkinsci,jenkins-infra
 jenkinsx,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins
 k0s,k0sproject
+k2s,Siemens-Healthineers/K2s
 k3s,k3s-io
 k8dash,indeedeng/k8dash,indeedeng/k8dash-website,herbrandson/k8dash,skooner-k8s
 k8gb,k8gb-io,AbsaOSS/k8gb,AbsaOSS/ohmyglb
@@ -209,6 +211,7 @@ openmetrics,OpenObservability,OpenMetrics,openmetrics,prometheus/OpenMetrics,Ric
 opennetworkinglab,opennetworkinglab
 opensecuritycontroller,opensecuritycontroller
 openservicemesh,openservicemesh
+openshell,regexp:(?i)^NVIDIA\/OpenShell.*$
 openswitch,open-switch
 opentelemetry,open-telemetry,opentracing
 opentofu,opentofu,opentffoundation,openterraform

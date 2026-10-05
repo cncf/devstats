@@ -874,6 +874,15 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "kuberay" ]
   then
     PROJ=kuberay             PROJDB=kuberay        PROJREPO="ray-project/kuberay"             ORGNAME=KubeRay           PORT=3331 ICON=kuberay        GRAFSUFF=kuberay        GA="-" ./devel/deploy_proj.sh               || exit 36
+  elif [ "$proj" = "k2s" ]
+  then
+    PROJ=k2s                 PROJDB=k2s            PROJREPO="Siemens-Healthineers/K2s"        ORGNAME=K2s               PORT=3332 ICON=k2s            GRAFSUFF=k2s            GA="-" ./devel/deploy_proj.sh               || exit 37
+  elif [ "$proj" = "openshell" ]
+  then
+    PROJ=openshell           PROJDB=openshell      PROJREPO="NVIDIA/OpenShell"                ORGNAME=OpenShell         PORT=3333 ICON=openshell      GRAFSUFF=openshell      GA="-" ./devel/deploy_proj.sh               || exit 38
+  elif [ "$proj" = "hivecommons" ]
+  then
+    PROJ=hivecommons         PROJDB=hivecommons    PROJREPO="hivecommons/hive"                ORGNAME="Hive Commons"    PORT=3334 ICON=hivecommons    GRAFSUFF=hivecommons    GA="-" ./devel/deploy_proj.sh               || exit 39
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32

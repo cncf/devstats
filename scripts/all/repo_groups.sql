@@ -2656,6 +2656,34 @@ where
   lower(org_login) in ('ray-project')
 ;
 
+-- K2s
+update
+  gha_repos
+set
+  repo_group = 'K2s'
+where
+  lower(name) in ('siemens-healthineers/k2s')
+;
+
+-- OpenShell
+update
+  gha_repos
+set
+  repo_group = 'OpenShell'
+where
+  name ~ '(?i)^NVIDIA\/OpenShell.*$'
+;
+
+-- Hive Commons
+update
+  gha_repos
+set
+  repo_group = 'Hive Commons'
+where
+  lower(org_login) in ('hivecommons')
+  or lower(name) in ('kubestellar/hive', 'kubestellar/supervised-agent')
+;
+
 -- CNCF
 update
   gha_repos
