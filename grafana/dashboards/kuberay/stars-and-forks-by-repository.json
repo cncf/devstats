@@ -45,7 +45,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 38,
-  "iteration": 1730741185186,
+  "iteration": 1791206584074,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -540,9 +540,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "KubeRay",
-          "value": "KubeRay"
+          "selected": true,
+          "text": "ray-project/ray",
+          "value": "ray-project/ray"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "kuberay",
-          "value": "kuberay"
+          "text": "rayprojectray",
+          "value": "rayprojectray"
         },
         "datasource": {
           "type": "postgres",
