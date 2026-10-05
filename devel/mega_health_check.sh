@@ -36,7 +36,8 @@
 #   FRESH_DAILY_WARN=27 FRESH_DAILY_CRIT=51   for daily schedules (giants roll 1% dice too)
 #   FRESH_MONTHLY_WARN=840    (35d, hours) for monthly schedules (affiliations, backups)
 #   SEVENTS_WARN=30           max age (hours) of sevents_h coverage in allprj/gha
-#   BACKUP_WARN_DAYS=23       max age of newest backup dump per DB
+#   BACKUP_WARN_DAYS=33       max age of newest backup dump per DB (backups CJ runs on the 10th/20th and backups.sh
+#                             re-dumps only when age > 4d+rand(7d), so a randomly skipped DB legitimately reaches ~31d)
 #   CERT_WARN_DAYS=21 CERT_CRIT_DAYS=7  TLS expiry thresholds
 #   DF_WARN=80 DF_CRIT=90     disk usage % thresholds               INODE_WARN=80
 #   MEM_WARN=90               node mem usage %                      PODS_MAX=200 PODS_MIN=1  pods per node
@@ -96,7 +97,7 @@ FRESH_DAILY_WARN="${FRESH_DAILY_WARN:-27}"
 FRESH_DAILY_CRIT="${FRESH_DAILY_CRIT:-51}"
 FRESH_MONTHLY_WARN="${FRESH_MONTHLY_WARN:-840}"
 SEVENTS_WARN="${SEVENTS_WARN:-30}"
-BACKUP_WARN_DAYS="${BACKUP_WARN_DAYS:-23}"
+BACKUP_WARN_DAYS="${BACKUP_WARN_DAYS:-33}"
 CERT_WARN_DAYS="${CERT_WARN_DAYS:-21}"
 CERT_CRIT_DAYS="${CERT_CRIT_DAYS:-7}"
 DF_WARN="${DF_WARN:-80}"
@@ -817,10 +818,10 @@ if run_section dblogs; then
     f="$TMPD/dblogs-$st.txt"
     {
       echo "psql -U $PG_USER -d devstats -tA -F'|' <<'SQL'"
-      echo "with w as ("
-      echo "  select * from ("
+      echo "with w0 as ("
       echo "  select proj, prog, dt, run_dt, msg,"
       echo "    case"
+      echo "      when msg like 'changed issue title:%' then null"  # ghapi2db echoes user-authored titles (may contain 'context deadline exceeded', 'error', ...)
       echo "      when msg like '%panic:%' or msg like '%fatal error:%' or msg like '%stacktrace:%' or msg like '%Stacktrace:%' or msg like '%Error(time=%' then 'panic'"
       echo "      when msg like '%There were sync errors%' then 'sync_errors'"
       echo "      when msg like '%Error updating git repos%' then 'git_repos_error'"
@@ -856,7 +857,14 @@ if run_section dblogs; then
       echo "      when msg ilike '%error%' and msg not ilike '%0 errors%' and msg not ilike '%errors=0%' then 'generic_error'"
       echo "    end as class"
       echo "  from gha_logs where ${DBLOGS_PRED}"
-      echo "  ) w0 where class is not null"
+      echo "), w1 as ("
+      echo "  select * from w0 where class is not null"
+      echo "), w as ("
+      echo "  select proj, prog, dt, run_dt, msg,"
+      echo "    case when class = 'sync_errors' and exists (select 1 from w1 g where g.run_dt = w1.run_dt and g.prog = w1.prog"
+      echo "      and coalesce(g.proj, '') = coalesce(w1.proj, '') and g.class in ('provision_guard', 'overlap_guard'))"
+      echo "      then 'sync_errors_guard' else class end as class"
+      echo "  from w1"
       echo ")"
       echo "select 'cnt', class, cnt, mn, mx, projs, sample from ("
       echo "  select class,"
@@ -875,7 +883,8 @@ if run_section dblogs; then
       span="between $firstdt and $lastdt"
       case "$class" in
         panic)                    crit "[$st] gha_logs: $cntv panic/stacktrace/fatal-error line(s), $span; sample: $smp";;
-        sync_errors)              warn "[$st] gha_logs: $cntv 'There were sync errors' line(s), $span (overlap/provision-guard exits also emit this); sample: $smp";;
+        sync_errors)              warn "[$st] gha_logs: $cntv 'There were sync errors' line(s), $span; sample: $smp";;
+        sync_errors_guard)        note "[$st] gha_logs: $cntv 'There were sync errors' line(s) from provision/overlap-guard exits (by design: nothing ran), $span; sample: $smp";;
         git_repos_error)          warn "[$st] gha_logs: $cntv git-repos update error(s), $span; sample: $smp";;
         ghapi2db_error)           warn "[$st] gha_logs: $cntv ghapi2db execution error(s), $span; sample: $smp";;
         reconcile_dbs_error)      warn "[$st] gha_logs: $cntv reconcile_dbs execution error(s), $span; sample: $smp";;
@@ -1216,7 +1225,9 @@ if run_section durations; then
       run_note=""
       [ "$runningf" = "r" ] && run_note=" (latest run may still be running)"
       det="$n run(s), min $(sfmt $mn), avg $(sfmt $av) ±$(sfmt $sd), p95 $(sfmt $p95), max $(sfmt $mx) (started $mxstart)$run_note"
-      if [ "$mx" -ge "$tc" ]; then
+      if [ "$mx" -ge "$tn" ] && { provisioning_db "$st" "$proj" || recently_provisioned_db "$st" "$proj"; }; then
+        note "[$st] durations: $proj/$prog long run: $det - provisioning in progress/just finished (full-history run)"
+      elif [ "$mx" -ge "$tc" ]; then
         crit "[$st] durations: $proj/$prog outstandingly long run: $det"
       elif [ "$mx" -ge "$tw" ]; then
         warn "[$st] durations: $proj/$prog very long run: $det"
