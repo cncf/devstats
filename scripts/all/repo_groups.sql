@@ -95,7 +95,7 @@ set
   repo_group = 'containerd'
 where
   org_login = 'containerd'
-  or name = 'docker/containerd'
+  or name in ('docker/containerd', 'kubernetes-incubator/cri-containerd')
 ;
 
 -- rkt
@@ -405,7 +405,10 @@ where
   org_login in ('openebs')
   and name not in (
     'openebs/test-storage',
-    'openebs/litmus'
+    'openebs/litmus',
+    'openebs/litmus-docs',
+    'openebs/test-tools',
+    'openebs/test-tools-'
   )
 ;
 
@@ -475,7 +478,9 @@ where
     'k8snetworkplumbingwg/kubemacpool',
     'k8snetworkplumbingwg/multi-networkpolicy-iptables',
     'k8snetworkplumbingwg/sriov-network-operator',
-    'nmstate/kubernetes-nmstate'
+    'nmstate/kubernetes-nmstate',
+    'nmstate/k8s-node-net-conf',
+    'nmstate/k8s-node-net-config'
   )
 ;
 
@@ -618,7 +623,10 @@ where
   org_login in ('litmuschaos')
   or name in (
     'openebs/test-storage',
-    'openebs/litmus'
+    'openebs/litmus',
+    'openebs/litmus-docs',
+    'openebs/test-tools',
+    'openebs/test-tools-'
   )
 ;
 
@@ -1142,7 +1150,7 @@ update
 set
   repo_group = 'ORAS'
 where
-  name in ('deislabs/oras', 'shizhMSFT/oras')
+  name in ('deislabs/oras', 'shizhMSFT/oras', 'krustlet/oci-distribution')
   or org_login in ('oras-project')
 ;
 
@@ -1617,7 +1625,16 @@ where
   or name in (
     'flant/werf',
     'flant/dapp',
-    'flant/dapper'
+    'flant/dapper',
+    'flant/kubedog',
+    'flant/lockgate',
+    'flant/logboek',
+    'flant/multiwerf',
+    'flant/shluz',
+    'flant/sluis',
+    'flant/trdl',
+    'flant/werf-actions',
+    'flant/werf-demos'
   )
 ;
 
@@ -1830,7 +1847,23 @@ where
   org_login in ('kcl-lang')
   or name in (
     'KusionStack/kcl',
-    'KusionStack/KCLVM'
+    'KusionStack/KCLVM',
+    'KusionStack/KEP',
+    'KusionStack/helm-kcl',
+    'KusionStack/helmfile-kcl',
+    'KusionStack/intellij-kcl',
+    'KusionStack/kcl-lang.io',
+    'KusionStack/kcl-openapi',
+    'KusionStack/kcl-operator',
+    'KusionStack/kcl-playground',
+    'KusionStack/kcl-plugin',
+    'KusionStack/kclvm-artifact-go',
+    'KusionStack/kclvm-go',
+    'KusionStack/kpt-kcl-sdk',
+    'KusionStack/krm-kcl',
+    'KusionStack/kubectl-kcl',
+    'KusionStack/kustomize-kcl',
+    'KusionStack/vscode-kcl'
   )
 ;
 
@@ -2617,7 +2650,7 @@ set
   repo_group = 'Tekton'
 where
   org_login in ('tektoncd', 'tektoncd-catalog')
-  or name in ('knative/build')
+  or name in ('knative/build', 'knative/build-pipeline')
 ;
 
 -- kbind
@@ -2681,7 +2714,11 @@ set
   repo_group = 'Hive Commons'
 where
   lower(org_login) in ('hivecommons')
-  or lower(name) in ('kubestellar/hive', 'kubestellar/supervised-agent')
+  or lower(name) in (
+    'kubestellar/hive', 'kubestellar/supervised-agent', 'kubestellar/dibs', 'kubestellar/hotshot',
+    'kubestellar/pluk', 'kubestellar/promptargs', 'kubestellar/promptlibs', 'kubestellar/pub-sub-tmux',
+    'kubestellar/rationguard'
+  )
 ;
 
 -- CNCF

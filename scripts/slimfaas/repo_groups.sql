@@ -32,7 +32,9 @@ update gha_repos
 set repo_group = 'SlimFaaS', alias = 'SlimFaas'
 where name in (
   'AxaFrance/SlimFaaS',
-  'SlimPlanet/SlimFaaS'
+  'SlimPlanet/SlimFaaS',
+  'AxaFrance/SlimFaas',
+  'SlimPlanet/SlimFaas'
 );
 
 insert into gha_repo_groups(id, name, alias, repo_group, org_id, org_login) select id, name, alias, coalesce(repo_group, name), org_id, org_login from gha_repos on conflict do nothing;

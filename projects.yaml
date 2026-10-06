@@ -16,7 +16,7 @@ projects:
          kubernetes-providers,kubernetes-addons,kubernetes-retired,\
          kubernetes-extensions,kubernetes-federation,kubernetes-security,\
          kubernetes-sidecars,kubernetes-tools,kubernetes-test,kubernetes-sigs,\
-         GoogleCloudPlatform/kubernetes"
+         GoogleCloudPlatform/kubernetes,cncf/apisnoop"
     start_date: 2014-06-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     incubating_date: 2016-03-11T00:00:00Z
@@ -142,7 +142,7 @@ projects:
     command_line:
       - containerd
     hist_command_line:
-      - 'containerd,docker/containerd'
+      - 'containerd,docker/containerd,kubernetes-incubator/cri-containerd'
     start_date: 2015-12-17T00:00:00Z
     join_date: 2017-03-29T00:00:00Z
     graduated_date: 2019-02-28T00:00:00Z
@@ -239,6 +239,8 @@ projects:
     status: Graduated
     command_line:
       - theupdateframework
+    hist_command_line:
+      - 'theupdateframework,notaryproject/artwork'
     start_date: 2014-01-02T00:00:00Z
     join_date: 2017-10-24T00:00:00Z
     graduated_date: 2019-12-18T00:00:00Z
@@ -712,6 +714,8 @@ projects:
     status: Incubating
     command_line:
       - 'kubevirt,k8snetworkplumbingwg/kubemacpool,k8snetworkplumbingwg/multi-networkpolicy-iptables,k8snetworkplumbingwg/sriov-network-operator,nmstate/kubernetes-nmstate'
+    hist_command_line:
+      - 'kubevirt,k8snetworkplumbingwg/kubemacpool,k8snetworkplumbingwg/multi-networkpolicy-iptables,k8snetworkplumbingwg/sriov-network-operator,nmstate/kubernetes-nmstate,nmstate/k8s-node-net-conf,nmstate/k8s-node-net-config'
     start_date: 2016-04-27T00:00:00Z
     join_date: 2019-09-06T00:00:00Z
     incubating_date: 2022-04-19T00:00:00Z
@@ -762,6 +766,8 @@ projects:
     status: Graduated
     command_line:
       - kedacore
+    hist_command_line:
+      - 'kedacore,tomkerkhove/sample-dotnet-queue-worker,tomkerkhove/sample-dotnet-queue-worker-servicebus-queue'
     start_date: 2019-05-06T00:00:00Z
     join_date: 2020-03-12T00:00:00Z
     incubating_date: 2021-08-18T00:00:00Z
@@ -903,7 +909,7 @@ projects:
     command_line:
       - litmuschaos
     hist_command_line:
-      - 'litmuschaos,openebs/test-storage,openebs/litmus'
+      - 'litmuschaos,openebs/test-storage,openebs/litmus,openebs/litmus-docs,openebs/test-tools,openebs/test-tools-'
     start_date: 2017-03-15T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
     incubating_date: 2022-01-11T00:00:00Z
@@ -980,6 +986,8 @@ projects:
     status: Graduated
     command_line:
       - crossplane,crossplaneio,crossplane-contrib
+    hist_command_line:
+      - 'crossplane,crossplaneio,crossplane-contrib,kcl-lang/crossplane-kcl,tinkerbell/crossplane-provider-tinkerbell'
     start_date: 2018-12-04T00:00:00Z
     join_date: 2020-06-25T00:00:00Z
     incubating_date: 2021-09-14T00:00:00Z
@@ -1682,7 +1690,7 @@ projects:
     command_line:
     - 'oras-project'
     hist_command_line:
-    - 'oras-project,deislabs/oras,shizhMSFT/oras'
+    - 'oras-project,deislabs/oras,shizhMSFT/oras,krustlet/oci-distribution'
     start_date: 2018-12-24T00:00:00Z
     join_date: 2021-07-13T00:00:00Z
     psql_db: oras
@@ -2405,7 +2413,7 @@ projects:
     command_line:
       - werf
     hist_command_line:
-      - 'werf,flant/werf,flant/dapp,flant/dapper'
+      - 'werf,flant/werf,flant/dapp,flant/dapper,flant/kubedog,flant/lockgate,flant/logboek,flant/multiwerf,flant/shluz,flant/sluis,flant/trdl,flant/werf-actions,flant/werf-demos'
     start_date: 2016-01-25T00:00:00Z
     join_date: 2022-12-13T00:00:00Z
     psql_db: 'werf'
@@ -2707,7 +2715,7 @@ projects:
     command_line:
       - 'kcl-lang'
     hist_command_line:
-      - 'kcl-lang,KusionStack/kcl,KusionStack/KCLVM'
+      - 'kcl-lang,KusionStack/kcl,KusionStack/KCLVM,KusionStack/KEP,KusionStack/helm-kcl,KusionStack/helmfile-kcl,KusionStack/intellij-kcl,KusionStack/kcl-lang.io,KusionStack/kcl-openapi,KusionStack/kcl-operator,KusionStack/kcl-playground,KusionStack/kcl-plugin,KusionStack/kclvm-artifact-go,KusionStack/kclvm-go,KusionStack/kpt-kcl-sdk,KusionStack/krm-kcl,KusionStack/kubectl-kcl,KusionStack/kustomize-kcl,KusionStack/vscode-kcl'
     start_date: 2022-05-13T00:00:00Z
     join_date: 2023-09-20T00:00:00Z
     psql_db: 'kcl'
@@ -3258,7 +3266,7 @@ projects:
     command_line:
       - SlimPlanet
     hist_command_line:
-      - 'SlimPlanet,AxaFrance/SlimFaaS'
+      - 'SlimPlanet,AxaFrance/SlimFaaS,AxaFrance/SlimFaas'
     start_date: 2023-06-21T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
     psql_db: slimfaas
@@ -3816,7 +3824,7 @@ projects:
     command_line:
       - tektoncd,tektoncd-catalog
     hist_command_line:
-      - 'tektoncd,tektoncd-catalog,knative/build'
+      - 'tektoncd,tektoncd-catalog,knative/build,knative/build-pipeline'
     start_date: 2018-07-23T00:00:00Z
     join_date: 2026-03-13T00:00:00Z
     psql_db: tekton
@@ -3926,7 +3934,7 @@ projects:
     command_line:
       - hivecommons
     hist_command_line:
-      - 'hivecommons,kubestellar/hive,kubestellar/supervised-agent'
+      - 'hivecommons,kubestellar/hive,kubestellar/supervised-agent,kubestellar/dibs,kubestellar/hotshot,kubestellar/pluk,kubestellar/promptargs,kubestellar/promptlibs,kubestellar/pub-sub-tmux,kubestellar/rationguard'
     start_date: 2026-04-17T00:00:00Z
     join_date: 2026-09-29T00:00:00Z
     psql_db: hivecommons
@@ -4358,7 +4366,22 @@ projects:
          redsift/ingraind,plunder-app/kube-vip,krator-rs,rerpc/rerpc,AxaFrance/SlimFaaS,\
          giuseppe/composefs,cohdi,truefoundry/kubeelasti,Siemens-Healthineers/K2s,NVIDIA/OpenShell,\
          NVIDIA/OpenShell-Research,NVIDIA/OpenShell-Community,kubestellar/hive,\
-         kubestellar/supervised-agent"
+         kubestellar/supervised-agent,\
+         GoogleContainerTools/kpt-functions-catalog,GoogleContainerTools/kpt-functions-sdk,\
+         GoogleContainerTools/kpt-samples,containers/desktop,containers/podman-desktop,\
+         containers/podman-desktop-catalog,containers/podman-desktop-e2e,\
+         containers/podman-desktop-extension-bootc,\
+         containers/podman-desktop-extension-kubernetes-dashboard,\
+         containers/podman-desktop-extension-layers-explorer,\
+         containers/podman-desktop-extension-minikube,\
+         containers/podman-desktop-extension-minimal-template,\
+         fluent-plugins-nursery/fluent-package-builder,heptio/velero-csi-plugin,\
+         heptio/velero-plugin-example,htgc/fluent-plugin-kafka,\
+         kazegusuri/fluent-plugin-prometheus,kiyoto/fluent-plugin-grok-parser,\
+         okahashi117/fluent-plugin-winevtlog,repeatedly/fluent-plugin-kafka,\
+         repeatedly/fluent-plugin-prometheus,repeatedly/fluent-plugin-winevtlog,\
+         jozu-ai/homebrew-kitops,k14s/kapp,k14s/kapp-controller,k14s/kbld,k14s/vendir,\
+         projectatomic/skopeo,stateful/vscode-runme,vmware-tanzu/homebrew-carvel"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj

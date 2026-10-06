@@ -15,7 +15,7 @@ GHA2DB_PROJECT=litmuschaos PG_DB=litmuschaos GHA2DB_LOCAL=1 structure 2>>errors.
 ./devel/db.sh psql litmuschaos -c "create extension if not exists pgcrypto" || exit 1
 ./devel/db.sh psql litmuschaos -c "create extension if not exists hll" || exit 1
 ./shared/setup_shared_fdw.sh litmuschaos || exit 1
-GHA2DB_PROJECT=litmuschaos PG_DB=litmuschaos GHA2DB_LOCAL=1 gha2db 2017-03-15 0 today now 'litmuschaos,openebs/test-storage,openebs/litmus' 2>>errors.txt | tee -a run.log || exit 2
+GHA2DB_PROJECT=litmuschaos PG_DB=litmuschaos GHA2DB_LOCAL=1 gha2db 2017-03-15 0 today now 'litmuschaos,openebs/test-storage,openebs/litmus,openebs/litmus-docs,openebs/test-tools,openebs/test-tools-' 2>>errors.txt | tee -a run.log || exit 2
 GHA2DB_PROJECT=litmuschaos PG_DB=litmuschaos GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 structure 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=litmuschaos PG_DB=litmuschaos ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 4
 GHA2DB_PROJECT=litmuschaos PG_DB=litmuschaos ./shared/proj_affs_bootstrap.sh 2>>errors.txt | tee -a run.log || exit 5

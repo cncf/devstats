@@ -16,7 +16,7 @@ GHA2DB_PROJECT=hivecommons PG_DB=hivecommons GHA2DB_LOCAL=1 structure 2>>errors.
 ./devel/db.sh psql hivecommons -c "create extension if not exists hll" || exit 1
 ./shared/setup_shared_fdw.sh hivecommons || exit 1
 ./devel/ro_user_grants.sh hivecommons || exit 2
-GHA2DB_PROJECT=hivecommons PG_DB=hivecommons GHA2DB_LOCAL=1 gha2db 2026-04-17 0 today now 'hivecommons,kubestellar/hive,kubestellar/supervised-agent' 2>>errors.txt | tee -a run.log || exit 3
+GHA2DB_PROJECT=hivecommons PG_DB=hivecommons GHA2DB_LOCAL=1 gha2db 2026-04-17 0 today now 'hivecommons,kubestellar/hive,kubestellar/supervised-agent,kubestellar/dibs,kubestellar/hotshot,kubestellar/pluk,kubestellar/promptargs,kubestellar/promptlibs,kubestellar/pub-sub-tmux,kubestellar/rationguard' 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=hivecommons PG_DB=hivecommons GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 structure 2>>errors.txt | tee -a run.log || exit 5
 GHA2DB_PROJECT=hivecommons PG_DB=hivecommons ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 6
 GHA2DB_PROJECT=hivecommons PG_DB=hivecommons ./shared/setup_scripts.sh 2>>errors.txt | tee -a run.log || exit 7
