@@ -45,7 +45,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 27,
-  "iteration": 1787986166605,
+  "iteration": 1791309919721,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -307,22 +307,12 @@
         "current": {
           "selected": true,
           "text": [
-            "\"alexandernorth\"",
-            "\"steiler\"",
-            "\"henderiw\"",
-            "\"severindellsperger\"",
-            "\"faebr\"",
-            "\"CsatariGergely\"",
-            "\"shrey-gang\""
+            "\"krotz-dieter\"",
+            "\"abhitoshj\""
           ],
           "value": [
-            "\"alexandernorth\"",
-            "\"steiler\"",
-            "\"henderiw\"",
-            "\"severindellsperger\"",
-            "\"faebr\"",
-            "\"CsatariGergely\"",
-            "\"shrey-gang\""
+            "\"krotz-dieter\"",
+            "\"abhitoshj\""
           ]
         },
         "datasource": {

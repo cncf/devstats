@@ -3,15 +3,27 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       },
       {
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
         "enable": true,
         "hide": false,
         "iconColor": "rgba(255, 96, 96, 1)",
@@ -28,27 +40,32 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 63,
-  "iteration": 1533024842622,
+  "id": 14,
+  "iteration": 1791309910178,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "aliasColors": {},
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "psql",
-      "decimals": null,
+      "datasource": {
+        "type": "postgres",
+        "uid": "P172949F98CB31475"
+      },
       "description": "[[full_name]] GitHub events",
       "fill": 3,
+      "fillGradient": 0,
       "gridPos": {
         "h": 21,
         "w": 24,
         "x": 0,
         "y": 0
       },
+      "hiddenSeries": false,
       "id": 2,
       "legend": {
         "alignAsTable": true,
@@ -67,7 +84,11 @@
       "linewidth": 0,
       "links": [],
       "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "8.5.27",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -103,8 +124,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
+      "timeRegions": [],
       "title": "[[full_name]] GitHub events ([[types]], [[period]])",
       "tooltip": {
         "shared": true,
@@ -113,19 +133,15 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
           "format": "short",
           "label": "GitHub Events",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
@@ -133,14 +149,12 @@
           "format": "short",
           "label": "",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -148,16 +162,20 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "psql",
-      "decimals": null,
+      "datasource": {
+        "type": "postgres",
+        "uid": "P172949F98CB31475"
+      },
       "description": "[[full_name]] GitHub events",
       "fill": 3,
+      "fillGradient": 0,
       "gridPos": {
         "h": 21,
         "w": 24,
         "x": 0,
         "y": 21
       },
+      "hiddenSeries": false,
       "id": 4,
       "legend": {
         "alignAsTable": true,
@@ -176,7 +194,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "8.5.27",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -212,8 +234,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
+      "timeRegions": [],
       "title": "[[full_name]] GitHub events ([[types]], [[period]])",
       "tooltip": {
         "shared": true,
@@ -222,19 +243,15 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
           "format": "short",
           "label": "GitHub Events",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
@@ -242,14 +259,12 @@
           "format": "short",
           "label": "",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -257,16 +272,20 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "psql",
-      "decimals": null,
+      "datasource": {
+        "type": "postgres",
+        "uid": "P172949F98CB31475"
+      },
       "description": "[[full_name]] GitHub events",
       "fill": 3,
+      "fillGradient": 0,
       "gridPos": {
         "h": 21,
         "w": 24,
         "x": 0,
         "y": 42
       },
+      "hiddenSeries": false,
       "id": 3,
       "legend": {
         "alignAsTable": true,
@@ -285,7 +304,11 @@
       "linewidth": 0,
       "links": [],
       "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": true,
+      "pluginVersion": "8.5.27",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -321,8 +344,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
+      "timeRegions": [],
       "title": "[[full_name]] GitHub events ([[types]], [[period]])",
       "tooltip": {
         "shared": true,
@@ -331,15 +353,12 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
           "format": "short",
           "label": "GitHub Events",
           "logBase": 1,
@@ -351,18 +370,19 @@
           "format": "short",
           "label": "",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "content": "${docs:raw}",
+      "datasource": {
+        "type": "postgres",
+        "uid": "P172949F98CB31475"
+      },
       "gridPos": {
         "h": 10,
         "w": 24,
@@ -371,13 +391,17 @@
       },
       "id": 1,
       "links": [],
-      "mode": "html",
+      "options": {
+        "content": "${docs:raw}",
+        "mode": "html"
+      },
+      "pluginVersion": "8.5.27",
       "title": "Dashboard documentation",
       "type": "text"
     }
   ],
   "refresh": false,
-  "schemaVersion": 16,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [
     "dashboard",
@@ -386,12 +410,18 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
-        "current": {},
-        "datasource": "psql",
+        "current": {
+          "selected": false,
+          "text": "K2s",
+          "value": "K2s"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
+        "definition": "",
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "full_name",
         "options": [],
@@ -401,17 +431,15 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
-          "tags": [],
-          "text": "24 Hours MA",
-          "value": "h24"
+          "selected": true,
+          "text": "Day",
+          "value": "d"
         },
         "hide": 0,
         "includeAll": false,
@@ -425,12 +453,12 @@
             "value": "h"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "24 Hours MA",
             "value": "h24"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "Day",
             "value": "d"
           },
@@ -461,16 +489,26 @@
           }
         ],
         "query": "h,d,w,m,q,y",
+        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
       {
         "allValue": "",
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
-        "datasource": "psql",
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
+        "definition": "",
         "hide": 0,
         "includeAll": true,
         "label": "Event type",
@@ -483,18 +521,23 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
-        "current": {},
-        "datasource": "psql",
+        "current": {
+          "selected": false,
+          "text": "<h1 id=\"dashboard-header\">K2s GitHub events dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/event_types.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>event_types</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/k2s/github-events.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows summary of all GitHub events groupped by event type.</li>\n<li>Selecting period (for example week) means that dashboard will show events in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>",
+          "value": "<h1 id=\"dashboard-header\">K2s GitHub events dashboard</h1>\n<p>Links:</p>\n<ul>\n<li>Metric <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/event_types.sql\" target=\"_blank\">SQL file</a>.</li>\n<li>TSDB <a href=\"https://github.com/cncf/devstats/blob/master/metrics/shared/metrics.yaml\" target=\"_blank\">series definition</a>. Search for <code>event_types</code></li>\n<li>Grafana dashboard <a href=\"https://github.com/cncf/devstats/blob/master/grafana/dashboards/k2s/github-events.json\" target=\"_blank\">JSON</a>.</li>\n</ul>\n<h1 id=\"description\">Description</h1>\n<ul>\n<li>This dashboard shows summary of all GitHub events groupped by event type.</li>\n<li>Selecting period (for example week) means that dashboard will show events in those periods.</li>\n<li>See <a href=\"https://github.com/cncf/devstats/blob/master/docs/periods.md\" target=\"_blank\">here</a> for more informations about periods.</li>\n</ul>"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "P172949F98CB31475"
+        },
+        "definition": "",
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "docs",
         "options": [],
@@ -504,7 +547,6 @@
         "skipUrlSync": true,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -543,5 +585,6 @@
   "timezone": "",
   "title": "GitHub Events",
   "uid": "47",
-  "version": 3
+  "version": 2,
+  "weekStart": ""
 }
