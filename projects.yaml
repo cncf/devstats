@@ -3931,7 +3931,7 @@ projects:
     join_date: 2026-09-29T00:00:00Z
     psql_db: hivecommons
     main_repo: hivecommons/hive
-    annotation_regexp: '^v\d+\.\d+\.0$'
+    annotation_regexp: '^v\d+\.(0|\d*00)\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     shared_db: allprj
   opencontainers:
