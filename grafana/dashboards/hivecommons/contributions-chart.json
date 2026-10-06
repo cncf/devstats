@@ -43,7 +43,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 8,
-  "iteration": 1730741301484,
+  "iteration": 1791264199822,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -580,7 +580,7 @@
     ]
   },
   "time": {
-    "from": "now-1y",
+    "from": "now-6M",
     "to": "now-2d"
   },
   "timepicker": {

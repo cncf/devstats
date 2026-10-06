@@ -45,7 +45,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1730741134741,
+  "iteration": 1791264188581,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -392,7 +392,7 @@
       },
       {
         "current": {
-          "tags": [],
+          "selected": true,
           "text": "All activity",
           "value": "activity"
         },
@@ -464,6 +464,7 @@
           }
         ],
         "query": "activity,authors,issues,prs,commits,committers,pushers,pushes,comments,contributions,contributors,reviews",
+        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -582,7 +583,7 @@
     ]
   },
   "time": {
-    "from": "now-1y",
+    "from": "now-6M",
     "to": "now"
   },
   "timepicker": {

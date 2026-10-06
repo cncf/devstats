@@ -45,7 +45,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 38,
-  "iteration": 1730741185186,
+  "iteration": 1791264580372,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -540,9 +540,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "Hive Commons",
-          "value": "Hive Commons"
+          "selected": true,
+          "text": "hive",
+          "value": "hive"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "hivecommons",
-          "value": "hivecommons"
+          "text": "hive",
+          "value": "hive"
         },
         "datasource": {
           "type": "postgres",
@@ -621,7 +621,7 @@
     ]
   },
   "time": {
-    "from": "now-1y",
+    "from": "now-6M",
     "to": "now"
   },
   "timepicker": {

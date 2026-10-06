@@ -45,7 +45,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 27,
-  "iteration": 1787986166605,
+  "iteration": 1791264381325,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -307,22 +307,38 @@
         "current": {
           "selected": true,
           "text": [
-            "\"alexandernorth\"",
-            "\"steiler\"",
-            "\"henderiw\"",
-            "\"severindellsperger\"",
-            "\"faebr\"",
-            "\"CsatariGergely\"",
-            "\"shrey-gang\""
+            "\"clubanderson\"",
+            "\"Danathar\"",
+            "\"hanthor\"",
+            "\"gregoryhunt\"",
+            "\"nicholasjackson\"",
+            "\"arteeh\"",
+            "\"RawNuke\"",
+            "\"sidsri14\"",
+            "\"SNThrailkill\"",
+            "\"bketelsen\"",
+            "\"castrojo\"",
+            "\"joewxboy\"",
+            "\"k4its1t\"",
+            "\"Karibhou\"",
+            "\"mendezr\""
           ],
           "value": [
-            "\"alexandernorth\"",
-            "\"steiler\"",
-            "\"henderiw\"",
-            "\"severindellsperger\"",
-            "\"faebr\"",
-            "\"CsatariGergely\"",
-            "\"shrey-gang\""
+            "\"clubanderson\"",
+            "\"Danathar\"",
+            "\"hanthor\"",
+            "\"gregoryhunt\"",
+            "\"nicholasjackson\"",
+            "\"arteeh\"",
+            "\"RawNuke\"",
+            "\"sidsri14\"",
+            "\"SNThrailkill\"",
+            "\"bketelsen\"",
+            "\"castrojo\"",
+            "\"joewxboy\"",
+            "\"k4its1t\"",
+            "\"Karibhou\"",
+            "\"mendezr\""
           ]
         },
         "datasource": {
@@ -401,7 +417,7 @@
     ]
   },
   "time": {
-    "from": "now-1y",
+    "from": "now-90d",
     "to": "now"
   },
   "timepicker": {
