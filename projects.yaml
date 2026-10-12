@@ -3440,7 +3440,7 @@ projects:
     name: CozyStack
     status: Sandbox
     command_line:
-      - 'regexp:(?i)^(cozystack\/.*|aenix-io\/(.*cozy.*|etcd-operator|talm|talos-bootstrap|kubernetes-in-kubernetes|kubefarm))$'
+      - 'regexp:(?i)^(cozystack\/.*|blockstor\/.*|aenix-io\/(.*cozy.*|etcd-operator|talm|talos-bootstrap|kubernetes-in-kubernetes|kubefarm))$'
     start_date: 2024-02-08T00:00:00Z
     join_date: 2025-03-04T00:00:00Z
     psql_db: cozystack
@@ -4210,7 +4210,7 @@ projects:
          podman-desktop,podman-container-tools/podman,podman-container-tools/buildah,\
          podman-container-tools/skopeo,containers/netavark,sdcio,ray-project,\
          containers/aardvark-dns,containers/image,containers/storage,containers/common,\
-         containers/conmon,containers/podman-py,cadence-workflow,kagent-dev,urunc-dev,cozystack,\
+         containers/conmon,containers/podman-py,cadence-workflow,kagent-dev,urunc-dev,cozystack,blockstor,\
          kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\
          kubefleet-dev,opentofu,modelpack,oxia-db,cedar-policy,project-dalec,HolmesGPT,\
          robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets,openchoreo,CoHDI,\
@@ -4260,7 +4260,7 @@ projects:
          Azure/azure-rest-api-specs-fleet,podman-desktop,podman-container-tools/podman,\
          podman-container-tools/buildah,podman-container-tools/skopeo,containers/netavark,sdcio,ray-project,\
          containers/aardvark-dns,containers/image,containers/storage,containers/common,\
-         containers/conmon,containers/podman-py,cadence-workflow,kagent-dev,urunc-dev,cozystack,\
+         containers/conmon,containers/podman-py,cadence-workflow,kagent-dev,urunc-dev,cozystack,blockstor,\
          kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\
          kubefleet-dev,opentofu,modelpack,oxia-db,cedar-policy,project-dalec,HolmesGPT,\
          robusta-dev/homebrew-holmesgpt,robusta-dev/holmesgpt-community-toolsets,openchoreo,CoHDI,\

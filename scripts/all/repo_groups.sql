@@ -2377,8 +2377,8 @@ update
 set
   repo_group = 'CozyStack'
 where
-  name ~ '(?i)^(cozystack\/.*|aenix-io\/(.*cozy.*|etcd-operator|talm|talos-bootstrap|kubernetes-in-kubernetes|kubefarm))$'
-  or org_login in ('cozystack')
+  name ~ '(?i)^(cozystack\/.*|blockstor\/.*|aenix-io\/(.*cozy.*|etcd-operator|talm|talos-bootstrap|kubernetes-in-kubernetes|kubefarm))$'
+  or org_login in ('cozystack', 'blockstor')
 ;
 
 -- kgateway
