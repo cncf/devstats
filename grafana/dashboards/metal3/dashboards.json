@@ -2381,6 +2381,26 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Praxis",
+      "tooltip": "Opens Praxis projects dashboards",
+      "type": "link",
+      "url": "https://praxis.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "AI Runway",
+      "tooltip": "Opens AI Runway projects dashboards",
+      "type": "link",
+      "url": "https://airunway.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",

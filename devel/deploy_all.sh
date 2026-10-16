@@ -883,6 +883,12 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "hivecommons" ]
   then
     PROJ=hivecommons         PROJDB=hivecommons    PROJREPO="hivecommons/hive"                ORGNAME="Hive Commons"    PORT=3334 ICON=hivecommons    GRAFSUFF=hivecommons    GA="-" ./devel/deploy_proj.sh               || exit 39
+  elif [ "$proj" = "praxis" ]
+  then
+    PROJ=praxis              PROJDB=praxis         PROJREPO="praxis-proxy/praxis"             ORGNAME=Praxis            PORT=3335 ICON=praxis         GRAFSUFF=praxis         GA="-" ./devel/deploy_proj.sh               || exit 40
+  elif [ "$proj" = "airunway" ]
+  then
+    PROJ=airunway            PROJDB=airunway       PROJREPO="ai-runway/airunway"              ORGNAME="AI Runway"       PORT=3336 ICON=airunway       GRAFSUFF=airunway       GA="-" ./devel/deploy_proj.sh               || exit 41
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32

@@ -10,6 +10,7 @@ then run `./devel/regen_bot_lists.py` from the devstats repo root. It rewrites:
   util_sql/*.sql                          every literal array[...] containing 'googlebot'
   ../devstats-reports/sql/*.sql           same (if that repo is checked out next to this one)
   ../devstatscode/rust/compat/fixtures/   verbatim copies used by the Rust compat tests (if present)
+  ../velocity/                           SQL partial, BigQuery bot predicates and Go author matcher
 
 Patterns are matched with `lower(login) not like all(array[...])`, so they must be lower case;
 `%` is a wildcard, `_` matches exactly one character. See BOTS.md.
@@ -23,6 +24,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REPORTS = os.path.join(os.path.dirname(ROOT), "devstats-reports")
 FIXTURES = os.path.join(os.path.dirname(ROOT), "devstatscode", "rust", "compat", "fixtures")
+VELOCITY = os.path.join(os.path.dirname(ROOT), "velocity")
 
 ARRAY_RE = re.compile(r"array\[((?:\s*'[^']*'\s*,?)+)\]", re.S)
 MASTER = os.path.join(ROOT, "util_sql", "exclude_bots.sql")
@@ -41,8 +43,11 @@ if bad:
 array = "array[" + ", ".join("'%s'" % p for p in pats) + "]"
 
 
-def write(path, content):
-    if open(path).read() != content:
+def write(path, content, original=None):
+    current = open(path).read() if os.path.exists(path) else None
+    if original is not None and current != original:
+        sys.exit("%s changed during regeneration; retry with the current file" % path)
+    if current != content:
         open(path, "w").write(content)
         print("updated  ", os.path.relpath(path, ROOT))
 
@@ -60,7 +65,7 @@ def replace_arrays(path):
 
     out = ARRAY_RE.sub(repl, src)
     if n:
-        write(path, out)
+        write(path, out, src)
     return n
 
 
@@ -99,4 +104,42 @@ if os.path.isdir(FIXTURES):
             if os.path.exists(dst) and open(os.path.join(ROOT, src)).read() != open(dst).read():
                 shutil.copyfile(os.path.join(ROOT, src), dst)
                 print("synced   ", os.path.relpath(dst, ROOT))
+
+if os.path.isdir(VELOCITY):
+    regex = "(?s)^(?:" + "|".join(
+        "".join(
+            ".*" if c == "%" else "." if c == "_" else "\\" + c if c in r"\.^$|?*+()[]{}" else c
+            for c in p
+        )
+        for p in pats
+    ) + ")$"
+    if "'" in regex or "`" in regex:
+        sys.exit("bot patterns cannot contain quotes used by Velocity SQL/Go literals")
+    write(os.path.join(VELOCITY, "sql", "exclude_bots.sql"), "not like all(%s)\n" % array)
+    generated = re.compile(r"(?im)^([ \t]*)(AND )?NOT REGEXP_(?:CONTAINS|MATCH)\(LOWER\(actor\.login\), r'.*'\) -- devstats bots$")
+    unsafe_filter = re.compile(r"(?im)^([ \t]*)(AND )?(?:LOWER\()?actor\.login\)? not like '%bot%'[ \t]*$")
+    first_filter = re.compile(r"(?im)^([ \t]*)(?:and )?(?:lower\()?actor\.login\)? not like '[^']*'[ \t]*$")
+    for path in sorted(glob.glob(os.path.join(VELOCITY, "BigQuery", "velocity_*.sql"))):
+        src = open(path).read()
+        function = "REGEXP_CONTAINS" if src.startswith("#standardSQL") else "REGEXP_MATCH"
+        predicate = "NOT %s(LOWER(actor.login), r'%s') -- devstats bots" % (function, regex)
+        if unsafe_filter.search(src):
+            base = re.sub(generated.pattern + r"\n?", "", src)
+            out = unsafe_filter.sub(lambda m: m[1] + (m[2] or "") + predicate, base)
+        elif generated.search(src):
+            out = generated.sub(lambda m: m[1] + (m[2] or "") + predicate, src)
+        else:
+            out = first_filter.sub(lambda m: m[0] + "\n" + m[1] + "AND " + predicate, src, count=1)
+        write(path, out, src)
+    path = os.path.join(VELOCITY, "tools", "enrich_authors", "main.go")
+    if os.path.isfile(path):
+        src = open(path).read()
+        out, n = re.subn(
+            r"(?m)^var devstatsBotRE = regexp\.MustCompile\(`[^`]*`\)$",
+            lambda _: "var devstatsBotRE = regexp.MustCompile(`%s`)" % regex,
+            src,
+        )
+        if n != 1:
+            sys.exit("%s: expected one devstatsBotRE declaration" % path)
+        write(path, out, src)
 print("%d patterns" % len(pats))

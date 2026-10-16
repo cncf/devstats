@@ -8,6 +8,7 @@
 - Update & run: `./grafana/create_images.sh`. This is for update repo, so new docker images can be build.
 - Update & run: `./grafana/copy_artwork_icons.sh`. This is for update local Grafanas.
 - or use `./devel/icons_all.sh`.
+- Set `SKIP_ARTWORK_UPDATE=1` to use already-updated local artwork without running `git pull`.
 - Run: `./grafana/restart_all_grafanas.sh` (this is optional).
 - Check if new artwork is available for all projects and for the main page.
 - Update `cncf/devstats-helm`:`devstats-helm/values.yaml`.

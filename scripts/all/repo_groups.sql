@@ -2721,6 +2721,26 @@ where
   )
 ;
 
+-- Praxis
+update
+  gha_repos
+set
+  repo_group = 'Praxis'
+where
+  lower(org_login) in ('praxis-proxy')
+  or lower(name) in ('shaneutt/praxis')
+;
+
+-- AI Runway
+update
+  gha_repos
+set
+  repo_group = 'AI Runway'
+where
+  lower(org_login) in ('ai-runway')
+  or lower(name) in ('kaito-project/airunway', 'kaito-project/kubeairunway', 'azure/kuberunway', 'sozercan/kube-foundry')
+;
+
 -- CNCF
 update
   gha_repos

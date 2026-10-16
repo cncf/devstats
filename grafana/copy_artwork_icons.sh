@@ -76,6 +76,10 @@ do
   then
     icon="kube-rs"
   fi
+  if [ "$icon" = "hexapolicyorchestrator" ]
+  then
+    icon="hexa"
+  fi
   if [ "$icon" = "serverlessdevs" ]
   then
     icon="serverless-devs"
@@ -170,8 +174,12 @@ do
   then
     icon="podman"
   fi
+  if [ "$icon" = "hivecommons" ]
+  then
+    icon="hive-commons"
+  fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "hivecommons" ] || [ "$icon" = "openshell" ] || [ "$icon" = "k2s" ] || [ "$icon" = "kuberay" ] || [ "$icon" = "curvine" ] || [ "$icon" = "openeverest" ] || [ "$icon" = "oxia" ] || [ "$icon" = "composefs" ] || [ "$icon" = "kanister" ] || [ "$icon" = "kubeclipper" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "cartography" ] || [ "$icon" = "trestlegrc" ] || [ "$icon" = "opengemini" ] || [ "$icon" = "containerssh" ] || [ "$icon" = "lima" ] || [ "$icon" = "hexapolicyorchestrator" ] || [ "$icon" = "externalsecretsoperator" ] || [ "$icon" = "devstream" ] || [ "$icon" = "vscodek8stools" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "cilium" ] || [ "$icon" = "copacetic" ] || [ "$icon" = "k0s" ] || [ "$icon" = "k8up" ] || [ "$icon" = "kmesh" ] || [ "$icon" = "kpt" ] || [ "$icon" = "kubean" ] || [ "$icon" = "kubeflow" ] || [ "$icon" = "kubewarden" ] || [ "$icon" = "meshery" ] || [ "$icon" = "modelpack" ] || [ "$icon" = "openclustermanagement" ] || [ "$icon" = "opencost" ] || [ "$icon" = "oras" ] || [ "$icon" = "wasmcloud" ] || [ "$icon" = "zot" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "airunway" ] || [ "$icon" = "praxis" ] || [ "$icon" = "openshell" ] || [ "$icon" = "k2s" ] || [ "$icon" = "kuberay" ] || [ "$icon" = "curvine" ] || [ "$icon" = "oxia" ] || [ "$icon" = "composefs" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi
@@ -228,10 +236,16 @@ do
     icon="k-serve"
   fi
   # echo "Proj: $proj, icon: $icon, path: $path, icon type: $icontype:, icon org: $iconorg, suffix: $suff"
-  cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "/usr/share/grafana.$suff/public/img/grafana_icon.svg" || exit 2
-  cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "/usr/share/grafana.$suff/public/img/grafana_com_auth_icon.svg" || exit 3
-  cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "/usr/share/grafana.$suff/public/img/grafana_net_logo.svg" || exit 4
-  cp "$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg" "/usr/share/grafana.$suff/public/img/grafana_mask_icon.svg" || exit 5
+  svg="$HOME/dev/$iconorg/artwork/$path/icon/$icontype/$icon$dash$mid-$icontype.svg"
+  if [ ! -f "$svg" ]
+  then
+    svg="grafana/img/${suff}.svg"
+    echo "Using generated artwork for $proj: $svg"
+  fi
+  cp "$svg" "/usr/share/grafana.$suff/public/img/grafana_icon.svg" || exit 2
+  cp "$svg" "/usr/share/grafana.$suff/public/img/grafana_com_auth_icon.svg" || exit 3
+  cp "$svg" "/usr/share/grafana.$suff/public/img/grafana_net_logo.svg" || exit 4
+  cp "$svg" "/usr/share/grafana.$suff/public/img/grafana_mask_icon.svg" || exit 5
   cp -n "/usr/share/grafana.$suff/public/img/fav32.png" "/usr/share/grafana.$suff/public/img/fav32.png.bak" || exit 6
   cp "grafana/img/${suff}32.png" "/usr/share/grafana.$suff/public/img/fav32.png" || exit 7
   cp -n "/usr/share/grafana.$suff/public/img/fav16.png" "/usr/share/grafana.$suff/public/img/fav16.png.bak" || exit 8

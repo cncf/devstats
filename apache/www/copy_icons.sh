@@ -169,8 +169,12 @@ do
   then
     icon="podman"
   fi
+  if [ "$icon" = "hivecommons" ]
+  then
+    icon="hive-commons"
+  fi
   # TODO: remove when we have icons
-  if ( [ "$icon" = "hivecommons" ] || [ "$icon" = "openshell" ] || [ "$icon" = "k2s" ] || [ "$icon" = "kuberay" ] || [ "$icon" = "curvine" ] || [ "$icon" = "oxia" ] || [ "$icon" = "composefs" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
+  if ( [ "$icon" = "airunway" ] || [ "$icon" = "praxis" ] || [ "$icon" = "openshell" ] || [ "$icon" = "k2s" ] || [ "$icon" = "kuberay" ] || [ "$icon" = "curvine" ] || [ "$icon" = "oxia" ] || [ "$icon" = "composefs" ] || [ "$icon" = "sealer" ] || [ "$icon" = "openelb" ] || [ "$icon" = "kubevip" ] || [ "$icon" = "cnigenie" ] || [ "$icon" = "contrib" ] || [ "$icon" = "sam" ] || [ "$icon" = "azf" ] || [ "$icon" = "riff" ] || [ "$icon" = "fn" ] || [ "$icon" = "openwhisk" ] || [ "$icon" = "openfaas" ] || [ "$icon" = "cii" ] )
   then
     icon="cncf"
   fi

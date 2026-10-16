@@ -2,7 +2,10 @@
 # ARTWORK
 # TEST_SERVER=1
 # COMPRESS=1
-./devel/update_artwork.sh || exit 1
+if [ -z "$SKIP_ARTWORK_UPDATE" ]
+then
+  ./devel/update_artwork.sh || exit 1
+fi
 # ./apache/www/copy_icons.sh || exit 2
 ./grafana/create_images.sh || exit 3
 # We no longer need this with Kubernetes deployment

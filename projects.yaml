@@ -3942,6 +3942,36 @@ projects:
     annotation_regexp: '^v\d+\.(0|\d*00)\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     shared_db: allprj
+  praxis:
+    order: 261
+    name: Praxis
+    status: Sandbox
+    command_line:
+      - praxis-proxy
+    hist_command_line:
+      - 'praxis-proxy,shaneutt/praxis'
+    start_date: 2026-04-01T00:00:00Z
+    join_date: 2026-10-13T00:00:00Z
+    psql_db: praxis
+    main_repo: praxis-proxy/praxis
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: ''
+    shared_db: allprj
+  airunway:
+    order: 262
+    name: 'AI Runway'
+    status: Sandbox
+    command_line:
+      - ai-runway
+    hist_command_line:
+      - 'ai-runway,kaito-project/airunway,kaito-project/kubeairunway,Azure/kuberunway,sozercan/kube-foundry'
+    start_date: 2025-12-08T00:00:00Z
+    join_date: 2026-10-14T00:00:00Z
+    psql_db: airunway
+    main_repo: ai-runway/airunway
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    shared_db: allprj
   opencontainers:
     order: 1200
     name: OCI
@@ -4218,7 +4248,8 @@ projects:
          googleforgames/global-multiplayer-demo,velero-io,vmware-tanzu/velero-plugin-for-vsphere,\
          llm-d,openeverest,nmstate,higress-group,tektoncd,tektoncd-catalog,Apicurio/apicurio-registry,\
          Siemens-Healthineers/K2s,NVIDIA/OpenShell,NVIDIA/OpenShell-Research,\
-         NVIDIA/OpenShell-Community,kubestellar/hive,kubestellar/supervised-agent"
+         NVIDIA/OpenShell-Community,kubestellar/hive,kubestellar/supervised-agent,praxis-proxy,\
+         ai-runway"
     hist_command_line:
       - "kubernetes,kubernetes-client,kubernetes-incubator,kubernetes-helm,eraser-dev,\
          kubernetes-graveyard,kubernetes-incubator-retired,kubernetes-sig-testing,kubernetes-providers,\
@@ -4380,7 +4411,9 @@ projects:
          okahashi117/fluent-plugin-winevtlog,repeatedly/fluent-plugin-kafka,\
          repeatedly/fluent-plugin-prometheus,repeatedly/fluent-plugin-winevtlog,\
          jozu-ai/homebrew-kitops,k14s/kapp,k14s/kapp-controller,k14s/kbld,k14s/vendir,\
-         projectatomic/skopeo,stateful/vscode-runme,vmware-tanzu/homebrew-carvel"
+         projectatomic/skopeo,stateful/vscode-runme,vmware-tanzu/homebrew-carvel,praxis-proxy,\
+         shaneutt/praxis,ai-runway,kaito-project/airunway,kaito-project/kubeairunway,Azure/kuberunway,\
+         sozercan/kube-foundry"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
