@@ -6,14 +6,13 @@
 -- Second statement: the tiny static sync-range (event_id >= 329900000000000), no time window.
 -- Backfills older than the window: postprocess_texts_range.sql (GHA2DB_POSTPROCESS_FROM/TO);
 -- automatic post-restore repairs use postprocess_texts_ids.sql (exact restored event id set).
+-- Materialize matching texts once: large pushes can have hundreds of thousands of
+-- bodies under one event_id, making per-source-row event-index probes quadratic.
 with cutoff as (
   select coalesce(max(created_at), '1900-01-01'::timestamp) - interval '1 month' as dt
   from
     gha_texts
-)
-insert into gha_texts(
-  event_id, body, created_at, repo_id, repo_name, actor_id, actor_login, type
-)
+), candidates(event_id, body, created_at, repo_id, repo_name, actor_id, actor_login, type) as materialized (
 select
   event_id, body, created_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -21,9 +20,6 @@ from
 where
   body != ''
   and dup_created_at >= cutoff.dt
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_comments.event_id and t.body = gha_comments.body and t.created_at = gha_comments.created_at
-  )
 union select
   event_id, message, dup_created_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -31,9 +27,6 @@ from
 where
   message != ''
   and dup_created_at >= cutoff.dt
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_commits.event_id and t.body = gha_commits.message and t.created_at = gha_commits.dup_created_at
-  )
 union select
   event_id, title, created_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -41,9 +34,6 @@ from
 where
   title != ''
   and dup_created_at >= cutoff.dt
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_issues.event_id and t.body = gha_issues.title and t.created_at = gha_issues.created_at
-  )
 union select
   event_id, body, created_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -51,9 +41,6 @@ from
 where
   body != ''
   and dup_created_at >= cutoff.dt
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_issues.event_id and t.body = gha_issues.body and t.created_at = gha_issues.created_at
-  )
 union select
   event_id, title, created_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -61,9 +48,6 @@ from
 where
   title != ''
   and dup_created_at >= cutoff.dt
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_pull_requests.event_id and t.body = gha_pull_requests.title and t.created_at = gha_pull_requests.created_at
-  )
 union select
   event_id, body, created_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -71,9 +55,6 @@ from
 where
   body != ''
   and dup_created_at >= cutoff.dt
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_pull_requests.event_id and t.body = gha_pull_requests.body and t.created_at = gha_pull_requests.created_at
-  )
 union select
   event_id, body, submitted_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -81,14 +62,23 @@ from
 where
   body != ''
   and dup_created_at >= cutoff.dt
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_reviews.event_id and t.body = gha_reviews.body and t.created_at = gha_reviews.submitted_at
-  )
-;
-
+), existing as materialized (
+  select t.event_id, t.body, t.created_at
+  from gha_texts t
+  where t.event_id in (select event_id from candidates)
+)
 insert into gha_texts(
   event_id, body, created_at, repo_id, repo_name, actor_id, actor_login, type
 )
+select c.event_id, c.body, c.created_at, c.repo_id, c.repo_name, c.actor_id, c.actor_login, c.type
+from candidates c
+where not exists (
+  select 1 from existing t
+  where t.event_id = c.event_id and t.body = c.body and t.created_at = c.created_at
+)
+;
+
+with candidates(event_id, body, created_at, repo_id, repo_name, actor_id, actor_login, type) as materialized (
 select
   event_id, body, created_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -96,9 +86,6 @@ from
 where
   body != ''
   and event_id >= 329900000000000
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_comments.event_id and t.body = gha_comments.body and t.created_at = gha_comments.created_at
-  )
 union select
   event_id, message, dup_created_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -106,9 +93,6 @@ from
 where
   message != ''
   and event_id >= 329900000000000
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_commits.event_id and t.body = gha_commits.message and t.created_at = gha_commits.dup_created_at
-  )
 union select
   event_id, title, created_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -116,9 +100,6 @@ from
 where
   title != ''
   and event_id >= 329900000000000
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_issues.event_id and t.body = gha_issues.title and t.created_at = gha_issues.created_at
-  )
 union select
   event_id, body, created_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -126,9 +107,6 @@ from
 where
   body != ''
   and event_id >= 329900000000000
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_issues.event_id and t.body = gha_issues.body and t.created_at = gha_issues.created_at
-  )
 union select
   event_id, title, created_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -136,9 +114,6 @@ from
 where
   title != ''
   and event_id >= 329900000000000
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_pull_requests.event_id and t.body = gha_pull_requests.title and t.created_at = gha_pull_requests.created_at
-  )
 union select
   event_id, body, created_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -146,9 +121,6 @@ from
 where
   body != ''
   and event_id >= 329900000000000
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_pull_requests.event_id and t.body = gha_pull_requests.body and t.created_at = gha_pull_requests.created_at
-  )
 union select
   event_id, body, submitted_at, dup_repo_id, dup_repo_name, dup_actor_id, dup_actor_login, dup_type
 from
@@ -156,7 +128,18 @@ from
 where
   body != ''
   and event_id >= 329900000000000
-  and not exists (
-    select 1 from gha_texts t where t.event_id = gha_reviews.event_id and t.body = gha_reviews.body and t.created_at = gha_reviews.submitted_at
-  )
+), existing as materialized (
+  select t.event_id, t.body, t.created_at
+  from gha_texts t
+  where t.event_id in (select event_id from candidates)
+)
+insert into gha_texts(
+  event_id, body, created_at, repo_id, repo_name, actor_id, actor_login, type
+)
+select c.event_id, c.body, c.created_at, c.repo_id, c.repo_name, c.actor_id, c.actor_login, c.type
+from candidates c
+where not exists (
+  select 1 from existing t
+  where t.event_id = c.event_id and t.body = c.body and t.created_at = c.created_at
+)
 ;
