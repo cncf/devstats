@@ -3921,7 +3921,7 @@ projects:
     command_line:
       - 'regexp:(?i)^NVIDIA\/OpenShell.*$'
     start_date: 2026-03-16T00:00:00Z
-    join_date: 2026-10-02T00:00:00Z
+    join_date: 2026-09-26T00:00:00Z
     psql_db: openshell
     main_repo: NVIDIA/OpenShell
     annotation_regexp: '^v\d+\.\d+\.\d*0$'
@@ -4365,8 +4365,7 @@ projects:
          nirmata/kyverno,herbrandson/k8dash,curiefense,docker/distribution,foniod,ingraind,\
          redsift/ingraind,plunder-app/kube-vip,krator-rs,rerpc/rerpc,AxaFrance/SlimFaaS,\
          giuseppe/composefs,cohdi,truefoundry/kubeelasti,Siemens-Healthineers/K2s,NVIDIA/OpenShell,\
-         NVIDIA/OpenShell-Research,NVIDIA/OpenShell-Community,kubestellar/hive,\
-         kubestellar/supervised-agent,\
+         NVIDIA/OpenShell-Research,NVIDIA/OpenShell-Community,kubestellar/hive,kubestellar/supervised-agent,\
          GoogleContainerTools/kpt-functions-catalog,GoogleContainerTools/kpt-functions-sdk,\
          GoogleContainerTools/kpt-samples,containers/desktop,containers/podman-desktop,\
          containers/podman-desktop-catalog,containers/podman-desktop-e2e,\
