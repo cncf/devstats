@@ -45,7 +45,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 38,
-  "iteration": 1791206584074,
+  "iteration": 1792149178501,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": true,
-          "text": "ray-project/ray",
-          "value": "ray-project/ray"
+          "text": "praxis",
+          "value": "praxis"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "rayprojectray",
-          "value": "rayprojectray"
+          "text": "praxis",
+          "value": "praxis"
         },
         "datasource": {
           "type": "postgres",
@@ -621,7 +621,7 @@
     ]
   },
   "time": {
-    "from": "now-1y",
+    "from": "now-6M",
     "to": "now"
   },
   "timepicker": {
