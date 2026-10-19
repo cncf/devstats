@@ -3951,7 +3951,7 @@ projects:
     hist_command_line:
       - 'praxis-proxy,shaneutt/praxis'
     start_date: 2026-04-01T00:00:00Z
-    join_date: 2026-10-13T00:00:00Z
+    join_date: 2026-0-29T00:00:00Z
     psql_db: praxis
     main_repo: praxis-proxy/praxis
     annotation_regexp: '^v\d+\.\d+\.0$'
