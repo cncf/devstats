@@ -163,6 +163,7 @@ declare -a LOCK_ERRORS=()
 declare -a ORPHAN_LOCKS=()
 declare -a ACTIVITY_ERRORS=()
 declare -a COLSLOT_ERRORS=()
+declare -a COLSLOT_DETAILS=()
 blocked_sessions=0
 blocking_sessions=0
 pod_issues=0
@@ -458,7 +459,7 @@ echo
 # -------- Per-DB: tables close to 1600 column-slot limit --------
 
 echo "== Tables close to 1600-column limit (total_attribute_slots > ${COLS_SLOTS_THRESHOLD}) =="
-echo "Fix: [NS=devstats-prod] devel/rebuild-table.sh db-name table_name"
+echo "Fix: check context and pause writers before running the table-specific commands in the final status."
 SQL_COLSLOTS=$(cat <<SQL
 SELECT
   n.nspname AS schema,
@@ -492,6 +493,9 @@ for db in "${CHECK_DBS[@]}"; do
           name="${schema}.${table}"
         fi
         cols_items+=("${name}(${total_slots})")
+        printf -v repair_command 'NS=%q POD=%q CONTAINER=%q devel/rebuild-table.sh %q %q' \
+          "$NS" "$POD" "$CONTAINER" "$db" "${schema}.${table}"
+        COLSLOT_DETAILS+=("table(s) above column-slot threshold: namespace=$NS db=$db table=${schema}.${table} slots=$total_slots (dropped=$dropped_slots live=$live_cols); repair after you check context $STAGE and pause writers: $repair_command")
       done <<<"$PSQL_OUT"
 
       cols_joined="$(IFS=,; echo "${cols_items[*]}")"
@@ -556,9 +560,12 @@ declare -a HEALTH_REASONS=()
 [[ "$blocked_sessions" -eq 0 ]] || HEALTH_REASONS+=("$blocked_sessions blocked session(s)")
 [[ "$blocking_sessions" -eq 0 ]] || HEALTH_REASONS+=("$blocking_sessions blocking session(s)")
 [[ "${#ACTIVITY_ERRORS[@]}" -eq 0 ]] || HEALTH_REASONS+=("${#ACTIVITY_ERRORS[@]} activity query error(s)")
-[[ "$found_cols_slots" -eq 0 ]] || HEALTH_REASONS+=("table(s) above column-slot threshold")
+[[ "$found_cols_slots" -eq 0 ]] || HEALTH_REASONS+=("${COLSLOT_DETAILS[@]}")
 [[ "${#COLSLOT_ERRORS[@]}" -eq 0 ]] || HEALTH_REASONS+=("${#COLSLOT_ERRORS[@]} column-slot query error(s)")
-[[ "$pod_issues" -eq 0 ]] || HEALTH_REASONS+=("$pod_issues pod(s) in error/loop state")
+if [[ "$pod_issues" -gt 0 ]]; then
+  pod_details="$(printf '%s\n' "$POD_ISSUES" | awk -v ns="$NS" '{printf "%s%s/%s (%s)", sep, ns, $1, $3; sep=", "}')"
+  HEALTH_REASONS+=("$pod_issues pod(s) in error/loop state: $pod_details")
+fi
 [[ "$pod_query_error" -eq 0 ]] || HEALTH_REASONS+=("pod status query failed")
 
 echo "== Environment status =="
@@ -571,4 +578,5 @@ echo "NOT OK: $STAGE"
 for reason in "${HEALTH_REASONS[@]}"; do
   echo "  - $reason"
 done
+echo "Details: DEBUG=1 ./devel/devstats-flags-report.sh $STAGE"
 exit 10

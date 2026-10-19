@@ -798,7 +798,9 @@ if run_section flags; then
           [ -n "$explained" ] && note "[$st] flags report: $(echo $explained | wc -w | tr -d ' ') DB(s) without 'provisioned' while their affiliations import holds affs_lock_<db> (transient, re-set at the end of the import): ${explained% }"
           [ -n "$provd" ] && note "[$st] flags report: $(echo $provd | wc -w | tr -d ' ') DB(s) without 'provisioned' while being provisioned/merged (healthy provision/bootstrap pod - see provisioning section): ${provd% }"
         else
-          crit "[$st] flags report NOT OK (rc=$rc): $(sed -n '/^NOT OK/,$p' "$out" | tr '\n' '; ' | head -c 300)${unexplained:+ [missing provisioned: ${unexplained% }]}${explained:+ [missing provisioned but affiliations import in progress: ${explained% }]}${provd:+ [missing provisioned but provisioning/merge in progress: ${provd% }]}"
+          flags_summary="$(sed -n '/^NOT OK/,$p' "$out")"
+          [ -n "$flags_summary" ] || flags_summary="$(cat "$out")"
+          crit "[$st] flags report NOT OK (rc=$rc): $(printf '%s\n' "${flags_summary:-no diagnostic output}" | tr '\n' '; ')${unexplained:+ [missing provisioned: ${unexplained% }]}${explained:+ [missing provisioned but affiliations import in progress: ${explained% }]}${provd:+ [missing provisioned but provisioning/merge in progress: ${provd% }]}"
         fi
       fi
       [ "$VERBOSE" = "1" ] && sed 's/^/      | /' "$out" | tail -40
