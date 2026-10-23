@@ -889,6 +889,12 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "airunway" ]
   then
     PROJ=airunway            PROJDB=airunway       PROJREPO="ai-runway/airunway"              ORGNAME="AI Runway"       PORT=3336 ICON=airunway       GRAFSUFF=airunway       GA="-" ./devel/deploy_proj.sh               || exit 41
+  elif [ "$proj" = "agentsubstrate" ]
+  then
+    PROJ=agentsubstrate      PROJDB=agentsubstrate PROJREPO="agent-substrate/substrate"       ORGNAME="Agent Substrate" PORT=3337 ICON=agentsubstrate GRAFSUFF=agentsubstrate GA="-" ./devel/deploy_proj.sh               || exit 42
+  elif [ "$proj" = "openrl" ]
+  then
+    PROJ=openrl              PROJDB=openrl         PROJREPO="gke-labs/open-rl"                ORGNAME=OpenRL            PORT=3338 ICON=openrl         GRAFSUFF=openrl         GA="-" ./devel/deploy_proj.sh               || exit 43
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32

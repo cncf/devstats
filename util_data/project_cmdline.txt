@@ -1,4 +1,5 @@
 aerakimesh,aeraki-mesh,aeraki-framework
+agentsubstrate,agent-substrate
 agones,agones-dev,googleforgames/agones,googleforgames/agones-site,googleforgames/agones-community,googleforgames/space-agon,googleforgames/global-multiplayer-demo,GoogleCloudPlatform/agones
 airunway,ai-runway,kaito-project/airunway,kaito-project/kubeairunway,Azure/kuberunway,sozercan/kube-foundry
 akri,desilabs/akri
@@ -210,6 +211,7 @@ opengemini,openGemini
 openkruise,openkruise,kruiseio
 openmetrics,OpenObservability,OpenMetrics,openmetrics,prometheus/OpenMetrics,RichiH/OpenMetrics
 opennetworkinglab,opennetworkinglab
+openrl,gke-labs/open-rl
 opensecuritycontroller,opensecuritycontroller
 openservicemesh,openservicemesh
 openshell,regexp:(?i)^NVIDIA\/OpenShell.*$

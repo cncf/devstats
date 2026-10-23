@@ -1,19 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 26.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="a" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 389 389" style="enable-background:new 0 0 389 389;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#0086FF;}
-	.st1{fill:#93EAFF;}
-</style>
-<g>
-	<path class="st0" d="M72.8,250.7h-48v112.6h112.2v-48.4H72.8V250.7z"/>
-	<path class="st0" d="M314.1,251.2v63.7h-64.3v48.4h112.2V250.7h-48.5L314.1,251.2z"/>
-	<path class="st0" d="M24.9,138.6h48.5l-0.5-0.5V74.5h64.3V26H24.9V138.6z"/>
-	<path class="st0" d="M249.9,26v48.4h64.3v64.2h48V26C362.1,26,249.9,26,249.9,26z"/>
-	<path class="st1" d="M243.5,138.6l-64.3-64.2h70.6V26H137.1v48.4l64.3,64.2H243.5z"/>
-	<path class="st1" d="M185.6,250.7h-42.2l53.2,53.2l10.5,11h-70.1v48.4h112.8v-49l-32.1-31.6L185.6,250.7z"/>
-	<path class="st1" d="M314.1,138.6v70l-11.1-11.1l-53.2-53.2V187l31.6,31.6l32.1,32.1h48.5V138.6H314.1L314.1,138.6z"/>
-	<path class="st1" d="M137.1,202.3l-63.8-63.7H24.9v112h48v-70l64.3,64.2V202.3z"/>
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="449" height="501" viewBox="0 0 449 501"><title>Praxis — icon — color</title><desc>Inter Light (300), lowercase wordmark, tracking 0.04em; typography converted to outlines.</desc><defs>
+<linearGradient id="spectrum" x1="98" y1="285" x2="453" y2="170" gradientUnits="userSpaceOnUse"><stop stop-color="#5316F6" /><stop offset=".38" stop-color="#3E69F8" /><stop offset=".65" stop-color="#16A7ED" /><stop offset="1" stop-color="#08D8BA" /></linearGradient>
+<linearGradient id="teal" x1="339" y1="380" x2="407" y2="80" gradientUnits="userSpaceOnUse"><stop stop-color="#0CBFCA" /><stop offset="1" stop-color="#08D2B7" /></linearGradient><linearGradient id="center" x1="245" y1="230" x2="320" y2="235" gradientUnits="userSpaceOnUse"><stop stop-color="#3574F4" /><stop offset="1" stop-color="#0FC2E1" /></linearGradient>
+<linearGradient id="ribbon" x1="154" y1="280" x2="407" y2="250" gradientUnits="userSpaceOnUse"><stop stop-color="#5C2CF3" /><stop offset=".53" stop-color="#199FEB" /><stop offset="1" stop-color="#06D7BE" /></linearGradient>
+<mask id="channel"><rect width="556" height="600" fill="white" /><path d="M 145 247 C 207 285 242 230 289 207 C 332 184 376 186 408 235 L 408 269 C 383 212 338 207 299 225 C 251 246 217 312 153 273 Z" fill="black" /></mask>
+</defs><g id="symbol" transform="translate(-58 22)">
+<g fill="url(#spectrum)" mask="url(#channel)">
+<path d="M153.5 92 C153.5 73 169 58 188 58 C207 58 222 73 222 92 L222 369 C222 388 207 403 188 403 C169 403 153.5 388 153.5 369 Z" />
+<path fill="url(#center)" d="M245 54 C245 34 261 18 281 18 C301 18 317 34 317 54 L316 403 C316 423 300 439 280 439 C260 439 244 423 244 403 Z" />
+<path fill="url(#teal)" d="M339 92 C339 73 354 58 373 58 C392 58 407 73 407 92 L407 369 C407 388 392 403 373 403 C354 403 339 388 339 369 Z" />
+<path d="M98 152 Q98 143 106 149 C125 160 142 178 142 199 L142 242 Q142 250 134 245 C110 234 98 216 98 197 Z" />
+<path d="M423 226 Q423 217 431 222 C452 232 467 252 467 274 L467 313 Q467 322 459 316 C435 304 423 285 423 264 Z" />
 </g>
-</svg>
+<path fill="url(#ribbon)" opacity=".42" d="M154 264 C205 309 243 269 291 238 C307 228 322 219 339 217 L339 260 C321 263 308 273 289 284 C238 312 193 305 154 279 Z" />
+</g></svg>

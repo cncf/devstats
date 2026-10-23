@@ -2741,6 +2741,24 @@ where
   or lower(name) in ('kaito-project/airunway', 'kaito-project/kubeairunway', 'azure/kuberunway', 'sozercan/kube-foundry')
 ;
 
+-- Agent Substrate
+update
+  gha_repos
+set
+  repo_group = 'Agent Substrate'
+where
+  lower(org_login) in ('agent-substrate')
+;
+
+-- OpenRL
+update
+  gha_repos
+set
+  repo_group = 'OpenRL'
+where
+  lower(name) in ('gke-labs/open-rl')
+;
+
 -- CNCF
 update
   gha_repos

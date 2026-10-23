@@ -2411,6 +2411,26 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "Agent Substrate",
+      "tooltip": "Opens Agent Substrate projects dashboards",
+      "type": "link",
+      "url": "https://agentsubstrate.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "OpenRL",
+      "tooltip": "Opens OpenRL projects dashboards",
+      "type": "link",
+      "url": "https://openrl.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",
