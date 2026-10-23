@@ -45,7 +45,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 38,
-  "iteration": 1791206584074,
+  "iteration": 1792746240799,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -540,7 +540,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "gke-labs/open-rl",
           "value": "gke-labs/open-rl"
         },
@@ -621,7 +621,7 @@
     ]
   },
   "time": {
-    "from": "now-1y",
+    "from": "now-6M",
     "to": "now"
   },
   "timepicker": {

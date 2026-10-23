@@ -43,7 +43,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 8,
-  "iteration": 1730741301484,
+  "iteration": 1792746215471,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -246,9 +246,8 @@
     "list": [
       {
         "current": {
-          "$$hashKey": "object:1598",
-          "selected": false,
-          "tags": [],
+          "$$hashKey": "object:1600",
+          "selected": true,
           "text": "Week",
           "value": "w"
         },
@@ -272,6 +271,7 @@
           }
         ],
         "query": "w,m",
+        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -279,7 +279,6 @@
         "current": {
           "$$hashKey": "object:1430",
           "selected": true,
-          "tags": [],
           "text": "Contributions",
           "value": "contributions"
         },
@@ -357,6 +356,7 @@
           }
         ],
         "query": "comments,commitcomments,commits,events,pushes,contributions,issuecomments,issues,prs,mergedprs,reviewcomments",
+        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -388,7 +388,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": "All"
         },
@@ -443,7 +443,7 @@
       {
         "allValue": "all",
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": "All"
         },
@@ -498,7 +498,7 @@
       {
         "allValue": "",
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": "All"
         },
@@ -580,7 +580,7 @@
     ]
   },
   "time": {
-    "from": "now-1y",
+    "from": "now-9M",
     "to": "now-2d"
   },
   "timepicker": {
