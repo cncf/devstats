@@ -43,7 +43,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 8,
-  "iteration": 1730741301484,
+  "iteration": 1792747543226,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -279,7 +279,6 @@
         "current": {
           "$$hashKey": "object:1430",
           "selected": true,
-          "tags": [],
           "text": "Contributions",
           "value": "contributions"
         },
@@ -357,6 +356,7 @@
           }
         ],
         "query": "comments,commitcomments,commits,events,pushes,contributions,issuecomments,issues,prs,mergedprs,reviewcomments",
+        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -388,7 +388,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": "All"
         },
@@ -443,7 +443,7 @@
       {
         "allValue": "all",
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": "All"
         },
@@ -498,7 +498,7 @@
       {
         "allValue": "",
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": "All"
         },
@@ -580,7 +580,7 @@
     ]
   },
   "time": {
-    "from": "now-1y",
+    "from": "now-6M",
     "to": "now-2d"
   },
   "timepicker": {
@@ -612,6 +612,6 @@
   "timezone": "",
   "title": "Contributions chart",
   "uid": "74",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
