@@ -2747,7 +2747,7 @@ update
 set
   repo_group = 'Agent Substrate'
 where
-  lower(org_login) in ('agent-substrate')
+  lower(org_login) in ('agent-substrate', 'agent-substrate-plugins')
 ;
 
 -- OpenRL
@@ -2757,6 +2757,24 @@ set
   repo_group = 'OpenRL'
 where
   lower(name) in ('gke-labs/open-rl')
+;
+
+-- vm-api
+update
+  gha_repos
+set
+  repo_group = 'vm-api'
+where
+  lower(name) in ('vmware-tanzu/vm-operator')
+;
+
+-- gVisor
+update
+  gha_repos
+set
+  repo_group = 'gVisor'
+where
+  lower(name) in ('google/gvisor', 'google/gvisor-website', 'google/gvisor-containerd-shim')
 ;
 
 -- CNCF

@@ -2428,6 +2428,26 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "vm-api",
+      "tooltip": "Opens vm-api projects dashboards",
+      "type": "link",
+      "url": "https://vmapi.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "gVisor",
+      "tooltip": "Opens gVisor projects dashboards",
+      "type": "link",
+      "url": "https://gvisor.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",

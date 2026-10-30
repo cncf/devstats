@@ -4240,7 +4240,7 @@ projects:
     project_url: 'groups.google.com/g/ate-dev'
     status: Sandbox
     command_line:
-      - agent-substrate
+      - agent-substrate,agent-substrate-plugins
     start_date: 2026-05-20T00:00:00Z
     join_date: 2026-10-21T00:00:00Z
     psql_db: agentsubstrate
@@ -4260,6 +4260,36 @@ projects:
     psql_db: openrl
     main_repo: gke-labs/open-rl
     annotation_regexp: '^v\d+\.\d+\.\d+$'
+    files_skip_pattern: ''
+    shared_db: allprj
+  vmapi:
+    order: 265
+    name: 'vm-api'
+    project_url: 'github.com/vmware-tanzu/vm-operator'
+    status: Sandbox
+    command_line:
+      - vmware-tanzu/vm-operator
+    start_date: 2021-04-27T00:00:00Z
+    join_date: 2026-10-28T00:00:00Z
+    psql_db: vmapi
+    main_repo: vmware-tanzu/vm-operator
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    shared_db: allprj
+  gvisor:
+    order: 266
+    name: 'gVisor'
+    project_url: 'gvisor.dev'
+    status: Sandbox
+    command_line:
+      - google/gvisor
+    hist_command_line:
+      - google/gvisor,google/gvisor-website,google/gvisor-containerd-shim
+    start_date: 2018-05-02T00:00:00Z
+    join_date: 2026-10-28T00:00:00Z
+    psql_db: gvisor
+    main_repo: google/gvisor
+    annotation_regexp: '^release-\d{8}\.0$'
     files_skip_pattern: ''
     shared_db: allprj
   opencontainers:
@@ -4551,7 +4581,8 @@ projects:
          llm-d,openeverest,nmstate,higress-group,tektoncd,tektoncd-catalog,Apicurio/apicurio-registry,\
          Siemens-Healthineers/K2s,NVIDIA/OpenShell,NVIDIA/OpenShell-Research,\
          NVIDIA/OpenShell-Community,kubestellar/hive,kubestellar/supervised-agent,praxis-proxy,\
-         ai-runway,agent-substrate,gke-labs/open-rl"
+         ai-runway,agent-substrate,gke-labs/open-rl,vmware-tanzu/vm-operator,google/gvisor,\
+         agent-substrate-plugins"
     hist_command_line:
       - "kubernetes,kubernetes-client,kubernetes-incubator,kubernetes-helm,eraser-dev,\
          kubernetes-graveyard,kubernetes-incubator-retired,kubernetes-sig-testing,kubernetes-providers,\
@@ -4715,7 +4746,8 @@ projects:
          jozu-ai/homebrew-kitops,k14s/kapp,k14s/kapp-controller,k14s/kbld,k14s/vendir,\
          projectatomic/skopeo,stateful/vscode-runme,vmware-tanzu/homebrew-carvel,praxis-proxy,\
          shaneutt/praxis,ai-runway,kaito-project/airunway,kaito-project/kubeairunway,Azure/kuberunway,\
-         sozercan/kube-foundry,agent-substrate,gke-labs/open-rl"
+         sozercan/kube-foundry,agent-substrate,gke-labs/open-rl,vmware-tanzu/vm-operator,google/gvisor,\
+         google/gvisor-website,google/gvisor-containerd-shim,agent-substrate-plugins"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj

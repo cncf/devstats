@@ -895,6 +895,12 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "openrl" ]
   then
     PROJ=openrl              PROJDB=openrl         PROJREPO="gke-labs/open-rl"                ORGNAME=OpenRL            PORT=3338 ICON=openrl         GRAFSUFF=openrl         GA="-" ./devel/deploy_proj.sh               || exit 43
+  elif [ "$proj" = "vmapi" ]
+  then
+    PROJ=vmapi               PROJDB=vmapi          PROJREPO="vmware-tanzu/vm-operator"        ORGNAME=vm-api            PORT=3339 ICON=vmapi          GRAFSUFF=vmapi          GA="-" ./devel/deploy_proj.sh               || exit 44
+  elif [ "$proj" = "gvisor" ]
+  then
+    PROJ=gvisor              PROJDB=gvisor         PROJREPO="google/gvisor"                   ORGNAME=gVisor            PORT=3340 ICON=gvisor         GRAFSUFF=gvisor         GA="-" ./devel/deploy_proj.sh               || exit 45
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32

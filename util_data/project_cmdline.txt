@@ -1,5 +1,5 @@
 aerakimesh,aeraki-mesh,aeraki-framework
-agentsubstrate,agent-substrate
+agentsubstrate,agent-substrate,agent-substrate-plugins
 agones,agones-dev,googleforgames/agones,googleforgames/agones-site,googleforgames/agones-community,googleforgames/space-agon,googleforgames/global-multiplayer-demo,GoogleCloudPlatform/agones
 airunway,ai-runway,kaito-project/airunway,kaito-project/kubeairunway,Azure/kuberunway,sozercan/kube-foundry
 akri,desilabs/akri
@@ -89,6 +89,7 @@ graphql,graphql,facebook/graphql
 graphqljs,graphql/graphql-js
 graphqlspec,graphql/graphql-spec,facebook/graphql
 grpc,grpc
+gvisor,google/gvisor,google/gvisor-website,google/gvisor-containerd-shim
 hami,Project-HAMi
 harbor,goharbor,vmware/harbor
 headlamp,headlamp-k8s,kinvolk/headlamp,kubernetes-purgatory/headlamp,kubernetes-sigs/headlamp
@@ -290,6 +291,7 @@ velero,regexp:(?i)^(velero-io\/.*|vmware-tanzu\/.*velero.*|heptio\/(ark|.*velero
 vineyard,v6d-io,alibaba/v6d,alibaba/libvineyard
 virtualkubelet,virtual-kubelet,Virtual-Kubelet
 vitess,vitessio,youtube/vitess
+vmapi,vmware-tanzu/vm-operator
 volcano,volcano-sh
 vscodek8stools,ivscode-kubernetes-tools,Azure/vscode-kubernetes-tools
 wasmcloud,wasmCloud,wascc,wascaruntime,waxosuit
