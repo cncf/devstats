@@ -67,6 +67,7 @@ sqlite/*.sql
 !/k8s_yearly_contributors_with_50.csv
 /todo
 /devstats-grafana.tar
+/devstats-grafana.tar.xz
 /grafana/replacer
 /grafana/runq
 /grafana/sqlitedb
