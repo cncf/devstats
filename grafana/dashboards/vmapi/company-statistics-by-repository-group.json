@@ -45,7 +45,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1730741134741,
+  "iteration": 1793430705137,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -345,7 +345,7 @@
       },
       {
         "current": {
-          "tags": [],
+          "selected": true,
           "text": "7 Days MA",
           "value": "d7"
         },
@@ -387,12 +387,13 @@
           }
         ],
         "query": "d,w,m,q,y",
+        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
       {
         "current": {
-          "tags": [],
+          "selected": true,
           "text": "All activity",
           "value": "activity"
         },
@@ -464,6 +465,7 @@
           }
         ],
         "query": "activity,authors,issues,prs,commits,committers,pushers,pushes,comments,contributions,contributors,reviews",
+        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -582,7 +584,7 @@
     ]
   },
   "time": {
-    "from": "now-1y",
+    "from": "now-2y",
     "to": "now"
   },
   "timepicker": {
