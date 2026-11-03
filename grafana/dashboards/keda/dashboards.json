@@ -435,6 +435,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "NATS",
+      "tooltip": "Opens NATS dashboards",
+      "type": "link",
+      "url": "https://nats.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -459,16 +469,6 @@
       "tooltip": "Opens Notary dashboards",
       "type": "link",
       "url": "https://notary.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "NATS",
-      "tooltip": "Opens NATS dashboards",
-      "type": "link",
-      "url": "https://nats.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -809,6 +809,16 @@
       "tooltip": "Opens Meshery projects dashboards",
       "type": "link",
       "url": "https://meshery.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "CloudNativePG",
+      "tooltip": "Opens CloudNativePG projects dashboards",
+      "type": "link",
+      "url": "https://cloudnativepg.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1969,16 +1979,6 @@
       "tooltip": "Opens Runme Notebooks projects dashboards",
       "type": "link",
       "url": "https://runmenotebooks.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "CloudNativePG",
-      "tooltip": "Opens CloudNativePG projects dashboards",
-      "type": "link",
-      "url": "https://cloudnativepg.[[hostname]]"
     },
     {
       "icon": "dashboard",

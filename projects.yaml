@@ -303,13 +303,14 @@ projects:
     order: 17
     name: NATS
     project_url: 'nats.io'
-    status: Incubating
+    status: Graduated
     command_line:
       - nats-io
     hist_command_line:
       - 'nats-io,apcera/nats,apcera/gnatsd'
     start_date: 2014-01-02T00:00:00Z
     join_date: 2018-03-15T00:00:00Z
+    graduated_date: 2026-11-02T00:00:00Z
     psql_db: nats
     shared_db: allprj
     main_repo: nats-io/nats-server
@@ -3538,11 +3539,12 @@ projects:
     order: 218
     name: CloudNativePG
     project_url: 'cloudnative-pg.io'
-    status: Sandbox
+    status: Incubating
     command_line:
       - cloudnative-pg
     start_date: 2022-04-21T00:00:00Z
     join_date: 2025-01-21T00:00:00Z
+    incubating_date: 2026-11-02T00:00:00Z
     psql_db: cloudnativepg
     shared_db: allprj
     main_repo: cloudnative-pg/cloudnative-pg
