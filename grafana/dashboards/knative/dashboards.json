@@ -445,6 +445,16 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "KubeVirt",
+      "tooltip": "Opens KubeVirt projects dashboards",
+      "type": "link",
+      "url": "https://kubevirt.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "gRPC",
       "tooltip": "Opens gRPC dashboards",
       "type": "link",
@@ -569,16 +579,6 @@
       "tooltip": "Opens KubeVela projects dashboards",
       "type": "link",
       "url": "https://kubevela.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "KubeVirt",
-      "tooltip": "Opens KubeVirt projects dashboards",
-      "type": "link",
-      "url": "https://kubevirt.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -819,6 +819,16 @@
       "tooltip": "Opens CloudNativePG projects dashboards",
       "type": "link",
       "url": "https://cloudnativepg.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Open Cluster Management",
+      "tooltip": "Opens Open Cluster Management projects dashboards",
+      "type": "link",
+      "url": "https://openclustermanagement.[[hostname]]"
     },
     {
       "icon": "dashboard",
@@ -1169,16 +1179,6 @@
       "tooltip": "Opens Inclavare Containers projects dashboards",
       "type": "link",
       "url": "https://inclavarecontainers.[[hostname]]"
-    },
-    {
-      "icon": "dashboard",
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Open Cluster Management",
-      "tooltip": "Opens Open Cluster Management projects dashboards",
-      "type": "link",
-      "url": "https://openclustermanagement.[[hostname]]"
     },
     {
       "icon": "dashboard",

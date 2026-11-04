@@ -755,7 +755,7 @@ projects:
     order: 43
     name: KubeVirt
     project_url: 'kubevirt.io'
-    status: Incubating
+    status: Graduated
     command_line:
       - 'kubevirt,k8snetworkplumbingwg/kubemacpool,k8snetworkplumbingwg/multi-networkpolicy-iptables,k8snetworkplumbingwg/sriov-network-operator,nmstate/kubernetes-nmstate'
     hist_command_line:
@@ -763,6 +763,7 @@ projects:
     start_date: 2016-04-27T00:00:00Z
     join_date: 2019-09-06T00:00:00Z
     incubating_date: 2022-04-19T00:00:00Z
+    graduated_date: 2026-11-04T00:00:00Z
     psql_db: kubevirt
     shared_db: allprj
     main_repo: kubevirt/kubevirt
@@ -1954,11 +1955,12 @@ projects:
     order: 116
     name: Open Cluster Management
     project_url: 'open-cluster-management.io'
-    status: Sandbox
+    status: Incubating
     command_line:
     - 'open-cluster-management-io'
     start_date: 2020-04-20T00:00:00Z
     join_date: 2021-11-09T00:00:00Z
+    incubating_date: 2026-11-04T00:00:00Z
     psql_db: openclustermanagement
     shared_db: allprj
     main_repo: 'open-cluster-management-io/api'
