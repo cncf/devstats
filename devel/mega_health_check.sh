@@ -824,6 +824,11 @@ if run_section dblogs; then
       echo "  select proj, prog, dt, run_dt, msg,"
       echo "    case"
       echo "      when msg like 'changed issue title:%' then null"  # ghapi2db echoes user-authored titles (may contain 'context deadline exceeded', 'error', ...)
+      # ghapi2db: a repository renamed on GitHub to a name the project does not track (listed per repository below);
+      # columns: a series table at its column slots threshold that could not be rebuilt (the reason may quote a PG error)
+      echo "      when msg like '%WARNING: repo % was renamed to % which is not tracked by project %' then 'repo_renamed'"
+      echo "      when msg like '%Warning: cannot compact % table (%' then 'compact_failed'"
+      echo "      when msg like '%Compacted % table: % rows, % attribute slots%' then 'compacted'"
       echo "      when msg like '%panic:%' or msg like '%fatal error:%' or msg like '%stacktrace:%' or msg like '%Stacktrace:%' or msg like '%Error(time=%' then 'panic'"
       echo "      when msg like '%There were sync errors%' then 'sync_errors'"
       echo "      when msg like '%Error updating git repos%' then 'git_repos_error'"
@@ -916,6 +921,9 @@ if run_section dblogs; then
           else warn "[$st] gha_logs: $cntv HTTP-get/JSON-unmarshal error(s), $span; sample: $smp"; fi;;
         data_conflict)            note "[$st] gha_logs: $cntv artificial/orphan event id conflict(s) (skipped rows), $span";;
         nonfatal_error)           note "[$st] gha_logs: $cntv explicitly non-fatal/ignored error line(s), $span";;
+        repo_renamed)             : ;;  # reported per repository below
+        compact_failed)           warn "[$st] gha_logs: $cntv 'cannot compact' line(s): the columns tool could not rebuild a series table that reached its column slots threshold (GHA2DB_COLUMNS_COMPACT_SLOTS), $span; sample: $smp";;
+        compacted)                note "[$st] gha_logs: $cntv series table rebuild(s) by the columns tool (column slots threshold reached, dropped slots reclaimed), $span; sample: $smp";;
         go_warning)               note "[$st] gha_logs: $cntv 'Warning:' line(s) (mixed benign classes), $span";;
         git_noise)                ok "[$st] gha_logs: $cntv gitListCommits-failed line(s) (normal git noise), $span";;
         exit_status)              warn "[$st] gha_logs: $cntv 'exit status' line(s), $span; sample: $smp";;
@@ -924,6 +932,36 @@ if run_section dblogs; then
     done < <(grep '^cnt|' "$f" || true)
     grep -q '^cnt|' "$f" || ok "[$st] gha_logs: no error-class matches ($DBLOGS_DESC)"
     ok "[$st] gha_logs error-class scan done ($DBLOGS_DESC)"
+    # ghapi2db: repositories renamed on GitHub to a name the project configuration does not track. ghapi2db stores
+    # their data under the new name and warns once per sync until projects.yaml covers or excludes the name; a
+    # warning the project's latest sync (its newest heartbeat line) no longer prints is fixed -> NOTE, not WARN
+    f1r="$TMPD/dblogs-renames-$st.txt"
+    {
+      echo "psql -U $PG_USER -d devstats -tA -F'|' <<'SQL'"
+      echo "with r as ("
+      echo "  select proj, dt, regexp_match(msg, 'WARNING: repo (\\S+) was renamed to (\\S+) \\(id ([0-9]+)\\) which is not tracked by project') as m"
+      echo "  from gha_logs where ${DBLOGS_PRED} and msg like '%WARNING: repo % was renamed to % which is not tracked by project %'"
+      echo "), hb as ("
+      echo "  select proj, max(dt) as last_hb from gha_logs"
+      echo "  where ${DBLOGS_PRED} and msg like '%ghapi2db heartbeat: % repos in % GraphQL queries%' group by proj"
+      echo ")"
+      echo "select 'ren', r.proj, r.m[1], r.m[2], r.m[3], to_char(min(r.dt), 'YYYY-MM-DD HH24:MI:SS'), to_char(max(r.dt), 'YYYY-MM-DD HH24:MI:SS'),"
+      echo "  case when max(r.dt) >= coalesce((select last_hb from hb where hb.proj = r.proj), max(r.dt)) - interval '10 minutes' then 't' else 'f' end"
+      echo "from r where r.m is not null group by r.proj, r.m[1], r.m[2], r.m[3] order by r.proj, r.m[2];"
+      echo "SQL"
+    } | pg_script "$st" "$p" > "$f1r" || true
+    ren_active=""; ren_gone=""; n_ren_active=0; n_ren_gone=0
+    while IFS='|' read -r tag rproj rold rnew rid rfirst rlast ractive; do
+      [ "$tag" = "ren" ] || continue
+      if [ "$ractive" = "t" ]; then
+        n_ren_active=$((n_ren_active+1)); ren_active="$ren_active $rproj: $rold -> $rnew (id $rid, first seen $rfirst);"
+      else
+        n_ren_gone=$((n_ren_gone+1)); ren_gone="$ren_gone $rproj: $rold -> $rnew (last seen $rlast);"
+      fi
+    done < "$f1r"
+    [ "$n_ren_active" -gt 0 ] && warn "[$st] ghapi2db: $n_ren_active repository rename(s) to a name the project configuration does not track (data is stored under the new name, gha2db does not ingest it: cover or exclude it in projects.yaml):$ren_active"
+    [ "$n_ren_gone" -gt 0 ] && note "[$st] ghapi2db: $n_ren_gone repository rename warning(s) seen earlier are gone from the project's latest sync (configuration updated):$ren_gone"
+    [ "$n_ren_active" -eq 0 ] && [ "$n_ren_gone" -eq 0 ] && ok "[$st] ghapi2db: no untracked repository renames reported ($DBLOGS_DESC)"
     # devstats DB gha_computed flags/locks ages
     f2="$TMPD/dblogs-computed-$st.txt"
     {

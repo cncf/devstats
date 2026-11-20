@@ -2076,6 +2076,8 @@ projects:
     main_repo: knative/serving
     annotation_regexp: '^(knative-)?v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'tektoncd/pipeline'
   fabedge:
     order: 124
     name: FabEdge
