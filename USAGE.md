@@ -126,7 +126,7 @@ You can tweak `devstats` tools by environment variables:
 - Set `GHA2DB_PROJECTS_YAML`, many tool, set main projects file, default is "projects.yaml", for example `devel/cncf.sh` uses this/
 - Set `GHA2DB_EXTERNAL_INFO`, `get_repos` tool to enable displaying external info needed by cncf/gitdm.
 - Set `GHA2DB_PROJECTS_OVERRIDE`, `get_repos`, `devstats` tools - for example "-pro1,+pro2" means never sync pro1 and always sync pro2 (even if disabled in `projects.yaml`).
-- Set `GHA2DB_EXCLUDE_REPOS`, `gha2db` tool, default "" - comma separated list of repos to exclude, example: "theupdateframework/notary,theupdateframework/other".
+- Set `GHA2DB_EXCLUDE_REPOS`, `gha2db`, `ghapi2db`, `get_repos`, `reconcile_dbs` tools, default "" - comma separated list of repos to exclude, example: "theupdateframework/notary,theupdateframework/other". Usually set per project in `projects.yaml` (`env`); `get_repos` reads it from there for every project it processes, so an excluded repository is neither cloned/pulled nor scanned for commits.
 - Set `GHA2DB_INPUT_DBS`, `merge_dbs` tool - list of input databases to merge, order matters - first one will insert on a clean DB, next will do insert ignore (to avoid constraints failure due to common data).
 - Set `GHA2DB_OUTPUT_DB`, `merge_dbs` tool - output database to merge into.
 - Set `GHA2DB_RECONCILE_DBS`, `reconcile_dbs` tool - comma separated list of source databases to pull missing events from (explicit mode, no `projects.yaml` needed). Without it the tool uses `projects.yaml`: a project database pulls from its `shared_db` (project mode), a shared database (like `allprj`) pulls from every enabled project's `psql_db` that shares it (shared mode).
