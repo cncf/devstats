@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": true,
-          "text": "ray-project/ray",
-          "value": "ray-project/ray"
+          "text": "kuberay-project/kuberay",
+          "value": "kuberay-project/kuberay"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "rayprojectray",
-          "value": "rayprojectray"
+          "text": "kuberayprojectkuberay",
+          "value": "kuberayprojectkuberay"
         },
         "datasource": {
           "type": "postgres",

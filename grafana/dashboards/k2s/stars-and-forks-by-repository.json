@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": false,
-          "text": "K2s",
-          "value": "K2s"
+          "text": "k2s-project/k2s",
+          "value": "k2s-project/k2s"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "k2s",
-          "value": "k2s"
+          "text": "k2sprojectk2s",
+          "value": "k2sprojectk2s"
         },
         "datasource": {
           "type": "postgres",

@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": false,
-          "text": "google/gvisor",
-          "value": "google/gvisor"
+          "text": "gvisor/gvisor",
+          "value": "gvisor/gvisor"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "googlegvisor",
-          "value": "googlegvisor"
+          "text": "gvisorgvisor",
+          "value": "gvisorgvisor"
         },
         "datasource": {
           "type": "postgres",

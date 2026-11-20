@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": false,
-          "text": "gke-labs/open-rl",
-          "value": "gke-labs/open-rl"
+          "text": "openrl-dev/openrl",
+          "value": "openrl-dev/openrl"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "gkelabsopenrl",
-          "value": "gkelabsopenrl"
+          "text": "openrldevopenrl",
+          "value": "openrldevopenrl"
         },
         "datasource": {
           "type": "postgres",

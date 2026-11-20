@@ -2686,7 +2686,7 @@ update
 set
   repo_group = 'KubeRay'
 where
-  lower(org_login) in ('ray-project')
+  lower(org_login) in ('ray-project', 'kuberay-project')
 ;
 
 -- K2s
@@ -2695,7 +2695,8 @@ update
 set
   repo_group = 'K2s'
 where
-  lower(name) in ('siemens-healthineers/k2s')
+  lower(org_login) in ('k2s-project')
+  or lower(name) in ('siemens-healthineers/k2s')
 ;
 
 -- OpenShell
@@ -2756,7 +2757,8 @@ update
 set
   repo_group = 'OpenRL'
 where
-  lower(name) in ('gke-labs/open-rl')
+  lower(org_login) in ('openrl-dev')
+  or lower(name) in ('gke-labs/open-rl')
 ;
 
 -- vm-api
@@ -2765,7 +2767,8 @@ update
 set
   repo_group = 'vm-api'
 where
-  lower(name) in ('vmware-tanzu/vm-operator')
+  lower(org_login) in ('vm-api')
+  or lower(name) in ('vmware-tanzu/vm-operator')
 ;
 
 -- gVisor
@@ -2774,7 +2777,8 @@ update
 set
   repo_group = 'gVisor'
 where
-  lower(name) in ('google/gvisor', 'google/gvisor-website', 'google/gvisor-containerd-shim')
+  lower(org_login) in ('gvisor')
+  or lower(name) in ('google/gvisor', 'google/gvisor-website', 'google/gvisor-containerd-shim')
 ;
 
 -- CNCF

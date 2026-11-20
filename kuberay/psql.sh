@@ -16,7 +16,7 @@ GHA2DB_PROJECT=kuberay PG_DB=kuberay GHA2DB_LOCAL=1 structure 2>>errors.txt | te
 ./devel/db.sh psql kuberay -c "create extension if not exists hll" || exit 1
 ./shared/setup_shared_fdw.sh kuberay || exit 1
 ./devel/ro_user_grants.sh kuberay || exit 2
-GHA2DB_PROJECT=kuberay PG_DB=kuberay GHA2DB_LOCAL=1 gha2db 2016-09-11 0 today now 'ray-project' 2>>errors.txt | tee -a run.log || exit 3
+GHA2DB_PROJECT=kuberay PG_DB=kuberay GHA2DB_LOCAL=1 gha2db 2016-09-11 0 today now 'ray-project,kuberay-project' 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=kuberay PG_DB=kuberay GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 structure 2>>errors.txt | tee -a run.log || exit 5
 GHA2DB_PROJECT=kuberay PG_DB=kuberay ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 6
 GHA2DB_PROJECT=kuberay PG_DB=kuberay ./shared/setup_scripts.sh 2>>errors.txt | tee -a run.log || exit 7

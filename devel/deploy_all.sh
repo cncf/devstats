@@ -873,10 +873,10 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=sdc                 PROJDB=sdc            PROJREPO="sdcio/data-server"               ORGNAME=SDC               PORT=3330 ICON=sdc            GRAFSUFF=sdc            GA="-" ./devel/deploy_proj.sh               || exit 35
   elif [ "$proj" = "kuberay" ]
   then
-    PROJ=kuberay             PROJDB=kuberay        PROJREPO="ray-project/kuberay"             ORGNAME=KubeRay           PORT=3331 ICON=kuberay        GRAFSUFF=kuberay        GA="-" ./devel/deploy_proj.sh               || exit 36
+    PROJ=kuberay             PROJDB=kuberay        PROJREPO="kuberay-project/kuberay"         ORGNAME=KubeRay           PORT=3331 ICON=kuberay        GRAFSUFF=kuberay        GA="-" ./devel/deploy_proj.sh               || exit 36
   elif [ "$proj" = "k2s" ]
   then
-    PROJ=k2s                 PROJDB=k2s            PROJREPO="Siemens-Healthineers/K2s"        ORGNAME=K2s               PORT=3332 ICON=k2s            GRAFSUFF=k2s            GA="-" ./devel/deploy_proj.sh               || exit 37
+    PROJ=k2s                 PROJDB=k2s            PROJREPO="k2s-project/k2s"                 ORGNAME=K2s               PORT=3332 ICON=k2s            GRAFSUFF=k2s            GA="-" ./devel/deploy_proj.sh               || exit 37
   elif [ "$proj" = "openshell" ]
   then
     PROJ=openshell           PROJDB=openshell      PROJREPO="NVIDIA/OpenShell"                ORGNAME=OpenShell         PORT=3333 ICON=openshell      GRAFSUFF=openshell      GA="-" ./devel/deploy_proj.sh               || exit 38
@@ -894,13 +894,13 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=agentsubstrate      PROJDB=agentsubstrate PROJREPO="agent-substrate/substrate"       ORGNAME="Agent Substrate" PORT=3337 ICON=agentsubstrate GRAFSUFF=agentsubstrate GA="-" ./devel/deploy_proj.sh               || exit 42
   elif [ "$proj" = "openrl" ]
   then
-    PROJ=openrl              PROJDB=openrl         PROJREPO="gke-labs/open-rl"                ORGNAME=OpenRL            PORT=3338 ICON=openrl         GRAFSUFF=openrl         GA="-" ./devel/deploy_proj.sh               || exit 43
+    PROJ=openrl              PROJDB=openrl         PROJREPO="openrl-dev/openrl"               ORGNAME=OpenRL            PORT=3338 ICON=openrl         GRAFSUFF=openrl         GA="-" ./devel/deploy_proj.sh               || exit 43
   elif [ "$proj" = "vmapi" ]
   then
     PROJ=vmapi               PROJDB=vmapi          PROJREPO="vmware-tanzu/vm-operator"        ORGNAME=vm-api            PORT=3339 ICON=vmapi          GRAFSUFF=vmapi          GA="-" ./devel/deploy_proj.sh               || exit 44
   elif [ "$proj" = "gvisor" ]
   then
-    PROJ=gvisor              PROJDB=gvisor         PROJREPO="google/gvisor"                   ORGNAME=gVisor            PORT=3340 ICON=gvisor         GRAFSUFF=gvisor         GA="-" ./devel/deploy_proj.sh               || exit 45
+    PROJ=gvisor              PROJDB=gvisor         PROJREPO="gvisor/gvisor"                   ORGNAME=gVisor            PORT=3340 ICON=gvisor         GRAFSUFF=gvisor         GA="-" ./devel/deploy_proj.sh               || exit 45
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32

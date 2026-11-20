@@ -4142,7 +4142,7 @@ projects:
     hist_command_line:
       - 'sdcio,iptecharch'
     start_date: 2023-11-27T00:00:00Z
-    join_date: 2026-08-28T00:00:00Z
+    join_date: 2026-03-12T00:00:00Z
     psql_db: sdc
     main_repo: sdcio/data-server
     annotation_regexp: '^v\d+\.\d+\.\d+$'
@@ -4154,25 +4154,27 @@ projects:
     project_url: 'docs.ray.io'
     status: Sandbox
     command_line:
-      - ray-project
+      - kuberay-project,ray-project
     start_date: 2016-09-11T00:00:00Z
-    join_date: 2026-09-29T00:00:00Z
+    join_date: 2026-09-28T00:00:00Z
     psql_db: kuberay
-    main_repo: ray-project/kuberay
+    main_repo: kuberay-project/kuberay
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     shared_db: allprj
   k2s:
     order: 258
     name: K2s
-    project_url: 'siemens-healthineers.github.io/K2s/'
+    project_url: 'k2s-project.github.io/k2s/'
     status: Sandbox
     command_line:
-      - Siemens-Healthineers/K2s
+      - k2s-project
+    hist_command_line:
+      - 'k2s-project,Siemens-Healthineers/K2s'
     start_date: 2023-12-12T00:00:00Z
-    join_date: 2026-10-02T00:00:00Z
+    join_date: 2026-09-28T00:00:00Z
     psql_db: k2s
-    main_repo: Siemens-Healthineers/K2s
+    main_repo: k2s-project/k2s
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
     shared_db: allprj
@@ -4232,7 +4234,7 @@ projects:
     hist_command_line:
       - 'ai-runway,kaito-project/airunway,kaito-project/kubeairunway,Azure/kuberunway,sozercan/kube-foundry'
     start_date: 2025-12-08T00:00:00Z
-    join_date: 2026-10-14T00:00:00Z
+    join_date: 2026-09-28T00:00:00Z
     psql_db: airunway
     main_repo: ai-runway/airunway
     annotation_regexp: '^v\d+\.\d+\.0$'
@@ -4246,7 +4248,7 @@ projects:
     command_line:
       - agent-substrate,agent-substrate-plugins
     start_date: 2026-05-20T00:00:00Z
-    join_date: 2026-10-21T00:00:00Z
+    join_date: 2026-09-28T00:00:00Z
     psql_db: agentsubstrate
     main_repo: agent-substrate/substrate
     annotation_regexp: '^v\d+\.\d+\.0$'
@@ -4255,14 +4257,16 @@ projects:
   openrl:
     order: 264
     name: OpenRL
-    project_url: 'github.com/gke-labs/open-rl'
+    project_url: 'openrl.dev'
     status: Sandbox
     command_line:
-      - gke-labs/open-rl
+      - openrl-dev
+    hist_command_line:
+      - 'openrl-dev,gke-labs/open-rl'
     start_date: 2026-03-18T00:00:00Z
-    join_date: 2026-10-21T00:00:00Z
+    join_date: 2026-09-28T00:00:00Z
     psql_db: openrl
-    main_repo: gke-labs/open-rl
+    main_repo: openrl-dev/openrl
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: ''
     shared_db: allprj
@@ -4272,7 +4276,7 @@ projects:
     project_url: 'github.com/vmware-tanzu/vm-operator'
     status: Sandbox
     command_line:
-      - vmware-tanzu/vm-operator
+      - vmware-tanzu/vm-operator,vm-api
     start_date: 2021-04-27T00:00:00Z
     join_date: 2026-10-28T00:00:00Z
     psql_db: vmapi
@@ -4286,15 +4290,45 @@ projects:
     project_url: 'gvisor.dev'
     status: Sandbox
     command_line:
-      - google/gvisor
+      - gvisor
     hist_command_line:
-      - google/gvisor,google/gvisor-website,google/gvisor-containerd-shim
+      - gvisor,google/gvisor,google/gvisor-website,google/gvisor-containerd-shim
     start_date: 2018-05-02T00:00:00Z
-    join_date: 2026-10-28T00:00:00Z
+    join_date: 2026-09-28T00:00:00Z
     psql_db: gvisor
-    main_repo: google/gvisor
+    main_repo: gvisor/gvisor
     annotation_regexp: '^release-\d{8}\.0$'
     files_skip_pattern: ''
+    shared_db: allprj
+  caipe:
+    order: 267
+    name: 'CAIPE'
+    project_url: 'caipe.io'
+    status: Sandbox
+    command_line:
+      - caipe-io
+    hist_command_line:
+      - caipe-io,cnoe-io/caipe-cli,cnoe-io/agent-chat-cli,cnoe-io/ai-platform-engineering
+    start_date: 2025-05-26T00:00:00Z
+    join_date: 2026-09-28T00:00:00Z
+    psql_db: caipe
+    main_repo: caipe-io/caipe-cli
+    annotation_regexp: '^\d+\.\d+\.\d*0$'
+    files_skip_pattern: ''
+    shared_db: allprj
+  matrixhub:
+    order: 268
+    name: 'MatrixHub'
+    project_url: 'matrixhub.ai'
+    status: Sandbox
+    command_line:
+      - matrixhub-ai
+    start_date: 2026-01-08T00:00:00Z
+    join_date: 2026-09-28T00:00:00Z
+    psql_db: matrixhub
+    main_repo: matrixhub-ai/matrixhub
+    annotation_regexp: '^v\d+\.\d+\.0$'
+    files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     shared_db: allprj
   opencontainers:
     order: 1200
@@ -4574,7 +4608,7 @@ projects:
          tokenetes,spinframework,k0sproject,SlimPlanet,container2wasm,runmedev,cloudnative-pg,\
          Azure/Fleet-PRSE,Azure/fleet-networking,Azure/fleet,Azure/azure-rest-api-specs-fleet,\
          podman-desktop,podman-container-tools/podman,podman-container-tools/buildah,\
-         podman-container-tools/skopeo,containers/netavark,sdcio,ray-project,\
+         podman-container-tools/skopeo,containers/netavark,sdcio,kuberay-project,ray-project,\
          containers/aardvark-dns,containers/image,containers/storage,containers/common,\
          containers/conmon,containers/podman-py,cadence-workflow,kagent-dev,urunc-dev,cozystack,blockstor,\
          kitops-ml,drasi-project,CloudNativeAI,hyperlight-dev,kgateway-dev,bootc-dev,composefs,\
@@ -4583,10 +4617,10 @@ projects:
          KubeElasti,kai-scheduler,agones-dev,googleforgames/space-agon,thanos-community,kbind-dev,\
          googleforgames/global-multiplayer-demo,velero-io,vmware-tanzu/velero-plugin-for-vsphere,\
          llm-d,openeverest,nmstate,higress-group,tektoncd,tektoncd-catalog,Apicurio/apicurio-registry,\
-         Siemens-Healthineers/K2s,NVIDIA/OpenShell,NVIDIA/OpenShell-Research,\
+         k2s-project,NVIDIA/OpenShell,NVIDIA/OpenShell-Research,\
          NVIDIA/OpenShell-Community,kubestellar/hive,kubestellar/supervised-agent,praxis-proxy,\
-         ai-runway,agent-substrate,gke-labs/open-rl,vmware-tanzu/vm-operator,google/gvisor,\
-         agent-substrate-plugins"
+         ai-runway,agent-substrate,openrl-dev,vmware-tanzu/vm-operator,vm-api,gvisor,\
+         agent-substrate-plugins,caipe-io,matrixhub-ai"
     hist_command_line:
       - "kubernetes,kubernetes-client,kubernetes-incubator,kubernetes-helm,eraser-dev,\
          kubernetes-graveyard,kubernetes-incubator-retired,kubernetes-sig-testing,kubernetes-providers,\
@@ -4645,8 +4679,8 @@ projects:
          ligato/networkservicemesh,improbable-eng/promlts,improbable-eng/thanos,weaveworks/flux,\
          EnMasseProject/barnabas,ppatierno/barnabas,ppatierno/kaas,cubeFS,\
          containerfs/containerfs.github.io,containerfilesystem/cfs,containerfilesystem/doc-zh,\
-         tomkerkhove/sample-dotnet-queue-worker,\
-         tomkerkhove/sample-dotnet-queue-worker-servicebus-queue,\
+         tomkerkhove/sample-dotnet-queue-worker,cnoe-io/agent-chat-cli,matrixhub-ai,\
+         tomkerkhove/sample-dotnet-queue-worker-servicebus-queue,caipe-io,cnoe-io/caipe-cli,\
          tomkerkhove/sample-dotnet-worker-servicebus-queue,rancher/longhorn,deislabs/smi-spec,\
          deislabs/smi-sdk-go,deislabs/smi-metrics,deislabs/smi-adapter-istio,deislabs/smi-spec.io,\
          servicemeshinterface,cni-genie,keptn,Huawei-PaaS/CNI-Genie,patras-sdk/kubebuilder-maestro,\
@@ -4751,7 +4785,8 @@ projects:
          projectatomic/skopeo,stateful/vscode-runme,vmware-tanzu/homebrew-carvel,praxis-proxy,\
          shaneutt/praxis,ai-runway,kaito-project/airunway,kaito-project/kubeairunway,Azure/kuberunway,\
          sozercan/kube-foundry,agent-substrate,gke-labs/open-rl,vmware-tanzu/vm-operator,google/gvisor,\
-         google/gvisor-website,google/gvisor-containerd-shim,agent-substrate-plugins"
+         google/gvisor-website,google/gvisor-containerd-shim,agent-substrate-plugins,vm-api,openrl-dev,\
+         gvisor,kuberay-project,k2s-project,cnoe-io/ai-platform-engineering"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
