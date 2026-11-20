@@ -2781,6 +2781,25 @@ where
   or lower(name) in ('google/gvisor', 'google/gvisor-website', 'google/gvisor-containerd-shim')
 ;
 
+-- CAIPE
+update
+  gha_repos
+set
+  repo_group = 'CAIPE'
+where
+  lower(org_login) in ('caipe-io')
+  or lower(name) in ('cnoe-io/caipe-cli', 'cnoe-io/agent-chat-cli', 'cnoe-io/ai-platform-engineering')
+;
+
+-- MatrixHub
+update
+  gha_repos
+set
+  repo_group = 'MatrixHub'
+where
+  lower(org_login) in ('matrixhub-ai')
+;
+
 -- CNCF
 update
   gha_repos

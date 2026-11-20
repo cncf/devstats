@@ -20,6 +20,7 @@ bpfman,bpfman,bpfd-dev,redhat-et/bpfd
 brigade,brigadecore,Azure/brigade
 buildpacks,buildpack,buildpacks,buildpacks-community
 cadence,cadence-workflow,uber/cadence
+caipe,caipe-io,cnoe-io/caipe-cli,cnoe-io/agent-chat-cli,cnoe-io/ai-platform-engineering
 capsule,regexp:(?i)^(clastix\/.*capsule.*|projectcapsule\/.*)$
 carina,carina-io
 cartography,cartography-cncf,lyft/cartography
@@ -180,6 +181,7 @@ llmd,llm-d
 loggingoperator,kube-logging,banzaicloud/logging-operator
 longhorn,longhorn,rancher/longhorn
 loxilb,loxilb-io
+matrixhub,matrixhub-ai
 merbridge,merbridge,kebe7jun/mepf,kebe7jun/mebpf
 meshery,regexp:(?i)^(layer5io\/.*meshery|meshery\/.*|meshery-extensions\/.*)
 metal3,metal3-io

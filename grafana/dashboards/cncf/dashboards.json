@@ -2447,6 +2447,26 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
+      "title": "CAIPE",
+      "tooltip": "Opens CAIPE projects dashboards",
+      "type": "link",
+      "url": "https://caipe.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "MatrixHub",
+      "tooltip": "Opens MatrixHub projects dashboards",
+      "type": "link",
+      "url": "https://matrixhub.[[hostname]]"
+    },
+    {
+      "icon": "dashboard",
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
       "title": "All CNCF",
       "tooltip": "Opens All CNCF projects dashboards",
       "type": "link",

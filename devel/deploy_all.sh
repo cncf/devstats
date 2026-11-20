@@ -901,6 +901,12 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
   elif [ "$proj" = "gvisor" ]
   then
     PROJ=gvisor              PROJDB=gvisor         PROJREPO="gvisor/gvisor"                   ORGNAME=gVisor            PORT=3340 ICON=gvisor         GRAFSUFF=gvisor         GA="-" ./devel/deploy_proj.sh               || exit 45
+  elif [ "$proj" = "caipe" ]
+  then
+    PROJ=caipe               PROJDB=caipe          PROJREPO="caipe-io/caipe-cli"              ORGNAME=CAIPE             PORT=3341 ICON=caipe          GRAFSUFF=caipe          GA="-" ./devel/deploy_proj.sh               || exit 46
+  elif [ "$proj" = "matrixhub" ]
+  then
+    PROJ=matrixhub           PROJDB=matrixhub      PROJREPO="matrixhub-ai/matrixhub"          ORGNAME=MatrixHub         PORT=3342 ICON=matrixhub      GRAFSUFF=matrixhub      GA="-" ./devel/deploy_proj.sh               || exit 47
   elif [ "$proj" = "opencontainers" ]
   then
     PROJ=opencontainers      PROJDB=opencontainers PROJREPO="opencontainers/runc"             ORGNAME=OCI               PORT=3220 ICON="-"            GRAFSUFF=opencontainers GA="-" ./devel/deploy_proj.sh               || exit 32
