@@ -879,7 +879,7 @@ elif ( [ "$proj" = "tratteria" ] || [ "$proj" = "tokenetes" ] )
     PROJ=k2s                 PROJDB=k2s            PROJREPO="k2s-project/k2s"                 ORGNAME=K2s               PORT=3332 ICON=k2s            GRAFSUFF=k2s            GA="-" ./devel/deploy_proj.sh               || exit 37
   elif [ "$proj" = "openshell" ]
   then
-    PROJ=openshell           PROJDB=openshell      PROJREPO="NVIDIA/OpenShell"                ORGNAME=OpenShell         PORT=3333 ICON=openshell      GRAFSUFF=openshell      GA="-" ./devel/deploy_proj.sh               || exit 38
+    PROJ=openshell           PROJDB=openshell      PROJREPO="ai-openshell/openshell"          ORGNAME=OpenShell         PORT=3333 ICON=openshell      GRAFSUFF=openshell      GA="-" ./devel/deploy_proj.sh               || exit 38
   elif [ "$proj" = "hivecommons" ]
   then
     PROJ=hivecommons         PROJDB=hivecommons    PROJREPO="hivecommons/hive"                ORGNAME="Hive Commons"    PORT=3334 ICON=hivecommons    GRAFSUFF=hivecommons    GA="-" ./devel/deploy_proj.sh               || exit 39

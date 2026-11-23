@@ -16,7 +16,7 @@ GHA2DB_PROJECT=flatcar PG_DB=flatcar GHA2DB_LOCAL=1 structure 2>>errors.txt | te
 ./devel/db.sh psql flatcar -c "create extension if not exists hll" || exit 1
 ./shared/setup_shared_fdw.sh flatcar || exit 1
 ./devel/ro_user_grants.sh flatcar || exit 2
-GHA2DB_PROJECT=flatcar PG_DB=flatcar GHA2DB_LOCAL=1 gha2db 2018-03-05 0 today now 'flatcar,flatcar-linux,kinvolk/Flatcar,kinvolk/flatcar-scripts,kinvolk/mantle' 2>>errors.txt | tee -a run.log || exit 3
+GHA2DB_PROJECT=flatcar PG_DB=flatcar GHA2DB_LOCAL=1 gha2db 2018-03-05 0 today now 'flatcar,flatcar-linux,flatcar-hub,kinvolk/Flatcar,kinvolk/flatcar-scripts,kinvolk/mantle' 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=flatcar PG_DB=flatcar GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 structure 2>>errors.txt | tee -a run.log || exit 5
 GHA2DB_PROJECT=flatcar PG_DB=flatcar ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 6
 GHA2DB_PROJECT=flatcar PG_DB=flatcar ./shared/setup_scripts.sh 2>>errors.txt | tee -a run.log || exit 7

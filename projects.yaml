@@ -40,7 +40,8 @@ projects:
          kubernetes/kube-scheduler,kubernetes/kubelet,kubernetes/sample-cli-plugin,\
          kubernetes/application-dm-templates,kubernetes/cluster-bootstrap,\
          kubernetes/cloud-provider,kubernetes-sigs/cri-o,kubernetes-incubator/ocid,\
-         kubernetes-incubator/cri-o,kubernetes-sigs/headlamp"
+         kubernetes-incubator/cri-o,kubernetes-sigs/headlamp,containerd/cri,\
+         GoogleCloudPlatform/metacontroller,jpbetz/auger"
   prometheus:
     order: 2
     name: Prometheus
@@ -60,6 +61,8 @@ projects:
     annotation_regexp: '^v?\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     project_scale: 1.2
+    env:
+      GHA2DB_EXCLUDE_ORGS: 'prometheus-junkyard'
   opentracing:
     order: 3
     name: OpenTracing
@@ -91,6 +94,13 @@ projects:
     main_repo: fluent/fluentd
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS:
+        "alibaba-archive/aliyun-odps-fluentd-plugin,\
+         ghostmonitor/archive-fluent-plugin-dynamodb-streams,mtanda/pushgateway-test,\
+         splunk/fluentd-hec,splunk/k8s-metrics,splunk/k8s-metrics-aggr,splunk/kube-objects,\
+         vendasta/yw-fluent-plugin-heroku-http,WanfengHu/aws-fluent-plugin-kinesis"
+      GHA2DB_EXCLUDE_ORGS: 'seanpm2001'
   linkerd:
     order: 5
     name: Linkerd
@@ -109,6 +119,8 @@ projects:
     main_repo: linkerd/linkerd2
     annotation_regexp: '^stable-\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'dadjeibaah/openj9-tests'
   grpc:
     order: 6
     name: gRPC
@@ -212,6 +224,8 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     project_scale: 1.2
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'bufbuild/protoc-gen-validate'
   jaeger:
     order: 12
     name: Jaeger
@@ -246,6 +260,8 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.0(-(alpha|beta|rc)\.\d+)?$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     project_scale: 0.3
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'theupdateframework/artwork'
   tuf:
     order: 14
     name: TUF
@@ -350,7 +366,8 @@ projects:
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     project_scale: 0.3
     env:
-      GHA2DB_EXCLUDE_REPOS: 'spiffe/spire,spiffe/spire-k8s,spiffe/spire-test,spiffe/spire-tutorials,spiffe/spire-examples,spiffe/spire-circleci-test'
+      GHA2DB_EXCLUDE_REPOS: 'spiffe/spire,spiffe/spire-k8s,spiffe/spire-test,spiffe/spire-tutorials,spiffe/spire-examples,spiffe/spire-circleci-test,drrt/clabot'
+      GHA2DB_EXCLUDE_ORGS: 'scytaleio'
   spire:
     order: 20
     name: SPIRE
@@ -544,6 +561,8 @@ projects:
     main_repo: falcosecurity/falco
     annotation_regexp: '^\d+\.\d+\.\d+$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_ORGS: 'falcosecurity-retire'
   dragonfly:
     order: 31
     name: Dragonfly
@@ -632,6 +651,8 @@ projects:
     main_repo: cri-o/cri-o
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'containers/containrs'
   networkservicemesh:
     order: 36
     name: Network Service Mesh
@@ -662,6 +683,9 @@ projects:
     main_repo: openebs/openebs
     annotation_regexp: ''
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'kmova/openebs-staging'
+      GHA2DB_EXCLUDE_ORGS: 'litmuschaos,mayadata-io,openebs-archive'
   opentelemetry:
     order: 38
     name: OpenTelemetry
@@ -696,6 +720,8 @@ projects:
     main_repo: thanos-io/thanos
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'openproto/protoconfig,prometheus-community/promql-rs'
   flux:
     order: 40
     name: Flux
@@ -740,9 +766,9 @@ projects:
     project_url: 'strimzi.io'
     status: Incubating
     command_line:
-      - strimzi
+      - strimzi,strimzi-incubator
     hist_command_line:
-      - 'strimzi,EnMasseProject/barnabas,ppatierno/barnabas,ppatierno/kaas'
+      - 'strimzi,strimzi-incubator,EnMasseProject/barnabas,ppatierno/barnabas,ppatierno/kaas'
     start_date: 2016-05-06T00:00:00Z
     join_date: 2019-08-28T00:00:00Z
     incubating_date: 2024-02-08T00:00:00Z
@@ -769,6 +795,8 @@ projects:
     main_repo: kubevirt/kubevirt
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'fabiand/rhsummit-demo-2018'
   longhorn:
     order: 44
     name: Longhorn
@@ -826,6 +854,8 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: ''
     project_scale: 0.3
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'Azure-Samples/aks-keda-addon-workload-identity'
   smi:
     order: 47
     name: SMI
@@ -860,6 +890,9 @@ projects:
     main_repo: argoproj/argo-cd
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'cello-proj/cello,keikoproj/minion-manager'
+      GHA2DB_EXCLUDE_ORGS: 'argoproj-archive'
   volcano:
     order: 49
     name: Volcano
@@ -875,6 +908,9 @@ projects:
     main_repo: volcano-sh/volcano
     annotation_regexp: '^v(\d+\.){1,2}\d+$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'k82cn/kubesim'
+      GHA2DB_EXCLUDE_ORGS: 'volcano-retired'
   cnigenie:
     order: 50
     name: CNI-Genie
@@ -975,6 +1011,9 @@ projects:
     main_repo: litmuschaos/litmus
     annotation_regexp: '^\d+\.\d+\.0$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'ksatchit/community'
+      GHA2DB_EXCLUDE_ORGS: 'mayadata-io'
   artifacthub:
     order: 56
     name: Artifact Hub
@@ -1089,6 +1128,9 @@ projects:
     main_repo: operator-framework/operator-sdk
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'anik120/of-support-bot'
+      GHA2DB_EXCLUDE_ORGS: 'kube-reporting'
   chaosmesh:
     order: 63
     name: Chaos Mesh
@@ -1106,6 +1148,8 @@ projects:
     main_repo: chaos-mesh/chaos-mesh
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_ORGS: 'PingCAP-QE'
   serverlessworkflow:
     order: 64
     name: Open Workflow Specification
@@ -1161,6 +1205,8 @@ projects:
     main_repo: backstage/backstage
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'globo-backstage/beat,globocom/loopback-jsonschema'
   tremor:
     order: 67
     name: Tremor
@@ -1337,6 +1383,8 @@ projects:
     main_repo: tinkerbell/tinkerbell
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'crossplane-contrib/provider-tinkerbell,gauravgahlot/tinker'
   pravega:
     order: 78
     name: Pravega
@@ -1452,6 +1500,8 @@ projects:
     main_repo: 'kubeovn/kube-ovn'
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'oilbeater/ovn-doc-cn'
   curiefense:
     order: 85
     name: Curiefense
@@ -1581,6 +1631,8 @@ projects:
     main_repo: 'WasmEdge/WasmEdge'
     annotation_regexp: '^v?\d+\.\d+\.0$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'cardea-mcp/RustCoder'
   chaosblade:
     order: 93
     name: ChaosBlade
@@ -1595,6 +1647,8 @@ projects:
     main_repo: 'chaosblade-io/chaosblade'
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'alibaba-archive/chaosblade-exec-nodejs'
   vineyard:
     order: 94
     name: Vineyard
@@ -1919,13 +1973,16 @@ projects:
     main_repo: 'cilium/cilium'
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'ebpf-io/ebpf.io-website,networkpolicy/tutorial'
+      GHA2DB_EXCLUDE_ORGS: 'isovalent'
   dapr:
     order: 114
     name: Dapr
     project_url: 'dapr.io'
     status: Graduated
     command_line:
-    - 'dapr'
+    - 'dapr,dapr-sandbox'
     start_date: 2019-10-16T00:00:00Z
     join_date: 2021-11-09T00:00:00Z
     graduated_date: 2024-10-30T00:00:00Z
@@ -1934,6 +1991,9 @@ projects:
     main_repo: 'dapr/dapr'
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'Azure/azure-functions-dapr-extension'
+      GHA2DB_EXCLUDE_ORGS: 'mchmarny'
   openelb:
     order: 115
     name: OpenELB
@@ -2013,6 +2073,8 @@ projects:
     main_repo: 'kubearmor/KubeArmor'
     annotation_regexp: '^v\d+\.\d+(\.\d+)?$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'accuknox/cilium,accuknox/cilium-proxy,accuknox/cilium-spire-tutorials'
   k8up:
     order: 120
     name: K8up
@@ -2289,9 +2351,9 @@ projects:
     project_url: 'konveyor.io'
     status: Sandbox
     command_line:
-      - 'konveyor'
+      - 'konveyor,konveyor-ecosystem'
     hist_command_line:
-      - 'konveyor,fusor/mig-operator'
+      - 'konveyor,konveyor-ecosystem,fusor/mig-operator'
     start_date: 2019-06-28T00:00:00Z
     join_date: 2022-07-26T00:00:00Z
     psql_db: konveyor
@@ -2299,6 +2361,9 @@ projects:
     main_repo: konveyor/operator
     annotation_regexp: '^v\d+\.\d+\.\d+$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'carlosthe19916/tackle-ui-testing-poc,dora-metrics/pelorus'
+      GHA2DB_EXCLUDE_ORGS: 'kubev2v,migtools,openshift'
   armada:
     order: 138
     name: Armada
@@ -2329,6 +2394,8 @@ projects:
     main_repo: external-secrets/external-secrets
     annotation_regexp: '^(v\d+\.\d+\.0|helm-chart-\d+\.\d+\.0)$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'flydiverny-stuff/kes-ts-fork'
   serverlessdevs:
     order: 140
     name: 'Serverless Devs'
@@ -2442,6 +2509,8 @@ projects:
     annotation_regexp: '^v?\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     sync_probabilty: 0.99
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'fortio/fortio'
   merbridge:
     order: 147
     name: Merbridge
@@ -2581,6 +2650,8 @@ projects:
     main_repo: werf/werf
     annotation_regexp: '^v\d+\.\d+\.(0|\d+0)$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'deckhouse/3p-libelf'
   kubescape:
     order: 156
     name: Kubescape
@@ -2644,6 +2715,8 @@ projects:
     main_repo: keycloak/keycloak
     annotation_regexp: '^\d+\.0\.0(\.Final)?$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'jboss-container-images/redhat-sso-container-patch,louketo/louketo-proxy'
   sops:
     order: 160
     name: SOPS
@@ -2830,6 +2903,8 @@ projects:
     main_repo: kubeflow/kubeflow
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'GoogleCloudPlatform/kubeflow-distribution,intel/vck,kserve/kserve'
   copacetic:
     order: 172
     name: Copa
@@ -2904,6 +2979,8 @@ projects:
     main_repo: kcl-lang/kcl
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'crossplane-contrib/function-kcl'
   kubeburner:
     order: 177
     name: 'kube-burner'
@@ -3017,7 +3094,7 @@ projects:
     project_url: 'kubeslice.io'
     status: Sandbox
     command_line:
-      - kubeslice
+      - kubeslice,kubeslice-ent
     start_date: 2022-05-05T00:00:00Z
     join_date: 2024-04-16T00:00:00Z
     psql_db: kubeslice
@@ -3047,9 +3124,9 @@ projects:
     project_url: 'kairos.io'
     status: Sandbox
     command_line:
-      - kairos-io
+      - kairos-io,kairos-community
     hist_command_line:
-      - 'kairos-io,c3os-io,mudler/c3os'
+      - 'kairos-io,kairos-community,c3os-io,mudler/c3os'
     start_date: 2021-07-30T00:00:00Z
     join_date: 2024-04-13T00:00:00Z
     psql_db: kairos
@@ -3153,9 +3230,9 @@ projects:
     project_url: 'oscal-compass.github.io'
     status: Sandbox
     command_line:
-      - oscal-compass
+      - oscal-compass,oscal-compass-demos
     hist_command_line:
-      - 'oscal-compass,IBM/compliance-trestle'
+      - 'oscal-compass,oscal-compass-demos,IBM/compliance-trestle'
     start_date: 2020-08-30T00:00:00Z
     join_date: 2024-06-21T00:00:00Z
     psql_db: trestlegrc
@@ -3223,6 +3300,8 @@ projects:
     main_repo: bpfman/bpfman
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'dave-tucker/bpfman-fosdem24'
   loxilb:
     order: 198
     name: LoxiLB
@@ -3324,9 +3403,9 @@ projects:
     project_url: 'flatcar.org'
     status: Incubating
     command_line:
-      - flatcar,flatcar-linux
+      - flatcar,flatcar-linux,flatcar-hub
     hist_command_line:
-      - "flatcar,flatcar-linux,kinvolk/Flatcar,kinvolk/flatcar-scripts,\
+      - "flatcar,flatcar-linux,flatcar-hub,kinvolk/Flatcar,kinvolk/flatcar-scripts,\
          kinvolk/mantle"
     start_date: 2018-03-05T00:00:00Z
     join_date: 2024-08-02T00:00:00Z
@@ -3335,6 +3414,11 @@ projects:
     main_repo: flatcar/mantle
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS:
+        "kinvolk/docker,kinvolk/etcd,kinvolk/manifest,kinvolk/manifest-builds,\
+         sayanchowdhury/azure-marketplace-ingestion-api"
+      GHA2DB_EXCLUDE_ORGS: 'flatcar-archive,kinvolk-archives'
   kusionstack:
     order: 205
     name: KusionStack
@@ -3349,6 +3433,8 @@ projects:
     main_repo: KusionStack/kusion
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_ORGS: 'kcl-lang'
   youki:
     order: 206
     name: Youki
@@ -3381,6 +3467,8 @@ projects:
     main_repo: kaito-project/kaito
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'ai-runway/airunway'
   sermant:
     order: 208
     name: Sermant
@@ -3680,6 +3768,8 @@ projects:
     main_repo: cozystack/cozystack
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_ORGS: 'jehrhardt'
   kgateway:
     order: 227
     name: kgateway
@@ -3696,6 +3786,8 @@ projects:
     main_repo: kgateway-dev/kgateway
     annotation_regexp: '^v\d+\.\d+\.(0|\d+0)$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'solo-io/gloo'
   kitops:
     order: 228
     name: KitOps
@@ -3743,6 +3835,8 @@ projects:
     main_repo: opentofu/opentofu
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'opentffoundation/.github'
   cadence:
     order: 231
     name: Cadence
@@ -4044,6 +4138,8 @@ projects:
     main_repo: nmstate/nmstate
     annotation_regexp: '^v\d+\.\d+\.\d*0$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_ORGS: 'nmstate-archive'
   higress:
     order: 250
     name: Higress
@@ -4074,6 +4170,8 @@ projects:
     main_repo: llm-d/llm-d
     annotation_regexp: '^v\d+\.\d+$'
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'neuralmagic/gateway-api-inference-extension'
   tekton:
     order: 252
     name: Tekton
@@ -4104,6 +4202,8 @@ projects:
     annotation_regexp: '^\d+\.\d+\.0$'
     files_skip_pattern: ''
     shared_db: allprj
+    env:
+      GHA2DB_EXCLUDE_ORGS: 'ApicurioArchive'
   kbind:
     order: 254
     name: kbind
@@ -4164,6 +4264,8 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     shared_db: allprj
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'superserve-ai/superserve'
   k2s:
     order: 258
     name: K2s
@@ -4186,11 +4288,11 @@ projects:
     project_url: 'docs.nvidia.com/openshell/latest/'
     status: Sandbox
     command_line:
-      - 'regexp:(?i)^NVIDIA\/OpenShell.*$'
+      - 'regexp:(?i)^(ai-openshell\/.*|NVIDIA\/OpenShell.*)$'
     start_date: 2026-03-16T00:00:00Z
     join_date: 2026-09-26T00:00:00Z
     psql_db: openshell
-    main_repo: NVIDIA/OpenShell
+    main_repo: ai-openshell/openshell
     annotation_regexp: '^v\d+\.\d+\.\d*0$'
     files_skip_pattern: '(^|/)_?(vendor|Godeps|_workspace)/'
     shared_db: allprj
@@ -4622,7 +4724,8 @@ projects:
          k2s-project,NVIDIA/OpenShell,NVIDIA/OpenShell-Research,\
          NVIDIA/OpenShell-Community,kubestellar/hive,kubestellar/supervised-agent,praxis-proxy,\
          ai-runway,agent-substrate,openrl-dev,vmware-tanzu/vm-operator,vm-api,gvisor,\
-         agent-substrate-plugins,caipe-io,matrixhub-ai"
+         agent-substrate-plugins,caipe-io,matrixhub-ai,strimzi-incubator,dapr-sandbox,konveyor-ecosystem,\
+         kubeslice-ent,kairos-community,oscal-compass-demos,flatcar-hub,ai-openshell"
     hist_command_line:
       - "kubernetes,kubernetes-client,kubernetes-incubator,kubernetes-helm,eraser-dev,\
          kubernetes-graveyard,kubernetes-incubator-retired,kubernetes-sig-testing,kubernetes-providers,\
@@ -4788,7 +4891,8 @@ projects:
          shaneutt/praxis,ai-runway,kaito-project/airunway,kaito-project/kubeairunway,Azure/kuberunway,\
          sozercan/kube-foundry,agent-substrate,gke-labs/open-rl,vmware-tanzu/vm-operator,google/gvisor,\
          google/gvisor-website,google/gvisor-containerd-shim,agent-substrate-plugins,vm-api,openrl-dev,\
-         gvisor,kuberay-project,k2s-project,cnoe-io/ai-platform-engineering"
+         gvisor,kuberay-project,k2s-project,cnoe-io/ai-platform-engineering,strimzi-incubator,dapr-sandbox,\
+         konveyor-ecosystem,kubeslice-ent,kairos-community,oscal-compass-demos,flatcar-hub,ai-openshell"
     start_date: 2014-01-01T00:00:00Z
     join_date: 2016-03-10T00:00:00Z
     psql_db: allprj
@@ -4807,7 +4911,35 @@ projects:
          kubernetes/kube-scheduler,kubernetes/kubelet,kubernetes/sample-cli-plugin,\
          kubernetes/cluster-bootstrap,kubernetes/cloud-provider,\
          k3s-io/klog,k3s-io/containerd,k3s-io/cri-tools,k3s-io/etcd,k3s-io/flannel,\
-         k3s-io/go-powershell,k3s-io/kubernetes,k3s-io/nocode"
+         k3s-io/go-powershell,k3s-io/kubernetes,k3s-io/nocode,aaif/aaif-landscape,accuknox/cilium,\
+         accuknox/cilium-proxy,accuknox/cilium-spire-tutorials,\
+         alibaba-archive/chaosblade-exec-nodejs,anik120/of-support-bot,\
+         Azure-Samples/aks-keda-addon-workload-identity,Azure/azure-functions-dapr-extension,\
+         bufbuild/protoc-gen-validate,cardea-mcp/RustCoder,carlosthe19916/tackle-ui-testing-poc,\
+         cello-proj/cello,cloudfoundry/servicebroker,containers/containrs,dadjeibaah/openj9-tests,\
+         dave-tucker/bpfman-fosdem24,deckhouse/3p-libelf,dora-metrics/pelorus,drrt/clabot,\
+         ebpf-io/ebpf.io-website,fabiand/rhsummit-demo-2018,flydiverny-stuff/kes-ts-fork,\
+         fortio/fortio,gauravgahlot/tinker,globo-backstage/beat,globocom/functions,\
+         globocom/functions-sandbox,globocom/loopback-jsonschema,\
+         GoogleCloudPlatform/kubeflow-distribution,GoogleCloudPlatform/metacontroller,intel/vck,\
+         jboss-container-images/redhat-sso-container-patch,jpbetz/auger,k82cn/kubesim,\
+         keikoproj/minion-manager,kinvolk-archives/fleet,kinvolk-archives/rkt-legacy,\
+         kinvolk-archives/systemd-legacy,kinvolk/docker,kinvolk/etcd,kinvolk/manifest,\
+         kinvolk/manifest-builds,kmova/openebs-staging,ksatchit/community,LF-Engineering/darst,\
+         louketo/louketo-proxy,mchmarny/dapr-grpc-event-subscriber-template,\
+         mchmarny/dapr-grpc-service-template,mchmarny/dapr-http-cron-handler-template,\
+         mchmarny/dapr-http-event-subscriber-template,networkpolicy/tutorial,\
+         neuralmagic/gateway-api-inference-extension,oilbeater/ovn-doc-cn,openproto/protoconfig,\
+         openshift/oadp-operator,openshift/openshift-velero-plugin,openshift/restic,\
+         openshift/velero,openshift/velero-plugin-for-aws,openshift/velero-plugin-for-csi,\
+         openshift/velero-plugin-for-gcp,openshift/velero-plugin-for-microsoft-azure,\
+         opentffoundation/.github,podtato-head/podtato-head,\
+         sayanchowdhury/azure-marketplace-ingestion-api,solo-io/gloo,superserve-ai/superserve,\
+         todogroup/ospolandscape"
+      GHA2DB_EXCLUDE_ORGS:
+        "apihub,argoproj-archive,ct1n,falcosecurity-retire,flatcar-archive,flatcar-rails,isovalent,\
+         jehrhardt,kube-reporting,kubev2v,mayadata-io,migtools,nmstate-archive,openebs-archive,\
+         PingCAP-QE,prometheus-junkyard,scytaleio,volcano-retired"
   nodejs:
     order: 2000
     name: Node.js

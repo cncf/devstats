@@ -463,7 +463,7 @@ update
 set
   repo_group = 'Strimzi'
 where
-  org_login in ('strimzi')
+  org_login in ('strimzi', 'strimzi-incubator')
   or name in ('EnMasseProject/barnabas', 'ppatierno/barnabas', 'ppatierno/kaas')
 ;
 
@@ -1227,7 +1227,7 @@ update
 set
   repo_group = 'Dapr'
 where
-  org_login in ('dapr')
+  org_login in ('dapr', 'dapr-sandbox')
 ;
 
 -- OpenELB
@@ -1450,7 +1450,7 @@ update
 set
   repo_group = 'Konveyor'
 where
-  org_login in ('konveyor')
+  org_login in ('konveyor', 'konveyor-ecosystem')
   or name in ('fusor/mig-operator')
 ;
 
@@ -1954,7 +1954,7 @@ update
 set
   repo_group = 'Kubeslice'
 where
-  org_login in ('kubeslice')
+  org_login in ('kubeslice', 'kubeslice-ent')
 ;
 
 -- Connect RPC
@@ -1977,7 +1977,7 @@ update
 set
   repo_group = 'Kairos'
 where
-  org_login in ('kairos-io', 'c3os-io')
+  org_login in ('kairos-io', 'kairos-community', 'c3os-io')
   or name in ('mudler/c3os')
 ;
 
@@ -2047,7 +2047,7 @@ update
 set
   repo_group = 'TrestleGRC'
 where
-  org_login in ('oscal-compass')
+  org_login in ('oscal-compass', 'oscal-compass-demos')
   or name in ('IBM/compliance-trestle')
 ;
 
@@ -2158,7 +2158,7 @@ update
 set
   repo_group = 'Flatcar'
 where
-  org_login in ('flatcar', 'flatcar-linux')
+  org_login in ('flatcar', 'flatcar-linux', 'flatcar-hub')
   or name in ('kinvolk/Flatcar', 'kinvolk/flatcar-scripts', 'kinvolk/mantle')
 ;
 
@@ -2705,7 +2705,7 @@ update
 set
   repo_group = 'OpenShell'
 where
-  name ~ '(?i)^NVIDIA\/OpenShell.*$'
+  name ~ '(?i)^(ai-openshell\/.*|NVIDIA\/OpenShell.*)$'
 ;
 
 -- Hive Commons

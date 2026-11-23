@@ -3,7 +3,7 @@ agentsubstrate,agent-substrate,agent-substrate-plugins
 agones,agones-dev,googleforgames/agones,googleforgames/agones-site,googleforgames/agones-community,googleforgames/space-agon,googleforgames/global-multiplayer-demo,GoogleCloudPlatform/agones
 airunway,ai-runway,kaito-project/airunway,kaito-project/kubeairunway,Azure/kuberunway,sozercan/kube-foundry
 akri,desilabs/akri
-allcdf,spinnaker,tektoncd,tektoncd-catalog,jenkinsci,jenkins-infra,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins,knative/build,knative/build-pipeline,cdevents,pyrsia,screwdriver-cd,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator,ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-setup,ortelius/keptn-config,ortelius/keptn-ortelius-service,ortelius/la-sbom-ledger,ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach
+allcdf,spinnaker,tektoncd,tektoncd-catalog,jenkinsci,jenkins-infra,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins,jenkins-x-labs,knative/build,knative/build-pipeline,cdevents,pyrsia,screwdriver-cd,shipwright-io,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator,ortelius/azure-infra,ortelius/backstage,ortelius/cli,ortelius/dev-env-setup,ortelius/keptn-config,ortelius/keptn-ortelius-service,ortelius/la-sbom-ledger,ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach
 antrea,vmware-tanzu/antrea,antrea-io
 apicurioregistry,regexp:(?i)^Apicurio\/apicurio-registry.*$
 argo,argoproj,argoproj-labs
@@ -61,7 +61,7 @@ curiefense,curiefense
 curve,opencurve
 curvine,CurvineIO
 dalec,project-dalec,Azure/dalec
-dapr,dapr
+dapr,dapr,dapr-sandbox
 devfile,devfile,che-incubator/devworkspace-api
 devspace,devspace-sh,devspace-cloud,covexo
 devstream,devstream-io,merico-dev/stream,maricso-dev/OpenStream
@@ -78,7 +78,7 @@ expressgraphql,graphql/express-graphql
 externalsecretsoperator,external-secrets
 fabedge,FabEdge
 falco,falcosecurity,draios/falco
-flatcar,flatcar,flatcar-linux,kinvolk/Flatcar,kinvolk/flatcar-scripts,kinvolk/mantle
+flatcar,flatcar,flatcar-linux,flatcar-hub,kinvolk/Flatcar,kinvolk/flatcar-scripts,kinvolk/mantle
 fluentd,regexp:(?i)^(fluent|fluent-plugins-nursery\/.*fluent.*|.+\/fluentd?-plugin-.+|baritolog\/barito-fluent-plugin|blacknight95\/aws-fluent-plugin-kinesis|sumologic\/fluentd-kubernetes-sumologic|sumologic\/fluentd-output-sumologic|wallynegima\/scenario-manager-plugin|aliyun\/aliyun-odps-fluentd-plugin|awslabs\/aws-fluent-plugin-kinesis|campanja\/fluent-output-router|grafana\/loki\/|jdoconnor\/fluentd_https_out|newrelic\/newrelic-fluentd-output|roma42427\/filter_wms_auth|scalyr\/scalyr-fluentd|sebryu\/fluent_plugin_in_websocket|tagomoris\/fluent-helper-plugin-spec|y-ken\/fluent-mixin-rewrite-tag-name|y-ken\/fluent-mixin-type-converter)$
 fluid,fluid-cloudnative,cheyang/fluid
 flux,fluxcd,weaveworks/flux
@@ -111,7 +111,7 @@ iovisor,iovisor
 istio,istio,istio-ecosystem
 jaeger,jaegertracing,uber/jaeger
 jenkins,jenkinsci,jenkins-infra
-jenkinsx,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins
+jenkinsx,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins,jenkins-x-labs
 k0s,k0sproject
 k2s,Siemens-Healthineers/K2s,k2s-project
 k3s,k3s-io
@@ -120,7 +120,7 @@ k8gb,k8gb-io,AbsaOSS/k8gb,AbsaOSS/ohmyglb
 k8sgpt,k8sgpt-ai
 k8up,k8up-io,vshn/k8up
 kagent,kagent-dev
-kairos,kairos-io,c3os-io,mudler/c3os
+kairos,kairos-io,kairos-community,c3os-io,mudler/c3os
 kaischeduler,kai-scheduler,NVIDIA/KAI-Scheduler
 kaito,kaito-project,Azure/kaito
 kanister,kanisterio
@@ -138,7 +138,7 @@ kitops,regexp:(?i)^(jozu-ai\/(.*kitops.*|gh-kit-setup|daggerverse)|kitops-ml\/.*
 kmesh,kmesh-net
 knative,knative,knative-sandbox,knative-extensions
 ko,ko-build,google/ko
-konveyor,konveyor,fusor/mig-operator
+konveyor,konveyor,konveyor-ecosystem,fusor/mig-operator
 koordinator,koordinator-sh
 kpt,regexp:(?i)^(kptdev\/.*|GoogleContainerTools\/.*kpt.*)$
 krator,krator-rs
@@ -162,7 +162,7 @@ kuberhealthy,Comcast/kuberhealthy,kuberhealthy
 kubernetes,kubernetes,kubernetes-client,kubernetes-incubator,kubernetes-csi,kubernetes-graveyard,kubernetes-incubator-retired,kubernetes-sig-testing,kubernetes-providers,kubernetes-addons,kubernetes-extensions,kubernetes-federation,kubernetes-security,kubernetes-sigs,kubernetes-sidecars,kubernetes-tools,kubernetes-test,kubernetes-retired,cncf/apisnoop
 kubers,kube-rs,clux/kube-rs,clux/kubernetes-rust
 kubescape,kubescape,armosec/kubescape
-kubeslice,kubeslice
+kubeslice,kubeslice,kubeslice-ent
 kubestellar,kubestellar,hivecommons,KubeStellar,kcp-dev/edge-mc
 kubevela,regexp:(?i)^(oam-dev\/.*vela|kubevela\/.*)
 kubevip,kube-vip,plunder-app/kube-vip
@@ -217,7 +217,7 @@ opennetworkinglab,opennetworkinglab
 openrl,gke-labs/open-rl,openrl-dev
 opensecuritycontroller,opensecuritycontroller
 openservicemesh,openservicemesh
-openshell,regexp:(?i)^NVIDIA\/OpenShell.*$
+openshell,regexp:(?i)^(ai-openshell\/.*|NVIDIA\/OpenShell.*)$
 openswitch,open-switch
 opentelemetry,open-telemetry,opentracing
 opentofu,opentofu,opentffoundation,openterraform
@@ -273,7 +273,7 @@ spinkube,spinkube,spinframework
 spinnaker,spinnaker
 spire,regexp:(?i)^(spiffe\/spire.*)$
 stacker,project-stacker,anuvu/stacker
-strimzi,strimzi,EnMasseProject/barnabas,ppatierno/barnabas,ppatierno/kaas
+strimzi,strimzi,strimzi-incubator,EnMasseProject/barnabas,ppatierno/barnabas,ppatierno/kaas
 submariner,submariner-io,rancher/submariner
 superedge,superedge
 tekton,knative/build,tektoncd,tektoncd-catalog,knative/build-pipeline
@@ -284,7 +284,7 @@ tikv,pingcap/tikv,tikv
 tinkerbell,tinkerbell,packethost/tinkerbell
 tratteria,tratteria,tokenetes
 tremor,wayfair-tremor,tremor-rs
-trestlegrc,oscal-compass,IBM/compliance-trestle
+trestlegrc,oscal-compass,oscal-compass-demos,IBM/compliance-trestle
 trickster,tricksterproxy,trickstercache,Comcast/trickster
 tuf,theupdateframework,notaryproject/artwork
 tungstenfabric,tungstenfabric

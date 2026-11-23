@@ -8,6 +8,7 @@ When project joins CNCF it usually moves from some company-based repo (or set of
   - `partials/projects*.html apache/www/index_????.html apache/????/sites.txt`.
 - If project was renamed then keep its old lower name/slug everywhere and only update human-readable name/`full_name`, also add mappings like `oldslug: newslug` where `Projects health` is calculated:
   - `` vim metrics/all/metrics.yaml metrics/all/metrics_affs.yaml metrics/all/health.yaml metrics/all/health_all.yaml metrics/all/metrics_retry.yaml ./devel/test_metrics_health.yaml ``.
+- Repositories that left the project (moved to an archive org, to another org or to a personal account) are excluded in the project's `env` in `projects.yaml`: `GHA2DB_EXCLUDE_ORGS` for a whole owner, `GHA2DB_EXCLUDE_REPOS` for single names; do the same in `all` (when adding an org, check that it is not on the exclude lists of `all`).
 - In `devstats-docker-images` update: `` vim devstats-helm/projects.yaml ``.
 - In `devstats-helm` update: `` vim devstats-helm/values.yaml ``.
 - In `velocity` update: `` vim BigQuery/velocity_cncf.sql BigQuery/velocity_lf.sql map/ranges_sane.csv map/urls.csv map/hints.csv map/defmaps.csv ``.

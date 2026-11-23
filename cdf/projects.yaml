@@ -41,15 +41,17 @@ projects:
     annotation_regexp: '^jenkins-\d+\.\d*0$'
     files_skip_pattern: ''
     shared_db: allcdf
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'KostyaSha/github-integration-plugin,voxpupuli/puppet-jenkins'
   jenkinsx:
     order: 106
     name: Jenkins X
     status: "-"
     command_line:
-      - jenkins-x
+      - jenkins-x,jenkins-x-labs
     hist_command_line:
       - "jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,\
-         jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins"
+         jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins,jenkins-x-labs"
     start_date: 2018-02-01T00:00:00Z
     join_date: null
     psql_db: jenkinsx
@@ -57,6 +59,8 @@ projects:
     annotation_regexp: '^v\d+\.\d+\.(0|\d*00)$'
     files_skip_pattern: ''
     shared_db: allcdf
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'ccojocar/sso-operator'
   cdevents:
     order: 107
     name: CDEvents
@@ -87,6 +91,8 @@ projects:
     annotation_regexp: '^ms-general-\d+\.\d+\.\d*0$'
     files_skip_pattern: ''
     shared_db: allcdf
+    env:
+      GHA2DB_EXCLUDE_ORGS: 'ortelius-repo-archive'
   pyrsia:
     name: Pyrsia
     status: "-"
@@ -139,7 +145,7 @@ projects:
          ortelius/la-sbom-ledger,ortelius/ms-compitem-crud,ortelius/ms-dep-pkg-cud,ortelius/ms-dep-pkg-r,ortelius/ms-postgres,\
          ortelius/ms-scorecard,ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,\
          ortelius/ortelius-docs,ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,\
-         ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach"
+         ortelius/ortelius-toc,ortelius/ortelius.io,ortelius/outreach,jenkins-x-labs"
     hist_command_line:
       - "spinnaker,tektoncd,tektoncd-catalog,knative/build,jenkinsci,jenkins-infra,jenkins-x,jenkins-x-quickstarts,jenkins-x-apps,jenkins-x-charts,\
          jenkins-x-buildpacks,jenkins-x-images,jenkins-x-plugins,cdevents,pyrsia,screwdriver-cd,shipwright-io,ortelius/azure-infra,\
@@ -148,10 +154,13 @@ projects:
          ortelius/ms-textfile-crud,ortelius/ms-validate-user,ortelius/ortelius,ortelius/ortelius-charts,ortelius/ortelius-docs,\
          ortelius/ortelius-kubernetes,ortelius/ortelius-python-client,ortelius/ortelius-test-database,ortelius/ortelius-toc,ortelius/ortelius.io,\
          ortelius/outreach,ortelius,redhat-developer/build,redhat-developer/buildv2,redhat-developer/buildv2-operator,jenkinsci/jenkins,jenkins-zh,\
-         stapler"
+         stapler,jenkins-x-labs"
     start_date: 2012-07-01T00:00:00Z
     join_date: 2019-03-04T00:00:00Z
     psql_db: allcdf
     main_repo: ''
     annotation_regexp: ''
     files_skip_pattern: ''
+    env:
+      GHA2DB_EXCLUDE_REPOS: 'ccojocar/sso-operator,KostyaSha/github-integration-plugin,voxpupuli/puppet-jenkins'
+      GHA2DB_EXCLUDE_ORGS: 'ortelius-repo-archive'

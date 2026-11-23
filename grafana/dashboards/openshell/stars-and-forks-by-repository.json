@@ -541,8 +541,8 @@
       {
         "current": {
           "selected": true,
-          "text": "NVIDIA/OpenShell",
-          "value": "NVIDIA/OpenShell"
+          "text": "ai-openshell/openshell",
+          "value": "ai-openshell/openshell"
         },
         "datasource": {
           "type": "postgres",
@@ -568,8 +568,8 @@
       {
         "current": {
           "selected": false,
-          "text": "nvidiaopenshell",
-          "value": "nvidiaopenshell"
+          "text": "aiopenshellopenshell",
+          "value": "aiopenshellopenshell"
         },
         "datasource": {
           "type": "postgres",

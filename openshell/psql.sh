@@ -16,7 +16,7 @@ GHA2DB_PROJECT=openshell PG_DB=openshell GHA2DB_LOCAL=1 structure 2>>errors.txt 
 ./devel/db.sh psql openshell -c "create extension if not exists hll" || exit 1
 ./shared/setup_shared_fdw.sh openshell || exit 1
 ./devel/ro_user_grants.sh openshell || exit 2
-GHA2DB_PROJECT=openshell PG_DB=openshell GHA2DB_LOCAL=1 gha2db 2026-03-16 0 today now 'regexp:(?i)^NVIDIA\/OpenShell.*$' 2>>errors.txt | tee -a run.log || exit 3
+GHA2DB_PROJECT=openshell PG_DB=openshell GHA2DB_LOCAL=1 gha2db 2026-03-16 0 today now 'regexp:(?i)^(ai-openshell\/.*|NVIDIA\/OpenShell.*)$' 2>>errors.txt | tee -a run.log || exit 3
 GHA2DB_PROJECT=openshell PG_DB=openshell GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 structure 2>>errors.txt | tee -a run.log || exit 5
 GHA2DB_PROJECT=openshell PG_DB=openshell ./shared/setup_repo_groups.sh 2>>errors.txt | tee -a run.log || exit 6
 GHA2DB_PROJECT=openshell PG_DB=openshell ./shared/setup_scripts.sh 2>>errors.txt | tee -a run.log || exit 7
