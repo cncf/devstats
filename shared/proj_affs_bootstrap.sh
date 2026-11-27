@@ -35,7 +35,7 @@ else
 fi
 if ( [ -z "$SKIP_AFFS_LOCK" ] || [ "$SKIP_AFFS_LOCK" = "0" ] || [ "$SKIP_AFFS_LOCK" = "false" ] )
 then
-  ./devel/lock_shared.sh "$affsLockDB" affs_lock "$lockOwner" || exit 2
+  ./devel/lock_shared.sh "$affsLockDB" affs_lock "$lockOwner" 360 60 || exit 2
   lock=1
 fi
 wget https://github.com/cncf/devstats/raw/master/github_users.json -O github_users.json || exit 4

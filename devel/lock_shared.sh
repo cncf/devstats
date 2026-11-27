@@ -1,4 +1,5 @@
 #!/bin/bash
+# args: database lock_name owner [attempts=720] [seconds between attempts=30]
 if ( [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] )
 then
   echo "$0: need database, lock name and owner arguments"
@@ -13,6 +14,11 @@ attempts=720
 if [ ! -z "$4" ]
 then
   attempts=$4
+fi
+seconds=30
+if [ ! -z "$5" ]
+then
+  seconds=$5
 fi
 user=gha_admin
 if [ ! -z "${PG_USER}" ]
@@ -35,5 +41,5 @@ do
     echo "$1: could not acquire '$2' lock after $attempts attempts, current owner: '$got'"
     exit 3
   fi
-  sleep 30
+  sleep $seconds
 done
